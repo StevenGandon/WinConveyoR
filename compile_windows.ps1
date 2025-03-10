@@ -1,3 +1,1 @@
-$env:CC = 'gcc'; ./lib/libwconr
-$env:EXT = 'dll'; ./lib/libwconr
-make re
+make re CC=gcc EXT=dll
