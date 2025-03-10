@@ -1,0 +1,1 @@
+void t(void) {}
