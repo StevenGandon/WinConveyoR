@@ -1,5 +1,7 @@
 from sys import exit
 
+from src import *
+
 def main() -> int:
     return (0)
 
