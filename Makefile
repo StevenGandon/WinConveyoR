@@ -12,6 +12,7 @@ clean:
 	make -C $(CLI_DIR) clean
 
 fclean:
+	rm -rf ./lib/libwconr/libwconr.h
 	make -C $(LIB_DIR) fclean
 	make -C $(CLI_DIR) fclean
 
