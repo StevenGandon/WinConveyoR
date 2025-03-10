@@ -10,8 +10,12 @@ all:
 $(NAME): all
 
 clean:
+	find . | grep -E "(/__pycache__$\|\.pyc$\|\.pyo$\)" | xargs rm -rf
+	rm -rf $(NAME).spec
+	rm -rf ./build
 
 fclean: clean
+	rm -rf ./dist
 
 re: fclean all
 
