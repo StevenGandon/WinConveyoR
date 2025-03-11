@@ -6,7 +6,7 @@ EXT		?=	so
 
 CC		?=	gcc
 CFLAGS	+=	-Wall -Wshadow -Wextra -Wdouble-promotion -Waggregate-return -Wstrict-prototypes \
-			-pedantic -Werror -Wformat -I ./ -fPIC
+			-pedantic -Werror -Wformat -I ./ -fPIC -O2
 LDFLAGS	+=	-lm
 
 all:	$(NAME)
