@@ -6,15 +6,21 @@ from re import RegexFlag, sub
 from enum import Enum
 import sys
 
-EXPORT_CONST = """from ctypes import Structure, POINTER, c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t
+EXPORT_CONST_PYTHON = """from ctypes import Structure, POINTER, c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t
 from enum import Enum
 from sys import platform
 
 from ..dllloader import DLLoader
 
+# ==== Enums ==== #
+
 $mapped_enums$
 
+# ==== Structs ==== #
+
 $mapped_structs$
+
+# ==== Interfaces ==== #
 
 class Mapper(object):
     def __init__(self, path: str = f"lib/libwconr/libwconr.{'dll' if platform.startswith("win") else 'so'}") -> None:
@@ -28,11 +34,11 @@ class Mapper(object):
     def map_functions(self) -> None:
 $mapped_functions$"""
 
-EXPORT_ENUM_CONST = """class $name$(Enum):
+EXPORT_ENUM_CONST_PYTHON = """class $name$(Enum):
 $arguments$
 """
 
-EXPORT_STRUCT_CONST = """class $name$(Structure):
+EXPORT_STRUCT_CONST_PYTHON = """class $name$(Structure):
     pass
 
 $name$._fields_ = [
@@ -40,7 +46,7 @@ $fields$
 ]
 """
 
-EXPORT_SYMBOL_CONST = """        self._dll.register_function("$name$", $return_type$$arguments$)"""
+EXPORT_SYMBOL_CONST_PYTHON = """        self._dll.register_function("$name$", $return_type$$arguments$)"""
 
 class Token(object):
     regex = None
@@ -85,7 +91,6 @@ class Struct(Token):
     def __str__(self):
         return f"<Struct name={self.name} fields={self.fields}>"
 
-
 class Enum(Token):
     regex = compile_regex(r"(typedef\s+)?(?P<PACKED>\w+)?\s*(?P<TYPE>enum)\s+(?P<NAME2>\w+)\s*\{(?P<FIELDS>.*?(?:\{.*?\}.*?)*?)\}(?P<NAME>[^;]*);", RegexFlag.S)
 
@@ -111,6 +116,26 @@ class HeaderFile(object):
             raise RuntimeError("cannot execute operation on a non-readable file.")
         self._parse(fp)
 
+    def _var_to_type_value(self, raw_str):
+        raw_str = raw_str.strip()
+
+        arg_name = raw_str.split('*')[-1].split(' ')[-1].strip() if  raw_str.split('*')[-1].split(' ')[-1].strip() != raw_str else ""
+        if (not arg_name):
+            arg_name = None
+
+        if (arg_name):
+            arg_type = raw_str.replace('*', '').strip().split(arg_name)[0].replace("unsigned", '').replace('signed', '').strip()
+        else:
+            arg_type = raw_str.replace('*', '').strip().replace("unsigned", '').replace('signed', '').strip()
+        arg_signed = None
+
+        if raw_str.startswith("signed"):
+            arg_signed = True
+
+        if raw_str.startswith("unsigned"):
+            arg_signed = False
+        return (TypeValue(arg_type, arg_name, raw_str.count('*'), arg_signed))
+
     def _parse(self, fp):
         data = fp.read()
 
@@ -120,32 +145,10 @@ class HeaderFile(object):
             return_type = raw.split(name)[0].strip()
             arguments = list(map(lambda x: x.strip(), ')'.join('('.join(raw.split('(')[1:]).split(')')[:-1]).split(',')))
 
-            # return_typename = return_type.split('*')[-1].split(' ')[-1]
-            return_type_type = return_type.replace('*', '').strip().replace("unsigned", '').replace('signed', '').strip()
-            return_type_signed = None
+            for i, it in enumerate(arguments):
+                arguments[i] = self._var_to_type_value(it)
 
-            if return_type.startswith("signed"):
-                return_type_signed = True
-
-            if return_type.startswith("unsigned"):
-                return_type_signed = False
-
-            for i, item in enumerate(arguments):
-                arg_name = item.split('*')[-1].split(' ')[-1].strip() if item.split('*')[-1].split(' ')[-1].strip() != item else ""
-                if (not arg_name):
-                    arg_name = None
-
-                arg_type = item.replace('*', '').strip().split(arg_name if arg_name else None)[0].replace("unsigned", '').replace('signed', '').strip()
-                arg_signed = None
-
-                if item.startswith("signed"):
-                    arg_signed = True
-
-                if item.startswith("unsigned"):
-                    arg_signed = False
-                arguments[i] = TypeValue(arg_type, arg_name, item.count('*'), arg_signed)
-
-            self.symbols.append(Symbol(name, TypeValue(return_type_type, None, return_type.count('*'), return_type_signed) , arguments))
+            self.symbols.append(Symbol(name, self._var_to_type_value(return_type), arguments))
 
         for item in Struct.regex.finditer(data):
             raw = (item.string[item.start():item.end()])
@@ -153,20 +156,8 @@ class HeaderFile(object):
             name = raw.split("struct")[1].split('{')[0].strip()
             arguments = list(filter(lambda x: x.strip(), '}'.join('{'.join(raw.split('{')[1:]).split('}')[:-1]).split(';')))
 
-            for i, item in enumerate(arguments):
-                arg_name = item.split('*')[-1].split(' ')[-1].strip()
-                if (not arg_name):
-                    arg_name = None
-
-                arg_type = item.replace('*', '').strip().split(arg_name if arg_name else None)[0].replace("unsigned", '').replace('signed', '').strip()
-                arg_signed = None
-
-                if item.startswith("signed"):
-                    arg_signed = True
-
-                if item.startswith("unsigned"):
-                    arg_signed = False
-                arguments[i] = TypeValue(arg_type, arg_name, item.count('*'), arg_signed)
+            for i, it in enumerate(arguments):
+                arguments[i] = self._var_to_type_value(it)
 
             self.structs.append(Struct(name, arguments))
 
@@ -178,20 +169,48 @@ class HeaderFile(object):
 
             self.enums.append(Enum(name, arguments))
 
-def type_to_ctype(type_value: TypeValue):
-    if (type_value.type_name == "void"):
-        ctype = "None"
-    elif (type_value.type_name.startswith("struct ")):
-        ctype = type_value.type_name.split("struct ")[1]
-    elif (("c_" + ('u' if type_value.signed == False else '') + type_value.type_name) in EXPORT_CONST):
-        ctype = "c_" + ('u' if type_value.signed == False else '') + type_value.type_name
-    else:
-        ctype = "None"
+class Converter(object):
+    def __init__(self, header_file: HeaderFile):
+        self.header_file = header_file
 
-    for _ in range(type_value.ptr_count):
-        ctype = 'POINTER(' + ctype + ')'
+    def _type_to_ctype(self, type_value):
+        return ("")
 
-    return (ctype)
+    def convert(self) -> str:
+        return ("")
+
+class PythonConverter(Converter):
+    def __init__(self, header_file: HeaderFile):
+        super().__init__(header_file)
+
+    def _type_to_ctype(self, type_value: TypeValue):
+        if (type_value.type_name == "void"):
+            ctype = "None"
+        elif (type_value.type_name.startswith("struct ")):
+            ctype = type_value.type_name.split("struct ")[1]
+        elif (("c_" + ('u' if type_value.signed == False else '') + type_value.type_name) in EXPORT_CONST_PYTHON):
+            ctype = "c_" + ('u' if type_value.signed == False else '') + (type_value.type_name if type_value.type_name else "int")
+        else:
+            ctype = "None"
+
+        for _ in range(type_value.ptr_count):
+            ctype = 'POINTER(' + ctype + ')'
+
+        return (ctype)
+
+    def convert(self) -> str:
+        export = EXPORT_CONST_PYTHON
+
+        temp = map(lambda item: EXPORT_ENUM_CONST_PYTHON.replace("$name$", item.name).replace("$arguments$", '\n'.join(map(lambda x: f'    {x[0]} = {x[1]}', item.values))), self.header_file.enums)
+        export = export.replace("$mapped_enums$", '\n'.join(temp))
+
+        temp = map(lambda item: EXPORT_STRUCT_CONST_PYTHON.replace("$name$", item.name).replace("$fields$", ',\n'.join(map(lambda x: f'    ("{x.name}", {self._type_to_ctype(x)})', item.fields))), self.header_file.structs)
+        export = export.replace("$mapped_structs$", '\n'.join(temp))
+
+        temp = map(lambda item: EXPORT_SYMBOL_CONST_PYTHON.replace("$name$", item.name).replace("$return_type$", self._type_to_ctype(item.return_value)).replace("$arguments$", (', ' if tuple(filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)) else '') + ', '.join(map(self._type_to_ctype, filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)))), self.header_file.symbols)
+        export = export.replace("$mapped_functions$", '\n'.join(temp))
+
+        return (export)
 
 def main() -> int:
     if (len(argv) < 2):
@@ -213,25 +232,7 @@ def main() -> int:
     with open(argv[1], 'r') as fp:
         hf: HeaderFile = HeaderFile(fp)
 
-    temp_list = []
-    export = EXPORT_CONST
-
-    for item in hf.enums:
-        temp_list.append(EXPORT_ENUM_CONST.replace("$name$", item.name).replace("$arguments$", '\n'.join(map(lambda x: f'    {x[0]} = {x[1]}', item.values))))
-
-    export = export.replace("$mapped_enums$", '\n'.join(temp_list))
-    temp_list.clear()
-
-    for item in hf.structs:
-        temp_list.append(EXPORT_STRUCT_CONST.replace("$name$", item.name).replace("$fields$", ',\n'.join(map(lambda x: f'    ("{x.name}", {type_to_ctype(x)})', item.fields))))
-    export = export.replace("$mapped_structs$", '\n'.join(temp_list))
-    temp_list.clear()
-
-    for item in hf.symbols:
-        temp_list.append(EXPORT_SYMBOL_CONST.replace("$name$", item.name).replace("$return_type$", type_to_ctype(item.return_value)).replace("$arguments$", (', ' if tuple(filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)) else '') + ', '.join(map(type_to_ctype, filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)))))
-    export = export.replace("$mapped_functions$", '\n'.join(temp_list))
-
-    print(export)
+    print(PythonConverter(hf).convert())
 
     return (0)
 
