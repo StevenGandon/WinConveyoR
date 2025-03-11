@@ -39,8 +39,8 @@
 
     /* ==== high level interfaces ====  */
 
-    wcr_state *new_state(void);
-    void close_state(wcr_state *__s);
+    struct wcr_state_s *new_state(void);
+    void close_state(struct wcr_state_s *__s);
 
     /* ==== low level interfaces ==== */
 

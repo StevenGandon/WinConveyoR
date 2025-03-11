@@ -3,8 +3,44 @@ from genericpath import isfile
 from os import access, O_RDONLY
 from re import compile as compile_regex
 from re import RegexFlag, sub
-
+from enum import Enum
 import sys
+
+EXPORT_CONST = """from ctypes import Structure, POINTER, c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t
+from enum import Enum
+from sys import platform
+
+from ..dllloader import DLLoader
+
+$mapped_enums$
+
+$mapped_structs$
+
+class Mapper(object):
+    def __init__(self, path: str = f"lib/libwconr/libwconr.{'dll' if platform.startswith("win") else 'so'}") -> None:
+        self._dll: DLLoader = DLLoader(path)
+
+        self.map_functions()
+
+    def call_function(self, name: str,  *args):
+        return self._dll.call_function(name, *args)
+
+    def map_functions(self) -> None:
+$mapped_functions$"""
+
+EXPORT_ENUM_CONST = """class $name$(Enum):
+$arguments$
+"""
+
+EXPORT_STRUCT_CONST = """class $name$(Structure):
+    pass
+
+$name$._fields_ = [
+$fields$
+]
+"""
+
+EXPORT_SYMBOL_CONST = """        self._dll.register_function("$name$", $return_type$$arguments$)"""
 
 class Token(object):
     regex = None
@@ -95,7 +131,7 @@ class HeaderFile(object):
                 return_type_signed = False
 
             for i, item in enumerate(arguments):
-                arg_name = item.split('*')[-1].split(' ')[-1].strip()
+                arg_name = item.split('*')[-1].split(' ')[-1].strip() if item.split('*')[-1].split(' ')[-1].strip() != item else ""
                 if (not arg_name):
                     arg_name = None
 
@@ -142,7 +178,20 @@ class HeaderFile(object):
 
             self.enums.append(Enum(name, arguments))
 
-        print(self.symbols, self.structs, self.enums, sep="\n")
+def type_to_ctype(type_value: TypeValue):
+    if (type_value.type_name == "void"):
+        ctype = "None"
+    elif (type_value.type_name.startswith("struct ")):
+        ctype = type_value.type_name.split("struct ")[1]
+    elif (("c_" + ('u' if type_value.signed == False else '') + type_value.type_name) in EXPORT_CONST):
+        ctype = "c_" + ('u' if type_value.signed == False else '') + type_value.type_name
+    else:
+        ctype = "None"
+
+    for _ in range(type_value.ptr_count):
+        ctype = 'POINTER(' + ctype + ')'
+
+    return (ctype)
 
 def main() -> int:
     if (len(argv) < 2):
@@ -163,6 +212,26 @@ def main() -> int:
 
     with open(argv[1], 'r') as fp:
         hf: HeaderFile = HeaderFile(fp)
+
+    temp_list = []
+    export = EXPORT_CONST
+
+    for item in hf.enums:
+        temp_list.append(EXPORT_ENUM_CONST.replace("$name$", item.name).replace("$arguments$", '\n'.join(map(lambda x: f'    {x[0]} = {x[1]}', item.values))))
+
+    export = export.replace("$mapped_enums$", '\n'.join(temp_list))
+    temp_list.clear()
+
+    for item in hf.structs:
+        temp_list.append(EXPORT_STRUCT_CONST.replace("$name$", item.name).replace("$fields$", ',\n'.join(map(lambda x: f'    ("{x.name}", {type_to_ctype(x)})', item.fields))))
+    export = export.replace("$mapped_structs$", '\n'.join(temp_list))
+    temp_list.clear()
+
+    for item in hf.symbols:
+        temp_list.append(EXPORT_SYMBOL_CONST.replace("$name$", item.name).replace("$return_type$", type_to_ctype(item.return_value)).replace("$arguments$", (', ' if tuple(filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)) else '') + ', '.join(map(type_to_ctype, filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)))))
+    export = export.replace("$mapped_functions$", '\n'.join(temp_list))
+
+    print(export)
 
     return (0)
 
