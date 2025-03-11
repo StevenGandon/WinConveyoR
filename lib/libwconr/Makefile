@@ -1,4 +1,5 @@
-SRC	=	./src/wcr_state.c
+SRC	=	./src/wcr_state.c	\
+		./src/download_package.c
 OBJ	=	$(SRC:.c=.o)
 
 NAME	=	libwconr
