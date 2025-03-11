@@ -4,6 +4,8 @@ from sys import platform
 
 from ..dllloader import DLLoader
 
+# ==== Enums ==== #
+
 class SUPPORTED_ARCHITECTURES(Enum):
     UNSUPPORTED_ARCH = -(1 << 0)
     X86_64_ARCH = (1 << 0)
@@ -16,6 +18,8 @@ class SUPPORTED_PLATFORMS(Enum):
     DARWIN_PLTF = (1 << 1)
     GEN_LINUX_PLTF = (1 << 2)
 
+
+# ==== Structs ==== #
 
 class wcr_system_s(Structure):
     pass
@@ -32,6 +36,8 @@ wcr_state_s._fields_ = [
     ("system_informations", wcr_system_s)
 ]
 
+
+# ==== Interfaces ==== #
 
 class Mapper(object):
     def __init__(self, path: str = f"lib/libwconr/libwconr.{'dll' if platform.startswith("win") else 'so'}") -> None:
