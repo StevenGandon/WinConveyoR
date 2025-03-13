@@ -96,6 +96,7 @@ class ArgumentParser(object):
                     raise TooFewArguments(f"too few arguments for option {self.settings.options[value].name}, expecting: {args_after}.")
 
                 self.options[value] = GenericArgument(*self.settings.options[value].build_arguments(), value=[*self._argv[i + 1:i + 1 + args_after]] if args_after else None)
+                i += args_after
             else:
                 if (self.settings.max_argv != -1 and len(self.arguments) >= self.settings.max_argv):
                     raise TooMuchArguments(f"too much arguments, excepecting: {self.settings.max_argv}.")
