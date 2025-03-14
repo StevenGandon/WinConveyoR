@@ -1,4 +1,6 @@
 SRC	=	./src/wcr_state.c	\
+		./src/http_parsing.c	\
+		./src/http_headers.c	\
 		./src/download_package.c
 
 OBJ	=	$(SRC:.c=.o)
