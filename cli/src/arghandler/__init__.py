@@ -26,7 +26,7 @@ class GenericArgument(object):
     def __init__(self, name: str = "unknown", typing = str, inclusion: list = [], exclusion: list = [], necessary: bool = False, args_after: int = 0, value = None):
         self.name = name
         try:
-            self.value = list(map(typing, value)) if isinstance(value, Iterable) else typing(value)
+            self.value = list(map(typing, value)) if isinstance(value, Iterable) and not isinstance(value, (str, bytes, bytearray)) else typing(value)
         except ValueError:
             raise InvalidArgumentType(f"invalid argument type for argument {name}, got: {value}, expected: {typing}.")
         self.args_after = args_after
