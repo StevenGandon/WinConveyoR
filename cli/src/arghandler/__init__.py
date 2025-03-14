@@ -1,5 +1,4 @@
 from typing import Iterable
-from itertools import chain
 
 class ArgumentHandlerException(Exception):
     pass
