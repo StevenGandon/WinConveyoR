@@ -33,8 +33,8 @@ set_header(headers, key, value)
     (*headers)[header_size + 1] = NULL;
 }
 
-unsigned char *get_header(headers, key)
-    const struct _http_header_s **headers;
+const unsigned char *get_header(headers, key)
+    const struct _http_header_s * const *headers;
     const unsigned char *key;
 {
     if (!headers)
