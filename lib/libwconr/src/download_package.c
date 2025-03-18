@@ -80,7 +80,8 @@ download_package(unsigned char *http_address, unsigned char *location)
     printf("step4\n");
 
     request->method = (unsigned char *)strdup("GET");
-    request->route = (unsigned char *)strdup("/");
+    const char *last_slash = strrchr((const char *)http_address, '/');
+    request->route = (unsigned char *)strdup(last_slash ? last_slash : "/");
     request->protocol = (unsigned char *)strdup("HTTP");
     request->version = 0x0101;
 
