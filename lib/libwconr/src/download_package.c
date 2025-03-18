@@ -113,7 +113,7 @@ download_package(unsigned char *http_address, unsigned char *location)
 
     printf("%s\n", ip_str);
     printf("step1\n");
-    connection = new_http_connection(ip_str, 80);
+    connection = new_http_connection(ip_str, 443);
     if (!connection)
         return -1;
     printf("step3\n");
