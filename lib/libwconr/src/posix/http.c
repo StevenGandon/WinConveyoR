@@ -80,6 +80,7 @@ new_http_connection(ip, port)
     if ((connect(connection->dest_socket, (struct sockaddr *)&dest_addr, sizeof(dest_addr))) < 0) {
         (void)end_http_connection(connection);
         return (NULL);
-   }
+    }
+
     return (connection);
 }

@@ -65,5 +65,8 @@
     ssize_t get_chunk(struct _http_connection_s *__c, size_t __s, unsigned char *__d);
     void request_ressource(struct _http_request_parser_s *__r);
     void fetch_response(struct _http_response_parser_s *__r);
+    unsigned char *read_http_headers(struct _http_connection_s *client, size_t *total_size);
+    int parse_status_line(struct _http_response_parser_s *parser, unsigned char *buffer);
+    void parse_headers(struct _http_response_parser_s *parser, unsigned char *buffer, size_t total_size);
 
 #endif /* !LIBWCONR_PRIVATE_H_ */
