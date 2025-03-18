@@ -26,10 +26,13 @@ calculate_request_size(struct _http_request_parser_s *request_parser)
     size_t buffer_size = 0;
     size_t i = 0;
 
-    buffer_size = strlen((const char *)request_parser->method) + 1;
-    buffer_size += strlen((const char *)request_parser->route) + 1;
-    buffer_size += strlen((const char *)request_parser->protocol) + 1;
+    buffer_size = strlen((const char *)request_parser->method);
+    buffer_size += 1;
+    buffer_size += strlen((const char *)request_parser->route);
+    buffer_size += 1;
+    buffer_size += strlen((const char *)request_parser->protocol);
     buffer_size += 5;
+    buffer_size += 2;
 
     for (i = 0; i < request_parser->header_size; i++) {
         if (request_parser->headers[i]) {
@@ -39,8 +42,18 @@ calculate_request_size(struct _http_request_parser_s *request_parser)
             buffer_size += 2;
         }
     }
-    
+
+    if (request_parser->client && request_parser->client->address) {
+        buffer_size += 6;
+        buffer_size += strlen(request_parser->client->address);
+        buffer_size += 6;
+        buffer_size += 2;
+    }
+
+    buffer_size += 23;
     buffer_size += 2;
+    buffer_size += 2;
+    buffer_size += 1;
 
     return buffer_size;
 }
