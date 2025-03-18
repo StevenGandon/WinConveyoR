@@ -1,0 +1,44 @@
+name: WinConveyoR
+
+on:
+  push:
+    branches-ignore:
+      - 'ga-ignore-**'
+  pull_request:
+    branches-ignore:
+      - 'ga-ignore-**'
+
+env:
+  EXECUTABLES: "./cli/dist/wcr.out ./lib/libwconr/libwconr.so"
+
+jobs:
+  check_build:
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo apt install -y gcc libc6-dev make python3 python-setuptools python-pip
+
+      - name: Install pyinstaller
+        run: pip install pyinstaller
+
+      - name: clean objects
+        run: |
+          for executables in $(echo "${{ env.EXECUTABLES }}" | tr ',' ' '); do
+            if [ ! -x "${executables}" ]; then
+              echo "Executable ${executables} doesn't exist or isn't excutable."
+              exit 1
+            fi
+          done
+
+      - name: compile project
+        run: |
+          chmod +x ./compile_linux.sh; ./compile_linux.sh
+
+      - name: remove caches
+        run: make fclean
