@@ -22,7 +22,7 @@ set_header(headers, key, value)
             return;
         }
     }
-    *headers = realloc(*headers, header_size + 2);
+    *headers = realloc(*headers, (header_size + 2) * sizeof(struct _http_header_s *));
     if (!*headers)
         return;
     (*headers)[header_size] = (struct _http_header_s *)malloc(sizeof(struct _http_header_s));
