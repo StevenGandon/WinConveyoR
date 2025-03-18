@@ -26,4 +26,4 @@ re:
 	make -C $(LIB_DIR) re
 	make -C $(CLI_DIR) re
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re lib cli
