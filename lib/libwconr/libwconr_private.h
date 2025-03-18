@@ -2,6 +2,7 @@
     #define LIBWCONR_PRIVATE_H_
 
     #include <stddef.h>
+    #include <stdlib.h>
 
     #ifdef __WIN32
         #include <winsock2.h>
@@ -61,7 +62,7 @@
     struct _http_request_parser_s *new_http_request_parser(struct _http_connection_s *);
     void set_header(struct _http_header_s ***__h, const unsigned char *__k, const unsigned char *__v);
     unsigned char *get_header(const struct _http_header_s **__h, const unsigned char *__k);
-    void get_chunk(struct _http_connection_s *__c, size_t __s, unsigned char *__d);
+    ssize_t get_chunk(struct _http_connection_s *__c, size_t __s, unsigned char *__d);
     void request_ressource(struct _http_request_parser_s *__r);
     void fetch_response(struct _http_response_parser_s *__r);
 

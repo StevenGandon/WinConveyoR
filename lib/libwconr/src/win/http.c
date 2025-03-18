@@ -8,6 +8,26 @@
 volatile unsigned char __WIN_INITED = 0;
 volatile unsigned char __WIN_INITED_REF = 0;
 
+ssize_t
+get_chunk(connection, size, buffer)
+    struct _http_connection_s *connection;
+    size_t size;
+    unsigned char *buffer;
+{
+    int value;
+
+    if (!connection)
+        return (-1);
+    if (!buffer)
+        return (-1);
+    if (!size)
+        return (-1);
+    value = (recv(connection->dest_socket, (char *)buffer, (int)size, 0));
+    if (value == SOCKET_ERROR)
+        return (-1);
+    return (value);
+}
+
 void
 end_http_connection(http_connection)
     struct _http_connection_s *http_connection;

@@ -6,6 +6,21 @@
 #include <unistd.h>
 #include <string.h>
 
+ssize_t
+get_chunk(connection, size, buffer)
+    struct _http_connection_s *connection;
+    size_t size;
+    unsigned char *buffer;
+{
+    if (!connection)
+        return (-1);
+    if (!buffer)
+        return (-1);
+    if (!size)
+        return (-1);
+    return (read(connection->dest_socket, buffer, size));
+}
+
 void
 end_http_connection(http_connection)
     struct _http_connection_s *http_connection;
