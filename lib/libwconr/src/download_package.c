@@ -92,14 +92,17 @@ download_package(unsigned char *http_address, unsigned char *location)
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     
+    printf("1\n");
     if (getaddrinfo(host, NULL, &hints, &res) != 0) {
+        free(host);
         return -1;
     }
 
     inet_ntop(AF_INET, &((struct sockaddr_in *)res->ai_addr)->sin_addr, ip_str, INET_ADDRSTRLEN);
     freeaddrinfo(res);
-    free(host);
 
+    printf("%s\n", ip_str);
+    printf("step1\n");
     connection = new_http_connection(ip_str, 80);
     if (!connection)
         return -1;
@@ -118,8 +121,9 @@ download_package(unsigned char *http_address, unsigned char *location)
     request->protocol = (unsigned char *)strdup("HTTP");
     request->version = 0x0101;
 
-    set_header(&request->headers, (const unsigned char *)"Host", http_address);
+    set_header(&request->headers, (const unsigned char *)"Host", (const unsigned char *)host);
     set_header(&request->headers, (const unsigned char *)"Connection", (const unsigned char *)"close");
+    free(host);
 
     request_ressource(request);
 
