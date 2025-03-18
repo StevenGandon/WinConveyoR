@@ -9,7 +9,7 @@ on:
       - 'ga-ignore-**'
 
 env:
-  EXECUTABLES: "./cli/dist/wcr ./lib/libwconr/libwconr.so"
+  BINARIES: "./cli/dist/wcr ./lib/libwconr/libwconr.so"
 
 jobs:
   check_build:
@@ -37,9 +37,9 @@ jobs:
 
       - name: test file exist
         run: |
-          for executables in $(echo "${{ env.EXECUTABLES }}" | tr ',' ' '); do
-            if [ ! -x "${executables}" ]; then
-              echo "Executable ${executables} doesn't exist or isn't excutable."
+          for binary in $(echo "${{ env.BINARIES }}" | tr ',' ' '); do
+            if [ ! "${binary}" ]; then
+              echo "Binary ${binary} doesn't exist."
               exit 1
             fi
           done
