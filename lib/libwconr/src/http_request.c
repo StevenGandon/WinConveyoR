@@ -51,6 +51,8 @@ build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
     char *request_buffer = NULL;
     size_t current_size = 0;
     size_t i = 0;
+    int has_host = 0;
+    int has_user_agent = 0;
 
     request_buffer = (char *)malloc(buffer_size + 1);
     if (!request_buffer)
@@ -65,11 +67,23 @@ build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
 
     for (i = 0; i < request_parser->header_size; i++) {
         if (request_parser->headers[i]) {
+            if (strcasecmp((const char *)request_parser->headers[i]->key, "Host") == 0)
+                has_host = 1;
+            if (strcasecmp((const char *)request_parser->headers[i]->key, "User-Agent") == 0)
+                has_user_agent = 1;
             current_size += (size_t)sprintf(request_buffer + current_size, "%s: %s\r\n",
                 request_parser->headers[i]->key,
                 request_parser->headers[i]->value);
         }
     }
+
+    if (!has_host && request_parser->client && request_parser->client->address)
+        current_size += (size_t)sprintf(request_buffer + current_size, "Host: %s:%d\r\n",
+            request_parser->client->address,
+            request_parser->client->port);
+
+    if (!has_user_agent)
+        current_size += (size_t)sprintf(request_buffer + current_size, "User-Agent: WinConveyoR/1.0\r\n");
 
     current_size += (size_t)sprintf(request_buffer + current_size, "\r\n");
 
