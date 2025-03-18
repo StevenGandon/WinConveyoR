@@ -91,9 +91,19 @@ download_package(unsigned char *http_address, unsigned char *location)
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
-    
-    printf("1\n");
+
+#ifdef __WIN32
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+        free(host);
+        return -1;
+    }
+#endif
+
     if (getaddrinfo(host, NULL, &hints, &res) != 0) {
+#ifdef __WIN32
+        WSACleanup();
+#endif
         free(host);
         return -1;
     }
