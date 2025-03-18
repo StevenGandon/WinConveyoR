@@ -121,6 +121,8 @@ download_package(unsigned char *http_address, unsigned char *location)
     request->protocol = (unsigned char *)strdup("HTTP");
     request->version = 0x0101;
 
+    printf("%s\n", request->route);
+
     set_header(&request->headers, (const unsigned char *)"Host", (const unsigned char *)host);
     set_header(&request->headers, (const unsigned char *)"Connection", (const unsigned char *)"close");
     free(host);
@@ -137,6 +139,7 @@ download_package(unsigned char *http_address, unsigned char *location)
 
     fetch_response(response);
 
+    printf("%d\n", response->status_code);
     if (response->status_code != 200) {
         end_http_response_parser(response);
         end_http_request_parser(request);
