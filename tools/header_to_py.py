@@ -6,7 +6,9 @@ from re import RegexFlag, sub
 from enum import Enum
 import sys
 
-EXPORT_CONST_PYTHON = """from ctypes import Structure, POINTER, c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t
+EXPORT_CONST_PYTHON = """from ctypes import Structure, POINTER, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t, c_ssize_t
+from ctypes import c_byte as c_char
+from ctypes import c_ubyte as c_uchar
 from enum import Enum
 from sys import platform
 
@@ -52,7 +54,7 @@ class Token(object):
     regex = None
 
 class Symbol(Token):
-    regex = compile_regex(r"((struct *[a-z0-9_]+)|[a-z0-9_]+) *[*a-z0-9_]+\((void|((((struct *[a-z0-9_]+)|[a-z0-9_]+) *[*a-z0-9_]+)(, ((struct *[a-z0-9_]+)|[a-z0-9_]+) *[*a-z0-9_]+)*))\)")
+    regex = compile_regex(r"(((struct *[a-z0-9_]+)|(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+\((void|((((struct *[a-z0-9_]+)|(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)(, ((struct *[a-z0-9_]+)|(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)*))\))")
 
     def __init__(self, name: str, return_value: str, arguments: list):
         self.name = name
@@ -140,7 +142,7 @@ class HeaderFile(object):
         data = fp.read()
 
         for item in Symbol.regex.finditer(data):
-            raw = (item.string[item.start():item.end()])
+            raw = item.group(1)
             name = raw.split("(")[0].split(' ')[-1].split('*')[-1].strip()
             return_type = raw.split(name)[0].strip()
             arguments = list(map(lambda x: x.strip(), ')'.join('('.join(raw.split('(')[1:]).split(')')[:-1]).split(',')))
