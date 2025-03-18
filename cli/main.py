@@ -25,7 +25,7 @@ def main() -> int:
 """)
 
     wcr = WCRState()
-
+    wcr.dowload_package("https://stackoverflow.com/questions/61294630/ctypes-passing-a-string-as-a-pointer-from-python-to-c", "./")
     wcr.close()
     return (0)
 

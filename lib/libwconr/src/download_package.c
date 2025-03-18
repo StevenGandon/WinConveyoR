@@ -47,6 +47,7 @@ write_to_file(const unsigned char *buffer, size_t size, const unsigned char *loc
 int
 download_package(unsigned char *http_address, unsigned char *location)
 {
+    printf("%s, %s\n", http_address, location);
     struct _http_connection_s *connection = NULL;
     struct _http_request_parser_s *request = NULL;
     struct _http_response_parser_s *response = NULL;
@@ -64,15 +65,19 @@ download_package(unsigned char *http_address, unsigned char *location)
     if (!http_address || !location)
         return -1;
 
+    printf("step2\n");
+
     connection = new_http_connection((const char *)http_address, 80);
     if (!connection)
         return -1;
+    printf("step3\n");
 
     request = new_http_request_parser(connection);
     if (!request) {
         end_http_connection(connection);
         return -1;
     }
+    printf("step4\n");
 
     request->method = (unsigned char *)strdup("GET");
     request->route = (unsigned char *)strdup("/");
@@ -90,6 +95,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         end_http_connection(connection);
         return -1;
     }
+    printf("step5\n");
 
     fetch_response(response);
 
@@ -99,6 +105,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         end_http_connection(connection);
         return -1;
     }
+    printf("step6\n");
 
     temp = tmpfile();
     if (!temp) {
@@ -107,6 +114,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         end_http_connection(connection);
         return -1;
     }
+    printf("step7\n");
 
     content_length = get_header((const struct _http_header_s * const *)response->headers, (const unsigned char *)"Content-Length");
     if (content_length) {
@@ -124,6 +132,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         end_http_connection(connection);
         return -1;
     }
+    printf("step8\n");
 
     while ((bytes_read = get_chunk(connection, buffer_size, buffer)) > 0) {
         if (content_length && (total_size + (size_t)bytes_read) > content_length_value) {
@@ -138,6 +147,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         }
         total_size += (size_t)bytes_read;
     }
+    printf("step9\n");
 
     content = (unsigned char *)malloc(total_size);
     if (!content) {
@@ -147,6 +157,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         end_http_connection(connection);
         return -1;
     }
+    printf("step10\n");
 
     rewind(temp);
     if (fread(content, 1, total_size, temp) != total_size) {
@@ -157,6 +168,7 @@ download_package(unsigned char *http_address, unsigned char *location)
         end_http_connection(connection);
         return -1;
     }
+    printf("step11\n");
 
     result = write_to_file(content, total_size, location);
 
