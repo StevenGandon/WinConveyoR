@@ -13,8 +13,7 @@
 #endif
 
 static size_t
-calculate_request_size(request_parser)
-    struct _http_request_parser_s *request_parser;
+calculate_request_size(struct _http_request_parser_s *request_parser)
 {
     size_t buffer_size = 0;
     size_t i = 0;
@@ -39,9 +38,7 @@ calculate_request_size(request_parser)
 }
 
 static char *
-build_request(request_parser, buffer_size)
-    struct _http_request_parser_s *request_parser;
-    size_t buffer_size;
+build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
 {
     char *request_buffer = NULL;
     size_t current_size = 0;
@@ -51,7 +48,7 @@ build_request(request_parser, buffer_size)
     if (!request_buffer)
         return NULL;
 
-    current_size = sprintf(request_buffer, "%s %s %s/%d.%d\r\n",
+    current_size = (size_t)sprintf(request_buffer, "%s %s %s/%d.%d\r\n",
         request_parser->method,
         request_parser->route,
         request_parser->protocol,
@@ -60,20 +57,19 @@ build_request(request_parser, buffer_size)
 
     for (i = 0; i < request_parser->header_size; i++) {
         if (request_parser->headers[i]) {
-            current_size += sprintf(request_buffer + current_size, "%s: %s\r\n",
+            current_size += (size_t)sprintf(request_buffer + current_size, "%s: %s\r\n",
                 request_parser->headers[i]->key,
                 request_parser->headers[i]->value);
         }
     }
 
-    current_size += sprintf(request_buffer + current_size, "\r\n");
+    current_size += (size_t)sprintf(request_buffer + current_size, "\r\n");
 
     return request_buffer;
 }
 
 void
-request_ressource(request_parser)
-    struct _http_request_parser_s *request_parser;
+request_ressource(struct _http_request_parser_s *request_parser)
 {
     char *request_buffer = NULL;
     size_t buffer_size = 0;

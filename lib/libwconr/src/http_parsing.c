@@ -1,5 +1,6 @@
 #include "libwconr_private.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -143,20 +144,20 @@ read_http_headers(client, total_size)
             break;
         }
 
-        temp_buffer = realloc(temp_buffer, *total_size + read_size + 1);
+        temp_buffer = realloc(temp_buffer, *total_size + (size_t)read_size + 1);
         if (!temp_buffer) {
             free(buffer);
             return NULL;
         }
 
-        memcpy(temp_buffer + *total_size, buffer, read_size);
-        *total_size += read_size;
+        memcpy(temp_buffer + *total_size, buffer, (size_t)read_size);
+        *total_size += (size_t)read_size;
         temp_buffer[*total_size] = '\0';
         free(buffer);
 
         header_end = (unsigned char *)strstr((const char *)temp_buffer, HEADER_END);
         if (header_end) {
-            *total_size = (header_end - temp_buffer) + HEADER_END_LEN;
+            *total_size = (size_t)(header_end - temp_buffer) + HEADER_END_LEN;
             break;
         }
     }
@@ -182,16 +183,16 @@ parse_status_line(parser, buffer)
     if (!protocol_end)
         return 0;
     
-    parser->protocol = (unsigned char *)malloc(protocol_end - buffer + 1);
+    parser->protocol = (unsigned char *)malloc((size_t)(protocol_end - buffer) + 1);
     if (!parser->protocol)
         return 0;
     
-    memcpy(parser->protocol, buffer, protocol_end - buffer);
+    memcpy(parser->protocol, buffer, (size_t)(protocol_end - buffer));
     parser->protocol[protocol_end - buffer] = '\0';
 
-    if (sscanf((const char *)protocol_end + 1, "%hhu.%hhu",
-               ((unsigned char *)&parser->version) + 1,
-               ((unsigned char *)&parser->version)) != 2)
+    if (sscanf((const char *)protocol_end + 1, "%u.%u",
+               (unsigned int *)((unsigned char *)&parser->version + 1),
+               (unsigned int *)((unsigned char *)&parser->version)) != 2)
         return 0;
 
     status_start = (unsigned char *)strchr((const char *)protocol_end, ' ');
@@ -206,11 +207,11 @@ parse_status_line(parser, buffer)
         return 0;
     status_msg_start++;
     
-    parser->status_message = (unsigned char *)malloc(line_end - status_msg_start + 1);
+    parser->status_message = (unsigned char *)malloc((size_t)(line_end - status_msg_start) + 1);
     if (!parser->status_message)
         return 0;
 
-    memcpy(parser->status_message, status_msg_start, line_end - status_msg_start);
+    memcpy(parser->status_message, status_msg_start, (size_t)(line_end - status_msg_start));
     parser->status_message[line_end - status_msg_start] = '\0';
     
     return 1;
@@ -231,7 +232,7 @@ parse_headers(parser, buffer, total_size)
     if (!line_end)
         return;
 
-    current_size = (line_end - buffer) + 2;
+    current_size = (size_t)(line_end - buffer) + 2;
     
     while (current_size < total_size - HEADER_END_LEN) {
         line_start = buffer + current_size;
@@ -242,21 +243,21 @@ parse_headers(parser, buffer, total_size)
 
         colon_pos = (unsigned char *)strchr((const char *)line_start, ':');
         if (colon_pos && colon_pos < line_end) {
-            unsigned char *key = (unsigned char *)malloc(colon_pos - line_start + 1);
+            unsigned char *key = (unsigned char *)malloc((size_t)(colon_pos - line_start) + 1);
             unsigned char *value = NULL;
             unsigned char *value_start = colon_pos + 1;
 
             while (value_start < line_end && *value_start == ' ')
                 value_start++;
             
-            value = (unsigned char *)malloc(line_end - value_start + 1);
+            value = (unsigned char *)malloc((size_t)(line_end - value_start) + 1);
             
             if (key && value) {
-                memcpy(key, line_start, colon_pos - line_start);
-                key[colon_pos - line_start] = '\0';
+                memcpy(key, line_start, (size_t)(colon_pos - line_start));
+                key[(size_t)(colon_pos - line_start)] = '\0';
                 
-                memcpy(value, value_start, line_end - value_start);
-                value[line_end - value_start] = '\0';
+                memcpy(value, value_start, (size_t)(line_end - value_start));
+                value[(size_t)(line_end - value_start)] = '\0';
                 
                 set_header(&parser->headers, key, value);
                 
@@ -268,6 +269,6 @@ parse_headers(parser, buffer, total_size)
             }
         }
         
-        current_size = (line_end - buffer) + 2;
+        current_size = (size_t)(line_end - buffer) + 2;
     }
 }
