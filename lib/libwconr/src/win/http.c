@@ -8,6 +8,54 @@
 volatile unsigned char __WIN_INITED = 0;
 volatile unsigned char __WIN_INITED_REF = 0;
 
+void
+request_ressource(request)
+    struct _http_request_parser_s *request;
+{
+    if (!request || !request->client || !request->method || !request->route || !request->protocol)
+        return;
+
+    char *request_buffer = NULL;
+    size_t buffer_size = 0;
+    int offset = 0;
+    int required_size = 0;
+
+    required_size = snprintf(NULL, 0, "%s %s %s/%d.%d\r\n", 
+                     request->method, request->route, 
+                     request->protocol,
+                     request->version / 10, request->version % 10);
+    
+    for (size_t i = 0; i < request->header_size && request->headers[i]; i++) {
+        if (request->headers[i]->key && request->headers[i]->value) {
+            required_size += snprintf(NULL, 0, "%s: %s\r\n", 
+                             request->headers[i]->key, request->headers[i]->value);
+        }
+    }
+    
+    required_size += 3;
+    
+    request_buffer = malloc(required_size);
+    if (!request_buffer)
+        return;
+    
+    offset += sprintf(request_buffer + offset, "%s %s %s/%d.%d\r\n", 
+                     request->method, request->route, 
+                     request->protocol,
+                     request->version / 10, request->version % 10);
+
+    for (size_t i = 0; i < request->header_size && request->headers[i]; i++) {
+        if (request->headers[i]->key && request->headers[i]->value) {
+            offset += sprintf(request_buffer + offset, "%s: %s\r\n", 
+                             request->headers[i]->key, request->headers[i]->value);
+        }
+    }
+
+    offset += sprintf(request_buffer + offset, "\r\n");
+
+    send(request->client->dest_socket, request_buffer, offset, 0);
+    free(request_buffer);
+}
+
 ssize_t
 get_chunk(connection, size, buffer)
     struct _http_connection_s *connection;
