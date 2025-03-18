@@ -94,6 +94,7 @@ request_ressource(struct _http_request_parser_s *request_parser)
 
     current_size = strlen(request_buffer);
 
+    write(1, request_buffer, current_size);
     send_data(request_parser->client->dest_socket, request_buffer, current_size);
 
     free(request_buffer);
