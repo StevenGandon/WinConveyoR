@@ -38,7 +38,7 @@ jobs:
       - name: test file exist
         run: |
           for binary in $(echo "${{ env.BINARIES }}" | tr ',' ' '); do
-            if [ ! "${binary}" ]; then
+            if [ ! -f "${binary}" ]; then
               echo "Binary ${binary} doesn't exist."
               exit 1
             fi
