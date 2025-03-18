@@ -7,10 +7,14 @@
 
 #ifdef __WIN32
     #include <winsock2.h>
+    #include <ws2tcpip.h>
     #include <windows.h>
 #else
     #include <unistd.h>
     #include <fcntl.h>
+    #include <netdb.h>
+    #include <sys/socket.h>
+    #include <arpa/inet.h>
 #endif
 
 static int
@@ -47,7 +51,6 @@ write_to_file(const unsigned char *buffer, size_t size, const unsigned char *loc
 int
 download_package(unsigned char *http_address, unsigned char *location)
 {
-    printf("%s, %s\n", http_address, location);
     struct _http_connection_s *connection = NULL;
     struct _http_request_parser_s *request = NULL;
     struct _http_response_parser_s *response = NULL;
@@ -61,13 +64,43 @@ download_package(unsigned char *http_address, unsigned char *location)
     const unsigned char *content_length = NULL;
     size_t initial_buffer_size = 4096;
     size_t content_length_value = 0;
-
+    struct addrinfo hints, *res = NULL;
+    char ip_str[INET_ADDRSTRLEN];
+    char *host_start, *host_end;
+    char *host = NULL;
+    
     if (!http_address || !location)
         return -1;
 
-    printf("step2\n");
+    host_start = strstr((char *)http_address, "://");
+    if (host_start) {
+        host_start += 3;
+    } else {
+        host_start = (char *)http_address;
+    }
+    
+    host_end = strchr(host_start, '/');
+    size_t host_len = host_end ? (size_t)(host_end - host_start) : strlen(host_start);
+    host = (char *)malloc(host_len + 1);
+    if (!host) {
+        return -1;
+    }
+    memcpy(host, host_start, host_len);
+    host[host_len] = '\0';
+    
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    
+    if (getaddrinfo(host, NULL, &hints, &res) != 0) {
+        return -1;
+    }
 
-    connection = new_http_connection((const char *)http_address, 80);
+    inet_ntop(AF_INET, &((struct sockaddr_in *)res->ai_addr)->sin_addr, ip_str, INET_ADDRSTRLEN);
+    freeaddrinfo(res);
+    free(host);
+
+    connection = new_http_connection(ip_str, 80);
     if (!connection)
         return -1;
     printf("step3\n");
