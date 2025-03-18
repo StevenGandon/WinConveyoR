@@ -6,10 +6,18 @@
 
 #ifdef __WIN32
     #include <winsock2.h>
-    #define send_data(socket, buffer, size) send(socket, (const char *)(buffer), (int)(size), 0)
+    #define send_data(socket, buffer, size) \
+        do { \
+            int ret = send(socket, (const char *)(buffer), (int)(size), 0); \
+            (void)ret; \
+        } while(0)
 #else
     #include <unistd.h>
-    #define send_data(socket, buffer, size) write(socket, buffer, size)
+    #define send_data(socket, buffer, size) \
+        do { \
+            ssize_t ret = write(socket, buffer, size); \
+            (void)ret; \
+        } while(0)
 #endif
 
 static size_t
