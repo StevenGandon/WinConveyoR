@@ -29,16 +29,20 @@ jobs:
 
       - name: clean objects
         run: |
+          make clean
+
+      - name: compile project
+        run: |
+          chmod +x ./compile_linux.sh; ./compile_linux.sh
+
+      - name: test file exist
+        run: |
           for executables in $(echo "${{ env.EXECUTABLES }}" | tr ',' ' '); do
             if [ ! -x "${executables}" ]; then
               echo "Executable ${executables} doesn't exist or isn't excutable."
               exit 1
             fi
           done
-
-      - name: compile project
-        run: |
-          chmod +x ./compile_linux.sh; ./compile_linux.sh
 
       - name: remove caches
         run: make fclean
