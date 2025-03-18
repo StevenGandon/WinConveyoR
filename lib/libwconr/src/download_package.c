@@ -80,7 +80,16 @@ download_package(unsigned char *http_address, unsigned char *location)
     }
     
     host_end = strchr(host_start, '/');
-    size_t host_len = host_end ? (size_t)(host_end - host_start) : strlen(host_start);
+    if (!host_end) {
+        host_end = host_start + strlen(host_start);
+    }
+    
+    char *port_start = strchr(host_start, ':');
+    if (port_start && port_start < host_end) {
+        host_end = port_start;
+    }
+    
+    size_t host_len = (size_t)(host_end - host_start);
     host = (char *)malloc(host_len + 1);
     if (!host) {
         return -1;
@@ -113,7 +122,7 @@ download_package(unsigned char *http_address, unsigned char *location)
 
     printf("%s\n", ip_str);
     printf("step1\n");
-    connection = new_http_connection(ip_str, 80);
+    connection = new_http_connection(ip_str, 443);
     if (!connection)
         return -1;
     printf("step3\n");
