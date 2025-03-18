@@ -116,8 +116,14 @@ download_package(unsigned char *http_address, unsigned char *location)
     printf("step4\n");
 
     request->method = (unsigned char *)strdup("GET");
-    const char *last_slash = strrchr((const char *)http_address, '/');
-    request->route = (unsigned char *)strdup(last_slash ? last_slash : "/");
+    char *path_start = strstr((char *)http_address, "://");
+    if (path_start) {
+        path_start += 3;
+        path_start = strchr(path_start, '/');
+    } else {
+        path_start = strchr((char *)http_address, '/');
+    }
+    request->route = (unsigned char *)strdup(path_start ? path_start : "/");
     request->protocol = (unsigned char *)strdup("HTTP");
     request->version = 0x0101;
 
