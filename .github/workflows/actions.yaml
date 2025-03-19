@@ -54,7 +54,7 @@ jobs:
   create_release:
     name: Create Release
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }} && github.ref_name == 'main'
+    if: ${{ github.event_name == 'pull_request' && github.ref_name == 'main' }}
     steps:
       - name: Create Release
         id: create_release
@@ -71,7 +71,7 @@ jobs:
   build_release:
     name: Build Release
     needs: create_release
-    if: ${{ github.event_name == 'pull_request' }} && github.ref_name == 'main'
+    if: ${{ github.event_name == 'pull_request' && github.ref_name == 'main' }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -100,7 +100,7 @@ jobs:
       - name: Run Mac Build
         if: matrix.os == 'macos-latest'
         run: |
-          sudo brew install gcc libc6-dev make python3 python3-pip;
+          brew install gcc libc6-dev make python3 python3-pip;
           pip install pyinstaller;
 
           sh compile_linux.sh;
