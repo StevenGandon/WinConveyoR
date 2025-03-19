@@ -18,30 +18,28 @@ env:
 
 jobs:
   check_build:
-    runs-on: ubuntu-latest
-
     if: ${{ github.event_name == 'push' }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install build tools
-        run: sudo apt install -y gcc libc6-dev make python3 python3-pip
+      - name: Test build Linux
+        if: matrix.os == 'ubuntu-latest'
 
-      - name: Install pyinstaller
-        run: pip install pyinstaller
-
-      - name: clean objects
         run: |
-          make clean
+          sudo apt install -y gcc libc6-dev make python3 python3-pip;
+          pip install pyinstaller;
 
-      - name: compile project
-        run: |
-          chmod +x ./compile_linux.sh; ./compile_linux.sh
+          make clean;
+          chmod +x ./compile_linux.sh; ./compile_linux.sh;
 
-      - name: test file exist
-        run: |
           for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ',' ' '); do
             if [ ! -f "${binary}" ]; then
               echo "Binary ${binary} doesn't exist."
@@ -49,8 +47,44 @@ jobs:
             fi
           done
 
-      - name: remove caches
-        run: make fclean
+          make fclean;
+
+      - name: Test build MacOS
+        if: matrix.os == 'macos-latest'
+
+        run: |
+          brew install gcc make python3 pyinstaller zip;
+          PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH";
+
+          make clean;
+          chmod +x ./compile_linux.sh; ./compile_linux.sh;
+
+          for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ',' ' '); do
+            if [ ! -f "${binary}" ]; then
+              echo "Binary ${binary} doesn't exist."
+              exit 1
+            fi
+          done
+
+          make fclean;
+
+      - name: Test build Windows
+        if: matrix.os == 'windows-latest'
+
+        run: |
+          choco install make -y;
+          pip install pyinstaller;
+
+          make clean;
+          type ./compile_windows.ps1 | powershell.exe;
+
+          foreach ($f in ${{ env.BINARIES_NT }}) {
+              if (-Not (Test-Path -Path $f -PathType Leaf)) {
+                exit 1;
+              }
+          }
+
+          make fclean;
 
   create_release:
     name: Create Release
