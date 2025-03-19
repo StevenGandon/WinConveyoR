@@ -12,8 +12,8 @@ EXT		?=	so
 
 CC		?=	gcc
 CFLAGS	+=	-Wall -Wshadow -Wextra -Wdouble-promotion -Waggregate-return -Wstrict-prototypes \
-			-pedantic -Werror -Wformat -Walloc-zero -Wcast-qual -Wconversion -Winit-self	\
-			-Wlogical-op -I ./ -fPIC -O2
+			-pedantic -Werror -Wformat -Wcast-qual -Wconversion -Winit-self	\
+			-I ./ -fPIC -O2
 LDFLAGS	+=	-lm
 
 ifeq ($(OS), Windows_NT)
