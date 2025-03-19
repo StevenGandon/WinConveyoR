@@ -9,8 +9,7 @@
 #define INITIAL_CHUNK_SIZE 128
 
 void
-end_http_response_parser(http_parser)
-    struct _http_response_parser_s *http_parser;
+end_http_response_parser(struct _http_response_parser_s *http_parser)
 {
     size_t i = 0;
 
@@ -45,8 +44,7 @@ end_http_response_parser(http_parser)
 }
 
 void
-end_http_request_parser(http_parser)
-    struct _http_request_parser_s *http_parser;
+end_http_request_parser(struct _http_request_parser_s *http_parser)
 {
     size_t i = 0;
 
@@ -81,8 +79,7 @@ end_http_request_parser(http_parser)
 }
 
 struct _http_request_parser_s *
-new_http_request_parser(http_connection)
-    struct _http_connection_s *http_connection;
+new_http_request_parser(struct _http_connection_s *http_connection)
 {
     struct _http_request_parser_s *parser = (struct _http_request_parser_s *)malloc(sizeof(struct _http_request_parser_s));
 
@@ -101,8 +98,7 @@ new_http_request_parser(http_connection)
 }
 
 struct _http_response_parser_s *
-new_http_response_parser(http_connection)
-    struct _http_connection_s *http_connection;
+new_http_response_parser(struct _http_connection_s *http_connection)
 {
     struct _http_response_parser_s *parser = (struct _http_response_parser_s *)malloc(sizeof(struct _http_response_parser_s));
 
@@ -121,9 +117,8 @@ new_http_response_parser(http_connection)
 }
 
 unsigned char *
-read_http_headers(client, total_size)
-    struct _http_connection_s *client;
-    size_t *total_size;
+read_http_headers(struct _http_connection_s *client,
+    size_t *total_size)
 {
     unsigned char *buffer = NULL;
     unsigned char *temp_buffer = NULL;
@@ -166,9 +161,8 @@ read_http_headers(client, total_size)
 }
 
 int
-parse_status_line(parser, buffer)
-    struct _http_response_parser_s *parser;
-    unsigned char *buffer;
+parse_status_line(struct _http_response_parser_s *parser,
+    unsigned char *buffer)
 {
     unsigned char *line_end;
     unsigned char *protocol_end;
@@ -218,10 +212,9 @@ parse_status_line(parser, buffer)
 }
 
 void
-parse_headers(parser, buffer, total_size)
-    struct _http_response_parser_s *parser;
-    unsigned char *buffer;
-    size_t total_size;
+parse_headers(struct _http_response_parser_s *parser,
+    unsigned char *buffer,
+    size_t total_size)
 {
     unsigned char *line_start;
     unsigned char *line_end;

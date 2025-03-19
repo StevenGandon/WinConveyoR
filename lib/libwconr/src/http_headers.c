@@ -4,10 +4,9 @@
 #include <string.h>
 
 void
-set_header(headers, key, value)
-    struct _http_header_s ***headers;
-    const unsigned char *key;
-    const unsigned char *value;
+set_header(struct _http_header_s ***headers,
+    const unsigned char *key,
+    const unsigned char *value)
 {
     size_t header_size = 0;
 
@@ -33,9 +32,8 @@ set_header(headers, key, value)
     (*headers)[header_size + 1] = NULL;
 }
 
-const unsigned char *get_header(headers, key)
-    const struct _http_header_s * const *headers;
-    const unsigned char *key;
+const unsigned char *get_header(const struct _http_header_s * const *headers,
+    const unsigned char *key)
 {
     if (!headers)
         return (NULL);

@@ -9,10 +9,9 @@ volatile unsigned char __WIN_INITED = 0;
 volatile unsigned char __WIN_INITED_REF = 0;
 
 ssize_t
-get_chunk(connection, size, buffer)
-    struct _http_connection_s *connection;
-    size_t size;
-    unsigned char *buffer;
+get_chunk(struct _http_connection_s *connection,
+    size_t size,
+    unsigned char *buffer)
 {
     int value;
 
@@ -29,8 +28,7 @@ get_chunk(connection, size, buffer)
 }
 
 void
-end_http_connection(http_connection)
-    struct _http_connection_s *http_connection;
+end_http_connection(struct _http_connection_s *http_connection)
 {
     if (!http_connection)
         return;
@@ -57,9 +55,8 @@ end_http_connection(http_connection)
 }
 
 struct _http_connection_s *
-new_http_connection(ip, port)
-    const char *ip;
-    unsigned short port;
+new_http_connection(const char *ip,
+    unsigned short port)
 {
     struct _http_connection_s *connection = (struct _http_connection_s *)malloc(sizeof(struct _http_connection_s));
     struct sockaddr_in dest_addr;

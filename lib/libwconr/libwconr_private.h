@@ -55,7 +55,7 @@
     void end_http_response_parser(struct _http_response_parser_s *);
     void end_http_request_parser(struct _http_request_parser_s *);
     void end_http_connection(struct _http_connection_s *);
-    struct _http_connection_s *new_http_connection(const char *__s, int);
+    struct _http_connection_s *new_http_connection(const char *__s, unsigned short __p);
     struct _http_response_parser_s *new_http_response_parser(struct _http_connection_s *);
     struct _http_request_parser_s *new_http_request_parser(struct _http_connection_s *);
     void set_header(struct _http_header_s ***__h, const unsigned char *__k, const unsigned char *__v);

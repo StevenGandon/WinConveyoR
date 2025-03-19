@@ -8,8 +8,7 @@
 #define INITIAL_CHUNK_SIZE 128
 
 void
-fetch_response(response_parser)
-    struct _http_response_parser_s *response_parser;
+fetch_response(struct _http_response_parser_s *response_parser)
 {
     unsigned char *buffer = NULL;
     size_t total_size = 0;

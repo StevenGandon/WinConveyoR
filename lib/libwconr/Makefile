@@ -21,12 +21,6 @@ ifeq ($(OS), Windows_NT)
 	LDFLAGS += -lws2_32 -lwsock32 -lsecur32 -lcrypt32
 else
 	SRC += ./src/posix/http.c
-
-	UNAME_S := $(shell uname -s)
-
-	ifeq ($(UNAME_S), Darwin)
-        CFLAGS += -Wnodeprecated-non-prototype
-    endif
 endif
 
 all:	$(NAME)

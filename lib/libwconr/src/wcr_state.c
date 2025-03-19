@@ -13,8 +13,7 @@ new_state(void)
 }
 
 void
-close_state(state)
-    wcr_state *state;
+close_state(wcr_state *state)
 {
     if (!state)
         return;
