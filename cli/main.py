@@ -1,33 +1,86 @@
 from sys import exit
+from itertools import chain
+from signal import SIGINT, SIGTERM, signal
 
 from src import *
 
 import sys
 
-def main() -> int:
-    argsettings = ArgumentParserSettings()
+class CLI(object):
+    OPTION_TABLE = {
+        "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
+        "download": {"opt": ("-d", "--download"), "exc": ()}
+    }
+    def __init__(self):
+        self.argsettings = ArgumentParserSettings()
+        self.argparser = None
+        self.wcr = None
 
-    argsettings.define_option("-h")
-    argsettings.define_option("--help")
-    argsettings.define_option("-?")
+        self._set_argument_setting()
+        self._parse_arguments()
 
-    argsettings.define_option("/h")
-    argsettings.define_option("/?")
-    argsettings.validate()
+        signal(SIGINT, lambda *args, **kwargs: self.close)
+        signal(SIGTERM, lambda *args, **kwargs: self.close)
 
-    try:
-        argparser = ArgumentParser(sys.argv, argsettings)
-    except ArgumentHandlerException as e:
-        sys.stderr.write(f"{sys.argv[0]}: {e}\n")
+    def _parse_arguments(self) -> int:
+        try:
+            self.argparser = ArgumentParser(sys.argv, self.argsettings)
+        except ArgumentHandlerException as e:
+            sys.stderr.write(f"{sys.argv[0]}: {e}\n")
+            raise ArgumentHandlerException()
 
-    if (any(map(lambda x: x in argparser.options, ("-h", "--help", "-?", "/?", "/h")))):
+    def _set_argument_setting(self):
+        self.argsettings = ArgumentParserSettings()
+
+        for item in chain(*tuple(map(lambda x: x["opt"], CLI.OPTION_TABLE.values()))):
+            self.argsettings.define_option(item)
+
+        self.argsettings.validate()
+
+    def show_help(self):
         sys.stdout.write(f"""Usage: {sys.argv[0]}
 """)
+        return (0)
 
-    wcr = WCRState()
-    wcr.dowload_package("https://stackoverflow.com/questions/61294630/ctypes-passing-a-string-as-a-pointer-from-python-to-c", "./")
-    wcr.close()
-    return (0)
+    def download_package(self):
+        self.wcr.dowload_package("https://stackoverflow.com/questions/61294630/ctypes-passing-a-string-as-a-pointer-from-python-to-c", "./")
+        return (0)
+
+    def run(self) -> int:
+        if (not self.wcr):
+            self.wcr = WCRState()
+
+        if (any(map(lambda x: x in self.argparser.options, CLI.OPTION_TABLE["help"]["opt"]))):
+            return self.show_help()
+
+        if (any(map(lambda x: x in self.argparser.options, CLI.OPTION_TABLE["download"]["opt"]))):
+            return self.download_package()
+
+        sys.stderr.write(f"{sys.argv[0]}: no operation specified (use -h for help).\n")
+        return (1)
+
+    def close(self):
+        if (self.wcr):
+            self.wcr.close()
+
+    def __del__(self):
+        self.close()
+
+def main() -> int:
+    status = 0
+
+    try:
+        cli: CLI = CLI()
+    except ArgumentHandlerException:
+        return (1)
+
+    try:
+        status = cli.run()
+    except Exception as e:
+        sys.stderr.write(f"{sys.argv[0]}: Unhandled exception: {e}\n")
+        status = 1
+    cli.close()
+    return (status)
 
 if (__name__ == "__main__"):
     exit(main())

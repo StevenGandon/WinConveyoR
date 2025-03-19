@@ -13,7 +13,7 @@ class WCRState(object):
 
     def dowload_package(self, url, location) -> None:
         if int(self.__mapper.call_function("download_package", cast(create_string_buffer(url.encode('utf-8')), POINTER(c_ubyte)), cast(create_string_buffer(location.encode('utf-8')), POINTER(c_ubyte))) < 0):
-            raise RuntimeError("failed to downlaod")
+            raise RuntimeError("failed to download")
 
     def close(self):
         if (not self._cstate):
