@@ -22,7 +22,7 @@ set_header(headers, key, value)
             return;
         }
     }
-    *headers = realloc(*headers, header_size + 2);
+    *headers = realloc(*headers, (header_size + 2) * sizeof(struct _http_header_s *));
     if (!*headers)
         return;
     (*headers)[header_size] = (struct _http_header_s *)malloc(sizeof(struct _http_header_s));
@@ -33,8 +33,8 @@ set_header(headers, key, value)
     (*headers)[header_size + 1] = NULL;
 }
 
-unsigned char *get_header(headers, key)
-    const struct _http_header_s **headers;
+const unsigned char *get_header(headers, key)
+    const struct _http_header_s * const *headers;
     const unsigned char *key;
 {
     if (!headers)

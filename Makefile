@@ -1,10 +1,14 @@
 LIB_DIR	=	lib
 CLI_DIR	=	cli
 
-all:
+all: lib cli
+
+lib:
 	cp ./include/libwconr.h ./lib/libwconr
 
 	make -C $(LIB_DIR) all
+
+cli:
 	make -C $(CLI_DIR) all
 
 clean:
@@ -22,4 +26,4 @@ re:
 	make -C $(LIB_DIR) re
 	make -C $(CLI_DIR) re
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re lib cli
