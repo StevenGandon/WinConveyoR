@@ -100,8 +100,8 @@ jobs:
       - name: Run Mac Build
         if: matrix.os == 'macos-latest'
         run: |
-          brew install gcc make python3;
-          curl https://bootstrap.pypa.io/get-pip.py | python3
+          brew install gcc make python3 pyinstaller;
+          PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH";
 
           sh compile_linux.sh;
           echo "MacOS Latest" > release_mac
