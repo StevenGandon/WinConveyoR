@@ -9,7 +9,7 @@ import sys
 class CLI(object):
     OPTION_TABLE = {
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
-        "download": {"opt": ("-d", "--download"), "exc": ()}
+        "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()}
     }
     def __init__(self):
         self.argsettings = ArgumentParserSettings()
@@ -38,7 +38,13 @@ class CLI(object):
         self.argsettings.validate()
 
     def show_help(self):
-        sys.stdout.write(f"""Usage: {sys.argv[0]}
+        sys.stdout.write(f"""Usage: {sys.argv[0]} <-d|-h> [options] [arguments]
+
+Options:
+  > {', '.join(CLI.OPTION_TABLE['help']['opt'])}\tDisplay this help message
+  > {', '.join(CLI.OPTION_TABLE['download']['opt'])}\tDownload a package
+
+Exemples:
 """)
         return (0)
 
