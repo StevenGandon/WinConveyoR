@@ -13,6 +13,8 @@
             SOCKET dest_socket;
         };
     #else
+        #include <unistd.h>
+
             struct _http_connection_s {
             unsigned short port;
             char *address;
