@@ -80,6 +80,7 @@ jobs:
 
           foreach ($f in ${{ env.BINARIES_NT }}) {
               if (-Not (Test-Path -Path $f -PathType Leaf)) {
+                echo "Binary $f doesn't exist.";
                 exit 1;
               }
           }
