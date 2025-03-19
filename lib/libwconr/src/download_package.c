@@ -135,7 +135,7 @@ download_package(const unsigned char *http_address, const unsigned char *locatio
             port = atoi(port_str + 1);
         }
     }
-    connection = new_http_connection(ip_str, port);
+    connection = new_http_connection(ip_str, (unsigned short)port);
     if (!connection) {
         free(host);
         return -1;
