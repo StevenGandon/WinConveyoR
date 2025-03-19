@@ -186,7 +186,6 @@ download_package(const unsigned char *http_address, const unsigned char *locatio
         const unsigned char *redirect_location = get_header((const struct _http_header_s * const *)response->headers, (const unsigned char *)"Location");
         if (redirect_location) {
             unsigned char *new_url = NULL;
-            const char *redirect_scheme = NULL;
             
             const char *original_scheme = strstr((const char *)http_address, "://");
             const char *scheme_to_use = original_scheme ? (const char *)http_address : "https://";
