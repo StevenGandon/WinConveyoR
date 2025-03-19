@@ -18,7 +18,7 @@ LDFLAGS	+=	-lm
 
 ifeq ($(OS), Windows_NT)
 	SRC += ./src/win/http.c
-	LDFLAGS += -lws2_32 -lwsock32
+	LDFLAGS += -lws2_32 -lwsock32 -lsecur32 -lcrypt32
 else
 	SRC += ./src/posix/http.c
 endif

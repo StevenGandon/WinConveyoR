@@ -59,7 +59,7 @@ calculate_request_size(struct _http_request_parser_s *request_parser)
 }
 
 static char *
-build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
+build_request(struct _http_request_parser_s *request_parser, const unsigned char *host, size_t buffer_size)
 {
     char *request_buffer = NULL;
     size_t current_size = 0;
@@ -75,8 +75,7 @@ build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
         request_parser->method,
         request_parser->route,
         request_parser->protocol,
-        (request_parser->version >> 8) & 0xFF,
-        request_parser->version & 0xFF);
+        1, 1);
 
     for (i = 0; i < request_parser->header_size; i++) {
         if (request_parser->headers[i]) {
@@ -91,12 +90,14 @@ build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
     }
 
     if (!has_host && request_parser->client && request_parser->client->address)
-        current_size += (size_t)sprintf(request_buffer + current_size, "Host: %s:%d\r\n",
-            request_parser->client->address,
-            request_parser->client->port);
+        current_size += (size_t)sprintf(request_buffer + current_size, "Host: %s\r\n",
+            host);
 
     if (!has_user_agent)
         current_size += (size_t)sprintf(request_buffer + current_size, "User-Agent: WinConveyoR/1.0\r\n");
+
+    current_size += (size_t)sprintf(request_buffer + current_size, "Accept: */*\r\n");
+    current_size += (size_t)sprintf(request_buffer + current_size, "Accept-Encoding: identity\r\n");
 
     current_size += (size_t)sprintf(request_buffer + current_size, "\r\n");
 
@@ -104,7 +105,7 @@ build_request(struct _http_request_parser_s *request_parser, size_t buffer_size)
 }
 
 void
-request_ressource(struct _http_request_parser_s *request_parser)
+request_ressource(struct _http_request_parser_s *request_parser, const unsigned char *http_address)
 {
     char *request_buffer = NULL;
     size_t buffer_size = 0;
@@ -115,11 +116,13 @@ request_ressource(struct _http_request_parser_s *request_parser)
 
     buffer_size = calculate_request_size(request_parser);
 
-    request_buffer = build_request(request_parser, buffer_size);
+    request_buffer = build_request(request_parser, http_address, buffer_size);
     if (!request_buffer)
         return;
 
     current_size = strlen(request_buffer);
+
+    printf("[DEBUG] HTTP Request Buffer:\n%s\n", request_buffer);
 
     send_data(request_parser->client->dest_socket, request_buffer, current_size);
 

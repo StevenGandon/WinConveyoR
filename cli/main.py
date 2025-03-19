@@ -49,7 +49,7 @@ Exemples:
         return (0)
 
     def download_package(self):
-        self.wcr.dowload_package("https://stackoverflow.com/questions/61294630/ctypes-passing-a-string-as-a-pointer-from-python-to-c", "./")
+        self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
     def run(self) -> int:

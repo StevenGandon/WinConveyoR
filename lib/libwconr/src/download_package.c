@@ -49,7 +49,7 @@ write_to_file(const unsigned char *buffer, size_t size, const unsigned char *loc
 }
 
 int
-download_package(unsigned char *http_address, unsigned char *location)
+download_package(const unsigned char *http_address, const unsigned char *location)
 {
     struct _http_connection_s *connection = NULL;
     struct _http_request_parser_s *request = NULL;
@@ -66,30 +66,31 @@ download_package(unsigned char *http_address, unsigned char *location)
     size_t content_length_value = 0;
     struct addrinfo hints, *res = NULL;
     char ip_str[INET_ADDRSTRLEN];
-    char *host_start, *host_end;
+    const char *host_start = NULL;
+    const char *initial_host_end = NULL;
     char *host = NULL;
     
     if (!http_address || !location)
         return -1;
 
-    host_start = strstr((char *)http_address, "://");
+    host_start = strstr((const char *)http_address, "://");
     if (host_start) {
         host_start += 3;
     } else {
-        host_start = (char *)http_address;
+        host_start = (const char *)http_address;
     }
     
-    host_end = strchr(host_start, '/');
-    if (!host_end) {
-        host_end = host_start + strlen(host_start);
+    initial_host_end = strchr(host_start, '/');
+    if (!initial_host_end) {
+        initial_host_end = host_start + strlen(host_start);
     }
     
     char *port_start = strchr(host_start, ':');
-    if (port_start && port_start < host_end) {
-        host_end = port_start;
+    if (port_start && port_start < initial_host_end) {
+        initial_host_end = port_start;
     }
     
-    size_t host_len = (size_t)(host_end - host_start);
+    size_t host_len = (size_t)(initial_host_end - host_start);
     host = (char *)malloc(host_len + 1);
     if (!host) {
         return -1;
@@ -122,7 +123,23 @@ download_package(unsigned char *http_address, unsigned char *location)
 
     printf("%s\n", ip_str);
     printf("step1\n");
-    connection = new_http_connection(ip_str, 443);
+    int port = 80;
+    const char *scheme = strstr((const char *)http_address, "://");
+    if (scheme) {
+        scheme = scheme + 3;
+        if (strncmp((const char *)http_address, "https://", 8) == 0) {
+            port = 443;
+        }
+        const char *port_str = strchr(scheme, ':');
+        if (port_str && port_str < initial_host_end) {
+            port = atoi(port_str + 1);
+        }
+    }
+    connection = new_http_connection(ip_str, port);
+    if (!connection) {
+        free(host);
+        return -1;
+    }
     if (!connection)
         return -1;
     printf("step3\n");
@@ -135,12 +152,12 @@ download_package(unsigned char *http_address, unsigned char *location)
     printf("step4\n");
 
     request->method = (unsigned char *)strdup("GET");
-    char *path_start = strstr((char *)http_address, "://");
+    const char *path_start = strstr((const char *)http_address, "://");
     if (path_start) {
         path_start += 3;
         path_start = strchr(path_start, '/');
     } else {
-        path_start = strchr((char *)http_address, '/');
+        path_start = strchr((const char *)http_address, '/');
     }
     request->route = (unsigned char *)strdup(path_start ? path_start : "/");
     request->protocol = (unsigned char *)strdup("HTTP");
@@ -150,12 +167,12 @@ download_package(unsigned char *http_address, unsigned char *location)
 
     set_header(&request->headers, (const unsigned char *)"Host", (const unsigned char *)host);
     set_header(&request->headers, (const unsigned char *)"Connection", (const unsigned char *)"close");
-    free(host);
 
-    request_ressource(request);
+    request_ressource(request, (const unsigned char *)host);
 
     response = new_http_response_parser(connection);
     if (!response) {
+        free(host);
         end_http_request_parser(request);
         end_http_connection(connection);
         return -1;
@@ -165,6 +182,46 @@ download_package(unsigned char *http_address, unsigned char *location)
     fetch_response(response);
 
     printf("%d\n", response->status_code);
+    if (response->status_code == 301 || response->status_code == 302) {
+        const unsigned char *redirect_location = get_header((const struct _http_header_s * const *)response->headers, (const unsigned char *)"Location");
+        if (redirect_location) {
+            unsigned char *new_url = NULL;
+            const char *redirect_scheme = NULL;
+            
+            const char *original_scheme = strstr((const char *)http_address, "://");
+            const char *scheme_to_use = original_scheme ? (const char *)http_address : "https://";
+            size_t scheme_len = original_scheme ? (size_t)(original_scheme - (const char *)http_address + 3) : strlen(scheme_to_use);
+
+            if (strstr((const char *)redirect_location, "://")) {
+                new_url = (unsigned char *)strdup((const char *)redirect_location);
+            } else if (redirect_location[0] == '/') {
+                new_url = (unsigned char *)malloc(scheme_len + strlen(host) + strlen((const char *)redirect_location) + 1);
+                if (original_scheme) {
+                    strncpy((char *)new_url, (const char *)http_address, scheme_len);
+                } else {
+                    strcpy((char *)new_url, scheme_to_use);
+                }
+                strcat((char *)new_url, host);
+                strcat((char *)new_url, (const char *)redirect_location);
+            } else {
+                const char *last_slash = strrchr((const char *)http_address, '/');
+                size_t base_url_len = last_slash ? (size_t)(last_slash - (const char *)http_address + 1) : scheme_len + strlen(host) + 1;
+                new_url = (unsigned char *)malloc(base_url_len + strlen((const char *)redirect_location) + 1);
+                strncpy((char *)new_url, (const char *)http_address, base_url_len);
+                new_url[base_url_len] = '\0';
+                strcat((char *)new_url, (const char *)redirect_location);
+            }
+            
+            printf("Redirecting to: %s\n", new_url);
+            end_http_response_parser(response);
+            end_http_request_parser(request);
+            end_http_connection(connection);
+            int redirect_result = download_package(new_url, location);
+            free(new_url);
+            free(host);
+            return redirect_result;
+        }
+    }
     if (response->status_code != 200) {
         end_http_response_parser(response);
         end_http_request_parser(request);
