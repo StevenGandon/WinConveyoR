@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.15)
 project(libwconr VERSION 1.0.0 LANGUAGES C)
 
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries" FORCE)
+set(BUILD_CURL_EXE OFF CACHE BOOL "Disable curl executable" FORCE)
+set(CURL_STATICLIB OFF CACHE BOOL "Build curl as shared" FORCE)
+
 include(FetchContent)
 
 FetchContent_Declare(
   curl
   URL https://curl.se/download/curl-7.86.0.tar.gz
 )
-
 FetchContent_MakeAvailable(curl)
 
 set(LIBWCONR_SOURCES
@@ -28,7 +31,6 @@ endif()
 add_library(wconr SHARED ${LIBWCONR_SOURCES})
 
 target_link_libraries(wconr PRIVATE CURL::libcurl)
-
 if(WIN32)
     target_link_libraries(wconr PRIVATE ws2_32)
 endif()
@@ -57,8 +59,8 @@ install(
     FILES_MATCHING PATTERN "*.h"
 )
 
-# That’s it! Now you can build:
-#   mkdir build && cd build
-#   cmake -G "Visual Studio 17 2022" -A x64 ..  (for Windows)
-#   cmake --build . --config Release
-#   cmake --install . --config Release
+install(TARGETS libcurl
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
