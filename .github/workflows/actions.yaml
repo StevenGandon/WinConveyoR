@@ -14,7 +14,7 @@ on:
 
 env:
   BINARIES_POSIX: "./cli/dist/wcr ./lib/libwconr/build/libwconr.so"
-  BINARIES_NT: "'./cli/dist/wcr.exe', './lib/libwconr/build/libwconr.dll'"
+  BINARIES_NT: "'./cli/dist/wcr.exe', './lib/libwconr/build/Release/libwconr.dll'"
 
 jobs:
   check_build:
@@ -43,6 +43,13 @@ jobs:
         run: |
           choco install cmake -y
           choco install make -y
+
+      - name: Set up Python version (Windows)
+        if: matrix.os == 'windows-latest'
+
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12.0
 
       - name: Build Library (CMake)
         shell: bash
@@ -78,13 +85,11 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
         shell: powershell
         run: |
-          if (-Not (Test-Path -Path "./cli/dist/wcr.exe" -PathType Leaf)) { 
-            Write-Error "Binary ./cli/dist/wcr.exe doesn't exist."; 
-            exit 1 
-          }
-          if (-Not (Test-Path -Path "./lib/libwconr/build/Release/libwconr.dll" -PathType Leaf)) { 
-            Write-Error "Binary ./lib/libwconr/build/Release/libwconr.dll doesn't exist."; 
-            exit 1 
+          foreach ($f in ${{ env.BINARIES_NT }}) {
+            if (-Not (Test-Path -Path $f -PathType Leaf)) {
+              Write-Error "Binary $f doesn't exist.";
+              exit 1;
+            }
           }
 
       - name: Verify Binaries on Linux/Mac
@@ -155,6 +160,13 @@ jobs:
           choco install cmake -y
           choco install make -y
           python -m pip install pyinstaller
+
+      - name: Set up Python version (Windows - Release)
+        if: matrix.os == 'windows-latest'
+
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12.0
 
       - name: Build library (CMake - Release)
         shell: bash
