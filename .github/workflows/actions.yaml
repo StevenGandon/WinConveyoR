@@ -53,9 +53,7 @@ jobs:
 
       - name: Build Executable (Make)
         run: |
-          cd cli
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            # Execute the Windows build script (PowerShell)
             powershell.exe -File compile_windows.ps1
           else
             chmod +x compile_linux.sh
