@@ -78,7 +78,7 @@ class Token(object):
     regex = None
 
 class Symbol(Token):
-    regex = compile_regex(r"(((struct *[a-z0-9_]+)|(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+\((void|((((struct *[a-z0-9_]+)|(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)(, ((struct *[a-z0-9_]+)|(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)*))\))")
+    regex = compile_regex(r"(((struct *[a-z0-9_]+)|(const |)(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+\((void|((((struct *[a-z0-9_]+)|(const |)(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)(, ((struct *[a-z0-9_]+)|(const |)(|unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)*))\))")
 
     def __init__(self, name: str, return_value: str, arguments: list):
         self.name = name
