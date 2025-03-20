@@ -183,6 +183,7 @@ jobs:
           fi
 
       - name: Package release
+        shell: bash
         run: |
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
             powershell.exe -Command "Compress-Archive -Path $Env:BINARIES_NT -DestinationPath release_windows.zip"
