@@ -87,6 +87,9 @@ jobs:
         shell: bash
         run: |
           for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ' ' '\n'); do
+            if [ "$(uname)" = "Darwin" ]; then
+              binary=$(echo "$binary" | sed 's/\.so$/\.dylib/')
+            fi
             if [ ! -f "$binary" ]; then
               echo "Binary $binary doesn't exist."
               exit 1
