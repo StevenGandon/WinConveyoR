@@ -77,3 +77,4 @@ class Mapper(object):
             self.init_mapper()
         self._dll.register_function("new_state", POINTER(wcr_state_s))
         self._dll.register_function("close_state", None, POINTER(wcr_state_s))
+        self._dll.register_function("download_package", c_int, POINTER(None), POINTER(None))
