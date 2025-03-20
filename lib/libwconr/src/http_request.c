@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifdef __WIN32
+#ifdef _WIN32
     #include <winsock2.h>
     #define send_data(socket, buffer, size) \
         do { \
@@ -12,14 +12,17 @@
             (void)ret; \
         } while(0)
 #else
-    #include <unistd.h>
+    #include <sys/socket.h>
     #define send_data(socket, buffer, size) \
         do { \
-            ssize_t ret = write(socket, buffer, size); \
+            ssize_t ret = send(socket, buffer, size, 0); \
             (void)ret; \
         } while(0)
 #endif
 
+#ifdef _WIN32
+    #define strcasecmp _stricmp
+#endif
 static size_t
 calculate_request_size(struct _http_request_parser_s *request_parser)
 {
@@ -94,7 +97,7 @@ build_request(struct _http_request_parser_s *request_parser, const unsigned char
             host);
 
     if (!has_user_agent)
-        current_size += (size_t)sprintf(request_buffer + current_size, "User-Agent: WinConveyoR/1.0\r\n");
+        current_size += (size_t)sprintf(request_buffer + current_size, "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36\r\n");
 
     current_size += (size_t)sprintf(request_buffer + current_size, "Accept: */*\r\n");
     current_size += (size_t)sprintf(request_buffer + current_size, "Accept-Encoding: identity\r\n");

@@ -8,91 +8,94 @@ on:
     branches-ignore:
       - 'ga-ignore-**'
 
-permissions:
-  contents: write
-  discussions: write
-
 env:
-  BINARIES_POSIX: "./cli/dist/wcr ./lib/libwconr/libwconr.so"
-  BINARIES_NT: "'./cli/dist/wcr.exe', './lib/libwconr/libwconr.dll'"
+  BINARIES_POSIX: "./cli/dist/wcr ./lib/libwconr/build/libwconr.so"
+  BINARIES_NT: "'./cli/dist/wcr.exe', './lib/libwconr/buid/libwconr.dll'"
 
 jobs:
   check_build:
     if: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
-
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-
     runs-on: ${{ matrix.os }}
-
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        if: matrix.os == 'windows-latest'
-
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12.0
-
-      - name: Test build Linux
-        if: matrix.os == 'ubuntu-latest'
-
+      - name: Setup Dependencies (Linux/Mac)
+        if: ${{ matrix.os != 'windows-latest' }}
         run: |
-          sudo apt install -y gcc libc6-dev make python3 python3-pip;
-          pip install pyinstaller;
+          if [ "$(uname)" = "Darwin" ]; then
+            brew update || true;
+            brew install cmake gcc make python3;
+          else
+            sudo apt update
+            sudo apt install -y cmake gcc make python3
+          fi
 
-          make clean;
-          chmod +x ./compile_linux.sh; ./compile_linux.sh;
-
-          for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ',' ' '); do
-            if [ ! -f "${binary}" ]; then
-              echo "Binary ${binary} doesn't exist."
-              exit 1
-            fi
-          done
-
-          make fclean;
-
-      - name: Test build MacOS
-        if: matrix.os == 'macos-latest'
-
+      - name: Setup Dependencies (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          brew install gcc make python3 pyinstaller zip;
-          PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH";
+          choco install cmake -y
+          choco install make -y
 
-          make clean;
-          chmod +x ./compile_linux.sh; ./compile_linux.sh;
-
-          for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ',' ' '); do
-            if [ ! -f "${binary}" ]; then
-              echo "Binary ${binary} doesn't exist."
-              exit 1
-            fi
-          done
-
-          make fclean;
-
-      - name: Test build Windows
-        if: matrix.os == 'windows-latest'
-
+      - name: Build Library (CMake)
+        shell: bash
         run: |
-          choco install make -y;
-          pip install pyinstaller;
+          cd lib/libwconr
+          rm -rf build || true
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
+          else
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          fi
+          cmake --build build --config Release
 
-          make clean;
-          type ./compile_windows.ps1 | powershell.exe;
+      - name: Build Executable
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            sudo apt update
+            sudo apt install -y python3 python3-pip make
+            pip3 install pyinstaller
+            chmod +x compile_linux.sh
+            ./compile_linux.sh
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            brew install pyinstaller
+            chmod +x compile_linux.sh
+            ./compile_linux.sh
+          else
+            python -m pip install pyinstaller
+            powershell.exe -File compile_windows.ps1
+          fi
 
-          foreach ($f in ${{ env.BINARIES_NT }}) {
-              if (-Not (Test-Path -Path $f -PathType Leaf)) {
-                echo "Binary $f doesn't exist.";
-                exit 1;
-              }
+      - name: Verify Binaries on Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        shell: powershell
+        run: |
+          if (-Not (Test-Path -Path "./cli/dist/wcr.exe" -PathType Leaf)) { 
+            Write-Error "Binary ./cli/dist/wcr.exe doesn't exist."; 
+            exit 1 
+          }
+          if (-Not (Test-Path -Path "./lib/libwconr/build/Release/libwconr.dll" -PathType Leaf)) { 
+            Write-Error "Binary ./lib/libwconr/build/Release/libwconr.dll doesn't exist."; 
+            exit 1 
           }
 
-          make fclean;
+      - name: Verify Binaries on Linux/Mac
+        if: ${{ matrix.os != 'windows-latest' }}
+        shell: bash
+        run: |
+          for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ' ' '\n'); do
+            if [ "$(uname)" = "Darwin" ]; then
+              binary=$(echo "$binary" | sed 's/\.so$/\.dylib/')
+            fi
+            if [ ! -f "$binary" ]; then
+              echo "Binary $binary doesn't exist."
+              exit 1
+            fi
+          done
 
   create_release:
     name: Create Release
@@ -125,50 +128,43 @@ jobs:
             release_suffix: mac
           - os: windows-latest
             release_suffix: windows
-
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        if: matrix.os == 'windows-latest'
-
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12.0
-
-      - name: Run Linux Build
-        if: matrix.os == 'ubuntu-latest'
+      - name: Setup Dependencies (Linux/Mac - Release)
+        if: ${{ matrix.os != 'windows-latest' }}
         run: |
-          sudo apt install gcc libc6-dev make python3 python3-pip zip;
-          pip install pyinstaller;
+          if [ "$(uname)" = "Darwin" ]; then
+            brew update
+            brew install cmake gcc make python3 zip
+          else
+            sudo apt update
+            sudo apt install -y cmake gcc make python3 zip
+          fi
 
-          sh compile_linux.sh;
-          zip -j release_ubuntu.zip ${{ env.BINARIES_POSIX }}
-
-      - name: Run Mac Build
-        if: matrix.os == 'macos-latest'
+      - name: Setup Dependencies (Windows - Release)
+        if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          brew install gcc make python3 pyinstaller zip;
-          PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH";
+          choco install cmake -y
+          choco install make -y
 
-          sh compile_linux.sh;
-          zip -j release_mac.zip ${{ env.BINARIES_POSIX }}
-
-      - name: Run Windows Build
-        if: matrix.os == 'windows-latest'
+      - name: Package Release
         run: |
-          choco install make -y;
-          pip install pyinstaller;
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            powershell.exe -Command "Compress-Archive -Path $Env:BINARIES_NT -DestinationPath release_windows.zip"
+          else
+            zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
+          fi
 
-          type ./compile_windows.ps1 | powershell.exe;
-          Compress-Archive -Path ${{ env.BINARIES_NT }} -DestinationPath release_windows.zip
-
-      - name: Release
+      - name: Publish Release
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
-          files: release_${{ matrix.release_suffix }}.zip
+          files: |
+            ${{ matrix.os == 'ubuntu-latest' && 'release_ubuntu.zip' || '' }}
+            ${{ matrix.os == 'macos-latest' && 'release_mac.zip' || '' }}
+            ${{ matrix.os == 'windows-latest' && 'release_windows.zip' || '' }}

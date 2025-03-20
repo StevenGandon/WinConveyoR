@@ -3,8 +3,9 @@
 
     #include <stddef.h>
     #include <stdlib.h>
+    #include "src/platform_types.h"
 
-    #ifdef __WIN32
+    #ifdef _WIN32
         #include <winsock2.h>
 
             struct _http_connection_s {

@@ -42,7 +42,8 @@ wcr_state_s._fields_ = [
 # ==== Interfaces ==== #
 
 class Mapper(object):
-    def __init__(self, path: str = f"libwconr.{'dll' if platform.startswith("win") else 'so'}") -> None:
+    
+    def __init__(self, path: str = f"libwconr.{ 'dll' if sys.platform.startswith('win') else ('dylib' if sys.platform.startswith('darwin') else 'so') }") -> None:
         self.inited: bool = False
         self.base_dll_path: str = path
         self.dll_location: str = None
@@ -77,3 +78,4 @@ class Mapper(object):
             self.init_mapper()
         self._dll.register_function("new_state", POINTER(wcr_state_s))
         self._dll.register_function("close_state", None, POINTER(wcr_state_s))
+        self._dll.register_function("download_package", c_int, POINTER(None), POINTER(None))
