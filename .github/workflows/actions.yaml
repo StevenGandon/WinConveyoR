@@ -182,14 +182,17 @@ jobs:
             powershell.exe -File compile_windows.ps1
           fi
 
-      - name: Package release
+      - name: Package release (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        shell: powershell
+        run: |
+          Compress-Archive -Path ${{ env.BINARIES_NT }} -DestinationPath release_windows.zip
+
+      - name: Package release (Linux/macOS)
+        if: ${{ matrix.os != 'windows-latest' }}
         shell: bash
         run: |
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe -Command "Compress-Archive -Path $Env:BINARIES_NT -DestinationPath release_windows.zip"
-          else
-            zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
-          fi
+          zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
 
       - name: Publish Release
         uses: softprops/action-gh-release@v2
