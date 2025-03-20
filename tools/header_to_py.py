@@ -12,7 +12,7 @@ from ctypes import c_ubyte as c_uchar
 from enum import Enum
 from sys import platform
 
-from ..dllloader import DLLoader
+from ..dllloader import DLLoader, find_dll
 
 # ==== Enums ==== #
 
@@ -25,15 +25,39 @@ $mapped_structs$
 # ==== Interfaces ==== #
 
 class Mapper(object):
-    def __init__(self, path: str = f"lib/libwconr/libwconr.{'dll' if platform.startswith("win") else 'so'}") -> None:
-        self._dll: DLLoader = DLLoader(path)
+    def __init__(self, path: str = f"libwconr.{'dll' if platform.startswith("win") else 'so'}") -> None:
+        self.inited: bool = False
+        self.base_dll_path: str = path
+        self.dll_location: str = None
+        self._dll: DLLoader = None
+
+    def __del__(self):
+        self.inited = False
+
+        del self._dll
+
+        self._dll = None
+
+    def init_mapper(self):
+        self.dll_location: str = find_dll(self.base_dll_path, 'nt' if platform.startswith("win") else 'posix')
+
+        if (not self.dll_location):
+            raise OSError(f"DLL {self.base_dll_path} not found in any $PATH or registered path via `add_dll_registry_path` nor cwd and cwd/lib.")
+
+        self._dll: DLLoader = DLLoader(self.dll_location)
+        self.inited: bool = True
 
         self.map_functions()
 
     def call_function(self, name: str,  *args):
+        if (not self.inited):
+            self.init_mapper()
+
         return self._dll.call_function(name, *args)
 
     def map_functions(self) -> None:
+        if (not self._dll):
+            self.init_mapper()
 $mapped_functions$"""
 
 EXPORT_ENUM_CONST_PYTHON = """class $name$(Enum):
