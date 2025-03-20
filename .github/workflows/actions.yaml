@@ -69,19 +69,29 @@ jobs:
             powershell.exe -File compile_windows.ps1
           fi
 
-      - name: Verify Binaries
+      - name: Verify Binaries on Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        shell: powershell
         run: |
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            if (-Not (Test-Path -Path "./cli/dist/wcr.exe" -PathType Leaf)) { exit 1 }
-            if (-Not (Test-Path -Path "./lib/libwconr/libwconr.dll" -PathType Leaf)) { exit 1 }
-          else
-            for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ' ' '\n'); do
-              if [ ! -f "$binary" ]; then
-                echo "Binary $binary doesn't exist."
-                exit 1
-              fi
-            done
-          fi
+          if (-Not (Test-Path -Path "./cli/dist/wcr.exe" -PathType Leaf)) { 
+            Write-Error "Binary ./cli/dist/wcr.exe doesn't exist."; 
+            exit 1 
+          }
+          if (-Not (Test-Path -Path "./lib/libwconr/libwconr.dll" -PathType Leaf)) { 
+            Write-Error "Binary ./lib/libwconr/libwconr.dll doesn't exist."; 
+            exit 1 
+          }
+
+      - name: Verify Binaries on Linux/Mac
+        if: ${{ matrix.os != 'windows-latest' }}
+        shell: bash
+        run: |
+          for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ' ' '\n'); do
+            if [ ! -f "$binary" ]; then
+              echo "Binary $binary doesn't exist."
+              exit 1
+            fi
+          done
 
   create_release:
     name: Create Release
