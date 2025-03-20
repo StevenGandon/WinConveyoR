@@ -186,7 +186,7 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe -Command "Compress-Archive -Path $Env:BINARIES_NT -DestinationPath release_windows.zip"
+            powershell.exe -Command "Compress-Archive -Path ${{ env.BINARIES_NT }} -DestinationPath release_windows.zip"
           else
             zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
           fi
