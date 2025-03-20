@@ -49,6 +49,10 @@ target_include_directories(wconr
         ${CMAKE_CURRENT_SOURCE_DIR}/../../include
 )
 
+message(STATUS "Library output directory: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "Runtime output directory: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+message(STATUS "Archive output directory: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
+
 set_target_properties(wconr PROPERTIES
     OUTPUT_NAME "libwconr"
     WINDOWS_EXPORT_ALL_SYMBOLS ON
