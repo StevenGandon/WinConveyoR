@@ -254,7 +254,7 @@ def main() -> int:
     if (not access(argv[1], O_RDONLY)):
         sys.stderr.write(argv[0] + f": {argv[1]}: read permission missing.\n")
         return (1)
-
+ 
     with open(argv[1], 'r') as fp:
         hf: HeaderFile = HeaderFile(fp)
 
