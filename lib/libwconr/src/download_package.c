@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifdef __WIN32
+#ifdef _WIN32
     #include <winsock2.h>
     #include <ws2tcpip.h>
     #include <windows.h>
@@ -20,7 +20,7 @@
 static int
 write_to_file(const unsigned char *buffer, size_t size, const unsigned char *location)
 {
-#ifdef __WIN32
+#ifdef _WIN32
     HANDLE file = CreateFileA((LPCSTR)location, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     DWORD written = 0;
 

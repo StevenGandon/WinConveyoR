@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <winsock2.h>
-#include <unistd.h>
 #include <string.h>
 
 volatile unsigned char __WIN_INITED = 0;

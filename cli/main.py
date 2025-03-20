@@ -89,11 +89,11 @@ def main() -> int:
         sys.stderr.write(f"{sys.argv[0]}: {e}\n")
         return (1)
 
-    try:
-        status = cli.run()
-    except Exception as e:
-        sys.stderr.write(f"{sys.argv[0]}: Unhandled exception: {e}\n")
-        status = 1
+    # try:
+    status = cli.run()
+    # except Exception as e:
+    #     sys.stderr.write(f"{sys.argv[0]}: Unhandled exception: {e}\n")
+    #     status = 1
     cli.close()
     return (status)
 
