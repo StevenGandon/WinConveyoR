@@ -118,85 +118,85 @@ jobs:
           prerelease: false
           generate_release_notes: false
 
-build_release:
-  name: Build release
-  needs: create_release
-  if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-  strategy:
-    matrix:
-      os: [ubuntu-latest, macos-latest, windows-latest]
-      include:
-        - os: ubuntu-latest
-          release_suffix: ubuntu
-        - os: macos-latest
-          release_suffix: mac
-        - os: windows-latest
-          release_suffix: windows
-  runs-on: ${{ matrix.os }}
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+  build_release:
+    name: Build release
+    needs: create_release
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            release_suffix: ubuntu
+          - os: macos-latest
+            release_suffix: mac
+          - os: windows-latest
+            release_suffix: windows
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup dependencies (Linux/Mac - Release)
-      if: ${{ matrix.os != 'windows-latest' }}
-      run: |
-        if [ "$(uname)" = "Darwin" ]; then
-          brew update
-          brew install cmake gcc make python3 zip pyinstaller
-        else
-          sudo apt update
-          sudo apt install -y cmake gcc make python3 python3-pip zip
-          pip3 install pyinstaller
-        fi
+      - name: Setup dependencies (Linux/Mac - Release)
+        if: ${{ matrix.os != 'windows-latest' }}
+        run: |
+          if [ "$(uname)" = "Darwin" ]; then
+            brew update
+            brew install cmake gcc make python3 zip pyinstaller
+          else
+            sudo apt update
+            sudo apt install -y cmake gcc make python3 python3-pip zip
+            pip3 install pyinstaller
+          fi
 
-    - name: Setup dependencies (Windows - Release)
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: |
-        choco install cmake -y
-        choco install make -y
-        python -m pip install pyinstaller
+      - name: Setup dependencies (Windows - Release)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          choco install cmake -y
+          choco install make -y
+          python -m pip install pyinstaller
 
-    - name: Build library (CMake - Release)
-      shell: bash
-      run: |
-        cd lib/libwconr
-        rm -rf build || true
-        if [ "${{ matrix.os }}" = "windows-latest" ]; then
-          cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --config Release
-        else
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-          cmake --build build
-        fi
+      - name: Build library (CMake - Release)
+        shell: bash
+        run: |
+          cd lib/libwconr
+          rm -rf build || true
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
+            cmake --build build --config Release
+          else
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+            cmake --build build
+          fi
 
-    - name: Build executable
-      shell: bash
-      run: |
-        if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-          chmod +x compile_linux.sh
-          ./compile_linux.sh
-        elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-          chmod +x compile_linux.sh
-          ./compile_linux.sh
-        else
-          powershell.exe -File compile_windows.ps1
-        fi
+      - name: Build executable
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            chmod +x compile_linux.sh
+            ./compile_linux.sh
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            chmod +x compile_linux.sh
+            ./compile_linux.sh
+          else
+            powershell.exe -File compile_windows.ps1
+          fi
 
-    - name: Package release
-      run: |
-        if [ "${{ matrix.os }}" = "windows-latest" ]; then
-          powershell.exe -Command "Compress-Archive -Path $Env:BINARIES_NT -DestinationPath release_windows.zip"
-        else
-          zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
-        fi
+      - name: Package release
+        run: |
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            powershell.exe -Command "Compress-Archive -Path $Env:BINARIES_NT -DestinationPath release_windows.zip"
+          else
+            zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
+          fi
 
-    - name: Publish Release
-      uses: softprops/action-gh-release@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref_name }}
-        files: |
-          ${{ matrix.os == 'ubuntu-latest' && 'release_ubuntu.zip' || '' }}
-          ${{ matrix.os == 'macos-latest' && 'release_mac.zip' || '' }}
-          ${{ matrix.os == 'windows-latest' && 'release_windows.zip' || '' }}
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            ${{ matrix.os == 'ubuntu-latest' && 'release_ubuntu.zip' || '' }}
+            ${{ matrix.os == 'macos-latest' && 'release_mac.zip' || '' }}
+            ${{ matrix.os == 'windows-latest' && 'release_windows.zip' || '' }}
