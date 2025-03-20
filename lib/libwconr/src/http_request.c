@@ -97,7 +97,7 @@ build_request(struct _http_request_parser_s *request_parser, const unsigned char
             host);
 
     if (!has_user_agent)
-        current_size += (size_t)sprintf(request_buffer + current_size, "User-Agent: WinConveyoR/1.0\r\n");
+        current_size += (size_t)sprintf(request_buffer + current_size, "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36\r\n");
 
     current_size += (size_t)sprintf(request_buffer + current_size, "Accept: */*\r\n");
     current_size += (size_t)sprintf(request_buffer + current_size, "Accept-Encoding: identity\r\n");
