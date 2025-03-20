@@ -51,14 +51,21 @@ jobs:
           fi
           cmake --build build --config Release
 
-      - name: Build Executable (Make)
+      - name: Build Executable
         shell: bash
         run: |
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe -File compile_windows.ps1
-          else
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            sudo apt update
+            sudo apt install -y python3 python3-pip make
+            pip3 install pyinstaller
             chmod +x compile_linux.sh
             ./compile_linux.sh
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            brew install pyinstaller
+            chmod +x compile_linux.sh
+            ./compile_linux.sh
+          else
+            powershell.exe -File compile_windows.ps1
           fi
 
       - name: Verify Binaries
@@ -138,16 +145,6 @@ jobs:
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           fi
           cmake --build build --config Release
-
-      - name: Build Executable (Make - Release)
-        run: |
-          cd cli
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe -File compile_windows.ps1
-          else
-            chmod +x compile_linux.sh
-            ./compile_linux.sh
-          fi
 
       - name: Package Release
         run: |
