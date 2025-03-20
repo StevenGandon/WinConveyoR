@@ -27,8 +27,8 @@ jobs:
         if: ${{ matrix.os != 'windows-latest' }}
         run: |
           if [ "$(uname)" = "Darwin" ]; then
-            brew update
-            brew install cmake gcc make python3
+            brew update || true;
+            brew install cmake gcc make python3;
           else
             sudo apt update
             sudo apt install -y cmake gcc make python3
