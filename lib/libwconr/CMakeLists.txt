@@ -54,6 +54,7 @@ message(STATUS "Runtime output directory: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "Archive output directory: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 
 set_target_properties(wconr PROPERTIES
+    PREFIX ""
     OUTPUT_NAME "libwconr"
     WINDOWS_EXPORT_ALL_SYMBOLS ON
     VERSION ${PROJECT_VERSION}
