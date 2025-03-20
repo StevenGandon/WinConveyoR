@@ -5,6 +5,14 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries" FORCE)
 set(BUILD_CURL_EXE OFF CACHE BOOL "Disable curl executable" FORCE)
 set(CURL_STATICLIB OFF CACHE BOOL "Build curl as shared" FORCE)
 
+if(WIN32)
+    set(CURL_USE_SCHANNEL ON CACHE BOOL "Use native Schannel" FORCE)
+elseif(APPLE)
+    set(CURL_USE_SECURETRANSPORT ON CACHE BOOL "Use SecureTransport" FORCE)
+else()
+    set(CURL_USE_OPENSSL ON CACHE BOOL "Use OpenSSL" FORCE)
+endif()
+
 include(FetchContent)
 
 FetchContent_Declare(
@@ -47,10 +55,6 @@ set_target_properties(wconr PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION ${PROJECT_VERSION_MAJOR}
 )
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
 
 add_custom_command(TARGET wconr POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
