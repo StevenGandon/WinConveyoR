@@ -4,6 +4,9 @@ from ctypes import c_char_p, pointer, cast, POINTER, c_ubyte, create_string_buff
 
 _MAPPER = Mapper()
 
+def init():
+    _MAPPER.init_mapper()
+
 class WCRState(object):
     __mapper: Mapper = _MAPPER
 

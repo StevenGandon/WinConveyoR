@@ -73,11 +73,20 @@ Exemples:
         self.close()
 
 def main() -> int:
+    add_dll_registry_path("./lib/libwconr/")
+
     status = 0
 
     try:
+        init()
+    except OSError as e:
+        sys.stderr.write(f"{sys.argv[0]}: {e}\n")
+        return (1)
+
+    try:
         cli: CLI = CLI()
-    except ArgumentHandlerException:
+    except ArgumentHandlerException as e:
+        sys.stderr.write(f"{sys.argv[0]}: {e}\n")
         return (1)
 
     try:
