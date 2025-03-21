@@ -62,6 +62,14 @@ jobs:
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           fi
           cmake --build build --config Release
+  
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            powershell.exe mv libwconr.dll.1.0.0 libwconr.dll
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            mv libwconr.dylib.1.0.0 libwconr.dylib
+          else
+            mv libwconr.so.1.0.0 libwconr.so
+          fi
 
       - name: Build Executable
         shell: bash
@@ -179,6 +187,14 @@ jobs:
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
             cmake --build build
+          fi
+
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            powershell.exe mv libwconr.dll.1.0.0 libwconr.dll
+          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+            mv libwconr.dylib.1.0.0 libwconr.dylib
+          else
+            mv libwconr.so.1.0.0 libwconr.so
           fi
 
       - name: Build executable
