@@ -36,7 +36,7 @@ else()
     list(APPEND LIBWCONR_SOURCES src/posix/http.c)
 endif()
 
-add_library(wconr MODULE ${LIBWCONR_SOURCES})
+add_library(wconr SHARED ${LIBWCONR_SOURCES})
 
 target_link_libraries(wconr PRIVATE CURL::libcurl)
 if(WIN32)
