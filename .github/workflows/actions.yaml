@@ -63,14 +63,6 @@ jobs:
           fi
           cmake --build build --config Release
 
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe mv ./lib/libwconr/build/Release/libwconr.dll.1.0.0 ./lib/libwconr/build/Release/libwconr.dll
-          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-            mv ./lib/libwconr/build/libwconr.dylib.1.0.0 ./lib/libwconr/build/libwconr.dylib
-          else
-            mv ./lib/libwconr/build/libwconr.so.1.0.0 ./lib/libwconr/build/libwconr.so
-          fi
-
       - name: Build Executable
         shell: bash
         run: |
@@ -188,14 +180,6 @@ jobs:
           fi
 
           cmake --build build --config Release
-
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe mv ./lib/libwconr/build/Release/libwconr.dll.1.0.0 ./lib/libwconr/build/Release/libwconr.dll
-          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-            mv ./lib/libwconr/build/libwconr.dylib.1.0.0 ./lib/libwconr/build/libwconr.dylib
-          else
-            mv ./lib/libwconr/build/libwconr.so.1.0.0 ./lib/libwconr/build/libwconr.so
-          fi
 
       - name: Build executable
         shell: bash

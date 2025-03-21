@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(libwconr VERSION 1.0.0 LANGUAGES C)
+project(libwconr LANGUAGES C)
 
 set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries" FORCE)
 set(BUILD_CURL_EXE OFF CACHE BOOL "Disable curl executable" FORCE)
@@ -57,8 +57,6 @@ set_target_properties(wconr PROPERTIES
     PREFIX ""
     OUTPUT_NAME "libwconr"
     WINDOWS_EXPORT_ALL_SYMBOLS ON
-    VERSION ${PROJECT_VERSION}
-    SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
 add_custom_command(TARGET wconr POST_BUILD
