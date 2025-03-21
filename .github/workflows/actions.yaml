@@ -62,13 +62,13 @@ jobs:
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           fi
           cmake --build build --config Release
-  
+
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe mv libwconr.dll.1.0.0 libwconr.dll
+            powershell.exe mv ./lib/libwconr/build/Release/libwconr.dll.1.0.0 ./lib/libwconr/build/Release/libwconr.dll
           elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-            mv libwconr.dylib.1.0.0 libwconr.dylib
+            mv ./lib/libwconr/build/libwconr.dylib.1.0.0 ./lib/libwconr/build/libwconr.dylib
           else
-            mv libwconr.so.1.0.0 libwconr.so
+            mv ./lib/libwconr/build/libwconr.so.1.0.0 ./lib/libwconr/build/libwconr.so
           fi
 
       - name: Build Executable
@@ -183,18 +183,18 @@ jobs:
           rm -rf build || true
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
             cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
-            cmake --build build --config Release
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-            cmake --build build
           fi
 
+          cmake --build build --config Release
+
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            powershell.exe mv libwconr.dll.1.0.0 libwconr.dll
+            powershell.exe mv ./lib/libwconr/build/Release/libwconr.dll.1.0.0 ./lib/libwconr/build/Release/libwconr.dll
           elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-            mv libwconr.dylib.1.0.0 libwconr.dylib
+            mv ./lib/libwconr/build/libwconr.dylib.1.0.0 ./lib/libwconr/build/libwconr.dylib
           else
-            mv libwconr.so.1.0.0 libwconr.so
+            mv ./lib/libwconr/build/libwconr.so.1.0.0 ./lib/libwconr/build/libwconr.so
           fi
 
       - name: Build executable
