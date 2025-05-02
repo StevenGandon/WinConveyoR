@@ -41,6 +41,17 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
 
     document.documentElement.style.fontSize = `${settings.fontSize}px`;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (settings.theme === 'system') {
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(e.matches ? 'dark' : 'light');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, [settings]);
 
   const updateSettings = (newSettings: Partial<AppSettings>) => {

@@ -15,8 +15,8 @@ const SettingsPage: React.FC = () => {
   ];
 
   const contrastButtons = [
-    { value: 'normal', label: 'Normal Contrast' },
-    { value: 'high', label: 'High Contrast' },
+    { value: 'normal', label: 'Normal contrast' },
+    { value: 'high', label: 'High contrast' },
   ];
 
   return (
@@ -103,7 +103,7 @@ const SettingsPage: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Eye size={18} className="text-gray-700 dark:text-gray-300" />
-                    <span className="text-gray-700 dark:text-gray-300">Reduce Motion</span>
+                    <span className="text-gray-700 dark:text-gray-300">Reduce motion</span>
                   </div>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -119,7 +119,7 @@ const SettingsPage: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Keyboard size={18} className="text-gray-700 dark:text-gray-300" />
-                    <span className="text-gray-700 dark:text-gray-300">Enable Keyboard Shortcuts</span>
+                    <span className="text-gray-700 dark:text-gray-300">Enable keyboard shortcuts</span>
                   </div>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
