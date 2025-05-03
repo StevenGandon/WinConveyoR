@@ -1,6 +1,7 @@
 from sys import exit
 from itertools import chain
 from signal import SIGINT, SIGTERM, signal
+from time import sleep
 
 from src import *
 
@@ -11,16 +12,22 @@ class CLI(object):
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()}
     }
+
     def __init__(self):
         self.argsettings = ArgumentParserSettings()
         self.argparser = None
         self.wcr = None
+        self.running: bool = True
 
         self._set_argument_setting()
         self._parse_arguments()
 
-        signal(SIGINT, lambda *args, **kwargs: self.close)
-        signal(SIGTERM, lambda *args, **kwargs: self.close)
+        signal(SIGINT, lambda *args, **kwargs: self.close())
+        signal(SIGTERM, lambda *args, **kwargs: self.close())
+
+        if (not sys.stdout.isatty()):
+            self._graphic = Graphic(GraphicSettings(False, False, mode=MODE_DISPLAY_NO_ANIMATION))
+        self._graphic = Graphic(GraphicSettings(True, True, mode=MODE_DISPLAY_SIMPLE))
 
     def _parse_arguments(self) -> int:
         try:
@@ -49,7 +56,28 @@ Exemples:
         return (0)
 
     def download_package(self):
-        self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
+        lb = LoadingBar(100, 1, 1)
+        lb1 = LoadingBar(10, 1, 1)
+        lb2 = LoadingBar(1000, 1, 1)
+        lb3 = LoadingBar(75, 1, 1)
+        lb4 = LoadingBar(50, 1, 1)
+        self._graphic.add_elements(lb)
+        self._graphic.add_elements(lb1)
+        self._graphic.add_elements(lb2)
+        self._graphic.add_elements(lb3)
+        self._graphic.add_elements(lb4)
+        for i in range(1, 100):
+            if (not self.running):
+                return (1)
+            lb.push()
+            lb1.push()
+            lb2.push()
+            lb3.push()
+            lb4.push()
+            self._graphic.update()
+            self._graphic.draw()
+            sleep(0.1)
+        #self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
     def run(self) -> int:
@@ -66,6 +94,7 @@ Exemples:
         return (1)
 
     def close(self):
+        self.running: bool = False
         if (self.wcr):
             self.wcr.close()
 
