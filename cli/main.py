@@ -56,11 +56,11 @@ Exemples:
         return (0)
 
     def download_package(self):
-        lb = LoadingBar(100, 1, 1)
-        lb1 = LoadingBar(10, 1, 1)
-        lb2 = LoadingBar(1000, 1, 1)
-        lb3 = LoadingBar(75, 1, 1)
-        lb4 = LoadingBar(50, 1, 1)
+        lb = LoadingBar(100, 0, 1)
+        lb1 = LoadingBar(10, 0, 1)
+        lb2 = LoadingBar(1000, 0, 1)
+        lb3 = LoadingBar(75, 0, 1)
+        lb4 = LoadingBar(50, 0, 1)
         self._graphic.add_elements(lb)
         self._graphic.add_elements(lb1)
         self._graphic.add_elements(lb2)
@@ -69,11 +69,11 @@ Exemples:
         for i in range(1, 100):
             if (not self.running):
                 return (1)
-            lb.push()
-            lb1.push()
-            lb2.push()
-            lb3.push()
-            lb4.push()
+            lb.push(f"item_{i}")
+            lb1.push(f"item_{i}")
+            lb2.push(f"item_{i}")
+            lb3.push(f"item_{i}")
+            lb4.push(f"item_{i}")
             self._graphic.update()
             self._graphic.draw()
             sleep(0.1)
