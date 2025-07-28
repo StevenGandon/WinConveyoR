@@ -28,13 +28,17 @@ class Graphic(object):
         self._elements = []
         self._prev_sz = []
 
-        self.size = get_terminal_size(sys.stdout.fileno())
+        if (self._settings.mode == MODE_DISPLAY_NO_ANIMATION):
+            self.size = (0, 0)
+        else:
+            self.size = get_terminal_size(sys.stdout.fileno())
 
     def add_elements(self, element):
         self._elements.append(GraphicElement(element, len(self._elements)))
 
     def update(self):
-        self.size = get_terminal_size(sys.stdout.fileno())
+        if (self._settings.mode != MODE_DISPLAY_NO_ANIMATION):
+            self.size = get_terminal_size(sys.stdout.fileno())
 
         for item in self._elements:
             if (not hasattr(item.element, "update")):
