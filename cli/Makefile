@@ -16,7 +16,24 @@ ifneq ($(ICON), "")
 	endif
 endif
 
+ifeq ($(OS), Windows_NT)
+	PYFLAGS += --add-binary "build/libwconr.dll:."
+	LIBRARY = ../lib/libwconr/build/Release/libwconr.dll
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S), Darwin)
+		PYFLAGS += --add-binary "build/libwconr.dylib:."
+		LIBRARY = ../lib/libwconr/build/libwconr.dylib
+	else
+		PYFLAGS += --add-binary "build/libwconr.so:."
+		LIBRARY = ../lib/libwconr/build/libwconr.so
+	endif
+endif
+
+
 all:
+	mkdir ./build
+	cp $(LIBRARY) ./build/
 	$(PYINSTALLER) $(SRC) $(PYFLAGS) -n $(NAME) -y
 
 $(NAME): all

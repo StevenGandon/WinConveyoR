@@ -39,7 +39,7 @@ class Mapper(object):
         self._dll = None
 
     def init_mapper(self):
-        self.dll_location: str = find_dll(self.base_dll_path, 'nt' if platform.startswith("win") else 'posix')
+        self.dll_location: str = self.base_dll_path # find_dll(self.base_dll_path, 'nt' if platform.startswith("win") else 'posix')
 
         if (not self.dll_location):
             raise OSError(f"DLL {self.base_dll_path} not found in any $PATH or registered path via `add_dll_registry_path` nor cwd and cwd/lib.")
