@@ -9,6 +9,11 @@ WinConveyoR project
 ![Issues](https://img.shields.io/github/issues/StevenGandon/WinConveyoR)
 
 
+## License
+
+[GPL v3](https://github.com/StevenGandon/WinConveyoR/blob/main/LICENSE)
+
+
 ## Authors
 
 - [@Steven GANDON](https://www.github.com/StevenGandon)
