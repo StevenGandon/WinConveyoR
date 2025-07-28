@@ -1,4 +1,7 @@
 class GraphicObject(object):
+    _pattern = ""
+    _const = {}
+
     def __init__(self):
         self.computed_string = ""
 

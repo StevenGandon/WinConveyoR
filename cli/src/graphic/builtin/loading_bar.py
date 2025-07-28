@@ -6,7 +6,7 @@ from time import time
 
 class LoadingBar(GraphicObject):
     def __init__(self, max_item, start_at = 0, step = 1):
-        self.pattern = PatternBuilder(r"$+oa/$+ot$*pat[$+ol$+ob]$?sn$+on$*pnETA: $+oeta")
+        self.pattern = PatternBuilder(LoadingBar._pattern)
         self.max = max_item
         self.position = start_at
         self.step = step
@@ -38,8 +38,8 @@ class LoadingBar(GraphicObject):
         ratio: int = round(50 * self.position / self.max)
 
         self.computed_string = self.pattern.build(
-            ol='#' * (ratio),
-            ob=' ' * (50 - ratio),
+            ol=LoadingBar._const.get("filler-space", '#') * (ratio),
+            ob=LoadingBar._const.get("anti-space", ' ') * (50 - ratio),
             ot=self.max,
             oa=self.position,
             on=self.item_name,

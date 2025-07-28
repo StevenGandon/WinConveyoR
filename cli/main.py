@@ -1,7 +1,9 @@
 from sys import exit
 from itertools import chain
 from signal import SIGINT, SIGTERM, signal
+from traceback import format_exc
 from time import sleep
+from pathlib import Path
 
 from src import *
 
@@ -56,6 +58,8 @@ Exemples:
         return (0)
 
     def download_package(self):
+        P = PatternLoader("assets/cli/graphic/patterns/pattern_loading.xml")
+        P.deploy("allansi", "utf8", _globals=globals(), _locals=locals())
         lb = LoadingBar(100, 0, 1)
         lb1 = LoadingBar(10, 0, 1)
         lb2 = LoadingBar(1000, 0, 1)
@@ -118,11 +122,11 @@ def main() -> int:
         sys.stderr.write(f"{sys.argv[0]}: {e}\n")
         return (1)
 
-    # try:
-    status = cli.run()
-    # except Exception as e:
-    #     sys.stderr.write(f"{sys.argv[0]}: Unhandled exception: {e}\n")
-    #     status = 1
+    try:
+        status = cli.run()
+    except Exception as e:
+        sys.stderr.write(f"{sys.argv[0]}: Unhandled exception: {format_exc()}\n")
+        status = 1
     cli.close()
     return (status)
 
