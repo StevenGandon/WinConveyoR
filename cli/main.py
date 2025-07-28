@@ -44,7 +44,7 @@ class CLI(object):
             if ("TERM" in environ):
                 if (environ["TERM"] in ("dumb", "xterm-old")):
                     ansi_settings = "noansi"
-                if ("16color" in environ["TERM"] or environ["TERM"] in ("xterm", "xterm-new")):
+                if ("16color" in environ["TERM"] or environ["TERM"] in ("rxvt", "konsole", "xterm", "xterm-new")):
                     ansi_settings = "16color"
                 if ("88color" in environ["TERM"]):
                     ansi_settings = "88color"
