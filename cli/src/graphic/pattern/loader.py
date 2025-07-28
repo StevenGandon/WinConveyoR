@@ -16,7 +16,8 @@ STANDARD_PRIORITY = (
     "truecolor",
     "256color",
     "16color",
-    "colorless"
+    "colorless",
+    "noansi"
 )
 
 class PatternLoader(object):
@@ -86,10 +87,10 @@ class PatternLoader(object):
 
                     for data in pattern:
                         if (data.tag == "value"):
-                            pattern_str = data.text
+                            pattern_str = data.text.replace('\\ESC', "\x1b")
                         if (data.tag == "const"):
                             for const in data:
-                                pattern_const[const.tag] = const.text
+                                pattern_const[const.tag] = const.text.replace('\\ESC', "\x1b")
 
                     compiled_pattern.add_pattern(pattern_str, charset, pattern_type, pattern_const, include_higher == "true")
 

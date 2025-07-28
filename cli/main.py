@@ -59,7 +59,7 @@ Exemples:
 
     def download_package(self):
         P = PatternLoader("assets/cli/graphic/patterns/pattern_loading.xml")
-        P.deploy("allansi", "utf8", _globals=globals(), _locals=locals())
+        P.deploy("colorless", "ascii", _globals=globals(), _locals=locals())
         lb = LoadingBar(100, 0, 1)
         lb1 = LoadingBar(10, 0, 1)
         lb2 = LoadingBar(1000, 0, 1)

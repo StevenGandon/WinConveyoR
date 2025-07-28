@@ -79,11 +79,12 @@ class Graphic(object):
             else:
                 self._display.insert(item.allocated_pos, item.element.build())
 
-        self._prev_sz = list(map(len, self._display))
+        self._prev_sz = list(map(lambda x: len(self.remove_ansi(x)), self._display))
 
         strings += ('\n'.join(map(self._lex_string, self._display)))
 
         if (self._settings.mode == MODE_DISPLAY_NO_ANIMATION):
+            strings += '\n'
             self._display.clear()
         sys.stdout.write(strings)
         sys.stdout.flush()
