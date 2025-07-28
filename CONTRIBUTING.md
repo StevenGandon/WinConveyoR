@@ -36,7 +36,7 @@ To contribute on the project you must use this commit format to in your commit m
 
 ## Brief
 In your brief you should describe shortly what your prefixed actions have done.<br>
-ex: Add CONTRIBUTING.md to the project
+ex: \[ADD\] CONTRIBUTING.md to the project
 
 ## Description
 You can also add a description to your commit messages by adding a new line to your commit message
