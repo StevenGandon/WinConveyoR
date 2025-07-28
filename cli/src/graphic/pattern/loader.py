@@ -13,8 +13,8 @@ CHARSET_PRIORITY = (
 
 STANDARD_PRIORITY = (
     "allansi",
-    "truecolor",
     "256color",
+    "88color",
     "16color",
     "colorless",
     "noansi"
@@ -46,7 +46,6 @@ class PatternLoader(object):
                 if (compiled is None):
                     sys.stderr.write(f"no instance of pattern for {value.__qualname__} match current settings: {standard}, {charset}")
                     return
-                print(compiled.pattern_charset, compiled.pattern_standard)
                 value._pattern = compiled.pattern_str
                 value._const = compiled.consts.copy()
 

@@ -3,6 +3,7 @@ from itertools import chain
 from signal import SIGINT, SIGTERM, signal
 from traceback import format_exc
 from time import sleep
+from os import environ
 from pathlib import Path
 from locale import getpreferredencoding
 
@@ -37,8 +38,18 @@ class CLI(object):
             P.deploy("noansi", "ascii", _globals=globals(), _locals=locals())
             self._graphic = Graphic(GraphicSettings(False, False, mode=MODE_DISPLAY_NO_ANIMATION))
         else:
-            ansi_settings = "16color"
+            ansi_settings = "colorless"
             charset_settings = "utf8" if getpreferredencoding() == "UTF-8" else "ascii"
+
+            if ("TERM" in environ):
+                if (environ["TERM"] in ("dumb", "xterm-old")):
+                    ansi_settings = "noansi"
+                if ("16color" in environ["TERM"] or environ["TERM"] in ("rxvt", "konsole", "xterm", "xterm-new")):
+                    ansi_settings = "16color"
+                if ("88color" in environ["TERM"]):
+                    ansi_settings = "88color"
+                if ("256color" in environ["TERM"]):
+                    ansi_settings = "256color"
 
             if (self.has_arg("nocolor")):
                 ansi_settings = "colorless"
@@ -85,28 +96,28 @@ Exemples:
         return (0)
 
     def download_package(self):
-        lb = LoadingBar(100, 0, 1)
-        lb1 = LoadingBar(10, 0, 1)
-        lb2 = LoadingBar(1000, 0, 1)
-        lb3 = LoadingBar(75, 0, 1)
-        lb4 = LoadingBar(50, 0, 1)
-        self._graphic.add_elements(lb)
-        self._graphic.add_elements(lb1)
-        self._graphic.add_elements(lb2)
-        self._graphic.add_elements(lb3)
-        self._graphic.add_elements(lb4)
-        for i in range(1, 100):
-            if (not self.running):
-                return (1)
-            lb.push(f"item_{i}")
-            lb1.push(f"item_{i}")
-            lb2.push(f"item_{i}")
-            lb3.push(f"item_{i}")
-            lb4.push(f"item_{i}")
-            self._graphic.update()
-            self._graphic.draw()
-            sleep(0.1)
-        #self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
+        # lb = LoadingBar(100, 0, 1)
+        # lb1 = LoadingBar(10, 0, 1)
+        # lb2 = LoadingBar(1000, 0, 1)
+        # lb3 = LoadingBar(75, 0, 1)
+        # lb4 = LoadingBar(50, 0, 1)
+        # self._graphic.add_elements(lb)
+        # self._graphic.add_elements(lb1)
+        # self._graphic.add_elements(lb2)
+        # self._graphic.add_elements(lb3)
+        # self._graphic.add_elements(lb4)
+        # for i in range(1, 100):
+        #     if (not self.running):
+        #         return (1)
+        #     lb.push(f"item_{i}")
+        #     lb1.push(f"item_{i}")
+        #     lb2.push(f"item_{i}")
+        #     lb3.push(f"item_{i}")
+        #     lb4.push(f"item_{i}")
+        #     self._graphic.update()
+        #     self._graphic.draw()
+        #     sleep(0.1)
+        self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
     def run(self) -> int:
