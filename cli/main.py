@@ -4,6 +4,7 @@ from signal import SIGINT, SIGTERM, signal
 from traceback import format_exc
 from time import sleep
 from pathlib import Path
+from locale import getpreferredencoding
 
 from src import *
 
@@ -12,7 +13,10 @@ import sys
 class CLI(object):
     OPTION_TABLE = {
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
-        "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()}
+        "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
+        "nocolor": {"opt": ("--no-color", "-ncolor")},
+        "noansi": {"opt": ("--no-ansi", "-nansi")},
+        "ascii": {"opt": ("--ascii", "-ascii")}
     }
 
     def __init__(self):
@@ -21,15 +25,30 @@ class CLI(object):
         self.wcr = None
         self.running: bool = True
 
+        self.patterns = P = PatternLoader("assets/cli/graphic/patterns/pattern_loading.xml")
+
         self._set_argument_setting()
         self._parse_arguments()
 
         signal(SIGINT, lambda *args, **kwargs: self.close())
         signal(SIGTERM, lambda *args, **kwargs: self.close())
 
-        if (not sys.stdout.isatty()):
+        if (hasattr(sys.stdout, 'isatty') and not sys.stdout.isatty()):
+            P.deploy("noansi", "ascii", _globals=globals(), _locals=locals())
             self._graphic = Graphic(GraphicSettings(False, False, mode=MODE_DISPLAY_NO_ANIMATION))
-        self._graphic = Graphic(GraphicSettings(True, True, mode=MODE_DISPLAY_SIMPLE))
+        else:
+            ansi_settings = "16color"
+            charset_settings = "utf8" if getpreferredencoding() == "UTF-8" else "ascii"
+
+            if (self.has_arg("nocolor")):
+                ansi_settings = "colorless"
+            if (self.has_arg("noansi")):
+                ansi_settings = "noansi"
+            if (self.has_arg("ascii")):
+                charset_settings = "ascii"
+
+            P.deploy(ansi_settings, charset_settings, _globals=globals(), _locals=locals())
+            self._graphic = Graphic(GraphicSettings(ansi_settings != "noansi", ansi_settings not in ("colorless", "noansi"), mode=MODE_DISPLAY_SIMPLE if ansi_settings != "noansi" else MODE_DISPLAY_NO_ANIMATION))
 
     def _parse_arguments(self) -> int:
         try:
@@ -46,20 +65,26 @@ class CLI(object):
 
         self.argsettings.validate()
 
+    def has_arg(self, arg: str):
+        if (arg not in CLI.OPTION_TABLE):
+            return (False)
+        return (any(map(lambda x: x in self.argparser.options, CLI.OPTION_TABLE[arg]["opt"])))
+
     def show_help(self):
-        sys.stdout.write(f"""Usage: {sys.argv[0]} <-d|-h> [options] [arguments]
+        sys.stdout.write(f"""Usage: {sys.argv[0]} <-d|-h|...> [options] [arguments]
 
 Options:
   > {', '.join(CLI.OPTION_TABLE['help']['opt'])}\tDisplay this help message
   > {', '.join(CLI.OPTION_TABLE['download']['opt'])}\tDownload a package
+  > {', '.join(CLI.OPTION_TABLE['nocolor']['opt'])}\t\tDisable color rendering
+  > {', '.join(CLI.OPTION_TABLE['noansi']['opt'])}\t\tDisable ansi rendering
+  > {', '.join(CLI.OPTION_TABLE['ascii']['opt'])}\t\tRendering only in ascii
 
 Exemples:
 """)
         return (0)
 
     def download_package(self):
-        P = PatternLoader("assets/cli/graphic/patterns/pattern_loading.xml")
-        P.deploy("colorless", "ascii", _globals=globals(), _locals=locals())
         lb = LoadingBar(100, 0, 1)
         lb1 = LoadingBar(10, 0, 1)
         lb2 = LoadingBar(1000, 0, 1)
@@ -88,10 +113,10 @@ Exemples:
         if (not self.wcr):
             self.wcr = WCRState()
 
-        if (any(map(lambda x: x in self.argparser.options, CLI.OPTION_TABLE["help"]["opt"]))):
+        if (self.has_arg("help")):
             return self.show_help()
 
-        if (any(map(lambda x: x in self.argparser.options, CLI.OPTION_TABLE["download"]["opt"]))):
+        if (self.has_arg("download")):
             return self.download_package()
 
         sys.stderr.write(f"{sys.argv[0]}: no operation specified (use -h for help).\n")
