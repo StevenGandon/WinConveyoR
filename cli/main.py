@@ -3,6 +3,7 @@ from itertools import chain
 from signal import SIGINT, SIGTERM, signal
 from traceback import format_exc
 from time import sleep
+from os import environ
 from pathlib import Path
 from locale import getpreferredencoding
 
@@ -37,8 +38,18 @@ class CLI(object):
             P.deploy("noansi", "ascii", _globals=globals(), _locals=locals())
             self._graphic = Graphic(GraphicSettings(False, False, mode=MODE_DISPLAY_NO_ANIMATION))
         else:
-            ansi_settings = "16color"
+            ansi_settings = "colorless"
             charset_settings = "utf8" if getpreferredencoding() == "UTF-8" else "ascii"
+
+            if ("TERM" in environ):
+                if (environ["TERM"] in ("dumb", "xterm-old")):
+                    ansi_settings = "noansi"
+                if ("16color" in environ["TERM"] or environ["TERM"] in ("xterm", "xterm-new")):
+                    ansi_settings = "16color"
+                if ("88color" in environ["TERM"]):
+                    ansi_settings = "88color"
+                if ("256color" in environ["TERM"]):
+                    ansi_settings = "256color"
 
             if (self.has_arg("nocolor")):
                 ansi_settings = "colorless"
