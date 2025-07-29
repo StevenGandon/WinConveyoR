@@ -175,11 +175,11 @@ jobs:
           rm -rf build || true
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
             cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
-            cmake --build build --config Release
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-            cmake --build build
           fi
+
+          cmake --build build --config Release
 
       - name: Build executable
         shell: bash
