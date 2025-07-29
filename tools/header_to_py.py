@@ -1,78 +1,23 @@
 from sys import exit, argv
 from genericpath import isfile
-from os import access, O_RDONLY
+from os import access, O_RDONLY, environ
+from os.path import join
 from re import compile as compile_regex
 from re import RegexFlag, sub
 from enum import Enum
+from pathlib import Path
+from xml.etree import ElementTree
 import sys
 
-EXPORT_CONST_PYTHON = """from ctypes import Structure, POINTER, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t, c_ssize_t
-from ctypes import c_byte as c_char
-from ctypes import c_ubyte as c_uchar
-from enum import Enum
-from sys import platform
+environ["TOOL_ROOT"] = str(Path(__file__).parent)
 
-from ..dllloader import DLLoader, find_dll
+EXPORT_CONST_PYTHON = """"""
 
-# ==== Enums ==== #
+EXPORT_ENUM_CONST_PYTHON = """"""
 
-$mapped_enums$
+EXPORT_STRUCT_CONST_PYTHON = """"""
 
-# ==== Structs ==== #
-
-$mapped_structs$
-
-# ==== Interfaces ==== #
-
-class Mapper(object):
-    def __init__(self, path: str = f"libwconr.{'dll' if platform.startswith('win') else ('dylib' if platform.startswith('darwin') else 'so')}") -> None:
-        self.inited: bool = False
-        self.base_dll_path: str = path
-        self.dll_location: str = None
-        self._dll: DLLoader = None
-
-    def __del__(self):
-        self.inited = False
-
-        del self._dll
-
-        self._dll = None
-
-    def init_mapper(self):
-        self.dll_location: str = self.base_dll_path # find_dll(self.base_dll_path, 'nt' if platform.startswith("win") else 'posix')
-
-        if (not self.dll_location):
-            raise OSError(f"DLL {self.base_dll_path} not found in any $PATH or registered path via `add_dll_registry_path` nor cwd and cwd/lib.")
-
-        self._dll: DLLoader = DLLoader(self.dll_location)
-        self.inited: bool = True
-
-        self.map_functions()
-
-    def call_function(self, name: str,  *args):
-        if (not self.inited):
-            self.init_mapper()
-
-        return self._dll.call_function(name, *args)
-
-    def map_functions(self) -> None:
-        if (not self._dll):
-            self.init_mapper()
-$mapped_functions$"""
-
-EXPORT_ENUM_CONST_PYTHON = """class $name$(Enum):
-$arguments$
-"""
-
-EXPORT_STRUCT_CONST_PYTHON = """class $name$(Structure):
-    pass
-
-$name$._fields_ = [
-$fields$
-]
-"""
-
-EXPORT_SYMBOL_CONST_PYTHON = """        self._dll.register_function("$name$", $return_type$$arguments$)"""
+EXPORT_SYMBOL_CONST_PYTHON = """"""
 
 class Token(object):
     regex = None
@@ -238,17 +183,126 @@ class PythonConverter(Converter):
 
         return (export)
 
+class GenericConverter(Converter):
+    def __init__(self, header_file, langpack_file):
+        super().__init__(header_file)
+
+        self.schemas = {}
+        self.build_rules = {"env": None, "builds": {}}
+        self.type_conversion = None
+
+        try:
+            ET = ElementTree.parse(langpack_file)
+        except Exception as e:
+            raise RuntimeError(f"Failed to parse langpack {langpack_file}: {e}.")
+
+        root = ET.getroot()
+
+        if (root.tag != "converter"):
+            raise (RuntimeError(f"Invalid root tag name '{root.tag}', expected: 'converter'."))
+
+        schema = None
+        build = None
+        type_conversion = None
+
+        for item in root:
+            if (item.tag == "schemas"):
+                schema = item
+            if (item.tag == "build"):
+                build = item
+            if (item.tag == "type-conversion"):
+                type_conversion = item
+
+        for scheme in schema:
+            if (scheme.attrib.get("type", "ukn") == "file"):
+                if ("for" not in scheme.attrib):
+                    continue
+                text = scheme.text.replace('\r', '').replace('\n', '').strip()
+
+                for item in environ:
+                    text = text.replace("${" + str(item) + "}", environ[item])
+
+                with open(text, 'r') as fp:
+                    self.schemas[scheme.attrib.get("for")] = fp.read()
+
+        if (type_conversion.attrib.get("strategy", "ukn") == "code"):
+            self.type_conversion = compile(f"""def _type_conversion_wrapper(type_value):\n{'\n'.join(map(lambda x: '  ' + x, type_conversion.text.split('\n')))}\nreturn_value = _type_conversion_wrapper(type_value)\n""", "type_conversion", "exec", 0)
+
+        def build_builder(item):
+            if (item.attrib.get("strategy", "ukn") == "code"):
+                return f"""def build():\n{'\n'.join(map(lambda x: '  ' + x, item[0].text.split('\n')))}\nreturn_value = build()"""
+            if (item.attrib.get("strategy", "ukn") == "replace"):
+                return f"""def replacer(schema):\n{'\n'.join(f"  schema = schema.replace('{replace.attrib.get('name', '')}', {replace.text})" for replace in item)}\n  return (schema)\nreturn_value = replacer(schema)"""
+
+        for item in build:
+            if (item.attrib.get("type", "ukn") == "build"):
+                self.build_rules["builds"][item.tag] = build_builder(item)
+            if (item.attrib.get("type", "ukn") == "env"):
+                self.build_rules["env"] = (item.tag, build_builder(item))
+
+    def _type_to_ctype(self, type_value: TypeValue):
+        _globals = globals()
+        _locals = locals()
+        _locals["return_value"] = None
+
+        if (self.type_conversion is None):
+            return (_locals["return_value"])
+
+        exec(self.type_conversion, globals=_globals, locals=_locals)
+
+        return (_locals["return_value"])
+
+    def convert(self) -> str:
+        _globals = globals()
+        _locals = locals()
+        _globals["enums"] = self.header_file.enums
+        _globals["structs"] = self.header_file.structs
+        _globals["symbols"] = self.header_file.symbols
+        _globals["_type_to_ctype"] = self._type_to_ctype
+
+        for item in self.build_rules["builds"]:
+            _globals["schema"] = None
+
+            if (item in self.schemas):
+                _globals["schema"] = self.schemas[item]
+
+            _locals["return_value"] = None
+
+            exec(self.build_rules["builds"][item], globals=_globals, locals=_locals)
+
+            _globals[item] = _locals["return_value"]
+
+        if (not self.build_rules["env"]):
+            return ('')
+
+        _globals["schema"] = None
+        _locals["return_value"] = None
+
+        if (self.build_rules["env"][0] in self.schemas):
+            _globals["schema"] = self.schemas[self.build_rules["env"][0]]
+
+        exec(self.build_rules["env"][1], globals=_globals, locals=_locals)
+        return (_locals["return_value"])
+
 def main() -> int:
     if (len(argv) < 2):
         sys.stderr.write(argv[0] + ": missing header file path.\n")
         return (1)
 
-    if (len(argv) > 2):
+    if (len(argv) < 3):
+        sys.stderr.write(argv[0] + ": missing langpack name.\n")
+        return (1)
+
+    if (len(argv) > 3):
         sys.stderr.write(argv[0] + ": too many arguments.\n")
         return (1)
 
     if (not isfile(argv[1])):
         sys.stderr.write(argv[0] + f": {argv[1]}: file not found.\n")
+        return (1)
+
+    if (not isfile(join(environ["TOOL_ROOT"], "langpacks", argv[2], "converter.xml"))):
+        sys.stderr.write(argv[0] + f": {argv[2]}: langpack not found.\n")
         return (1)
 
     if (not access(argv[1], O_RDONLY)):
@@ -258,7 +312,7 @@ def main() -> int:
     with open(argv[1], 'r') as fp:
         hf: HeaderFile = HeaderFile(fp)
 
-    print(PythonConverter(hf).convert())
+    print(GenericConverter(hf, join(environ["TOOL_ROOT"], "langpacks", argv[2], "converter.xml")).convert())
 
     return (0)
 
