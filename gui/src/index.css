@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background-primary: #ffffff;
+    --background-secondary: #f3f4f6;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+  }
+
+  :root[class~="dark"] {
+    --background-primary: #111827;
+    --background-secondary: #1f2937;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+  }
+}
+
+.drag {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+.reduce-motion * {
+  transition-duration: 0.05s !important;
+  animation-duration: 0.05s !important;
+}
+
+.high-contrast {
+  --bg-opacity: 1;
+  --text-opacity: 1;
+}
+
+.high-contrast.dark {
+  --bg-color: #000;
+  --text-color: #fff;
+  --border-color: #fff;
+}
+
+.high-contrast.light {
+  --bg-color: #fff;
+  --text-color: #000;
+  --border-color: #000;
+}
+
+.high-contrast.dark body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.high-contrast.light body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.high-contrast button,
+.high-contrast a {
+  border: 2px solid var(--border-color);
+}
+
+.high-contrast :focus {
+  outline: 3px solid yellow !important;
+  outline-offset: 2px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+.half-star {
+  position: relative;
+  overflow: hidden;
+  width: 50%;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #3b82f6;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
