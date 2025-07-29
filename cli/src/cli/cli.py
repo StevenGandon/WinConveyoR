@@ -7,6 +7,7 @@ from time import sleep
 from ..arghandler import *
 from ..wrappers import *
 from ..graphic import *
+from ..packaging import resource_path
 
 class CLI(object):
     OPTION_TABLE: dict = {
@@ -29,7 +30,7 @@ class CLI(object):
         self.running: bool = True
 
         self.patterns = [
-            PatternLoader("assets/cli/graphic/patterns/pattern_loading.xml")
+            PatternLoader(resource_path("assets/cli/graphic/patterns/pattern_loading.xml"))
         ]
 
         self._set_argument_setting()

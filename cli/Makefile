@@ -2,7 +2,7 @@ SRC			= main.py
 
 NAME		= 	wcr
 PYINSTALLER	?=	pyinstaller
-PYFLAGS		+=	-c -F
+PYFLAGS		+=	-c -F --add-data "../assets/cli:./assets/cli"
 ICON		?=	""
 
 ifneq ($(ICON), "")
@@ -32,7 +32,7 @@ endif
 
 
 all:
-	mkdir ./build
+	mkdir -p ./build
 	cp $(LIBRARY) ./build/
 	$(PYINSTALLER) $(SRC) $(PYFLAGS) -n $(NAME) -y
 
