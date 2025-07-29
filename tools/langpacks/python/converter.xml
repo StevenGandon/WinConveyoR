@@ -1,0 +1,60 @@
+<converter>
+    <schemas>
+        <schema type="file" for="base">
+            ${TOOL_ROOT}/langpacks/python/_base
+        </schema>
+
+        <schema type="file" for="enum">
+            ${TOOL_ROOT}/langpacks/python/_enum
+        </schema>
+
+        <schema type="file" for="struct">
+            ${TOOL_ROOT}/langpacks/python/_struct
+        </schema>
+
+        <schema type="file" for="symbol">
+            ${TOOL_ROOT}/langpacks/python/_symbol
+        </schema>
+    </schemas>
+
+    <type-conversion strategy="code">
+        if (type_value.type_name == "void"):
+            ctype = "None"
+        elif (type_value.type_name.startswith("struct ")):
+            ctype = type_value.type_name.split("struct ")[1]
+        elif (("c_" + ('u' if type_value.signed == False else '') + type_value.type_name) in ("c_char", "c_uchar", "c_short", "c_ushort", "c_int", "c_uint", "c_long", "c_ulong", "c_double", "c_float", "c_size_t", "c_ssize_t")):
+            ctype = "c_" + ('u' if type_value.signed == False else '') + (type_value.type_name if type_value.type_name else "int")
+        else:
+            ctype = "None"
+
+        for _ in range(type_value.ptr_count):
+            ctype = 'POINTER(' + ctype + ')'
+
+        return (ctype)
+    </type-conversion>
+
+    <build>
+        <enum type="build" strategy="code">
+            <code>
+                return '\n'.join(map(lambda item: schema.replace("$name$", item.name).replace("$arguments$", '\n'.join(map(lambda x: f'    {x[0]} = {x[1]}', item.values))), enums))
+            </code>
+        </enum>
+        <struct type="build" strategy="code">
+            <code>
+                return '\n'.join(map(lambda item: schema.replace("$name$", item.name).replace("$fields$", ',\n'.join(map(lambda x: f'    ("{x.name}", {_type_to_ctype(x)})', item.fields))), structs))
+            </code>
+        </struct>
+
+        <symbol type="build" strategy="code">
+            <code>
+                return '\n'.join(map(lambda item: schema.replace("$name$", item.name).replace("$return_type$", _type_to_ctype(item.return_value)).replace("$arguments$", (', ' if tuple(filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)) else '') + ', '.join(map(_type_to_ctype, filter(lambda x: x.type_name != "void" or x.ptr_count > 0, item.arguments)))), symbols))
+            </code>
+        </symbol>
+
+        <base type="env" strategy="replace">
+            <item name="$mapped_enums$">enum</item>
+            <item name="$mapped_structs$">struct</item>
+            <item name="$mapped_functions$">symbol</item>
+        </base>
+    </build>
+</converter>
