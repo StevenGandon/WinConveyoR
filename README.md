@@ -49,7 +49,7 @@ Please adhere to this project's `code of conduct`.
   chmod +x ./compile_linux.sh
   ./compile_linux.sh
   cp ./cli/dist/wcr /usr/bin/
-  cp ./lib/libwconr/libwconr.so /usr/lib/
+  cp ./lib/libwconr/build/libwconr.so /usr/lib/
   ```
 
 #### For windows :
