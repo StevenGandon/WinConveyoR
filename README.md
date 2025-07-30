@@ -58,3 +58,17 @@ Please adhere to this project's `code of conduct`.
   ```bash
   Download https://github.com/StevenGandon/WinConveyoR/releases/download/main/release_windows.zip
   ```
+
+## Using the REST API
+
+> The API is a FastAPI service that comes with WinConveyoR.  
+> It exposes CRUD operations on each database table (starting with **Users**) and
+> is protected by a built‑in rate‑limiter.
+
+### 1 · Start the server
+
+```bash
+# <repo‑root>  (same level as the `api/` or `app/` package)
+python -m uvicorn api.main:app --reload       # dev‑mode, auto‑reload
+# or choose a port:
+python -m uvicorn api.main:app --reload --port 8080
