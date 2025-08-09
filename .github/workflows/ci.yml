@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+env:
+  BINARIES_POSIX: "./cli/dist/wcr ./lib/libwconr/build/libwconr.so"
+  BINARIES_NT: "./cli/dist/wcr.exe ./lib/libwconr/build/Release/libwconr.dll"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            suffix: ubuntu
+          - os: macos-latest
+            suffix: mac
+          - os: windows-latest
+            suffix: windows
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build_project
+      - name: Package
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            powershell.exe -Command "Compress-Archive -Path $BINARIES_NT -DestinationPath release_${{ matrix.suffix }}.zip"
+          else
+            bins=$BINARIES_POSIX
+            if [ "$RUNNER_OS" = "macOS" ]; then
+              bins=$(echo $bins | sed 's/\\.so/\\.dylib/')
+            fi
+            zip -j release_${{ matrix.suffix }}.zip $bins
+          fi
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.suffix }}
+          path: release_${{ matrix.suffix }}.zip
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: dist/**/*.zip
