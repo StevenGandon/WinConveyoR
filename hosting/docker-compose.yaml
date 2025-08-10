@@ -1,0 +1,19 @@
+version: '3'
+
+volumes:
+  mirror-data:
+    driver: local
+    driver_opts:
+        o: bind
+        type: none
+        device: ./mirror-server
+
+services:
+  mirror:
+    volumes:
+      - mirror-data:/mnt/mirror
+    build:
+      context: mirror-server
+    ports:
+      - "${MIRROR_PORT}:80"
+    restart: on-failure
