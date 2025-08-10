@@ -8,6 +8,7 @@ import DiscoverPage from './pages/DiscoverPage';
 import InstalledPage from './pages/InstalledPage';
 import UpdatesPage from './pages/UpdatesPage';
 import SettingsPage from './pages/SettingsPage';
+import TestPage from './pages/TestPage';
 
 function App() {
   const [activePage, setActivePage] = useState('home');
@@ -40,6 +41,8 @@ function App() {
         return <UpdatesPage />;
       case 'settings':
         return <SettingsPage />;
+      case 'test':
+        return <TestPage />;
       default:
         return <HomePage />;
     }

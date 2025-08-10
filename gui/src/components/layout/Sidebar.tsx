@@ -91,6 +91,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
             count={updatablePackages.length}
             onClick={() => onNavigate('updates')}
           />
+          <SidebarItem
+            icon={<Settings size={18} />}
+            label="Calculator"
+            isActive={activePage === 'test'}
+            onClick={() => onNavigate('test')}
+          />
         </SidebarSection>
         
         <SidebarSection title="Categories">
