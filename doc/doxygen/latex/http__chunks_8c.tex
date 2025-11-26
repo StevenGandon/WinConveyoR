@@ -1,0 +1,76 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/http\+\_\+chunks.c File Reference}
+\hypertarget{http__chunks_8c}{}\label{http__chunks_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/http\_chunks.c@{lib/libwconr/build/\_deps/curl-\/src/lib/http\_chunks.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}dynbuf.\+h"{}}\newline
+{\ttfamily \#include "{}content\+\_\+encoding.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{http__chunks_8c_a7f70d13e32742823f120d09217be1628}{isxdigit\+\_\+ascii}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{http__chunks_8c_aa0844ca026f71fe294dc08d98288b4bf}{Curl\+\_\+httpchunk\+\_\+init}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} \mbox{\hyperlink{http__chunks_8c_a7cdfc99aa786b9e425800d37e4741e2b}{Curl\+\_\+httpchunk\+\_\+read}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}datap, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} datalen, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}wrote, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \texorpdfstring{$\ast$}{*}extrap)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__chunks_8c_a5c9e04b68f8b1184732cff74134a3dde}{Curl\+\_\+chunked\+\_\+strerror}} (\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} code)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{http__chunks_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{http__chunks_8c_a7f70d13e32742823f120d09217be1628}\index{http\_chunks.c@{http\_chunks.c}!isxdigit\_ascii@{isxdigit\_ascii}}
+\index{isxdigit\_ascii@{isxdigit\_ascii}!http\_chunks.c@{http\_chunks.c}}
+\doxysubsubsection{\texorpdfstring{isxdigit\_ascii}{isxdigit\_ascii}}
+{\footnotesize\ttfamily \label{http__chunks_8c_a7f70d13e32742823f120d09217be1628} 
+\#define isxdigit\+\_\+ascii(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_isxdigit(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{http__chunks_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{http__chunks_8c_a5c9e04b68f8b1184732cff74134a3dde}\index{http\_chunks.c@{http\_chunks.c}!Curl\_chunked\_strerror@{Curl\_chunked\_strerror}}
+\index{Curl\_chunked\_strerror@{Curl\_chunked\_strerror}!http\_chunks.c@{http\_chunks.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_chunked\_strerror()}{Curl\_chunked\_strerror()}}
+{\footnotesize\ttfamily \label{http__chunks_8c_a5c9e04b68f8b1184732cff74134a3dde} 
+const char \texorpdfstring{$\ast$}{*} Curl\+\_\+chunked\+\_\+strerror (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}}}]{code}{}\end{DoxyParamCaption})}
+
+\Hypertarget{http__chunks_8c_aa0844ca026f71fe294dc08d98288b4bf}\index{http\_chunks.c@{http\_chunks.c}!Curl\_httpchunk\_init@{Curl\_httpchunk\_init}}
+\index{Curl\_httpchunk\_init@{Curl\_httpchunk\_init}!http\_chunks.c@{http\_chunks.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_httpchunk\_init()}{Curl\_httpchunk\_init()}}
+{\footnotesize\ttfamily \label{http__chunks_8c_aa0844ca026f71fe294dc08d98288b4bf} 
+void Curl\+\_\+httpchunk\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{http__chunks_8c_a7cdfc99aa786b9e425800d37e4741e2b}\index{http\_chunks.c@{http\_chunks.c}!Curl\_httpchunk\_read@{Curl\_httpchunk\_read}}
+\index{Curl\_httpchunk\_read@{Curl\_httpchunk\_read}!http\_chunks.c@{http\_chunks.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_httpchunk\_read()}{Curl\_httpchunk\_read()}}
+{\footnotesize\ttfamily \label{http__chunks_8c_a7cdfc99aa786b9e425800d37e4741e2b} 
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} Curl\+\_\+httpchunk\+\_\+read (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{datap}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}}}]{datalen}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{wrote}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \texorpdfstring{$\ast$}{*}}]{extrap}{}\end{DoxyParamCaption})}
+

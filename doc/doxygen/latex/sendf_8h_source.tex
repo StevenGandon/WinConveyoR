@@ -1,0 +1,80 @@
+\doxysection{sendf.\+h}
+\hypertarget{sendf_8h_source}{}\label{sendf_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/sendf.h@{lib/libwconr/build/\_deps/curl-\/src/lib/sendf.h}}
+\mbox{\hyperlink{sendf_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SENDF\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SENDF\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sendf_8h_ad75efcaf78e18856d344d00236f7d7c9}{Curl\_infof}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sendf_8h_ace8ceeb65de7d6488c0b89986714495d}{Curl\_failf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#if\ defined(CURL\_DISABLE\_VERBOSE\_STRINGS)}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#if\ defined(HAVE\_VARIADIC\_MACROS\_C99)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ infof(...)\ \ Curl\_nop\_stmt}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_VARIADIC\_MACROS\_GCC)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ infof(x...)\ \ Curl\_nop\_stmt}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#error\ "{}missing\ VARIADIC\ macro\ define,\ fix\ and\ rebuild!"{}}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ CURL\_DISABLE\_VERBOSE\_STRINGS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ infof\ Curl\_infof}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURL\_DISABLE\_VERBOSE\_STRINGS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ failf\ Curl\_failf}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_BODY\ \ \ \ (1<<0)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_HEADER\ \ (1<<1)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_STATUS\ \ (1<<2)\ }\textcolor{comment}{/*\ the\ first\ "{}header"{}\ is\ the\ status\ line\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_CONNECT\ (1<<3)\ }\textcolor{comment}{/*\ a\ CONNECT\ response\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_1XX\ \ \ \ \ (1<<4)\ }\textcolor{comment}{/*\ a\ 1xx\ response\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_TRAILER\ (1<<5)\ }\textcolor{comment}{/*\ a\ trailer\ header\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ CLIENTWRITE\_BOTH\ \ \ (CLIENTWRITE\_BODY|CLIENTWRITE\_HEADER)}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{sendf_8h_ad531e6a94d038da9014117dc8504d921}{Curl\_client\_write}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}},\ \textcolor{keywordtype}{char}\ *ptr,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})\ \mbox{\hyperlink{curl__setup_8h_a4e0e2d9e1ee0f401844b5b6ff8338f82}{WARN\_UNUSED\_RESULT}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{sendf_8h_ac5f656c8c1aa885278c911c289036ac1}{Curl\_recv\_has\_postponed\_data}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ internal\ read-\/function,\ does\ plain\ socket\ only\ */}}
+\DoxyCodeLine{00064\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{sendf_8h_a00c49d227c9a5f1b8f1df9e8c7204102}{Curl\_read\_plain}}(\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *buf,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bytesfromsocket,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ *\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}});}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ \mbox{\hyperlink{sendf_8h_a07a2ecabdb760ed44eaa51dfa541fd1e}{Curl\_recv\_plain}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ num,\ \textcolor{keywordtype}{char}\ *buf,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ *code);}
+\DoxyCodeLine{00071\ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ \mbox{\hyperlink{sendf_8h_a7c5f9b524db6efd014fe5de9813bd0a2}{Curl\_send\_plain}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ num,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mem,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ *code);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ internal\ read-\/function,\ does\ plain\ socket,\ SSL\ and\ krb4\ */}}
+\DoxyCodeLine{00075\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{sendf_8h_a036eef5322204ce0710aa357b70c567a}{Curl\_read}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ buffersize,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ *\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}});}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{/*\ internal\ write-\/function,\ does\ plain\ socket,\ SSL,\ SCP,\ SFTP\ and\ krb4\ */}}
+\DoxyCodeLine{00080\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{sendf_8h_a18d015a36ca9b62f36ce0269c57fc19b}{Curl\_write}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mem,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ *\mbox{\hyperlink{url_8d_aa47b467ef15452111799276075ef6b69}{written}});}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{/*\ internal\ write-\/function,\ does\ plain\ sockets\ ONLY\ */}}
+\DoxyCodeLine{00086\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{sendf_8h_a2957fe274b11ea4ffe0b03ac23cdd56b}{Curl\_write\_plain}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mem,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ *\mbox{\hyperlink{url_8d_aa47b467ef15452111799276075ef6b69}{written}});}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{/*\ the\ function\ used\ to\ output\ verbose\ information\ */}}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sendf_8h_a5cd197f8ea7563c325893199d9cb8c41}{Curl\_debug}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \mbox{\hyperlink{curl_8h_a9704d2633927f77efaa3e3c6f1c23a14}{curl\_infotype}}\ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}},}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}});}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SENDF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

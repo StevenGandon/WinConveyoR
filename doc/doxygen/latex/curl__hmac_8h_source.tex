@@ -1,0 +1,60 @@
+\doxysection{curl\+\_\+hmac.\+h}
+\hypertarget{curl__hmac_8h_source}{}\label{curl__hmac_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_hmac.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_hmac.h}}
+\mbox{\hyperlink{curl__hmac_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HMAC\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HMAC\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_CRYPTO\_AUTH}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ HMAC\_MD5\_LENGTH\ 16}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\ \mbox{\hyperlink{curl__hmac_8h_a442ffb00191ca08f02ab569965dcf381}{HMAC\_hinit\_func}})(\textcolor{keywordtype}{void}\ *context);}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ void\ \ \ \ (*\ \mbox{\hyperlink{curl__hmac_8h_ad3b46e7edcae05cf9735a72e2c9c6807}{HMAC\_hupdate\_func}})(\textcolor{keywordtype}{void}\ *context,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ void\ \ \ \ (*\ \mbox{\hyperlink{curl__hmac_8h_aee43f5f0d23d90b7ccb3426cb925385e}{HMAC\_hfinal\_func}})(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *result,\ \textcolor{keywordtype}{void}\ *context);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ Per-\/hash\ function\ HMAC\ parameters.\ */}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHMAC__params}{HMAC\_params}}\ \{}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{curl__hmac_8h_a442ffb00191ca08f02ab569965dcf381}{HMAC\_hinit\_func}}}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{structHMAC__params_a3c8a2e44bfb51e036a23f6c5e00f6f6e}{hmac\_hinit}};\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ context\ procedure.\ */}}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{curl__hmac_8h_ad3b46e7edcae05cf9735a72e2c9c6807}{HMAC\_hupdate\_func}}\ \ \ \ \ \mbox{\hyperlink{structHMAC__params_a66e3e268c861a69aed0ad85d0bde7ea3}{hmac\_hupdate}};\ \ \ \textcolor{comment}{/*\ Update\ context\ with\ data.\ */}}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{curl__hmac_8h_aee43f5f0d23d90b7ccb3426cb925385e}{HMAC\_hfinal\_func}}\ \ \ \ \ \ \mbox{\hyperlink{structHMAC__params_aebb56734ecc8c349ea28a4819567ca1f}{hmac\_hfinal}};\ \ \ \ \textcolor{comment}{/*\ Get\ final\ result\ procedure.\ */}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structHMAC__params_a833b15fb4a5e6e70e808c4220a446777}{hmac\_ctxtsize}};\ \ \textcolor{comment}{/*\ Context\ structure\ size.\ */}}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structHMAC__params_ada087dd32e05fa6859ce90e99d6cc933}{hmac\_maxkeylen}};\ \textcolor{comment}{/*\ Maximum\ key\ length\ (bytes).\ */}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structHMAC__params_a94240cab5a37b79e38036d315bc97da8}{hmac\_resultlen}};\ \textcolor{comment}{/*\ Result\ length\ (bytes).\ */}}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ HMAC\ computation\ context.\ */}}
+\DoxyCodeLine{00053\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHMAC__context}{HMAC\_context}}\ \{}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHMAC__params}{HMAC\_params}}\ *\mbox{\hyperlink{structHMAC__context_a03f29bc4e7a98880484d8d4f75ef67ac}{hmac\_hash}};\ \textcolor{comment}{/*\ Hash\ function\ definition.\ */}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structHMAC__context_ac090061a9ffafe30ff266ee9bcd5e10f}{hmac\_hashctxt1}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Hash\ function\ context\ 1.\ */}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structHMAC__context_a77e1b28ce0b088c41a40ff9e541939b3}{hmac\_hashctxt2}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Hash\ function\ context\ 2.\ */}}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{/*\ Prototypes.\ */}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHMAC__context}{HMAC\_context}}\ *\mbox{\hyperlink{curl__hmac_8h_a465b589846428de0df5329cb020d03bd}{Curl\_HMAC\_init}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structHMAC__params}{HMAC\_params}}\ *hashparams,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ keylen);}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__hmac_8h_a2508d841bd002062603518fb8ad71e0e}{Curl\_HMAC\_update}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structHMAC__context}{HMAC\_context}}\ *context,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__hmac_8h_a0fec55486136ce871cf495a63628fa07}{Curl\_HMAC\_final}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structHMAC__context}{HMAC\_context}}\ *context,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *result);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__hmac_8h_adfce84704f99c4180eddbed042d1cd3e}{Curl\_hmacit}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structHMAC__params}{HMAC\_params}}\ *hashparams,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ keylen,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ datalen,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}});}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HMAC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

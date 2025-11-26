@@ -1,0 +1,410 @@
+\doxysection{gui/node\+\_\+modules/http2-\/wrapper Directory Reference}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331}{}\label{dir_cff45f17bc6ce1917a3fb146c8493331}\index{gui/node\_modules/http2-\/wrapper Directory Reference@{gui/node\_modules/http2-\/wrapper Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md931}{}\doxysubsection{\texorpdfstring{http2-\/wrapper}{http2-\/wrapper}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md931}
+\begin{quote}
+HTTP/2 client, just with the familiar {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}} API \end{quote}
+
+
+\href{https://github.com/szmarczak/http2-wrapper/actions}{\texttt{}} \href{https://codecov.io/gh/szmarczak/http2-wrapper}{\texttt{}} \href{https://www.npmjs.com/package/http2-wrapper}{\texttt{}} \href{https://packagephobia.now.sh/result?p=http2-wrapper}{\texttt{}}
+
+This package was created to support HTTP/2 without the need to rewrite your code.~\newline
+ I recommend adapting to the \href{https://nodejs.org/api/http2.html}{\texttt{{\ttfamily http2}}} module if possible -\/ it\textquotesingle{}s much simpler to use and has many cool features!
+
+{\bfseries{Tip}}\+: {\ttfamily http2-\/wrapper} is very useful when you rely on other modules that use the HTTP/1 API and you want to support HTTP/2.
+
+{\bfseries{Pro Tip}}\+: While the native {\ttfamily http2} doesn\textquotesingle{}t have agents yet, you can use {\ttfamily http2-\/wrapper} Agents and still operate on the native HTTP/2 streams.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md932}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md932}
+\begin{quote}
+{\ttfamily \$ npm install http2-\/wrapper}~\newline
+ {\ttfamily \$ yarn add http2-\/wrapper} \end{quote}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md933}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md933}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http2\ =\ require('http2-\/wrapper');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ options\ =\ \{}
+\DoxyCodeLine{\ \ \ \ hostname:\ 'nghttp2.org',}
+\DoxyCodeLine{\ \ \ \ protocol:\ 'https:',}
+\DoxyCodeLine{\ \ \ \ path:\ '/httpbin/post',}
+\DoxyCodeLine{\ \ \ \ method:\ 'POST',}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'content-\/length':\ 6}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ request\ =\ http2.request(options,\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ console.log('statusCode:',\ response.statusCode);}
+\DoxyCodeLine{\ \ \ \ console.log('headers:',\ response.headers);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ body\ =\ [];}
+\DoxyCodeLine{\ \ \ \ response.on('data',\ chunk\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ body.push(chunk);}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ response.on('end',\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log('body:',\ Buffer.concat(body).toString());}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{request.on('error',\ console.error);}
+\DoxyCodeLine{}
+\DoxyCodeLine{request.write('123');}
+\DoxyCodeLine{request.end('456');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ statusCode:\ 200}
+\DoxyCodeLine{//\ headers:\ [Object:\ null\ prototype]\ \{}
+\DoxyCodeLine{//\ \ \ ':status':\ 200,}
+\DoxyCodeLine{//\ \ \ date:\ 'Fri,\ 27\ Sep\ 2019\ 19:45:46\ GMT',}
+\DoxyCodeLine{//\ \ \ 'content-\/type':\ 'application/json',}
+\DoxyCodeLine{//\ \ \ 'access-\/control-\/allow-\/origin':\ '*',}
+\DoxyCodeLine{//\ \ \ 'access-\/control-\/allow-\/credentials':\ 'true',}
+\DoxyCodeLine{//\ \ \ 'content-\/length':\ '239',}
+\DoxyCodeLine{//\ \ \ 'x-\/backend-\/header-\/rtt':\ '0.002516',}
+\DoxyCodeLine{//\ \ \ 'strict-\/transport-\/security':\ 'max-\/age=31536000',}
+\DoxyCodeLine{//\ \ \ server:\ 'nghttpx',}
+\DoxyCodeLine{//\ \ \ via:\ '1.1\ nghttpx',}
+\DoxyCodeLine{//\ \ \ 'alt-\/svc':\ 'h3-\/23="{}:4433"{};\ ma=3600',}
+\DoxyCodeLine{//\ \ \ 'x-\/frame-\/options':\ 'SAMEORIGIN',}
+\DoxyCodeLine{//\ \ \ 'x-\/xss-\/protection':\ '1;\ mode=block',}
+\DoxyCodeLine{//\ \ \ 'x-\/content-\/type-\/options':\ 'nosniff'}
+\DoxyCodeLine{//\ \}}
+\DoxyCodeLine{//\ body:\ \{}
+\DoxyCodeLine{//\ \ \ "{}args"{}:\ \{\},}
+\DoxyCodeLine{//\ \ \ "{}data"{}:\ "{}123456"{},}
+\DoxyCodeLine{//\ \ \ "{}files"{}:\ \{\},}
+\DoxyCodeLine{//\ \ \ "{}form"{}:\ \{\},}
+\DoxyCodeLine{//\ \ \ "{}headers"{}:\ \{}
+\DoxyCodeLine{//\ \ \ \ \ "{}Content-\/Length"{}:\ "{}6"{},}
+\DoxyCodeLine{//\ \ \ \ \ "{}Host"{}:\ "{}nghttp2.org"{}}
+\DoxyCodeLine{//\ \ \ \},}
+\DoxyCodeLine{//\ \ \ "{}json"{}:\ 123456,}
+\DoxyCodeLine{//\ \ \ "{}origin"{}:\ "{}xxx.xxx.xxx.xxx"{},}
+\DoxyCodeLine{//\ \ \ "{}url"{}:\ "{}https://nghttp2.org/httpbin/post"{}}
+\DoxyCodeLine{//\ \}}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md934}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md934}
+{\bfseries{Note\+:}} The {\ttfamily \doxylink{namespacesession}{session}} option was renamed to {\ttfamily tls\+Session} for better readability.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md935}{}\doxysubsubsection{\texorpdfstring{http2.\+auto(url, options, callback)}{http2.\+auto(url, options, callback)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md935}
+Performs \href{https://nodejs.org/api/tls.html\#tls_alpn_and_sni}{\texttt{ALPN}} negotiation. Returns a Promise giving proper {\ttfamily Client\+Request} instance (depending on the ALPN).
+
+{\bfseries{Note}}\+: The {\ttfamily \doxylink{user-agent_8d_a79e53e08bedd8b5a5fc734d746c944bb}{agent}} option represents an object with {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}, {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}} and {\ttfamily http2} properties.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http2\ =\ require('http2-\/wrapper');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ options\ =\ \{}
+\DoxyCodeLine{\ \ \ \ hostname:\ 'httpbin.org',}
+\DoxyCodeLine{\ \ \ \ protocol:\ 'http:',\ //\ Note\ the\ \`{}http:`\ protocol\ here}
+\DoxyCodeLine{\ \ \ \ path:\ '/post',}
+\DoxyCodeLine{\ \ \ \ method:\ 'POST',}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'content-\/length':\ 6}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ request\ =\ await\ http2.auto(options,\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ console.log('statusCode:',\ response.statusCode);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ console.log('headers:',\ response.headers);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ const\ body\ =\ [];}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ response.on('data',\ chunk\ =>\ body.push(chunk));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ response.on('end',\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ console.log('body:',\ Buffer.concat(body).toString());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ request.on('error',\ console.error);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ request.write('123');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ request.end('456');}
+\DoxyCodeLine{\ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.error(error);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ statusCode:\ 200}
+\DoxyCodeLine{//\ headers:\ \{\ connection:\ 'close',}
+\DoxyCodeLine{//\ \ \ server:\ 'gunicorn/19.9.0',}
+\DoxyCodeLine{//\ \ \ date:\ 'Sat,\ 15\ Dec\ 2018\ 18:19:32\ GMT',}
+\DoxyCodeLine{//\ \ \ 'content-\/type':\ 'application/json',}
+\DoxyCodeLine{//\ \ \ 'content-\/length':\ '259',}
+\DoxyCodeLine{//\ \ \ 'access-\/control-\/allow-\/origin':\ '*',}
+\DoxyCodeLine{//\ \ \ 'access-\/control-\/allow-\/credentials':\ 'true',}
+\DoxyCodeLine{//\ \ \ via:\ '1.1\ vegur'\ \}}
+\DoxyCodeLine{//\ body:\ \{}
+\DoxyCodeLine{//\ \ \ "{}args"{}:\ \{\},}
+\DoxyCodeLine{//\ \ \ "{}data"{}:\ "{}123456"{},}
+\DoxyCodeLine{//\ \ \ "{}files"{}:\ \{\},}
+\DoxyCodeLine{//\ \ \ "{}form"{}:\ \{\},}
+\DoxyCodeLine{//\ \ \ "{}headers"{}:\ \{}
+\DoxyCodeLine{//\ \ \ \ \ "{}Connection"{}:\ "{}close"{},}
+\DoxyCodeLine{//\ \ \ \ \ "{}Content-\/Length"{}:\ "{}6"{},}
+\DoxyCodeLine{//\ \ \ \ \ "{}Host"{}:\ "{}httpbin.org"{}}
+\DoxyCodeLine{//\ \ \ \},}
+\DoxyCodeLine{//\ \ \ "{}json"{}:\ 123456,}
+\DoxyCodeLine{//\ \ \ "{}origin"{}:\ "{}xxx.xxx.xxx.xxx"{},}
+\DoxyCodeLine{//\ \ \ "{}url"{}:\ "{}http://httpbin.org/post"{}}
+\DoxyCodeLine{//\ \}}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md936}{}\doxysubsubsection{\texorpdfstring{http2.\+auto.\+protocol\+Cache}{http2.\+auto.\+protocol\+Cache}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md936}
+An instance of \href{https://github.com/sindresorhus/quick-lru}{\texttt{{\ttfamily quick-\/lru}}} used for ALPN cache.
+
+There is a maximum of 100 entries. You can modify the limit through {\ttfamily protocol\+Cache.\+max\+Size} -\/ note that the change will be visible globally.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md937}{}\doxysubsubsection{\texorpdfstring{http2.\+request(url, options, callback)}{http2.\+request(url, options, callback)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md937}
+Same as \href{https://nodejs.org/api/https.html\#https_https_request_options_callback}{\texttt{{\ttfamily https.\+request}}}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md938}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+h2session}{options.\+h2session}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md938}
+Type\+: {\ttfamily Http2\+Session}~\newline
+
+
+The session used to make the actual request. If none provided, it will use {\ttfamily options.\+agent}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md939}{}\doxysubsubsection{\texorpdfstring{http2.\+get(url, options, callback)}{http2.\+get(url, options, callback)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md939}
+Same as \href{https://nodejs.org/api/https.html\#https_https_get_options_callback}{\texttt{{\ttfamily https.\+get}}}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md940}{}\doxysubsubsection{\texorpdfstring{new http2.\+Client\+Request(url, options, callback)}{new http2.\+Client\+Request(url, options, callback)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md940}
+Same as \href{https://nodejs.org/api/https.html\#https_class_https_clientrequest}{\texttt{{\ttfamily https.\+Client\+Request}}}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md941}{}\doxysubsubsection{\texorpdfstring{new http2.\+Incoming\+Message(socket)}{new http2.\+Incoming\+Message(socket)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md941}
+Same as \href{https://nodejs.org/api/https.html\#https_class_https_incomingmessage}{\texttt{{\ttfamily https.\+Incoming\+Message}}}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md942}{}\doxysubsubsection{\texorpdfstring{new http2.\+Agent(options)}{new http2.\+Agent(options)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md942}
+{\bfseries{Note\+:}} this is {\bfseries{not}} compatible with the classic {\ttfamily http.\+Agent}.
+
+Usage example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http2\ =\ require('http2-\/wrapper');}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ MyAgent\ extends\ http2.Agent\ \{}
+\DoxyCodeLine{\ \ \ \ createConnection(origin,\ options)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(`Connecting\ to\ \$\{http2.Agent.normalizeOrigin(origin)\}`);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ http2.Agent.connect(origin,\ options);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{http2.get(\{}
+\DoxyCodeLine{\ \ \ \ hostname:\ 'google.com',}
+\DoxyCodeLine{\ \ \ \ agent:\ new\ MyAgent()}
+\DoxyCodeLine{\},\ res\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ res.on('data',\ chunk\ =>\ console.log(`Received\ chunk\ of\ \$\{chunk.length\}\ bytes`));}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md943}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md943}
+Each option is assigned to each {\ttfamily Agent} instance and can be changed later.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md944}{}\doxysubsubsubsubsection{\texorpdfstring{timeout}{timeout}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md944}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily 60000}
+
+If there\textquotesingle{}s no activity after {\ttfamily \doxylink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout}} milliseconds, the session will be closed.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md945}{}\doxysubsubsubsubsection{\texorpdfstring{max\+Sessions}{max\+Sessions}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md945}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily Infinity}
+
+The maximum amount of sessions in total.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md946}{}\doxysubsubsubsubsection{\texorpdfstring{max\+Free\+Sessions}{max\+Free\+Sessions}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md946}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily 10}
+
+The maximum amount of free sessions in total. This only applies to sessions with no pending requests.
+
+{\bfseries{Note\+:}} It is possible that the amount will be exceeded when sessions have at least 1 pending request.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md947}{}\doxysubsubsubsubsection{\texorpdfstring{max\+Cached\+Tls\+Sessions}{max\+Cached\+Tls\+Sessions}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md947}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily 100}
+
+The maximum amount of cached TLS sessions.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md948}{}\doxysubsubsubsection{\texorpdfstring{Agent.\+normalize\+Origin(url)}{Agent.\+normalize\+Origin(url)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md948}
+Returns a string representing the origin of the URL.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md949}{}\doxysubsubsubsection{\texorpdfstring{agent.\+settings}{agent.\+settings}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md949}
+Type\+: {\ttfamily object}~\newline
+ Default\+: {\ttfamily \{enable\+Push\+: false\}}
+
+\href{https://nodejs.org/api/http2.html\#http2_settings_object}{\texttt{Settings}} used by the current agent instance.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md950}{}\doxysubsubsubsection{\texorpdfstring{agent.\+normalize\+Options(\href{https://github.com/szmarczak/http2-wrapper/blob/master/source/agent.js}{\texttt{options}})}{agent.\+normalize\+Options(\href{https://github.com/szmarczak/http2-wrapper/blob/master/source/agent.js}{\texttt{options}})}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md950}
+Returns a string representing normalized options.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Agent.normalizeOptions(\{servername:\ 'example.com'\});}
+\DoxyCodeLine{//\ =>\ ':example.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md951}{}\doxysubsubsubsection{\texorpdfstring{agent.\+get\+Session(origin, options)}{agent.\+get\+Session(origin, options)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md951}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md952}{}\doxysubsubsubsubsection{\texorpdfstring{\href{https://nodejs.org/api/http2.html\#http2_http2_connect_authority_options_listener}{\texttt{origin}}}{\href{https://nodejs.org/api/http2.html\#http2_http2_connect_authority_options_listener}{\texttt{origin}}}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md952}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} {\ttfamily \doxylink{fail-early_8d_a571737274faf73ee73a627d345729327}{URL}} {\ttfamily object}
+
+An origin used to create new session.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md953}{}\doxysubsubsubsubsection{\texorpdfstring{\href{https://nodejs.org/api/http2.html\#http2_http2_connect_authority_options_listener}{\texttt{options}}}{\href{https://nodejs.org/api/http2.html\#http2_http2_connect_authority_options_listener}{\texttt{options}}}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md953}
+Type\+: {\ttfamily object}
+
+The options used to create new session.
+
+Returns a Promise giving free {\ttfamily Http2\+Session}. If no free sessions are found, a new one is created.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md954}{}\doxysubsubsubsection{\texorpdfstring{agent.\+get\+Session(origin, \mbox{[}options\mbox{]}(options-\/1), listener)}{agent.\+get\+Session(origin, \mbox{[}options\mbox{]}(options-\/1), listener)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md954}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md955}{}\doxysubsubsubsubsection{\texorpdfstring{listener}{listener}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md955}
+Type\+: {\ttfamily object}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ reject:\ error\ =>\ void,}
+\DoxyCodeLine{\ \ \ \ resolve:\ session\ =>\ void}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+If the {\ttfamily listener} argument is present, the Promise will resolve immediately. It will use the {\ttfamily resolve} function to pass the session.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md956}{}\doxysubsubsubsection{\texorpdfstring{agent.\+request(origin, options, \href{https://nodejs.org/api/http2.html\#http2_headers_object}{\texttt{headers}}, \href{https://nodejs.org/api/http2.html\#http2_clienthttp2session_request_headers_options}{\texttt{stream\+Options}})}{agent.\+request(origin, options, \href{https://nodejs.org/api/http2.html\#http2_headers_object}{\texttt{headers}}, \href{https://nodejs.org/api/http2.html\#http2_clienthttp2session_request_headers_options}{\texttt{stream\+Options}})}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md956}
+Returns a Promise giving {\ttfamily Http2\+Stream}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md957}{}\doxysubsubsubsection{\texorpdfstring{agent.\+create\+Connection(origin, options)}{agent.\+create\+Connection(origin, options)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md957}
+Returns a new {\ttfamily TLSSocket}. It defaults to {\ttfamily Agent.\+connect(origin, options)}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md958}{}\doxysubsubsubsection{\texorpdfstring{agent.\+close\+Free\+Sessions()}{agent.\+close\+Free\+Sessions()}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md958}
+Makes an attempt to close free sessions. Only sessions with 0 concurrent streams will be closed.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md959}{}\doxysubsubsubsection{\texorpdfstring{agent.\+destroy(reason)}{agent.\+destroy(reason)}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md959}
+Destroys {\bfseries{all}} sessions.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md960}{}\doxysubsubsubsection{\texorpdfstring{Event\+: \textquotesingle{}session\textquotesingle{}}{Event\+: \textquotesingle{}session\textquotesingle{}}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md960}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{agent.on('session',\ session\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ //\ A\ new\ session\ has\ been\ created\ by\ the\ Agent.}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md961}{}\doxysubsection{\texorpdfstring{Proxy support}{Proxy support}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md961}
+An example of a full-\/featured proxy server can be found \href{examples/proxy/server.js}{\texttt{here}}. It supports {\bfseries{mirroring, custom authorities and the CONNECT protocol}}.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md962}{}\doxysubsubsection{\texorpdfstring{Mirroring}{Mirroring}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md962}
+To mirror another server we need to use only \href{https://github.com/nxtedition/node-http2-proxy}{\texttt{{\ttfamily http2-\/proxy}}}. We don\textquotesingle{}t need the CONNECT protocol or custom authorities.
+
+To see the result, just navigate to the server\textquotesingle{}s address.\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md963}{}\doxysubsubsection{\texorpdfstring{HTTP/1 over HTTP/2}{HTTP/1 over HTTP/2}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md963}
+Since we don\textquotesingle{}t care about mirroring, the server needs to support the CONNECT protocol in this case.
+
+The client looks like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ https\ =\ require('https');}
+\DoxyCodeLine{const\ http2\ =\ require('http2');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ session\ =\ http2.connect('https://localhost:8000',\ \{}
+\DoxyCodeLine{\ \ \ \ //\ For\ demo\ purposes\ only!}
+\DoxyCodeLine{\ \ \ \ rejectUnauthorized:\ false}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{session.ref();}
+\DoxyCodeLine{}
+\DoxyCodeLine{https.request('https://httpbin.org/anything',\ \{}
+\DoxyCodeLine{\ \ \ \ createConnection:\ options\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ session.request(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ':method':\ 'CONNECT',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ':authority':\ \`{}\$\{options.host\}:\$\{options.port\}`}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\},\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ console.log('statusCode:',\ response.statusCode);}
+\DoxyCodeLine{\ \ \ \ console.log('headers:',\ response.headers);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ body\ =\ [];}
+\DoxyCodeLine{\ \ \ \ response.on('data',\ chunk\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ body.push(chunk);}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ response.on('end',\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log('body:',\ Buffer.concat(body).toString());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ session.unref();}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\}).end();}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md964}{}\doxysubsubsection{\texorpdfstring{HTTP/2 over HTTP/2}{HTTP/2 over HTTP/2}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md964}
+It\textquotesingle{}s a tricky one! We cannot create an HTTP/2 session on top of an HTTP/2 stream. But... we can still specify the {\ttfamily \+:authority} header, no need to use the CONNECT protocol here.
+
+The client looks like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http2\ =\ require('../../source');}
+\DoxyCodeLine{const\ \{Agent\}\ =\ http2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ ProxyAgent\ extends\ Agent\ \{}
+\DoxyCodeLine{\ \ \ \ constructor(url,\ options)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ super(options);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.origin\ =\ url;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ request(origin,\ sessionOptions,\ headers,\ streamOptions)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ super.request(this.origin,\ sessionOptions,\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ...headers,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ':authority':\ (new\ URL(origin)).host}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},\ streamOptions);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ request\ =\ http2.request(\{}
+\DoxyCodeLine{\ \ \ \ hostname:\ 'httpbin.org',}
+\DoxyCodeLine{\ \ \ \ protocol:\ 'https:',}
+\DoxyCodeLine{\ \ \ \ path:\ '/anything',}
+\DoxyCodeLine{\ \ \ \ agent:\ new\ ProxyAgent('https://localhost:8000'),}
+\DoxyCodeLine{\ \ \ \ //\ For\ demo\ purposes\ only!}
+\DoxyCodeLine{\ \ \ \ rejectUnauthorized:\ false}
+\DoxyCodeLine{\},\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ console.log('statusCode:',\ response.statusCode);}
+\DoxyCodeLine{\ \ \ \ console.log('headers:',\ response.headers);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ body\ =\ [];}
+\DoxyCodeLine{\ \ \ \ response.on('data',\ chunk\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ body.push(chunk);}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ response.on('end',\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log('body:',\ Buffer.concat(body).toString());}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{request.on('error',\ console.error);}
+\DoxyCodeLine{}
+\DoxyCodeLine{request.end();}
+
+\end{DoxyCode}
+\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md965}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md965}
+
+\begin{DoxyItemize}
+\item If you\textquotesingle{}re interested in \href{https://tools.ietf.org/html/rfc8441}{\texttt{Web\+Sockets over HTTP/2}}, then \href{https://github.com/websockets/ws/issues/1458}{\texttt{check out this discussion}}.
+\item \href{https://github.com/nodejs/node/blob/cc8250fab86486632fdeb63892be735d7628cd13/lib/internal/http2/core.js\#L725}{\texttt{HTTP/2 sockets cannot be malformed}}, therefore modifying the socket will have no effect.
+\item You can make \href{examples/push-stream/index.js}{\texttt{a custom Agent}} to support push streams.
+\end{DoxyItemize}\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md966}{}\doxysubsection{\texorpdfstring{Benchmarks}{Benchmarks}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md966}
+CPU\+: Intel i7-\/7700k (governor\+: performance)~\newline
+ Server\+: H2O v2.\+2.\+5 \href{h2o.conf}{\texttt{{\ttfamily h2o.\+conf}}}~\newline
+ Node\+: v14.\+5.\+0 Linux\+: 5.\+6.\+18-\/156.\+current
+
+{\ttfamily auto} means {\ttfamily http2wrapper.\+auto}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{http2-\/wrapper\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 12,181\ ops/sec\ ±3.39\%\ (75\ runs\ sampled)}
+\DoxyCodeLine{http2-\/wrapper\ -\/\ preconfigured\ session\ x\ 13,140\ ops/sec\ ±2.51\%\ (79\ runs\ sampled)}
+\DoxyCodeLine{http2-\/wrapper\ -\/\ auto\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 11,412\ ops/sec\ ±2.55\%\ (78\ runs\ sampled)}
+\DoxyCodeLine{http2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 16,050\ ops/sec\ ±1.39\%\ (86\ runs\ sampled)}
+\DoxyCodeLine{https\ \ \ \ \ \ \ \ \ -\/\ auto\ -\/\ keepalive\ \ \ \ \ \ x\ 12,288\ ops/sec\ ±2.69\%\ (79\ runs\ sampled)}
+\DoxyCodeLine{https\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ keepalive\ \ \ \ \ \ x\ 12,155\ ops/sec\ ±3.32\%\ (78\ runs\ sampled)}
+\DoxyCodeLine{https\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 1,604\ ops/sec\ \ ±2.03\%\ (77\ runs\ sampled)}
+\DoxyCodeLine{http\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 6,041\ ops/sec\ \ ±3.82\%\ (76\ runs\ sampled)}
+\DoxyCodeLine{Fastest\ is\ http2}
+
+\end{DoxyCode}
+
+
+{\ttfamily http2-\/wrapper}\+:
+\begin{DoxyItemize}
+\item 32\% {\bfseries{less}} performant than {\ttfamily http2}
+\item as performant as {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https} -\/ keepalive}
+\item 100\% {\bfseries{more}} performant than {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}
+\end{DoxyItemize}
+
+{\ttfamily http2-\/wrapper -\/ preconfigured \doxylink{namespacesession}{session}}\+:
+\begin{DoxyItemize}
+\item 22\% {\bfseries{less}} performant than {\ttfamily http2}
+\item 8\% {\bfseries{more}} performant than {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https} -\/ keepalive}
+\item 118\% {\bfseries{more}} performant than {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}
+\end{DoxyItemize}
+
+{\ttfamily http2-\/wrapper -\/ auto}\+:
+\begin{DoxyItemize}
+\item 41\% {\bfseries{less}} performant than {\ttfamily http2}
+\item 8\% {\bfseries{less}} performant than {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https} -\/ keepalive}
+\item 89\% {\bfseries{more}} performant than {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}
+\end{DoxyItemize}
+
+{\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https} -\/ auto -\/ keepalive}\+:
+\begin{DoxyItemize}
+\item 31\% {\bfseries{less}} performant than {\ttfamily http2}
+\item as performant as {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https} -\/ keepalive}
+\item 103\% {\bfseries{more}} performant than {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}
+\end{DoxyItemize}\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md967}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md967}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/got}{\texttt{{\ttfamily got}}} -\/ Simplified \doxylink{structHTTP}{HTTP} requests
+\end{DoxyItemize}\hypertarget{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md968}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_cff45f17bc6ce1917a3fb146c8493331_autotoc_md968}
+MIT 

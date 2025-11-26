@@ -1,0 +1,211 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/doh.h File Reference}
+\hypertarget{doh_8h}{}\label{doh_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/doh.h@{lib/libwconr/build/\_deps/curl-\/src/lib/doh.h}}
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+addrinfo.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdnsprobe}{dnsprobe}}
+\item 
+struct \mbox{\hyperlink{structdohdata}{dohdata}}
+\item 
+struct \mbox{\hyperlink{structdohaddr}{dohaddr}}
+\item 
+struct \mbox{\hyperlink{structdohentry}{dohentry}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{doh_8h_a272ac0e1ff303e2ee8e10e5149dc96d1}{DOH\+\_\+\+MAX\+\_\+\+ADDR}}~24
+\item 
+\#define \mbox{\hyperlink{doh_8h_a641dafdadc7102f7031b9ebec58340f3}{DOH\+\_\+\+MAX\+\_\+\+CNAME}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32}{DOHcode}} \{ \newline
+\mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a1b38a50d7c5a22552a12393996e5910d}{DOH\+\_\+\+OK}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a046783ae41bdfd57074f4a062f9a88fd}{DOH\+\_\+\+DNS\+\_\+\+BAD\+\_\+\+LABEL}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8f885272fb16762effeb24cb6b1529bd}{DOH\+\_\+\+DNS\+\_\+\+OUT\+\_\+\+OF\+\_\+\+RANGE}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae60ff2b80321443ae41a44c4196aff83}{DOH\+\_\+\+DNS\+\_\+\+LABEL\+\_\+\+LOOP}}
+, \newline
+\mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ab1aead6268f590c14597e7533a483531}{DOH\+\_\+\+TOO\+\_\+\+SMALL\+\_\+\+BUFFER}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a575217c636dcceef11f3b811e172f862}{DOH\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEM}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8d1cc35200409830f3455b1161dd83de}{DOH\+\_\+\+DNS\+\_\+\+RDATA\+\_\+\+LEN}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae362e8571a74c5faba9fb04cd6adcadb}{DOH\+\_\+\+DNS\+\_\+\+MALFORMAT}}
+, \newline
+\mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32afe120f642e615e1aba801b7e69fd80df}{DOH\+\_\+\+DNS\+\_\+\+BAD\+\_\+\+RCODE}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a32e0220d3d6b0195d01383166077e9ce}{DOH\+\_\+\+DNS\+\_\+\+UNEXPECTED\+\_\+\+TYPE}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a5d0cb303395b40249e83516b961a3545}{DOH\+\_\+\+DNS\+\_\+\+UNEXPECTED\+\_\+\+CLASS}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a46c757652941bc2847a41c3e45fd79d6}{DOH\+\_\+\+NO\+\_\+\+CONTENT}}
+, \newline
+\mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a604d41c416646499acf73eaa82a997c2}{DOH\+\_\+\+DNS\+\_\+\+BAD\+\_\+\+ID}}
+, \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a3c901922a39f3742aaefdea7a1e9d257}{DOH\+\_\+\+DNS\+\_\+\+NAME\+\_\+\+TOO\+\_\+\+LONG}}
+ \}
+\item 
+enum \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}{DNStype}} \{ \newline
+\mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a265b27cca3b7baa93c46988f68ddeb29}{DNS\+\_\+\+TYPE\+\_\+A}} = 1
+, \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a4c089094c4e291f9b3e6a7fe1faf864c}{DNS\+\_\+\+TYPE\+\_\+\+NS}} = 2
+, \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad412bbe358a397a2512f9c395fd5c37e}{DNS\+\_\+\+TYPE\+\_\+\+CNAME}} = 5
+, \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad6f2a7e9311cfa3f2b9f4af3a0f19653}{DNS\+\_\+\+TYPE\+\_\+\+AAAA}} = 28
+, \newline
+\mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a79f9cc7bc1f4121f27b25c9916c926ec}{DNS\+\_\+\+TYPE\+\_\+\+DNAME}} = 39
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{doh_8h_a16f80b27769a327251b51903166966b8}{Curl\+\_\+doh}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port, int \texorpdfstring{$\ast$}{*}waitp)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{doh_8h_ace75a3ce2a8f8f2ba3d166157ca2722c}{Curl\+\_\+doh\+\_\+is\+\_\+resolved}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dns)
+\item 
+int \mbox{\hyperlink{doh_8h_ad7a8783f9ac45a6f927380fb51c970f7}{Curl\+\_\+doh\+\_\+getsock}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{doh_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{doh_8h_a272ac0e1ff303e2ee8e10e5149dc96d1}\index{doh.h@{doh.h}!DOH\_MAX\_ADDR@{DOH\_MAX\_ADDR}}
+\index{DOH\_MAX\_ADDR@{DOH\_MAX\_ADDR}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{DOH\_MAX\_ADDR}{DOH\_MAX\_ADDR}}
+{\footnotesize\ttfamily \label{doh_8h_a272ac0e1ff303e2ee8e10e5149dc96d1} 
+\#define DOH\+\_\+\+MAX\+\_\+\+ADDR~24}
+
+\Hypertarget{doh_8h_a641dafdadc7102f7031b9ebec58340f3}\index{doh.h@{doh.h}!DOH\_MAX\_CNAME@{DOH\_MAX\_CNAME}}
+\index{DOH\_MAX\_CNAME@{DOH\_MAX\_CNAME}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{DOH\_MAX\_CNAME}{DOH\_MAX\_CNAME}}
+{\footnotesize\ttfamily \label{doh_8h_a641dafdadc7102f7031b9ebec58340f3} 
+\#define DOH\+\_\+\+MAX\+\_\+\+CNAME~4}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{doh_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}\index{doh.h@{doh.h}!DNStype@{DNStype}}
+\index{DNStype@{DNStype}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{DNStype}{DNStype}}
+{\footnotesize\ttfamily \label{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76} 
+enum \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}{DNStype}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DNS\_TYPE\_A@{DNS\_TYPE\_A}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DNS\_TYPE\_A@{DNS\_TYPE\_A}}}\Hypertarget{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a265b27cca3b7baa93c46988f68ddeb29}\label{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a265b27cca3b7baa93c46988f68ddeb29} 
+DNS\+\_\+\+TYPE\+\_\+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DNS\_TYPE\_NS@{DNS\_TYPE\_NS}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DNS\_TYPE\_NS@{DNS\_TYPE\_NS}}}\Hypertarget{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a4c089094c4e291f9b3e6a7fe1faf864c}\label{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a4c089094c4e291f9b3e6a7fe1faf864c} 
+DNS\+\_\+\+TYPE\+\_\+\+NS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DNS\_TYPE\_CNAME@{DNS\_TYPE\_CNAME}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DNS\_TYPE\_CNAME@{DNS\_TYPE\_CNAME}}}\Hypertarget{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad412bbe358a397a2512f9c395fd5c37e}\label{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad412bbe358a397a2512f9c395fd5c37e} 
+DNS\+\_\+\+TYPE\+\_\+\+CNAME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DNS\_TYPE\_AAAA@{DNS\_TYPE\_AAAA}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DNS\_TYPE\_AAAA@{DNS\_TYPE\_AAAA}}}\Hypertarget{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad6f2a7e9311cfa3f2b9f4af3a0f19653}\label{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad6f2a7e9311cfa3f2b9f4af3a0f19653} 
+DNS\+\_\+\+TYPE\+\_\+\+AAAA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DNS\_TYPE\_DNAME@{DNS\_TYPE\_DNAME}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DNS\_TYPE\_DNAME@{DNS\_TYPE\_DNAME}}}\Hypertarget{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a79f9cc7bc1f4121f27b25c9916c926ec}\label{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a79f9cc7bc1f4121f27b25c9916c926ec} 
+DNS\+\_\+\+TYPE\+\_\+\+DNAME&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32}\index{doh.h@{doh.h}!DOHcode@{DOHcode}}
+\index{DOHcode@{DOHcode}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{DOHcode}{DOHcode}}
+{\footnotesize\ttfamily \label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32} 
+enum \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32}{DOHcode}}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2018 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_OK@{DOH\_OK}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_OK@{DOH\_OK}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a1b38a50d7c5a22552a12393996e5910d}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a1b38a50d7c5a22552a12393996e5910d} 
+DOH\+\_\+\+OK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_BAD\_LABEL@{DOH\_DNS\_BAD\_LABEL}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_BAD\_LABEL@{DOH\_DNS\_BAD\_LABEL}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a046783ae41bdfd57074f4a062f9a88fd}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a046783ae41bdfd57074f4a062f9a88fd} 
+DOH\+\_\+\+DNS\+\_\+\+BAD\+\_\+\+LABEL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_OUT\_OF\_RANGE@{DOH\_DNS\_OUT\_OF\_RANGE}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_OUT\_OF\_RANGE@{DOH\_DNS\_OUT\_OF\_RANGE}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8f885272fb16762effeb24cb6b1529bd}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8f885272fb16762effeb24cb6b1529bd} 
+DOH\+\_\+\+DNS\+\_\+\+OUT\+\_\+\+OF\+\_\+\+RANGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_LABEL\_LOOP@{DOH\_DNS\_LABEL\_LOOP}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_LABEL\_LOOP@{DOH\_DNS\_LABEL\_LOOP}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae60ff2b80321443ae41a44c4196aff83}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae60ff2b80321443ae41a44c4196aff83} 
+DOH\+\_\+\+DNS\+\_\+\+LABEL\+\_\+\+LOOP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_TOO\_SMALL\_BUFFER@{DOH\_TOO\_SMALL\_BUFFER}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_TOO\_SMALL\_BUFFER@{DOH\_TOO\_SMALL\_BUFFER}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ab1aead6268f590c14597e7533a483531}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ab1aead6268f590c14597e7533a483531} 
+DOH\+\_\+\+TOO\+\_\+\+SMALL\+\_\+\+BUFFER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_OUT\_OF\_MEM@{DOH\_OUT\_OF\_MEM}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_OUT\_OF\_MEM@{DOH\_OUT\_OF\_MEM}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a575217c636dcceef11f3b811e172f862}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a575217c636dcceef11f3b811e172f862} 
+DOH\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_RDATA\_LEN@{DOH\_DNS\_RDATA\_LEN}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_RDATA\_LEN@{DOH\_DNS\_RDATA\_LEN}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8d1cc35200409830f3455b1161dd83de}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8d1cc35200409830f3455b1161dd83de} 
+DOH\+\_\+\+DNS\+\_\+\+RDATA\+\_\+\+LEN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_MALFORMAT@{DOH\_DNS\_MALFORMAT}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_MALFORMAT@{DOH\_DNS\_MALFORMAT}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae362e8571a74c5faba9fb04cd6adcadb}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae362e8571a74c5faba9fb04cd6adcadb} 
+DOH\+\_\+\+DNS\+\_\+\+MALFORMAT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_BAD\_RCODE@{DOH\_DNS\_BAD\_RCODE}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_BAD\_RCODE@{DOH\_DNS\_BAD\_RCODE}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32afe120f642e615e1aba801b7e69fd80df}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32afe120f642e615e1aba801b7e69fd80df} 
+DOH\+\_\+\+DNS\+\_\+\+BAD\+\_\+\+RCODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_UNEXPECTED\_TYPE@{DOH\_DNS\_UNEXPECTED\_TYPE}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_UNEXPECTED\_TYPE@{DOH\_DNS\_UNEXPECTED\_TYPE}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a32e0220d3d6b0195d01383166077e9ce}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a32e0220d3d6b0195d01383166077e9ce} 
+DOH\+\_\+\+DNS\+\_\+\+UNEXPECTED\+\_\+\+TYPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_UNEXPECTED\_CLASS@{DOH\_DNS\_UNEXPECTED\_CLASS}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_UNEXPECTED\_CLASS@{DOH\_DNS\_UNEXPECTED\_CLASS}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a5d0cb303395b40249e83516b961a3545}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a5d0cb303395b40249e83516b961a3545} 
+DOH\+\_\+\+DNS\+\_\+\+UNEXPECTED\+\_\+\+CLASS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_NO\_CONTENT@{DOH\_NO\_CONTENT}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_NO\_CONTENT@{DOH\_NO\_CONTENT}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a46c757652941bc2847a41c3e45fd79d6}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a46c757652941bc2847a41c3e45fd79d6} 
+DOH\+\_\+\+NO\+\_\+\+CONTENT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_BAD\_ID@{DOH\_DNS\_BAD\_ID}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_BAD\_ID@{DOH\_DNS\_BAD\_ID}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a604d41c416646499acf73eaa82a997c2}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a604d41c416646499acf73eaa82a997c2} 
+DOH\+\_\+\+DNS\+\_\+\+BAD\+\_\+\+ID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOH\_DNS\_NAME\_TOO\_LONG@{DOH\_DNS\_NAME\_TOO\_LONG}!doh.h@{doh.h}}\index{doh.h@{doh.h}!DOH\_DNS\_NAME\_TOO\_LONG@{DOH\_DNS\_NAME\_TOO\_LONG}}}\Hypertarget{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a3c901922a39f3742aaefdea7a1e9d257}\label{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a3c901922a39f3742aaefdea7a1e9d257} 
+DOH\+\_\+\+DNS\+\_\+\+NAME\+\_\+\+TOO\+\_\+\+LONG&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{doh_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{doh_8h_a16f80b27769a327251b51903166966b8}\index{doh.h@{doh.h}!Curl\_doh@{Curl\_doh}}
+\index{Curl\_doh@{Curl\_doh}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_doh()}{Curl\_doh()}}
+{\footnotesize\ttfamily \label{doh_8h_a16f80b27769a327251b51903166966b8} 
+struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*} Curl\+\_\+doh (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{waitp}{}\end{DoxyParamCaption})}
+
+\Hypertarget{doh_8h_ad7a8783f9ac45a6f927380fb51c970f7}\index{doh.h@{doh.h}!Curl\_doh\_getsock@{Curl\_doh\_getsock}}
+\index{Curl\_doh\_getsock@{Curl\_doh\_getsock}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_doh\_getsock()}{Curl\_doh\_getsock()}}
+{\footnotesize\ttfamily \label{doh_8h_ad7a8783f9ac45a6f927380fb51c970f7} 
+int Curl\+\_\+doh\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})}
+
+\Hypertarget{doh_8h_ace75a3ce2a8f8f2ba3d166157ca2722c}\index{doh.h@{doh.h}!Curl\_doh\_is\_resolved@{Curl\_doh\_is\_resolved}}
+\index{Curl\_doh\_is\_resolved@{Curl\_doh\_is\_resolved}!doh.h@{doh.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_doh\_is\_resolved()}{Curl\_doh\_is\_resolved()}}
+{\footnotesize\ttfamily \label{doh_8h_ace75a3ce2a8f8f2ba3d166157ca2722c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+doh\+\_\+is\+\_\+resolved (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dns}{}\end{DoxyParamCaption})}
+

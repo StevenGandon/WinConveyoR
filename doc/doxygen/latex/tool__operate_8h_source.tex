@@ -1,0 +1,67 @@
+\doxysection{tool\+\_\+operate.\+h}
+\hypertarget{tool__operate_8h_source}{}\label{tool__operate_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_operate.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_operate.h}}
+\mbox{\hyperlink{tool__operate_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_OPERATE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_OPERATE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__cb__hdr_8h}{tool\_cb\_hdr.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__cb__prg_8h}{tool\_cb\_prg.h}}"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__sdecls_8h}{tool\_sdecls.h}}"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structper__transfer}{per\_transfer}}\ \{}
+\DoxyCodeLine{00032\ \ \ \textcolor{comment}{/*\ double\ linked\ */}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structper__transfer}{per\_transfer}}\ *\mbox{\hyperlink{structper__transfer_a367c8beca3a8422fb02086a36981e6b0}{next}};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structper__transfer}{per\_transfer}}\ *\mbox{\hyperlink{structper__transfer_a7f8404be69b903f8071f635ed644543c}{prev}};}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structper__transfer_ad50f72b14e5a111a2a19bc9f6c6cdfa3}{config}};\ \textcolor{comment}{/*\ for\ this\ transfer\ */}}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{structper__transfer_a9828430ce6e6e26a09e2f402944eea4d}{curl}};}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structper__transfer_a82b1c0912afa66cfc8cee0f3eccae520}{retry\_numretries}};}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structper__transfer_acbdf0fb95ca2b22a4ea9f1a8bbb87fb9}{retry\_sleep\_default}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structper__transfer_acd64ffa74713502bb98048df726b00b1}{retry\_sleep}};}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtimeval}{timeval}}\ \mbox{\hyperlink{structper__transfer_adc4ce92ad3b79d74f25e23c642c6a501}{retrystart}};}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structper__transfer_ac76ac7e5f02f90c2e6e52370093357a3}{this\_url}};}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structper__transfer_afa22a1c92303c5d045f0dcd0aadc9126}{urlnum}};\ \textcolor{comment}{/*\ the\ index\ of\ the\ given\ URL\ */}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structper__transfer_a3aa20955b44afc4bf8761167e3114873}{outfile}};}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_adf6023be075b7360bb76c2630c8e6d83}{infdopen}};\ \textcolor{comment}{/*\ TRUE\ if\ infd\ needs\ closing\ */}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structper__transfer_ab8bb6acc19abe895b6aa4505b7e143d9}{infd}};}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_a38eb2a052a03df3c2b377fca8ef0f239}{noprogress}};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structProgressData}{ProgressData}}\ \mbox{\hyperlink{structper__transfer_a65302982e422daa2c1a826083140a2e8}{progressbar}};}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOutStruct}{OutStruct}}\ \mbox{\hyperlink{structper__transfer_ada70756f527a4faaa958a6db0f326caa}{outs}};}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOutStruct}{OutStruct}}\ \mbox{\hyperlink{structper__transfer_a13ac1a22c5602ec2f0a08fb603f20497}{heads}};}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOutStruct}{OutStruct}}\ \mbox{\hyperlink{structper__transfer_a57a22098af514b2fc86e9d36cb8bb530}{etag\_save}};}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structInStruct}{InStruct}}\ \mbox{\hyperlink{structper__transfer_afde5348e39602de60e156db403ed38f5}{input}};}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHdrCbData}{HdrCbData}}\ \mbox{\hyperlink{structper__transfer_abc3ef3eba0120b7e42143c26e90b857e}{hdrcbdata}};}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structper__transfer_aef24c1dff87c434722f9cd595a83de26}{num\_headers}};}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_a7ee7ef61ebf3418eef0a1886ac7fca76}{was\_last\_header\_empty}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_af9cf2c2ff798306d24a07cb2631f6876}{added}};\ \textcolor{comment}{/*\ set\ TRUE\ when\ added\ to\ the\ multi\ handle\ */}}
+\DoxyCodeLine{00057\ \ \ time\_t\ \mbox{\hyperlink{structper__transfer_ac6725597a02afd7bba8ea741b5d06532}{startat}};\ \textcolor{comment}{/*\ when\ doing\ parallel\ transfers,\ this\ is\ a\ retry\ transfer}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ that\ has\ been\ set\ to\ sleep\ until\ this\ time\ before\ it}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ should\ get\ started\ (again)\ */}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_a857dfb8b4b2af351e410e544348bb48e}{abort}};\ \textcolor{comment}{/*\ when\ doing\ parallel\ transfers\ and\ this\ is\ TRUE\ then\ a\ critical}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ error\ (eg\ -\/-\/fail-\/early)\ has\ occurred\ in\ another\ transfer\ and}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this\ transfer\ will\ be\ aborted\ in\ the\ progress\ callback\ */}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{/*\ for\ parallel\ progress\ bar\ */}}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structper__transfer_a88d3fd144e10732c607321faee59886f}{dltotal}};}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structper__transfer_a2254cea326fa0e915754d17b2557dfa3}{dlnow}};}
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structper__transfer_a8871dde84c7b0f30aa5b357abf928b93}{ultotal}};}
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structper__transfer_a64da159291fbe74f2653516dee6dc54c}{ulnow}};}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_a8dbb9535b2b3ccc9a74386210af92e2e}{dltotal\_added}};\ \textcolor{comment}{/*\ if\ the\ total\ has\ been\ added\ from\ this\ */}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structper__transfer_aa6a338d4b4dc70914daf7761951ecdc6}{ultotal\_added}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{/*\ NULL\ or\ malloced\ */}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structper__transfer_a415f364459421472be16ab7fc294730f}{uploadfile}};}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structper__transfer_ab6f676198c37c9d852bd4d4c9bf7534c}{errorbuffer}};\ \textcolor{comment}{/*\ alloced\ and\ assigned\ while\ this\ is\ used\ for\ a}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ transfer\ */}}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{tool__operate_8h_a589dd357decb71520ad74e4192c6af02}{operate}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structGlobalConfig}{GlobalConfig}}\ *\mbox{\hyperlink{structHdrCbData_aa4fe9b4aec220150c02cb7e6081fe658}{config}},\ \textcolor{keywordtype}{int}\ argc,\ \mbox{\hyperlink{curl__setup__once_8h_a5e072dd1f3b9b9607505560982ad339e}{argv\_item\_t}}\ argv[]);}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tool__operate_8h_a4a1698159abd5a886ee0dda248906bbb}{single\_transfer\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structHdrCbData_aa4fe9b4aec220150c02cb7e6081fe658}{config}});}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structper__transfer}{per\_transfer}}\ *\mbox{\hyperlink{rate_8d_ad3bb81a715d22c4c2a85d6f6cc00240e}{transfers}};\ \textcolor{comment}{/*\ first\ node\ */}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_OPERATE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

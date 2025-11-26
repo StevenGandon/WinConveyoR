@@ -1,0 +1,55 @@
+\doxysection{thread\+\_\+renderimage.\+h}
+\hypertarget{thread__renderimage_8h_source}{}\label{thread__renderimage_8h_source}\index{Beamage/thread\_renderimage.h@{Beamage/thread\_renderimage.h}}
+\mbox{\hyperlink{thread__renderimage_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QThread>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{dafimage_8h}{dafimage.h}}>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdafReader}{dafReader}};}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }QMdiSubWindow;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classthread__renderImage_a501b884935e2d7ec8c043dcbbc1ed21e}{thread\_renderImage}}\ :\ \textcolor{keyword}{public}\ QThread}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classthread__renderImage_a501b884935e2d7ec8c043dcbbc1ed21e}{thread\_renderImage}}(QObject\ *parent);}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classthread__renderImage_a2e1405259b2975ef9a5557eb6e3ce1b1}{\string~thread\_renderImage}}();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_a586a0c119369fcc838fb84df3f486295}{run}}();}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classdafImage}{dafImage}}*\ \mbox{\hyperlink{classthread__renderImage_a655e9ebd5687ddea64b061e3d68a8f2b}{getDafImage}}()\ \{\ \textcolor{keywordflow}{return}\ fdafImg;\ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_a5bdd4f18e150f8b09e5c6aa702335784}{setDisplayedWindow}}(QMdiSubWindow\ *wind)\ \{\ fmdiWindows\ =\ wind;\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ QMdiSubWindow\ *\mbox{\hyperlink{classthread__renderImage_a64ff4ee93ddd39bc097f3385b74d29d5}{getDisplayedWindow}}()\ \{\ \textcolor{keywordflow}{return}\ fmdiWindows;\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_a24524d3815c2c35a8aa2c75cb5605819}{setId}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \{\ fId\ =\ id;\ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classthread__renderImage_a6a7ef8f983cf5815e19e48e29e276d6c}{getId}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fId;\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_ad6301f642b87150c7e4541d25d31c45f}{setOpenMode}}(\textcolor{keywordtype}{int}\ mode)\ \{\ fOpenMode\ =\ mode;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classthread__renderImage_ae92469cd360af30890ed572d52121123}{openMode}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fOpenMode;\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ signals:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//void\ currentPosition(double\ val);}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_ac0efac379ae27a7b31f4aa0404100a3b}{currentPosition}}(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_adc3db31eb0219f3eab09bcaab91055d1}{headerContent}}(\textcolor{keyword}{const}\ QString\ \&str);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_ab75e71b2245b0ef81c2c7e4f997ecf38}{filefound}}(\textcolor{keyword}{const}\ QString\ \&filenames);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_a9cc117acbd072af9a862c7e9c8606950}{setFilename}}(\textcolor{keyword}{const}\ QString\ \&filename)\ \{\ fFilename\ =\ filename;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_a0d53a698a6e12f2a0f71a3674ef02135}{setDafImage}}(\mbox{\hyperlink{classdafImage}{dafImage}}\ *img)\ \{\ fdafImg\ =\ img;\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_a80be7db31214beedacfc48b0977b03da}{setEventMax}}(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ nEvent\ =\ 999999999999)\ \{\ fEventMax\ =\ nEvent;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classthread__renderImage_abeecb78a928cb77f16d73240e8b3d32e}{stop}}()\ \{\ fStop\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ QString\ fFilename;}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classdafImage}{dafImage}}\ *fdafImg;}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classdafReader}{dafReader}}\ *reader;}
+\DoxyCodeLine{00043\ \ \ \ \ QMdiSubWindow\ *fmdiWindows;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ fOpenMode;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ fEventMax;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ fEventToRead;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{bool}\ fStop;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ fId;}
+\DoxyCodeLine{00049\ \};}
+
+\end{DoxyCode}

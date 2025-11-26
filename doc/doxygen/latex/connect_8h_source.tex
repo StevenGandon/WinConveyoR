@@ -1,0 +1,142 @@
+\doxysection{connect.\+h}
+\hypertarget{connect_8h_source}{}\label{connect_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/connect.h@{lib/libwconr/build/\_deps/curl-\/src/lib/connect.h}}
+\mbox{\hyperlink{connect_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_CONNECT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_CONNECT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nonblock_8h}{nonblock.h}}"{}}\ \textcolor{comment}{/*\ for\ curlx\_nonblock(),\ formerly\ Curl\_nonblock()\ */}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sockaddr_8h}{sockaddr.h}}"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timeval_8h}{timeval.h}}"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{connect_8h_a4fe41b44c1774c00cdddba9e80439ca2}{Curl\_is\_connected}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *connected);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{connect_8h_a844e4a4b64c8c06c0eab45c088016e92}{Curl\_connecthost}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__dns__entry}{Curl\_dns\_entry}}\ *\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}});}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ generic\ function\ that\ returns\ how\ much\ time\ there's\ left\ to\ run,\ according}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ to\ the\ timeouts\ set\ */}}
+\DoxyCodeLine{00043\ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ \mbox{\hyperlink{connect_8h_aed32c0fb99c80a40c097c98a3eb03c74}{Curl\_timeleft}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurltime}{curltime}}\ *nowp,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ duringconnect);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DEFAULT\_CONNECT\_TIMEOUT\ 300000\ }\textcolor{comment}{/*\ milliseconds\ ==\ five\ minutes\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ Used\ to\ extract\ socket\ and\ connectdata\ struct\ for\ the\ most\ recent}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ transfer\ on\ the\ given\ Curl\_easy.}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ The\ returned\ socket\ will\ be\ CURL\_SOCKET\_BAD\ in\ case\ of\ failure!}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00055\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ \mbox{\hyperlink{connect_8h_a541ca69a71c4719d36fe817d6186b28c}{Curl\_getconnectinfo}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ **connp);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{connect_8h_a3d173c4a7177ddb669894d73bd6ce468}{Curl\_addr2string}}(\textcolor{keyword}{struct}\ sockaddr\ *sa,\ \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\_socklen\_t}}\ salen,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *addr,\ \textcolor{keywordtype}{int}\ *port);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ Check\ if\ a\ connection\ seems\ to\ be\ alive.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{connect_8h_a74c23cda76889e03be9b701cfde158c7}{Curl\_connalive}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#ifdef\ USE\_WINSOCK}}
+\DoxyCodeLine{00067\ \textcolor{comment}{/*\ When\ you\ run\ a\ program\ that\ uses\ the\ Windows\ Sockets\ API,\ you\ may}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ experience\ slow\ performance\ when\ you\ copy\ data\ to\ a\ TCP\ server.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ https://support.microsoft.com/kb/823764}}
+\DoxyCodeLine{00071\ \textcolor{comment}{}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ Work-\/around:\ Make\ the\ Socket\ Send\ Buffer\ Size\ Larger\ Than\ the\ Program\ Send}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ Buffer\ Size}}
+\DoxyCodeLine{00074\ \textcolor{comment}{}}
+\DoxyCodeLine{00075\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{connect_8h_a424d2b76b8d7dcd8e56ea081825248d4}{Curl\_sndbufset}}(\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd);}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ Curl\_sndbufset(y)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{connect_8h_adc9ee43ccf2c41e8bf64962433d00bc5}{Curl\_updateconninfo}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd);}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{connect_8h_a798c9cbeaee1f083db67be3d2f03b874}{Curl\_conninfo\_remote}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd);}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{connect_8h_a4860882f17163f34962967b5daf15831}{Curl\_conninfo\_local}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *local\_ip,\ \textcolor{keywordtype}{int}\ *local\_port);}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{connect_8h_a6774a730ff3f845a0d971c1a05f5e4af}{Curl\_persistconninfo}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *local\_ip,\ \textcolor{keywordtype}{int}\ local\_port);}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{connect_8h_a5480fca58eb2032c00a86af277bc7b41}{Curl\_closesocket}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sock);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ The\ Curl\_sockaddr\_ex\ structure\ is\ basically\ libcurl's\ external\ API}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ curl\_sockaddr\ structure\ with\ enough\ space\ available\ to\ directly\ hold\ any}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ protocol-\/specific\ address\ structures.\ The\ variable\ declared\ here\ will\ be}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ used\ to\ pass\ /\ receive\ data\ to/from\ the\ fopensocket\ callback\ if\ this\ has}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ been\ set,\ before\ that,\ it\ is\ initialized\ from\ parameters.}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__sockaddr__ex}{Curl\_sockaddr\_ex}}\ \{}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__sockaddr__ex_ae052ea732259d2779610294b5062b02e}{family}};}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__sockaddr__ex_a7a8d1e4b76be897f86d5132b13a67af0}{socktype}};}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__sockaddr__ex_a0d08c810228b2a3b00bda6f6c8dc495c}{protocol}};}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__sockaddr__ex_a6de6faaace1baff6309a56e76dbf645e}{addrlen}};}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\ \mbox{\hyperlink{structCurl__sockaddr__ex_a95fc752d627726be9f2d4ee93edf4c30}{addr}};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__sockaddr__storage}{Curl\_sockaddr\_storage}}\ \mbox{\hyperlink{structCurl__sockaddr__ex_addb25b2b064836e408cafe0f98626c66}{buff}};}
+\DoxyCodeLine{00107\ \ \ \}\ \mbox{\hyperlink{structCurl__sockaddr__ex_a15717a2867c87966a71736afe54f1161}{\_sa\_ex\_u}};}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ sa\_addr\ \_sa\_ex\_u.addr}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ Create\ a\ socket\ based\ on\ info\ from\ 'conn'\ and\ 'ai'.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ Fill\ in\ 'addr'\ and\ 'sockfd'\ accordingly\ if\ OK\ is\ returned.\ If\ the\ open}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ socket\ callback\ is\ set,\ used\ that!}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00118\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{connect_8h_a0d691c53d482e0538b657cb26179bb86}{Curl\_socket}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *ai,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__sockaddr__ex}{Curl\_sockaddr\_ex}}\ *addr,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *sockfd);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ Curl\_conncontrol()\ marks\ the\ end\ of\ a\ connection/stream.\ The\ 'closeit'}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ argument\ specifies\ if\ it\ is\ the\ end\ of\ a\ connection\ or\ a\ stream.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ For\ stream-\/based\ protocols\ (such\ as\ HTTP/2),\ a\ stream\ close\ will\ not\ cause}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ a\ connection\ close.\ Other\ protocols\ will\ close\ the\ connection\ for\ both}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ cases.}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ It\ sets\ the\ bit.close\ bit\ to\ TRUE\ (with\ an\ explanation\ for\ debug\ builds),}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ when\ the\ connection\ will\ close.}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ CONNCTRL\_KEEP\ 0\ }\textcolor{comment}{/*\ undo\ a\ marked\ closure\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ CONNCTRL\_CONNECTION\ 1}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ CONNCTRL\_STREAM\ 2}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{connect_8h_a49c2160e1f44ffd729cdcafbc3e936f1}{Curl\_conncontrol}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ closeit}
+\DoxyCodeLine{00141\ \#\textcolor{keywordflow}{if}\ defined(DEBUGBUILD)\ \&\&\ !defined(CURL\_DISABLE\_VERBOSE\_STRINGS)}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *reason}
+\DoxyCodeLine{00143\ \#endif}
+\DoxyCodeLine{00144\ \ \ );}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#if\ defined(DEBUGBUILD)\ \&\&\ !defined(CURL\_DISABLE\_VERBOSE\_STRINGS)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ streamclose(x,y)\ Curl\_conncontrol(x,\ CONNCTRL\_STREAM,\ y)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ connclose(x,y)\ Curl\_conncontrol(x,\ CONNCTRL\_CONNECTION,\ y)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ connkeep(x,y)\ Curl\_conncontrol(x,\ CONNCTRL\_KEEP,\ y)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ if\ !DEBUGBUILD\ ||\ CURL\_DISABLE\_VERBOSE\_STRINGS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ streamclose(x,y)\ Curl\_conncontrol(x,\ CONNCTRL\_STREAM)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ connclose(x,y)\ Curl\_conncontrol(x,\ CONNCTRL\_CONNECTION)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ connkeep(x,y)\ Curl\_conncontrol(x,\ CONNCTRL\_KEEP)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{connect_8h_a040dc08db4e56830fee8cd4515b3db76}{Curl\_conn\_data\_pending}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_CONNECT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

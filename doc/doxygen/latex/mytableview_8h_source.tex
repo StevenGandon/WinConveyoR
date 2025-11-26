@@ -1,0 +1,111 @@
+\doxysection{mytableview.\+h}
+\hypertarget{mytableview_8h_source}{}\label{mytableview_8h_source}\index{Beamage/mytableview.h@{Beamage/mytableview.h}}
+\mbox{\hyperlink{mytableview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QTableView>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}ui\_mytableview.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\#include\ <roiresultinfo.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{resultinfo_8h}{resultinfo.h}}>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{itemproperty_8h}{itemproperty.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }QPainter;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }QItemSelectionModel;}
+\DoxyCodeLine{00011\ \textcolor{comment}{//class\ roiTableModel;}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmyTableModel}{myTableModel}};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }QEvent;}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }QMenu;}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }QPrinter;}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }QStandardItem;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmytableView_a3ee3c10bf7d4e08b66c2f9d9cc1e3b36}{mytableView}}\ :\ \textcolor{keyword}{public}\ QTableView}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13}{Type}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13acf69373666bcaf96a49c81c5a87da919}{ROI}},}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13a2d2cb4683eadd6eec0f291761986efbd}{GraphArea}}}
+\DoxyCodeLine{00027\ \ \ \ \ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classmytableView_a3ee3c10bf7d4e08b66c2f9d9cc1e3b36}{mytableView}}(QWidget\ *parent\ =\ 0,\ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13}{Type}}\ \mbox{\hyperlink{classmytableView_ab867ad76813ca3fb75782d12489adf78}{type}}\ =\ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13acf69373666bcaf96a49c81c5a87da919}{ROI}});}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classmytableView_ae0f2b343cfcbe6a9dfc199328114309d}{\string~mytableView}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13}{Type}}\ \mbox{\hyperlink{classmytableView_ab867ad76813ca3fb75782d12489adf78}{type}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fType;\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a908b604476c301f7e754346a6b7f18ba}{setType}}(\mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13}{Type}}\ \mbox{\hyperlink{classmytableView_ab867ad76813ca3fb75782d12489adf78}{type}})\ \{\ fType\ =\ \mbox{\hyperlink{classmytableView_ab867ad76813ca3fb75782d12489adf78}{type}};\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_af784baf5bb4091d13f3f258834b6b6d4}{prepareTable}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_aa45a53f087a78f2ad7b1ca53bb5118c9}{clearTab}}();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a84eeaf11eac37176b44e0c82f317df24}{saveAsCSV}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a124c9f1baeb3f49d48622f6af271a2d2}{saveAsXLS}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a1c3b574ed1f386c9303b66501c69be80}{finish}}();}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmytableView_a6296d25422ecff3438d22732e1330aa0}{needToBeSaved}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fNeedToBeSaved;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a8cbfe2028adfbaec91bc013d2cac6c5c}{resetNeedToBeSaved}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ QString\ \mbox{\hyperlink{classmytableView_a8272faae75e1b5c1673c629db54fe955}{getSavedName}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fSavedName;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a0655c937549180646bd43a8b66dca7bd}{setSavedName}}(\textcolor{keyword}{const}\ QString\ \&name)\ \{\ fSavedName\ =\ name;\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//void\ print(QPrinter\ *printer,\ QPainter\ *painter,\ QRectF\ printArea,\ int\ \&nPages);}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a2d10d1b7d66b4fbc0173d5275f888726}{print}}(QPrinter\ *printer);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmytableView_aa031d2e7d53813b400ecd7197cae6a0f}{totalWidth}}();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ signals:}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a972ad2fca1e7de9b45cb75d4639dcd81}{needRefresh}}(\textcolor{keywordtype}{bool}\ forceAll\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a38b0f0737104dd7c14a38b22d36e47df}{itemSelectionChanged}}(\textcolor{keyword}{const}\ QList<int>\ \&idSelected,\ \textcolor{keyword}{const}\ QList<int>\ \&idDeselected);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a8d9ebcf6eea81e10c58c29912a17fa54}{itemNameChanged}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ QString\ \&name);}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a68ad07372a9e2685e08b4aa58622e61b}{propertyItem}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&prop);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a9aee71751137e88770ace6b209106717}{cleanTab}}();}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//void\ addEntry(const\ roiResultInfo\ \&info);}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_adb29f525d843599d3f08717f5c6240a2}{addEntry}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classresultInfo}{resultInfo}}\&\ info);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_ae336791aafe52823a989416bca0f4321}{removeEntry}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a17208bdb48d06d41d06309272a006770}{highligthChangedId}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_ae28f338b63c86a9bcfe3a9fedf249461}{highligthSelectedId}}(QGraphicsItem*\ item,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_ae28f338b63c86a9bcfe3a9fedf249461}{highligthSelectedId}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_abbc7409cfa61058b90cc3a20302966fe}{copy}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_acbee2da7f8eb051d7b298626c70b75df}{showTopLevelOnly}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a18b60a879fe3d5915e254af64135d5e8}{changeItem}}(QStandardItem\ *item);}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a709fa31d3a40edc1e3953dd0ab529681}{needSave}}();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//void\ setCellBackgroundColor(QColor\ col);}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//void\ setCellTextColor(QColor\ col);}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{//void\ setCellFont(QFont\ font);}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a13445a4083aec06a3242bfca2084f790}{setCellProperty}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&prop);}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a4603a659520906b424d819edfa14389b}{tableSelectionChanged}}(\textcolor{keyword}{const}\ QItemSelection\ \&\ selected,\ \textcolor{keyword}{const}\ QItemSelection\ \&\ deselected);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a10c226de345e2e16f6d5c531c6639d43}{changeData}}(\textcolor{keyword}{const}\ QModelIndex\ \&index,\ \textcolor{keyword}{const}\ QVariant\ \&newValue);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_adee1a5c81a68a2a9cb605d71523638c0}{updateTable}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_a0ff5509c07787d4671b08b6985f8c318}{keyPressEvent}}(QKeyEvent\ *keyEvent);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_ad3e0cf79447b387dfc64bdd1c996f49a}{contextMenuEvent}}(QContextMenuEvent\ *\ \mbox{\hyperlink{classmytableView_a9f735835dc6553888ec250488c4ac12d}{event}});}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmytableView_a9f735835dc6553888ec250488c4ac12d}{event}}(QEvent\ *\ \mbox{\hyperlink{classmytableView_a9f735835dc6553888ec250488c4ac12d}{event}});}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ createMenu();}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ printHeader(QPainter\ \&painter,\ \textcolor{keyword}{const}\ QRectF\ \&headerArea,\ \textcolor{keyword}{const}\ QString\ \&headerText);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ printFooter(QPainter\ \&painter,\ \textcolor{keyword}{const}\ QRectF\ \&footerArea,\ \textcolor{keyword}{const}\ QString\ \&footerText);}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ printTable(QPrinter\ *printer,\ QPainter\ *painter,\ \textcolor{keyword}{const}\ QPointF\ \&point,\ \textcolor{keywordtype}{int}\ rowOffset,\ \textcolor{keywordtype}{int}\ colOffset,\ \textcolor{keywordtype}{int}\ rowRange,\ \textcolor{keywordtype}{int}\ colRange,\ \textcolor{keywordtype}{double}\ scaleWidth\ =\ 1,\ \textcolor{keywordtype}{double}\ scaleHeight\ =\ 1);}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmytableView_ae28f338b63c86a9bcfe3a9fedf249461}{highligthSelectedId}}(QList<QStandardItem*>\ list,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ QMenu\ *fMenu;}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//roiTableModel\ *fModel;}}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{classmyTableModel}{myTableModel}}*\ fModel;}
+\DoxyCodeLine{00097\ \ \ \ \ QItemSelectionModel\ *fModelSelect;}
+\DoxyCodeLine{00098\ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ fNeedToBeSaved;}
+\DoxyCodeLine{00100\ \ \ \ \ QString\ fSavedName;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{classmytableView_a2f73ced7c4d14669713efefec8e21b13}{Type}}\ fType;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ Ui::mytableView\ ui;}
+\DoxyCodeLine{00105\ \};}
+
+\end{DoxyCode}

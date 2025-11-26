@@ -1,0 +1,90 @@
+\doxysection{scene.\+h}
+\hypertarget{scene_8h_source}{}\label{scene_8h_source}\index{Beamage/scene.h@{Beamage/scene.h}}
+\mbox{\hyperlink{scene_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{color_8h}{color.h}}"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ IMPL\_REF\_OBJECT()\ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ public:\ \(\backslash\)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint32\_t\ id;\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ std::string\ name;\ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ double\ namePosition[2];\ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ double\ infoPos[2];\ \(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ bool\ isNameVisible;\ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ bool\ isInfoVisible;}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage}{Beamage}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{namespace\ }ABC\ \{}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab0d1dd9ead6c817023b5810444db469b}{ISceneObject}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab0d1dd9ead6c817023b5810444db469b}{ISceneObject}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a00f12cb79182a013f7fb46a762f8ea24}{OBJECT\_TYPES}}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a00f12cb79182a013f7fb46a762f8ea24aaa91c749da4ee387a5fd6cd99f364a46}{OT\_ROI}},}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a00f12cb79182a013f7fb46a762f8ea24a75d8d4a5a5663491c6ff371d19e298d5}{OT\_TEXT}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a00f12cb79182a013f7fb46a762f8ea24a7c5f0c676792dc4ff66525db47e26d41}{OT\_GROUP}},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a00f12cb79182a013f7fb46a762f8ea24a66403318c63612621997c26f2f2a3905}{OT\_LADDER}}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_aeac652ef4928a041d0d45c1f53bb5437}{type}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a4d1820ef64403f428b5bea70107169a7}{pen}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ac6aecf97701155295b80a562c63430e2}{brush}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a2bd6556f9b7bf8d9cbacc80a26e614b8}{font}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_aafd7ec050e9e7863aae311a1ba98e191}{fontSize}};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1Color}{Color}}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a902e785803908e26581b2557d7426fdd}{fontColor}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_aeda269fab4399ae32f08cdc86b0c347a}{markerShape}};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab436662e90b03f37345127c4498ef9d0}{markerPen}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a09ef2e681027481f7ed688ba11c6392d}{markerBrush}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab6d76e157cf409bcdbfb1453df03ad4b}{markerSize}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a290373d024cf973f9b14c4f3f57b8a38}{position}}[2];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a76410da334b489245cb05ae16615cd86}{size}}[2];}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a74e97aae8f0349320b0d2e1bade3f2de}{rot}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_a081c8c979a38bae85bf86659b664c9ea}{flags}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1ABC_1_1SceneObjectROI}{SceneObjectROI}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab0d1dd9ead6c817023b5810444db469b}{ISceneObject}}\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{scene_8h_a6f3ba7947099b544ba9099d14f8771ba}{IMPL\_REF\_OBJECT}}()}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1ABC_1_1SceneObjectText}{SceneObjectText}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab0d1dd9ead6c817023b5810444db469b}{ISceneObject}}\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1SceneObjectText_ac0963b50779755ea60b52dea461502d1}{content}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1ABC_1_1SceneObjectGroup}{SceneObjectGroup}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab0d1dd9ead6c817023b5810444db469b}{ISceneObject}}\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{scene_8h_a6f3ba7947099b544ba9099d14f8771ba}{IMPL\_REF\_OBJECT}}()}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1SceneObjectGroup_a4282628ea2eca010dc2806229c8ac71a}{itemCnt}};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1ABC_1_1SceneObjectLadder}{SceneObjectLadder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1ISceneObject_ab0d1dd9ead6c817023b5810444db469b}{ISceneObject}}\ \{}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1ABC_1_1Scene_ad10176d75a9cc0da56626f682d083507}{Scene}}\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1Scene_ad10176d75a9cc0da56626f682d083507}{Scene}}();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1ABC_1_1Scene_a3b8cec2e32546713915f8c6303c951f1}{\string~Scene}}();}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1Scene_a104071afe9305c2850e828d04a4806d6}{isInfosVisible}};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1Scene_a35818f6672e04965c9710c68dbb9d95a}{isNameVisible}};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::shared\_ptr<ISceneObject>>\ \mbox{\hyperlink{classBeamage_1_1ABC_1_1Scene_ae9852378efe519bdcec36ca10c062476}{objects}};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,44 @@
+\doxysection{openssl.\+h}
+\hypertarget{openssl_8h_source}{}\label{openssl_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/openssl.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/openssl.h}}
+\mbox{\hyperlink{openssl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SSLUSE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SSLUSE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_OPENSSL}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ This\ header\ should\ only\ be\ needed\ to\ get\ included\ by\ vtls.c,\ openssl.c}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ and\ ngtcp2.c}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ In\ an\ effort\ to\ avoid\ using\ 'X509\ *'\ here,\ we\ instead\ use\ the\ struct}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ x509\_st\ version\ of\ the\ type\ so\ that\ we\ can\ forward-\/declare\ it\ here\ without}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ having\ to\ include\ <openssl/x509v3.h>.\ Including\ that\ header\ causes\ name}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ conflicts\ when\ libcurl\ is\ built\ with\ both\ Schannel\ and\ OpenSSL\ support.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{struct\ }x509\_st;}
+\DoxyCodeLine{00045\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ossl\_verifyhost(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ x509\_st\ *server\_cert);}
+\DoxyCodeLine{00047\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__ssl}{Curl\_ssl}}\ Curl\_ssl\_openssl;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{struct\ }ssl\_ctx\_st;}
+\DoxyCodeLine{00050\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ossl\_set\_client\_cert(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ ssl\_ctx\_st\ *ctx,\ \textcolor{keywordtype}{char}\ *cert\_file,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__blob}{curl\_blob}}\ *cert\_blob,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cert\_type,\ \textcolor{keywordtype}{char}\ *key\_file,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__blob}{curl\_blob}}\ *key\_blob,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key\_type,\ \textcolor{keywordtype}{char}\ *key\_passwd);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ossl\_certchain(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \mbox{\hyperlink{connect-to_8d_ab156b174a86e8671421f3a4f9e8eef71}{SSL}}\ *ssl);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_OPENSSL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SSLUSE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

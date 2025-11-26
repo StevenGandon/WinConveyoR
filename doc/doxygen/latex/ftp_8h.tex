@@ -1,0 +1,305 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/ftp.h File Reference}
+\hypertarget{ftp_8h}{}\label{ftp_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/ftp.h@{lib/libwconr/build/\_deps/curl-\/src/lib/ftp.h}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}pingpong.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structftp__wc}{ftp\+\_\+wc}}
+\item 
+struct \mbox{\hyperlink{structFTP}{FTP}}
+\item 
+struct \mbox{\hyperlink{structftp__conn}{ftp\+\_\+conn}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ftp_8h_aa0f0a799e8c85de11da0b1b426877750}{DEFAULT\+\_\+\+ACCEPT\+\_\+\+TIMEOUT}}~60000 /\texorpdfstring{$\ast$}{*} milliseconds == one \mbox{\hyperlink{rate_8d_a6137e806a2cf4843d45ee641e5544131}{minute}} \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} \{ \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab728995e08add6b7411b0c347b973b42}{FTP\+\_\+\+STOP}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65abae6a623835e4269b257ff21bcb79ed0}{FTP\+\_\+\+WAIT220}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2bd11bd4d07b54cfbeb51199eaf998d9}{FTP\+\_\+\+AUTH}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a95518daa497390189c61aa83c8a1e88a}{FTP\+\_\+\+USER}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca6266a872be15f938cdbbfb3848fc83}{FTP\+\_\+\+PASS}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a93a65808449e2f199c573d6c71aaca8b}{FTP\+\_\+\+ACCT}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa5bab60813f0dee8060cc00dadf070d9}{FTP\+\_\+\+PBSZ}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a41b778c2aeab0dd5779fe00bd47fd383}{FTP\+\_\+\+PROT}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a84a7ed5d4f674a884524357db49c890d}{FTP\+\_\+\+CCC}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca379f22e83e32b84e6ae13c8e2ec021}{FTP\+\_\+\+PWD}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a18b677d0252c2519d54ad5e65476eff0}{FTP\+\_\+\+SYST}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a424cb619b42ed94ebefe203d045abc99}{FTP\+\_\+\+NAMEFMT}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1fdf8f9a38a07300052b2c9a49659fd2}{FTP\+\_\+\+QUOTE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a436e55df5f5834180e78cefa2e95bc29}{FTP\+\_\+\+RETR\+\_\+\+PREQUOTE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab73fcc31ca43404e66b393f314ed3c15}{FTP\+\_\+\+STOR\+\_\+\+PREQUOTE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac15dd7cd691c70046eb44ed87668587b}{FTP\+\_\+\+POSTQUOTE}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a3630e79d997c97b4eb91c87c67bb477f}{FTP\+\_\+\+CWD}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a8115a39494ea1a40fd0e2d9e51b61b92}{FTP\+\_\+\+MKD}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a27602c6b9eaa7f0ce5fbb45493180e49}{FTP\+\_\+\+MDTM}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2706bd50f04c829f62a30ee886e67ed0}{FTP\+\_\+\+TYPE}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a65afd49b1baa6e1a4915c85f372a64eb}{FTP\+\_\+\+LIST\+\_\+\+TYPE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1d39a52adb8e2162b2c56dcaf0943c80}{FTP\+\_\+\+RETR\+\_\+\+TYPE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa6233d6e045100c7beda9fb549430f28}{FTP\+\_\+\+STOR\+\_\+\+TYPE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b38c28089de4d15ded4a7a16ac28a87}{FTP\+\_\+\+SIZE}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af08a45f6d43a3e58495131fb582ff1c0}{FTP\+\_\+\+RETR\+\_\+\+SIZE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b3b874197ce162d8f012723a7184004}{FTP\+\_\+\+STOR\+\_\+\+SIZE}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a9dfb8cf86d141a0b4dd611d19069d127}{FTP\+\_\+\+REST}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a0d9d6b2c221700c4479d9c4aab0192f8}{FTP\+\_\+\+RETR\+\_\+\+REST}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ad8fbe74a695b640f4c917d49696c1b90}{FTP\+\_\+\+PORT}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1e32e2a175bcdb45625a04ebcfea1d7f}{FTP\+\_\+\+PRET}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac50fb126afa10cf6754b070caa0485e3}{FTP\+\_\+\+PASV}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a45792e6cafc2628e4bef7a25035acd4d}{FTP\+\_\+\+LIST}}
+, \newline
+\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ace331d2993199828afd6f0a348483f91}{FTP\+\_\+\+RETR}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab1ccd7c5223945586470ddac912f5659}{FTP\+\_\+\+STOR}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a5a431b48a039b3f3125648f79ac77057}{FTP\+\_\+\+QUIT}}
+, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af173018902b58a189d485550a0f6fe33}{FTP\+\_\+\+LAST}}
+ \}
+\item 
+enum \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955}{curl\+\_\+ftpfile}} \{ \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a99eba1414ed72de04dca8f1914a90b9a}{FTPFILE\+\_\+\+MULTICWD}} = 1
+, \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955af40087a98668a23d7e6167d675c37ce8}{FTPFILE\+\_\+\+NOCWD}} = 2
+, \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a6797c5e57b04b63f4f8bab20bbac89f3}{FTPFILE\+\_\+\+SINGLECWD}} = 3
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8h_aedf86bc294699c5ed5b6a77fac3e5801}{Curl\+\_\+\+Get\+FTPResponse}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}nread, int \texorpdfstring{$\ast$}{*}ftpcode)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{ftp_8h_a79071fb30b2abfa423a252245cbc6190}{Curl\+\_\+handler\+\_\+ftp}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ftp_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ftp_8h_aa0f0a799e8c85de11da0b1b426877750}\index{ftp.h@{ftp.h}!DEFAULT\_ACCEPT\_TIMEOUT@{DEFAULT\_ACCEPT\_TIMEOUT}}
+\index{DEFAULT\_ACCEPT\_TIMEOUT@{DEFAULT\_ACCEPT\_TIMEOUT}!ftp.h@{ftp.h}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_ACCEPT\_TIMEOUT}{DEFAULT\_ACCEPT\_TIMEOUT}}
+{\footnotesize\ttfamily \label{ftp_8h_aa0f0a799e8c85de11da0b1b426877750} 
+\#define DEFAULT\+\_\+\+ACCEPT\+\_\+\+TIMEOUT~60000 /\texorpdfstring{$\ast$}{*} milliseconds == one \mbox{\hyperlink{rate_8d_a6137e806a2cf4843d45ee641e5544131}{minute}} \texorpdfstring{$\ast$}{*}/}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{ftp_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955}\index{ftp.h@{ftp.h}!curl\_ftpfile@{curl\_ftpfile}}
+\index{curl\_ftpfile@{curl\_ftpfile}!ftp.h@{ftp.h}}
+\doxysubsubsection{\texorpdfstring{curl\_ftpfile}{curl\_ftpfile}}
+{\footnotesize\ttfamily \label{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955} 
+enum \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955}{curl\+\_\+ftpfile}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTPFILE\_MULTICWD@{FTPFILE\_MULTICWD}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTPFILE\_MULTICWD@{FTPFILE\_MULTICWD}}}\Hypertarget{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a99eba1414ed72de04dca8f1914a90b9a}\label{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a99eba1414ed72de04dca8f1914a90b9a} 
+FTPFILE\+\_\+\+MULTICWD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTPFILE\_NOCWD@{FTPFILE\_NOCWD}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTPFILE\_NOCWD@{FTPFILE\_NOCWD}}}\Hypertarget{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955af40087a98668a23d7e6167d675c37ce8}\label{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955af40087a98668a23d7e6167d675c37ce8} 
+FTPFILE\+\_\+\+NOCWD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTPFILE\_SINGLECWD@{FTPFILE\_SINGLECWD}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTPFILE\_SINGLECWD@{FTPFILE\_SINGLECWD}}}\Hypertarget{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a6797c5e57b04b63f4f8bab20bbac89f3}\label{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a6797c5e57b04b63f4f8bab20bbac89f3} 
+FTPFILE\+\_\+\+SINGLECWD&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}\index{ftp.h@{ftp.h}!ftpstate@{ftpstate}}
+\index{ftpstate@{ftpstate}!ftp.h@{ftp.h}}
+\doxysubsubsection{\texorpdfstring{ftpstate}{ftpstate}}
+{\footnotesize\ttfamily \label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65} 
+enum \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}
+
+\doxylink{structFTP}{FTP} unique setup \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_STOP@{FTP\_STOP}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_STOP@{FTP\_STOP}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab728995e08add6b7411b0c347b973b42}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab728995e08add6b7411b0c347b973b42} 
+FTP\+\_\+\+STOP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_WAIT220@{FTP\_WAIT220}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_WAIT220@{FTP\_WAIT220}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65abae6a623835e4269b257ff21bcb79ed0}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65abae6a623835e4269b257ff21bcb79ed0} 
+FTP\+\_\+\+WAIT220&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_AUTH@{FTP\_AUTH}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_AUTH@{FTP\_AUTH}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2bd11bd4d07b54cfbeb51199eaf998d9}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2bd11bd4d07b54cfbeb51199eaf998d9} 
+FTP\+\_\+\+AUTH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_USER@{FTP\_USER}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_USER@{FTP\_USER}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a95518daa497390189c61aa83c8a1e88a}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a95518daa497390189c61aa83c8a1e88a} 
+FTP\+\_\+\+USER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PASS@{FTP\_PASS}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PASS@{FTP\_PASS}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca6266a872be15f938cdbbfb3848fc83}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca6266a872be15f938cdbbfb3848fc83} 
+FTP\+\_\+\+PASS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_ACCT@{FTP\_ACCT}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_ACCT@{FTP\_ACCT}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a93a65808449e2f199c573d6c71aaca8b}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a93a65808449e2f199c573d6c71aaca8b} 
+FTP\+\_\+\+ACCT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PBSZ@{FTP\_PBSZ}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PBSZ@{FTP\_PBSZ}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa5bab60813f0dee8060cc00dadf070d9}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa5bab60813f0dee8060cc00dadf070d9} 
+FTP\+\_\+\+PBSZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PROT@{FTP\_PROT}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PROT@{FTP\_PROT}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a41b778c2aeab0dd5779fe00bd47fd383}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a41b778c2aeab0dd5779fe00bd47fd383} 
+FTP\+\_\+\+PROT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_CCC@{FTP\_CCC}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_CCC@{FTP\_CCC}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a84a7ed5d4f674a884524357db49c890d}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a84a7ed5d4f674a884524357db49c890d} 
+FTP\+\_\+\+CCC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PWD@{FTP\_PWD}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PWD@{FTP\_PWD}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca379f22e83e32b84e6ae13c8e2ec021}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca379f22e83e32b84e6ae13c8e2ec021} 
+FTP\+\_\+\+PWD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_SYST@{FTP\_SYST}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_SYST@{FTP\_SYST}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a18b677d0252c2519d54ad5e65476eff0}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a18b677d0252c2519d54ad5e65476eff0} 
+FTP\+\_\+\+SYST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_NAMEFMT@{FTP\_NAMEFMT}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_NAMEFMT@{FTP\_NAMEFMT}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a424cb619b42ed94ebefe203d045abc99}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a424cb619b42ed94ebefe203d045abc99} 
+FTP\+\_\+\+NAMEFMT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_QUOTE@{FTP\_QUOTE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_QUOTE@{FTP\_QUOTE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1fdf8f9a38a07300052b2c9a49659fd2}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1fdf8f9a38a07300052b2c9a49659fd2} 
+FTP\+\_\+\+QUOTE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_RETR\_PREQUOTE@{FTP\_RETR\_PREQUOTE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_RETR\_PREQUOTE@{FTP\_RETR\_PREQUOTE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a436e55df5f5834180e78cefa2e95bc29}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a436e55df5f5834180e78cefa2e95bc29} 
+FTP\+\_\+\+RETR\+\_\+\+PREQUOTE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_STOR\_PREQUOTE@{FTP\_STOR\_PREQUOTE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_STOR\_PREQUOTE@{FTP\_STOR\_PREQUOTE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab73fcc31ca43404e66b393f314ed3c15}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab73fcc31ca43404e66b393f314ed3c15} 
+FTP\+\_\+\+STOR\+\_\+\+PREQUOTE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_POSTQUOTE@{FTP\_POSTQUOTE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_POSTQUOTE@{FTP\_POSTQUOTE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac15dd7cd691c70046eb44ed87668587b}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac15dd7cd691c70046eb44ed87668587b} 
+FTP\+\_\+\+POSTQUOTE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_CWD@{FTP\_CWD}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_CWD@{FTP\_CWD}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a3630e79d997c97b4eb91c87c67bb477f}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a3630e79d997c97b4eb91c87c67bb477f} 
+FTP\+\_\+\+CWD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_MKD@{FTP\_MKD}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_MKD@{FTP\_MKD}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a8115a39494ea1a40fd0e2d9e51b61b92}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a8115a39494ea1a40fd0e2d9e51b61b92} 
+FTP\+\_\+\+MKD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_MDTM@{FTP\_MDTM}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_MDTM@{FTP\_MDTM}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a27602c6b9eaa7f0ce5fbb45493180e49}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a27602c6b9eaa7f0ce5fbb45493180e49} 
+FTP\+\_\+\+MDTM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_TYPE@{FTP\_TYPE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_TYPE@{FTP\_TYPE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2706bd50f04c829f62a30ee886e67ed0}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2706bd50f04c829f62a30ee886e67ed0} 
+FTP\+\_\+\+TYPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_LIST\_TYPE@{FTP\_LIST\_TYPE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_LIST\_TYPE@{FTP\_LIST\_TYPE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a65afd49b1baa6e1a4915c85f372a64eb}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a65afd49b1baa6e1a4915c85f372a64eb} 
+FTP\+\_\+\+LIST\+\_\+\+TYPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_RETR\_TYPE@{FTP\_RETR\_TYPE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_RETR\_TYPE@{FTP\_RETR\_TYPE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1d39a52adb8e2162b2c56dcaf0943c80}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1d39a52adb8e2162b2c56dcaf0943c80} 
+FTP\+\_\+\+RETR\+\_\+\+TYPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_STOR\_TYPE@{FTP\_STOR\_TYPE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_STOR\_TYPE@{FTP\_STOR\_TYPE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa6233d6e045100c7beda9fb549430f28}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa6233d6e045100c7beda9fb549430f28} 
+FTP\+\_\+\+STOR\+\_\+\+TYPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_SIZE@{FTP\_SIZE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_SIZE@{FTP\_SIZE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b38c28089de4d15ded4a7a16ac28a87}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b38c28089de4d15ded4a7a16ac28a87} 
+FTP\+\_\+\+SIZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_RETR\_SIZE@{FTP\_RETR\_SIZE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_RETR\_SIZE@{FTP\_RETR\_SIZE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af08a45f6d43a3e58495131fb582ff1c0}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af08a45f6d43a3e58495131fb582ff1c0} 
+FTP\+\_\+\+RETR\+\_\+\+SIZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_STOR\_SIZE@{FTP\_STOR\_SIZE}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_STOR\_SIZE@{FTP\_STOR\_SIZE}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b3b874197ce162d8f012723a7184004}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b3b874197ce162d8f012723a7184004} 
+FTP\+\_\+\+STOR\+\_\+\+SIZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_REST@{FTP\_REST}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_REST@{FTP\_REST}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a9dfb8cf86d141a0b4dd611d19069d127}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a9dfb8cf86d141a0b4dd611d19069d127} 
+FTP\+\_\+\+REST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_RETR\_REST@{FTP\_RETR\_REST}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_RETR\_REST@{FTP\_RETR\_REST}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a0d9d6b2c221700c4479d9c4aab0192f8}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a0d9d6b2c221700c4479d9c4aab0192f8} 
+FTP\+\_\+\+RETR\+\_\+\+REST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PORT@{FTP\_PORT}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PORT@{FTP\_PORT}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ad8fbe74a695b640f4c917d49696c1b90}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ad8fbe74a695b640f4c917d49696c1b90} 
+FTP\+\_\+\+PORT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PRET@{FTP\_PRET}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PRET@{FTP\_PRET}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1e32e2a175bcdb45625a04ebcfea1d7f}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1e32e2a175bcdb45625a04ebcfea1d7f} 
+FTP\+\_\+\+PRET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_PASV@{FTP\_PASV}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_PASV@{FTP\_PASV}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac50fb126afa10cf6754b070caa0485e3}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac50fb126afa10cf6754b070caa0485e3} 
+FTP\+\_\+\+PASV&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_LIST@{FTP\_LIST}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_LIST@{FTP\_LIST}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a45792e6cafc2628e4bef7a25035acd4d}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a45792e6cafc2628e4bef7a25035acd4d} 
+FTP\+\_\+\+LIST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_RETR@{FTP\_RETR}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_RETR@{FTP\_RETR}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ace331d2993199828afd6f0a348483f91}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ace331d2993199828afd6f0a348483f91} 
+FTP\+\_\+\+RETR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_STOR@{FTP\_STOR}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_STOR@{FTP\_STOR}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab1ccd7c5223945586470ddac912f5659}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab1ccd7c5223945586470ddac912f5659} 
+FTP\+\_\+\+STOR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_QUIT@{FTP\_QUIT}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_QUIT@{FTP\_QUIT}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a5a431b48a039b3f3125648f79ac77057}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a5a431b48a039b3f3125648f79ac77057} 
+FTP\+\_\+\+QUIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FTP\_LAST@{FTP\_LAST}!ftp.h@{ftp.h}}\index{ftp.h@{ftp.h}!FTP\_LAST@{FTP\_LAST}}}\Hypertarget{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af173018902b58a189d485550a0f6fe33}\label{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af173018902b58a189d485550a0f6fe33} 
+FTP\+\_\+\+LAST&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{ftp_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ftp_8h_aedf86bc294699c5ed5b6a77fac3e5801}\index{ftp.h@{ftp.h}!Curl\_GetFTPResponse@{Curl\_GetFTPResponse}}
+\index{Curl\_GetFTPResponse@{Curl\_GetFTPResponse}!ftp.h@{ftp.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_GetFTPResponse()}{Curl\_GetFTPResponse()}}
+{\footnotesize\ttfamily \label{ftp_8h_aedf86bc294699c5ed5b6a77fac3e5801} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+\+Get\+FTPResponse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{nread}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{ftpcode}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{ftp_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{ftp_8h_a79071fb30b2abfa423a252245cbc6190}\index{ftp.h@{ftp.h}!Curl\_handler\_ftp@{Curl\_handler\_ftp}}
+\index{Curl\_handler\_ftp@{Curl\_handler\_ftp}!ftp.h@{ftp.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_ftp}{Curl\_handler\_ftp}}
+{\footnotesize\ttfamily \label{ftp_8h_a79071fb30b2abfa423a252245cbc6190} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+ftp\hspace{0.3cm}{\ttfamily [extern]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

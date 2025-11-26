@@ -1,0 +1,42 @@
+\doxysection{splay.\+h}
+\hypertarget{splay_8h_source}{}\label{splay_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/splay.h@{lib/libwconr/build/\_deps/curl-\/src/lib/splay.h}}
+\mbox{\hyperlink{splay_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SPLAY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SPLAY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timeval_8h}{timeval.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ \{}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{structCurl__tree_ac76cc3e653692b57c84bef5e0100749d}{smaller}};\ \textcolor{comment}{/*\ smaller\ node\ */}}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{structCurl__tree_a3d035b6c15ff3f298d367f1073b52014}{larger}};\ \ \textcolor{comment}{/*\ larger\ node\ */}}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{structCurl__tree_a6d4617688f3aaf4548cd7f427b79bbb0}{samen}};\ \ \ \textcolor{comment}{/*\ points\ to\ the\ next\ node\ with\ identical\ key\ */}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{structCurl__tree_a9cb181fcad76a61db635af75a6613dab}{samep}};\ \ \ \textcolor{comment}{/*\ points\ to\ the\ prev\ node\ with\ identical\ key\ */}}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurltime}{curltime}}\ \mbox{\hyperlink{structCurl__tree_a018a8b07590bb0b3ae03d877d25270e1}{key}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ this\ node's\ "{}sort"{}\ key\ */}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structCurl__tree_ac6f1503c80e30b3906da77dec38bd88a}{payload}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ data\ the\ splay\ code\ doesn't\ care\ about\ */}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{splay_8h_a35d34d378dc51dbd766783021523c03a}{Curl\_splay}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurltime}{curltime}}\ i,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}});}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{splay_8h_a5bebe57e22ed2556d4052ad366447d39}{Curl\_splayinsert}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurltime}{curltime}}\ \mbox{\hyperlink{structCurl__tree_a018a8b07590bb0b3ae03d877d25270e1}{key}},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}},}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *newnode);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{splay_8h_a3212ce075a380c917658e21b55baa119}{Curl\_splaygetbest}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurltime}{curltime}}\ \mbox{\hyperlink{structCurl__tree_a018a8b07590bb0b3ae03d877d25270e1}{key}},}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ **removed);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{splay_8h_a86f766ec3a3007611553dc5afb30a126}{Curl\_splayremove}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}},}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ *removenode,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__tree}{Curl\_tree}}\ **newroot);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ Curl\_splaycomparekeys(i,j)\ (\ ((i.tv\_sec)\ \ <\ (j.tv\_sec))\ ?\ -\/1\ :\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ ((i.tv\_sec)\ \ >\ (j.tv\_sec))\ ?\ \ 1\ :\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ ((i.tv\_usec)\ <\ (j.tv\_usec))\ ?\ -\/1\ :\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ ((i.tv\_usec)\ >\ (j.tv\_usec))\ ?\ \ 1\ :\ 0))))}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SPLAY\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

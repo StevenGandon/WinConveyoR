@@ -1,0 +1,169 @@
+\doxysection{gui/node\+\_\+modules/jsonfile Directory Reference}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc}{}\label{dir_580b533526c81b72d3b6ff351a3de1dc}\index{gui/node\_modules/jsonfile Directory Reference@{gui/node\_modules/jsonfile Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+Easily read/write JSON files.
+
+\href{https://www.npmjs.org/package/jsonfile}{\texttt{}} \href{http://travis-ci.org/jprichardson/node-jsonfile}{\texttt{}} \href{https://ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master}{\texttt{}}
+
+\href{https://github.com/feross/standard}{\texttt{}}\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md996}{}\doxysubsection{\texorpdfstring{Why?}{Why?}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md996}
+Writing {\ttfamily JSON.\+stringify()} and then {\ttfamily fs.\+write\+File()} and {\ttfamily JSON.\+parse()} with {\ttfamily fs.\+read\+File()} enclosed in {\ttfamily try/catch} blocks became annoying.\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md997}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md997}
+\begin{DoxyVerb}npm install --save jsonfile
+\end{DoxyVerb}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md998}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md998}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md999}{}\doxysubsubsection{\texorpdfstring{read\+File(filename, \mbox{[}options\mbox{]}, callback)}{read\+File(filename, \mbox{[}options\mbox{]}, callback)}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md999}
+{\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} ({\ttfamily object}, default {\ttfamily undefined})\+: Pass in any {\ttfamily fs.\+read\+File} options or set {\ttfamily reviver} for a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse}{\texttt{JSON reviver}}.
+\begin{DoxyItemize}
+\item {\ttfamily throws} ({\ttfamily boolean}, default\+: {\ttfamily true}). If {\ttfamily JSON.\+parse} throws an error, pass this error to the callback. If {\ttfamily false}, returns {\ttfamily null} for the object.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{jsonfile.readFile(file,\ function(err,\ obj)\ \{}
+\DoxyCodeLine{\ \ console.dir(obj)}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1000}{}\doxysubsubsection{\texorpdfstring{read\+File\+Sync(filename, \mbox{[}options\mbox{]})}{read\+File\+Sync(filename, \mbox{[}options\mbox{]})}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1000}
+{\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} ({\ttfamily object}, default {\ttfamily undefined})\+: Pass in any {\ttfamily fs.\+read\+File\+Sync} options or set {\ttfamily reviver} for a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse}{\texttt{JSON reviver}}.
+\begin{DoxyItemize}
+\item {\ttfamily throws} ({\ttfamily boolean}, default\+: {\ttfamily true}). If an error is encountered reading or parsing the file, throw the error. If {\ttfamily false}, returns {\ttfamily null} for the object.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.dir(jsonfile.readFileSync(file))}
+
+\end{DoxyCode}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1001}{}\doxysubsubsection{\texorpdfstring{write\+File(filename, obj, \mbox{[}options\mbox{]}, callback)}{write\+File(filename, obj, \mbox{[}options\mbox{]}, callback)}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1001}
+{\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}\+: Pass in any {\ttfamily fs.\+write\+File} options or set {\ttfamily replacer} for a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify}{\texttt{JSON replacer}}. Can also pass in {\ttfamily spaces} and override {\ttfamily EOL} string.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFile(file,\ obj,\ function\ (err)\ \{}
+\DoxyCodeLine{\ \ console.error(err)}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+
+
+{\bfseries{formatting with spaces\+:}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFile(file,\ obj,\ \{spaces:\ 2\},\ function(err)\ \{}
+\DoxyCodeLine{\ \ console.error(err)}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+
+
+{\bfseries{overriding EOL\+:}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFile(file,\ obj,\ \{spaces:\ 2,\ EOL:\ '\(\backslash\)r\(\backslash\)n'\},\ function(err)\ \{}
+\DoxyCodeLine{\ \ console.error(err)}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+
+
+{\bfseries{appending to an existing JSON file\+:}}
+
+You can use {\ttfamily fs.\+write\+File} option {\ttfamily \{flag\+: \textquotesingle{}a\textquotesingle{}\}} to achieve this.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/mayAlreadyExistedData.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFile(file,\ obj,\ \{flag:\ 'a'\},\ function\ (err)\ \{}
+\DoxyCodeLine{\ \ console.error(err)}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1002}{}\doxysubsubsection{\texorpdfstring{write\+File\+Sync(filename, obj, \mbox{[}options\mbox{]})}{write\+File\+Sync(filename, obj, \mbox{[}options\mbox{]})}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1002}
+{\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}\+: Pass in any {\ttfamily fs.\+write\+File\+Sync} options or set {\ttfamily replacer} for a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify}{\texttt{JSON replacer}}. Can also pass in {\ttfamily spaces} and override {\ttfamily EOL} string.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFileSync(file,\ obj)}
+
+\end{DoxyCode}
+
+
+{\bfseries{formatting with spaces\+:}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFileSync(file,\ obj,\ \{spaces:\ 2\})}
+
+\end{DoxyCode}
+
+
+{\bfseries{overriding EOL\+:}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/data.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFileSync(file,\ obj,\ \{spaces:\ 2,\ EOL:\ '\(\backslash\)r\(\backslash\)n'\})}
+
+\end{DoxyCode}
+
+
+{\bfseries{appending to an existing JSON file\+:}}
+
+You can use {\ttfamily fs.\+write\+File\+Sync} option {\ttfamily \{flag\+: \textquotesingle{}a\textquotesingle{}\}} to achieve this.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ jsonfile\ =\ require('jsonfile')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ file\ =\ '/tmp/mayAlreadyExistedData.json'}
+\DoxyCodeLine{var\ obj\ =\ \{name:\ 'JP'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsonfile.writeFileSync(file,\ obj,\ \{flag:\ 'a'\})}
+
+\end{DoxyCode}
+\hypertarget{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1003}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_580b533526c81b72d3b6ff351a3de1dc_autotoc_md1003}
+(MIT License)
+
+Copyright 2012-\/2016, JP Richardson \href{mailto:jprichardson@gmail.com}{\texttt{jprichardson@gmail.\+com}} 

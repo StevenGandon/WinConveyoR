@@ -1,0 +1,171 @@
+\doxysubsection{Installation }
+\hypertarget{Installation}{}\label{Installation}\index{Installation@{Installation}}
+\doxysubsubsubsubsection*{Developpement Tools}
+
+\DoxyHorRuler{0}
+
+
+To build the project you will need the current developpement tools\+:
+
+
+\begin{DoxyItemize}
+\item Visual Studio  
+\item MSVC-\/2022 v143  
+\item vcpkg  
+\item git  
+\item QT Extension for Visual Studio  
+\end{DoxyItemize}
+
+Here are the steps to install them\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Visual Studio\+:}}~\newline
+ Via the command line ({\bfseries{powershell.\+exe}}, {\bfseries{cmd.\+exe}}, {\bfseries{...}})\+:~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{winget\ install\ -\/-\/id=Microsoft.VisualStudio.2022.Professional\ -\/e}
+
+\end{DoxyCode}
+ Via the GUI installer\+:~\newline
+ \href{https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=professional&channel=Release&version=VS2022&source=VSLandingPage}{\texttt{Download link}} 
+
+
+\item {\bfseries{MSVC-\/2022 v143\+:}}~\newline
+ {\ttfamily  On the visual studio installer click "{}\+Modify"{} on the current Visual Studio Installation. }
+
+{\ttfamily  Select the "{}\+Individual component"{} tab at the top. }
+
+{\ttfamily  Search for {\ttfamily MSVC v143 -\/ VS 2022 C++ x64/x86 build tools (Latest)} and select it. }
+
+{\ttfamily  Search for {\ttfamily C++ ATL For latest v143 build tools (x86 \& x64)} and select it. }
+
+{\ttfamily  Search for the latest {\ttfamily Windows 11 SDK} if none is already install and select it. }
+
+{\ttfamily  Click the modify button on the bottom right to start the installation. } 
+
+
+\item {\bfseries{vcpkg\+:}}~\newline
+ {\ttfamily  On the visual studio installer click "{}\+Modify"{} on the current Visual Studio Installation. }
+
+{\ttfamily  Select the "{}\+Individual component"{} tab at the top. }
+
+{\ttfamily  Search for {\ttfamily vcpkg package manager} and select it. }
+
+{\ttfamily  Click the modify button on the bottom right to start the installation. } 
+
+
+\item {\bfseries{git\+:}}~\newline
+ Via the command line ({\bfseries{powershell.\+exe}}, {\bfseries{cmd.\+exe}}, {\bfseries{...}})\+:~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Windows:}
+\DoxyCodeLine{\ \ winget\ install\ -\/-\/id=Git.Git\ \ -\/e}
+\DoxyCodeLine{Fedora\ based:}
+\DoxyCodeLine{\ \ sudo\ dnf\ install\ git}
+\DoxyCodeLine{Arch\ based:}
+\DoxyCodeLine{\ \ sudo\ pacman\ -\/S\ git}
+\DoxyCodeLine{Debian\ based:}
+\DoxyCodeLine{\ \ sudo\ apt-\/get\ install\ git}
+
+\end{DoxyCode}
+ Via the GUI installer\+:~\newline
+ \href{https://central.github.com/deployments/desktop/desktop/latest/win32}{\texttt{Download link}} 
+
+
+\item {\bfseries{QT extension\+:}}~\newline
+ {\ttfamily  Open a project in visual studio (preferably the \doxylink{namespaceBeamage}{Beamage} project (to install follow the Project installation steps)) }
+
+{\ttfamily  Select on the top bar extensions \texorpdfstring{$>$}{>} Manage extensions... }
+
+{\ttfamily  Now in the tab that opened select the Browse tab }
+
+{\ttfamily  In the search box write Qt Visual Studio Tools (or if you want it via the web installer\+: \href{https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools2022}{\texttt{https\+://marketplace.\+visualstudio.\+com/items?item\+Name=\+The\+Qt\+Company.\+Qt\+Visual\+Studio\+Tools2022}}) }
+
+{\ttfamily  Install it by clicking "{}\+Install"{} (or if you downloaded the web installer double click on the newly downloaded file) }
+
+{\ttfamily  Restart Visual studio }
+
+{\ttfamily  If you already installed QT (if not do the other installation steps and come back here) you can now configure the extension by going to (on the top bar)\+: extensions \texorpdfstring{$>$}{>} Qt VS Tools \texorpdfstring{$>$}{>} Qt Versions }
+
+{\ttfamily  In the newly opened tab click on "{}\+Add"{} and select the newly added row, in Name enter "{}6.\+9\+\_\+msvc2022"{}, in Host select "{}\+Windows"{}, in Compiler select "{}msvc"{}, in Location select the file path to your Qmake installation (usually something like C\+:\textbackslash{}\+QT\textbackslash{}6.\+9.\+0\textbackslash{}msvc2022\+\_\+64\textbackslash{}bin\textbackslash{}qmake.exe). }
+
+{\ttfamily  Then Verify if it match with the Qt installation set in the project key \textquotesingle{}Qt Installation\textquotesingle{} at Project \texorpdfstring{$>$}{>} Properties \texorpdfstring{$>$}{>} Qt Project settings }  
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysubsubsubsubsection*{Dependencies}
+
+\DoxyHorRuler{0}
+
+
+To build the project you will need the current dependencies\+:
+
+
+\begin{DoxyItemize}
+\item QT6  
+\item ROOT6  
+\end{DoxyItemize}
+
+Here are the steps to install them\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{QT6\+:}}~\newline
+ Download the installer\+: \href{https://www.qt.io/download-dev}{\texttt{QT6 Installer}}~\newline
+ {\ttfamily  Follow the instruction given by the installer. }~\newline
+ {\ttfamily  When prompted with the installation configuration interface, select \+: {\ttfamily Qt 6.\+9 \texorpdfstring{$>$}{>} MSVC 2022 64-\/bit} }  
+\item {\bfseries{ROOT6\+:}}~\newline
+ Download the installer\+: \href{https://root.cern/download/root_v6.34.08.win64.python311.vc17.relwithdebinfo.exe}{\texttt{ROOT6 Installer}}~\newline
+ {\ttfamily  Follow the instruction given and select {\ttfamily Add ROOT to the system PATH for current user}. }~\newline
+ {\ttfamily  When prompted with the installation configuration interface, select \+: {\ttfamily C++ Headers} and {\ttfamily ROOT Libraries} }  
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysubsubsubsubsection*{Project}
+
+\DoxyHorRuler{0}
+
+
+Now you can install the project with the below steps\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Clone the repository using git}}~\newline
+
+
+Github Desktop\+:~\newline
+ 
+
+Loggin to the Git account linked to the \doxylink{namespaceBeamage}{Beamage} repository.
+
+
+
+You can now clone the repository\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Select\ the\ repository\ beamage.git\ of\ the\ ai4r1\ organization\ on\ your\ Github\ desktop\ interface\ and\ clone\ it\ to\ your\ local\ machine.}
+
+\end{DoxyCode}
+ Github CLI\+:~\newline
+ 
+
+Setup your ssh key on your local machine using {\ttfamily ssh}, and link it on your git profil on your account linked to the \doxylink{namespaceBeamage}{Beamage} repository.
+
+
+
+You can now clone the repository\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ git@gitlab.com:ai4r1/beamage.git}
+
+\end{DoxyCode}
+  
+\item {\bfseries{You are now ready to follow the compilation steps.}}  
+\end{DoxyItemize}

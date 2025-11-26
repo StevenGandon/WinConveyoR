@@ -1,0 +1,358 @@
+\doxysection{config-\/os400.h}
+\hypertarget{config-os400_8h_source}{}\label{config-os400_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/config-\/os400.h@{lib/libwconr/build/\_deps/curl-\/src/lib/config-\/os400.h}}
+\mbox{\hyperlink{config-os400_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_CONFIG\_OS400\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_CONFIG\_OS400\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Hand\ crafted\ config\ file\ for\ OS/400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#pragma\ enum(int)}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#undef\ PACKAGE}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ Version\ number\ of\ this\ archive.\ */}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#undef\ VERSION}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ Define\ cpu-\/machine-\/OS\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ OS\ "{}OS/400"{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ OS400\ supports\ a\ 3-\/argument\ ASCII\ version\ of\ gethostbyaddr\_r(),\ but\ its}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ \ prototype\ is\ incompatible\ with\ the\ "{}standard"{}\ one\ (1st\ argument\ is\ not}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ \ const).\ However,\ getaddrinfo()\ is\ supported\ (ASCII\ version\ defined\ as}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ \ a\ local\ wrapper\ in\ setup-\/os400.h)\ in\ a\ threadsafe\ way:\ we\ can\ then}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ \ configure\ getaddrinfo()\ as\ such\ and\ get\ rid\ of\ gethostbyname\_r()\ without}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ \ loss\ of\ threadsafeness.\ */}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#undef\ HAVE\_GETHOSTBYNAME\_R}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#undef\ HAVE\_GETHOSTBYNAME\_R\_3}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#undef\ HAVE\_GETHOSTBYNAME\_R\_5}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#undef\ HAVE\_GETHOSTBYNAME\_R\_6}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ HAVE\_GETADDRINFO\_THREADSAFE}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ Define\ if\ you\ need\ the\ \_REENTRANT\ define\ for\ some\ functions\ */}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#undef\ NEED\_REENTRANT}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Define\ if\ you\ want\ to\ enable\ IPv6\ support\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ENABLE\_IPV6}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{/*\ Define\ if\ struct\ sockaddr\_in6\ has\ the\ sin6\_scope\_id\ member\ */}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ HAVE\_SOCKADDR\_IN6\_SIN6\_SCOPE\_ID\ 1}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ Define\ this\ to\ 'int'\ if\ ssize\_t\ is\ not\ an\ available\ typedefed\ type\ */}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#undef\ ssize\_t}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ Define\ this\ as\ a\ suitable\ file\ to\ read\ random\ data\ from\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#undef\ RANDOM\_FILE}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ Define\ this\ to\ your\ Entropy\ Gathering\ Daemon\ socket\ pathname\ */}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#undef\ EGD\_SOCKET}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{/*\ Define\ to\ 1\ if\ you\ have\ the\ alarm\ function.\ */}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ HAVE\_ALARM\ 1}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <arpa/inet.h>\ header\ file.\ */}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ HAVE\_ARPA\_INET\_H}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}closesocket'\ function.\ */}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#undef\ HAVE\_CLOSESOCKET}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <errno.h>\ header\ file.\ */}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ HAVE\_ERRNO\_H}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <fcntl.h>\ header\ file.\ */}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ HAVE\_FCNTL\_H}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}geteuid'\ function.\ */}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ HAVE\_GETEUID}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}gethostname'\ function.\ */}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ HAVE\_GETHOSTNAME}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}getpass\_r'\ function.\ */}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#undef\ HAVE\_GETPASS\_R}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{comment}{/*\ Define\ to\ 1\ if\ you\ have\ the\ getpeername\ function.\ */}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ HAVE\_GETPEERNAME\ 1}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}getpwuid'\ function.\ */}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ HAVE\_GETPWUID}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{/*\ Define\ to\ 1\ if\ you\ have\ the\ getsockname\ function.\ */}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ HAVE\_GETSOCKNAME\ 1}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}gettimeofday'\ function.\ */}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ HAVE\_GETTIMEOFDAY}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}timeval'\ struct.\ */}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ HAVE\_STRUCT\_TIMEVAL}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <inttypes.h>\ header\ file.\ */}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ HAVE\_INTTYPES\_H}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <io.h>\ header\ file.\ */}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#undef\ HAVE\_IO\_H}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}socket'\ library\ (-\/lsocket).\ */}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#undef\ HAVE\_LIBSOCKET}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{comment}{/*\ Define\ if\ you\ have\ GSS\ API.\ */}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ HAVE\_GSSAPI}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ GNU\ gssapi\ libraries\ */}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#undef\ HAVE\_GSSGNU}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ Heimdal\ gssapi\ libraries\ */}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ HAVE\_GSSHEIMDAL}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ MIT\ gssapi\ libraries\ */}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#undef\ HAVE\_GSSMIT}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{comment}{/*\ Define\ if\ you\ need\ the\ malloc.h\ header\ file\ even\ with\ stdlib.h\ \ */}}
+\DoxyCodeLine{00133\ \textcolor{comment}{/*\ \#define\ NEED\_MALLOC\_H\ 1\ */}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <netdb.h>\ header\ file.\ */}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <netinet/in.h>\ header\ file.\ */}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ HAVE\_NETINET\_IN\_H}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <net/if.h>\ header\ file.\ */}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ HAVE\_NET\_IF\_H}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <pwd.h>\ header\ file.\ */}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ HAVE\_PWD\_H}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}RAND\_egd'\ function.\ */}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#undef\ HAVE\_RAND\_EGD}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}select'\ function.\ */}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ HAVE\_SELECT}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}sigaction'\ function.\ */}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ HAVE\_SIGACTION}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}signal'\ function.\ */}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#undef\ HAVE\_SIGNAL}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <signal.h>\ header\ file.\ */}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ HAVE\_SIGNAL\_H}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}socket'\ function.\ */}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ HAVE\_SOCKET}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <ssl.h>\ header\ file.\ */}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#undef\ HAVE\_SSL\_H}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <stdint.h>\ header\ file.\ */}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#undef\ HAVE\_STDINT\_H}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <stdlib.h>\ header\ file.\ */}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ HAVE\_STDLIB\_H}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{comment}{/*\ The\ following\ define\ is\ needed\ on\ OS400\ to\ enable\ strcmpi(),\ stricmp()\ and}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ \ \ strdup().\ */}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ \_\_cplusplus\_\_strings\_\_}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}strcasecmp'\ function.\ */}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#undef\ HAVE\_STRCASECMP}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}strcmpi'\ function.\ */}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ HAVE\_STRCMPI}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}stricmp'\ function.\ */}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ HAVE\_STRICMP}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}strdup'\ function.\ */}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ HAVE\_STRDUP}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <strings.h>\ header\ file.\ */}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ HAVE\_STRINGS\_H}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <string.h>\ header\ file.\ */}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ HAVE\_STRING\_H}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <stropts.h>\ header\ file.\ */}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#undef\ HAVE\_STROPTS\_H}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}strtok\_r'\ function.\ */}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ HAVE\_STRTOK\_R}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ \`{}strtoll'\ function.\ */}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#undef\ HAVE\_STRTOLL\ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Allows\ ASCII\ compile\ on\ V5R1.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/param.h>\ header\ file.\ */}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_PARAM\_H}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/select.h>\ header\ file.\ */}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#undef\ HAVE\_SYS\_SELECT\_H}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/socket.h>\ header\ file.\ */}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/sockio.h>\ header\ file.\ */}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#undef\ HAVE\_SYS\_SOCKIO\_H}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/stat.h>\ header\ file.\ */}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_STAT\_H}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/time.h>\ header\ file.\ */}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_TIME\_H}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/types.h>\ header\ file.\ */}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_TYPES\_H}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/un.h>\ header\ file.\ */}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_UN\_H}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <sys/ioctl.h>\ header\ file.\ */}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ HAVE\_SYS\_IOCTL\_H}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <termios.h>\ header\ file.\ */}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#undef\ HAVE\_TERMIOS\_H}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <termio.h>\ header\ file.\ */}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#undef\ HAVE\_TERMIO\_H}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <time.h>\ header\ file.\ */}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ HAVE\_TIME\_H}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ <unistd.h>\ header\ file.\ */}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ HAVE\_UNISTD\_H}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{comment}{/*\ Name\ of\ package\ */}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#undef\ PACKAGE}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{comment}{/*\ The\ size\ of\ \`{}int',\ as\ computed\ by\ sizeof.\ */}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ SIZEOF\_INT\ \ \ \ \ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{comment}{/*\ Define\ if\ the\ compiler\ supports\ the\ 'long\ long'\ data\ type.\ */}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ HAVE\_LONGLONG}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{comment}{/*\ The\ size\ of\ a\ \`{}long\ long',\ as\ computed\ by\ sizeof.\ */}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ SIZEOF\_LONG\_LONG\ \ \ \ \ \ \ \ 8}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{comment}{/*\ The\ size\ of\ \`{}long',\ as\ computed\ by\ sizeof.\ */}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ SIZEOF\_LONG\ \ \ \ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{comment}{/*\ The\ size\ of\ \`{}size\_t',\ as\ computed\ by\ sizeof.\ */}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ SIZEOF\_SIZE\_T\ \ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{comment}{/*\ The\ size\ of\ \`{}curl\_off\_t',\ as\ computed\ by\ sizeof.\ */}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ SIZEOF\_CURL\_OFF\_T\ \ \ \ \ \ \ 8}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{comment}{/*\ Define\ this\ if\ you\ have\ struct\ sockaddr\_storage\ */}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ HAVE\_STRUCT\_SOCKADDR\_STORAGE}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ ANSI\ C\ header\ files.\ */}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ STDC\_HEADERS}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{comment}{/*\ Define\ if\ you\ can\ safely\ include\ both\ <sys/time.h>\ and\ <time.h>.\ */}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ TIME\_WITH\_SYS\_TIME}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{comment}{/*\ Define\ to\ enable\ HTTP3\ support\ (experimental,\ requires\ NGTCP2,\ QUICHE\ or}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ \ \ MSH3)\ */}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#undef\ ENABLE\_QUIC}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{comment}{/*\ Version\ number\ of\ package\ */}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#undef\ VERSION}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{comment}{/*\ Number\ of\ bits\ in\ a\ file\ offset,\ on\ hosts\ where\ this\ is\ settable.\ */}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#undef\ \_FILE\_OFFSET\_BITS}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{comment}{/*\ Define\ for\ large\ files,\ on\ AIX-\/style\ hosts.\ */}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ \_LARGE\_FILES}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{comment}{/*\ Define\ to\ empty\ if\ \`{}const'\ does\ not\ conform\ to\ ANSI\ C.\ */}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#undef\ const}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{comment}{/*\ type\ to\ use\ in\ place\ of\ in\_addr\_t\ if\ not\ defined\ */}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ in\_addr\_t\ \ \ \ \ \ \ unsigned\ long}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \textcolor{comment}{/*\ Define\ to\ \`{}unsigned'\ if\ <sys/types.h>\ does\ not\ define.\ */}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#undef\ size\_t}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{comment}{/*\ Define\ if\ you\ have\ a\ working\ ioctl\ FIONBIO\ function.\ */}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ HAVE\_IOCTL\_FIONBIO}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{comment}{/*\ Define\ if\ you\ have\ a\ working\ ioctl\ SIOCGIFADDR\ function.\ */}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ HAVE\_IOCTL\_SIOCGIFADDR}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{comment}{/*\ To\ disable\ LDAP\ */}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#undef\ CURL\_DISABLE\_LDAP}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{comment}{/*\ Definition\ to\ make\ a\ library\ symbol\ externally\ visible.\ */}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ CURL\_EXTERN\_SYMBOL}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ ldap\_url\_parse\ procedure.\ */}}
+\DoxyCodeLine{00310\ \textcolor{comment}{/*\ \#define\ HAVE\_LDAP\_URL\_PARSE\ */}\ \ \ \ \textcolor{comment}{/*\ Disabled\ because\ of\ an\ IBM\ bug.\ */}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ recv\ function.\ */}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#define\ HAVE\_RECV}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 1\ for\ recv.\ */}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG1\ int}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 2\ for\ recv.\ */}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG2\ char\ *}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 3\ for\ recv.\ */}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG3\ int}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 4\ for\ recv.\ */}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG4\ int}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{comment}{/*\ Define\ to\ the\ function\ return\ type\ for\ recv.\ */}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_RETV\ int}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{comment}{/*\ Define\ if\ you\ have\ the\ send\ function.\ */}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#define\ HAVE\_SEND}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 1\ for\ send.\ */}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG1\ int}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{comment}{/*\ Define\ to\ the\ type\ qualifier\ of\ arg\ 2\ for\ send.\ */}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#define\ SEND\_QUAL\_ARG2}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 2\ for\ send.\ */}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG2\ char\ *}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 3\ for\ send.\ */}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG3\ int}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{comment}{/*\ Define\ to\ the\ type\ of\ arg\ 4\ for\ send.\ */}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG4\ int}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{comment}{/*\ Define\ to\ the\ function\ return\ type\ for\ send.\ */}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_RETV\ int}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{comment}{/*\ Define\ to\ use\ the\ GSKit\ package.\ */}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ USE\_GSKIT}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{comment}{/*\ Define\ to\ use\ the\ OS/400\ crypto\ library.\ */}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ USE\_OS400CRYPTO}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \textcolor{comment}{/*\ Define\ to\ use\ Unix\ sockets.\ */}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#define\ USE\_UNIX\_SOCKETS}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{comment}{/*\ Use\ the\ system\ keyring\ as\ the\ default\ CA\ bundle.\ */}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ CURL\_CA\_BUNDLE\ \ "{}/QIBM/UserData/ICSS/Cert/Server/DEFAULT.KDB"{}}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00364\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ADDITIONAL\ DEFINITIONS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00365\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \textcolor{comment}{/*\ The\ following\ must\ be\ defined\ BEFORE\ system\ header\ files\ inclusion.\ */}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ \_\_ptr128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ No\ teraspace.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ qadrt\_use\_fputc\_inline\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Generate\ fputc()\ wrapper\ inline.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ qadrt\_use\_fread\_inline\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Generate\ fread()\ wrapper\ inline.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ qadrt\_use\_fwrite\_inline\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Generate\ fwrite()\ wrapper\ inline.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_CONFIG\_OS400\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

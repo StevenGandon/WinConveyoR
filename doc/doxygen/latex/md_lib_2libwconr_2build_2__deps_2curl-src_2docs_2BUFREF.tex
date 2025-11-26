@@ -1,0 +1,70 @@
+\chapter{bufref }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF}\index{bufref@{bufref}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1407}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1407}%
+
+
+This is an internal module for handling buffer references. A referenced buffer is associated with its destructor function that is implicitly called when the reference is invalidated. Once referenced, a buffer cannot be reallocated.
+
+A data length is stored within the reference for binary data handling purposes; it is not used by the bufref API.
+
+The {\ttfamily struct \doxylink{structbufref}{bufref}} is used to hold data referencing a buffer. The members of that structure {\bfseries{MUST NOT}} be accessed or modified without using the dedicated bufref API.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1408}{}\doxysection{\texorpdfstring{{\ttfamily init}}{{\ttfamily init}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1408}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{bufref_8c_a69ace6151c4d55f88203080fb45f5ffa}{Curl\_bufref\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structbufref}{bufref}}\ *br);}
+
+\end{DoxyCode}
+
+
+Initializes a {\ttfamily \doxylink{structbufref}{bufref}} structure. This function {\bfseries{MUST}} be called before any other operation is performed on the structure.
+
+Upon completion, the referenced buffer is {\ttfamily NULL} and length is zero.
+
+This function may also be called to bypass referenced buffer destruction while invalidating the current reference.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1409}{}\doxysection{\texorpdfstring{{\ttfamily free}}{{\ttfamily free}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1409}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{bufref_8c_a5dc7f82c51230780ed200be4f6519450}{Curl\_bufref\_free}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structbufref}{bufref}}\ *br);}
+
+\end{DoxyCode}
+
+
+Destroys the previously referenced buffer using its destructor and reinitializes the structure for a possible subsequent reuse.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1410}{}\doxysection{\texorpdfstring{{\ttfamily set}}{{\ttfamily set}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1410}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{bufref_8c_a2fb71de4b1aa0d74a5a182d95d07f7e6}{Curl\_bufref\_set}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structbufref}{bufref}}\ *br,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ (*destructor)(\textcolor{keywordtype}{void}\ *));}
+
+\end{DoxyCode}
+
+
+Releases the previously referenced buffer, then assigns the new {\ttfamily \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}} to the structure, associated with its {\ttfamily destructor} function. The latter can be specified as {\ttfamily NULL}\+: this will be the case when the referenced buffer is static.
+
+if {\ttfamily \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}} is NULL, {\ttfamily length} must be zero.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1411}{}\doxysection{\texorpdfstring{{\ttfamily memdup}}{{\ttfamily memdup}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1411}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{bufref_8c_a18cf459150cb91d195378fd697afc097}{Curl\_bufref\_memdup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structbufref}{bufref}}\ *br,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{size\_t}\ length);}
+
+\end{DoxyCode}
+
+
+Releases the previously referenced buffer, then duplicates the {\ttfamily length}-\/byte {\ttfamily \doxylink{structdata}{data}} into a buffer allocated via {\ttfamily \doxylink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc()}} and references the latter associated with destructor {\ttfamily \doxylink{curl_8h_a87dca8b22dd0cba4eaa880bdf87b8805}{curl\+\_\+free()}}.
+
+An additional trailing byte is allocated and set to zero as a possible string null-\/terminator; it is not counted in the stored length.
+
+Returns {\ttfamily \doxylink{curl_8h_af0691941698240652e0a391394217951af2fb280cf805aa199f6b63a2a27c318b}{CURLE\+\_\+\+OK}} if successful, else {\ttfamily \doxylink{curl_8h_af0691941698240652e0a391394217951aba5a22c9f705ed27933344be221fe937}{CURLE\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY}}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1412}{}\doxysection{\texorpdfstring{{\ttfamily ptr}}{{\ttfamily ptr}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1412}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{bufref_8c_a2843b76907884909b9855ec988af6e18}{Curl\_bufref\_ptr}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structbufref}{bufref}}\ *br);}
+
+\end{DoxyCode}
+
+
+Returns a {\ttfamily const unsigned char \texorpdfstring{$\ast$}{*}} to the referenced buffer.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1413}{}\doxysection{\texorpdfstring{{\ttfamily len}}{{\ttfamily len}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2BUFREF_autotoc_md1413}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bufref_8c_a55c07f3b18ea824388a5ba198802c3e3}{Curl\_bufref\_len}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structbufref}{bufref}}\ *br);}
+
+\end{DoxyCode}
+
+
+Returns the stored length of the referenced buffer. 

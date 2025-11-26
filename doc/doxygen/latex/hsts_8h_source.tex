@@ -1,0 +1,51 @@
+\doxysection{hsts.\+h}
+\hypertarget{hsts_8h_source}{}\label{hsts_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/hsts.h@{lib/libwconr/build/\_deps/curl-\/src/lib/hsts.h}}
+\mbox{\hyperlink{hsts_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HSTS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HSTS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_HTTP)\ \&\&\ !defined(CURL\_DISABLE\_HSTS)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{llist_8h}{llist.h}}"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifdef\ DEBUGBUILD}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{extern}\ time\_t\ deltatime;}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstsentry}{stsentry}}\ \{}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist__element}{Curl\_llist\_element}}\ \mbox{\hyperlink{structstsentry_a5ed50398eb818d08cfc616f7a9636fcb}{node}};}
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structstsentry_a53b63fbd55c779bd1546a3a4f7f82e29}{host}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structstsentry_a475922038f6c4af7398da8cd1f01484b}{includeSubDomains}};}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structstsentry_a989eafcd7e5ae4dbe20a34402a01bba2}{expires}};\ \textcolor{comment}{/*\ the\ timestamp\ of\ this\ entry's\ expiry\ */}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ The\ HSTS\ cache.\ Needs\ to\ be\ able\ to\ tailmatch\ host\ names.\ */}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhsts}{hsts}}\ \{}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist}{Curl\_llist}}\ \mbox{\hyperlink{structhsts_ab9b77b61ef8d43bbbcafdc48250124a2}{list}};}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhsts_ada1642b54129c560bc3582fc3f028326}{filename}};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structhsts_a2f7b1df692087aaabb1e7ff14682682b}{flags}};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhsts}{hsts}}\ *\mbox{\hyperlink{hsts_8h_ad6c85eaf84981d30c5d6d4c516cdabb7}{Curl\_hsts\_init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hsts_8h_a9a2f9b403688110f49294e728032dc84}{Curl\_hsts\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structhsts}{hsts}}\ **hp);}
+\DoxyCodeLine{00052\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{hsts_8h_abb8c386563dcd07b3a13bffc9426220b}{Curl\_hsts\_parse}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structhsts}{hsts}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sts);}
+\DoxyCodeLine{00054\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstsentry}{stsentry}}\ *\mbox{\hyperlink{hsts_8h_acc9aae5ce82dab3128604a9fa7b47d80}{Curl\_hsts}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structhsts}{hsts}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ subdomain);}
+\DoxyCodeLine{00056\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{hsts_8h_af0337ab1fa322dc37a901d65ddf30d7e}{Curl\_hsts\_save}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structhsts}{hsts}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}});}
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{hsts_8h_ace1dcda9aebf92c5188c8fb43ebc3d0e}{Curl\_hsts\_loadfile}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structhsts}{hsts}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}});}
+\DoxyCodeLine{00060\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{hsts_8h_a00c851be94d3b12c09367347b29b5b41}{Curl\_hsts\_loadcb}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structhsts}{hsts}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}});}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ Curl\_hsts\_cleanup(x)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ Curl\_hsts\_loadcb(x,y)\ CURLE\_OK}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ Curl\_hsts\_save(x,y,z)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURL\_DISABLE\_HTTP\ ||\ CURL\_DISABLE\_HSTS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HSTS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

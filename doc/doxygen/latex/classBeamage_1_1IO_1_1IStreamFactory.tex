@@ -1,0 +1,127 @@
+\doxysection{Beamage\+::IO\+::IStream\+Factory Class Reference}
+\hypertarget{classBeamage_1_1IO_1_1IStreamFactory}{}\label{classBeamage_1_1IO_1_1IStreamFactory}\index{Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}}
+
+
+{\ttfamily \#include $<$Beamage\+Stream.\+h$>$}
+
+Inheritance diagram for Beamage\+::IO\+::IStream\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.567376cm]{classBeamage_1_1IO_1_1IStreamFactory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStream\+Factory}} ()=default
+\item 
+virtual \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a11e97cbad8a3f461c7e9cd382bdf0881}{\texorpdfstring{$\sim$}{\string~}\+IStream\+Factory}} ()=default
+\item 
+virtual void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a5ca388c9e332b2183ac9bb715b7a2c12}{TBuild}} (std\+::type\+\_\+index, QData\+Stream \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory}} \texorpdfstring{$\ast$}{*})=0
+\item 
+virtual bool \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_afde1d006c21f017107d6572969695e52}{THas}} (std\+::type\+\_\+index)=0
+\item 
+{\footnotesize template$<$typename T$>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{build}} (QData\+Stream \texorpdfstring{$\ast$}{*}stream)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} class definition.
+
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} implemented mainly for \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} is a generic factory interface used to build objects from type template. 
+
+\label{doc-constructors}
+\Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}\index{Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}!IStreamFactory@{IStreamFactory}}
+\index{IStreamFactory@{IStreamFactory}!Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}}
+\doxysubsubsection{\texorpdfstring{IStreamFactory()}{IStreamFactory()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439} 
+Beamage\+::\+IO\+::\+IStream\+Factory\+::\+IStream\+Factory (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+default constructor, full virtual interface should not be constructed. \Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_a11e97cbad8a3f461c7e9cd382bdf0881}\index{Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}!````~IStreamFactory@{\texorpdfstring{$\sim$}{\string~}IStreamFactory}}
+\index{````~IStreamFactory@{\texorpdfstring{$\sim$}{\string~}IStreamFactory}!Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}IStreamFactory()}{\string~IStreamFactory()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1IStreamFactory_a11e97cbad8a3f461c7e9cd382bdf0881} 
+virtual Beamage\+::\+IO\+::\+IStream\+Factory\+::\texorpdfstring{$\sim$}{\string~}\+IStream\+Factory (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+default destructor, full virtual interface cannot be destroy. 
+
+\label{doc-func-members}
+\Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}\index{Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}!build@{build}}
+\index{build@{build}!Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}}
+\doxysubsubsection{\texorpdfstring{build()}{build()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5} 
+template$<$typename T$>$ \\
+std\+::shared\+\_\+ptr$<$ T $>$ Beamage\+::\+IO\+::\+IStream\+Factory\+::build (\begin{DoxyParamCaption}\item[{QData\+Stream \texorpdfstring{$\ast$}{*}}]{stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+build function from the \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} interface.
+
+this function is used to genericaly build using template an object it call the inherited THas and TBuild to determine what to do with the type and pass it to the ineherited.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T,the} & type to be built by the factory \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & a QData\+Stream\texorpdfstring{$\ast$}{*} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a built object from template $<$\+T$>$ as a shared pointer 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_a5ca388c9e332b2183ac9bb715b7a2c12}\index{Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}!TBuild@{TBuild}}
+\index{TBuild@{TBuild}!Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}}
+\doxysubsubsection{\texorpdfstring{TBuild()}{TBuild()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1IStreamFactory_a5ca388c9e332b2183ac9bb715b7a2c12} 
+virtual void \texorpdfstring{$\ast$}{*} Beamage\+::\+IO\+::\+IStream\+Factory\+::\+TBuild (\begin{DoxyParamCaption}\item[{std\+::type\+\_\+index}]{}{, }\item[{QData\+Stream \texorpdfstring{$\ast$}{*}}]{}{, }\item[{\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory}} \texorpdfstring{$\ast$}{*}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+full virtual TBuild function from the \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} interface.
+
+this function is used to implement in classes that enherit from \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} a way for \doxylink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{build()} to callback for the registered type to the inerithed class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em typeindex} & a type\+\_\+index representing the standard index of a type returned by the standard function typeid() \\
+\hline
+{\em stream} & a QData\+Stream \texorpdfstring{$\ast$}{*} \\
+\hline
+{\em factory} & a \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} \texorpdfstring{$\ast$}{*} is this case "{}this"{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{build()} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+a void \texorpdfstring{$\ast$}{*} of the newly allocated memory. 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1IStreamFactory_afde1d006c21f017107d6572969695e52}\index{Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}!THas@{THas}}
+\index{THas@{THas}!Beamage::IO::IStreamFactory@{Beamage::IO::IStreamFactory}}
+\doxysubsubsection{\texorpdfstring{THas()}{THas()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1IStreamFactory_afde1d006c21f017107d6572969695e52} 
+virtual bool Beamage\+::\+IO\+::\+IStream\+Factory\+::\+THas (\begin{DoxyParamCaption}\item[{std\+::type\+\_\+index}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+full virtual THas function from the \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} interface.
+
+this function is used to implement in classes that enherit from \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} a way for \doxylink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{build()} to check if type is registered or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em typeindex} & a type\+\_\+index representing the standard index of a type returned by the standard function typeid() \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{build()} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+bool that represent true if type is registered or not else false. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage\+Stream/\mbox{\hyperlink{BeamageStream_8h}{Beamage\+Stream.\+h}}\end{DoxyCompactItemize}

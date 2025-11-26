@@ -1,0 +1,256 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/parsedate.c File Reference}
+\hypertarget{parsedate_8c}{}\label{parsedate_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/parsedate.c@{lib/libwconr/build/\_deps/curl-\/src/lib/parsedate.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}parsedate.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtzinfo}{tzinfo}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{parsedate_8c_a7cb5409237d9225170b6baf588b054a4}{PARSEDATE\+\_\+\+OK}}~0
+\item 
+\#define \mbox{\hyperlink{parsedate_8c_a09d4f9f17916a831ac78e946c89874f4}{PARSEDATE\+\_\+\+FAIL}}~-\/1
+\item 
+\#define \mbox{\hyperlink{parsedate_8c_a4271b8f83ce14273c634895b9d24fd44}{PARSEDATE\+\_\+\+LATER}}~1
+\item 
+\#define \mbox{\hyperlink{parsedate_8c_a50c312842b029467bc06ee11fda16f04}{PARSEDATE\+\_\+\+SOONER}}~2
+\item 
+\#define \mbox{\hyperlink{parsedate_8c_a5b00d3aa9c89046eb1064ae2fa2b2de0}{t\+DAYZONE}}~-\/60       /\texorpdfstring{$\ast$}{*} offset for daylight savings \mbox{\hyperlink{create-file-mode_8d_a4406466446dfe3fdea593d9b71d3bdcc}{time}} \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbb}{assume}} \{ \mbox{\hyperlink{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbba31961579cd4faf90b91194e2dd6262c9}{DATE\+\_\+\+MDAY}}
+, \mbox{\hyperlink{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbba3470ed2ec4a3220f22c64c7ada1b290d}{DATE\+\_\+\+YEAR}}
+, \mbox{\hyperlink{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbbafc25af85a5b55c28d5caeb6150c178bd}{DATE\+\_\+\+TIME}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{parsedate_8c_a2666ec642eb6bad20c516dbc95f34640}{parsedate}} (const char \texorpdfstring{$\ast$}{*}date, time\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}})
+\item 
+static int \mbox{\hyperlink{parsedate_8c_a534ba0160f567b0557c94241f6782b35}{checkday}} (const char \texorpdfstring{$\ast$}{*}check, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+static int \mbox{\hyperlink{parsedate_8c_a0f107680b6f638ae4cda0c60fa9ad2ee}{checkmonth}} (const char \texorpdfstring{$\ast$}{*}check)
+\item 
+static int \mbox{\hyperlink{parsedate_8c_ad67623e51d6443b9863933752669501f}{checktz}} (const char \texorpdfstring{$\ast$}{*}check)
+\item 
+static void \mbox{\hyperlink{parsedate_8c_a1f1232539b22faa166624bdf6fc7c368}{skip}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}date)
+\item 
+static time\+\_\+t \mbox{\hyperlink{parsedate_8c_a467c3b5e6a954bc4276bffffc1dde66c}{time2epoch}} (int sec, int min, int hour, int mday, int mon, int year)
+\item 
+time\+\_\+t \mbox{\hyperlink{parsedate_8c_ad3220d3229e4a20b339149c4ea4dd129}{curl\+\_\+getdate}} (const char \texorpdfstring{$\ast$}{*}p, const time\+\_\+t \texorpdfstring{$\ast$}{*}now)
+\item 
+time\+\_\+t \mbox{\hyperlink{parsedate_8c_ad6c8fe8755d4f484e290ea12d8c5a40d}{Curl\+\_\+getdate\+\_\+capped}} (const char \texorpdfstring{$\ast$}{*}p)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{parsedate_8c_a192aac16662dc4aaf80ef3722b581958}{Curl\+\_\+gmtime}} (time\+\_\+t intime, struct tm \texorpdfstring{$\ast$}{*}store)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{parsedate_8c_afbefdd1c70bc7fde8f2369a4cf46a62f}{Curl\+\_\+wkday}} \mbox{[}$\,$\mbox{]}
+\item 
+const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{parsedate_8c_a4a84c69a44848f5947487bf91f86b733}{Curl\+\_\+month}} \mbox{[}$\,$\mbox{]}
+\item 
+static const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{parsedate_8c_a69f5942de4994cf870e1debb5d7a7d7e}{weekday}} \mbox{[}$\,$\mbox{]}
+\item 
+static const struct \mbox{\hyperlink{structtzinfo}{tzinfo}} \mbox{\hyperlink{parsedate_8c_ad6a5549531d4bdde40c421e6b2d508e3}{tz}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{parsedate_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{parsedate_8c_a09d4f9f17916a831ac78e946c89874f4}\index{parsedate.c@{parsedate.c}!PARSEDATE\_FAIL@{PARSEDATE\_FAIL}}
+\index{PARSEDATE\_FAIL@{PARSEDATE\_FAIL}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{PARSEDATE\_FAIL}{PARSEDATE\_FAIL}}
+{\footnotesize\ttfamily \label{parsedate_8c_a09d4f9f17916a831ac78e946c89874f4} 
+\#define PARSEDATE\+\_\+\+FAIL~-\/1}
+
+\Hypertarget{parsedate_8c_a4271b8f83ce14273c634895b9d24fd44}\index{parsedate.c@{parsedate.c}!PARSEDATE\_LATER@{PARSEDATE\_LATER}}
+\index{PARSEDATE\_LATER@{PARSEDATE\_LATER}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{PARSEDATE\_LATER}{PARSEDATE\_LATER}}
+{\footnotesize\ttfamily \label{parsedate_8c_a4271b8f83ce14273c634895b9d24fd44} 
+\#define PARSEDATE\+\_\+\+LATER~1}
+
+\Hypertarget{parsedate_8c_a7cb5409237d9225170b6baf588b054a4}\index{parsedate.c@{parsedate.c}!PARSEDATE\_OK@{PARSEDATE\_OK}}
+\index{PARSEDATE\_OK@{PARSEDATE\_OK}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{PARSEDATE\_OK}{PARSEDATE\_OK}}
+{\footnotesize\ttfamily \label{parsedate_8c_a7cb5409237d9225170b6baf588b054a4} 
+\#define PARSEDATE\+\_\+\+OK~0}
+
+\Hypertarget{parsedate_8c_a50c312842b029467bc06ee11fda16f04}\index{parsedate.c@{parsedate.c}!PARSEDATE\_SOONER@{PARSEDATE\_SOONER}}
+\index{PARSEDATE\_SOONER@{PARSEDATE\_SOONER}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{PARSEDATE\_SOONER}{PARSEDATE\_SOONER}}
+{\footnotesize\ttfamily \label{parsedate_8c_a50c312842b029467bc06ee11fda16f04} 
+\#define PARSEDATE\+\_\+\+SOONER~2}
+
+\Hypertarget{parsedate_8c_a5b00d3aa9c89046eb1064ae2fa2b2de0}\index{parsedate.c@{parsedate.c}!tDAYZONE@{tDAYZONE}}
+\index{tDAYZONE@{tDAYZONE}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{tDAYZONE}{tDAYZONE}}
+{\footnotesize\ttfamily \label{parsedate_8c_a5b00d3aa9c89046eb1064ae2fa2b2de0} 
+\#define t\+DAYZONE~-\/60       /\texorpdfstring{$\ast$}{*} offset for daylight savings \mbox{\hyperlink{create-file-mode_8d_a4406466446dfe3fdea593d9b71d3bdcc}{time}} \texorpdfstring{$\ast$}{*}/}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{parsedate_8c_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbb}\index{parsedate.c@{parsedate.c}!assume@{assume}}
+\index{assume@{assume}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{assume}{assume}}
+{\footnotesize\ttfamily \label{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbb} 
+enum \mbox{\hyperlink{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbb}{assume}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DATE\_MDAY@{DATE\_MDAY}!parsedate.c@{parsedate.c}}\index{parsedate.c@{parsedate.c}!DATE\_MDAY@{DATE\_MDAY}}}\Hypertarget{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbba31961579cd4faf90b91194e2dd6262c9}\label{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbba31961579cd4faf90b91194e2dd6262c9} 
+DATE\+\_\+\+MDAY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DATE\_YEAR@{DATE\_YEAR}!parsedate.c@{parsedate.c}}\index{parsedate.c@{parsedate.c}!DATE\_YEAR@{DATE\_YEAR}}}\Hypertarget{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbba3470ed2ec4a3220f22c64c7ada1b290d}\label{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbba3470ed2ec4a3220f22c64c7ada1b290d} 
+DATE\+\_\+\+YEAR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DATE\_TIME@{DATE\_TIME}!parsedate.c@{parsedate.c}}\index{parsedate.c@{parsedate.c}!DATE\_TIME@{DATE\_TIME}}}\Hypertarget{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbbafc25af85a5b55c28d5caeb6150c178bd}\label{parsedate_8c_aff355e6b7b64931cb1e88bbddfd57bbbafc25af85a5b55c28d5caeb6150c178bd} 
+DATE\+\_\+\+TIME&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{parsedate_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{parsedate_8c_a534ba0160f567b0557c94241f6782b35}\index{parsedate.c@{parsedate.c}!checkday@{checkday}}
+\index{checkday@{checkday}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{checkday()}{checkday()}}
+{\footnotesize\ttfamily \label{parsedate_8c_a534ba0160f567b0557c94241f6782b35} 
+int checkday (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{check}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{parsedate_8c_a0f107680b6f638ae4cda0c60fa9ad2ee}\index{parsedate.c@{parsedate.c}!checkmonth@{checkmonth}}
+\index{checkmonth@{checkmonth}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{checkmonth()}{checkmonth()}}
+{\footnotesize\ttfamily \label{parsedate_8c_a0f107680b6f638ae4cda0c60fa9ad2ee} 
+int checkmonth (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{check}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{parsedate_8c_ad67623e51d6443b9863933752669501f}\index{parsedate.c@{parsedate.c}!checktz@{checktz}}
+\index{checktz@{checktz}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{checktz()}{checktz()}}
+{\footnotesize\ttfamily \label{parsedate_8c_ad67623e51d6443b9863933752669501f} 
+int checktz (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{check}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{parsedate_8c_ad3220d3229e4a20b339149c4ea4dd129}\index{parsedate.c@{parsedate.c}!curl\_getdate@{curl\_getdate}}
+\index{curl\_getdate@{curl\_getdate}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{curl\_getdate()}{curl\_getdate()}}
+{\footnotesize\ttfamily \label{parsedate_8c_ad3220d3229e4a20b339149c4ea4dd129} 
+time\+\_\+t curl\+\_\+getdate (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{, }\item[{const time\+\_\+t \texorpdfstring{$\ast$}{*}}]{now}{}\end{DoxyParamCaption})}
+
+\Hypertarget{parsedate_8c_ad6c8fe8755d4f484e290ea12d8c5a40d}\index{parsedate.c@{parsedate.c}!Curl\_getdate\_capped@{Curl\_getdate\_capped}}
+\index{Curl\_getdate\_capped@{Curl\_getdate\_capped}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_getdate\_capped()}{Curl\_getdate\_capped()}}
+{\footnotesize\ttfamily \label{parsedate_8c_ad6c8fe8755d4f484e290ea12d8c5a40d} 
+time\+\_\+t Curl\+\_\+getdate\+\_\+capped (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+\Hypertarget{parsedate_8c_a192aac16662dc4aaf80ef3722b581958}\index{parsedate.c@{parsedate.c}!Curl\_gmtime@{Curl\_gmtime}}
+\index{Curl\_gmtime@{Curl\_gmtime}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gmtime()}{Curl\_gmtime()}}
+{\footnotesize\ttfamily \label{parsedate_8c_a192aac16662dc4aaf80ef3722b581958} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+gmtime (\begin{DoxyParamCaption}\item[{time\+\_\+t}]{intime}{, }\item[{struct tm \texorpdfstring{$\ast$}{*}}]{store}{}\end{DoxyParamCaption})}
+
+\Hypertarget{parsedate_8c_a2666ec642eb6bad20c516dbc95f34640}\index{parsedate.c@{parsedate.c}!parsedate@{parsedate}}
+\index{parsedate@{parsedate}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{parsedate()}{parsedate()}}
+{\footnotesize\ttfamily \label{parsedate_8c_a2666ec642eb6bad20c516dbc95f34640} 
+int parsedate (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{date}{, }\item[{time\+\_\+t \texorpdfstring{$\ast$}{*}}]{output}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{parsedate_8c_a1f1232539b22faa166624bdf6fc7c368}\index{parsedate.c@{parsedate.c}!skip@{skip}}
+\index{skip@{skip}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{skip()}{skip()}}
+{\footnotesize\ttfamily \label{parsedate_8c_a1f1232539b22faa166624bdf6fc7c368} 
+void skip (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{date}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{parsedate_8c_a467c3b5e6a954bc4276bffffc1dde66c}\index{parsedate.c@{parsedate.c}!time2epoch@{time2epoch}}
+\index{time2epoch@{time2epoch}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{time2epoch()}{time2epoch()}}
+{\footnotesize\ttfamily \label{parsedate_8c_a467c3b5e6a954bc4276bffffc1dde66c} 
+time\+\_\+t time2epoch (\begin{DoxyParamCaption}\item[{int}]{sec}{, }\item[{int}]{min}{, }\item[{int}]{hour}{, }\item[{int}]{mday}{, }\item[{int}]{mon}{, }\item[{int}]{year}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{parsedate_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{parsedate_8c_a4a84c69a44848f5947487bf91f86b733}\index{parsedate.c@{parsedate.c}!Curl\_month@{Curl\_month}}
+\index{Curl\_month@{Curl\_month}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_month}{Curl\_month}}
+{\footnotesize\ttfamily \label{parsedate_8c_a4a84c69a44848f5947487bf91f86b733} 
+const char\texorpdfstring{$\ast$}{*} const Curl\+\_\+month\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{\ \textcolor{stringliteral}{"{}Jan"{}},\ \textcolor{stringliteral}{"{}Feb"{}},\ \textcolor{stringliteral}{"{}Mar"{}},\ \textcolor{stringliteral}{"{}Apr"{}},\ \textcolor{stringliteral}{"{}May"{}},\ \textcolor{stringliteral}{"{}Jun"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}Jul"{}},\ \textcolor{stringliteral}{"{}Aug"{}},\ \textcolor{stringliteral}{"{}Sep"{}},\ \textcolor{stringliteral}{"{}Oct"{}},\ \textcolor{stringliteral}{"{}Nov"{}},\ \textcolor{stringliteral}{"{}Dec"{}}\ \}}
+
+\end{DoxyCode}
+\Hypertarget{parsedate_8c_afbefdd1c70bc7fde8f2369a4cf46a62f}\index{parsedate.c@{parsedate.c}!Curl\_wkday@{Curl\_wkday}}
+\index{Curl\_wkday@{Curl\_wkday}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_wkday}{Curl\_wkday}}
+{\footnotesize\ttfamily \label{parsedate_8c_afbefdd1c70bc7fde8f2369a4cf46a62f} 
+const char\texorpdfstring{$\ast$}{*} const Curl\+\_\+wkday\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{\textcolor{stringliteral}{"{}Mon"{}},\ \textcolor{stringliteral}{"{}Tue"{}},\ \textcolor{stringliteral}{"{}Wed"{}},\ \textcolor{stringliteral}{"{}Thu"{}},\ \textcolor{stringliteral}{"{}Fri"{}},\ \textcolor{stringliteral}{"{}Sat"{}},\ \textcolor{stringliteral}{"{}Sun"{}}\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{parsedate_8c_ad6a5549531d4bdde40c421e6b2d508e3}\index{parsedate.c@{parsedate.c}!tz@{tz}}
+\index{tz@{tz}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{tz}{tz}}
+{\footnotesize\ttfamily \label{parsedate_8c_ad6a5549531d4bdde40c421e6b2d508e3} 
+const struct \mbox{\hyperlink{structtzinfo}{tzinfo}} tz\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{parsedate_8c_a69f5942de4994cf870e1debb5d7a7d7e}\index{parsedate.c@{parsedate.c}!weekday@{weekday}}
+\index{weekday@{weekday}!parsedate.c@{parsedate.c}}
+\doxysubsubsection{\texorpdfstring{weekday}{weekday}}
+{\footnotesize\ttfamily \label{parsedate_8c_a69f5942de4994cf870e1debb5d7a7d7e} 
+const char\texorpdfstring{$\ast$}{*} const weekday\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{\ \textcolor{stringliteral}{"{}Monday"{}},\ \textcolor{stringliteral}{"{}Tuesday"{}},\ \textcolor{stringliteral}{"{}Wednesday"{}},\ \textcolor{stringliteral}{"{}Thursday"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}Friday"{}},\ \textcolor{stringliteral}{"{}Saturday"{}},\ \textcolor{stringliteral}{"{}Sunday"{}}\ \}}
+
+\end{DoxyCode}

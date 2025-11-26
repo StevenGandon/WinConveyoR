@@ -1,0 +1,23 @@
+\doxysection{QCPLayout\+Element Class Reference}
+\hypertarget{classQCPLayoutElement}{}\label{classQCPLayoutElement}\index{QCPLayoutElement@{QCPLayoutElement}}
+
+
+The abstract base class for all objects that form the layout system.  
+
+
+
+
+\doxysubsection{Detailed Description}
+The abstract base class for all objects that form the layout system. 
+
+This is an abstract base class. As such, it can\textquotesingle{}t be instantiated directly, rather use one of its subclasses.
+
+A Layout element is a rectangular object which can be placed in layouts. It has an outer rect (QCPLayout\+Element\+::outer\+Rect) and an inner rect (QCPLayout\+Element\+::rect). The difference between outer and inner rect is called its margin. The margin can either be set to automatic or manual (set\+Auto\+Margins) on a per-\/side basis. If a side is set to manual, that margin can be set explicitly with set\+Margins and will stay fixed at that value. If it\textquotesingle{}s set to automatic, the layout element subclass will control the value itself (via calculate\+Auto\+Margin).
+
+Layout elements can be placed in layouts (base class \doxylink{classQCPLayout}{QCPLayout}) like \doxylink{classQCPLayoutGrid}{QCPLayout\+Grid}. The top level layout is reachable via QCustom\+Plot\+::plot\+Layout, and is a \doxylink{classQCPLayoutGrid}{QCPLayout\+Grid}. Since \doxylink{classQCPLayout}{QCPLayout} itself derives from \doxylink{classQCPLayoutElement}{QCPLayout\+Element}, layouts can be nested.
+
+Thus in \doxylink{classQCustomPlot}{QCustom\+Plot} one can divide layout elements into two categories\+: The ones that are invisible by themselves, because they don\textquotesingle{}t draw anything. Their only purpose is to manage the position and size of other layout elements. This category of layout elements usually use \doxylink{classQCPLayout}{QCPLayout} as base class. Then there is the category of layout elements which actually draw something. For example, \doxylink{classQCPAxisRect}{QCPAxis\+Rect}, \doxylink{classQCPLegend}{QCPLegend} and \doxylink{classQCPTextElement}{QCPText\+Element} are of this category. This does not necessarily mean that the latter category can\textquotesingle{}t have child layout elements. \doxylink{classQCPLegend}{QCPLegend} for instance, actually derives from \doxylink{classQCPLayoutGrid}{QCPLayout\+Grid} and the individual legend items are child layout elements in the grid layout. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,188 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+help.c File Reference}
+\hypertarget{tool__help_8c}{}\label{tool__help_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_help.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_help.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+panykey.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+help.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+libinfo.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+util.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+version.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcategory__descriptors}{category\+\_\+descriptors}}
+\item 
+struct \mbox{\hyperlink{structfeat}{feat}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__help_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{tool__help_8c_a5fc1b6afabf131b38867d2c44dd6d788}{print\+\_\+category}} (\mbox{\hyperlink{tool__help_8h_a4b62f2522b8d1bf952119371aebb734e}{curlhelp\+\_\+t}} category)
+\item 
+static int \mbox{\hyperlink{tool__help_8c_a9a9480dad30d0cdadad6a95a37d5c9e1}{get\+\_\+category\+\_\+content}} (const char \texorpdfstring{$\ast$}{*}category)
+\item 
+static void \mbox{\hyperlink{tool__help_8c_a5379541e7590a37f65d064a6bc310e06}{get\+\_\+categories}} (void)
+\item 
+void \mbox{\hyperlink{tool__help_8c_afd242faa0e77b2f0704ce33f9e0f4911}{tool\+\_\+help}} (char \texorpdfstring{$\ast$}{*}category)
+\item 
+void \mbox{\hyperlink{tool__help_8c_a983f2dd80b4f11ceab15733d0b14fe13}{tool\+\_\+version\+\_\+info}} (void)
+\item 
+void \mbox{\hyperlink{tool__help_8c_ac08e8f44ddede1308f2159609c58cdc0}{tool\+\_\+list\+\_\+engines}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const struct \mbox{\hyperlink{structcategory__descriptors}{category\+\_\+descriptors}} \mbox{\hyperlink{tool__help_8c_ab39086ef6e8485adaff91850005db6ca}{categories}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structhelptxt}{helptxt}} \mbox{\hyperlink{tool__help_8c_a33b57351123bf86332ed6ee9233c3adb}{helptext}} \mbox{[}$\,$\mbox{]}
+\item 
+static const struct \mbox{\hyperlink{structfeat}{feat}} \mbox{\hyperlink{tool__help_8c_a77c9b3da45435a091ca9157d56802941}{feats}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__help_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__help_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_help.c@{tool\_help.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__help_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{tool__help_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__help_8c_a5379541e7590a37f65d064a6bc310e06}\index{tool\_help.c@{tool\_help.c}!get\_categories@{get\_categories}}
+\index{get\_categories@{get\_categories}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{get\_categories()}{get\_categories()}}
+{\footnotesize\ttfamily \label{tool__help_8c_a5379541e7590a37f65d064a6bc310e06} 
+void get\+\_\+categories (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__help_8c_a9a9480dad30d0cdadad6a95a37d5c9e1}\index{tool\_help.c@{tool\_help.c}!get\_category\_content@{get\_category\_content}}
+\index{get\_category\_content@{get\_category\_content}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{get\_category\_content()}{get\_category\_content()}}
+{\footnotesize\ttfamily \label{tool__help_8c_a9a9480dad30d0cdadad6a95a37d5c9e1} 
+int get\+\_\+category\+\_\+content (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{category}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__help_8c_a5fc1b6afabf131b38867d2c44dd6d788}\index{tool\_help.c@{tool\_help.c}!print\_category@{print\_category}}
+\index{print\_category@{print\_category}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{print\_category()}{print\_category()}}
+{\footnotesize\ttfamily \label{tool__help_8c_a5fc1b6afabf131b38867d2c44dd6d788} 
+void print\+\_\+category (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tool__help_8h_a4b62f2522b8d1bf952119371aebb734e}{curlhelp\+\_\+t}}}]{category}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__help_8c_afd242faa0e77b2f0704ce33f9e0f4911}\index{tool\_help.c@{tool\_help.c}!tool\_help@{tool\_help}}
+\index{tool\_help@{tool\_help}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{tool\_help()}{tool\_help()}}
+{\footnotesize\ttfamily \label{tool__help_8c_afd242faa0e77b2f0704ce33f9e0f4911} 
+void tool\+\_\+help (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{category}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__help_8c_ac08e8f44ddede1308f2159609c58cdc0}\index{tool\_help.c@{tool\_help.c}!tool\_list\_engines@{tool\_list\_engines}}
+\index{tool\_list\_engines@{tool\_list\_engines}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{tool\_list\_engines()}{tool\_list\_engines()}}
+{\footnotesize\ttfamily \label{tool__help_8c_ac08e8f44ddede1308f2159609c58cdc0} 
+void tool\+\_\+list\+\_\+engines (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__help_8c_a983f2dd80b4f11ceab15733d0b14fe13}\index{tool\_help.c@{tool\_help.c}!tool\_version\_info@{tool\_version\_info}}
+\index{tool\_version\_info@{tool\_version\_info}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{tool\_version\_info()}{tool\_version\_info()}}
+{\footnotesize\ttfamily \label{tool__help_8c_a983f2dd80b4f11ceab15733d0b14fe13} 
+void tool\+\_\+version\+\_\+info (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{tool__help_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tool__help_8c_ab39086ef6e8485adaff91850005db6ca}\index{tool\_help.c@{tool\_help.c}!categories@{categories}}
+\index{categories@{categories}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{categories}{categories}}
+{\footnotesize\ttfamily \label{tool__help_8c_ab39086ef6e8485adaff91850005db6ca} 
+const struct \mbox{\hyperlink{structcategory__descriptors}{category\+\_\+descriptors}} categories\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}auth"{}},\ \textcolor{stringliteral}{"{}Different\ types\ of\ authentication\ methods"{}},\ \mbox{\hyperlink{tool__help_8h_a0fd84223725ee74b900f4fbe9db22b16}{CURLHELP\_AUTH}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}connection"{}},\ \textcolor{stringliteral}{"{}Low\ level\ networking\ operations"{}},}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{tool__help_8h_a5d3d13314d2c616cdb5adf4f9b398183}{CURLHELP\_CONNECTION}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}curl"{}},\ \textcolor{stringliteral}{"{}The\ command\ line\ tool\ itself"{}},\ \mbox{\hyperlink{tool__help_8h_a6385f4010b3430d8442917700e3808d8}{CURLHELP\_CURL}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}dns"{}},\ \textcolor{stringliteral}{"{}General\ DNS\ options"{}},\ \mbox{\hyperlink{tool__help_8h_ad0eea0ff98527f38242588b132a96fb1}{CURLHELP\_DNS}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}file"{}},\ \textcolor{stringliteral}{"{}FILE\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a296ccc294f45f93938d8c8257dafd386}{CURLHELP\_FILE}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}ftp"{}},\ \textcolor{stringliteral}{"{}FTP\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a43ce22aee1398f84b6b86b6fad1e111a}{CURLHELP\_FTP}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}http"{}},\ \textcolor{stringliteral}{"{}HTTP\ and\ HTTPS\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a4af3d8368739a438b1467cd264855e5a}{CURLHELP\_HTTP}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}imap"{}},\ \textcolor{stringliteral}{"{}IMAP\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a48ad104c8d875aab8e1b82c3aa432297}{CURLHELP\_IMAP}}\},}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}misc"{}},\ \textcolor{stringliteral}{"{}Options\ that\ don't\ fit\ into\ any\ other\ category"{}},\ \mbox{\hyperlink{tool__help_8h_aa347cb5df79e3c3ecd32c5783806bb8f}{CURLHELP\_MISC}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}output"{}},\ \textcolor{stringliteral}{"{}Filesystem\ output"{}},\ \mbox{\hyperlink{tool__help_8h_aebca5327d67a6b00cc089a455c5eab19}{CURLHELP\_OUTPUT}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}pop3"{}},\ \textcolor{stringliteral}{"{}POP3\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a7ef45cf481f9fb77b83305e78e47eec8}{CURLHELP\_POP3}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}post"{}},\ \textcolor{stringliteral}{"{}HTTP\ Post\ specific\ options"{}},\ \mbox{\hyperlink{tool__help_8h_ac4db33584ec53ba779a4ae448b529ae3}{CURLHELP\_POST}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}proxy"{}},\ \textcolor{stringliteral}{"{}All\ options\ related\ to\ proxies"{}},\ \mbox{\hyperlink{tool__help_8h_a08877a558fb7682ca275e25bc3b3b2f4}{CURLHELP\_PROXY}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}scp"{}},\ \textcolor{stringliteral}{"{}SCP\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_ac06e3a30f817960ac59e8302370f1598}{CURLHELP\_SCP}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}sftp"{}},\ \textcolor{stringliteral}{"{}SFTP\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a61bbbda3d843f3f81ed450cfc435c783}{CURLHELP\_SFTP}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}smtp"{}},\ \textcolor{stringliteral}{"{}SMTP\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a7ab1562774467807f1c319a8c9e3f174}{CURLHELP\_SMTP}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}ssh"{}},\ \textcolor{stringliteral}{"{}SSH\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a3471d6028974760d568449ed7114518f}{CURLHELP\_SSH}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}telnet"{}},\ \textcolor{stringliteral}{"{}TELNET\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a1b09b84d9fec13dcf5250d84c16cb1dc}{CURLHELP\_TELNET}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}tftp"{}},\ \textcolor{stringliteral}{"{}TFTP\ protocol\ options"{}},\ \mbox{\hyperlink{tool__help_8h_a69597267135bca252ad82dc26670b428}{CURLHELP\_TFTP}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}tls"{}},\ \textcolor{stringliteral}{"{}All\ TLS/SSL\ related\ options"{}},\ \mbox{\hyperlink{tool__help_8h_ac4a53db33e313e2fde2adcfddb15e42b}{CURLHELP\_TLS}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}upload"{}},\ \textcolor{stringliteral}{"{}All\ options\ for\ uploads"{}},}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{tool__help_8h_af742eb9511f85d735160762c7139bec2}{CURLHELP\_UPLOAD}}\},}
+\DoxyCodeLine{\ \ \{\textcolor{stringliteral}{"{}verbose"{}},\ \textcolor{stringliteral}{"{}Options\ related\ to\ any\ kind\ of\ command\ line\ output\ of\ curl"{}},}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{tool__help_8h_aa58aee23c8d49218fe5bede182fbc931}{CURLHELP\_VERBOSE}}\},}
+\DoxyCodeLine{\ \ \{NULL,\ NULL,\ \mbox{\hyperlink{tool__help_8h_adcc566b8f1557c86a9097aba00a1eb19}{CURLHELP\_HIDDEN}}\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__help_8c_a77c9b3da45435a091ca9157d56802941}\index{tool\_help.c@{tool\_help.c}!feats@{feats}}
+\index{feats@{feats}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{feats}{feats}}
+{\footnotesize\ttfamily \label{tool__help_8c_a77c9b3da45435a091ca9157d56802941} 
+const struct \mbox{\hyperlink{structfeat}{feat}} feats\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__help_8c_a33b57351123bf86332ed6ee9233c3adb}\index{tool\_help.c@{tool\_help.c}!helptext@{helptext}}
+\index{helptext@{helptext}!tool\_help.c@{tool\_help.c}}
+\doxysubsubsection{\texorpdfstring{helptext}{helptext}}
+{\footnotesize\ttfamily \label{tool__help_8c_a33b57351123bf86332ed6ee9233c3adb} 
+const struct \mbox{\hyperlink{structhelptxt}{helptxt}} helptext\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \texorpdfstring{$<$}{<}daniel.\+se\texorpdfstring{$>$}{>}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

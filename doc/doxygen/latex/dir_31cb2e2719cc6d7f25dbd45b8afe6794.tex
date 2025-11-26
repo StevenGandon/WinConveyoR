@@ -1,0 +1,38 @@
+\doxysection{gui/node\+\_\+modules/detect-\/node Directory Reference}
+\hypertarget{dir_31cb2e2719cc6d7f25dbd45b8afe6794}{}\label{dir_31cb2e2719cc6d7f25dbd45b8afe6794}\index{gui/node\_modules/detect-\/node Directory Reference@{gui/node\_modules/detect-\/node Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_31cb2e2719cc6d7f25dbd45b8afe6794_autotoc_md412}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_31cb2e2719cc6d7f25dbd45b8afe6794_autotoc_md412}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ detect-\/node}
+
+\end{DoxyCode}
+\hypertarget{dir_31cb2e2719cc6d7f25dbd45b8afe6794_autotoc_md413}{}\doxysubsubsection{\texorpdfstring{Usage\+:}{Usage\+:}}\label{dir_31cb2e2719cc6d7f25dbd45b8afe6794_autotoc_md413}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ isNode\ =\ require('detect-\/node');}
+\DoxyCodeLine{}
+\DoxyCodeLine{if\ (isNode)\ \{}
+\DoxyCodeLine{\ \ console.log("{}Running\ under\ Node.JS"{});}
+\DoxyCodeLine{\}\ else\ \{}
+\DoxyCodeLine{\ \ alert("{}Hello\ from\ browser\ (or\ whatever\ not-\/a-\/node\ env)"{});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The check is performed as\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{module.exports\ =\ false;}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Only\ Node.JS\ has\ a\ process\ variable\ that\ is\ of\ [[Class]]\ process}
+\DoxyCodeLine{try\ \{}
+\DoxyCodeLine{\ module.exports\ =\ Object.prototype.toString.call(global.process)\ ===\ '[object\ process]'\ }
+\DoxyCodeLine{\}\ catch(e)\ \{\}}
+
+\end{DoxyCode}
+
+
+Thanks to Ingvar Stepanyan for the initial idea. This check is both {\bfseries{the most reliable I could find}} and it does not use {\ttfamily process} env directly, which would cause browserify to include it into the build. 

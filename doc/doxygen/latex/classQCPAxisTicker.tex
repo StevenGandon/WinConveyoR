@@ -1,0 +1,42 @@
+\doxysection{QCPAxis\+Ticker Class Reference}
+\hypertarget{classQCPAxisTicker}{}\label{classQCPAxisTicker}\index{QCPAxisTicker@{QCPAxisTicker}}
+
+
+The base class tick generator used by \doxylink{classQCPAxis}{QCPAxis} to create tick positions and tick labels.  
+
+
+
+
+\doxysubsection{Detailed Description}
+The base class tick generator used by \doxylink{classQCPAxis}{QCPAxis} to create tick positions and tick labels. 
+
+Each \doxylink{classQCPAxis}{QCPAxis} has an internal \doxylink{classQCPAxisTicker}{QCPAxis\+Ticker} (or a subclass) in order to generate tick positions and tick labels for the current axis range. The ticker of an axis can be set via QCPAxis\+::set\+Ticker. Since that method takes a {\ttfamily QShared\+Pointer$<$\+QCPAxis\+Ticker$>$}, multiple axes can share the same ticker instance.
+
+This base class generates normal tick coordinates and numeric labels for linear axes. It picks a reasonable tick step (the separation between ticks) which results in readable tick labels. The number of ticks that should be approximately generated can be set via set\+Tick\+Count. Depending on the current tick step strategy (set\+Tick\+Step\+Strategy), the algorithm either sacrifices readability to better match the specified tick count (QCPAxis\+Ticker\+::tss\+Meet\+Tick\+Count) or relaxes the tick count in favor of better tick steps (QCPAxis\+Ticker\+::tss\+Readability), which is the default.
+
+The following more specialized axis ticker subclasses are available, see details in the respective class documentation\+:
+
+\begin{center} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\doxylink{classQCPAxisTickerFixed}{QCPAxis\+Ticker\+Fixed}& \\\cline{1-2}
+\doxylink{classQCPAxisTickerLog}{QCPAxis\+Ticker\+Log}& \\\cline{1-2}
+\doxylink{classQCPAxisTickerPi}{QCPAxis\+Ticker\+Pi}& \\\cline{1-2}
+\doxylink{classQCPAxisTickerText}{QCPAxis\+Ticker\+Text}& \\\cline{1-2}
+\doxylink{classQCPAxisTickerDateTime}{QCPAxis\+Ticker\+Date\+Time}& \\\cline{1-2}
+\doxylink{classQCPAxisTickerTime}{QCPAxis\+Ticker\+Time}&  \\\cline{1-2}
+\end{longtabu}
+\end{center} \hypertarget{classQCPAxisTicker_axisticker-subclassing}{}\doxysubsection{\texorpdfstring{Creating own axis tickers}{Creating own axis tickers}}\label{classQCPAxisTicker_axisticker-subclassing}
+Creating own axis tickers can be achieved very easily by sublassing \doxylink{classQCPAxisTicker}{QCPAxis\+Ticker} and reimplementing some or all of the available virtual methods.
+
+In the simplest case you might wish to just generate different tick steps than the other tickers, so you only reimplement the method get\+Tick\+Step. If you additionally want control over the string that will be shown as tick label, reimplement get\+Tick\+Label.
+
+If you wish to have complete control, you can generate the tick vectors and tick label vectors yourself by reimplementing create\+Tick\+Vector and create\+Label\+Vector. The default implementations use the previously mentioned virtual methods get\+Tick\+Step and get\+Tick\+Label, but your reimplementations don\textquotesingle{}t necessarily need to do so. For example in the case of unequal tick steps, the method get\+Tick\+Step loses its usefulness and can be ignored.
+
+The sub tick count between major ticks can be controlled with get\+Sub\+Tick\+Count. Full sub tick placement control is obtained by reimplementing create\+Sub\+Tick\+Vector.
+
+See the documentation of all these virtual methods in \doxylink{classQCPAxisTicker}{QCPAxis\+Ticker} for detailed information about the parameters and expected return values. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

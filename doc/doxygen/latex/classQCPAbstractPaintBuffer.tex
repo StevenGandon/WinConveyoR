@@ -1,0 +1,21 @@
+\doxysection{QCPAbstract\+Paint\+Buffer Class Reference}
+\hypertarget{classQCPAbstractPaintBuffer}{}\label{classQCPAbstractPaintBuffer}\index{QCPAbstractPaintBuffer@{QCPAbstractPaintBuffer}}
+
+
+The abstract base class for paint buffers, which define the rendering backend.  
+
+
+
+
+\doxysubsection{Detailed Description}
+The abstract base class for paint buffers, which define the rendering backend. 
+
+This abstract base class defines the basic interface that a paint buffer needs to provide in order to be usable by \doxylink{classQCustomPlot}{QCustom\+Plot}.
+
+A paint buffer manages both a surface to draw onto, and the matching paint device. The size of the surface can be changed via set\+Size. External classes (\doxylink{classQCustomPlot}{QCustom\+Plot} and \doxylink{classQCPLayer}{QCPLayer}) request a painter via start\+Painting and then perform the draw calls. Once the painting is complete, done\+Painting is called, so the paint buffer implementation can do clean up if necessary. Before rendering a frame, each paint buffer is usually filled with a color using clear (usually the color is {\ttfamily Qt\+::transparent}), to remove the contents of the previous frame.
+
+The simplest paint buffer implementation is \doxylink{classQCPPaintBufferPixmap}{QCPPaint\+Buffer\+Pixmap} which allows regular software rendering via the raster engine. Hardware accelerated rendering via pixel buffers and frame buffer objects is provided by QCPPaint\+Buffer\+Gl\+Pbuffer and QCPPaint\+Buffer\+Gl\+Fbo. They are used automatically if QCustom\+Plot\+::set\+Open\+Gl is enabled. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

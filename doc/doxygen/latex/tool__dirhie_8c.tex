@@ -1,0 +1,77 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+dirhie.c File Reference}
+\hypertarget{tool__dirhie_8c}{}\label{tool__dirhie_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_dirhie.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_dirhie.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+dirhie.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__dirhie_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__dirhie_8c_aa34959614821b6d1b0a2b53c19325daf}{PATH\+\_\+\+DELIMITERS}}~\mbox{\hyperlink{curl__setup_8h_a485855876266f06fff97ab53259af368}{DIR\+\_\+\+CHAR}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{tool__dirhie_8c_a197303b6922f72b6235d6fe4e82208fe}{show\+\_\+dir\+\_\+errno}} (FILE \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{retry-all-errors_8d_af0d8faa332121ce59e1f94e16fd7893c}{errors}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__dirhie_8c_ab2874022908b7a9f13eee933d5ec644b}{create\+\_\+dir\+\_\+hierarchy}} (const char \texorpdfstring{$\ast$}{*}outfile, FILE \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{retry-all-errors_8d_af0d8faa332121ce59e1f94e16fd7893c}{errors}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__dirhie_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__dirhie_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_dirhie.c@{tool\_dirhie.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_dirhie.c@{tool\_dirhie.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__dirhie_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__dirhie_8c_aa34959614821b6d1b0a2b53c19325daf}\index{tool\_dirhie.c@{tool\_dirhie.c}!PATH\_DELIMITERS@{PATH\_DELIMITERS}}
+\index{PATH\_DELIMITERS@{PATH\_DELIMITERS}!tool\_dirhie.c@{tool\_dirhie.c}}
+\doxysubsubsection{\texorpdfstring{PATH\_DELIMITERS}{PATH\_DELIMITERS}}
+{\footnotesize\ttfamily \label{tool__dirhie_8c_aa34959614821b6d1b0a2b53c19325daf} 
+\#define PATH\+\_\+\+DELIMITERS~\mbox{\hyperlink{curl__setup_8h_a485855876266f06fff97ab53259af368}{DIR\+\_\+\+CHAR}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__dirhie_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__dirhie_8c_ab2874022908b7a9f13eee933d5ec644b}\index{tool\_dirhie.c@{tool\_dirhie.c}!create\_dir\_hierarchy@{create\_dir\_hierarchy}}
+\index{create\_dir\_hierarchy@{create\_dir\_hierarchy}!tool\_dirhie.c@{tool\_dirhie.c}}
+\doxysubsubsection{\texorpdfstring{create\_dir\_hierarchy()}{create\_dir\_hierarchy()}}
+{\footnotesize\ttfamily \label{tool__dirhie_8c_ab2874022908b7a9f13eee933d5ec644b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} create\+\_\+dir\+\_\+hierarchy (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{outfile}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{errors}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__dirhie_8c_a197303b6922f72b6235d6fe4e82208fe}\index{tool\_dirhie.c@{tool\_dirhie.c}!show\_dir\_errno@{show\_dir\_errno}}
+\index{show\_dir\_errno@{show\_dir\_errno}!tool\_dirhie.c@{tool\_dirhie.c}}
+\doxysubsubsection{\texorpdfstring{show\_dir\_errno()}{show\_dir\_errno()}}
+{\footnotesize\ttfamily \label{tool__dirhie_8c_a197303b6922f72b6235d6fe4e82208fe} 
+void show\+\_\+dir\+\_\+errno (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{errors}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

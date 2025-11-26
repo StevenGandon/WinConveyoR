@@ -1,0 +1,137 @@
+\doxysection{gui/node\+\_\+modules/p-\/cancelable Directory Reference}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e}{}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e}\index{gui/node\_modules/p-\/cancelable Directory Reference@{gui/node\_modules/p-\/cancelable Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1138}{}\doxysubsection{\texorpdfstring{p-\/cancelable}{p-\/cancelable}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1138}
+\begin{quote}
+Create a promise that can be canceled \end{quote}
+
+
+Useful for animation, loading resources, long-\/running async computations, async iteration, etc.
+
+\texorpdfstring{$\ast$}{*}\+If you target \href{https://medium.com/@nodejs/node-js-v15-0-0-is-here-deb00750f278}{\texttt{Node.\+js 15}} or later, this package is \href{https://github.com/sindresorhus/p-cancelable/issues/27}{\texttt{less useful}} and you should probably use \href{https://developer.mozilla.org/en-US/docs/Web/API/AbortController}{\texttt{{\ttfamily Abort\+Controller}}} instead.\texorpdfstring{$\ast$}{*}\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1139}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1139}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ p-\/cancelable}
+
+\end{DoxyCode}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1140}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1140}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ PCancelable\ =\ require('p-\/cancelable');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cancelablePromise\ =\ new\ PCancelable((resolve,\ reject,\ onCancel)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ worker\ =\ new\ SomeLongRunningOperation();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ onCancel(()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ worker.close();}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ worker.on('finish',\ resolve);}
+\DoxyCodeLine{\ \ \ \ worker.on('error',\ reject);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log('Operation\ finished\ successfully:',\ await\ cancelablePromise);}
+\DoxyCodeLine{\ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (cancelablePromise.isCanceled)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Handle\ the\ cancelation\ here}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ console.log('Operation\ was\ canceled');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ throw\ error;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Cancel\ the\ operation\ after\ 10\ seconds}
+\DoxyCodeLine{setTimeout(()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ cancelablePromise.cancel('Unicorn\ has\ changed\ its\ color');}
+\DoxyCodeLine{\},\ 10000);}
+
+\end{DoxyCode}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1141}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1141}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1142}{}\doxysubsubsection{\texorpdfstring{new PCancelable(executor)}{new PCancelable(executor)}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1142}
+Same as the \href{https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise}{\texttt{{\ttfamily Promise} constructor}}, but with an appended {\ttfamily on\+Cancel} parameter in {\ttfamily executor}.~\newline
+ Cancelling will reject the promise with {\ttfamily PCancelable.\+Cancel\+Error}. To avoid that, set {\ttfamily on\+Cancel.\+should\+Reject} to {\ttfamily false}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ PCancelable\ =\ require('p-\/cancelable');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cancelablePromise\ =\ new\ PCancelable((resolve,\ reject,\ onCancel)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ job\ =\ new\ Job();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ onCancel.shouldReject\ =\ false;}
+\DoxyCodeLine{\ \ \ \ onCancel(()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ job.stop();}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ job.on('finish',\ resolve);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{cancelablePromise.cancel();\ //\ Doesn't\ throw\ an\ error}
+
+\end{DoxyCode}
+
+
+{\ttfamily PCancelable} is a subclass of {\ttfamily Promise}.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1143}{}\doxysubsubsubsection{\texorpdfstring{on\+Canceled(fn)}{on\+Canceled(fn)}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1143}
+Type\+: {\ttfamily Function}
+
+Accepts a function that is called when the promise is canceled.
+
+You\textquotesingle{}re not required to call this function. You can call this function multiple times to add multiple cancel handlers.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1144}{}\doxysubsubsection{\texorpdfstring{PCancelable\#cancel(reason?)}{PCancelable\#cancel(reason?)}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1144}
+Type\+: {\ttfamily Function}
+
+Cancel the promise and optionally provide a reason.
+
+The cancellation is synchronous. Calling it after the promise has settled or multiple times does nothing.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1145}{}\doxysubsubsection{\texorpdfstring{PCancelable\#is\+Canceled}{PCancelable\#is\+Canceled}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1145}
+Type\+: {\ttfamily boolean}
+
+Whether the promise is canceled.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1146}{}\doxysubsubsection{\texorpdfstring{PCancelable.\+Cancel\+Error}{PCancelable.\+Cancel\+Error}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1146}
+Type\+: {\ttfamily Error}
+
+Rejection reason when {\ttfamily .cancel()} is called.
+
+It includes a {\ttfamily .is\+Canceled} property for convenience.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1147}{}\doxysubsubsection{\texorpdfstring{PCancelable.\+fn(fn)}{PCancelable.\+fn(fn)}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1147}
+Convenience method to make your promise-\/returning or async function cancelable.
+
+The function you specify will have {\ttfamily on\+Cancel} appended to its parameters.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ PCancelable\ =\ require('p-\/cancelable');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ fn\ =\ PCancelable.fn((input,\ onCancel)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ job\ =\ new\ Job();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ onCancel(()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ job.cleanup();}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ return\ job.start();\ //=>\ Promise}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cancelablePromise\ =\ fn('input');\ //=>\ PCancelable}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ …}
+\DoxyCodeLine{}
+\DoxyCodeLine{cancelablePromise.cancel();}
+
+\end{DoxyCode}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1148}{}\doxysubsection{\texorpdfstring{FAQ}{FAQ}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1148}
+\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1149}{}\doxysubsubsection{\texorpdfstring{Cancelable vs. Cancellable}{Cancelable vs. Cancellable}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1149}
+\href{http://grammarist.com/spelling/cancel/}{\texttt{In American English, the verb cancel is usually inflected canceled and canceling—with one l.}}~\newline
+Both a \href{https://developer.mozilla.org/en-US/docs/Web/API/Event/cancelable}{\texttt{browser API}} and the \href{https://github.com/tc39/proposal-cancelable-promises}{\texttt{Cancelable Promises proposal}} use this spelling.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1150}{}\doxysubsubsection{\texorpdfstring{What about the official \href{https://github.com/tc39/proposal-cancelable-promises}{\texttt{Cancelable Promises proposal}}?}{What about the official \href{https://github.com/tc39/proposal-cancelable-promises}{\texttt{Cancelable Promises proposal}}?}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1150}
+\sout{It\textquotesingle{}s still an early draft and I don\textquotesingle{}t really like its current direction. It complicates everything and will require deep changes in the ecosystem to adapt to it. And the way you have to use cancel tokens is verbose and convoluted. I much prefer the more pragmatic and less invasive approach in this module.} The proposal was withdrawn.\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1151}{}\doxysubsection{\texorpdfstring{p-\/cancelable for enterprise}{p-\/cancelable for enterprise}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1151}
+Available as part of the Tidelift Subscription.
+
+The maintainers of p-\/cancelable and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. \href{https://tidelift.com/subscription/pkg/npm-p-cancelable?utm_source=npm-p-cancelable&utm_medium=referral&utm_campaign=enterprise&utm_term=repo}{\texttt{Learn more.}}\hypertarget{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1152}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_d1271c695cdc6a4c7273e8c2b89e832e_autotoc_md1152}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/p-progress}{\texttt{p-\/progress}} -\/ Create a promise that reports progress
+\item \href{https://github.com/sindresorhus/p-lazy}{\texttt{p-\/lazy}} -\/ Create a lazy promise that defers execution until {\ttfamily .then()} or {\ttfamily .catch()} is called
+\item \href{https://github.com/sindresorhus/promise-fun}{\texttt{More…}} 
+\end{DoxyItemize}

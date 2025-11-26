@@ -1,0 +1,68 @@
+\doxysection{http2.\+h}
+\hypertarget{http2_8h_source}{}\label{http2_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/http2.h@{lib/libwconr/build/\_deps/curl-\/src/lib/http2.h}}
+\mbox{\hyperlink{http2_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HTTP2\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HTTP2\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_NGHTTP2}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{http_8h}{http.h}}"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{/*\ value\ for\ MAX\_CONCURRENT\_STREAMS\ we\ use\ until\ we\ get\ an\ updated\ setting}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ from\ the\ peer\ */}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ DEFAULT\_MAX\_CONCURRENT\_STREAMS\ 100}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ Store\ nghttp2\ version\ info\ in\ this\ buffer.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ Curl\_http2\_ver(\textcolor{keywordtype}{char}\ *p,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *Curl\_http2\_strerror(uint32\_t\ err);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_http2\_init(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_af65fa81e85022ee9b2ca5b8c46664f10}{Curl\_http2\_init\_state}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structUrlState}{UrlState}}\ *\mbox{\hyperlink{ftp_8c_a77812d4945cd21094debbd06962f0f01}{state}});}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_ab44413d5f5cf5d245165f53c86b8bcb1}{Curl\_http2\_init\_userset}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structUserDefined}{UserDefined}}\ *\mbox{\hyperlink{cacert_8d_adf642db66c5d3cc87685fcb1937ca95f}{set}});}
+\DoxyCodeLine{00046\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http2_8h_a6e4353e22d54047ab6052b3a8fb49886}{Curl\_http2\_request\_upgrade}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *req,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00048\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http2_8h_a5406599642d8edba02e4403defa27fe7}{Curl\_http2\_setup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00049\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http2_8h_a2c3310e8f1eb576e38f798fb9dd2b951}{Curl\_http2\_switched}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ nread);}
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ called\ from\ http\_setup\_conn\ */}}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_a2295b843d76aeb06631566bfebc73be8}{Curl\_http2\_setup\_conn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_a5bdef737723c68dff0e4bde069b428ec}{Curl\_http2\_setup\_req}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_aa085257d64dd169d466fb80802114c9a}{Curl\_http2\_done}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{bool}\ premature);}
+\DoxyCodeLine{00055\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http2_8h_ae026bf46d4acf7dc72db4fda2cd8ca47}{Curl\_http2\_done\_sending}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00057\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http2_8h_abb49749220f69b7a4274d49c6b1f59c1}{Curl\_http2\_add\_child}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *parent,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *child,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ exclusive);}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_a8b6e1fdb20f29a378ded56ad2f05c133}{Curl\_http2\_remove\_child}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *parent,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *child);}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http2_8h_a0f9179032800ff43d64d1be68c1e67cd}{Curl\_http2\_cleanup\_dependencies}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00063\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http2_8h_a11df07ed25c38c97e6b75e8c79f1a8bc}{Curl\_http2\_stream\_pause}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{bool}\ pause);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ returns\ true\ if\ the\ HTTP/2\ stream\ error\ was\ HTTP\_1\_1\_REQUIRED\ */}}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{http2_8h_a5bc470e00220b08aad997d4f56a15948}{Curl\_h2\_http\_1\_1\_error}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ USE\_NGHTTP2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ Curl\_http2\_request\_upgrade(x,y)\ CURLE\_UNSUPPORTED\_PROTOCOL}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ Curl\_http2\_setup(x,y)\ CURLE\_UNSUPPORTED\_PROTOCOL}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ Curl\_http2\_switched(x,y,z)\ CURLE\_UNSUPPORTED\_PROTOCOL}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ Curl\_http2\_setup\_conn(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ Curl\_http2\_setup\_req(x)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ Curl\_http2\_init\_state(x)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ Curl\_http2\_init\_userset(x)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ Curl\_http2\_done(x,y)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ Curl\_http2\_done\_sending(x,y)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ Curl\_http2\_add\_child(x,\ y,\ z)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ Curl\_http2\_remove\_child(x,\ y)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ Curl\_http2\_cleanup\_dependencies(x)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ Curl\_http2\_stream\_pause(x,\ y)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ Curl\_h2\_http\_1\_1\_error(x)\ 0}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HTTP2\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

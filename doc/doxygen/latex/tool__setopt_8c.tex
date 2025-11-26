@@ -1,0 +1,674 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+setopt.c File Reference}
+\hypertarget{tool__setopt_8c}{}\label{tool__setopt_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_setopt.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_setopt.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+easysrc.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+setopt.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}dynbuf.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(e)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(e,  v)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}}~\{NULL, 0\}         /\texorpdfstring{$\ast$}{*} sentinel \mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}} mark end \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} \mbox{\hyperlink{tool__findfile_8c_ae21df68c1a8e862f3daccb3f660a6f18}{list}} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}{ADD}}(args)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}(args)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_aafe37e1bc6e3ab12477f38128b2b1946}{NULL\+\_\+\+CHECK}}(p)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_afaaf12a234f311d335964e571be503f0}{DECL0}}(\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}})
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a81ada8680d9c85f4dbbd78b857161f72}{DECL1}}(f,  a)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a1a172dcc98070ccefefa2e1caaa0c578}{DATA0}}(\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}})
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_af30da5bccd483d558e54e798da8dd56a}{DATA1}}(f,  a)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_abfcd43c133e1bb05a1bcf39f150f20da}{DATA2}}(f,  a,  b)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a769079d114925a9f10ae3aa3629dfcc7}{DATA3}}(f,  a,  b,  c)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a1511448a294382e72122834c52b4a53b}{CODE0}}(\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}})
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a5de705a78e53c45df52d7dc39079f572}{CODE1}}(f,  a)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a5c6a3ae49cab7aff183e9eb4c710dd7b}{CODE2}}(f,  a,  b)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a08c2e8cdddf63b485075ee85af0cd505}{CODE3}}(f,  a,  b,  c)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a3e80f0672fda46207e801846ef86e036}{CLEAN0}}(\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}})
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_af08029104671fcc3f4263d18b950fbab}{CLEAN1}}(f,  a)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_ac59f791fa452af95443097d691ea8d32}{REM0}}(\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}})
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a3584b8b8debe7669a05eca5e657a31d2}{REM1}}(f,  a)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a2e244e474d5bb10c6dcff7b24fd0066c}{REM3}}(f,  a,  b,  c)
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_a2770e174b6a56e57fb8e47bee09a2dcb}{MAX\+\_\+\+STRING\+\_\+\+LENGTH\+\_\+\+OUTPUT}}~2000
+\item 
+\#define \mbox{\hyperlink{tool__setopt_8c_aa36b637cf72d1b47720f3401c7688093}{ZERO\+\_\+\+TERMINATED}}~-\/1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__setopt_8c_a47497f355641ac89c6770c67f551678d}{c\+\_\+escape}} (const char \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_a30ae72d0eb12a50f111f7ca9b4762b5e}{tool\+\_\+setopt\+\_\+enum}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag, const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \texorpdfstring{$\ast$}{*}nvlist, long lval)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_a1b5aab687d5cdf9f71433046dd1f03d9}{tool\+\_\+setopt\+\_\+flags}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag, const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \texorpdfstring{$\ast$}{*}nvlist, long lval)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_adffc1ff4a9b8aaa3e2c55fb03005d6df}{tool\+\_\+setopt\+\_\+bitmask}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag, const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} \texorpdfstring{$\ast$}{*}nvlist, long lval)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_af767edda1e3c9a5f7a16b64f4d7245af}{libcurl\+\_\+generate\+\_\+slist}} (struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}slist, int \texorpdfstring{$\ast$}{*}slistno)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_a8ff4365d651799a58853bc1875402b25}{libcurl\+\_\+generate\+\_\+mime}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}toolmime, int \texorpdfstring{$\ast$}{*}mimeno)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_a86480937aae929fe211ea5648c9667e3}{libcurl\+\_\+generate\+\_\+mime\+\_\+part}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}part, int mimeno)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_a96e9aa8c57079f4b5bdb83564c50c4c9}{tool\+\_\+setopt\+\_\+mimepost}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag, \mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}mimepost)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_ae87f5c556a188b3b16bbee6a40fbbc0b}{tool\+\_\+setopt\+\_\+slist}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag, struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tool__findfile_8c_ae21df68c1a8e862f3daccb3f660a6f18}{list}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__setopt_8c_a31d4bc215a10f85394e5d0a06b9db224}{tool\+\_\+setopt}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} str, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}global, struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag,...)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_a6dd42f1a54d9c998310cbb2880f22e82}{setopt\+\_\+nv\+\_\+\+CURLPROXY}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_a54706b3a4f12924dbc87e34d755d7e00}{setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+SOCKS\+\_\+\+PROXY}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} \mbox{\hyperlink{tool__setopt_8c_a6cc6afbf7a7176bd6a5475198aedce56}{setopt\+\_\+nv\+\_\+\+CURLHSTS}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} \mbox{\hyperlink{tool__setopt_8c_ac1cf94ec61008261ce99845b526baafd}{setopt\+\_\+nv\+\_\+\+CURLAUTH}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_ae5d3a138b876922860a445c8ea9e9a66}{setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+HTTP\+\_\+\+VERSION}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_a8a7c1ca58aa258deb5438c43d33c1333}{setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+SSLVERSION}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_ae065692f5a67739a58e76d6601595c92}{setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+TIMECOND}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_aeb9d53d4dea5f77078f755e17fff30ef}{setopt\+\_\+nv\+\_\+\+CURLFTPSSL\+\_\+\+CCC}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_a8e49fa8f99af61571dbe3ef91c1523cc}{setopt\+\_\+nv\+\_\+\+CURLUSESSL}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} \mbox{\hyperlink{tool__setopt_8c_a0ed42ecf218d7c82cdda9d69bbd7dcb5}{setopt\+\_\+nv\+\_\+\+CURLSSLOPT}} \mbox{[}$\,$\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_a5f4d71d5776f6ed08e2c7e358e948b6d}{setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+NETRC}} \mbox{[}$\,$\mbox{]}
+\item 
+static const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \mbox{\hyperlink{tool__setopt_8c_a5a9b4daaf00cd6717f3b1d227e99944e}{setopt\+\_\+nv\+\_\+\+CURLNONZERODEFAULTS}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__setopt_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}\index{tool\_setopt.c@{tool\_setopt.c}!ADD@{ADD}}
+\index{ADD@{ADD}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{ADD}{ADD}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef} 
+\#define ADD(\begin{DoxyParamCaption}\item[{}]{args}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ ret\ =\ \mbox{\hyperlink{tool__easysrc_8c_ad9a3b81e3018cfb3b80bc00f6870ba49}{easysrc\_add}}\ args;\ \(\backslash\)}
+\DoxyCodeLine{\ \ if(ret)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{goto}\ nomem;\ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}\index{tool\_setopt.c@{tool\_setopt.c}!ADDF@{ADDF}}
+\index{ADDF@{ADDF}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{ADDF}{ADDF}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f} 
+\#define ADDF(\begin{DoxyParamCaption}\item[{}]{args}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ ret\ =\ \mbox{\hyperlink{tool__easysrc_8c_aa9c7c3f49b0653fd2cb49af61e848d0f}{easysrc\_addf}}\ args;\ \(\backslash\)}
+\DoxyCodeLine{\ \ if(ret)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{goto}\ nomem;\ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a3e80f0672fda46207e801846ef86e036}\index{tool\_setopt.c@{tool\_setopt.c}!CLEAN0@{CLEAN0}}
+\index{CLEAN0@{CLEAN0}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{CLEAN0}{CLEAN0}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a3e80f0672fda46207e801846ef86e036} 
+\#define CLEAN0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}{ADD}}((\&\mbox{\hyperlink{tool__easysrc_8c_a29223dfa3568c0284506fbd6fe207ed3}{easysrc\_clean}},\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_af08029104671fcc3f4263d18b950fbab}\index{tool\_setopt.c@{tool\_setopt.c}!CLEAN1@{CLEAN1}}
+\index{CLEAN1@{CLEAN1}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{CLEAN1}{CLEAN1}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_af08029104671fcc3f4263d18b950fbab} 
+\#define CLEAN1(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a29223dfa3568c0284506fbd6fe207ed3}{easysrc\_clean}},\ f,a))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a1511448a294382e72122834c52b4a53b}\index{tool\_setopt.c@{tool\_setopt.c}!CODE0@{CODE0}}
+\index{CODE0@{CODE0}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{CODE0}{CODE0}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a1511448a294382e72122834c52b4a53b} 
+\#define CODE0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}{ADD}}((\&\mbox{\hyperlink{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa}{easysrc\_code}},\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a5de705a78e53c45df52d7dc39079f572}\index{tool\_setopt.c@{tool\_setopt.c}!CODE1@{CODE1}}
+\index{CODE1@{CODE1}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{CODE1}{CODE1}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a5de705a78e53c45df52d7dc39079f572} 
+\#define CODE1(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa}{easysrc\_code}},\ f,a))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a5c6a3ae49cab7aff183e9eb4c710dd7b}\index{tool\_setopt.c@{tool\_setopt.c}!CODE2@{CODE2}}
+\index{CODE2@{CODE2}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{CODE2}{CODE2}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a5c6a3ae49cab7aff183e9eb4c710dd7b} 
+\#define CODE2(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa}{easysrc\_code}},\ f,a,b))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a08c2e8cdddf63b485075ee85af0cd505}\index{tool\_setopt.c@{tool\_setopt.c}!CODE3@{CODE3}}
+\index{CODE3@{CODE3}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{CODE3}{CODE3}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a08c2e8cdddf63b485075ee85af0cd505} 
+\#define CODE3(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa}{easysrc\_code}},\ f,a,b,c))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a1a172dcc98070ccefefa2e1caaa0c578}\index{tool\_setopt.c@{tool\_setopt.c}!DATA0@{DATA0}}
+\index{DATA0@{DATA0}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{DATA0}{DATA0}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a1a172dcc98070ccefefa2e1caaa0c578} 
+\#define DATA0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}{ADD}}((\&\mbox{\hyperlink{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9}{easysrc\_data}},\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_af30da5bccd483d558e54e798da8dd56a}\index{tool\_setopt.c@{tool\_setopt.c}!DATA1@{DATA1}}
+\index{DATA1@{DATA1}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{DATA1}{DATA1}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_af30da5bccd483d558e54e798da8dd56a} 
+\#define DATA1(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9}{easysrc\_data}},\ f,a))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_abfcd43c133e1bb05a1bcf39f150f20da}\index{tool\_setopt.c@{tool\_setopt.c}!DATA2@{DATA2}}
+\index{DATA2@{DATA2}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{DATA2}{DATA2}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_abfcd43c133e1bb05a1bcf39f150f20da} 
+\#define DATA2(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9}{easysrc\_data}},\ f,a,b))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a769079d114925a9f10ae3aa3629dfcc7}\index{tool\_setopt.c@{tool\_setopt.c}!DATA3@{DATA3}}
+\index{DATA3@{DATA3}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{DATA3}{DATA3}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a769079d114925a9f10ae3aa3629dfcc7} 
+\#define DATA3(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9}{easysrc\_data}},\ f,a,b,c))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_afaaf12a234f311d335964e571be503f0}\index{tool\_setopt.c@{tool\_setopt.c}!DECL0@{DECL0}}
+\index{DECL0@{DECL0}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{DECL0}{DECL0}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_afaaf12a234f311d335964e571be503f0} 
+\#define DECL0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}{ADD}}((\&\mbox{\hyperlink{tool__easysrc_8c_a4798f6d6594b3441bffd01aa5621813b}{easysrc\_decl}},\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a81ada8680d9c85f4dbbd78b857161f72}\index{tool\_setopt.c@{tool\_setopt.c}!DECL1@{DECL1}}
+\index{DECL1@{DECL1}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{DECL1}{DECL1}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a81ada8680d9c85f4dbbd78b857161f72} 
+\#define DECL1(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a4798f6d6594b3441bffd01aa5621813b}{easysrc\_decl}},\ f,a))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_setopt.c@{tool\_setopt.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__setopt_8c_a2770e174b6a56e57fb8e47bee09a2dcb}\index{tool\_setopt.c@{tool\_setopt.c}!MAX\_STRING\_LENGTH\_OUTPUT@{MAX\_STRING\_LENGTH\_OUTPUT}}
+\index{MAX\_STRING\_LENGTH\_OUTPUT@{MAX\_STRING\_LENGTH\_OUTPUT}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_STRING\_LENGTH\_OUTPUT}{MAX\_STRING\_LENGTH\_OUTPUT}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a2770e174b6a56e57fb8e47bee09a2dcb} 
+\#define MAX\+\_\+\+STRING\+\_\+\+LENGTH\+\_\+\+OUTPUT~2000}
+
+\Hypertarget{tool__setopt_8c_aafe37e1bc6e3ab12477f38128b2b1946}\index{tool\_setopt.c@{tool\_setopt.c}!NULL\_CHECK@{NULL\_CHECK}}
+\index{NULL\_CHECK@{NULL\_CHECK}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{NULL\_CHECK}{NULL\_CHECK}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_aafe37e1bc6e3ab12477f38128b2b1946} 
+\#define NULL\+\_\+\+CHECK(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ if(!p)\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ret\ =\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951aba5a22c9f705ed27933344be221fe937}{CURLE\_OUT\_OF\_MEMORY}};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{goto}\ nomem;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}\index{tool\_setopt.c@{tool\_setopt.c}!NV@{NV}}
+\index{NV@{NV}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{NV}{NV}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812} 
+\#define NV(\begin{DoxyParamCaption}\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\#e,\ e\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}\index{tool\_setopt.c@{tool\_setopt.c}!NV1@{NV1}}
+\index{NV1@{NV1}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{NV1}{NV1}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616} 
+\#define NV1(\begin{DoxyParamCaption}\item[{}]{e}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\#e,\ (v)\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}\index{tool\_setopt.c@{tool\_setopt.c}!NVEND@{NVEND}}
+\index{NVEND@{NVEND}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{NVEND}{NVEND}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2} 
+\#define NVEND~\{NULL, 0\}         /\texorpdfstring{$\ast$}{*} sentinel \mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}} mark end \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} \mbox{\hyperlink{tool__findfile_8c_ae21df68c1a8e862f3daccb3f660a6f18}{list}} \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{tool__setopt_8c_ac59f791fa452af95443097d691ea8d32}\index{tool\_setopt.c@{tool\_setopt.c}!REM0@{REM0}}
+\index{REM0@{REM0}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{REM0}{REM0}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_ac59f791fa452af95443097d691ea8d32} 
+\#define REM0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a2481e1a41de9dc073f1677e4329f68ef}{ADD}}((\&\mbox{\hyperlink{tool__easysrc_8c_a7980bbfb9ad9b2c2122515c14c5c64e7}{easysrc\_toohard}},\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a3584b8b8debe7669a05eca5e657a31d2}\index{tool\_setopt.c@{tool\_setopt.c}!REM1@{REM1}}
+\index{REM1@{REM1}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{REM1}{REM1}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a3584b8b8debe7669a05eca5e657a31d2} 
+\#define REM1(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a7980bbfb9ad9b2c2122515c14c5c64e7}{easysrc\_toohard}},\ f,a))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a2e244e474d5bb10c6dcff7b24fd0066c}\index{tool\_setopt.c@{tool\_setopt.c}!REM3@{REM3}}
+\index{REM3@{REM3}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{REM3}{REM3}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a2e244e474d5bb10c6dcff7b24fd0066c} 
+\#define REM3(\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{tool__setopt_8c_a48709b02c05f9bda76aa493bdfbd158f}{ADDF}}((\&\mbox{\hyperlink{tool__easysrc_8c_a7980bbfb9ad9b2c2122515c14c5c64e7}{easysrc\_toohard}},\ f,a,b,c))}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_aa36b637cf72d1b47720f3401c7688093}\index{tool\_setopt.c@{tool\_setopt.c}!ZERO\_TERMINATED@{ZERO\_TERMINATED}}
+\index{ZERO\_TERMINATED@{ZERO\_TERMINATED}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{ZERO\_TERMINATED}{ZERO\_TERMINATED}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_aa36b637cf72d1b47720f3401c7688093} 
+\#define ZERO\+\_\+\+TERMINATED~-\/1}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__setopt_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__setopt_8c_a47497f355641ac89c6770c67f551678d}\index{tool\_setopt.c@{tool\_setopt.c}!c\_escape@{c\_escape}}
+\index{c\_escape@{c\_escape}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{c\_escape()}{c\_escape()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a47497f355641ac89c6770c67f551678d} 
+char \texorpdfstring{$\ast$}{*} c\+\_\+escape (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__setopt_8c_a8ff4365d651799a58853bc1875402b25}\index{tool\_setopt.c@{tool\_setopt.c}!libcurl\_generate\_mime@{libcurl\_generate\_mime}}
+\index{libcurl\_generate\_mime@{libcurl\_generate\_mime}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{libcurl\_generate\_mime()}{libcurl\_generate\_mime()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a8ff4365d651799a58853bc1875402b25} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} libcurl\+\_\+generate\+\_\+mime (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{toolmime}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{mimeno}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__setopt_8c_a86480937aae929fe211ea5648c9667e3}\index{tool\_setopt.c@{tool\_setopt.c}!libcurl\_generate\_mime\_part@{libcurl\_generate\_mime\_part}}
+\index{libcurl\_generate\_mime\_part@{libcurl\_generate\_mime\_part}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{libcurl\_generate\_mime\_part()}{libcurl\_generate\_mime\_part()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a86480937aae929fe211ea5648c9667e3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} libcurl\+\_\+generate\+\_\+mime\+\_\+part (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{int}]{mimeno}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__setopt_8c_af767edda1e3c9a5f7a16b64f4d7245af}\index{tool\_setopt.c@{tool\_setopt.c}!libcurl\_generate\_slist@{libcurl\_generate\_slist}}
+\index{libcurl\_generate\_slist@{libcurl\_generate\_slist}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{libcurl\_generate\_slist()}{libcurl\_generate\_slist()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_af767edda1e3c9a5f7a16b64f4d7245af} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} libcurl\+\_\+generate\+\_\+slist (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{slist}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{slistno}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__setopt_8c_a31d4bc215a10f85394e5d0a06b9db224}\index{tool\_setopt.c@{tool\_setopt.c}!tool\_setopt@{tool\_setopt}}
+\index{tool\_setopt@{tool\_setopt}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_setopt()}{tool\_setopt()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a31d4bc215a10f85394e5d0a06b9db224} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool\+\_\+setopt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{str}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{global}{, }\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__setopt_8c_adffc1ff4a9b8aaa3e2c55fb03005d6df}\index{tool\_setopt.c@{tool\_setopt.c}!tool\_setopt\_bitmask@{tool\_setopt\_bitmask}}
+\index{tool\_setopt\_bitmask@{tool\_setopt\_bitmask}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_setopt\_bitmask()}{tool\_setopt\_bitmask()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_adffc1ff4a9b8aaa3e2c55fb03005d6df} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool\+\_\+setopt\+\_\+bitmask (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} \texorpdfstring{$\ast$}{*}}]{nvlist}{, }\item[{long}]{lval}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__setopt_8c_a30ae72d0eb12a50f111f7ca9b4762b5e}\index{tool\_setopt.c@{tool\_setopt.c}!tool\_setopt\_enum@{tool\_setopt\_enum}}
+\index{tool\_setopt\_enum@{tool\_setopt\_enum}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_setopt\_enum()}{tool\_setopt\_enum()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a30ae72d0eb12a50f111f7ca9b4762b5e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool\+\_\+setopt\+\_\+enum (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \texorpdfstring{$\ast$}{*}}]{nvlist}{, }\item[{long}]{lval}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__setopt_8c_a1b5aab687d5cdf9f71433046dd1f03d9}\index{tool\_setopt.c@{tool\_setopt.c}!tool\_setopt\_flags@{tool\_setopt\_flags}}
+\index{tool\_setopt\_flags@{tool\_setopt\_flags}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_setopt\_flags()}{tool\_setopt\_flags()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a1b5aab687d5cdf9f71433046dd1f03d9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool\+\_\+setopt\+\_\+flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} \texorpdfstring{$\ast$}{*}}]{nvlist}{, }\item[{long}]{lval}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__setopt_8c_a96e9aa8c57079f4b5bdb83564c50c4c9}\index{tool\_setopt.c@{tool\_setopt.c}!tool\_setopt\_mimepost@{tool\_setopt\_mimepost}}
+\index{tool\_setopt\_mimepost@{tool\_setopt\_mimepost}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_setopt\_mimepost()}{tool\_setopt\_mimepost()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a96e9aa8c57079f4b5bdb83564c50c4c9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool\+\_\+setopt\+\_\+mimepost (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{\mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{mimepost}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__setopt_8c_ae87f5c556a188b3b16bbee6a40fbbc0b}\index{tool\_setopt.c@{tool\_setopt.c}!tool\_setopt\_slist@{tool\_setopt\_slist}}
+\index{tool\_setopt\_slist@{tool\_setopt\_slist}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_setopt\_slist()}{tool\_setopt\_slist()}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_ae87f5c556a188b3b16bbee6a40fbbc0b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool\+\_\+setopt\+\_\+slist (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{list}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{tool__setopt_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tool__setopt_8c_ae5d3a138b876922860a445c8ea9e9a66}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURL\_HTTP\_VERSION@{setopt\_nv\_CURL\_HTTP\_VERSION}}
+\index{setopt\_nv\_CURL\_HTTP\_VERSION@{setopt\_nv\_CURL\_HTTP\_VERSION}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURL\_HTTP\_VERSION}{setopt\_nv\_CURL\_HTTP\_VERSION}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_ae5d3a138b876922860a445c8ea9e9a66} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+HTTP\+\_\+\+VERSION\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7ca4006f988c2417f7059cf2b5f0d79630f}{CURL\_HTTP\_VERSION\_NONE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7cabf20980d1f881523f95f620ddcce5667}{CURL\_HTTP\_VERSION\_1\_0}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7ca2bdca7ce6479378784212fee3a068c74}{CURL\_HTTP\_VERSION\_1\_1}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7cad7d493f095b039283d9e0c6332d8b622}{CURL\_HTTP\_VERSION\_2\_0}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7ca153a446054f34c6bcbca7a690209f284}{CURL\_HTTP\_VERSION\_2TLS}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7ca1a29c1c6789f560d32008d1f17ab05bd}{CURL\_HTTP\_VERSION\_3}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a5f4d71d5776f6ed08e2c7e358e948b6d}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURL\_NETRC@{setopt\_nv\_CURL\_NETRC}}
+\index{setopt\_nv\_CURL\_NETRC@{setopt\_nv\_CURL\_NETRC}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURL\_NETRC}{setopt\_nv\_CURL\_NETRC}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a5f4d71d5776f6ed08e2c7e358e948b6d} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+NETRC\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_ad2f83089deb2d8a6cac955e9d6f06deaa59820bd334fa9f57f196d62942254472}{CURL\_NETRC\_IGNORED}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_ad2f83089deb2d8a6cac955e9d6f06deaa0171a83022d598b131cc893975b13203}{CURL\_NETRC\_OPTIONAL}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_ad2f83089deb2d8a6cac955e9d6f06deaa2effcb78ce3bbf09ca9a818ce3456c46}{CURL\_NETRC\_REQUIRED}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a54706b3a4f12924dbc87e34d755d7e00}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURL\_SOCKS\_PROXY@{setopt\_nv\_CURL\_SOCKS\_PROXY}}
+\index{setopt\_nv\_CURL\_SOCKS\_PROXY@{setopt\_nv\_CURL\_SOCKS\_PROXY}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURL\_SOCKS\_PROXY}{setopt\_nv\_CURL\_SOCKS\_PROXY}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a54706b3a4f12924dbc87e34d755d7e00} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+SOCKS\+\_\+\+PROXY\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a0ee68a0bf33b1d80a417c3d53a5bfa41}{CURLPROXY\_SOCKS4}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a0221f060e5533f00d79538b80dc7b386}{CURLPROXY\_SOCKS5}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a57108a90bd6ce44c3d94fdfd53c775fd}{CURLPROXY\_SOCKS4A}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8ac7b9486a2097e4217185729549839549}{CURLPROXY\_SOCKS5\_HOSTNAME}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a8a7c1ca58aa258deb5438c43d33c1333}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURL\_SSLVERSION@{setopt\_nv\_CURL\_SSLVERSION}}
+\index{setopt\_nv\_CURL\_SSLVERSION@{setopt\_nv\_CURL\_SSLVERSION}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURL\_SSLVERSION}{setopt\_nv\_CURL\_SSLVERSION}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a8a7c1ca58aa258deb5438c43d33c1333} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+SSLVERSION\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfa0227d3edc8c1ee5f0bb41831912ce756}{CURL\_SSLVERSION\_DEFAULT}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfaf516898239e1f4a335ab3c0d019de40e}{CURL\_SSLVERSION\_TLSv1}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfa0f8174e66c2e7084ab2aa414509110ce}{CURL\_SSLVERSION\_SSLv2}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfa196e49e6628c0360cbe00852964fa906}{CURL\_SSLVERSION\_SSLv3}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfa769044d53450fd19575f12b2838f54d0}{CURL\_SSLVERSION\_TLSv1\_0}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfa3659f18972112848e04fec39daf19985}{CURL\_SSLVERSION\_TLSv1\_1}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfae9b72f6323430c824c44182b7649d0d8}{CURL\_SSLVERSION\_TLSv1\_2}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_af90c7827d89800a31b4c4a6d311abbdfa3a20a62139a18a0577154835dc642c0d}{CURL\_SSLVERSION\_TLSv1\_3}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_ae065692f5a67739a58e76d6601595c92}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURL\_TIMECOND@{setopt\_nv\_CURL\_TIMECOND}}
+\index{setopt\_nv\_CURL\_TIMECOND@{setopt\_nv\_CURL\_TIMECOND}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURL\_TIMECOND}{setopt\_nv\_CURL\_TIMECOND}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_ae065692f5a67739a58e76d6601595c92} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURL\+\_\+\+TIMECOND\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a845d262749bd413d724b58e26f713f25ad13e365aab4f32a0ee193510118f533d}{CURL\_TIMECOND\_IFMODSINCE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a845d262749bd413d724b58e26f713f25ab52a0e6ddf579f8f81b40d8a684155a6}{CURL\_TIMECOND\_IFUNMODSINCE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a845d262749bd413d724b58e26f713f25a78e03271e03b8cd828de47160a602353}{CURL\_TIMECOND\_LASTMOD}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a845d262749bd413d724b58e26f713f25afedf4be1a889a36b688846763ca838f5}{CURL\_TIMECOND\_NONE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_ac1cf94ec61008261ce99845b526baafd}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLAUTH@{setopt\_nv\_CURLAUTH}}
+\index{setopt\_nv\_CURLAUTH@{setopt\_nv\_CURLAUTH}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLAUTH}{setopt\_nv\_CURLAUTH}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_ac1cf94ec61008261ce99845b526baafd} 
+const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} setopt\+\_\+nv\+\_\+\+CURLAUTH\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a1efcf40f2478220c01b64c4f0ecfb4c5}{CURLAUTH\_ANY}}),\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a174ea33dcb0f86da43765f0373c0cb27}{CURLAUTH\_ANYSAFE}}),\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a71a1fde704d583a1f5dc57f77f1e957b}{CURLAUTH\_BASIC}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_ae8273f5a281c589c89d0d3ab2f565a93}{CURLAUTH\_DIGEST}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_abd8249802f5605e95c6fedcaf22f9f5c}{CURLAUTH\_GSSNEGOTIATE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_ab0e8299ededa678028a9e5796b0f77ce}{CURLAUTH\_NTLM}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a35dfbbf1be296636005ebb30f70ca4ee}{CURLAUTH\_DIGEST\_IE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_abc73006227ef9c2827f26b33d7cbadce}{CURLAUTH\_NTLM\_WB}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a364ee5914ac1e0d54264d47913a6dc90}{CURLAUTH\_ONLY}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a2623448e48f97bb09eb1a83b28da7735}{CURLAUTH\_NONE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_aeb9d53d4dea5f77078f755e17fff30ef}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLFTPSSL\_CCC@{setopt\_nv\_CURLFTPSSL\_CCC}}
+\index{setopt\_nv\_CURLFTPSSL\_CCC@{setopt\_nv\_CURLFTPSSL\_CCC}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLFTPSSL\_CCC}{setopt\_nv\_CURLFTPSSL\_CCC}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_aeb9d53d4dea5f77078f755e17fff30ef} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURLFTPSSL\+\_\+\+CCC\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a48086b496b9853f6b9507af1c7a50acaaebb4adbb11e48dd8a721041f833075c7}{CURLFTPSSL\_CCC\_NONE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a48086b496b9853f6b9507af1c7a50acaa109ae8cbe93e796ac24a2e745f362140}{CURLFTPSSL\_CCC\_PASSIVE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a48086b496b9853f6b9507af1c7a50acaa9159611119fe5f4912d5875f41dd5f0a}{CURLFTPSSL\_CCC\_ACTIVE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a6cc6afbf7a7176bd6a5475198aedce56}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLHSTS@{setopt\_nv\_CURLHSTS}}
+\index{setopt\_nv\_CURLHSTS@{setopt\_nv\_CURLHSTS}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLHSTS}{setopt\_nv\_CURLHSTS}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a6cc6afbf7a7176bd6a5475198aedce56} 
+const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} setopt\+\_\+nv\+\_\+\+CURLHSTS\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a1dd459dcc942b559e4a751212cdbf402}{CURLHSTS\_ENABLE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a5a9b4daaf00cd6717f3b1d227e99944e}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLNONZERODEFAULTS@{setopt\_nv\_CURLNONZERODEFAULTS}}
+\index{setopt\_nv\_CURLNONZERODEFAULTS@{setopt\_nv\_CURLNONZERODEFAULTS}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLNONZERODEFAULTS}{setopt\_nv\_CURLNONZERODEFAULTS}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a5a9b4daaf00cd6717f3b1d227e99944e} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURLNONZERODEFAULTS\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_SSL\_VERIFYPEER,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_SSL\_VERIFYHOST,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_SSL\_ENABLE\_NPN,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_SSL\_ENABLE\_ALPN,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_TCP\_NODELAY,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_PROXY\_SSL\_VERIFYPEER,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_PROXY\_SSL\_VERIFYHOST,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a2fe14dfa57d6886f2b5c9b6f7bfe6616}{NV1}}(CURLOPT\_SOCKS5\_AUTH,\ 1),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a6dd42f1a54d9c998310cbb2880f22e82}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLPROXY@{setopt\_nv\_CURLPROXY}}
+\index{setopt\_nv\_CURLPROXY@{setopt\_nv\_CURLPROXY}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLPROXY}{setopt\_nv\_CURLPROXY}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a6dd42f1a54d9c998310cbb2880f22e82} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURLPROXY\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a7d6d42eb703774dcd800c4881951c997}{CURLPROXY\_HTTP}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a60f240b4395a4acea5816c585b68a32f}{CURLPROXY\_HTTP\_1\_0}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8ae118261fbb43ab332f00f65574d08ec9}{CURLPROXY\_HTTPS}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a0ee68a0bf33b1d80a417c3d53a5bfa41}{CURLPROXY\_SOCKS4}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a0221f060e5533f00d79538b80dc7b386}{CURLPROXY\_SOCKS5}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8a57108a90bd6ce44c3d94fdfd53c775fd}{CURLPROXY\_SOCKS4A}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8ac7b9486a2097e4217185729549839549}{CURLPROXY\_SOCKS5\_HOSTNAME}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a0ed42ecf218d7c82cdda9d69bbd7dcb5}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLSSLOPT@{setopt\_nv\_CURLSSLOPT}}
+\index{setopt\_nv\_CURLSSLOPT@{setopt\_nv\_CURLSSLOPT}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLSSLOPT}{setopt\_nv\_CURLSSLOPT}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a0ed42ecf218d7c82cdda9d69bbd7dcb5} 
+const struct \mbox{\hyperlink{structNameValueUnsigned}{Name\+Value\+Unsigned}} setopt\+\_\+nv\+\_\+\+CURLSSLOPT\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a4c7100c64d90f69f04bec0cc4628ecdd}{CURLSSLOPT\_ALLOW\_BEAST}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a6aad2234872266744d64ca1052e42e17}{CURLSSLOPT\_NO\_REVOKE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a6123ff27d4b0f26e22c87f76fb118a96}{CURLSSLOPT\_NO\_PARTIALCHAIN}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a2cb7e82597bc025c1c18f043b2cb15d8}{CURLSSLOPT\_REVOKE\_BEST\_EFFORT}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a9c40d36223ee2a852f4da084630a0b3d}{CURLSSLOPT\_NATIVE\_CA}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_a3b39cc872d000d5c39579dbd1fd7a55f}{CURLSSLOPT\_AUTO\_CLIENT\_CERT}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__setopt_8c_a8e49fa8f99af61571dbe3ef91c1523cc}\index{tool\_setopt.c@{tool\_setopt.c}!setopt\_nv\_CURLUSESSL@{setopt\_nv\_CURLUSESSL}}
+\index{setopt\_nv\_CURLUSESSL@{setopt\_nv\_CURLUSESSL}!tool\_setopt.c@{tool\_setopt.c}}
+\doxysubsubsection{\texorpdfstring{setopt\_nv\_CURLUSESSL}{setopt\_nv\_CURLUSESSL}}
+{\footnotesize\ttfamily \label{tool__setopt_8c_a8e49fa8f99af61571dbe3ef91c1523cc} 
+const struct \mbox{\hyperlink{structNameValue}{Name\+Value}} setopt\+\_\+nv\+\_\+\+CURLUSESSL\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_aa5618da2459dcb16a18ed3552c17d33fa8d2d45872cd96c41e269a5b659e023c4}{CURLUSESSL\_NONE}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_aa5618da2459dcb16a18ed3552c17d33fa1b2e22a414d8dcc2d2c651bc59012986}{CURLUSESSL\_TRY}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_aa5618da2459dcb16a18ed3552c17d33fa6b661cf271e2f9d9ff0eb28d926d417b}{CURLUSESSL\_CONTROL}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a45ba77bc408f945e383e7d865f826812}{NV}}(\mbox{\hyperlink{curl_8h_aa5618da2459dcb16a18ed3552c17d33fa996f396157159019b0308a009cfd5ab2}{CURLUSESSL\_ALL}}),}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{tool__setopt_8c_a0ce24d4ce1afe4f64e3da0eab6eb77b2}{NVEND}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

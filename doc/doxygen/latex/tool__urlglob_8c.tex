@@ -1,0 +1,154 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+urlglob.c File Reference}
+\hypertarget{tool__urlglob_8c}{}\label{tool__urlglob_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_urlglob.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_urlglob.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+doswin.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+urlglob.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+vms.\+h"{}}\newline
+{\ttfamily \#include "{}dynbuf.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__urlglob_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__urlglob_8c_a9b6149ddc43697368d912cc61f0ef0b9}{GLOBERROR}}(\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}},  column,  code)
+\item 
+\#define \mbox{\hyperlink{tool__urlglob_8c_a76e44f8881c2983fad7553c305507cdd}{MAX\+\_\+\+IP6\+LEN}}~128
+\item 
+\#define \mbox{\hyperlink{tool__urlglob_8c_a921ccf4964bd26b40ea80a254e1c34be}{MAX\+\_\+\+OUTPUT\+\_\+\+GLOB\+\_\+\+LENGTH}}~(10\texorpdfstring{$\ast$}{*}1024)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_ab74dd74cee4b0907d98d82e3a4269934}{glob\+\_\+fixed}} (struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob, char \texorpdfstring{$\ast$}{*}fixed, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+static int \mbox{\hyperlink{tool__urlglob_8c_a65f270d4c5782b1acb2c2133f0684227}{multiply}} (unsigned long \texorpdfstring{$\ast$}{*}amount, long \mbox{\hyperlink{curves_8d_aae083c9e7ddae07beda5cae6a5b5eb73}{with}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_a567b140ac1d3578a01203f4c918bc412}{glob\+\_\+set}} (struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}patternp, size\+\_\+t \texorpdfstring{$\ast$}{*}posp, unsigned long \texorpdfstring{$\ast$}{*}amount, int globindex)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_a6a775bd746862c3fb2a6367ed7f6c68b}{glob\+\_\+range}} (struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}patternp, size\+\_\+t \texorpdfstring{$\ast$}{*}posp, unsigned long \texorpdfstring{$\ast$}{*}amount, int globindex)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{tool__urlglob_8c_ab684471ce9d9dd8c435d3345bc374cd8}{peek\+\_\+ipv6}} (const char \texorpdfstring{$\ast$}{*}str, size\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{parsedate_8c_a1f1232539b22faa166624bdf6fc7c368}{skip}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_ad9c4df872c5322549c87948272ff2623}{glob\+\_\+parse}} (struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob, char \texorpdfstring{$\ast$}{*}pattern, size\+\_\+t pos, unsigned long \texorpdfstring{$\ast$}{*}amount)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_a2c19f60444ecbe1a1d333ba14743a09d}{glob\+\_\+url}} (struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}glob, char \texorpdfstring{$\ast$}{*}url, unsigned long \texorpdfstring{$\ast$}{*}urlnum, FILE \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}})
+\item 
+void \mbox{\hyperlink{tool__urlglob_8c_ab50233d1b14e68b81206d18b87fe431e}{glob\+\_\+cleanup}} (struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_a989fff18c68b211e101a5210e13fd231}{glob\+\_\+next\+\_\+url}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}globbed, struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__urlglob_8c_a378ab28541d9efbb1f818b0cb36b57f8}{glob\+\_\+match\+\_\+url}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}result, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}}, struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}glob)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__urlglob_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__urlglob_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_urlglob.c@{tool\_urlglob.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__urlglob_8c_a9b6149ddc43697368d912cc61f0ef0b9}\index{tool\_urlglob.c@{tool\_urlglob.c}!GLOBERROR@{GLOBERROR}}
+\index{GLOBERROR@{GLOBERROR}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{GLOBERROR}{GLOBERROR}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a9b6149ddc43697368d912cc61f0ef0b9} 
+\#define GLOBERROR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}}{, }\item[{}]{column}{, }\item[{}]{code}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ glob-\/>error\ =\ \mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}},\ glob-\/>pos\ =\ column,\ code}
+
+\end{DoxyCode}
+\Hypertarget{tool__urlglob_8c_a76e44f8881c2983fad7553c305507cdd}\index{tool\_urlglob.c@{tool\_urlglob.c}!MAX\_IP6LEN@{MAX\_IP6LEN}}
+\index{MAX\_IP6LEN@{MAX\_IP6LEN}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_IP6LEN}{MAX\_IP6LEN}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a76e44f8881c2983fad7553c305507cdd} 
+\#define MAX\+\_\+\+IP6\+LEN~128}
+
+\Hypertarget{tool__urlglob_8c_a921ccf4964bd26b40ea80a254e1c34be}\index{tool\_urlglob.c@{tool\_urlglob.c}!MAX\_OUTPUT\_GLOB\_LENGTH@{MAX\_OUTPUT\_GLOB\_LENGTH}}
+\index{MAX\_OUTPUT\_GLOB\_LENGTH@{MAX\_OUTPUT\_GLOB\_LENGTH}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_OUTPUT\_GLOB\_LENGTH}{MAX\_OUTPUT\_GLOB\_LENGTH}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a921ccf4964bd26b40ea80a254e1c34be} 
+\#define MAX\+\_\+\+OUTPUT\+\_\+\+GLOB\+\_\+\+LENGTH~(10\texorpdfstring{$\ast$}{*}1024)}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__urlglob_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__urlglob_8c_ab50233d1b14e68b81206d18b87fe431e}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_cleanup@{glob\_cleanup}}
+\index{glob\_cleanup@{glob\_cleanup}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_cleanup()}{glob\_cleanup()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_ab50233d1b14e68b81206d18b87fe431e} 
+void glob\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__urlglob_8c_ab74dd74cee4b0907d98d82e3a4269934}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_fixed@{glob\_fixed}}
+\index{glob\_fixed@{glob\_fixed}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_fixed()}{glob\_fixed()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_ab74dd74cee4b0907d98d82e3a4269934} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+fixed (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{fixed}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__urlglob_8c_a378ab28541d9efbb1f818b0cb36b57f8}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_match\_url@{glob\_match\_url}}
+\index{glob\_match\_url@{glob\_match\_url}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_match\_url()}{glob\_match\_url()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a378ab28541d9efbb1f818b0cb36b57f8} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+match\+\_\+url (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{result}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__urlglob_8c_a989fff18c68b211e101a5210e13fd231}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_next\_url@{glob\_next\_url}}
+\index{glob\_next\_url@{glob\_next\_url}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_next\_url()}{glob\_next\_url()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a989fff18c68b211e101a5210e13fd231} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+next\+\_\+url (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{globbed}{, }\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__urlglob_8c_ad9c4df872c5322549c87948272ff2623}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_parse@{glob\_parse}}
+\index{glob\_parse@{glob\_parse}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_parse()}{glob\_parse()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_ad9c4df872c5322549c87948272ff2623} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+parse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pattern}{, }\item[{size\+\_\+t}]{pos}{, }\item[{unsigned long \texorpdfstring{$\ast$}{*}}]{amount}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__urlglob_8c_a6a775bd746862c3fb2a6367ed7f6c68b}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_range@{glob\_range}}
+\index{glob\_range@{glob\_range}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_range()}{glob\_range()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a6a775bd746862c3fb2a6367ed7f6c68b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+range (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{patternp}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{posp}{, }\item[{unsigned long \texorpdfstring{$\ast$}{*}}]{amount}{, }\item[{int}]{globindex}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__urlglob_8c_a567b140ac1d3578a01203f4c918bc412}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_set@{glob\_set}}
+\index{glob\_set@{glob\_set}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_set()}{glob\_set()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a567b140ac1d3578a01203f4c918bc412} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+set (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}}]{glob}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{patternp}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{posp}{, }\item[{unsigned long \texorpdfstring{$\ast$}{*}}]{amount}{, }\item[{int}]{globindex}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__urlglob_8c_a2c19f60444ecbe1a1d333ba14743a09d}\index{tool\_urlglob.c@{tool\_urlglob.c}!glob\_url@{glob\_url}}
+\index{glob\_url@{glob\_url}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{glob\_url()}{glob\_url()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a2c19f60444ecbe1a1d333ba14743a09d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} glob\+\_\+url (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structURLGlob}{URLGlob}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{glob}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{unsigned long \texorpdfstring{$\ast$}{*}}]{urlnum}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{error}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__urlglob_8c_a65f270d4c5782b1acb2c2133f0684227}\index{tool\_urlglob.c@{tool\_urlglob.c}!multiply@{multiply}}
+\index{multiply@{multiply}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{multiply()}{multiply()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_a65f270d4c5782b1acb2c2133f0684227} 
+int multiply (\begin{DoxyParamCaption}\item[{unsigned long \texorpdfstring{$\ast$}{*}}]{amount}{, }\item[{long}]{with}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__urlglob_8c_ab684471ce9d9dd8c435d3345bc374cd8}\index{tool\_urlglob.c@{tool\_urlglob.c}!peek\_ipv6@{peek\_ipv6}}
+\index{peek\_ipv6@{peek\_ipv6}!tool\_urlglob.c@{tool\_urlglob.c}}
+\doxysubsubsection{\texorpdfstring{peek\_ipv6()}{peek\_ipv6()}}
+{\footnotesize\ttfamily \label{tool__urlglob_8c_ab684471ce9d9dd8c435d3345bc374cd8} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} peek\+\_\+ipv6 (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{skip}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

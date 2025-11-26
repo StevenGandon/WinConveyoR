@@ -1,0 +1,146 @@
+\doxysection{gui/node\+\_\+modules/progress Directory Reference}
+\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27}{}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27}\index{gui/node\_modules/progress Directory Reference@{gui/node\_modules/progress Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+Flexible ascii progress bar.\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1170}{}\doxysubsubsection{\texorpdfstring{Installation}{Installation}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1170}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ progress}
+
+\end{DoxyCode}
+\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1171}{}\doxysubsubsection{\texorpdfstring{Usage}{Usage}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1171}
+First we create a {\ttfamily Progress\+Bar}, giving it a format string as well as the {\ttfamily total}, telling the progress bar when it will be considered complete. After that all we need to do is {\ttfamily tick()} appropriately.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ ProgressBar\ =\ require('progress');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ bar\ =\ new\ ProgressBar(':bar',\ \{\ total:\ 10\ \});}
+\DoxyCodeLine{var\ timer\ =\ setInterval(function\ ()\ \{}
+\DoxyCodeLine{\ \ bar.tick();}
+\DoxyCodeLine{\ \ if\ (bar.complete)\ \{}
+\DoxyCodeLine{\ \ \ \ console.log('\(\backslash\)ncomplete\(\backslash\)n');}
+\DoxyCodeLine{\ \ \ \ clearInterval(timer);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\},\ 100);}
+
+\end{DoxyCode}
+\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1172}{}\doxysubsubsubsection{\texorpdfstring{Options}{Options}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1172}
+These are keys in the options object you can pass to the progress bar along with {\ttfamily total} as seen in the example above.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily curr} current completed index
+\item {\ttfamily total} total number of ticks to complete
+\item {\ttfamily width} the displayed width of the progress bar defaulting to total
+\item {\ttfamily \doxylink{data-binary_8d_a73d1d2257c0428f3cbe588f0ac996fad}{stream}} the output stream defaulting to stderr
+\item {\ttfamily \doxylink{get_8d_aad827a2dad0c5f442868a9d3f8abf01a}{head}} head character defaulting to complete character
+\item {\ttfamily complete} completion character defaulting to "{}="{}
+\item {\ttfamily incomplete} incomplete character defaulting to "{}-\/"{}
+\item {\ttfamily render\+Throttle} minimum time between updates in milliseconds defaulting to 16
+\item {\ttfamily clear} option to clear the bar on completion defaulting to false
+\item {\ttfamily callback} optional function to call when the progress bar completes
+\end{DoxyItemize}\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1173}{}\doxysubsubsubsection{\texorpdfstring{Tokens}{Tokens}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1173}
+These are tokens you can use in the format of your progress bar.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \+:bar} the progress bar itself
+\item {\ttfamily \+:current} current tick number
+\item {\ttfamily \+:total} total ticks
+\item {\ttfamily \+:elapsed} time elapsed in seconds
+\item {\ttfamily \+:percent} completion percentage
+\item {\ttfamily \+:eta} estimated completion time in seconds
+\item {\ttfamily \+:\doxylink{rate_8d_a36682a7a670ec9113c1dcead7542b19e}{rate}} rate of ticks per second
+\end{DoxyItemize}\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1174}{}\doxysubsubsubsection{\texorpdfstring{Custom Tokens}{Custom Tokens}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1174}
+You can define custom tokens by adding a {\ttfamily \{\textquotesingle{}\doxylink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}\textquotesingle{}\+: value\}} object parameter to your method ({\ttfamily tick()}, {\ttfamily update()}, etc.) calls.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ bar\ =\ new\ ProgressBar(':current:\ :token1\ :token2',\ \{\ total:\ 3\ \})}
+\DoxyCodeLine{bar.tick(\{}
+\DoxyCodeLine{\ \ 'token1':\ "{}Hello"{},}
+\DoxyCodeLine{\ \ 'token2':\ "{}World!\(\backslash\)n"{}}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{bar.tick(2,\ \{}
+\DoxyCodeLine{\ \ 'token1':\ "{}Goodbye"{},}
+\DoxyCodeLine{\ \ 'token2':\ "{}World!"{}}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+ The above example would result in the output below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1:\ Hello\ World!}
+\DoxyCodeLine{3:\ Goodbye\ World!}
+
+\end{DoxyCode}
+\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1175}{}\doxysubsubsection{\texorpdfstring{Examples}{Examples}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1175}
+\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1176}{}\doxysubsubsubsection{\texorpdfstring{Download}{Download}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1176}
+In our download example each tick has a variable influence, so we pass the chunk length which adjusts the progress bar appropriately relative to the total length.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ ProgressBar\ =\ require('progress');}
+\DoxyCodeLine{var\ https\ =\ require('https');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ req\ =\ https.request(\{}
+\DoxyCodeLine{\ \ host:\ 'download.github.com',}
+\DoxyCodeLine{\ \ port:\ 443,}
+\DoxyCodeLine{\ \ path:\ '/visionmedia-\/node-\/jscoverage-\/0d4608a.zip'}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{req.on('response',\ function(res)\{}
+\DoxyCodeLine{\ \ var\ len\ =\ parseInt(res.headers['content-\/length'],\ 10);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ console.log();}
+\DoxyCodeLine{\ \ var\ bar\ =\ new\ ProgressBar('\ \ downloading\ [:bar]\ :rate/bps\ :percent\ :etas',\ \{}
+\DoxyCodeLine{\ \ \ \ complete:\ '=',}
+\DoxyCodeLine{\ \ \ \ incomplete:\ '\ ',}
+\DoxyCodeLine{\ \ \ \ width:\ 20,}
+\DoxyCodeLine{\ \ \ \ total:\ len}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ res.on('data',\ function\ (chunk)\ \{}
+\DoxyCodeLine{\ \ \ \ bar.tick(chunk.length);}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ res.on('end',\ function\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ console.log('\(\backslash\)n');}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{req.end();}
+
+\end{DoxyCode}
+
+
+The above example result in a progress bar like the one below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{downloading\ [=====\ \ \ \ \ \ \ \ \ \ \ \ \ ]\ 39/bps\ 29\%\ 3.7s}
+
+\end{DoxyCode}
+\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1177}{}\doxysubsubsubsection{\texorpdfstring{Interrupt}{Interrupt}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1177}
+To display a message during progress bar execution, use {\ttfamily interrupt()} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ ProgressBar\ =\ require('progress');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ bar\ =\ new\ ProgressBar(':bar\ :current/:total',\ \{\ total:\ 10\ \});}
+\DoxyCodeLine{var\ timer\ =\ setInterval(function\ ()\ \{}
+\DoxyCodeLine{\ \ bar.tick();}
+\DoxyCodeLine{\ \ if\ (bar.complete)\ \{}
+\DoxyCodeLine{\ \ \ \ clearInterval(timer);}
+\DoxyCodeLine{\ \ \}\ else\ if\ (bar.curr\ ===\ 5)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ bar.interrupt('this\ message\ appears\ above\ the\ progress\ bar\(\backslash\)ncurrent\ progress\ is\ '\ +\ bar.curr\ +\ '/'\ +\ bar.total);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\},\ 1000);}
+
+\end{DoxyCode}
+
+
+You can see more examples in the {\ttfamily examples} folder.\hypertarget{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1178}{}\doxysubsubsection{\texorpdfstring{License}{License}}\label{dir_179fd0e5ea2f048eb9cc1af8f9a5aa27_autotoc_md1178}
+MIT 

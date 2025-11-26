@@ -1,0 +1,31 @@
+\doxysection{QCPSelection\+Decorator Class Reference}
+\hypertarget{classQCPSelectionDecorator}{}\label{classQCPSelectionDecorator}\index{QCPSelectionDecorator@{QCPSelectionDecorator}}
+
+
+Controls how a plottable\textquotesingle{}s data selection is drawn.  
+
+
+Inheritance diagram for QCPSelection\+Decorator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classQCPSelectionDecorator}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+Controls how a plottable\textquotesingle{}s data selection is drawn. 
+
+Each \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable} instance has one \doxylink{classQCPSelectionDecorator}{QCPSelection\+Decorator} (accessible via QCPAbstract\+Plottable\+::selection\+Decorator) and uses it when drawing selected segments of its data.
+
+The selection decorator controls both pen (set\+Pen) and brush (set\+Brush), as well as the scatter style (set\+Scatter\+Style) if the plottable draws scatters. Since a \doxylink{classQCPScatterStyle}{QCPScatter\+Style} is itself composed of different properties such as color shape and size, the decorator allows specifying exactly which of those properties shall be used for the selected data point, via set\+Used\+Scatter\+Properties.
+
+A \doxylink{classQCPSelectionDecorator}{QCPSelection\+Decorator} subclass instance can be passed to a plottable via QCPAbstract\+Plottable\+::set\+Selection\+Decorator, allowing greater customizability of the appearance of selected segments.
+
+Use copy\+From to easily transfer the settings of one decorator to another one. This is especially useful since plottables take ownership of the passed selection decorator, and thus the same decorator instance can not be passed to multiple plottables.
+
+Selection decorators can also themselves perform drawing operations by reimplementing draw\+Decoration, which is called by the plottable\textquotesingle{}s draw method. The base class \doxylink{classQCPSelectionDecorator}{QCPSelection\+Decorator} does not make use of this however. For example, \doxylink{classQCPSelectionDecoratorBracket}{QCPSelection\+Decorator\+Bracket} draws brackets around selected data segments. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,76 @@
+\chapter{curl security process }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS}\index{curl security process@{curl security process}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1813}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1813}%
+
+
+This document describes how security vulnerabilities should be handled in the curl project.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1814}{}\doxysection{\texorpdfstring{Publishing Information}{Publishing Information}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1814}
+All known and public curl or libcurl related vulnerabilities are listed on \href{https://curl.se/docs/security.html}{\texttt{the curl website security page}}.
+
+Security vulnerabilities {\bfseries{should not}} be entered in the project\textquotesingle{}s public bug tracker.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1815}{}\doxysection{\texorpdfstring{Vulnerability Handling}{Vulnerability Handling}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1815}
+The typical process for handling a new security vulnerability is as follows.
+
+No information should be made public about a vulnerability until it is formally announced at the end of this process. That means, for example, that a bug tracker entry must NOT be created to track the issue since that will make the issue public and it should not be discussed on any of the project\textquotesingle{}s public mailing lists. Messages associated with any commits should not make any reference to the security nature of the commit if done prior to the public announcement.
+
+
+\begin{DoxyItemize}
+\item The person discovering the issue, the reporter, reports the vulnerability on \href{https://hackerone.com/curl}{\texttt{Hacker\+One}}. Issues filed there reach a handful of selected and trusted people.
+\item Messages that do not relate to the reporting or managing of an undisclosed security vulnerability in curl or libcurl are ignored and no further action is required.
+\item A person in the security team responds to the original report to acknowledge that a human has seen the report.
+\item The security team investigates the report and either rejects it or accepts it. See below for examples of problems that are not considered vulnerabilities.
+\item If the report is rejected, the team writes to the reporter to explain why.
+\item If the report is accepted, the team writes to the reporter to let them know it is accepted and that they are working on a fix.
+\item The security team discusses the problem, works out a fix, considers the impact of the problem and suggests a release schedule. This discussion should involve the reporter as much as possible.
+\item The release of the information should be "{}as soon as possible"{} and is most often synchronized with an upcoming release that contains the fix. If the reporter, or anyone else involved, thinks the next planned release is too far away, then a separate earlier release should be considered.
+\item Write a security advisory draft about the problem that explains what the problem is, its impact, which versions it affects, solutions or workarounds, when the release is out and make sure to credit all contributors properly. Figure out the CWE (Common Weakness Enumeration) number for the flaw.
+\item Request a CVE number from \href{https://docs.hackerone.com/programs/cve-requests.html}{\texttt{Hacker\+One}}
+\item Update the "{}security advisory"{} with the CVE number.
+\item The security team commits the fix in a private branch. The commit message should ideally contain the CVE number.
+\item The security team also decides on and delivers a monetary reward to the reporter as per the bug-\/bounty policies.
+\item No more than 10 days before release, inform \href{https://oss-security.openwall.org/wiki/mailing-lists/distros}{\texttt{distros@openwall}} to prepare them about the upcoming public security vulnerability announcement -\/ attach the advisory draft for information with CVE and current patch. \textquotesingle{}distros\textquotesingle{} does not accept an embargo longer than 14 days and they do not care for Windows-\/specific flaws.
+\item No more than 48 hours before the release, the private branch is merged into the master branch and pushed. Once pushed, the information is accessible to the public and the actual release should follow suit immediately afterwards. The time between the push and the release is used for final tests and reviews.
+\item The project team creates a release that includes the fix.
+\item The project team announces the release and the vulnerability to the world in the same manner we always announce releases. It gets sent to the curl-\/announce, curl-\/library and curl-\/users mailing lists.
+\item The security web page on the website should get the new vulnerability mentioned.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1816}{}\doxysection{\texorpdfstring{security (at curl dot se)}{security (at curl dot se)}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1816}
+This is a private mailing list for discussions on and about curl security issues.
+
+Who is on this list? There are a couple of criteria you must meet, and then we might ask you to join the list or you can ask to join it. It really is not a formal process. We basically only require that you have a long-\/term presence in the curl project and you have shown an understanding for the project and its way of working. You must have been around for a good while and you should have no plans of vanishing in the near future.
+
+We do not make the list of participants public mostly because it tends to vary somewhat over time and a list somewhere will only risk getting outdated.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1817}{}\doxysection{\texorpdfstring{Publishing Security Advisories}{Publishing Security Advisories}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1817}
+
+\begin{DoxyEnumerate}
+\item Write up the security advisory, using markdown syntax. Use the same subtitles as last time to maintain consistency.
+\item Name the advisory file after the allocated CVE id.
+\item Add a line on the top of the array in {\ttfamily curl-\/www/docs/vuln.\+pm}.
+\item Put the new advisory markdown file in the {\ttfamily curl-\/www/docs/} directory. Add it to the git repository.
+\item Run {\ttfamily make} in your local web checkout and verify that things look fine.
+\item On security advisory release day, push the changes on the curl-\/www repository\textquotesingle{}s remote master branch.
+\end{DoxyEnumerate}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1818}{}\doxysection{\texorpdfstring{Hacker\+One}{Hacker\+One}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1818}
+Request the issue to be disclosed. If there are sensitive details present in the report and discussion, those should be redacted from the disclosure. The default policy is to disclose as much as possible as soon as the vulnerability has been published.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1819}{}\doxysection{\texorpdfstring{Bug Bounty}{Bug Bounty}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1819}
+See \href{https://curl.se/docs/bugbounty.html}{\texttt{BUG-\/\+BOUNTY}} for details on the bug bounty program.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1820}{}\doxysection{\texorpdfstring{Not security issues}{Not security issues}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1820}
+This is an incomplete list of issues that are not considered vulnerabilities.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1821}{}\doxysubsection{\texorpdfstring{Small memory leaks}{Small memory leaks}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1821}
+We do not consider a small memory leak a security problem; even if the amount of allocated memory grows by a small amount every now and then. Long-\/living applications and services already need to have counter-\/measures and deal with growing memory usage, be it leaks or just increased use. A small memory or resource leak is then expected to {\itshape not} cause a security problem.
+
+Of course there can be a discussion if a leak is small or not. A large leak can be considered a security problem due to the DOS risk. If leaked memory contains sensitive data it might also qualify as a security problem.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1822}{}\doxysubsection{\texorpdfstring{Never-\/ending transfers}{Never-\/ending transfers}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1822}
+We do not consider flaws that cause a transfer to never end to be a security problem. There are already several benign and likely reasons for transfers to stall and never end, so applications that cannot deal with never-\/ending transfers already need to have counter-\/measures established.
+
+If the problem avoids the regular counter-\/measures when it causes a never-\/ ending transfer, it might be a security problem.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1823}{}\doxysubsection{\texorpdfstring{Not practically possible}{Not practically possible}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1823}
+If the flaw or vulnerability cannot practically get executed on existing hardware it is not a security problem.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1824}{}\doxysubsection{\texorpdfstring{API misuse}{API misuse}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1824}
+If a reported issue only triggers by an application using the API in a way that is not documented to work or even documented to not work, it is probably not going to be considered a security problem. We only guarantee secure and proper functionality when the APIs are used as expected and documented.
+
+There can be a discussion about what the documentation actually means and how to interpret the text, which might end up with us still agreeing that it is a security problem.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1825}{}\doxysubsection{\texorpdfstring{Local attackers already present}{Local attackers already present}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1825}
+When an issue can only be attacked or misused by an attacker present on the local system or network, the bar is raised. If a local user wrongfully has elevated rights on your system enough to attack curl, they can probably already do much worse harm and the problem is not really in curl.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1826}{}\doxysubsection{\texorpdfstring{Experiments}{Experiments}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1826}
+Vulnerabilities in features which are off by default (in the build) and documented as experimental, are not eligible for a reward and we do not consider them security problems.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1827}{}\doxysubsection{\texorpdfstring{URL inconsistencies}{URL inconsistencies}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1827}
+URL parser inconsistencies between browsers and curl are expected and are not considered security vulnerabilities. The WHATWG URL Specification and RFC 3986+ (the plus meaning that it is an extended version) \href{https://github.com/bagder/docs/blob/master/URL-interop.md}{\texttt{are not completely interoperable}}.
+
+Obvious parser bugs can still be vulnerabilities of course.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1828}{}\doxysubsection{\texorpdfstring{Visible command line arguments}{Visible command line arguments}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SECURITY-PROCESS_autotoc_md1828}
+The curl command blanks the contents of a number of command line arguments to prevent them from appearing in process listings. It does not blank all arguments even if some of them that are not blanked might contain sensitive data. We consider this functionality a best-\/effort and omissions are not security vulnerabilities.
+
+
+\begin{DoxyItemize}
+\item not all systems allow the arguments to be blanked in the first place
+\item since curl blanks the argument itself they will be readable for a short moment no matter what
+\item virtually every argument can contain sensitive data, depending on use
+\item blanking all arguments would make it impractical for users to differentiate curl command lines in process listings 
+\end{DoxyItemize}

@@ -1,0 +1,256 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/vauth/digest.c File Reference}
+\hypertarget{digest_8c}{}\label{digest_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vauth/digest.c@{lib/libwconr/build/\_deps/curl-\/src/lib/vauth/digest.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}vauth/vauth.\+h"{}}\newline
+{\ttfamily \#include "{}vauth/digest.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+base64.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+hmac.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+md5.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sha256.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}strtok.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}rand.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}}~1 /\texorpdfstring{$\ast$}{*} for algos \mbox{\hyperlink{curves_8d_aae083c9e7ddae07beda5cae6a5b5eb73}{with}} \mbox{\hyperlink{list-only_8d_afdb3566ea38628daf69436d4a21a0c5c}{this}} \mbox{\hyperlink{curl__setup__once_8h_a187157a8f8d068c47c3024bd662496bc}{bit}} \mbox{\hyperlink{cacert_8d_adf642db66c5d3cc87685fcb1937ca95f}{set}} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{digest_8c_ac604c569fe2c513a5cb3692df78db41f}{ALGO\+\_\+\+MD5}}~0
+\item 
+\#define \mbox{\hyperlink{digest_8c_af48129eb2f58310314809826b3ee2a8f}{ALGO\+\_\+\+MD5\+SESS}}~(\mbox{\hyperlink{digest_8c_ac604c569fe2c513a5cb3692df78db41f}{ALGO\+\_\+\+MD5}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}})
+\item 
+\#define \mbox{\hyperlink{digest_8c_add4cee9b2a798a613643252992c6160a}{ALGO\+\_\+\+SHA256}}~2
+\item 
+\#define \mbox{\hyperlink{digest_8c_aa04f8b5c24d07f46c443808769880b6c}{ALGO\+\_\+\+SHA256\+SESS}}~(\mbox{\hyperlink{digest_8c_add4cee9b2a798a613643252992c6160a}{ALGO\+\_\+\+SHA256}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}})
+\item 
+\#define \mbox{\hyperlink{digest_8c_a74ff694719abca3d9ca5ef72ecd7a01b}{ALGO\+\_\+\+SHA512\+\_\+256}}~4
+\item 
+\#define \mbox{\hyperlink{digest_8c_abf318190dd869f0a36040b4a08ddfcfa}{ALGO\+\_\+\+SHA512\+\_\+256\+SESS}}~(\mbox{\hyperlink{digest_8c_a74ff694719abca3d9ca5ef72ecd7a01b}{ALGO\+\_\+\+SHA512\+\_\+256}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}})
+\item 
+\#define \mbox{\hyperlink{digest_8c_a2365b3e378c16273762865b31da09fe1}{DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+AUTH}}~(1 $<$$<$ 0)
+\item 
+\#define \mbox{\hyperlink{digest_8c_a8fc384d80f3ed86d4443b47b774d1aa6}{DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+AUTH\+\_\+\+INT}}~(1 $<$$<$ 1)
+\item 
+\#define \mbox{\hyperlink{digest_8c_a79dcad530582256beb6018259b0cebda}{DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+AUTH\+\_\+\+CONF}}~(1 $<$$<$ 2)
+\item 
+\#define \mbox{\hyperlink{digest_8c_aaa9c66d82561cc995c2e3542898e19f9}{DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+STRING\+\_\+\+AUTH}}~"{}auth"{}
+\item 
+\#define \mbox{\hyperlink{digest_8c_ac027f2b51154f12f020fb7f8efd14f91}{DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+STRING\+\_\+\+AUTH\+\_\+\+INT}}~"{}auth-\/int"{}
+\item 
+\#define \mbox{\hyperlink{digest_8c_ab70ce97dda687dac30f1254909b76c40}{DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+STRING\+\_\+\+AUTH\+\_\+\+CONF}}~"{}auth-\/conf"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{digest_8c_a25aacde6b8871bae274a6b54552a6a89}{Curl\+\_\+auth\+\_\+digest\+\_\+get\+\_\+pair}} (const char \texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}value, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{header_8d_ada8d884df459ee2cd6885d1961f1c1bf}{content}}, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}endptr)
+\item 
+static void \mbox{\hyperlink{digest_8c_ab9a5f97a7f68e1877f6b5d68785bd413}{auth\+\_\+digest\+\_\+md5\+\_\+to\+\_\+ascii}} (unsigned char \texorpdfstring{$\ast$}{*}source, unsigned char \texorpdfstring{$\ast$}{*}dest)
+\item 
+static void \mbox{\hyperlink{digest_8c_a4eb00718380a799db2f2e87aecb970ba}{auth\+\_\+digest\+\_\+sha256\+\_\+to\+\_\+ascii}} (unsigned char \texorpdfstring{$\ast$}{*}source, unsigned char \texorpdfstring{$\ast$}{*}dest)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{digest_8c_a82e9715853f5b35272a1dc56e1aa5aaf}{auth\+\_\+digest\+\_\+string\+\_\+quoted}} (const char \texorpdfstring{$\ast$}{*}source)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{digest_8c_a26f5e933d9d9fec556a876ccaf697f12}{auth\+\_\+digest\+\_\+get\+\_\+key\+\_\+value}} (const char \texorpdfstring{$\ast$}{*}chlg, const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}value, size\+\_\+t max\+\_\+val\+\_\+len, char end\+\_\+char)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{digest_8c_ab1f93adfa564cc84da9896e13fcca584}{auth\+\_\+digest\+\_\+get\+\_\+qop\+\_\+values}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}, int \texorpdfstring{$\ast$}{*}value)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{digest_8c_ada58710c3933776c8dca7057af02a29e}{auth\+\_\+decode\+\_\+digest\+\_\+md5\+\_\+message}} (const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}chlgref, char \texorpdfstring{$\ast$}{*}nonce, size\+\_\+t nlen, char \texorpdfstring{$\ast$}{*}realm, size\+\_\+t rlen, char \texorpdfstring{$\ast$}{*}alg, size\+\_\+t alen, char \texorpdfstring{$\ast$}{*}qop, size\+\_\+t qlen)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{digest_8c_a75bcfc858ec12ca28e8b59a1ebc76c44}{Curl\+\_\+auth\+\_\+is\+\_\+digest\+\_\+supported}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{digest_8c_ace35536d032733cdb829327e670f7ff4}{Curl\+\_\+auth\+\_\+create\+\_\+digest\+\_\+md5\+\_\+message}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}chlg, const char \texorpdfstring{$\ast$}{*}userp, const char \texorpdfstring{$\ast$}{*}passwdp, const char \texorpdfstring{$\ast$}{*}service, struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}out)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{digest_8c_afcaf5c8f5a42ea5832a4f344e5318a5d}{Curl\+\_\+auth\+\_\+decode\+\_\+digest\+\_\+http\+\_\+message}} (const char \texorpdfstring{$\ast$}{*}chlg, struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{anyauth_8d_a420649eeae075b6e1e1bd9995411ae36}{digest}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{digest_8c_a25f84883bc6d73f0f1138a02e9134eba}{auth\+\_\+create\+\_\+digest\+\_\+http\+\_\+message}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}userp, const char \texorpdfstring{$\ast$}{*}passwdp, const unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}}, const unsigned char \texorpdfstring{$\ast$}{*}uripath, struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{anyauth_8d_a420649eeae075b6e1e1bd9995411ae36}{digest}}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}outptr, size\+\_\+t \texorpdfstring{$\ast$}{*}outlen, void(\texorpdfstring{$\ast$}{*}convert\+\_\+to\+\_\+ascii)(unsigned char \texorpdfstring{$\ast$}{*}, unsigned char \texorpdfstring{$\ast$}{*}), \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}(\texorpdfstring{$\ast$}{*}hash)(unsigned char \texorpdfstring{$\ast$}{*}, const unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t))
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{digest_8c_aae44ae9b10072a5e5e03ab880c6166a4}{Curl\+\_\+auth\+\_\+create\+\_\+digest\+\_\+http\+\_\+message}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}userp, const char \texorpdfstring{$\ast$}{*}passwdp, const unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}}, const unsigned char \texorpdfstring{$\ast$}{*}uripath, struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{anyauth_8d_a420649eeae075b6e1e1bd9995411ae36}{digest}}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}outptr, size\+\_\+t \texorpdfstring{$\ast$}{*}outlen)
+\item 
+void \mbox{\hyperlink{digest_8c_ab946e5ba03560d08796ff44bb2cc332f}{Curl\+\_\+auth\+\_\+digest\+\_\+cleanup}} (struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{anyauth_8d_a420649eeae075b6e1e1bd9995411ae36}{digest}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{digest_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{digest_8c_ac604c569fe2c513a5cb3692df78db41f}\index{digest.c@{digest.c}!ALGO\_MD5@{ALGO\_MD5}}
+\index{ALGO\_MD5@{ALGO\_MD5}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{ALGO\_MD5}{ALGO\_MD5}}
+{\footnotesize\ttfamily \label{digest_8c_ac604c569fe2c513a5cb3692df78db41f} 
+\#define ALGO\+\_\+\+MD5~0}
+
+\Hypertarget{digest_8c_af48129eb2f58310314809826b3ee2a8f}\index{digest.c@{digest.c}!ALGO\_MD5SESS@{ALGO\_MD5SESS}}
+\index{ALGO\_MD5SESS@{ALGO\_MD5SESS}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{ALGO\_MD5SESS}{ALGO\_MD5SESS}}
+{\footnotesize\ttfamily \label{digest_8c_af48129eb2f58310314809826b3ee2a8f} 
+\#define ALGO\+\_\+\+MD5\+SESS~(\mbox{\hyperlink{digest_8c_ac604c569fe2c513a5cb3692df78db41f}{ALGO\+\_\+\+MD5}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}})}
+
+\Hypertarget{digest_8c_add4cee9b2a798a613643252992c6160a}\index{digest.c@{digest.c}!ALGO\_SHA256@{ALGO\_SHA256}}
+\index{ALGO\_SHA256@{ALGO\_SHA256}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{ALGO\_SHA256}{ALGO\_SHA256}}
+{\footnotesize\ttfamily \label{digest_8c_add4cee9b2a798a613643252992c6160a} 
+\#define ALGO\+\_\+\+SHA256~2}
+
+\Hypertarget{digest_8c_aa04f8b5c24d07f46c443808769880b6c}\index{digest.c@{digest.c}!ALGO\_SHA256SESS@{ALGO\_SHA256SESS}}
+\index{ALGO\_SHA256SESS@{ALGO\_SHA256SESS}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{ALGO\_SHA256SESS}{ALGO\_SHA256SESS}}
+{\footnotesize\ttfamily \label{digest_8c_aa04f8b5c24d07f46c443808769880b6c} 
+\#define ALGO\+\_\+\+SHA256\+SESS~(\mbox{\hyperlink{digest_8c_add4cee9b2a798a613643252992c6160a}{ALGO\+\_\+\+SHA256}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}})}
+
+\Hypertarget{digest_8c_a74ff694719abca3d9ca5ef72ecd7a01b}\index{digest.c@{digest.c}!ALGO\_SHA512\_256@{ALGO\_SHA512\_256}}
+\index{ALGO\_SHA512\_256@{ALGO\_SHA512\_256}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{ALGO\_SHA512\_256}{ALGO\_SHA512\_256}}
+{\footnotesize\ttfamily \label{digest_8c_a74ff694719abca3d9ca5ef72ecd7a01b} 
+\#define ALGO\+\_\+\+SHA512\+\_\+256~4}
+
+\Hypertarget{digest_8c_abf318190dd869f0a36040b4a08ddfcfa}\index{digest.c@{digest.c}!ALGO\_SHA512\_256SESS@{ALGO\_SHA512\_256SESS}}
+\index{ALGO\_SHA512\_256SESS@{ALGO\_SHA512\_256SESS}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{ALGO\_SHA512\_256SESS}{ALGO\_SHA512\_256SESS}}
+{\footnotesize\ttfamily \label{digest_8c_abf318190dd869f0a36040b4a08ddfcfa} 
+\#define ALGO\+\_\+\+SHA512\+\_\+256\+SESS~(\mbox{\hyperlink{digest_8c_a74ff694719abca3d9ca5ef72ecd7a01b}{ALGO\+\_\+\+SHA512\+\_\+256}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{digest_8c_acecce0072a203716374543020976115d}{SESSION\+\_\+\+ALGO}})}
+
+\Hypertarget{digest_8c_a2365b3e378c16273762865b31da09fe1}\index{digest.c@{digest.c}!DIGEST\_QOP\_VALUE\_AUTH@{DIGEST\_QOP\_VALUE\_AUTH}}
+\index{DIGEST\_QOP\_VALUE\_AUTH@{DIGEST\_QOP\_VALUE\_AUTH}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{DIGEST\_QOP\_VALUE\_AUTH}{DIGEST\_QOP\_VALUE\_AUTH}}
+{\footnotesize\ttfamily \label{digest_8c_a2365b3e378c16273762865b31da09fe1} 
+\#define DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+AUTH~(1 $<$$<$ 0)}
+
+\Hypertarget{digest_8c_a79dcad530582256beb6018259b0cebda}\index{digest.c@{digest.c}!DIGEST\_QOP\_VALUE\_AUTH\_CONF@{DIGEST\_QOP\_VALUE\_AUTH\_CONF}}
+\index{DIGEST\_QOP\_VALUE\_AUTH\_CONF@{DIGEST\_QOP\_VALUE\_AUTH\_CONF}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{DIGEST\_QOP\_VALUE\_AUTH\_CONF}{DIGEST\_QOP\_VALUE\_AUTH\_CONF}}
+{\footnotesize\ttfamily \label{digest_8c_a79dcad530582256beb6018259b0cebda} 
+\#define DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+AUTH\+\_\+\+CONF~(1 $<$$<$ 2)}
+
+\Hypertarget{digest_8c_a8fc384d80f3ed86d4443b47b774d1aa6}\index{digest.c@{digest.c}!DIGEST\_QOP\_VALUE\_AUTH\_INT@{DIGEST\_QOP\_VALUE\_AUTH\_INT}}
+\index{DIGEST\_QOP\_VALUE\_AUTH\_INT@{DIGEST\_QOP\_VALUE\_AUTH\_INT}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{DIGEST\_QOP\_VALUE\_AUTH\_INT}{DIGEST\_QOP\_VALUE\_AUTH\_INT}}
+{\footnotesize\ttfamily \label{digest_8c_a8fc384d80f3ed86d4443b47b774d1aa6} 
+\#define DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+AUTH\+\_\+\+INT~(1 $<$$<$ 1)}
+
+\Hypertarget{digest_8c_aaa9c66d82561cc995c2e3542898e19f9}\index{digest.c@{digest.c}!DIGEST\_QOP\_VALUE\_STRING\_AUTH@{DIGEST\_QOP\_VALUE\_STRING\_AUTH}}
+\index{DIGEST\_QOP\_VALUE\_STRING\_AUTH@{DIGEST\_QOP\_VALUE\_STRING\_AUTH}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{DIGEST\_QOP\_VALUE\_STRING\_AUTH}{DIGEST\_QOP\_VALUE\_STRING\_AUTH}}
+{\footnotesize\ttfamily \label{digest_8c_aaa9c66d82561cc995c2e3542898e19f9} 
+\#define DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+STRING\+\_\+\+AUTH~"{}auth"{}}
+
+\Hypertarget{digest_8c_ab70ce97dda687dac30f1254909b76c40}\index{digest.c@{digest.c}!DIGEST\_QOP\_VALUE\_STRING\_AUTH\_CONF@{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_CONF}}
+\index{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_CONF@{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_CONF}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_CONF}{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_CONF}}
+{\footnotesize\ttfamily \label{digest_8c_ab70ce97dda687dac30f1254909b76c40} 
+\#define DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+STRING\+\_\+\+AUTH\+\_\+\+CONF~"{}auth-\/conf"{}}
+
+\Hypertarget{digest_8c_ac027f2b51154f12f020fb7f8efd14f91}\index{digest.c@{digest.c}!DIGEST\_QOP\_VALUE\_STRING\_AUTH\_INT@{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_INT}}
+\index{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_INT@{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_INT}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_INT}{DIGEST\_QOP\_VALUE\_STRING\_AUTH\_INT}}
+{\footnotesize\ttfamily \label{digest_8c_ac027f2b51154f12f020fb7f8efd14f91} 
+\#define DIGEST\+\_\+\+QOP\+\_\+\+VALUE\+\_\+\+STRING\+\_\+\+AUTH\+\_\+\+INT~"{}auth-\/int"{}}
+
+\Hypertarget{digest_8c_acecce0072a203716374543020976115d}\index{digest.c@{digest.c}!SESSION\_ALGO@{SESSION\_ALGO}}
+\index{SESSION\_ALGO@{SESSION\_ALGO}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{SESSION\_ALGO}{SESSION\_ALGO}}
+{\footnotesize\ttfamily \label{digest_8c_acecce0072a203716374543020976115d} 
+\#define SESSION\+\_\+\+ALGO~1 /\texorpdfstring{$\ast$}{*} for algos \mbox{\hyperlink{curves_8d_aae083c9e7ddae07beda5cae6a5b5eb73}{with}} \mbox{\hyperlink{list-only_8d_afdb3566ea38628daf69436d4a21a0c5c}{this}} \mbox{\hyperlink{curl__setup__once_8h_a187157a8f8d068c47c3024bd662496bc}{bit}} \mbox{\hyperlink{cacert_8d_adf642db66c5d3cc87685fcb1937ca95f}{set}} \texorpdfstring{$\ast$}{*}/}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+RFC2831 DIGEST-\/\+MD5 authentication RFC7616 DIGEST-\/\+SHA256, DIGEST-\/\+SHA512-\/256 authentication 
+
+\label{doc-func-members}
+\Hypertarget{digest_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{digest_8c_a25f84883bc6d73f0f1138a02e9134eba}\index{digest.c@{digest.c}!auth\_create\_digest\_http\_message@{auth\_create\_digest\_http\_message}}
+\index{auth\_create\_digest\_http\_message@{auth\_create\_digest\_http\_message}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_create\_digest\_http\_message()}{auth\_create\_digest\_http\_message()}}
+{\footnotesize\ttfamily \label{digest_8c_a25f84883bc6d73f0f1138a02e9134eba} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} auth\+\_\+create\+\_\+digest\+\_\+http\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{userp}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{passwdp}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{request}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{uripath}{, }\item[{struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}}]{digest}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{outptr}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{outlen}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{convert\+\_\+to\+\_\+ascii~}{)(unsigned char \texorpdfstring{$\ast$}{*}, unsigned char \texorpdfstring{$\ast$}{*}), }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}(\texorpdfstring{$\ast$}{*}}]{hash~}{)(unsigned char \texorpdfstring{$\ast$}{*}, const unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t)}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_ada58710c3933776c8dca7057af02a29e}\index{digest.c@{digest.c}!auth\_decode\_digest\_md5\_message@{auth\_decode\_digest\_md5\_message}}
+\index{auth\_decode\_digest\_md5\_message@{auth\_decode\_digest\_md5\_message}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_decode\_digest\_md5\_message()}{auth\_decode\_digest\_md5\_message()}}
+{\footnotesize\ttfamily \label{digest_8c_ada58710c3933776c8dca7057af02a29e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} auth\+\_\+decode\+\_\+digest\+\_\+md5\+\_\+message (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{chlgref}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{nonce}{, }\item[{size\+\_\+t}]{nlen}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{realm}{, }\item[{size\+\_\+t}]{rlen}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{alg}{, }\item[{size\+\_\+t}]{alen}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{qop}{, }\item[{size\+\_\+t}]{qlen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_a26f5e933d9d9fec556a876ccaf697f12}\index{digest.c@{digest.c}!auth\_digest\_get\_key\_value@{auth\_digest\_get\_key\_value}}
+\index{auth\_digest\_get\_key\_value@{auth\_digest\_get\_key\_value}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_digest\_get\_key\_value()}{auth\_digest\_get\_key\_value()}}
+{\footnotesize\ttfamily \label{digest_8c_a26f5e933d9d9fec556a876ccaf697f12} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} auth\+\_\+digest\+\_\+get\+\_\+key\+\_\+value (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{chlg}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t}]{max\+\_\+val\+\_\+len}{, }\item[{char}]{end\+\_\+char}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_ab1f93adfa564cc84da9896e13fcca584}\index{digest.c@{digest.c}!auth\_digest\_get\_qop\_values@{auth\_digest\_get\_qop\_values}}
+\index{auth\_digest\_get\_qop\_values@{auth\_digest\_get\_qop\_values}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_digest\_get\_qop\_values()}{auth\_digest\_get\_qop\_values()}}
+{\footnotesize\ttfamily \label{digest_8c_ab1f93adfa564cc84da9896e13fcca584} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} auth\+\_\+digest\+\_\+get\+\_\+qop\+\_\+values (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{options}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_ab9a5f97a7f68e1877f6b5d68785bd413}\index{digest.c@{digest.c}!auth\_digest\_md5\_to\_ascii@{auth\_digest\_md5\_to\_ascii}}
+\index{auth\_digest\_md5\_to\_ascii@{auth\_digest\_md5\_to\_ascii}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_digest\_md5\_to\_ascii()}{auth\_digest\_md5\_to\_ascii()}}
+{\footnotesize\ttfamily \label{digest_8c_ab9a5f97a7f68e1877f6b5d68785bd413} 
+void auth\+\_\+digest\+\_\+md5\+\_\+to\+\_\+ascii (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{source}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{dest}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_a4eb00718380a799db2f2e87aecb970ba}\index{digest.c@{digest.c}!auth\_digest\_sha256\_to\_ascii@{auth\_digest\_sha256\_to\_ascii}}
+\index{auth\_digest\_sha256\_to\_ascii@{auth\_digest\_sha256\_to\_ascii}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_digest\_sha256\_to\_ascii()}{auth\_digest\_sha256\_to\_ascii()}}
+{\footnotesize\ttfamily \label{digest_8c_a4eb00718380a799db2f2e87aecb970ba} 
+void auth\+\_\+digest\+\_\+sha256\+\_\+to\+\_\+ascii (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{source}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{dest}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_a82e9715853f5b35272a1dc56e1aa5aaf}\index{digest.c@{digest.c}!auth\_digest\_string\_quoted@{auth\_digest\_string\_quoted}}
+\index{auth\_digest\_string\_quoted@{auth\_digest\_string\_quoted}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{auth\_digest\_string\_quoted()}{auth\_digest\_string\_quoted()}}
+{\footnotesize\ttfamily \label{digest_8c_a82e9715853f5b35272a1dc56e1aa5aaf} 
+char \texorpdfstring{$\ast$}{*} auth\+\_\+digest\+\_\+string\+\_\+quoted (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{source}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{digest_8c_aae44ae9b10072a5e5e03ab880c6166a4}\index{digest.c@{digest.c}!Curl\_auth\_create\_digest\_http\_message@{Curl\_auth\_create\_digest\_http\_message}}
+\index{Curl\_auth\_create\_digest\_http\_message@{Curl\_auth\_create\_digest\_http\_message}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_auth\_create\_digest\_http\_message()}{Curl\_auth\_create\_digest\_http\_message()}}
+{\footnotesize\ttfamily \label{digest_8c_aae44ae9b10072a5e5e03ab880c6166a4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+auth\+\_\+create\+\_\+digest\+\_\+http\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{userp}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{passwdp}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{request}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{uripath}{, }\item[{struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}}]{digest}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{outptr}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{outlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{digest_8c_ace35536d032733cdb829327e670f7ff4}\index{digest.c@{digest.c}!Curl\_auth\_create\_digest\_md5\_message@{Curl\_auth\_create\_digest\_md5\_message}}
+\index{Curl\_auth\_create\_digest\_md5\_message@{Curl\_auth\_create\_digest\_md5\_message}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_auth\_create\_digest\_md5\_message()}{Curl\_auth\_create\_digest\_md5\_message()}}
+{\footnotesize\ttfamily \label{digest_8c_ace35536d032733cdb829327e670f7ff4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+auth\+\_\+create\+\_\+digest\+\_\+md5\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{chlg}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{userp}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{passwdp}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{service}{, }\item[{struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})}
+
+\Hypertarget{digest_8c_afcaf5c8f5a42ea5832a4f344e5318a5d}\index{digest.c@{digest.c}!Curl\_auth\_decode\_digest\_http\_message@{Curl\_auth\_decode\_digest\_http\_message}}
+\index{Curl\_auth\_decode\_digest\_http\_message@{Curl\_auth\_decode\_digest\_http\_message}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_auth\_decode\_digest\_http\_message()}{Curl\_auth\_decode\_digest\_http\_message()}}
+{\footnotesize\ttfamily \label{digest_8c_afcaf5c8f5a42ea5832a4f344e5318a5d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+auth\+\_\+decode\+\_\+digest\+\_\+http\+\_\+message (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{chlg}{, }\item[{struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}}]{digest}{}\end{DoxyParamCaption})}
+
+\Hypertarget{digest_8c_ab946e5ba03560d08796ff44bb2cc332f}\index{digest.c@{digest.c}!Curl\_auth\_digest\_cleanup@{Curl\_auth\_digest\_cleanup}}
+\index{Curl\_auth\_digest\_cleanup@{Curl\_auth\_digest\_cleanup}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_auth\_digest\_cleanup()}{Curl\_auth\_digest\_cleanup()}}
+{\footnotesize\ttfamily \label{digest_8c_ab946e5ba03560d08796ff44bb2cc332f} 
+void Curl\+\_\+auth\+\_\+digest\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structdigestdata}{digestdata}} \texorpdfstring{$\ast$}{*}}]{digest}{}\end{DoxyParamCaption})}
+
+\Hypertarget{digest_8c_a25aacde6b8871bae274a6b54552a6a89}\index{digest.c@{digest.c}!Curl\_auth\_digest\_get\_pair@{Curl\_auth\_digest\_get\_pair}}
+\index{Curl\_auth\_digest\_get\_pair@{Curl\_auth\_digest\_get\_pair}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_auth\_digest\_get\_pair()}{Curl\_auth\_digest\_get\_pair()}}
+{\footnotesize\ttfamily \label{digest_8c_a25aacde6b8871bae274a6b54552a6a89} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+auth\+\_\+digest\+\_\+get\+\_\+pair (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{content}{, }\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{endptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{digest_8c_a75bcfc858ec12ca28e8b59a1ebc76c44}\index{digest.c@{digest.c}!Curl\_auth\_is\_digest\_supported@{Curl\_auth\_is\_digest\_supported}}
+\index{Curl\_auth\_is\_digest\_supported@{Curl\_auth\_is\_digest\_supported}!digest.c@{digest.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_auth\_is\_digest\_supported()}{Curl\_auth\_is\_digest\_supported()}}
+{\footnotesize\ttfamily \label{digest_8c_a75bcfc858ec12ca28e8b59a1ebc76c44} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+auth\+\_\+is\+\_\+digest\+\_\+supported (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+

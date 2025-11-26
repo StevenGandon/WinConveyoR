@@ -1,0 +1,46 @@
+\doxysection{formdata.\+h}
+\hypertarget{formdata_8h_source}{}\label{formdata_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/formdata.h@{lib/libwconr/build/\_deps/curl-\/src/lib/formdata.h}}
+\mbox{\hyperlink{formdata_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_FORMDATA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_FORMDATA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_MIME}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ used\ by\ FormAdd\ for\ temporary\ storage\ */}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structFormInfo}{FormInfo}}\ \{}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFormInfo_ab715efbb020a664db6c799d833feece5}{name}};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structFormInfo_a6251c9bad9816d1b2094347b6d72463a}{namelength}};}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFormInfo_a9c18ce2215f9cde0a7cb667f01751286}{value}};}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structFormInfo_acf990ce1e36f336ba061b159e6998d7d}{contentslength}};}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFormInfo_a12c4a88bf2fb91acf50bcb17b82e58a6}{contenttype}};}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structFormInfo_a3b88b9ea7e59963c7288c76e84d1e42b}{flags}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFormInfo_a0d57645c49470877085292f47dc71260}{buffer}};\ \ \ \ \ \ \textcolor{comment}{/*\ pointer\ to\ existing\ buffer\ used\ for\ file\ upload\ */}}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structFormInfo_a467b931ad307534351f559ba725f4da4}{bufferlength}};}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFormInfo_aff1ca97a18415b3b6d47884cdfdf80c9}{showfilename}};\ \textcolor{comment}{/*\ The\ file\ name\ to\ show.\ If\ not\ set,\ the\ actual}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ name\ will\ be\ used\ */}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFormInfo_a3ece827f3c4771d0431844abf3519650}{userp}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ pointer\ for\ the\ read\ callback\ */}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structFormInfo_a2e9d74b212f710a5d48528b35e916526}{contentheader}};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structFormInfo}{FormInfo}}\ *\mbox{\hyperlink{structFormInfo_aef985f7e16cebad287a0086a65ea528f}{more}};}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structFormInfo_a3ba7d315753b9bad868647fd56b48f6a}{name\_alloc}};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structFormInfo_a560c3925ddc829b98d0bcb049ae65430}{value\_alloc}};}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structFormInfo_aee979983366d416fc0f641c21af2b594}{contenttype\_alloc}};}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structFormInfo_ae2e8446e9c0db89534ee2d4fd033d50e}{showfilename\_alloc}};}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{formdata_8h_a6d3169e115a6292b419f53353486b869}{Curl\_getformdata}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__httppost}{curl\_httppost}}\ *post,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_a7516630ec17f247697dd3272be7ada74}{curl\_read\_callback}}\ fread\_func);}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ disabled\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ Curl\_getformdata(a,b,c,d)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_FORMDATA\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

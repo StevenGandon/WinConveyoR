@@ -1,0 +1,127 @@
+\doxysection{Beamage\+Stream/beamagefileformat.h File Reference}
+\hypertarget{beamagefileformat_8h}{}\label{beamagefileformat_8h}\index{BeamageStream/beamagefileformat.h@{BeamageStream/beamagefileformat.h}}
+{\ttfamily \#include "{}Beamage\+Stream.\+h"{}}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$QData\+Stream$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{Beamage\+::\+IO\+::\+File\+Format\+::\+IBSection}}
+\item 
+class \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceBeamage}{Beamage}}
+\item 
+namespace \mbox{\hyperlink{namespaceBeamage_1_1IO}{Beamage\+::\+IO}}
+\item 
+namespace \mbox{\hyperlink{namespaceBeamage_1_1IO_1_1FileFormat}{Beamage\+::\+IO\+::\+File\+Format}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{beamagefileformat_8h_a5cf60b6c3c121d0c3cc85ae1da9f5ad0}{MAGIC\+\_\+\+BHEADER}}~0x10\+A14501
+\item 
+\#define \mbox{\hyperlink{beamagefileformat_8h_ad58c38b51e2b94940d8b93e212a4bf25}{implement\+IBSection\+Header}}()
+\item 
+\#define \mbox{\hyperlink{beamagefileformat_8h_ad3cd12c16079f6e935230e3062cbb5c8}{implement\+Common\+Section\+Builder}}(allocation\+Error\+Message)
+\item 
+\#define \mbox{\hyperlink{beamagefileformat_8h_aa331c196f6ef868fe65ffc709480e513}{implement\+Common\+Section\+Byte\+Conversion}}(allocation\+Error\+Message)
+\item 
+\#define \mbox{\hyperlink{beamagefileformat_8h_a53691c2712de7b58b67ea3665a368594}{implement\+Common\+Section\+Get\+Size}}(allocation\+Error\+Message)
+\item 
+\#define \mbox{\hyperlink{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c}{common\+Constructor\+BFormat\+Init}}~magic(\mbox{\hyperlink{beamagefileformat_8h_a5cf60b6c3c121d0c3cc85ae1da9f5ad0}{MAGIC\+\_\+\+BHEADER}}), version(BV\+\_\+1), type(BT\+\_\+\+DBE), flags(BFLAGS\+::\+BF\+\_\+\+NONE), loading\+Strategy(BLOAD\+\_\+\+TYPE\+::\+BL\+\_\+\+ALL)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{beamagefileformat_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c}\index{beamagefileformat.h@{beamagefileformat.h}!commonConstructorBFormatInit@{commonConstructorBFormatInit}}
+\index{commonConstructorBFormatInit@{commonConstructorBFormatInit}!beamagefileformat.h@{beamagefileformat.h}}
+\doxysubsubsection{\texorpdfstring{commonConstructorBFormatInit}{commonConstructorBFormatInit}}
+{\footnotesize\ttfamily \label{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c} 
+\#define common\+Constructor\+BFormat\+Init~magic(\mbox{\hyperlink{beamagefileformat_8h_a5cf60b6c3c121d0c3cc85ae1da9f5ad0}{MAGIC\+\_\+\+BHEADER}}), version(BV\+\_\+1), type(BT\+\_\+\+DBE), flags(BFLAGS\+::\+BF\+\_\+\+NONE), loading\+Strategy(BLOAD\+\_\+\+TYPE\+::\+BL\+\_\+\+ALL)}
+
+common attributes to be inited in each constructors \Hypertarget{beamagefileformat_8h_ad3cd12c16079f6e935230e3062cbb5c8}\index{beamagefileformat.h@{beamagefileformat.h}!implementCommonSectionBuilder@{implementCommonSectionBuilder}}
+\index{implementCommonSectionBuilder@{implementCommonSectionBuilder}!beamagefileformat.h@{beamagefileformat.h}}
+\doxysubsubsection{\texorpdfstring{implementCommonSectionBuilder}{implementCommonSectionBuilder}}
+{\footnotesize\ttfamily \label{beamagefileformat_8h_ad3cd12c16079f6e935230e3062cbb5c8} 
+\#define implement\+Common\+Section\+Builder(\begin{DoxyParamCaption}\item[{}]{allocation\+Error\+Message}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!section)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1MemoryError}{Beamage::Exception::MemoryError}}(allocationErrorMessage);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ section-\/>sectionType\ =\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a39fcf71c7959bbd5740d1f76d977f3b7a06d270d7ba4fde85069b7e37bab85aef}{Beamage::IO::FileFormat::IBSection::BSST\_REF}};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ section-\/>sectionName\ =\ name;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ section-\/>sectionOffset\ =\ offset;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (format\ \&\&\ ((format-\/>loadingStrategy\ \&\ format-\/>BL\_ALL)\ >\ 0))\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ section-\/>load(format);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ return\ (std::shared\_ptr<Beamage::IO::FileFormat::IBSection>(section));}
+
+\end{DoxyCode}
+\Hypertarget{beamagefileformat_8h_aa331c196f6ef868fe65ffc709480e513}\index{beamagefileformat.h@{beamagefileformat.h}!implementCommonSectionByteConversion@{implementCommonSectionByteConversion}}
+\index{implementCommonSectionByteConversion@{implementCommonSectionByteConversion}!beamagefileformat.h@{beamagefileformat.h}}
+\doxysubsubsection{\texorpdfstring{implementCommonSectionByteConversion}{implementCommonSectionByteConversion}}
+{\footnotesize\ttfamily \label{beamagefileformat_8h_aa331c196f6ef868fe65ffc709480e513} 
+\#define implement\+Common\+Section\+Byte\+Conversion(\begin{DoxyParamCaption}\item[{}]{allocation\+Error\+Message}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ data\ =\ \_generateBaseData(format);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (!data)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1MemoryError}{Beamage::Exception::MemoryError}}(allocationErrorMessage);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (format\ \&\&\ ((format-\/>flags\ \&\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30caf50a4149c5f419938211ad1d8f593c8a}{Beamage::IO::FileFormat::BFormat::BF\_ZLIB}})\ >\ 0))\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ format-\/>applyByteCompression(\&data,\ \_computeSize());\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ return\ (std::shared\_ptr<unsigned\ char>(data));}
+
+\end{DoxyCode}
+\Hypertarget{beamagefileformat_8h_a53691c2712de7b58b67ea3665a368594}\index{beamagefileformat.h@{beamagefileformat.h}!implementCommonSectionGetSize@{implementCommonSectionGetSize}}
+\index{implementCommonSectionGetSize@{implementCommonSectionGetSize}!beamagefileformat.h@{beamagefileformat.h}}
+\doxysubsubsection{\texorpdfstring{implementCommonSectionGetSize}{implementCommonSectionGetSize}}
+{\footnotesize\ttfamily \label{beamagefileformat_8h_a53691c2712de7b58b67ea3665a368594} 
+\#define implement\+Common\+Section\+Get\+Size(\begin{DoxyParamCaption}\item[{}]{allocation\+Error\+Message}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ temp;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ uint64\_t\ value\ =\ 0;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (format\ \&\&\ ((format-\/>flags\ \&\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30caf50a4149c5f419938211ad1d8f593c8a}{Beamage::IO::FileFormat::BFormat::BF\_ZLIB}})\ >\ 0))\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ temp\ =\ \_generateBaseData(format);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (!temp)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1MemoryError}{Beamage::Exception::MemoryError}}(allocationErrorMessage);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ value\ =\ format-\/>applyByteCompression(\&temp,\ \_computeSize());\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]temp;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ (value);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ return\ (\_computeSize());}
+
+\end{DoxyCode}
+\Hypertarget{beamagefileformat_8h_ad58c38b51e2b94940d8b93e212a4bf25}\index{beamagefileformat.h@{beamagefileformat.h}!implementIBSectionHeader@{implementIBSectionHeader}}
+\index{implementIBSectionHeader@{implementIBSectionHeader}!beamagefileformat.h@{beamagefileformat.h}}
+\doxysubsubsection{\texorpdfstring{implementIBSectionHeader}{implementIBSectionHeader}}
+{\footnotesize\ttfamily \label{beamagefileformat_8h_ad58c38b51e2b94940d8b93e212a4bf25} 
+\#define implement\+IBSection\+Header(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ uint64\_t\ getSize(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{Beamage::IO::FileFormat::BFormat}}*\ format)\ \textcolor{keyword}{const};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::shared\_ptr<unsigned\ char>\ toBytes(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{Beamage::IO::FileFormat::BFormat}}*\ format\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ BSTATUS\_LOAD\ load(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{Beamage::IO::FileFormat::BFormat}}*\ format);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{private}:\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ uint64\_t\ \_computeSize(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \_generateBaseData(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{Beamage::IO::FileFormat::BFormat}}*\ format)\ \textcolor{keyword}{const};}
+
+\end{DoxyCode}
+\Hypertarget{beamagefileformat_8h_a5cf60b6c3c121d0c3cc85ae1da9f5ad0}\index{beamagefileformat.h@{beamagefileformat.h}!MAGIC\_BHEADER@{MAGIC\_BHEADER}}
+\index{MAGIC\_BHEADER@{MAGIC\_BHEADER}!beamagefileformat.h@{beamagefileformat.h}}
+\doxysubsubsection{\texorpdfstring{MAGIC\_BHEADER}{MAGIC\_BHEADER}}
+{\footnotesize\ttfamily \label{beamagefileformat_8h_a5cf60b6c3c121d0c3cc85ae1da9f5ad0} 
+\#define MAGIC\+\_\+\+BHEADER~0x10\+A14501}
+

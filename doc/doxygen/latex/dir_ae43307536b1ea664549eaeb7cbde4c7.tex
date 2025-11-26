@@ -1,0 +1,63 @@
+\doxysection{gui/node\+\_\+modules/responselike Directory Reference}
+\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7}{}\label{dir_ae43307536b1ea664549eaeb7cbde4c7}\index{gui/node\_modules/responselike Directory Reference@{gui/node\_modules/responselike Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1212}{}\doxysubsection{\texorpdfstring{responselike}{responselike}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1212}
+\begin{quote}
+A response-\/like object for mocking a Node.\+js \doxylink{structHTTP}{HTTP} response stream \end{quote}
+
+
+\href{https://travis-ci.org/lukechilds/responselike}{\texttt{}} \href{https://coveralls.io/github/lukechilds/responselike?branch=master}{\texttt{}} \href{https://www.npmjs.com/package/responselike}{\texttt{}} \href{https://www.npmjs.com/package/responselike}{\texttt{}}
+
+Returns a streamable response object similar to a \href{https://nodejs.org/api/http.html\#http_class_http_incomingmessage}{\texttt{Node.\+js HTTP response stream}}. Useful for formatting cached responses so they can be consumed by code expecting a real response.\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1213}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1213}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ responselike}
+
+\end{DoxyCode}
+
+
+Or if you\textquotesingle{}re just using for testing you\textquotesingle{}ll want\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save-\/dev\ responselike}
+
+\end{DoxyCode}
+\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1214}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1214}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ Response\ =\ require('responselike');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ response\ =\ new\ Response(200,\ \{\ foo:\ 'bar'\ \},\ Buffer.from('Hi!'),\ 'https://example.com');}
+\DoxyCodeLine{}
+\DoxyCodeLine{response.statusCode;}
+\DoxyCodeLine{//\ 200}
+\DoxyCodeLine{response.headers;}
+\DoxyCodeLine{//\ \{\ foo:\ 'bar'\ \}}
+\DoxyCodeLine{response.body;}
+\DoxyCodeLine{//\ <Buffer\ 48\ 69\ 21>}
+\DoxyCodeLine{response.url;}
+\DoxyCodeLine{//\ 'https://example.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{response.pipe(process.stdout);}
+\DoxyCodeLine{//\ Hi!}
+
+\end{DoxyCode}
+\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1215}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1215}
+\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1216}{}\doxysubsubsection{\texorpdfstring{new Response(status\+Code, headers, body, url)}{new Response(status\+Code, headers, body, url)}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1216}
+Returns a streamable response object similar to a \href{https://nodejs.org/api/http.html\#http_class_http_incomingmessage}{\texttt{Node.\+js HTTP response stream}}.\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1217}{}\doxysubsubsubsection{\texorpdfstring{status\+Code}{status\+Code}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1217}
+Type\+: {\ttfamily number}
+
+\doxylink{structHTTP}{HTTP} response status code.\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1218}{}\doxysubsubsubsection{\texorpdfstring{headers}{headers}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1218}
+Type\+: {\ttfamily object}
+
+\doxylink{structHTTP}{HTTP} headers object. Keys will be automatically lowercased.\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1219}{}\doxysubsubsubsection{\texorpdfstring{body}{body}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1219}
+Type\+: {\ttfamily \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}
+
+A Buffer containing the response body. The Buffer contents will be streamable but is also exposed directly as {\ttfamily response.\+body}.\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1220}{}\doxysubsubsubsection{\texorpdfstring{url}{url}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1220}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+Request URL string.\hypertarget{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1221}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_ae43307536b1ea664549eaeb7cbde4c7_autotoc_md1221}
+MIT © Luke Childs 

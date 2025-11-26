@@ -1,0 +1,305 @@
+\doxysection{roipolyitem.\+h}
+\hypertarget{roipolyitem_8h_source}{}\label{roipolyitem_8h_source}\index{Beamage/roipolyitem.h@{Beamage/roipolyitem.h}}
+\mbox{\hyperlink{roipolyitem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QGraphicsPolygonItem>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <qpainterpath.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{roiresultinfo_8h}{roiresultinfo.h}}>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <qcursor.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{named_8h}{named.h}}>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{itemproperty_8h}{itemproperty.h}}>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <qdatetime.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{isotope_8h}{isotope.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtextItem}{textItem}};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }QAction;}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classundoMoveItem}{undoMoveItem}};}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmyScene}{myScene}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classroiPolyItem_aab5d36563c4f08c7f169751296f8f568}{roiPolyItem}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classnamed_ab9fd464e7454d283434b3521b453392a}{named}},\ \textcolor{keyword}{public}\ QGraphicsPolygonItem}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{enum}\ \{\ \mbox{\hyperlink{classroiPolyItem_ae1ebfe725bbc6ec3c64176309e7cec8da7493f6b080b8734a4b92f7d169a6a2e8}{Type}}\ =\ UserType\ +\ 2\ \};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem_aab5d36563c4f08c7f169751296f8f568}{roiPolyItem}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&itemProp\ =\ \mbox{\hyperlink{classitemProperty}{itemProperty}}(),\ \mbox{\hyperlink{classmyScene}{myScene}}\ *scene\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ exclusion\ =\ \textcolor{keyword}{false},\ QGraphicsItem\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem_aab5d36563c4f08c7f169751296f8f568}{roiPolyItem}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\&\ roi);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classroiPolyItem_a1c9405d8c09c5074b62b7eec01dd4687}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_ae1ebfe725bbc6ec3c64176309e7cec8da7493f6b080b8734a4b92f7d169a6a2e8}{Type}};\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ QRectF\ \mbox{\hyperlink{classroiPolyItem_ab91c177c77d126d5bbac289bc64419d1}{boundingRect}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a0db3910d7f533707956f2a32093c0758}{paint}}(QPainter\ *painter,\ \textcolor{keyword}{const}\ QStyleOptionGraphicsItem\ *option,\ QWidget\ *widget)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ QPainterPath\ \mbox{\hyperlink{classroiPolyItem_a171e58103cdb03f073e417b753864abf}{shape}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_af38307db3967059344f73664244c0347}{setSelected}}(\textcolor{keywordtype}{bool}\ selected);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ QPolygonF\ \mbox{\hyperlink{classroiPolyItem_ad4f59ebc8152a46b67eb65b1276220c0}{mappedPolygon}}()\ \{\ \textcolor{keywordflow}{return}\ mapToScene(polygon());\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_acbe87362596434e073deecfa743aa5a2}{copyData}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\&\ roi);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_ace1fb970b853b672edf250dd6c2ecbfa}{getArea}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_a05ecab34dae487a688dd1fd3ea2e8627}{getCenter}}();}
+\DoxyCodeLine{00039\ \ \ \ \ QRectF\ \mbox{\hyperlink{classroiPolyItem_a76c1a3e0f9e573066e333784c71b0eee}{getBoundRect}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a488d68c5db694d134b226747d8322a4a}{resetNeedUpdate}}();}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a85faa978ea19336722e1c25e401364bb}{setNeedUpdate}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classroiPolyItem_a738bd54c629879c8349469e46d4bdd1d}{getCount}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a9b5e7da98a32011d5ff77a1bba112819}{fnCount}};\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ad878f44b5d130879273a055a1bd307c2}{setRotationAngle}}(\textcolor{keywordtype}{double}\ val)\ \{\ \mbox{\hyperlink{classroiPolyItem_a730eca90117f9ed580bb0bca6b6d534a}{fangle}}\ =\ val;\ \mbox{\hyperlink{classnamed_acedf7cfabdfe1bb2970530c31264d1df}{fRotation}}\ +=\ val;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a024a1bf54a9a9b2763e7f5cb86338359}{getRotationAngle}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a730eca90117f9ed580bb0bca6b6d534a}{fangle}};\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a4a0a020f9376016566cfa5cb3073b998}{getTotalRotationAngle}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classnamed_acedf7cfabdfe1bb2970530c31264d1df}{fRotation}};\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_add1f28776e4da59eaf9cdaaa7ba70ddd}{setTotalRotationAngle}}(\textcolor{keywordtype}{double}\ val)\ \{\ \mbox{\hyperlink{classnamed_acedf7cfabdfe1bb2970530c31264d1df}{fRotation}}\ =\ val;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a3aa8bf4e27a673a07c56ff61d17533bf}{getScaleX}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classnamed_a3862bd7a41311f23011405692f0444c1}{fscaleX}};\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a03f94ce9d78c696f9840fac968eba751}{getScaleY}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classnamed_a573f93b5e8de2511ec3785b1ee0fe841}{fscaleY}};\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_af79d958c44564c10dc5bee382be7e5e3}{setScaleX}}(\textcolor{keywordtype}{double}\ val)\ \{\ \mbox{\hyperlink{classnamed_a3862bd7a41311f23011405692f0444c1}{fscaleX}}\ =\ val;\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_add044678cc7f820e36448baf3b89f81e}{setScaleY}}(\textcolor{keywordtype}{double}\ val)\ \{\ \mbox{\hyperlink{classnamed_a573f93b5e8de2511ec3785b1ee0fe841}{fscaleY}}\ =\ val;\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a846351c2a7afa96825d611fc84236666}{vResize}}(\textcolor{keywordtype}{double}\ factor,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classnamed_a77b66cf59babf635c0c812b9c33b8857}{mode}}\ =\ -\/1,\ \textcolor{keywordtype}{bool}\ keepTrack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a9e4207100e132889f191cf29e77391c6}{hResize}}(\textcolor{keywordtype}{double}\ factor,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classnamed_a77b66cf59babf635c0c812b9c33b8857}{mode}}\ =\ -\/1,\ \textcolor{keywordtype}{bool}\ keepTrack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ab316c28407a38adeea1651fb8196310f}{resize}}(\textcolor{keywordtype}{double}\ factorX,\ \textcolor{keywordtype}{double}\ factorY,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classnamed_a77b66cf59babf635c0c812b9c33b8857}{mode}}\ =\ -\/1,\ \textcolor{keywordtype}{bool}\ keepTrack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_acebb0373ed3ffea4622470652e996f52}{setEllipse}}(\textcolor{keyword}{const}\ QRectF\ \&bound);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a8b98287b0717767cf9a1dc03dfdaec02}{setRectangle}}(\textcolor{keyword}{const}\ QRectF\ \&bound);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//void\ setLineColor(QColor\ col);}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//void\ setTextColor(QColor\ col);}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//void\ setBackgroundColor(QColor\ col);}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//void\ setFont(QFont\ font);}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//QColor\ getLineColor()\ const\ \{\ return\ fLineColor;\ \}}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//QColor\ getTextColor()\ const\ \{\ return\ fTextColor;\ \}}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//QColor\ getBackgroundColor()\ const\ \{\ return\ fBackgroundColor;\ \}}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//QFont\ getFont()\ const\ \{\ return\ fFont;\ \}}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a056c2ce056e0dff05866c989fc2c2f85}{setItemProperty}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&item);}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \mbox{\hyperlink{classroiPolyItem_a608c590e12e06d52e05df835064a7bd8}{getItemProperty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a5afa62ce7433b0bb77612e4f4cde779d}{fItemProperty}};\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \mbox{\hyperlink{classroiPolyItem_ad88cdcdc63d4ad4e66924b7786ced7de}{getRoiInfo}}();\ \textcolor{comment}{//\ proceed\ to\ the\ calcul}}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \mbox{\hyperlink{classroiPolyItem_a1230d937c8a46b03c973f8155060d105}{roiInfo}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_ac7e69aae0678637851edf139a81045d7}{froiInfo}};\ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a265582bb3c6819f8f2abf84547570282}{setRoiInfo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \&info);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a0e3706f348dc9c6489a8148df93e8952}{setId}}(\textcolor{keywordtype}{int}\ val)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a0fd3e0b1abda021fb043e01d85271d2a}{setName}}(\textcolor{keyword}{const}\ QString\&\ \mbox{\hyperlink{classnamed_a1eb73c1caaa4a790aa98ed541f6c5042}{name}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a1207b4e1cdef0e9c29e164af0be2afdd}{setWorkspaceId}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ root\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a8a007c8158dbd279f8c9afc3a063a3d5}{removeFromWorkspace}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ad245c72761fc43403bed8aa246203915}{doSetId}}(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a153e72eb421da58bc1dccc5969323ef4}{doSetName}}(\textcolor{keyword}{const}\ QString\&\ \mbox{\hyperlink{classnamed_a1eb73c1caaa4a790aa98ed541f6c5042}{name}});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aa65092a5f56831edc2a2e7cf70a3494e}{createMenu}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ab7a164834bbebe295b57edd5c0d88dc7}{clearMenu}}();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_afdf7d0d2bc06b5fe2a41edd6ff6f8cd0}{setOldPos}}(\textcolor{keyword}{const}\ QPointF\ \&pos)\ \{\ \mbox{\hyperlink{classroiPolyItem_a2d16f3ca67ee7f965d83658bb252ba55}{fOldPos}}\ =\ pos;\ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a35ef9de656ee867ccbed94cad6cd5f4c}{setNewPos}}(\textcolor{keyword}{const}\ QPointF\ \&pos)\ \{\ \mbox{\hyperlink{classroiPolyItem_ab8081a329db0da234fef54053d3828a8}{fNewPos}}\ =\ pos;\ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a8fb76b3841c46b8d620b88c06a98a97f}{setOldScale}}(\textcolor{keyword}{const}\ QPointF\ \&scale)\ \{\ \mbox{\hyperlink{classroiPolyItem_a663ae12c9663b61185a584802a4afb02}{fOldScale}}\ =\ scale;\ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a9dc50f002f43b8a1b59367f02592fa2b}{setNewScale}}(\textcolor{keyword}{const}\ QPointF\ \&scale)\ \{\ \mbox{\hyperlink{classroiPolyItem_a59028fc08cff11591d602e4b14b904dc}{fNewScale}}\ =\ scale;\ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ad3eb0b29d52dc48a1489a5ffdebeed01}{setOldTransform}}(\textcolor{keyword}{const}\ QTransform\ \&trans)\ \{\ \mbox{\hyperlink{classroiPolyItem_a64eff76858b0a1838652b1e911bb91c5}{fOldTransform}}\ =\ trans;\ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a8fcd75bd06ce19f069df7e589ddb0b61}{setNewTransform}}(\textcolor{keyword}{const}\ QTransform\ \&trans)\ \{\ \mbox{\hyperlink{classroiPolyItem_ad93079b255e250135e7dc7b884a3eda4}{fNewTransform}}\ =\ trans;\ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aaa2c411c8f7f2f8ad0d29e09d00c83b5}{setOldRotationAngle}}(\textcolor{keywordtype}{double}\ angle)\ \{\ \mbox{\hyperlink{classroiPolyItem_a43e17ad2b82d2e0c90c2186baeb94a06}{fOldRotationAngle}}\ =\ angle;\ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ace09cf2e968ebe9867553345c58f214e}{setNewRotationAngle}}(\textcolor{keywordtype}{double}\ angle)\ \{\ \mbox{\hyperlink{classroiPolyItem_a6a0a3ad9634dffbe6749ef1a32064e49}{fNewRotationAngle}}\ =\ angle;\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_afd05e063653b1f9c29eb215b43fa7fa2}{oldPos}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a2d16f3ca67ee7f965d83658bb252ba55}{fOldPos}};\ \}}
+\DoxyCodeLine{00098\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_aeef1b3f228d88007584c8510f17bba17}{newPos}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_ab8081a329db0da234fef54053d3828a8}{fNewPos}};\ \}}
+\DoxyCodeLine{00099\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_aa03c5c5d37d03d74b1c4b66d6f856329}{oldScale}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a663ae12c9663b61185a584802a4afb02}{fOldScale}};\ \}}
+\DoxyCodeLine{00100\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_a1e2e3a382eeb50624232660097f272be}{newScale}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a59028fc08cff11591d602e4b14b904dc}{fNewScale}};\ \}}
+\DoxyCodeLine{00101\ \ \ \ \ QTransform\ \mbox{\hyperlink{classroiPolyItem_ab35c5a81caa080cd49ce0d39a0548ce1}{oldTransform}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a64eff76858b0a1838652b1e911bb91c5}{fOldTransform}};\ \}}
+\DoxyCodeLine{00102\ \ \ \ \ QTransform\ \mbox{\hyperlink{classroiPolyItem_a991a912512305877ca579d85454c9105}{newTransform}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_ad93079b255e250135e7dc7b884a3eda4}{fNewTransform}};\ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_aaf1a53e4d108721d83eb47a7026b7f3d}{oldRotationAngle}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a43e17ad2b82d2e0c90c2186baeb94a06}{fOldRotationAngle}};\ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a66db5e6a2c175b0bcc4c59ff9058adb3}{newRotationAngle}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a6a0a3ad9634dffbe6749ef1a32064e49}{fNewRotationAngle}};\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a9f9e7f67c805ec6642e608da5c1689a9}{doAnchor}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ae57ded4941372aaba2f8a8589f6728ce}{setPolygon}}(\textcolor{keyword}{const}\ QPolygonF\ \&poly);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aed57c2ef86747bf5f2d87cc75225bc93}{doBigger}}();}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a1ec091e2147390fa4a1c55ca185b5868}{doSmaller}}();}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ac58cbfd63bbb8d388e11a966a5e55687}{doHFlip}}();}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a39b3af28d4ecf91af31eeb5b34462e3d}{doVFlip}}();}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a3e772e60626710bf524bf6b6ebd9e81e}{doRotate}}();}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_acafa9aa433dd608e43b4fce70b75e69b}{doVResize}}(\textcolor{keywordtype}{double}\ factor,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classnamed_a77b66cf59babf635c0c812b9c33b8857}{mode}}\ =\ -\/1);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aec40ac60f843a47495a2ef481cf762e8}{doHResize}}(\textcolor{keywordtype}{double}\ factor,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classnamed_a77b66cf59babf635c0c812b9c33b8857}{mode}}\ =\ -\/1);}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a8b6e15f90b26348399db69680a496bf0}{doResize}}(\textcolor{keywordtype}{double}\ factorX,\ \textcolor{keywordtype}{double}\ factorY,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classnamed_a77b66cf59babf635c0c812b9c33b8857}{mode}}\ =\ -\/1);}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a79a491b5c4521bc5377d393e3d4bffa6}{doToggleExclusion}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//void\ doSetLineColor(QColor\ col);}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//void\ doSetTextColor(QColor\ col);}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//void\ doSetBackgroundColor(QColor\ col);}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//void\ doSetFont(QFont\ font);}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a5e38f9a5f88928c459caf626c3432362}{doSetItemProperty}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&prop);}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aa0e8c26e79f87e559553d7c24c50ee63}{doSetPolygon}}(\textcolor{keyword}{const}\ QPolygonF\ \&poly);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_ad422e25fea56409666ac2cb4a5b719ad}{nameVisible}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a2df0c1eb2f41f1b90239345db470682f}{fNameVisible}};\ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_a3484f2c26c121108c42866503fd991dd}{infoVisible}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classroiPolyItem_a1d0f5175030d8a12c0d40f94c28e1b1b}{fInfoVisible}};\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_a8dfa5247e0cdf2e610346642b079fb49}{namePosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00130\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_ae31af9184f259eb4fe083a063fdc46fb}{informationPosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a6c76ef802ee83b0874b7291f2e49482e}{setNamePosition}}(\textcolor{keyword}{const}\ QPointF\ \&pos)\ \{\ \mbox{\hyperlink{classroiPolyItem_ad962eb5de73d9b6925e447271d30943f}{roiNamePos}}\ =\ pos;\ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a5c51e6634a180def467a6c4ef49da81f}{setInformationPosition}}(\textcolor{keyword}{const}\ QPointF\ \&pos)\ \{\ \mbox{\hyperlink{classroiPolyItem_aa22729c296734f4c5729317eef188d6c}{roiInfoPos}}\ =\ pos;\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a0593ae810459895588a2314a600c4fc4}{setDefaultAnnotationPos}}();}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a027d12c349afbaa3bb01e329d48f06ab}{setDefaultInformationPos}}();}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_a78d1939735b9892dfa01320d7e730a5e}{isExclusion}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fExclusion;\ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a78f503c52f2d94e6f9de21bfae845ac6}{setExclusion}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ exclusion)\ \{\ fExclusion\ =\ exclusion;\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ QPolygonF\ \mbox{\hyperlink{classroiPolyItem_a9bf76128e9202426e5888504ab5f9137}{convertToImageCoords}}();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a3038f4d1e9486b081f1a595009d5bca5}{finishDrawing}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_ad422e25fea56409666ac2cb4a5b719ad}{nameVisible}},\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_a3484f2c26c121108c42866503fd991dd}{infoVisible}});}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_abbea280af3edc0682ee2bf2e562050df}{setTimeReference}}(\textcolor{keyword}{const}\ QDateTime\&\ ref);}
+\DoxyCodeLine{00146\ \ \ \ \ QDateTime\ \mbox{\hyperlink{classroiPolyItem_a6612514f84997eb88d9f451ce7b00312}{timeReference}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_acb84f798fc2607f10db3dcc3516793bb}{projectHorizontalAxis}}();}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a1c222f3d925bf63547526b82ed1eabb6}{projectVerticalAxis}}();}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a90930bff91d55e3ea18463cab3befdc7}{prepareForFileWriting}}();}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a20ee820ac3b66ccc3a938e317022072b}{restoreAfterFileWriting}}();}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a7e8ad5dbd8b09e447c2814f8962f89af}{remove}}();}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a74c396804418aee1594866b7d5544da8}{copy}}();}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a3c4beae5c29ffe4ec874817858648575}{cut}}();}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ae7802baabbcead30b1aada5ecbd51cf7}{paste}}();}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_acff17cddb5032c42ce89e7a18c8cc739}{rotate}}(\textcolor{keywordtype}{bool}\ keepTrack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a1a788c0f6ec6a0896c769df63646de49}{smooth}}();}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a1e8249d01b2fe06f4c6662dfbda36fc5}{updateInfo}}();}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a70f36d2c445771caa2155326992b8828}{hFlip}}();}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_adcd08b29765362acbadd26d62340b201}{vFlip}}();}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ac0736b39e80e8df8d1b289c7a76e7b4a}{bigger}}();}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ac31aa5df80371da49f23447ba064baba}{smaller}}();}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a4a34a38ee5086aac042237f6843f5e45}{group}}();}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_acc006b6cef34cf1b6d95d695efc01981}{ungroup}}();}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ae751c662cc440ee1352840c1e7f0795a}{addToGroup}}();}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a43c16d42678adcd506fcd2695c8482c3}{clipTo}}();}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_abcc8d6b339ec175ee259aec55b4eb8ea}{mergeWith}}();}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a13b866842db7fce675270b74fd8ac315}{displayResizeDialog}}();}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a4913b462dbe88eba0ebf01c54772e18f}{rename}}();}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ae53c24215b61bd3a430264552f2e681a}{anchor}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a13659abfd80fb98dd26791eb464b6ec3}{anchorScene}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a2f4729c9adbd6219da755f9196c168c6}{toogleAnchor}}();}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a1f5e83ae06c050baed5738c6fe60c9e9}{bringToFront}}();}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a7839367a8dda77087ad6e68fa86315cc}{sendToBack}}();}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a6b41522cdf44129b6670348919025d44}{showRoiNameId}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a00f1d5f3d86ce53bbf926f59842edd39}{showRoiInfo}}(\textcolor{keywordtype}{bool}\ val\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a4df1dad41090c9ed94a0645d0190b9e0}{addExclusion}}();}
+\DoxyCodeLine{00185\ \ \ \ \ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ad088187b4011f79f2c42b4891d10e819}{hFlipItems}}();}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a3d77e04a27fa6d166557a3cfb378acd6}{vFlipItems}}();}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a2874be0e50564ae1f0c71f8c7ad7909a}{modifiyShape}}();}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a56d0809f8eb71369d31bb82844b44ea1}{removeVertex}}();}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a4a9967766bb3cb161f254f394cc6e384}{addVertex}}();}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a3677a89be90cc00ab6d5b4f25e22dffd}{findItemBoundaries}}();}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a6c38958cd8302e0698e3815551eb1a2f}{resetContextMenu}}();}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a229db53aa7bcb575be2ea91196d97a15}{toggleExclusion}}();}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a85775ef0faa3157821c2c8bbacbe87d4}{showIsotopeSelector}}();}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{comment}{//void\ changeIsotope(QString\ isotope,\ double\ val);}}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//void\ changeIsotope(const\ isotope\&\ iso);}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{comment}{//void\ changeIsotope(QString\ isotope,\ double\ val);}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ac44c087bf98f4f474f8705d0e7dcfa85}{changeIsotopes}}(\textcolor{keyword}{const}\ QList<isotope>\&\ isoList);}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_af47c03bc80043d2a920503cefef40997}{showReferenceSelector}}();}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a18dee0d47d0ff9b487a9772e0208b948}{changeTimeReference}}(QDateTime\ ref);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ signals:}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a3c28fec96b9eb6442c8d4905daf53bef}{itemSmallChanged}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a98f8af912f2f158b8c2217250dd483c5}{itemSelected}}(QGraphicsItem\ *,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ad667590a39c6b79e242e691898877831}{information}}(\textcolor{keyword}{const}\ QString\ \&str);}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_afbfa299a22a0db5ea85838fae4a81ca4}{propertyItem}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&prop);}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aa97330c4213d2ec169871159187acb20}{itemBoundaries}}(\textcolor{keyword}{const}\ QRectF\ \&\mbox{\hyperlink{classroiPolyItem_ab91c177c77d126d5bbac289bc64419d1}{boundingRect}},\ \textcolor{keyword}{const}\ QPolygonF\ \&\mbox{\hyperlink{classroiPolyItem_a171e58103cdb03f073e417b753864abf}{shape}});}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a76a96338a2720edde2c9784481e48073}{contextMenuEvent}}(QGraphicsSceneContextMenuEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00216\ \ \ \ \ QVariant\ \mbox{\hyperlink{classroiPolyItem_ad40e42a9e598398dd97f04d5cdd6ebb3}{itemChange}}(GraphicsItemChange\ change,\ \textcolor{keyword}{const}\ QVariant\ \&\ value)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_aa891e1671f6a6d9a2c56d7c8050ade63}{mouseMoveEvent}}(QGraphicsSceneMouseEvent\ *\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a2c04cbfa1d257c8b8f202471d077f005}{mousePressEvent}}(QGraphicsSceneMouseEvent\ *\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_af318194ad90171925cec86a94094db7c}{mouseReleaseEvent}}(QGraphicsSceneMouseEvent\ *\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_ab9a1495aec982331fe66d36629f6dc21}{hoverMoveEvent}}(QGraphicsSceneHoverEvent\ *\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a9e2ee25cfb098267224cdb7695d4d68e}{setDottedLine}}();}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classroiPolyItem_a632263375cd35ac9579f35543d8d6ccb}{setSolidLine}}();}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classroiPolyItem_a6d953cce4afd39d96aeee71e8bf38a42}{findVertex}}(\textcolor{keyword}{const}\ QPointF\ \&pos);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ QMenu\ *\mbox{\hyperlink{classroiPolyItem_a68c7dc51a2928a224d9e63fae629dfda}{fGroupMenu}};}
+\DoxyCodeLine{00229\ \ \ \ \ QAction\ *\mbox{\hyperlink{classroiPolyItem_ae0acd19f1522201073faaae2d4e6a737}{groupAction}},\ *\mbox{\hyperlink{classroiPolyItem_a9069b30fcbd59ea10555cc5c7a95382e}{addToGroupAction}},\ *\mbox{\hyperlink{classroiPolyItem_afd168c586c7b81f7fb66acddd297c663}{ungroupAction}};}
+\DoxyCodeLine{00230\ \ \ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ QMenu\ *\mbox{\hyperlink{classroiPolyItem_ae2a7b239228b88b55f2dd7f8621246ea}{fCropMenu}};}
+\DoxyCodeLine{00232\ \ \ \ \ QAction\ *\mbox{\hyperlink{classroiPolyItem_a3940da33e7235af0b82d20d3dc80ca36}{clipToAction}},\ *\mbox{\hyperlink{classroiPolyItem_af5153b40a9d8c294cec2e71b7838e4de}{mergeWithAction}};}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ QMenu\ *\mbox{\hyperlink{classroiPolyItem_aa7a789732f3a1527787562183e8120c3}{fVertexMenu}};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a9b5e7da98a32011d5ff77a1bba112819}{fnCount}};}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_aaf720d6dea3439960472ec8b3c5c0f8c}{fArea}};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a730eca90117f9ed580bb0bca6b6d534a}{fangle}};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ QAction*\ \mbox{\hyperlink{classroiPolyItem_a2be15abebc6122c3abbd503e17d9af8b}{fMenuInfoAction}};}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ QAction\ *\mbox{\hyperlink{classroiPolyItem_a544fc528900d3dbd316933867c895cc9}{roiInfoAction}};}
+\DoxyCodeLine{00245\ \ \ \ \ QAction\ *\mbox{\hyperlink{classroiPolyItem_a44d159ad6937d449a109d51276590bb6}{posAction}};}
+\DoxyCodeLine{00246\ \ \ \ \ QAction\ *\mbox{\hyperlink{classroiPolyItem_a818da64f645945c10e25018c96107c4c}{roiNameIdAction}};}
+\DoxyCodeLine{00247\ \ \ \ \ QAction*\ \mbox{\hyperlink{classroiPolyItem_a3af19d42c93f0a1d256389ea7775e18d}{anchorAction}};}
+\DoxyCodeLine{00248\ \ \ \ \ QAction*\ \mbox{\hyperlink{classroiPolyItem_a93c19f25cdd441317060ce8aedd3d9d8}{fResizeAction}};}
+\DoxyCodeLine{00249\ \ \ \ \ QAction\ *\mbox{\hyperlink{classroiPolyItem_a70f4d498ae1a61d1f82aae90549cecc0}{fToggleExcluAction}};}
+\DoxyCodeLine{00250\ \ \ \ \ \mbox{\hyperlink{classtextItem}{textItem}}*\ \mbox{\hyperlink{classroiPolyItem_adc27e2a36d85ff48523b17b99b975245}{roiInformation}};}
+\DoxyCodeLine{00251\ \ \ \ \ \mbox{\hyperlink{classtextItem}{textItem}}*\ \mbox{\hyperlink{classroiPolyItem_a6dec7b14c3dd75a38608a25a51650323}{roiName}};}
+\DoxyCodeLine{00252\ \ \ \ \ \mbox{\hyperlink{classtextItem}{textItem}}*\ \mbox{\hyperlink{classroiPolyItem_a901a3ab20f3057c1743e1fa835615368}{roiId}};}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_aa22729c296734f4c5729317eef188d6c}{roiInfoPos}};}
+\DoxyCodeLine{00255\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_ad962eb5de73d9b6925e447271d30943f}{roiNamePos}};}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{comment}{//QColor\ fLineColor;}}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//QColor\ fTextColor;}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{comment}{//QColor\ fBackgroundColor;}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{comment}{//int\ fLineSize;}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{comment}{//QFont\ fFont;}}
+\DoxyCodeLine{00262\ \ \ \ \ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \mbox{\hyperlink{classroiPolyItem_a5afa62ce7433b0bb77612e4f4cde779d}{fItemProperty}};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classroiPolyItem_abff6018225a6791365bce332ccea79a3}{fTopMargin}};}
+\DoxyCodeLine{00265\ \ \ \ \ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \mbox{\hyperlink{classroiPolyItem_ac7e69aae0678637851edf139a81045d7}{froiInfo}};}
+\DoxyCodeLine{00266\ \ \ \ \ QList<QRectF>\ \mbox{\hyperlink{classroiPolyItem_a255d06e100ea5c9ef9e2ad6e1ee0f8f7}{fVertexList}};}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classroiPolyItem_af56f43907de889ae134963a955c54677}{fVertexToModify}};}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ QCursor\ \mbox{\hyperlink{classroiPolyItem_ad2c9ac485bdb69a212f6d43277546518}{fModifyShapeCursor}};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_a2df0c1eb2f41f1b90239345db470682f}{fNameVisible}};}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classroiPolyItem_a1d0f5175030d8a12c0d40f94c28e1b1b}{fInfoVisible}};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_ab14d8a75e81c954720883b0f5175b35d}{fSceneScale}};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_a2d16f3ca67ee7f965d83658bb252ba55}{fOldPos}};}
+\DoxyCodeLine{00277\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_ab8081a329db0da234fef54053d3828a8}{fNewPos}};}
+\DoxyCodeLine{00278\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_a663ae12c9663b61185a584802a4afb02}{fOldScale}};}
+\DoxyCodeLine{00279\ \ \ \ \ QPointF\ \mbox{\hyperlink{classroiPolyItem_a59028fc08cff11591d602e4b14b904dc}{fNewScale}};}
+\DoxyCodeLine{00280\ \ \ \ \ QTransform\ \mbox{\hyperlink{classroiPolyItem_a64eff76858b0a1838652b1e911bb91c5}{fOldTransform}};}
+\DoxyCodeLine{00281\ \ \ \ \ QTransform\ \mbox{\hyperlink{classroiPolyItem_ad93079b255e250135e7dc7b884a3eda4}{fNewTransform}};}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a43e17ad2b82d2e0c90c2186baeb94a06}{fOldRotationAngle}};}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classroiPolyItem_a6a0a3ad9634dffbe6749ef1a32064e49}{fNewRotationAngle}};}
+\DoxyCodeLine{00284\ \ \ \ \ QPolygonF\ \mbox{\hyperlink{classroiPolyItem_a7563226398237a7d67ef7ffb8301b929}{fOldPolygon}};}
+\DoxyCodeLine{00285\ \ \ \ \ QPolygonF\ \mbox{\hyperlink{classroiPolyItem_ad30d0a7855998b808ea82ffb8250b7d8}{fNewPolygon}};}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{comment}{//undoMoveItem\ *undoMove;}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{comment}{//QDateTime\ fTimeReference;}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00291\ \ \ \ \ \mbox{\hyperlink{classtextItem}{textItem}}*\ roiWorkspaceId;}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordtype}{bool}\ fExclusion;}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordtype}{double}\ getSceneScale()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordtype}{void}\ initDefaultValues();}
+\DoxyCodeLine{00296\ \};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ QDataStream\ \&\mbox{\hyperlink{roipolyitem_8h_ab60d1ece870e2376d68960311c9548e3}{operator<<}}(QDataStream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\ \&myObj);}
+\DoxyCodeLine{00299\ QDataStream\ \&\mbox{\hyperlink{roipolyitem_8h_ad06994f43ca0da3a9bb391ef5c270b27}{operator>>}}(QDataStream\ \&in,\ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\ \&myObj);}
+
+\end{DoxyCode}

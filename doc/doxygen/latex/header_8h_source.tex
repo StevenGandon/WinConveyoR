@@ -1,0 +1,58 @@
+\doxysection{header.\+h}
+\hypertarget{header_8h_source}{}\label{header_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/include/curl/header.h@{lib/libwconr/build/\_deps/curl-\/src/include/curl/header.h}}
+\mbox{\hyperlink{header_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CURLINC\_HEADER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CURLINC\_HEADER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__header}{curl\_header}}\ \{}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcurl__header_aa48a480f1f712ff251e184d594e081a6}{name}};\ \ \ \ \textcolor{comment}{/*\ this\ might\ not\ use\ the\ same\ case\ */}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcurl__header_aba06fbfea40305ee29c03a3349c02214}{value}};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structcurl__header_a239a57cba39a77c9a87e3562bb46c3f7}{amount}};\ \textcolor{comment}{/*\ number\ of\ headers\ using\ this\ name\ \ */}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structcurl__header_aa77c360351fb3f0ec9e7299560f07e4e}{index}};\ \ \textcolor{comment}{/*\ ...\ of\ this\ instance,\ 0\ or\ higher\ */}}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcurl__header_ad91c63ae126e0b71a8e5d5512e3cee8a}{origin}};\ \textcolor{comment}{/*\ see\ bits\ below\ */}}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structcurl__header_a836a487819454de622505f791092c499}{anchor}};\ \textcolor{comment}{/*\ handle\ privately\ used\ by\ libcurl\ */}}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ 'origin'\ bits\ */}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ CURLH\_HEADER\ \ \ \ (1<<0)\ }\textcolor{comment}{/*\ plain\ server\ header\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ CURLH\_TRAILER\ \ \ (1<<1)\ }\textcolor{comment}{/*\ trailers\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ CURLH\_CONNECT\ \ \ (1<<2)\ }\textcolor{comment}{/*\ CONNECT\ headers\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ CURLH\_1XX\ \ \ \ \ \ \ (1<<3)\ }\textcolor{comment}{/*\ 1xx\ headers\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ CURLH\_PSEUDO\ \ \ \ (1<<4)\ }\textcolor{comment}{/*\ pseudo\ headers\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaaec4f377bd9a292f548e59fd0f23254be}{CURLHE\_OK}},}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaa6e282eaf03bc17b1ee551ac2d8a07bc7}{CURLHE\_BADINDEX}},\ \ \ \ \ \ \textcolor{comment}{/*\ header\ exists\ but\ not\ with\ this\ index\ */}}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaa7017f980ce7db8873d783b22a0ba6236}{CURLHE\_MISSING}},\ \ \ \ \ \ \ \textcolor{comment}{/*\ no\ such\ header\ exists\ */}}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaa26791ff7189604b9d3a7792f6b8a7477}{CURLHE\_NOHEADERS}},\ \ \ \ \ \textcolor{comment}{/*\ no\ headers\ at\ all\ exist\ (yet)\ */}}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaa0221249c185c04b643f9fc91819e9caa}{CURLHE\_NOREQUEST}},\ \ \ \ \ \textcolor{comment}{/*\ no\ request\ with\ this\ number\ was\ used\ */}}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaae6a51d31ac6e73bcdb4f68ac841f4194}{CURLHE\_OUT\_OF\_MEMORY}},\ \textcolor{comment}{/*\ out\ of\ memory\ while\ processing\ */}}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaa83affb053e843358156f56c114a2ac18}{CURLHE\_BAD\_ARGUMENT}},\ \ \textcolor{comment}{/*\ a\ function\ argument\ was\ not\ okay\ */}}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbbaaf941f158d1454cda1825ca91117085b2}{CURLHE\_NOT\_BUILT\_IN}}\ \ \ \textcolor{comment}{/*\ if\ API\ was\ disabled\ in\ the\ build\ */}}
+\DoxyCodeLine{00056\ \}\ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbba}{CURLHcode}};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{header_8h_adc9f408eca8a40f9cb1830ad861cdbba}{CURLHcode}}\ \mbox{\hyperlink{header_8h_a3f62035471711276c496caae014b194d}{curl\_easy\_header}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *easy,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ index,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ origin,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}},}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__header}{curl\_header}}\ **hout);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__header}{curl\_header}}\ *\mbox{\hyperlink{header_8h_ae4ab5f7655c2a6cb867ec24637fce49e}{curl\_easy\_nextheader}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *easy,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcurl__header_ad91c63ae126e0b71a8e5d5512e3cee8a}{origin}},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__header}{curl\_header}}\ *prev);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00071\ \}\ \textcolor{comment}{/*\ end\ of\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURLINC\_HEADER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

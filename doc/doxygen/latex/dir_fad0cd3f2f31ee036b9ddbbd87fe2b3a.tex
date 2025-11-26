@@ -1,0 +1,131 @@
+\doxysection{gui/node\+\_\+modules/@electron/get Directory Reference}
+\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a}{}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a}\index{gui/node\_modules/"@electron/get Directory Reference@{gui/node\_modules/"@electron/get Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md12}{}\doxysubsection{\texorpdfstring{@electron/get}{@electron/get}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md12}
+\begin{quote}
+Download Electron release artifacts \end{quote}
+
+
+\href{https://circleci.com/gh/electron/get}{\texttt{}} \href{https://npm.im/@electron/get}{\texttt{}}\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md13}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md13}
+\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md14}{}\doxysubsubsection{\texorpdfstring{Simple\+: Downloading an Electron Binary ZIP}{Simple\+: Downloading an Electron Binary ZIP}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md14}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ download\ \}\ from\ '@electron/get';}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ NB:\ Use\ this\ syntax\ within\ an\ async\ function,\ Node\ does\ not\ have\ support\ for}
+\DoxyCodeLine{//\ \ \ \ \ top-\/level\ await\ as\ of\ Node\ 12.}
+\DoxyCodeLine{const\ zipFilePath\ =\ await\ download('4.0.4');}
+
+\end{DoxyCode}
+\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md15}{}\doxysubsubsection{\texorpdfstring{Advanced\+: Downloading a mac\+OS Electron Symbol File}{Advanced\+: Downloading a mac\+OS Electron Symbol File}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md15}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ downloadArtifact\ \}\ from\ '@electron/get';}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ NB:\ Use\ this\ syntax\ within\ an\ async\ function,\ Node\ does\ not\ have\ support\ for}
+\DoxyCodeLine{//\ \ \ \ \ top-\/level\ await\ as\ of\ Node\ 12.}
+\DoxyCodeLine{const\ zipFilePath\ =\ await\ downloadArtifact(\{}
+\DoxyCodeLine{\ \ version:\ '4.0.4',}
+\DoxyCodeLine{\ \ platform:\ 'darwin',}
+\DoxyCodeLine{\ \ artifactName:\ 'electron',}
+\DoxyCodeLine{\ \ artifactSuffix:\ 'symbols',}
+\DoxyCodeLine{\ \ arch:\ 'x64',}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md16}{}\doxysubsubsection{\texorpdfstring{Specifying a mirror}{Specifying a mirror}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md16}
+To specify another location to download Electron assets from, the following options are available\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily mirror\+Options} Object
+\begin{DoxyItemize}
+\item {\ttfamily mirror} String (optional) -\/ The base URL of the mirror to download from.
+\item {\ttfamily nightly\+Mirror} String (optional) -\/ The Electron nightly-\/specific mirror URL.
+\item {\ttfamily custom\+Dir} String (optional) -\/ The name of the directory to download from, often scoped by version number.
+\item {\ttfamily custom\+Filename} String (optional) -\/ The name of the asset to download.
+\item {\ttfamily resolve\+Asset\+URL} Function (optional) -\/ A function allowing customization of the url used to download the asset.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Anatomy of a download URL, in terms of {\ttfamily mirror\+Options}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{https://github.com/electron/electron/releases/download/v4.0.4/electron-\/v4.0.4-\/linux-\/x64.zip}
+\DoxyCodeLine{|\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ mirror\ /\ nightlyMirror\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ |\ \ \ \ \ \ \ \ \ customFilename}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ customDir}
+
+\end{DoxyCode}
+
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ download\ \}\ from\ '@electron/get';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ zipFilePath\ =\ await\ download('4.0.4',\ \{}
+\DoxyCodeLine{\ \ mirrorOptions:\ \{}
+\DoxyCodeLine{\ \ \ \ mirror:\ 'https://mirror.example.com/electron/',}
+\DoxyCodeLine{\ \ \ \ customDir:\ 'custom',}
+\DoxyCodeLine{\ \ \ \ customFilename:\ 'unofficial-\/electron-\/linux.zip'}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//\ Will\ download\ from\ https://mirror.example.com/electron/custom/unofficial-\/electron-\/linux.zip}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ nightlyZipFilePath\ =\ await\ download('8.0.0-\/nightly.20190901',\ \{}
+\DoxyCodeLine{\ \ mirrorOptions:\ \{}
+\DoxyCodeLine{\ \ \ \ nightlyMirror:\ 'https://nightly.example.com/',}
+\DoxyCodeLine{\ \ \ \ customDir:\ 'nightlies',}
+\DoxyCodeLine{\ \ \ \ customFilename:\ 'nightly-\/linux.zip'}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//\ Will\ download\ from\ https://nightly.example.com/nightlies/nightly-\/linux.zip}
+
+\end{DoxyCode}
+
+
+{\ttfamily custom\+Dir} can have the placeholder {\ttfamily \{\{ version \}\}}, which will be replaced by the version specified (without the leading {\ttfamily v}). For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ zipFilePath\ =\ await\ download('4.0.4',\ \{}
+\DoxyCodeLine{\ \ mirrorOptions:\ \{}
+\DoxyCodeLine{\ \ \ \ mirror:\ 'https://mirror.example.com/electron/',}
+\DoxyCodeLine{\ \ \ \ customDir:\ 'version-\/\{\{\ version\ \}\}',}
+\DoxyCodeLine{\ \ \ \ platform:\ 'linux',}
+\DoxyCodeLine{\ \ \ \ arch:\ 'x64'}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//\ Will\ download\ from\ https://mirror.example.com/electron/version-\/4.0.4/electron-\/v4.0.4-\/linux-\/x64.zip}
+
+\end{DoxyCode}
+\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md17}{}\doxysubsubsubsection{\texorpdfstring{Using environment variables for mirror options}{Using environment variables for mirror options}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md17}
+Mirror options can also be specified via the following environment variables\+:
+\begin{DoxyItemize}
+\item {\ttfamily ELECTRON\+\_\+\+CUSTOM\+\_\+\+DIR} -\/ Specifies the custom directory to download from.
+\item {\ttfamily ELECTRON\+\_\+\+CUSTOM\+\_\+\+FILENAME} -\/ Specifies the custom file name to download.
+\item {\ttfamily ELECTRON\+\_\+\+MIRROR} -\/ Specifies the URL of the server to download from if the version is not a nightly version.
+\item {\ttfamily ELECTRON\+\_\+\+NIGHTLY\+\_\+\+MIRROR} -\/ Specifies the URL of the server to download from if the version is a nightly version.
+\end{DoxyItemize}\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md18}{}\doxysubsubsection{\texorpdfstring{Overriding the version downloaded}{Overriding the version downloaded}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md18}
+The version downloaded can be overriden by setting the {\ttfamily ELECTRON\+\_\+\+CUSTOM\+\_\+\+VERSION} environment variable. Setting this environment variable will override the version passed in to {\ttfamily download} or {\ttfamily download\+Artifact}.\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md19}{}\doxysubsection{\texorpdfstring{How It Works}{How It Works}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md19}
+This module downloads Electron to a known place on your system and caches it so that future requests for that asset can be returned instantly. The cache locations are\+:
+
+
+\begin{DoxyItemize}
+\item Linux\+: {\ttfamily \$XDG\+\_\+\+CACHE\+\_\+\+HOME} or {\ttfamily \texorpdfstring{$\sim$}{\string~}/.cache/electron/}
+\item Mac\+OS\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/\+Library/\+Caches/electron/}
+\item Windows\+: {\ttfamily LOCALAPPDATA\%/electron/\+Cache} or {\ttfamily \texorpdfstring{$\sim$}{\string~}/\+App\+Data/\+Local/electron/\+Cache/}
+\end{DoxyItemize}
+
+By default, the module uses \href{https://github.com/sindresorhus/got}{\texttt{{\ttfamily got}}} as the downloader. As a result, you can use the same \href{https://github.com/sindresorhus/got\#options}{\texttt{options}} via {\ttfamily download\+Options}.\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md20}{}\doxysubsubsection{\texorpdfstring{Progress Bar}{Progress Bar}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md20}
+By default, a progress bar is shown when downloading an artifact for more than 30 seconds. To disable, set the {\ttfamily ELECTRON\+\_\+\+GET\+\_\+\+NO\+\_\+\+PROGRESS} environment variable to any non-\/empty value, or set {\ttfamily quiet} to {\ttfamily true} in {\ttfamily download\+Options}. If you need to monitor progress yourself via the API, set {\ttfamily get\+Progress\+Callback} in {\ttfamily download\+Options}, which has the same function signature as {\ttfamily got}\textquotesingle{}s \href{https://github.com/sindresorhus/got\#ondownloadprogress-progress}{\texttt{{\ttfamily download\+Progress} event callback}}.\hypertarget{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md21}{}\doxysubsubsection{\texorpdfstring{Proxies}{Proxies}}\label{dir_fad0cd3f2f31ee036b9ddbbd87fe2b3a_autotoc_md21}
+Downstream packages should utilize the {\ttfamily initialize\+Proxy} function to add \doxylink{http2_8d_a4ff068e053ca83462d01531f1567cd72}{HTTP(\+S)} proxy support. If the environment variable {\ttfamily ELECTRON\+\_\+\+GET\+\_\+\+USE\+\_\+\+PROXY} is set, it is called automatically. 

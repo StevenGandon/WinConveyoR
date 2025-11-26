@@ -1,0 +1,65 @@
+\doxysection{sigpipe.\+h}
+\hypertarget{sigpipe_8h_source}{}\label{sigpipe_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/sigpipe.h@{lib/libwconr/build/\_deps/curl-\/src/lib/sigpipe.h}}
+\mbox{\hyperlink{sigpipe_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SIGPIPE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SIGPIPE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(HAVE\_SIGNAL\_H)\ \&\&\ defined(HAVE\_SIGACTION)\ \&\&\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ (defined(USE\_OPENSSL)\ ||\ defined(USE\_MBEDTLS)\ ||\ defined(USE\_WOLFSSL))}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <signal.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{sigpipe_8h_a5748ed27a059e06d2d1e530d76fd2d49}{sigpipe\_ignore}}\ \{}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{struct\ }sigaction\ old\_pipe\_act;}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{bool}\ no\_signal;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ SIGPIPE\_VARIABLE(x)\ struct\ sigpipe\_ignore\ x}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ sigpipe\_ignore()\ makes\ sure\ we\ ignore\ SIGPIPE\ while\ running\ libcurl}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ internals,\ and\ then\ sigpipe\_restore()\ will\ restore\ the\ situation\ when\ we}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ return\ from\ libcurl\ again.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sigpipe_8h_a5748ed27a059e06d2d1e530d76fd2d49}{sigpipe\_ignore}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{sigpipe_8h_a5748ed27a059e06d2d1e530d76fd2d49}{sigpipe\_ignore}}\ *ig)}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{/*\ get\ a\ local\ copy\ of\ no\_signal\ because\ the\ Curl\_easy\ might\ not\ be}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ \ around\ when\ we\ restore\ */}}
+\DoxyCodeLine{00049\ \ \ ig-\/>no\_signal\ =\ \mbox{\hyperlink{structdata}{data}}-\/>set.no\_signal;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{structdata}{data}}-\/>set.no\_signal)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }sigaction\ action;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{/*\ first,\ extract\ the\ existing\ situation\ */}}
+\DoxyCodeLine{00053\ \ \ \ \ memset(\&ig-\/>old\_pipe\_act,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ sigaction));}
+\DoxyCodeLine{00054\ \ \ \ \ sigaction(SIGPIPE,\ NULL,\ \&ig-\/>old\_pipe\_act);}
+\DoxyCodeLine{00055\ \ \ \ \ action\ =\ ig-\/>old\_pipe\_act;}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{/*\ ignore\ this\ signal\ */}}
+\DoxyCodeLine{00057\ \ \ \ \ action.sa\_handler\ =\ SIG\_IGN;}
+\DoxyCodeLine{00058\ \ \ \ \ sigaction(SIGPIPE,\ \&action,\ NULL);}
+\DoxyCodeLine{00059\ \ \ \}}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ sigpipe\_restore()\ puts\ back\ the\ outside\ world's\ opinion\ of\ signal\ handler}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ and\ SIGPIPE\ handling.\ It\ MUST\ only\ be\ called\ after\ a\ corresponding}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ sigpipe\_ignore()\ was\ used.}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sigpipe_8h_a4e82346dd2794d3e58da69078f1c4ab4}{sigpipe\_restore}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{sigpipe_8h_a5748ed27a059e06d2d1e530d76fd2d49}{sigpipe\_ignore}}\ *ig)}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordflow}{if}(!ig-\/>no\_signal)}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{/*\ restore\ the\ outside\ state\ */}}
+\DoxyCodeLine{00071\ \ \ \ \ sigaction(SIGPIPE,\ \&ig-\/>old\_pipe\_act,\ NULL);}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ for\ systems\ without\ sigaction\ */}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ sigpipe\_ignore(x,y)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ sigpipe\_restore(x)\ \ Curl\_nop\_stmt}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ SIGPIPE\_VARIABLE(x)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SIGPIPE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

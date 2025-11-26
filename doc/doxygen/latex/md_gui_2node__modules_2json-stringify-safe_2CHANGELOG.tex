@@ -1,0 +1,15 @@
+\chapter{Unreleased }
+\hypertarget{md_gui_2node__modules_2json-stringify-safe_2CHANGELOG}{}\label{md_gui_2node__modules_2json-stringify-safe_2CHANGELOG}\index{Unreleased@{Unreleased}}
+\label{md_gui_2node__modules_2json-stringify-safe_2CHANGELOG_autotoc_md971}%
+\Hypertarget{md_gui_2node__modules_2json-stringify-safe_2CHANGELOG_autotoc_md971}%
+
+
+
+\begin{DoxyItemize}
+\item Fixes stringify to only take ancestors into account when checking circularity. ~\newline
+ It previously assumed every visited object was circular which led to \href{https://github.com/isaacs/json-stringify-safe/issues/9}{\texttt{false positives}}. ~\newline
+ Uses the tiny serializer I wrote for \href{https://github.com/moll/js-must}{\texttt{Must.\+js}} a year and a half ago.
+\item Fixes calling the {\ttfamily replacer} function in the proper context ({\ttfamily this\+Arg}).
+\item Fixes calling the {\ttfamily cycle\+Replacer} function in the proper context ({\ttfamily this\+Arg}).
+\item Speeds serializing by a factor of Big-\/O(h-\/my-\/god-\/it-\/linearly-\/searched-\/every-\/object) it had ever seen. Searching only the ancestors for a circular references speeds up things considerably. 
+\end{DoxyItemize}

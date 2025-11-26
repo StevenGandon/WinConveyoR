@@ -1,0 +1,76 @@
+\doxysection{if2ip.\+h}
+\hypertarget{if2ip_8h_source}{}\label{if2ip_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/if2ip.h@{lib/libwconr/build/\_deps/curl-\/src/lib/if2ip.h}}
+\mbox{\hyperlink{if2ip_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_IF2IP\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_IF2IP\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ IPv6\ address\ scopes.\ */}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ IPV6\_SCOPE\_GLOBAL\ \ \ \ \ \ \ 0\ \ \ \ \ \ \ }\textcolor{comment}{/*\ Global\ scope.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ IPV6\_SCOPE\_LINKLOCAL\ \ \ \ 1\ \ \ \ \ \ \ }\textcolor{comment}{/*\ Link-\/local\ scope.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ IPV6\_SCOPE\_SITELOCAL\ \ \ \ 2\ \ \ \ \ \ \ }\textcolor{comment}{/*\ Site-\/local\ scope\ (deprecated).\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ IPV6\_SCOPE\_UNIQUELOCAL\ \ 3\ \ \ \ \ \ \ }\textcolor{comment}{/*\ Unique\ local\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ IPV6\_SCOPE\_NODELOCAL\ \ \ \ 4\ \ \ \ \ \ \ }\textcolor{comment}{/*\ Loopback.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_IPV6}}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{if2ip_8h_aa3ca1cb82ec8a22598e76e28b5b38cc7}{Curl\_ipv6\_scope}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ sockaddr\ *sa);}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ Curl\_ipv6\_scope(x)\ 0}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{if2ip_8h_a5b6d01fb9da7688daa9437b3628d83eea6f409d3c1e34d2b7c92a46d51e60405c}{IF2IP\_NOT\_FOUND}}\ =\ 0,\ \textcolor{comment}{/*\ Interface\ not\ found\ */}}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{if2ip_8h_a5b6d01fb9da7688daa9437b3628d83eea6389ed3ecbe54bc7bbe4fa60080b9eff}{IF2IP\_AF\_NOT\_SUPPORTED}}\ =\ 1,\ \textcolor{comment}{/*\ Int.\ exists\ but\ has\ no\ address\ for\ this\ af\ */}}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{if2ip_8h_a5b6d01fb9da7688daa9437b3628d83eeafa243304b615badc01baed1ef9ecf04d}{IF2IP\_FOUND}}\ =\ 2\ \textcolor{comment}{/*\ The\ address\ has\ been\ stored\ in\ "{}buf"{}\ */}}
+\DoxyCodeLine{00045\ \}\ \mbox{\hyperlink{if2ip_8h_a5b6d01fb9da7688daa9437b3628d83ee}{if2ip\_result\_t}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \mbox{\hyperlink{if2ip_8h_a5b6d01fb9da7688daa9437b3628d83ee}{if2ip\_result\_t}}\ \mbox{\hyperlink{if2ip_8h_a923d95e705ec228d89a524ceaa8d3b33}{Curl\_if2ip}}(\textcolor{keywordtype}{int}\ af,}
+\DoxyCodeLine{00048\ \#ifdef\ \mbox{\hyperlink{curl__config_8h_a7a1524cf833450776ffc81c38a78c370}{ENABLE\_IPV6}}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ remote\_scope,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ local\_scope\_id,}
+\DoxyCodeLine{00051\ \#endif}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *interf,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ buf\_size);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#ifdef\ \_\_INTERIX}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Nedelcho\ Stanev's\ work-\/around\ for\ SFU\ 3.0\ */}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }ifreq\ \{}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ IFNAMSIZ\ 16}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ IFHWADDRLEN\ 6}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{char}\ ifrn\_name[IFNAMSIZ];\ \textcolor{comment}{/*\ if\ name,\ e.g.\ "{}en0"{}\ */}}
+\DoxyCodeLine{00063\ \ \ \}\ ifr\_ifrn;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \textcolor{keyword}{struct\ }sockaddr\ ifru\_addr;}
+\DoxyCodeLine{00067\ \ \ \ \textcolor{keyword}{struct\ }sockaddr\ ifru\_broadaddr;}
+\DoxyCodeLine{00068\ \ \ \ \textcolor{keyword}{struct\ }sockaddr\ ifru\_netmask;}
+\DoxyCodeLine{00069\ \ \ \ \textcolor{keyword}{struct\ }sockaddr\ ifru\_hwaddr;}
+\DoxyCodeLine{00070\ \ \ \ \textcolor{keywordtype}{short}\ ifru\_flags;}
+\DoxyCodeLine{00071\ \ \ \ \textcolor{keywordtype}{int}\ ifru\_metric;}
+\DoxyCodeLine{00072\ \ \ \ \textcolor{keywordtype}{int}\ ifru\_mtu;}
+\DoxyCodeLine{00073\ \ \}\ ifr\_ifru;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{/*\ This\ define\ was\ added\ by\ Daniel\ to\ avoid\ an\ extra\ \#ifdef\ INTERIX\ in\ the}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ C\ code.\ */}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ ifr\_name\ ifr\_ifrn.ifrn\_name\ }\textcolor{comment}{/*\ interface\ name\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ ifr\_addr\ ifr\_ifru.ifru\_addr\ }\textcolor{comment}{/*\ address\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ ifr\_broadaddr\ ifr\_ifru.ifru\_broadaddr\ }\textcolor{comment}{/*\ broadcast\ address\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ifr\_netmask\ ifr\_ifru.ifru\_netmask\ }\textcolor{comment}{/*\ interface\ net\ mask\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ifr\_flags\ ifr\_ifru.ifru\_flags\ }\textcolor{comment}{/*\ flags\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ ifr\_hwaddr\ ifr\_ifru.ifru\_hwaddr\ }\textcolor{comment}{/*\ MAC\ address\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ifr\_metric\ ifr\_ifru.ifru\_metric\ }\textcolor{comment}{/*\ metric\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ifr\_mtu\ ifr\_ifru.ifru\_mtu\ }\textcolor{comment}{/*\ mtu\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ SIOCGIFADDR\ \_IOW('s',\ 102,\ struct\ ifreq)\ }\textcolor{comment}{/*\ Get\ if\ addr\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_INTERIX\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_IF2IP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,149 @@
+\doxysection{curl\+\_\+sasl.\+h}
+\hypertarget{curl__sasl_8h_source}{}\label{curl__sasl_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_sasl.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_sasl.h}}
+\mbox{\hyperlink{curl__sasl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SASL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SASL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bufref_8h}{bufref.h}}"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}};}
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ Authentication\ mechanism\ flags\ */}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_LOGIN\ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 0)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_PLAIN\ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 1)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_CRAM\_MD5\ \ \ \ \ \ \ \ \ \ (1\ <<\ 2)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_DIGEST\_MD5\ \ \ \ \ \ \ \ (1\ <<\ 3)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_GSSAPI\ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 4)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_EXTERNAL\ \ \ \ \ \ \ \ \ \ (1\ <<\ 5)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_NTLM\ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 6)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_XOAUTH2\ \ \ \ \ \ \ \ \ \ \ (1\ <<\ 7)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_OAUTHBEARER\ \ \ \ \ \ \ (1\ <<\ 8)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_SCRAM\_SHA\_1\ \ \ \ \ \ \ (1\ <<\ 9)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_SCRAM\_SHA\_256\ \ \ \ \ (1\ <<\ 10)}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ Authentication\ mechanism\ values\ */}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ SASL\_AUTH\_NONE\ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ SASL\_AUTH\_ANY\ \ \ \ \ \ \ \ \ \ \ 0xffff}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ SASL\_AUTH\_DEFAULT\ \ \ \ \ \ \ (SASL\_AUTH\_ANY\ \&\ \string~SASL\_MECH\_EXTERNAL)}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ Authentication\ mechanism\ strings\ */}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_LOGIN\ \ \ \ \ \ \ \ \ \ "{}LOGIN"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_PLAIN\ \ \ \ \ \ \ \ \ \ "{}PLAIN"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_CRAM\_MD5\ \ \ \ \ \ \ "{}CRAM-\/MD5"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_DIGEST\_MD5\ \ \ \ \ "{}DIGEST-\/MD5"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_GSSAPI\ \ \ \ \ \ \ \ \ "{}GSSAPI"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_EXTERNAL\ \ \ \ \ \ \ "{}EXTERNAL"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_NTLM\ \ \ \ \ \ \ \ \ \ \ "{}NTLM"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_XOAUTH2\ \ \ \ \ \ \ \ "{}XOAUTH2"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_OAUTHBEARER\ \ \ \ "{}OAUTHBEARER"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_SCRAM\_SHA\_1\ \ \ \ "{}SCRAM-\/SHA-\/1"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ SASL\_MECH\_STRING\_SCRAM\_SHA\_256\ \ "{}SCRAM-\/SHA-\/256"{}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ SASL\ flags\ */}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ SASL\_FLAG\_BASE64\ \ \ \ \ \ \ \ 0x0001\ \ }\textcolor{comment}{/*\ Messages\ are\ base64-\/encoded\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{/*\ SASL\ machine\ states\ */}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864eafa9623fa7e9c2d9747b0b68547cc6532}{SASL\_STOP}},}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea112375afe67e0061a592b294f6ba2fc0}{SASL\_PLAIN}},}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864eabf97a85bd3a07bbcaca264945e9d17df}{SASL\_LOGIN}},}
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea3991a17f1345f1cbde1fbbb4dcf9e4a3}{SASL\_LOGIN\_PASSWD}},}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864eaa6328812d343e73df4c1b74e5781680f}{SASL\_EXTERNAL}},}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea5da2a371ec8039f28ae70300dc3aa7a7}{SASL\_CRAMMD5}},}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea4c9a74664bceec9f532b7c46bce135c1}{SASL\_DIGESTMD5}},}
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea6502119e89d54ab8f6869cba4273041f}{SASL\_DIGESTMD5\_RESP}},}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea52d82bc75cc37b5a3e9cf6e704c6b4e7}{SASL\_NTLM}},}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea5248d4dfed2ab24d014b21e7ba9cc30e}{SASL\_NTLM\_TYPE2MSG}},}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea609dbeb6f42469ed403b4dd8c08aa073}{SASL\_GSSAPI}},}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea31f8ecf391e92716e5abd9934f1d3bc4}{SASL\_GSSAPI\_TOKEN}},}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea3a47ce1c964c986c467fda7cc628e059}{SASL\_GSSAPI\_NO\_DATA}},}
+\DoxyCodeLine{00083\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea459c8108eaabe3d2d112592010711609}{SASL\_OAUTH2}},}
+\DoxyCodeLine{00084\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864eaeca1d4e509edf9fc4b90c1e6c3d58111}{SASL\_OAUTH2\_RESP}},}
+\DoxyCodeLine{00085\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea5db484c49a402f0b18cea06350ff9ba3}{SASL\_GSASL}},}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea6ea00aaa3b6b9b9cab888146ad306e3f}{SASL\_CANCEL}},}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864ea3a0caa002499545c28ec76469dd2a38a}{SASL\_FINAL}}}
+\DoxyCodeLine{00088\ \}\ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864e}{saslstate}};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ Progress\ indicator\ */}}
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00092\ \ \ \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6ea17835c0cce72df2710536ee19b53ddb4}{SASL\_IDLE}},}
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6ea031a2f7c13d80a40be33526d4577c843}{SASL\_INPROGRESS}},}
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6ea1de9500c71f5d22637fce8b383c8cf19}{SASL\_DONE}}}
+\DoxyCodeLine{00095\ \}\ \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ Protocol\ dependent\ SASL\ parameters\ */}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSASLproto}{SASLproto}}\ \{}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structSASLproto_a044dc18fcdf85d2b0f811e1ef1aeb966}{service}};\ \ \ \ \ \textcolor{comment}{/*\ The\ service\ name\ */}}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structSASLproto_a8dbe230756a3a0fe3b282f44c8f6d9d4}{sendauth}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mech,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbufref}{bufref}}\ *ir);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Send\ authentication\ command\ */}}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structSASLproto_a223cbe6ee7af301bb899f072ec09d66a}{contauth}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mech,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbufref}{bufref}}\ *\mbox{\hyperlink{structSASLproto_a223cbe6ee7af301bb899f072ec09d66a}{contauth}});}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Send\ authentication\ continuation\ */}}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structSASLproto_a8c8b6cf2b53ae595032a663648d07b5e}{cancelauth}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mech);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Cancel\ authentication.\ */}}
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structSASLproto_ad34ec1dc73cf7319e43a14206750084e}{getmessage}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbufref}{bufref}}\ *out);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Get\ SASL\ response\ message\ */}}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structSASLproto_a776e5f26fddb8532cdccdd38c33268fa}{maxirlen}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Maximum\ initial\ response\ +\ mechanism\ length,}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ or\ zero\ if\ no\ max.\ This\ is\ normally\ the\ max}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ command\ length\ -\/\ other\ characters\ count.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ has\ to\ be\ zero\ for\ non-\/base64\ protocols.\ */}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structSASLproto_ad2fd94d7cf4e09793d8334502c031f1d}{contcode}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Code\ to\ receive\ when\ continuation\ is\ expected\ */}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structSASLproto_a02aae2a3ba58461ee126d369c0d39f12}{finalcode}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Code\ to\ receive\ upon\ authentication\ success\ */}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structSASLproto_a791b4e7416582485992c1f1b308e66fb}{defmechs}};\ \textcolor{comment}{/*\ Mechanisms\ enabled\ by\ default\ */}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structSASLproto_a05a737df7fd750abf39d6fcd44828b67}{flags}};\ \ \ \ \textcolor{comment}{/*\ Configuration\ flags.\ */}}
+\DoxyCodeLine{00118\ \};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{comment}{/*\ Per-\/connection\ parameters\ */}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSASL}{SASL}}\ \{}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSASLproto}{SASLproto}}\ *\mbox{\hyperlink{structSASL_adc9dab0def5d712a322d9043566e70eb}{params}};\ \textcolor{comment}{/*\ Protocol\ dependent\ parameters\ */}}
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864e}{saslstate}}\ \mbox{\hyperlink{structSASL_abb7f6dd3ee2d79a2d051857e852460f6}{state}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Current\ machine\ state\ */}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structSASL_ac3e343064f66a0e65087bcbcd70717c8}{curmech}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Current\ mechanism\ id.\ */}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structSASL_a41cb65d727e13ad4a0e51df509c790f9}{authmechs}};\ \ \textcolor{comment}{/*\ Accepted\ authentication\ mechanisms\ */}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structSASL_a57ed2c7eca5ae89bb2737b2ff354d9b8}{prefmech}};\ \ \ \textcolor{comment}{/*\ Preferred\ authentication\ mechanism\ */}}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structSASL_aa447b74f35a57ae922f55777c0ced0b5}{authused}};\ \ \ \textcolor{comment}{/*\ Auth\ mechanism\ used\ for\ the\ connection\ */}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structSASL_a516c52d54469755ed8b9122e0285b446}{resetprefs}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ For\ URL\ auth\ option\ parsing.\ */}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structSASL_a2541b54f8245a48e3c961dca99cafea7}{mutual\_auth}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Mutual\ authentication\ enabled\ (GSSAPI\ only)\ */}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structSASL_ac5d9f3bd0975e59584004793b6141998}{force\_ir}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Protocol\ always\ supports\ initial\ response\ */}}
+\DoxyCodeLine{00131\ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{/*\ This\ is\ used\ to\ test\ whether\ the\ line\ starts\ with\ the\ given\ mechanism\ */}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ sasl\_mech\_equal(line,\ wordlen,\ mech)\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ (wordlen\ ==\ (sizeof(mech)\ -\/\ 1)\ /\ sizeof(char)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ \ !memcmp(line,\ mech,\ wordlen))}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{/*\ This\ is\ used\ to\ cleanup\ any\ libraries\ or\ curl\ modules\ used\ by\ the\ sasl}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ functions\ */}}
+\DoxyCodeLine{00140\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{curl__sasl_8h_a23920fe73368fd982c70ca56465a901e}{Curl\_sasl\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ authused);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{comment}{/*\ Convert\ a\ mechanism\ name\ to\ a\ token\ */}}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{curl__sasl_8h_aa32be41a8a43dc8f1e2bbb513080add6}{Curl\_sasl\_decode\_mech}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ptr,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxlen,\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{/*\ Parse\ the\ URL\ login\ options\ */}}
+\DoxyCodeLine{00147\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__sasl_8h_af3a36e703adbfc9eb39cd3ff314f8a3d}{Curl\_sasl\_parse\_url\_auth\_option}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structSASL}{SASL}}\ *sasl,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*\ Initializes\ an\ SASL\ structure\ */}}
+\DoxyCodeLine{00151\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{curl__sasl_8h_a09ee68cf948da4baf26b2a4454ce631f}{Curl\_sasl\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structSASL}{SASL}}\ *sasl,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structSASLproto}{SASLproto}}\ *params);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{comment}{/*\ Check\ if\ we\ have\ enough\ auth\ data\ and\ capabilities\ to\ authenticate\ */}}
+\DoxyCodeLine{00155\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{curl__sasl_8h_a81a516e21b8a2e2a01bb4a2811b208dd}{Curl\_sasl\_can\_authenticate}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structSASL}{SASL}}\ *sasl,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ Calculate\ the\ required\ login\ details\ for\ SASL\ authentication\ \ */}}
+\DoxyCodeLine{00158\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__sasl_8h_af797525c79471dfb6b0dd69fe18a3555}{Curl\_sasl\_start}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structSASL}{SASL}}\ *sasl,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ force\_ir,\ \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}}\ *progress);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{comment}{/*\ Continue\ an\ SASL\ authentication\ \ */}}
+\DoxyCodeLine{00162\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__sasl_8h_af5b2980c9f89730c510e6460d6a5cade}{Curl\_sasl\_continue}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structSASL}{SASL}}\ *sasl,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ code,\ \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}}\ *progress);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SASL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

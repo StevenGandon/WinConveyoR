@@ -1,0 +1,746 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/vtls/vtls.h File Reference}
+\hypertarget{vtls_8h}{}\label{vtls_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/vtls.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/vtls.h}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}openssl.\+h"{}}\newline
+{\ttfamily \#include "{}gtls.\+h"{}}\newline
+{\ttfamily \#include "{}nssg.\+h"{}}\newline
+{\ttfamily \#include "{}gskit.\+h"{}}\newline
+{\ttfamily \#include "{}wolfssl.\+h"{}}\newline
+{\ttfamily \#include "{}schannel.\+h"{}}\newline
+{\ttfamily \#include "{}sectransp.\+h"{}}\newline
+{\ttfamily \#include "{}mbedtls.\+h"{}}\newline
+{\ttfamily \#include "{}bearssl.\+h"{}}\newline
+{\ttfamily \#include "{}rustls.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__ssl}{Curl\+\_\+ssl}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a25c48ad233afd4831acb0b0b699ed109}{SSLSUPP\+\_\+\+CA\+\_\+\+PATH}}~(1$<$$<$0) /\texorpdfstring{$\ast$}{*} supports CAPATH \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_af964d3e85b565ae20b4f85444b9b1619}{SSLSUPP\+\_\+\+CERTINFO}}~(1$<$$<$1) /\texorpdfstring{$\ast$}{*} supports CURLOPT\+\_\+\+CERTINFO \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a932726d4856765a766c86e3a3ed29a8f}{SSLSUPP\+\_\+\+PINNEDPUBKEY}}~(1$<$$<$2) /\texorpdfstring{$\ast$}{*} supports CURLOPT\+\_\+\+PINNEDPUBLICKEY \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a4ff8480c5307cec2506c039114624e1d}{SSLSUPP\+\_\+\+SSL\+\_\+\+CTX}}~(1$<$$<$3) /\texorpdfstring{$\ast$}{*} supports CURLOPT\+\_\+\+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_aa47defd1c2f78f3225dfc06c638c8689}{SSLSUPP\+\_\+\+HTTPS\+\_\+\+PROXY}}~(1$<$$<$4) /\texorpdfstring{$\ast$}{*} supports access via \mbox{\hyperlink{proto-redir_8d_acb126531deea27eaed2efc8f57ea3eaf}{HTTPS}} proxies \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a486d7ada0cb21188917be26be3d81483}{SSLSUPP\+\_\+\+TLS13\+\_\+\+CIPHERSUITES}}~(1$<$$<$5) /\texorpdfstring{$\ast$}{*} supports \mbox{\hyperlink{tls-max_8d_a6b687ce37ffda2688ec32918e4e05943}{TLS}} 1.\+3 ciphersuites \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a92db38471cf3811af6ad43d4465e2e93}{SSLSUPP\+\_\+\+CAINFO\+\_\+\+BLOB}}~(1$<$$<$6)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f}{ALPN\+\_\+\+ACCEPTED}}~"{}ALPN\+: \mbox{\hyperlink{etag-save_8d_a75078f351235f219a18d40b0a1403845}{server}} accepted "{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ac975862c425a02d8c08295a1d7aeae46}{VTLS\+\_\+\+INFOF\+\_\+\+NO\+\_\+\+ALPN}}~  "{}ALPN\+: \mbox{\hyperlink{etag-save_8d_a75078f351235f219a18d40b0a1403845}{server}} did not agree \mbox{\hyperlink{output_8d_a6a76cbf346d11ea9d44fb34b9207479e}{on}} a protocol. Uses default."{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a45abae91346b8f86332153c12fde2504}{VTLS\+\_\+\+INFOF\+\_\+\+ALPN\+\_\+\+OFFER\+\_\+1\+STR}}~  "{}ALPN\+: offers \%s"{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a059e6922fe2fa6d2e551625cf9958175}{VTLS\+\_\+\+INFOF\+\_\+\+ALPN\+\_\+\+ACCEPTED\+\_\+1\+STR}}~  \mbox{\hyperlink{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f}{ALPN\+\_\+\+ACCEPTED}} "{}\%s"{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a84d3bf73968e2eef1a8b327655e39b35}{VTLS\+\_\+\+INFOF\+\_\+\+ALPN\+\_\+\+ACCEPTED\+\_\+\+LEN\+\_\+1\+STR}}~  \mbox{\hyperlink{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f}{ALPN\+\_\+\+ACCEPTED}} "{}\%.\texorpdfstring{$\ast$}{*}s"{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ad41b64c4881c0ecdfd32c65344faa675}{MAX\+\_\+\+PINNED\+\_\+\+PUBKEY\+\_\+\+SIZE}}~1048576 /\texorpdfstring{$\ast$}{*} 1MB \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a92d73bed4c4dd74c727d2fff527182dc}{CURL\+\_\+\+SHA256\+\_\+\+DIGEST\+\_\+\+LENGTH}}~32 /\texorpdfstring{$\ast$}{*} fixed \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a9043fcf68904db7a0844fb55857bd482}{ALPN\+\_\+\+HTTP\+\_\+1\+\_\+1\+\_\+\+LENGTH}}~8
+\item 
+\#define \mbox{\hyperlink{vtls_8h_af8e5805a5e7df10119ca90c13a2b1a79}{ALPN\+\_\+\+HTTP\+\_\+1\+\_\+1}}~"{}http/1.\+1"{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_aabb32448dd91e9c12400f6966f7ffbd8}{ALPN\+\_\+\+H2\+\_\+\+LENGTH}}~2
+\item 
+\#define \mbox{\hyperlink{vtls_8h_aee4606a489d019645f15f7f0f7ebe0fd}{ALPN\+\_\+\+H2}}~"{}h2"{}
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\+\_\+\+IS\+\_\+\+PROXY}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a6d4d2d806ff1ab1428629b690f02e964}{SSL\+\_\+\+SET\+\_\+\+OPTION}}(var)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ae4c3dab32e24d492185dd3fcc0041e69}{SSL\+\_\+\+SET\+\_\+\+OPTION\+\_\+\+LVALUE}}(var)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a594e132ba0c0e860b62140083ead1c0d}{SSL\+\_\+\+CONN\+\_\+\+CONFIG}}(var)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a820bf554c406cff0e292820363e0400a}{SSL\+\_\+\+HOST\+\_\+\+NAME}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ac07d2439c770818886ad3dcbbb68536c}{SSL\+\_\+\+HOST\+\_\+\+DISPNAME}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a45582d78d4bcc38c8cc0264a6504a38e}{SSL\+\_\+\+HOST\+\_\+\+PORT}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a1b23ffbbb6031e305ac6da1780e2de2b}{SSL\+\_\+\+PINNED\+\_\+\+PUB\+\_\+\+KEY}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_abbbadc98add94562999814ac8d7298a8}{Curl\+\_\+ssl\+\_\+init}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a8b77e1da26e4c27161d4701d268d2056}{Curl\+\_\+ssl\+\_\+cleanup}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a173cb9e2114026fbd5cf503b60516271}{Curl\+\_\+ssl\+\_\+connect}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a396bfd7b7888300739b9c3b323ab0907}{Curl\+\_\+ssl\+\_\+close\+\_\+all}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a23dabd80c10affeb83e10dc98d22518d}{Curl\+\_\+ssl\+\_\+close}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a8ee7c84c0eac50156d94d57dbc9d15ac}{Curl\+\_\+ssl\+\_\+shutdown}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a392119b7e5b7e3cc074654c88c102025}{Curl\+\_\+ssl\+\_\+set\+\_\+engine}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a87cb30101b924de437acfb2520a35f70}{Curl\+\_\+ssl\+\_\+set\+\_\+engine\+\_\+default}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{vtls_8h_aa49025b2e48d587fb3852f2abd2e4be6}{Curl\+\_\+ssl\+\_\+engines\+\_\+list}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{vtls_8h_af6b4d8c01fa3a4cb45b46a45c8990240}{Curl\+\_\+ssl\+\_\+send}}(a,  b,  c,  d,  e)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_af554073e37d72f4570d81f4decf3f8b3}{Curl\+\_\+ssl\+\_\+recv}}(a,  b,  c,  d,  e)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a646fd2a8d6796d8ff481bffc36b371d5}{Curl\+\_\+ssl\+\_\+initsessions}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ac50ee79a0869be9ea58bda0388abde58}{Curl\+\_\+ssl\+\_\+data\+\_\+pending}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a82bbffffb6866ede7a554960f09690ea}{Curl\+\_\+ssl\+\_\+check\+\_\+cxn}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{vtls_8h_aa4cc853c97440333b00f76f160b3af50}{Curl\+\_\+ssl\+\_\+free\+\_\+certinfo}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ab2ba5d2b7b120fd43fc2de1a6caac026}{Curl\+\_\+ssl\+\_\+connect\+\_\+nonblocking}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z,  w,  a)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a93fc7815a67581a10af46e077c24cb79}{Curl\+\_\+ssl\+\_\+kill\+\_\+session}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{vtls_8h_aeec761b6ce10b474ec609a3336177da7}{Curl\+\_\+ssl\+\_\+random}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_af7010b022a42f4fd9f6fc7d568fc3a03}{Curl\+\_\+ssl\+\_\+cert\+\_\+status\+\_\+request}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_ad3a3e43e2c5ff47cf4ea6592a70feaf0}{Curl\+\_\+ssl\+\_\+false\+\_\+start}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a02ca5f1341dc43cd1ce5c8531fffea07}{Curl\+\_\+ssl\+\_\+tls13\+\_\+ciphersuites}}()
+\item 
+\#define \mbox{\hyperlink{vtls_8h_a5378a6ef203d23c813d5e98ee9f642d9}{Curl\+\_\+ssl\+\_\+associate\+\_\+conn}}(a,  b)
+\item 
+\#define \mbox{\hyperlink{vtls_8h_af674d8628f6ae0fddefe9cc123646dd0}{Curl\+\_\+ssl\+\_\+detach\+\_\+conn}}(a,  b)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{vtls_8h_a9fe9fd14fbe2d9fc29d582a6c4ed0f83}{Curl\+\_\+none\+\_\+init}} (void)
+\item 
+void \mbox{\hyperlink{vtls_8h_ab751ac92e09399d2e4edae147629770a}{Curl\+\_\+none\+\_\+cleanup}} (void)
+\item 
+int \mbox{\hyperlink{vtls_8h_a1928a9d4cd569820951422daae0f0975}{Curl\+\_\+none\+\_\+shutdown}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int sockindex)
+\item 
+int \mbox{\hyperlink{vtls_8h_a9076c5bbae2cb8510d32eb97d8bce277}{Curl\+\_\+none\+\_\+check\+\_\+cxn}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{vtls_8h_a04e21d561123bc29f2e018c260ede891}{Curl\+\_\+none\+\_\+random}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, unsigned char \texorpdfstring{$\ast$}{*}entropy, size\+\_\+t length)
+\item 
+void \mbox{\hyperlink{vtls_8h_a054a6a646a0108d8f91a503d31a21671}{Curl\+\_\+none\+\_\+close\+\_\+all}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{vtls_8h_abd2be2ec8895660c6eb7e124cfac438e}{Curl\+\_\+none\+\_\+session\+\_\+free}} (void \texorpdfstring{$\ast$}{*}ptr)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8h_aba5f776941608a9d5c44fd0b422b1862}{Curl\+\_\+none\+\_\+data\+\_\+pending}} (const struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int connindex)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8h_afd63787510a375221ab2aba491ef2073}{Curl\+\_\+none\+\_\+cert\+\_\+status\+\_\+request}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{vtls_8h_a7ccc438dc80065afa61534a12f49716b}{Curl\+\_\+none\+\_\+set\+\_\+engine}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}engine)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{vtls_8h_a06f0fb1d7887e2395f579c430c55e9da}{Curl\+\_\+none\+\_\+set\+\_\+engine\+\_\+default}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vtls_8h_aa91dd78c15bfba88e2b56fe5bd1ded0a}{Curl\+\_\+none\+\_\+engines\+\_\+list}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8h_a0a1d6e1d64672ae38b75216a44d08641}{Curl\+\_\+none\+\_\+false\+\_\+start}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}} \mbox{\hyperlink{vtls_8h_a9c423b871a6919651bb6952babedd112}{Curl\+\_\+init\+\_\+sslset\+\_\+nolock}} (\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} id, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, const \mbox{\hyperlink{structcurl__ssl__backend}{curl\+\_\+ssl\+\_\+backend}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}avail)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vtls_8h_a87190b2b318de6675161240578bab855}{Curl\+\_\+ssl\+\_\+snihost}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, size\+\_\+t \texorpdfstring{$\ast$}{*}olen)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8h_a20030f6c13c9de65950bb8cac1bfb0f9}{Curl\+\_\+ssl\+\_\+config\+\_\+matches}} (struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}needle)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8h_a9468007b0049e63d8dac0a8096beb0c4}{Curl\+\_\+clone\+\_\+primary\+\_\+ssl\+\_\+config}} (struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}source, struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}dest)
+\item 
+void \mbox{\hyperlink{vtls_8h_a5f50ad085ea4993229348232d4719407}{Curl\+\_\+free\+\_\+primary\+\_\+ssl\+\_\+config}} (struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}sslc)
+\item 
+int \mbox{\hyperlink{vtls_8h_a699212e837a91a0d657e7a674256cf12}{Curl\+\_\+ssl\+\_\+getsock}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} \mbox{\hyperlink{vtls_8h_a3c94a4a4ab36486ee22e5a03c1677b9a}{Curl\+\_\+ssl\+\_\+backend}} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{vtls_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f}\index{vtls.h@{vtls.h}!ALPN\_ACCEPTED@{ALPN\_ACCEPTED}}
+\index{ALPN\_ACCEPTED@{ALPN\_ACCEPTED}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{ALPN\_ACCEPTED}{ALPN\_ACCEPTED}}
+{\footnotesize\ttfamily \label{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f} 
+\#define ALPN\+\_\+\+ACCEPTED~"{}ALPN\+: \mbox{\hyperlink{etag-save_8d_a75078f351235f219a18d40b0a1403845}{server}} accepted "{}}
+
+\Hypertarget{vtls_8h_aee4606a489d019645f15f7f0f7ebe0fd}\index{vtls.h@{vtls.h}!ALPN\_H2@{ALPN\_H2}}
+\index{ALPN\_H2@{ALPN\_H2}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{ALPN\_H2}{ALPN\_H2}}
+{\footnotesize\ttfamily \label{vtls_8h_aee4606a489d019645f15f7f0f7ebe0fd} 
+\#define ALPN\+\_\+\+H2~"{}h2"{}}
+
+\Hypertarget{vtls_8h_aabb32448dd91e9c12400f6966f7ffbd8}\index{vtls.h@{vtls.h}!ALPN\_H2\_LENGTH@{ALPN\_H2\_LENGTH}}
+\index{ALPN\_H2\_LENGTH@{ALPN\_H2\_LENGTH}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{ALPN\_H2\_LENGTH}{ALPN\_H2\_LENGTH}}
+{\footnotesize\ttfamily \label{vtls_8h_aabb32448dd91e9c12400f6966f7ffbd8} 
+\#define ALPN\+\_\+\+H2\+\_\+\+LENGTH~2}
+
+\Hypertarget{vtls_8h_af8e5805a5e7df10119ca90c13a2b1a79}\index{vtls.h@{vtls.h}!ALPN\_HTTP\_1\_1@{ALPN\_HTTP\_1\_1}}
+\index{ALPN\_HTTP\_1\_1@{ALPN\_HTTP\_1\_1}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{ALPN\_HTTP\_1\_1}{ALPN\_HTTP\_1\_1}}
+{\footnotesize\ttfamily \label{vtls_8h_af8e5805a5e7df10119ca90c13a2b1a79} 
+\#define ALPN\+\_\+\+HTTP\+\_\+1\+\_\+1~"{}http/1.\+1"{}}
+
+\Hypertarget{vtls_8h_a9043fcf68904db7a0844fb55857bd482}\index{vtls.h@{vtls.h}!ALPN\_HTTP\_1\_1\_LENGTH@{ALPN\_HTTP\_1\_1\_LENGTH}}
+\index{ALPN\_HTTP\_1\_1\_LENGTH@{ALPN\_HTTP\_1\_1\_LENGTH}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{ALPN\_HTTP\_1\_1\_LENGTH}{ALPN\_HTTP\_1\_1\_LENGTH}}
+{\footnotesize\ttfamily \label{vtls_8h_a9043fcf68904db7a0844fb55857bd482} 
+\#define ALPN\+\_\+\+HTTP\+\_\+1\+\_\+1\+\_\+\+LENGTH~8}
+
+\Hypertarget{vtls_8h_a92d73bed4c4dd74c727d2fff527182dc}\index{vtls.h@{vtls.h}!CURL\_SHA256\_DIGEST\_LENGTH@{CURL\_SHA256\_DIGEST\_LENGTH}}
+\index{CURL\_SHA256\_DIGEST\_LENGTH@{CURL\_SHA256\_DIGEST\_LENGTH}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{CURL\_SHA256\_DIGEST\_LENGTH}{CURL\_SHA256\_DIGEST\_LENGTH}}
+{\footnotesize\ttfamily \label{vtls_8h_a92d73bed4c4dd74c727d2fff527182dc} 
+\#define CURL\+\_\+\+SHA256\+\_\+\+DIGEST\+\_\+\+LENGTH~32 /\texorpdfstring{$\ast$}{*} fixed \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a5378a6ef203d23c813d5e98ee9f642d9}\index{vtls.h@{vtls.h}!Curl\_ssl\_associate\_conn@{Curl\_ssl\_associate\_conn}}
+\index{Curl\_ssl\_associate\_conn@{Curl\_ssl\_associate\_conn}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_associate\_conn}{Curl\_ssl\_associate\_conn}}
+{\footnotesize\ttfamily \label{vtls_8h_a5378a6ef203d23c813d5e98ee9f642d9} 
+\#define Curl\+\_\+ssl\+\_\+associate\+\_\+conn(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_af7010b022a42f4fd9f6fc7d568fc3a03}\index{vtls.h@{vtls.h}!Curl\_ssl\_cert\_status\_request@{Curl\_ssl\_cert\_status\_request}}
+\index{Curl\_ssl\_cert\_status\_request@{Curl\_ssl\_cert\_status\_request}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_cert\_status\_request}{Curl\_ssl\_cert\_status\_request}}
+{\footnotesize\ttfamily \label{vtls_8h_af7010b022a42f4fd9f6fc7d568fc3a03} 
+\#define Curl\+\_\+ssl\+\_\+cert\+\_\+status\+\_\+request(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FALSE}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a82bbffffb6866ede7a554960f09690ea}\index{vtls.h@{vtls.h}!Curl\_ssl\_check\_cxn@{Curl\_ssl\_check\_cxn}}
+\index{Curl\_ssl\_check\_cxn@{Curl\_ssl\_check\_cxn}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_check\_cxn}{Curl\_ssl\_check\_cxn}}
+{\footnotesize\ttfamily \label{vtls_8h_a82bbffffb6866ede7a554960f09690ea} 
+\#define Curl\+\_\+ssl\+\_\+check\+\_\+cxn(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{0}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a8b77e1da26e4c27161d4701d268d2056}\index{vtls.h@{vtls.h}!Curl\_ssl\_cleanup@{Curl\_ssl\_cleanup}}
+\index{Curl\_ssl\_cleanup@{Curl\_ssl\_cleanup}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_cleanup}{Curl\_ssl\_cleanup}}
+{\footnotesize\ttfamily \label{vtls_8h_a8b77e1da26e4c27161d4701d268d2056} 
+\#define Curl\+\_\+ssl\+\_\+cleanup(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a23dabd80c10affeb83e10dc98d22518d}\index{vtls.h@{vtls.h}!Curl\_ssl\_close@{Curl\_ssl\_close}}
+\index{Curl\_ssl\_close@{Curl\_ssl\_close}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_close}{Curl\_ssl\_close}}
+{\footnotesize\ttfamily \label{vtls_8h_a23dabd80c10affeb83e10dc98d22518d} 
+\#define Curl\+\_\+ssl\+\_\+close(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a396bfd7b7888300739b9c3b323ab0907}\index{vtls.h@{vtls.h}!Curl\_ssl\_close\_all@{Curl\_ssl\_close\_all}}
+\index{Curl\_ssl\_close\_all@{Curl\_ssl\_close\_all}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_close\_all}{Curl\_ssl\_close\_all}}
+{\footnotesize\ttfamily \label{vtls_8h_a396bfd7b7888300739b9c3b323ab0907} 
+\#define Curl\+\_\+ssl\+\_\+close\+\_\+all(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a173cb9e2114026fbd5cf503b60516271}\index{vtls.h@{vtls.h}!Curl\_ssl\_connect@{Curl\_ssl\_connect}}
+\index{Curl\_ssl\_connect@{Curl\_ssl\_connect}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_connect}{Curl\_ssl\_connect}}
+{\footnotesize\ttfamily \label{vtls_8h_a173cb9e2114026fbd5cf503b60516271} 
+\#define Curl\+\_\+ssl\+\_\+connect(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}}}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ab2ba5d2b7b120fd43fc2de1a6caac026}\index{vtls.h@{vtls.h}!Curl\_ssl\_connect\_nonblocking@{Curl\_ssl\_connect\_nonblocking}}
+\index{Curl\_ssl\_connect\_nonblocking@{Curl\_ssl\_connect\_nonblocking}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_connect\_nonblocking}{Curl\_ssl\_connect\_nonblocking}}
+{\footnotesize\ttfamily \label{vtls_8h_ab2ba5d2b7b120fd43fc2de1a6caac026} 
+\#define Curl\+\_\+ssl\+\_\+connect\+\_\+nonblocking(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{, }\item[{}]{w}{, }\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}}}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ac50ee79a0869be9ea58bda0388abde58}\index{vtls.h@{vtls.h}!Curl\_ssl\_data\_pending@{Curl\_ssl\_data\_pending}}
+\index{Curl\_ssl\_data\_pending@{Curl\_ssl\_data\_pending}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_data\_pending}{Curl\_ssl\_data\_pending}}
+{\footnotesize\ttfamily \label{vtls_8h_ac50ee79a0869be9ea58bda0388abde58} 
+\#define Curl\+\_\+ssl\+\_\+data\+\_\+pending(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{0}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_af674d8628f6ae0fddefe9cc123646dd0}\index{vtls.h@{vtls.h}!Curl\_ssl\_detach\_conn@{Curl\_ssl\_detach\_conn}}
+\index{Curl\_ssl\_detach\_conn@{Curl\_ssl\_detach\_conn}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_detach\_conn}{Curl\_ssl\_detach\_conn}}
+{\footnotesize\ttfamily \label{vtls_8h_af674d8628f6ae0fddefe9cc123646dd0} 
+\#define Curl\+\_\+ssl\+\_\+detach\+\_\+conn(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_aa49025b2e48d587fb3852f2abd2e4be6}\index{vtls.h@{vtls.h}!Curl\_ssl\_engines\_list@{Curl\_ssl\_engines\_list}}
+\index{Curl\_ssl\_engines\_list@{Curl\_ssl\_engines\_list}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_engines\_list}{Curl\_ssl\_engines\_list}}
+{\footnotesize\ttfamily \label{vtls_8h_aa49025b2e48d587fb3852f2abd2e4be6} 
+\#define Curl\+\_\+ssl\+\_\+engines\+\_\+list(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{NULL}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ad3a3e43e2c5ff47cf4ea6592a70feaf0}\index{vtls.h@{vtls.h}!Curl\_ssl\_false\_start@{Curl\_ssl\_false\_start}}
+\index{Curl\_ssl\_false\_start@{Curl\_ssl\_false\_start}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_false\_start}{Curl\_ssl\_false\_start}}
+{\footnotesize\ttfamily \label{vtls_8h_ad3a3e43e2c5ff47cf4ea6592a70feaf0} 
+\#define Curl\+\_\+ssl\+\_\+false\+\_\+start(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FALSE}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_aa4cc853c97440333b00f76f160b3af50}\index{vtls.h@{vtls.h}!Curl\_ssl\_free\_certinfo@{Curl\_ssl\_free\_certinfo}}
+\index{Curl\_ssl\_free\_certinfo@{Curl\_ssl\_free\_certinfo}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_free\_certinfo}{Curl\_ssl\_free\_certinfo}}
+{\footnotesize\ttfamily \label{vtls_8h_aa4cc853c97440333b00f76f160b3af50} 
+\#define Curl\+\_\+ssl\+\_\+free\+\_\+certinfo(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_abbbadc98add94562999814ac8d7298a8}\index{vtls.h@{vtls.h}!Curl\_ssl\_init@{Curl\_ssl\_init}}
+\index{Curl\_ssl\_init@{Curl\_ssl\_init}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_init}{Curl\_ssl\_init}}
+{\footnotesize\ttfamily \label{vtls_8h_abbbadc98add94562999814ac8d7298a8} 
+\#define Curl\+\_\+ssl\+\_\+init(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a646fd2a8d6796d8ff481bffc36b371d5}\index{vtls.h@{vtls.h}!Curl\_ssl\_initsessions@{Curl\_ssl\_initsessions}}
+\index{Curl\_ssl\_initsessions@{Curl\_ssl\_initsessions}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_initsessions}{Curl\_ssl\_initsessions}}
+{\footnotesize\ttfamily \label{vtls_8h_a646fd2a8d6796d8ff481bffc36b371d5} 
+\#define Curl\+\_\+ssl\+\_\+initsessions(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951af2fb280cf805aa199f6b63a2a27c318b}{CURLE\_OK}}}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a93fc7815a67581a10af46e077c24cb79}\index{vtls.h@{vtls.h}!Curl\_ssl\_kill\_session@{Curl\_ssl\_kill\_session}}
+\index{Curl\_ssl\_kill\_session@{Curl\_ssl\_kill\_session}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_kill\_session}{Curl\_ssl\_kill\_session}}
+{\footnotesize\ttfamily \label{vtls_8h_a93fc7815a67581a10af46e077c24cb79} 
+\#define Curl\+\_\+ssl\+\_\+kill\+\_\+session(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_aeec761b6ce10b474ec609a3336177da7}\index{vtls.h@{vtls.h}!Curl\_ssl\_random@{Curl\_ssl\_random}}
+\index{Curl\_ssl\_random@{Curl\_ssl\_random}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_random}{Curl\_ssl\_random}}
+{\footnotesize\ttfamily \label{vtls_8h_aeec761b6ce10b474ec609a3336177da7} 
+\#define Curl\+\_\+ssl\+\_\+random(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((void)\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}})}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_af554073e37d72f4570d81f4decf3f8b3}\index{vtls.h@{vtls.h}!Curl\_ssl\_recv@{Curl\_ssl\_recv}}
+\index{Curl\_ssl\_recv@{Curl\_ssl\_recv}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_recv}{Curl\_ssl\_recv}}
+{\footnotesize\ttfamily \label{vtls_8h_af554073e37d72f4570d81f4decf3f8b3} 
+\#define Curl\+\_\+ssl\+\_\+recv(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{c}{, }\item[{}]{d}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/1}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_af6b4d8c01fa3a4cb45b46a45c8990240}\index{vtls.h@{vtls.h}!Curl\_ssl\_send@{Curl\_ssl\_send}}
+\index{Curl\_ssl\_send@{Curl\_ssl\_send}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_send}{Curl\_ssl\_send}}
+{\footnotesize\ttfamily \label{vtls_8h_af6b4d8c01fa3a4cb45b46a45c8990240} 
+\#define Curl\+\_\+ssl\+\_\+send(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{c}{, }\item[{}]{d}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/1}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a392119b7e5b7e3cc074654c88c102025}\index{vtls.h@{vtls.h}!Curl\_ssl\_set\_engine@{Curl\_ssl\_set\_engine}}
+\index{Curl\_ssl\_set\_engine@{Curl\_ssl\_set\_engine}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_set\_engine}{Curl\_ssl\_set\_engine}}
+{\footnotesize\ttfamily \label{vtls_8h_a392119b7e5b7e3cc074654c88c102025} 
+\#define Curl\+\_\+ssl\+\_\+set\+\_\+engine(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}}}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a87cb30101b924de437acfb2520a35f70}\index{vtls.h@{vtls.h}!Curl\_ssl\_set\_engine\_default@{Curl\_ssl\_set\_engine\_default}}
+\index{Curl\_ssl\_set\_engine\_default@{Curl\_ssl\_set\_engine\_default}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_set\_engine\_default}{Curl\_ssl\_set\_engine\_default}}
+{\footnotesize\ttfamily \label{vtls_8h_a87cb30101b924de437acfb2520a35f70} 
+\#define Curl\+\_\+ssl\+\_\+set\+\_\+engine\+\_\+default(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}}}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a8ee7c84c0eac50156d94d57dbc9d15ac}\index{vtls.h@{vtls.h}!Curl\_ssl\_shutdown@{Curl\_ssl\_shutdown}}
+\index{Curl\_ssl\_shutdown@{Curl\_ssl\_shutdown}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_shutdown}{Curl\_ssl\_shutdown}}
+{\footnotesize\ttfamily \label{vtls_8h_a8ee7c84c0eac50156d94d57dbc9d15ac} 
+\#define Curl\+\_\+ssl\+\_\+shutdown(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}}}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a02ca5f1341dc43cd1ce5c8531fffea07}\index{vtls.h@{vtls.h}!Curl\_ssl\_tls13\_ciphersuites@{Curl\_ssl\_tls13\_ciphersuites}}
+\index{Curl\_ssl\_tls13\_ciphersuites@{Curl\_ssl\_tls13\_ciphersuites}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_tls13\_ciphersuites}{Curl\_ssl\_tls13\_ciphersuites}}
+{\footnotesize\ttfamily \label{vtls_8h_a02ca5f1341dc43cd1ce5c8531fffea07} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+ssl\+\_\+tls13\+\_\+ciphersuites(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FALSE}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ad41b64c4881c0ecdfd32c65344faa675}\index{vtls.h@{vtls.h}!MAX\_PINNED\_PUBKEY\_SIZE@{MAX\_PINNED\_PUBKEY\_SIZE}}
+\index{MAX\_PINNED\_PUBKEY\_SIZE@{MAX\_PINNED\_PUBKEY\_SIZE}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_PINNED\_PUBKEY\_SIZE}{MAX\_PINNED\_PUBKEY\_SIZE}}
+{\footnotesize\ttfamily \label{vtls_8h_ad41b64c4881c0ecdfd32c65344faa675} 
+\#define MAX\+\_\+\+PINNED\+\_\+\+PUBKEY\+\_\+\+SIZE~1048576 /\texorpdfstring{$\ast$}{*} 1MB \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a594e132ba0c0e860b62140083ead1c0d}\index{vtls.h@{vtls.h}!SSL\_CONN\_CONFIG@{SSL\_CONN\_CONFIG}}
+\index{SSL\_CONN\_CONFIG@{SSL\_CONN\_CONFIG}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_CONN\_CONFIG}{SSL\_CONN\_CONFIG}}
+{\footnotesize\ttfamily \label{vtls_8h_a594e132ba0c0e860b62140083ead1c0d} 
+\#define SSL\+\_\+\+CONN\+\_\+\+CONFIG(\begin{DoxyParamCaption}\item[{}]{var}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ ?\ conn-\/>proxy\_ssl\_config.var\ :\ conn-\/>ssl\_config.var)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ac07d2439c770818886ad3dcbbb68536c}\index{vtls.h@{vtls.h}!SSL\_HOST\_DISPNAME@{SSL\_HOST\_DISPNAME}}
+\index{SSL\_HOST\_DISPNAME@{SSL\_HOST\_DISPNAME}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_HOST\_DISPNAME}{SSL\_HOST\_DISPNAME}}
+{\footnotesize\ttfamily \label{vtls_8h_ac07d2439c770818886ad3dcbbb68536c} 
+\#define SSL\+\_\+\+HOST\+\_\+\+DISPNAME(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ ?\ conn-\/>http\_proxy.host.dispname\ :\ conn-\/>host.dispname)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a820bf554c406cff0e292820363e0400a}\index{vtls.h@{vtls.h}!SSL\_HOST\_NAME@{SSL\_HOST\_NAME}}
+\index{SSL\_HOST\_NAME@{SSL\_HOST\_NAME}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_HOST\_NAME}{SSL\_HOST\_NAME}}
+{\footnotesize\ttfamily \label{vtls_8h_a820bf554c406cff0e292820363e0400a} 
+\#define SSL\+\_\+\+HOST\+\_\+\+NAME(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ ?\ conn-\/>http\_proxy.host.name\ :\ conn-\/>host.name)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a45582d78d4bcc38c8cc0264a6504a38e}\index{vtls.h@{vtls.h}!SSL\_HOST\_PORT@{SSL\_HOST\_PORT}}
+\index{SSL\_HOST\_PORT@{SSL\_HOST\_PORT}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_HOST\_PORT}{SSL\_HOST\_PORT}}
+{\footnotesize\ttfamily \label{vtls_8h_a45582d78d4bcc38c8cc0264a6504a38e} 
+\#define SSL\+\_\+\+HOST\+\_\+\+PORT(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ ?\ conn-\/>port\ :\ conn-\/>remote\_port)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ad333981ba88648c413730d21d5418405}\index{vtls.h@{vtls.h}!SSL\_IS\_PROXY@{SSL\_IS\_PROXY}}
+\index{SSL\_IS\_PROXY@{SSL\_IS\_PROXY}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_IS\_PROXY}{SSL\_IS\_PROXY}}
+{\footnotesize\ttfamily \label{vtls_8h_ad333981ba88648c413730d21d5418405} 
+\#define SSL\+\_\+\+IS\+\_\+\+PROXY(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{curl_8h_a8ebcd4e614f222aca6352ad5052634f8ae118261fbb43ab332f00f65574d08ec9}{CURLPROXY\_HTTPS}}\ ==\ conn-\/>http\_proxy.proxytype\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{urldata_8h_a2ea01ebd139c38e2285c7d2e17a2683fa88a671c415a487b02dbfd68cea24f98c}{ssl\_connection\_complete}}\ !=\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ conn-\/>proxy\_ssl[conn-\/>sock[\mbox{\hyperlink{urldata_8h_ac1138557ffc9ee3a520805205b76daee}{SECONDARYSOCKET}}]\ ==\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_ada0bbe252b7b370ef4e135b93b2fe71e}{CURL\_SOCKET\_BAD}}\ ?\ \mbox{\hyperlink{urldata_8h_a56b23efdd8d04b0179b52224a251bcb7}{FIRSTSOCKET}}\ :\ \mbox{\hyperlink{urldata_8h_ac1138557ffc9ee3a520805205b76daee}{SECONDARYSOCKET}}].state)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a1b23ffbbb6031e305ac6da1780e2de2b}\index{vtls.h@{vtls.h}!SSL\_PINNED\_PUB\_KEY@{SSL\_PINNED\_PUB\_KEY}}
+\index{SSL\_PINNED\_PUB\_KEY@{SSL\_PINNED\_PUB\_KEY}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_PINNED\_PUB\_KEY}{SSL\_PINNED\_PUB\_KEY}}
+{\footnotesize\ttfamily \label{vtls_8h_a1b23ffbbb6031e305ac6da1780e2de2b} 
+\#define SSL\+\_\+\+PINNED\+\_\+\+PUB\+\_\+\+KEY(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ ?\ \mbox{\hyperlink{structdata}{data}}-\/>set.str[\mbox{\hyperlink{urldata_8h_a9607658ec977f6ca435daf26b82f6b3fa85af043a41434c1b4f439fb89d5c9047}{STRING\_SSL\_PINNEDPUBLICKEY\_PROXY}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ :\ \mbox{\hyperlink{structdata}{data}}-\/>set.str[\mbox{\hyperlink{urldata_8h_a9607658ec977f6ca435daf26b82f6b3faa8d6d2e307cec5dc5ed998c4985d2981}{STRING\_SSL\_PINNEDPUBLICKEY}}])}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a6d4d2d806ff1ab1428629b690f02e964}\index{vtls.h@{vtls.h}!SSL\_SET\_OPTION@{SSL\_SET\_OPTION}}
+\index{SSL\_SET\_OPTION@{SSL\_SET\_OPTION}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_SET\_OPTION}{SSL\_SET\_OPTION}}
+{\footnotesize\ttfamily \label{vtls_8h_a6d4d2d806ff1ab1428629b690f02e964} 
+\#define SSL\+\_\+\+SET\+\_\+\+OPTION(\begin{DoxyParamCaption}\item[{}]{var}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ ?\ \mbox{\hyperlink{structdata}{data}}-\/>set.proxy\_ssl.var\ :\ \mbox{\hyperlink{structdata}{data}}-\/>set.ssl.var)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_ae4c3dab32e24d492185dd3fcc0041e69}\index{vtls.h@{vtls.h}!SSL\_SET\_OPTION\_LVALUE@{SSL\_SET\_OPTION\_LVALUE}}
+\index{SSL\_SET\_OPTION\_LVALUE@{SSL\_SET\_OPTION\_LVALUE}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSL\_SET\_OPTION\_LVALUE}{SSL\_SET\_OPTION\_LVALUE}}
+{\footnotesize\ttfamily \label{vtls_8h_ae4c3dab32e24d492185dd3fcc0041e69} 
+\#define SSL\+\_\+\+SET\+\_\+\+OPTION\+\_\+\+LVALUE(\begin{DoxyParamCaption}\item[{}]{var}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (*(\mbox{\hyperlink{vtls_8h_ad333981ba88648c413730d21d5418405}{SSL\_IS\_PROXY}}()\ ?\ \&\mbox{\hyperlink{structdata}{data}}-\/>set.proxy\_ssl.var\ :\ \&\mbox{\hyperlink{structdata}{data}}-\/>set.ssl.var))}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8h_a25c48ad233afd4831acb0b0b699ed109}\index{vtls.h@{vtls.h}!SSLSUPP\_CA\_PATH@{SSLSUPP\_CA\_PATH}}
+\index{SSLSUPP\_CA\_PATH@{SSLSUPP\_CA\_PATH}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_CA\_PATH}{SSLSUPP\_CA\_PATH}}
+{\footnotesize\ttfamily \label{vtls_8h_a25c48ad233afd4831acb0b0b699ed109} 
+\#define SSLSUPP\+\_\+\+CA\+\_\+\+PATH~(1$<$$<$0) /\texorpdfstring{$\ast$}{*} supports CAPATH \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a92db38471cf3811af6ad43d4465e2e93}\index{vtls.h@{vtls.h}!SSLSUPP\_CAINFO\_BLOB@{SSLSUPP\_CAINFO\_BLOB}}
+\index{SSLSUPP\_CAINFO\_BLOB@{SSLSUPP\_CAINFO\_BLOB}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_CAINFO\_BLOB}{SSLSUPP\_CAINFO\_BLOB}}
+{\footnotesize\ttfamily \label{vtls_8h_a92db38471cf3811af6ad43d4465e2e93} 
+\#define SSLSUPP\+\_\+\+CAINFO\+\_\+\+BLOB~(1$<$$<$6)}
+
+\Hypertarget{vtls_8h_af964d3e85b565ae20b4f85444b9b1619}\index{vtls.h@{vtls.h}!SSLSUPP\_CERTINFO@{SSLSUPP\_CERTINFO}}
+\index{SSLSUPP\_CERTINFO@{SSLSUPP\_CERTINFO}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_CERTINFO}{SSLSUPP\_CERTINFO}}
+{\footnotesize\ttfamily \label{vtls_8h_af964d3e85b565ae20b4f85444b9b1619} 
+\#define SSLSUPP\+\_\+\+CERTINFO~(1$<$$<$1) /\texorpdfstring{$\ast$}{*} supports CURLOPT\+\_\+\+CERTINFO \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_aa47defd1c2f78f3225dfc06c638c8689}\index{vtls.h@{vtls.h}!SSLSUPP\_HTTPS\_PROXY@{SSLSUPP\_HTTPS\_PROXY}}
+\index{SSLSUPP\_HTTPS\_PROXY@{SSLSUPP\_HTTPS\_PROXY}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_HTTPS\_PROXY}{SSLSUPP\_HTTPS\_PROXY}}
+{\footnotesize\ttfamily \label{vtls_8h_aa47defd1c2f78f3225dfc06c638c8689} 
+\#define SSLSUPP\+\_\+\+HTTPS\+\_\+\+PROXY~(1$<$$<$4) /\texorpdfstring{$\ast$}{*} supports access via \mbox{\hyperlink{proto-redir_8d_acb126531deea27eaed2efc8f57ea3eaf}{HTTPS}} proxies \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a932726d4856765a766c86e3a3ed29a8f}\index{vtls.h@{vtls.h}!SSLSUPP\_PINNEDPUBKEY@{SSLSUPP\_PINNEDPUBKEY}}
+\index{SSLSUPP\_PINNEDPUBKEY@{SSLSUPP\_PINNEDPUBKEY}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_PINNEDPUBKEY}{SSLSUPP\_PINNEDPUBKEY}}
+{\footnotesize\ttfamily \label{vtls_8h_a932726d4856765a766c86e3a3ed29a8f} 
+\#define SSLSUPP\+\_\+\+PINNEDPUBKEY~(1$<$$<$2) /\texorpdfstring{$\ast$}{*} supports CURLOPT\+\_\+\+PINNEDPUBLICKEY \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a4ff8480c5307cec2506c039114624e1d}\index{vtls.h@{vtls.h}!SSLSUPP\_SSL\_CTX@{SSLSUPP\_SSL\_CTX}}
+\index{SSLSUPP\_SSL\_CTX@{SSLSUPP\_SSL\_CTX}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_SSL\_CTX}{SSLSUPP\_SSL\_CTX}}
+{\footnotesize\ttfamily \label{vtls_8h_a4ff8480c5307cec2506c039114624e1d} 
+\#define SSLSUPP\+\_\+\+SSL\+\_\+\+CTX~(1$<$$<$3) /\texorpdfstring{$\ast$}{*} supports CURLOPT\+\_\+\+SSL\+\_\+\+CTX \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a486d7ada0cb21188917be26be3d81483}\index{vtls.h@{vtls.h}!SSLSUPP\_TLS13\_CIPHERSUITES@{SSLSUPP\_TLS13\_CIPHERSUITES}}
+\index{SSLSUPP\_TLS13\_CIPHERSUITES@{SSLSUPP\_TLS13\_CIPHERSUITES}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{SSLSUPP\_TLS13\_CIPHERSUITES}{SSLSUPP\_TLS13\_CIPHERSUITES}}
+{\footnotesize\ttfamily \label{vtls_8h_a486d7ada0cb21188917be26be3d81483} 
+\#define SSLSUPP\+\_\+\+TLS13\+\_\+\+CIPHERSUITES~(1$<$$<$5) /\texorpdfstring{$\ast$}{*} supports \mbox{\hyperlink{tls-max_8d_a6b687ce37ffda2688ec32918e4e05943}{TLS}} 1.\+3 ciphersuites \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{vtls_8h_a059e6922fe2fa6d2e551625cf9958175}\index{vtls.h@{vtls.h}!VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR@{VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR}}
+\index{VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR@{VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR}{VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR}}
+{\footnotesize\ttfamily \label{vtls_8h_a059e6922fe2fa6d2e551625cf9958175} 
+\#define VTLS\+\_\+\+INFOF\+\_\+\+ALPN\+\_\+\+ACCEPTED\+\_\+1\+STR~  \mbox{\hyperlink{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f}{ALPN\+\_\+\+ACCEPTED}} "{}\%s"{}}
+
+\Hypertarget{vtls_8h_a84d3bf73968e2eef1a8b327655e39b35}\index{vtls.h@{vtls.h}!VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR@{VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR}}
+\index{VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR@{VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR}{VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR}}
+{\footnotesize\ttfamily \label{vtls_8h_a84d3bf73968e2eef1a8b327655e39b35} 
+\#define VTLS\+\_\+\+INFOF\+\_\+\+ALPN\+\_\+\+ACCEPTED\+\_\+\+LEN\+\_\+1\+STR~  \mbox{\hyperlink{vtls_8h_a287ffbc36313f8d5c7922d824bde8a1f}{ALPN\+\_\+\+ACCEPTED}} "{}\%.\texorpdfstring{$\ast$}{*}s"{}}
+
+\Hypertarget{vtls_8h_a45abae91346b8f86332153c12fde2504}\index{vtls.h@{vtls.h}!VTLS\_INFOF\_ALPN\_OFFER\_1STR@{VTLS\_INFOF\_ALPN\_OFFER\_1STR}}
+\index{VTLS\_INFOF\_ALPN\_OFFER\_1STR@{VTLS\_INFOF\_ALPN\_OFFER\_1STR}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{VTLS\_INFOF\_ALPN\_OFFER\_1STR}{VTLS\_INFOF\_ALPN\_OFFER\_1STR}}
+{\footnotesize\ttfamily \label{vtls_8h_a45abae91346b8f86332153c12fde2504} 
+\#define VTLS\+\_\+\+INFOF\+\_\+\+ALPN\+\_\+\+OFFER\+\_\+1\+STR~  "{}ALPN\+: offers \%s"{}}
+
+\Hypertarget{vtls_8h_ac975862c425a02d8c08295a1d7aeae46}\index{vtls.h@{vtls.h}!VTLS\_INFOF\_NO\_ALPN@{VTLS\_INFOF\_NO\_ALPN}}
+\index{VTLS\_INFOF\_NO\_ALPN@{VTLS\_INFOF\_NO\_ALPN}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{VTLS\_INFOF\_NO\_ALPN}{VTLS\_INFOF\_NO\_ALPN}}
+{\footnotesize\ttfamily \label{vtls_8h_ac975862c425a02d8c08295a1d7aeae46} 
+\#define VTLS\+\_\+\+INFOF\+\_\+\+NO\+\_\+\+ALPN~  "{}ALPN\+: \mbox{\hyperlink{etag-save_8d_a75078f351235f219a18d40b0a1403845}{server}} did not agree \mbox{\hyperlink{output_8d_a6a76cbf346d11ea9d44fb34b9207479e}{on}} a protocol. Uses default."{}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{vtls_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{vtls_8h_a9468007b0049e63d8dac0a8096beb0c4}\index{vtls.h@{vtls.h}!Curl\_clone\_primary\_ssl\_config@{Curl\_clone\_primary\_ssl\_config}}
+\index{Curl\_clone\_primary\_ssl\_config@{Curl\_clone\_primary\_ssl\_config}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_clone\_primary\_ssl\_config()}{Curl\_clone\_primary\_ssl\_config()}}
+{\footnotesize\ttfamily \label{vtls_8h_a9468007b0049e63d8dac0a8096beb0c4} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+clone\+\_\+primary\+\_\+ssl\+\_\+config (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{source}{, }\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{dest}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a5f50ad085ea4993229348232d4719407}\index{vtls.h@{vtls.h}!Curl\_free\_primary\_ssl\_config@{Curl\_free\_primary\_ssl\_config}}
+\index{Curl\_free\_primary\_ssl\_config@{Curl\_free\_primary\_ssl\_config}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_free\_primary\_ssl\_config()}{Curl\_free\_primary\_ssl\_config()}}
+{\footnotesize\ttfamily \label{vtls_8h_a5f50ad085ea4993229348232d4719407} 
+void Curl\+\_\+free\+\_\+primary\+\_\+ssl\+\_\+config (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{sslc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a9c423b871a6919651bb6952babedd112}\index{vtls.h@{vtls.h}!Curl\_init\_sslset\_nolock@{Curl\_init\_sslset\_nolock}}
+\index{Curl\_init\_sslset\_nolock@{Curl\_init\_sslset\_nolock}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_init\_sslset\_nolock()}{Curl\_init\_sslset\_nolock()}}
+{\footnotesize\ttfamily \label{vtls_8h_a9c423b871a6919651bb6952babedd112} 
+\mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}} Curl\+\_\+init\+\_\+sslset\+\_\+nolock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}}}]{id}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const \mbox{\hyperlink{structcurl__ssl__backend}{curl\+\_\+ssl\+\_\+backend}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{avail}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_afd63787510a375221ab2aba491ef2073}\index{vtls.h@{vtls.h}!Curl\_none\_cert\_status\_request@{Curl\_none\_cert\_status\_request}}
+\index{Curl\_none\_cert\_status\_request@{Curl\_none\_cert\_status\_request}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_cert\_status\_request()}{Curl\_none\_cert\_status\_request()}}
+{\footnotesize\ttfamily \label{vtls_8h_afd63787510a375221ab2aba491ef2073} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+none\+\_\+cert\+\_\+status\+\_\+request (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a9076c5bbae2cb8510d32eb97d8bce277}\index{vtls.h@{vtls.h}!Curl\_none\_check\_cxn@{Curl\_none\_check\_cxn}}
+\index{Curl\_none\_check\_cxn@{Curl\_none\_check\_cxn}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_check\_cxn()}{Curl\_none\_check\_cxn()}}
+{\footnotesize\ttfamily \label{vtls_8h_a9076c5bbae2cb8510d32eb97d8bce277} 
+int Curl\+\_\+none\+\_\+check\+\_\+cxn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_ab751ac92e09399d2e4edae147629770a}\index{vtls.h@{vtls.h}!Curl\_none\_cleanup@{Curl\_none\_cleanup}}
+\index{Curl\_none\_cleanup@{Curl\_none\_cleanup}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_cleanup()}{Curl\_none\_cleanup()}}
+{\footnotesize\ttfamily \label{vtls_8h_ab751ac92e09399d2e4edae147629770a} 
+void Curl\+\_\+none\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a054a6a646a0108d8f91a503d31a21671}\index{vtls.h@{vtls.h}!Curl\_none\_close\_all@{Curl\_none\_close\_all}}
+\index{Curl\_none\_close\_all@{Curl\_none\_close\_all}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_close\_all()}{Curl\_none\_close\_all()}}
+{\footnotesize\ttfamily \label{vtls_8h_a054a6a646a0108d8f91a503d31a21671} 
+void Curl\+\_\+none\+\_\+close\+\_\+all (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_aba5f776941608a9d5c44fd0b422b1862}\index{vtls.h@{vtls.h}!Curl\_none\_data\_pending@{Curl\_none\_data\_pending}}
+\index{Curl\_none\_data\_pending@{Curl\_none\_data\_pending}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_data\_pending()}{Curl\_none\_data\_pending()}}
+{\footnotesize\ttfamily \label{vtls_8h_aba5f776941608a9d5c44fd0b422b1862} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+none\+\_\+data\+\_\+pending (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{connindex}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_aa91dd78c15bfba88e2b56fe5bd1ded0a}\index{vtls.h@{vtls.h}!Curl\_none\_engines\_list@{Curl\_none\_engines\_list}}
+\index{Curl\_none\_engines\_list@{Curl\_none\_engines\_list}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_engines\_list()}{Curl\_none\_engines\_list()}}
+{\footnotesize\ttfamily \label{vtls_8h_aa91dd78c15bfba88e2b56fe5bd1ded0a} 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} Curl\+\_\+none\+\_\+engines\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a0a1d6e1d64672ae38b75216a44d08641}\index{vtls.h@{vtls.h}!Curl\_none\_false\_start@{Curl\_none\_false\_start}}
+\index{Curl\_none\_false\_start@{Curl\_none\_false\_start}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_false\_start()}{Curl\_none\_false\_start()}}
+{\footnotesize\ttfamily \label{vtls_8h_a0a1d6e1d64672ae38b75216a44d08641} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+none\+\_\+false\+\_\+start (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a9fe9fd14fbe2d9fc29d582a6c4ed0f83}\index{vtls.h@{vtls.h}!Curl\_none\_init@{Curl\_none\_init}}
+\index{Curl\_none\_init@{Curl\_none\_init}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_init()}{Curl\_none\_init()}}
+{\footnotesize\ttfamily \label{vtls_8h_a9fe9fd14fbe2d9fc29d582a6c4ed0f83} 
+int Curl\+\_\+none\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a04e21d561123bc29f2e018c260ede891}\index{vtls.h@{vtls.h}!Curl\_none\_random@{Curl\_none\_random}}
+\index{Curl\_none\_random@{Curl\_none\_random}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_random()}{Curl\_none\_random()}}
+{\footnotesize\ttfamily \label{vtls_8h_a04e21d561123bc29f2e018c260ede891} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+none\+\_\+random (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{entropy}{, }\item[{size\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_abd2be2ec8895660c6eb7e124cfac438e}\index{vtls.h@{vtls.h}!Curl\_none\_session\_free@{Curl\_none\_session\_free}}
+\index{Curl\_none\_session\_free@{Curl\_none\_session\_free}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_session\_free()}{Curl\_none\_session\_free()}}
+{\footnotesize\ttfamily \label{vtls_8h_abd2be2ec8895660c6eb7e124cfac438e} 
+void Curl\+\_\+none\+\_\+session\+\_\+free (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a7ccc438dc80065afa61534a12f49716b}\index{vtls.h@{vtls.h}!Curl\_none\_set\_engine@{Curl\_none\_set\_engine}}
+\index{Curl\_none\_set\_engine@{Curl\_none\_set\_engine}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_set\_engine()}{Curl\_none\_set\_engine()}}
+{\footnotesize\ttfamily \label{vtls_8h_a7ccc438dc80065afa61534a12f49716b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+none\+\_\+set\+\_\+engine (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{engine}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a06f0fb1d7887e2395f579c430c55e9da}\index{vtls.h@{vtls.h}!Curl\_none\_set\_engine\_default@{Curl\_none\_set\_engine\_default}}
+\index{Curl\_none\_set\_engine\_default@{Curl\_none\_set\_engine\_default}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_set\_engine\_default()}{Curl\_none\_set\_engine\_default()}}
+{\footnotesize\ttfamily \label{vtls_8h_a06f0fb1d7887e2395f579c430c55e9da} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+none\+\_\+set\+\_\+engine\+\_\+default (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a1928a9d4cd569820951422daae0f0975}\index{vtls.h@{vtls.h}!Curl\_none\_shutdown@{Curl\_none\_shutdown}}
+\index{Curl\_none\_shutdown@{Curl\_none\_shutdown}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_none\_shutdown()}{Curl\_none\_shutdown()}}
+{\footnotesize\ttfamily \label{vtls_8h_a1928a9d4cd569820951422daae0f0975} 
+int Curl\+\_\+none\+\_\+shutdown (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{sockindex}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a3c94a4a4ab36486ee22e5a03c1677b9a}\index{vtls.h@{vtls.h}!Curl\_ssl\_backend@{Curl\_ssl\_backend}}
+\index{Curl\_ssl\_backend@{Curl\_ssl\_backend}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_backend()}{Curl\_ssl\_backend()}}
+{\footnotesize\ttfamily \label{vtls_8h_a3c94a4a4ab36486ee22e5a03c1677b9a} 
+\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} Curl\+\_\+ssl\+\_\+backend (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a20030f6c13c9de65950bb8cac1bfb0f9}\index{vtls.h@{vtls.h}!Curl\_ssl\_config\_matches@{Curl\_ssl\_config\_matches}}
+\index{Curl\_ssl\_config\_matches@{Curl\_ssl\_config\_matches}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_config\_matches()}{Curl\_ssl\_config\_matches()}}
+{\footnotesize\ttfamily \label{vtls_8h_a20030f6c13c9de65950bb8cac1bfb0f9} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+ssl\+\_\+config\+\_\+matches (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{needle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a699212e837a91a0d657e7a674256cf12}\index{vtls.h@{vtls.h}!Curl\_ssl\_getsock@{Curl\_ssl\_getsock}}
+\index{Curl\_ssl\_getsock@{Curl\_ssl\_getsock}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_getsock()}{Curl\_ssl\_getsock()}}
+{\footnotesize\ttfamily \label{vtls_8h_a699212e837a91a0d657e7a674256cf12} 
+int Curl\+\_\+ssl\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8h_a87190b2b318de6675161240578bab855}\index{vtls.h@{vtls.h}!Curl\_ssl\_snihost@{Curl\_ssl\_snihost}}
+\index{Curl\_ssl\_snihost@{Curl\_ssl\_snihost}!vtls.h@{vtls.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_snihost()}{Curl\_ssl\_snihost()}}
+{\footnotesize\ttfamily \label{vtls_8h_a87190b2b318de6675161240578bab855} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+ssl\+\_\+snihost (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{olen}{}\end{DoxyParamCaption})}
+

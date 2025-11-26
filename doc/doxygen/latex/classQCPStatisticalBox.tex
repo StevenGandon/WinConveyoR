@@ -1,0 +1,39 @@
+\doxysection{QCPStatistical\+Box Class Reference}
+\hypertarget{classQCPStatisticalBox}{}\label{classQCPStatisticalBox}\index{QCPStatisticalBox@{QCPStatisticalBox}}
+
+
+A plottable representing a single statistical box in a plot.  
+
+
+
+
+\doxysubsection{Detailed Description}
+A plottable representing a single statistical box in a plot. 
+
+
+
+To plot data, assign it with the set\+Data or add\+Data functions. Alternatively, you can also access and modify the data via the data method, which returns a pointer to the internal QCPStatistical\+Box\+Data\+Container.
+
+Additionally each data point can itself have a list of outliers, drawn as scatter points at the key coordinate of the respective statistical box data point. They can either be set by using the respective add\+Data method or accessing the individual data points through data, and setting the {\ttfamily QVector$<$double$>$ outliers} of the data points directly.\hypertarget{classQCPStatisticalBox_qcpstatisticalbox-appearance}{}\doxysubsection{\texorpdfstring{Changing the appearance}{Changing the appearance}}\label{classQCPStatisticalBox_qcpstatisticalbox-appearance}
+The appearance of each data point box, ranging from the lower to the upper quartile, is controlled via set\+Pen and set\+Brush. You may change the width of the boxes with set\+Width in plot coordinates.
+
+Each data point\textquotesingle{}s visual representation also consists of two whiskers. Whiskers are the lines which reach from the upper quartile to the maximum, and from the lower quartile to the minimum. The appearance of the whiskers can be modified with\+: set\+Whisker\+Pen, set\+Whisker\+Bar\+Pen, set\+Whisker\+Width. The whisker width is the width of the bar perpendicular to the whisker at the top (for maximum) and bottom (for minimum). If the whisker pen is changed, make sure to set the {\ttfamily cap\+Style} to {\ttfamily Qt\+::\+Flat\+Cap}. Otherwise the backbone line might exceed the whisker bars by a few pixels due to the pen cap being not perfectly flat.
+
+The median indicator line inside the box has its own pen, set\+Median\+Pen.
+
+The outlier data points are drawn as normal scatter points. Their look can be controlled with set\+Outlier\+Style\hypertarget{classQCPStatisticalBox_qcpstatisticalbox-usage}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{classQCPStatisticalBox_qcpstatisticalbox-usage}
+Like all data representing objects in \doxylink{classQCustomPlot}{QCustom\+Plot}, the \doxylink{classQCPStatisticalBox}{QCPStatistical\+Box} is a plottable (\doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable}). So the plottable-\/interface of \doxylink{classQCustomPlot}{QCustom\+Plot} applies (QCustom\+Plot\+::plottable, QCustom\+Plot\+::remove\+Plottable, etc.)
+
+Usually, you first create an instance\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ which registers it with the \doxylink{classQCustomPlot}{QCustom\+Plot} instance of the passed axes. Note that this \doxylink{classQCustomPlot}{QCustom\+Plot} instance takes ownership of the plottable, so do not delete it manually but use QCustom\+Plot\+::remove\+Plottable() instead. The newly created plottable can be modified, e.\+g.\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

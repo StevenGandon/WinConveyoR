@@ -1,0 +1,64 @@
+\doxysection{x509asn1.\+h}
+\hypertarget{x509asn1_8h_source}{}\label{x509asn1_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/x509asn1.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/x509asn1.h}}
+\mbox{\hyperlink{x509asn1_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_X509ASN1\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_X509ASN1\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ defined(USE\_GSKIT)\ ||\ defined(USE\_NSS)\ ||\ defined(USE\_GNUTLS)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ defined(USE\_WOLFSSL)\ ||\ defined(USE\_SCHANNEL)\ ||\ defined(USE\_SECTRANSP)}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ Types.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ ASN.1\ parsed\ element.\ */}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{struct\ }Curl\_asn1Element\ \{}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{user-agent_8d_ad8c76b4bdd86e61de828f3429552a54e}{header}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ header\ byte.\ */}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *beg;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ element\ data.\ */}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *end;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Pointer\ to\ 1st\ byte\ after\ element.\ */}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \textcolor{keyword}{class};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ASN.1\ element\ class.\ */}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tag;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ASN.1\ element\ tag.\ */}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ constructed;\ \ \textcolor{comment}{/*\ Element\ is\ constructed.\ */}}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ X509\ certificate:\ RFC\ 5280.\ */}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }Curl\_X509certificate\ \{}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ certificate;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ version;}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ serialNumber;}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ signatureAlgorithm;}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ signature;}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ issuer;}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ notBefore;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ notAfter;}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ subject;}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ subjectPublicKeyInfo;}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ subjectPublicKeyAlgorithm;}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ subjectPublicKey;}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ issuerUniqueID;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ subjectUniqueID;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{struct\ }Curl\_asn1Element\ extensions;}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ Prototypes.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{int}\ Curl\_parseX509(\textcolor{keyword}{struct}\ Curl\_X509certificate\ *cert,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *beg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *end);}
+\DoxyCodeLine{00074\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_extract\_certinfo(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ certnum,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *beg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *end);}
+\DoxyCodeLine{00076\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_verifyhost(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *beg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *end);}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_GSKIT\ or\ USE\_NSS\ or\ USE\_GNUTLS\ or\ USE\_WOLFSSL\ or\ USE\_SCHANNEL}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ or\ USE\_SECTRANSP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_X509ASN1\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

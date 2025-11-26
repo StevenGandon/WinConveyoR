@@ -1,0 +1,99 @@
+\doxysection{gui/node\+\_\+modules/env-\/paths Directory Reference}
+\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce}{}\label{dir_b44acabef9a8f14a858c59ba32ec0cce}\index{gui/node\_modules/env-\/paths Directory Reference@{gui/node\_modules/env-\/paths Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md428}{}\doxysubsection{\texorpdfstring{env-\/paths}{env-\/paths}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md428}
+\begin{quote}
+Get paths for storing things like data, config, cache, etc \end{quote}
+
+
+Uses the correct OS-\/specific paths. Most developers get this wrong.\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md429}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md429}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ env-\/paths}
+
+\end{DoxyCode}
+\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md430}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md430}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ envPaths\ =\ require('env-\/paths');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ paths\ =\ envPaths('MyApp');}
+\DoxyCodeLine{}
+\DoxyCodeLine{paths.data;}
+\DoxyCodeLine{//=>\ '/home/sindresorhus/.local/share/MyApp-\/nodejs'}
+\DoxyCodeLine{}
+\DoxyCodeLine{paths.config}
+\DoxyCodeLine{//=>\ '/home/sindresorhus/.config/MyApp-\/nodejs'}
+
+\end{DoxyCode}
+\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md431}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md431}
+\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md432}{}\doxysubsubsection{\texorpdfstring{paths = env\+Paths(name, options?)}{paths = env\+Paths(name, options?)}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md432}
+Note\+: It only generates the path strings. It doesn\textquotesingle{}t create the directories for you. You could use \href{https://github.com/sindresorhus/make-dir}{\texttt{{\ttfamily make-\/dir}}} to create the directories.\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md433}{}\doxysubsubsubsection{\texorpdfstring{name}{name}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md433}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+Name of your project. Used to generate the paths.\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md434}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md434}
+Type\+: {\ttfamily object}\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md435}{}\doxysubsubsubsubsection{\texorpdfstring{suffix}{suffix}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md435}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}~\newline
+ Default\+: {\ttfamily \textquotesingle{}nodejs\textquotesingle{}}
+
+{\bfseries{Don\textquotesingle{}t use this option unless you really have to!}}~\newline
+ Suffix appended to the project name to avoid name conflicts with native apps. Pass an empty string to disable it.\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md436}{}\doxysubsubsection{\texorpdfstring{paths.\+data}{paths.\+data}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md436}
+Directory for data files.
+
+Example locations (with the default {\ttfamily nodejs} suffix)\+:
+
+
+\begin{DoxyItemize}
+\item mac\+OS\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/\+Library/\+Application Support/\+My\+App-\/nodejs}
+\item Windows\+: {\ttfamily LOCALAPPDATA\%\textbackslash{}My\+App-\/nodejs\textbackslash{}Data} (for example, {\ttfamily C\+:\textbackslash{}Users\textbackslash{}USERNAME\textbackslash{}App\+Data\textbackslash{}Local\textbackslash{}My\+App-\/nodejs\textbackslash{}Data})
+\item Linux\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/.local/share/\+My\+App-\/nodejs} (or {\ttfamily \$XDG\+\_\+\+DATA\+\_\+\+HOME/\+My\+App-\/nodejs})
+\end{DoxyItemize}\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md437}{}\doxysubsubsection{\texorpdfstring{paths.\+config}{paths.\+config}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md437}
+Directory for config files.
+
+Example locations (with the default {\ttfamily nodejs} suffix)\+:
+
+
+\begin{DoxyItemize}
+\item mac\+OS\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/\+Library/\+Preferences/\+My\+App-\/nodejs}
+\item Windows\+: {\ttfamily APPDATA\%\textbackslash{}My\+App-\/nodejs\textbackslash{}Config} (for example, {\ttfamily C\+:\textbackslash{}Users\textbackslash{}USERNAME\textbackslash{}App\+Data\textbackslash{}Roaming\textbackslash{}My\+App-\/nodejs\textbackslash{}Config})
+\item Linux\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/.config/\+My\+App-\/nodejs} (or {\ttfamily \$XDG\+\_\+\+CONFIG\+\_\+\+HOME/\+My\+App-\/nodejs})
+\end{DoxyItemize}\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md438}{}\doxysubsubsection{\texorpdfstring{paths.\+cache}{paths.\+cache}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md438}
+Directory for non-\/essential data files.
+
+Example locations (with the default {\ttfamily nodejs} suffix)\+:
+
+
+\begin{DoxyItemize}
+\item mac\+OS\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/\+Library/\+Caches/\+My\+App-\/nodejs}
+\item Windows\+: {\ttfamily LOCALAPPDATA\%\textbackslash{}My\+App-\/nodejs\textbackslash{}Cache} (for example, {\ttfamily C\+:\textbackslash{}Users\textbackslash{}USERNAME\textbackslash{}App\+Data\textbackslash{}Local\textbackslash{}My\+App-\/nodejs\textbackslash{}Cache})
+\item Linux\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/.cache/\+My\+App-\/nodejs} (or {\ttfamily \$XDG\+\_\+\+CACHE\+\_\+\+HOME/\+My\+App-\/nodejs})
+\end{DoxyItemize}\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md439}{}\doxysubsubsection{\texorpdfstring{paths.\+log}{paths.\+log}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md439}
+Directory for log files.
+
+Example locations (with the default {\ttfamily nodejs} suffix)\+:
+
+
+\begin{DoxyItemize}
+\item mac\+OS\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/\+Library/\+Logs/\+My\+App-\/nodejs}
+\item Windows\+: {\ttfamily LOCALAPPDATA\%\textbackslash{}My\+App-\/nodejs\textbackslash{}Log} (for example, {\ttfamily C\+:\textbackslash{}Users\textbackslash{}USERNAME\textbackslash{}App\+Data\textbackslash{}Local\textbackslash{}My\+App-\/nodejs\textbackslash{}Log})
+\item Linux\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}/.local/state/\+My\+App-\/nodejs} (or {\ttfamily \$XDG\+\_\+\+STATE\+\_\+\+HOME/\+My\+App-\/nodejs})
+\end{DoxyItemize}\hypertarget{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md440}{}\doxysubsubsection{\texorpdfstring{paths.\+temp}{paths.\+temp}}\label{dir_b44acabef9a8f14a858c59ba32ec0cce_autotoc_md440}
+Directory for temporary files.
+
+Example locations (with the default {\ttfamily nodejs} suffix)\+:
+
+
+\begin{DoxyItemize}
+\item mac\+OS\+: {\ttfamily /var/folders/jf/f2twvvvs5jl\+\_\+m49tf034ffpw0000gn/\+T/\+My\+App-\/nodejs}
+\item Windows\+: {\ttfamily LOCALAPPDATA\%\textbackslash{}Temp\textbackslash{}My\+App-\/nodejs} (for example, {\ttfamily C\+:\textbackslash{}Users\textbackslash{}USERNAME\textbackslash{}App\+Data\textbackslash{}Local\textbackslash{}Temp\textbackslash{}My\+App-\/nodejs})
+\item Linux\+: {\ttfamily /tmp/\+USERNAME/\+My\+App-\/nodejs}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+ {\bfseries{ \href{https://tidelift.com/subscription/pkg/npm-env-paths?utm_source=npm-env-paths&utm_medium=referral&utm_campaign=readme}{\texttt{Get professional support for this package with a Tidelift subscription}} }} ~\newline
+ \textsubscript{ Tidelift helps make open source sustainable for maintainers while giving companies~\newline
+assurances about security, maintenance, and licensing for their dependencies. }  

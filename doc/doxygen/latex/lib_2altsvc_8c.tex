@@ -1,0 +1,264 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/altsvc.c File Reference}
+\hypertarget{lib_2altsvc_8c}{}\label{lib_2altsvc_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/altsvc.c@{lib/libwconr/build/\_deps/curl-\/src/lib/altsvc.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}altsvc.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+get\+\_\+line.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}parsedate.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}fopen.\+h"{}}\newline
+{\ttfamily \#include "{}rename.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a88bc1c327c6d23fef6a04d63438b31cc}{MAX\+\_\+\+ALTSVC\+\_\+\+LINE}}~4095
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a5d634a2dee9eaed225957a819aa2da56}{MAX\+\_\+\+ALTSVC\+\_\+\+DATELENSTR}}~"{}64"{}
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_ada8f295246567f2f60af07482914fd77}{MAX\+\_\+\+ALTSVC\+\_\+\+DATELEN}}~64
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a9fbba41fdfa90aa84c832a828606ca43}{MAX\+\_\+\+ALTSVC\+\_\+\+HOSTLENSTR}}~"{}512"{}
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a881297df279a418b80873158d958b28f}{MAX\+\_\+\+ALTSVC\+\_\+\+HOSTLEN}}~512
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a20c5aaae5f67b625588f7cdb8611342b}{MAX\+\_\+\+ALTSVC\+\_\+\+ALPNLENSTR}}~"{}10"{}
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a351b795093d71f04b3f2ca126d0313f7}{MAX\+\_\+\+ALTSVC\+\_\+\+ALPNLEN}}~10
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a277b0c777ce38cf14034971af82dba2f}{H3\+VERSION}}~"{}h3"{}
+\item 
+\#define \mbox{\hyperlink{lib_2altsvc_8c_a9d073e38e5514186e1d31ac302bf44a4}{ISNEWLINE}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} \mbox{\hyperlink{lib_2altsvc_8c_a7b1883cdc394a50f8a5caa26389820f2}{alpn2alpnid}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}})
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2altsvc_8c_a9e86a69a3bcebadc23579328a35d62f8}{Curl\+\_\+alpnid2str}} (enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} id)
+\item 
+static void \mbox{\hyperlink{lib_2altsvc_8c_ae1c59cbfcd34bdb9b8ff80783b8b2c8d}{altsvc\+\_\+free}} (struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{write-out_8d_a867d082a9857341bb503593f47a365e0}{as}})
+\item 
+static struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2altsvc_8c_a3204e3d8359aefefcb24bc85eff34ea4}{altsvc\+\_\+createid}} (const char \texorpdfstring{$\ast$}{*}srchost, const char \texorpdfstring{$\ast$}{*}dsthost, enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} srcalpnid, enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} dstalpnid, unsigned int srcport, unsigned int dstport)
+\item 
+static struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2altsvc_8c_a8603d48c4e70babb61d8563fff565b79}{altsvc\+\_\+create}} (char \texorpdfstring{$\ast$}{*}srchost, char \texorpdfstring{$\ast$}{*}dsthost, char \texorpdfstring{$\ast$}{*}srcalpn, char \texorpdfstring{$\ast$}{*}dstalpn, unsigned int srcport, unsigned int dstport)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_aab1aa9fd38bbc165ce155803c3f3d00b}{altsvc\+\_\+add}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_aa39a5ee7499a4d06a016ad3c7804c873}{altsvc\+\_\+load}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_a0db8cbfa29bc3eb8f2b802283ef26538}{altsvc\+\_\+out}} (struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{write-out_8d_a867d082a9857341bb503593f47a365e0}{as}}, FILE \texorpdfstring{$\ast$}{*}fp)
+\item 
+struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2altsvc_8c_a4183657677c64ec6c5984f2b5992895b}{Curl\+\_\+altsvc\+\_\+init}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_abf637dd05b393772517b4abf70bf703b}{Curl\+\_\+altsvc\+\_\+load}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_aff12ccbb1e46ad253876ce31451b76fc}{Curl\+\_\+altsvc\+\_\+ctrl}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, const long ctrl)
+\item 
+void \mbox{\hyperlink{lib_2altsvc_8c_a5be4ca90bc999d553ff6b65b77d272ef}{Curl\+\_\+altsvc\+\_\+cleanup}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}altsvcp)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_a9c9d9ed78b0e73ce468868007ce745e1}{Curl\+\_\+altsvc\+\_\+save}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structaltsvc}{altsvc}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_a9b7815d980b6fd9d69bc93f544ccc070}{getalnum}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ptr, char \texorpdfstring{$\ast$}{*}alpnbuf, size\+\_\+t buflen)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{lib_2altsvc_8c_a18280a2c229ecda5e9fa1c5d204b3a06}{hostcompare}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, const char \texorpdfstring{$\ast$}{*}check)
+\item 
+static void \mbox{\hyperlink{lib_2altsvc_8c_a235fa12f745edd17f6769c7b4b80c082}{altsvc\+\_\+flush}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} srcalpnid, const char \texorpdfstring{$\ast$}{*}srchost, unsigned short srcport)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{lib_2altsvc_8c_a02e40a8804977dc0f863e0599ddd2dcd}{Curl\+\_\+altsvc\+\_\+parse}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, const char \texorpdfstring{$\ast$}{*}value, enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} srcalpnid, const char \texorpdfstring{$\ast$}{*}srchost, unsigned short srcport)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{lib_2altsvc_8c_ae848f4291bd78a9829c4a3bf58dfd9c8}{Curl\+\_\+altsvc\+\_\+lookup}} (struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}asi, enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} srcalpnid, const char \texorpdfstring{$\ast$}{*}srchost, int srcport, struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dstentry, const int versions)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{lib_2altsvc_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{lib_2altsvc_8c_a277b0c777ce38cf14034971af82dba2f}\index{altsvc.c@{altsvc.c}!H3VERSION@{H3VERSION}}
+\index{H3VERSION@{H3VERSION}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{H3VERSION}{H3VERSION}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a277b0c777ce38cf14034971af82dba2f} 
+\#define H3\+VERSION~"{}h3"{}}
+
+\Hypertarget{lib_2altsvc_8c_a9d073e38e5514186e1d31ac302bf44a4}\index{altsvc.c@{altsvc.c}!ISNEWLINE@{ISNEWLINE}}
+\index{ISNEWLINE@{ISNEWLINE}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{ISNEWLINE}{ISNEWLINE}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a9d073e38e5514186e1d31ac302bf44a4} 
+\#define ISNEWLINE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{'\(\backslash\)n'})\ ||\ (\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{'\(\backslash\)r'})}
+
+\end{DoxyCode}
+\Hypertarget{lib_2altsvc_8c_a351b795093d71f04b3f2ca126d0313f7}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_ALPNLEN@{MAX\_ALTSVC\_ALPNLEN}}
+\index{MAX\_ALTSVC\_ALPNLEN@{MAX\_ALTSVC\_ALPNLEN}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_ALPNLEN}{MAX\_ALTSVC\_ALPNLEN}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a351b795093d71f04b3f2ca126d0313f7} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+ALPNLEN~10}
+
+\Hypertarget{lib_2altsvc_8c_a20c5aaae5f67b625588f7cdb8611342b}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_ALPNLENSTR@{MAX\_ALTSVC\_ALPNLENSTR}}
+\index{MAX\_ALTSVC\_ALPNLENSTR@{MAX\_ALTSVC\_ALPNLENSTR}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_ALPNLENSTR}{MAX\_ALTSVC\_ALPNLENSTR}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a20c5aaae5f67b625588f7cdb8611342b} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+ALPNLENSTR~"{}10"{}}
+
+\Hypertarget{lib_2altsvc_8c_ada8f295246567f2f60af07482914fd77}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_DATELEN@{MAX\_ALTSVC\_DATELEN}}
+\index{MAX\_ALTSVC\_DATELEN@{MAX\_ALTSVC\_DATELEN}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_DATELEN}{MAX\_ALTSVC\_DATELEN}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_ada8f295246567f2f60af07482914fd77} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+DATELEN~64}
+
+\Hypertarget{lib_2altsvc_8c_a5d634a2dee9eaed225957a819aa2da56}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_DATELENSTR@{MAX\_ALTSVC\_DATELENSTR}}
+\index{MAX\_ALTSVC\_DATELENSTR@{MAX\_ALTSVC\_DATELENSTR}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_DATELENSTR}{MAX\_ALTSVC\_DATELENSTR}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a5d634a2dee9eaed225957a819aa2da56} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+DATELENSTR~"{}64"{}}
+
+\Hypertarget{lib_2altsvc_8c_a881297df279a418b80873158d958b28f}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_HOSTLEN@{MAX\_ALTSVC\_HOSTLEN}}
+\index{MAX\_ALTSVC\_HOSTLEN@{MAX\_ALTSVC\_HOSTLEN}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_HOSTLEN}{MAX\_ALTSVC\_HOSTLEN}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a881297df279a418b80873158d958b28f} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+HOSTLEN~512}
+
+\Hypertarget{lib_2altsvc_8c_a9fbba41fdfa90aa84c832a828606ca43}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_HOSTLENSTR@{MAX\_ALTSVC\_HOSTLENSTR}}
+\index{MAX\_ALTSVC\_HOSTLENSTR@{MAX\_ALTSVC\_HOSTLENSTR}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_HOSTLENSTR}{MAX\_ALTSVC\_HOSTLENSTR}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a9fbba41fdfa90aa84c832a828606ca43} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+HOSTLENSTR~"{}512"{}}
+
+\Hypertarget{lib_2altsvc_8c_a88bc1c327c6d23fef6a04d63438b31cc}\index{altsvc.c@{altsvc.c}!MAX\_ALTSVC\_LINE@{MAX\_ALTSVC\_LINE}}
+\index{MAX\_ALTSVC\_LINE@{MAX\_ALTSVC\_LINE}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ALTSVC\_LINE}{MAX\_ALTSVC\_LINE}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a88bc1c327c6d23fef6a04d63438b31cc} 
+\#define MAX\+\_\+\+ALTSVC\+\_\+\+LINE~4095}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2019 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{lib_2altsvc_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{lib_2altsvc_8c_a7b1883cdc394a50f8a5caa26389820f2}\index{altsvc.c@{altsvc.c}!alpn2alpnid@{alpn2alpnid}}
+\index{alpn2alpnid@{alpn2alpnid}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{alpn2alpnid()}{alpn2alpnid()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a7b1883cdc394a50f8a5caa26389820f2} 
+enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}} alpn2alpnid (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_aab1aa9fd38bbc165ce155803c3f3d00b}\index{altsvc.c@{altsvc.c}!altsvc\_add@{altsvc\_add}}
+\index{altsvc\_add@{altsvc\_add}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_add()}{altsvc\_add()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_aab1aa9fd38bbc165ce155803c3f3d00b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} altsvc\+\_\+add (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{line}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_a8603d48c4e70babb61d8563fff565b79}\index{altsvc.c@{altsvc.c}!altsvc\_create@{altsvc\_create}}
+\index{altsvc\_create@{altsvc\_create}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_create()}{altsvc\_create()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a8603d48c4e70babb61d8563fff565b79} 
+struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*} altsvc\+\_\+create (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{srchost}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{dsthost}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{srcalpn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{dstalpn}{, }\item[{unsigned int}]{srcport}{, }\item[{unsigned int}]{dstport}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_a3204e3d8359aefefcb24bc85eff34ea4}\index{altsvc.c@{altsvc.c}!altsvc\_createid@{altsvc\_createid}}
+\index{altsvc\_createid@{altsvc\_createid}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_createid()}{altsvc\_createid()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a3204e3d8359aefefcb24bc85eff34ea4} 
+struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*} altsvc\+\_\+createid (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{srchost}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{dsthost}{, }\item[{enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}}]{srcalpnid}{, }\item[{enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}}]{dstalpnid}{, }\item[{unsigned int}]{srcport}{, }\item[{unsigned int}]{dstport}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_a235fa12f745edd17f6769c7b4b80c082}\index{altsvc.c@{altsvc.c}!altsvc\_flush@{altsvc\_flush}}
+\index{altsvc\_flush@{altsvc\_flush}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_flush()}{altsvc\_flush()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a235fa12f745edd17f6769c7b4b80c082} 
+void altsvc\+\_\+flush (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}}]{srcalpnid}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{srchost}{, }\item[{unsigned short}]{srcport}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_ae1c59cbfcd34bdb9b8ff80783b8b2c8d}\index{altsvc.c@{altsvc.c}!altsvc\_free@{altsvc\_free}}
+\index{altsvc\_free@{altsvc\_free}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_free()}{altsvc\_free()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_ae1c59cbfcd34bdb9b8ff80783b8b2c8d} 
+void altsvc\+\_\+free (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*}}]{as}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_aa39a5ee7499a4d06a016ad3c7804c873}\index{altsvc.c@{altsvc.c}!altsvc\_load@{altsvc\_load}}
+\index{altsvc\_load@{altsvc\_load}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_load()}{altsvc\_load()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_aa39a5ee7499a4d06a016ad3c7804c873} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} altsvc\+\_\+load (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_a0db8cbfa29bc3eb8f2b802283ef26538}\index{altsvc.c@{altsvc.c}!altsvc\_out@{altsvc\_out}}
+\index{altsvc\_out@{altsvc\_out}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{altsvc\_out()}{altsvc\_out()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a0db8cbfa29bc3eb8f2b802283ef26538} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} altsvc\+\_\+out (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*}}]{as}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{fp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_a9e86a69a3bcebadc23579328a35d62f8}\index{altsvc.c@{altsvc.c}!Curl\_alpnid2str@{Curl\_alpnid2str}}
+\index{Curl\_alpnid2str@{Curl\_alpnid2str}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_alpnid2str()}{Curl\_alpnid2str()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a9e86a69a3bcebadc23579328a35d62f8} 
+const char \texorpdfstring{$\ast$}{*} Curl\+\_\+alpnid2str (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}}]{id}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_a5be4ca90bc999d553ff6b65b77d272ef}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_cleanup@{Curl\_altsvc\_cleanup}}
+\index{Curl\_altsvc\_cleanup@{Curl\_altsvc\_cleanup}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_cleanup()}{Curl\_altsvc\_cleanup()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a5be4ca90bc999d553ff6b65b77d272ef} 
+void Curl\+\_\+altsvc\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{altsvcp}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_aff12ccbb1e46ad253876ce31451b76fc}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_ctrl@{Curl\_altsvc\_ctrl}}
+\index{Curl\_altsvc\_ctrl@{Curl\_altsvc\_ctrl}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_ctrl()}{Curl\_altsvc\_ctrl()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_aff12ccbb1e46ad253876ce31451b76fc} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+altsvc\+\_\+ctrl (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{const long}]{ctrl}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_a4183657677c64ec6c5984f2b5992895b}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_init@{Curl\_altsvc\_init}}
+\index{Curl\_altsvc\_init@{Curl\_altsvc\_init}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_init()}{Curl\_altsvc\_init()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a4183657677c64ec6c5984f2b5992895b} 
+struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*} Curl\+\_\+altsvc\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_abf637dd05b393772517b4abf70bf703b}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_load@{Curl\_altsvc\_load}}
+\index{Curl\_altsvc\_load@{Curl\_altsvc\_load}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_load()}{Curl\_altsvc\_load()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_abf637dd05b393772517b4abf70bf703b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+altsvc\+\_\+load (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_ae848f4291bd78a9829c4a3bf58dfd9c8}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_lookup@{Curl\_altsvc\_lookup}}
+\index{Curl\_altsvc\_lookup@{Curl\_altsvc\_lookup}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_lookup()}{Curl\_altsvc\_lookup()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_ae848f4291bd78a9829c4a3bf58dfd9c8} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+altsvc\+\_\+lookup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}}]{srcalpnid}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{srchost}{, }\item[{int}]{srcport}{, }\item[{struct \mbox{\hyperlink{structaltsvc}{altsvc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dstentry}{, }\item[{const int}]{versions}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_a02e40a8804977dc0f863e0599ddd2dcd}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_parse@{Curl\_altsvc\_parse}}
+\index{Curl\_altsvc\_parse@{Curl\_altsvc\_parse}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_parse()}{Curl\_altsvc\_parse()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a02e40a8804977dc0f863e0599ddd2dcd} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+altsvc\+\_\+parse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{asi}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{enum \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}}]{srcalpnid}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{srchost}{, }\item[{unsigned short}]{srcport}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_a9c9d9ed78b0e73ce468868007ce745e1}\index{altsvc.c@{altsvc.c}!Curl\_altsvc\_save@{Curl\_altsvc\_save}}
+\index{Curl\_altsvc\_save@{Curl\_altsvc\_save}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_altsvc\_save()}{Curl\_altsvc\_save()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a9c9d9ed78b0e73ce468868007ce745e1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+altsvc\+\_\+save (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}} \texorpdfstring{$\ast$}{*}}]{altsvc}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2altsvc_8c_a9b7815d980b6fd9d69bc93f544ccc070}\index{altsvc.c@{altsvc.c}!getalnum@{getalnum}}
+\index{getalnum@{getalnum}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{getalnum()}{getalnum()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a9b7815d980b6fd9d69bc93f544ccc070} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} getalnum (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{alpnbuf}{, }\item[{size\+\_\+t}]{buflen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2altsvc_8c_a18280a2c229ecda5e9fa1c5d204b3a06}\index{altsvc.c@{altsvc.c}!hostcompare@{hostcompare}}
+\index{hostcompare@{hostcompare}!altsvc.c@{altsvc.c}}
+\doxysubsubsection{\texorpdfstring{hostcompare()}{hostcompare()}}
+{\footnotesize\ttfamily \label{lib_2altsvc_8c_a18280a2c229ecda5e9fa1c5d204b3a06} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} hostcompare (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{check}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

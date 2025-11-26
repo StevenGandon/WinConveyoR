@@ -1,0 +1,139 @@
+\doxysection{Beamage\+Stream.\+h}
+\hypertarget{BeamageStream_8h_source}{}\label{BeamageStream_8h_source}\index{BeamageStream/BeamageStream.h@{BeamageStream/BeamageStream.h}}
+\mbox{\hyperlink{BeamageStream_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <qfile.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <typeindex>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ IMPL\_FACTORY()\ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ public:\ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ template\ <typename\ T>\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\ void\ registerType(std::function<void\ *(QDataStream\ *,\ Beamage::IO::IStreamFactory\ *)>\ func)\ \{\ \_mappedType[typeid(T)]\ =\ func;\};\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ protected:\ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ void\ *TBuild(std::type\_index\ index,\ QDataStream\ *stream,\ Beamage::IO::IStreamFactory\ *)\ \{\ return\ (\_mappedType.at(index)(stream,\ reinterpret\_cast<Beamage::IO::IStreamFactory\ *>(this)));\ \};\ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ bool\ THas(std::type\_index\ index)\ \{\ return\ (\_mappedType.find(index)\ !=\ \_mappedType.end());\ \};\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ static\ std::unordered\_map<std::type\_index,\ std::function<void\ *(QDataStream\ *,\ Beamage::IO::IStreamFactory\ *)>>\ \_mappedType;}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ INIT\_FACTORY(factoryType)\ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ std::unordered\_map<std::type\_index,\ std::function<void\ *(QDataStream\ *,\ Beamage::IO::IStreamFactory\ *)>>\ factoryType::\_mappedType\ =\ std::unordered\_map<std::type\_index,\ std::function<void\ *(QDataStream\ *,\ Beamage::IO::IStreamFactory\ *)>>();}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ FACTORY\_POPULATE(factoryType,\ keyType,\ callback)\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ (void)(factoryType::registerType<keyType>(callback));}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage}{Beamage}}\ \{}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{namespace\ }IO\ \{}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80ed}{FILE\_INIT\_FLAGS}}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edaf1948ea1b5d597fe131b7487790eb0df}{FILE\_INIT\_AUTO}}\ =\ (1\ <<\ 0)\ |\ (1\ <<\ 1),}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\_INIT\_R}}\ =\ (1\ <<\ 0),}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80eda6a2a5607888b5a94174f25028bde2a4f}{FILE\_INIT\_W}}\ =\ (1\ <<\ 1),}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80eda133a57c211934feeac7d06746d953f7f}{FILE\_INIT\_A}}\ =\ (1\ <<\ 2)}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a11e97cbad8a3f461c7e9cd382bdf0881}{\string~IStreamFactory}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a5ca388c9e332b2183ac9bb715b7a2c12}{TBuild}}(std::type\_index,\ QDataStream*,\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}\ *)\ =\ 0;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_afde1d006c21f017107d6572969695e52}{THas}}(std::type\_index)\ =\ 0;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ std::shared\_ptr<T>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{build}}(QDataStream*\ stream)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_afde1d006c21f017107d6572969695e52}{THas}}(\textcolor{keyword}{typeid}(T)))}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Factory\ don't\ have\ type\ "{}}\ +\ std::string(\textcolor{keyword}{typeid}(T).name())\ +\ \textcolor{stringliteral}{"{}\ registered\ with\ a\ build\ function."{}});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (std::shared\_ptr<T>(\textcolor{keyword}{reinterpret\_cast<}T*\textcolor{keyword}{>}(\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_a5ca388c9e332b2183ac9bb715b7a2c12}{TBuild}}(\textcolor{keyword}{typeid}(T),\ stream,\ \textcolor{keyword}{this}))));}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00125\ \ \ \ \ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(QDataStream*\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(std::shared\_ptr<QDataStream>\ \&\&);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(QFile\ *);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(\textcolor{keyword}{const}\ std::string\ \&,\ uint64\_t\ =\ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\_INIT\_FLAGS::FILE\_INIT\_R}});}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0d808c4d8aa0ae15d277cfd3aeb54b9a}{\string~BeaStream}}();}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{setFactory}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}{\_factory}}\ =\ std::unique\_ptr<IStreamFactory>((\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory}{IStreamFactory}}*)(\textcolor{keyword}{new}\ T));}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ QDataStream*\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_af4b853e0104a68cf4fa0f3dc956ca9e0}{getRawStream}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ad783023198acd6345380e0999119bfb6}{parseHeader}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{setFactory}}\ =\ \textcolor{keyword}{true})\ =\ 0;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ std::shared\_ptr<T>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a3b0d05ca6e9470e23407842d9568a0ed}{buildObject}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7}{isReadable}}())}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}stream\ is\ not\ buildObject,\ stream\ is\ not\ readable."{}});}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}{\_factory}})}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}can't\ build\ BeaStream,\ no\ factory\ attached."{}});}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}{\_factory}}-\/>build<T>(\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\_QStream}}.get()));}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_aec608f344ac167e6f7597bd6061ee81a}{write}}(\textcolor{keywordtype}{void})\ =\ 0;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ab8a1791d0c1c36968156d603dd0e92c1}{isWritable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7}{isReadable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::map<std::size\_t,\ void\ *>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee}{staticAllocationStack}};}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ std::unique\_ptr<IStreamFactory>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}{\_factory}};}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ std::shared\_ptr<QDataStream>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\_QStream}};}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ QIODevice::OpenModeFlag\ \_build\_qt\_ioflag(int64\_t);}
+\DoxyCodeLine{00291\ \ \ \ \ \};}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceBeamage_1_1IO_aeb023cd95254c815f7f11f100bba58ff}{initFactories}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00294\ \}}
+\DoxyCodeLine{00295\ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dbestream_8h}{dbestream.h}}"{}}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dafstream_8h}{dafstream.h}}"{}}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{beamagefileformat_8h}{beamagefileformat.h}}"{}}}
+
+\end{DoxyCode}

@@ -1,0 +1,54 @@
+\chapter{Hyper }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER}\index{Hyper@{Hyper}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1733}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1733}%
+
+
+Hyper is a separate \doxylink{structHTTP}{HTTP} library written in Rust. curl can be told to use this library as a backend to deal with \doxylink{structHTTP}{HTTP}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1734}{}\doxysection{\texorpdfstring{Experimental!}{Experimental!}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1734}
+Hyper support in curl is considered {\bfseries{EXPERIMENTAL}} until further notice. It needs to be explicitly enabled at build-\/time.
+
+Further development and tweaking of the Hyper backend support in curl will happen in in the master branch using pull-\/requests, just like ordinary changes.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1735}{}\doxysection{\texorpdfstring{Hyper version}{Hyper version}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1735}
+The C API for Hyper is brand new and is still under development.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1736}{}\doxysection{\texorpdfstring{build curl with hyper}{build curl with hyper}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1736}
+Since March 3 2022, hyper needs the nightly rustc to build, which you may need to install first with\+: \begin{DoxyVerb} % rustup toolchain install nightly
+\end{DoxyVerb}
+
+
+Then build hyper and enable its C API like this\+: \begin{DoxyVerb} % git clone https://github.com/hyperium/hyper
+ % cd hyper
+ % RUSTFLAGS="--cfg hyper_unstable_ffi" cargo +nightly rustc --features client,http1,http2,ffi -Z unstable-options --crate-type cdylib
+\end{DoxyVerb}
+
+
+Build curl to use hyper\textquotesingle{}s C API\+: \begin{DoxyVerb} % git clone https://github.com/curl/curl
+ % cd curl
+ % autoreconf -fi
+ % ./configure --with-hyper=<hyper dir>
+ % make
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1737}{}\doxysection{\texorpdfstring{using Hyper internally}{using Hyper internally}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1737}
+Hyper is a low level \doxylink{structHTTP}{HTTP} transport library. curl itself provides all \doxylink{structHTTP}{HTTP} headers and Hyper provides all received headers back to curl.
+
+Therefore, most of the "{}header logic"{} in curl as in responding to and acting on specific input and output headers are done the same way in curl code.
+
+The API in Hyper delivers received \doxylink{structHTTP}{HTTP} headers as (cleaned up) name=value pairs, making it impossible for curl to know the exact byte representation over the wire with Hyper.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1738}{}\doxysubsection{\texorpdfstring{Limitations}{Limitations}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1738}
+The hyper backend does not support
+
+
+\begin{DoxyItemize}
+\item {\ttfamily CURLOPT\+\_\+\+IGNORE\+\_\+\+CONTENT\+\_\+\+LENGTH}
+\item {\ttfamily -\/-\/raw} and disabling {\ttfamily CURLOPT\+\_\+\+HTTP\+\_\+\+TRANSFER\+\_\+\+DECODING}
+\item \doxylink{structRTSP}{RTSP}
+\item hyper is much stricter about what \doxylink{structHTTP}{HTTP} header contents it allows
+\item HTTP/0.\+9
+\item HTTP/2 upgrade using \doxylink{structHTTP}{HTTP}\+:// URLs. Aka \textquotesingle{}h2c\textquotesingle{}
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1739}{}\doxysubsection{\texorpdfstring{Remaining issues}{Remaining issues}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HYPER_autotoc_md1739}
+This backend is still not feature complete with the native backend. Areas that still need attention and verification include\+:
+
+
+\begin{DoxyItemize}
+\item multiplexed HTTP/2
+\item h2 Upgrade\+:
+\item pausing transfers
+\item receiving HTTP/1 trailers
+\item sending HTTP/1 trailers 
+\end{DoxyItemize}

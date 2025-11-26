@@ -1,0 +1,41 @@
+\doxysection{rand.\+h}
+\hypertarget{rand_8h_source}{}\label{rand_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/rand.h@{lib/libwconr/build/\_deps/curl-\/src/lib/rand.h}}
+\mbox{\hyperlink{rand_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_RAND\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_RAND\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ Curl\_rand()\ stores\ 'num'\ number\ of\ random\ unsigned\ characters\ in\ the\ buffer}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ 'rnd'\ points\ to.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ If\ libcurl\ is\ built\ without\ TLS\ support\ or\ with\ a\ TLS\ backend\ that\ lacks\ a}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ proper\ random\ API\ (Gskit\ or\ mbedTLS),\ this\ function\ will\ use\ "{}weak"{}\ random.}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ When\ built\ *with*\ TLS\ support\ and\ a\ backend\ that\ offers\ strong\ random,\ it}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ will\ return\ error\ if\ it\ cannot\ provide\ strong\ random\ values.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ NOTE:\ 'data'\ may\ be\ passed\ in\ as\ NULL\ when\ coming\ from\ external\ API\ without}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ easy\ handle!}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00041\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{rand_8h_a4af2eb5937000b1ce673ac32d79e48d9}{Curl\_rand}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *rnd,\ \textcolor{keywordtype}{size\_t}\ num);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ Curl\_rand\_hex()\ fills\ the\ 'rnd'\ buffer\ with\ a\ given\ 'num'\ size\ with\ random}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ hexadecimal\ digits\ PLUS\ a\ null-\/terminating\ byte.\ It\ must\ be\ an\ odd\ number}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ size.}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00048\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{rand_8h_ae4bd86089b91201bafb73ad067d81f79}{Curl\_rand\_hex}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *rnd,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ num);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ Random\ generator\ shared\ between\ the\ Schannel\ vtls\ and\ Curl\_rand*()}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ functions\ */}}
+\DoxyCodeLine{00054\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_win32\_random(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *entropy,\ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_RAND\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

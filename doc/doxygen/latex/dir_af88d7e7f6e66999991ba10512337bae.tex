@@ -1,0 +1,62 @@
+\doxysection{gui/node\+\_\+modules/object-\/keys Directory Reference}
+\hypertarget{dir_af88d7e7f6e66999991ba10512337bae}{}\label{dir_af88d7e7f6e66999991ba10512337bae}\index{gui/node\_modules/object-\/keys Directory Reference@{gui/node\_modules/object-\/keys Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\#object-\/keys \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}package-\/url\mbox{]}}
+
+\href{https://travis-ci.org/ljharb/object-keys}{\texttt{}} \href{https://david-dm.org/ljharb/object-keys}{\texttt{}} \href{https://david-dm.org/ljharb/object-keys\#info=devDependencies}{\texttt{}} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{http://npm-stat.com/charts.html?package=object-keys}{\texttt{}}
+
+\href{https://npmjs.org/package/object-keys}{\texttt{}}
+
+\href{https://ci.testling.com/ljharb/object-keys}{\texttt{}}
+
+An Object.\+keys shim. Invoke its "{}shim"{} method to shim Object.\+keys if it is unavailable.
+
+Most common usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ keys\ =\ Object.keys\ ||\ require('object-\/keys');}
+
+\end{DoxyCode}
+\hypertarget{dir_af88d7e7f6e66999991ba10512337bae_autotoc_md1132}{}\doxysubsubsection{\texorpdfstring{Example}{Example}}\label{dir_af88d7e7f6e66999991ba10512337bae_autotoc_md1132}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ keys\ =\ require('object-\/keys');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{var\ obj\ =\ \{}
+\DoxyCodeLine{\ \ \ \ a:\ true,}
+\DoxyCodeLine{\ \ \ \ b:\ true,}
+\DoxyCodeLine{\ \ \ \ c:\ true}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.deepEqual(keys(obj),\ ['a',\ 'b',\ 'c']);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ keys\ =\ require('object-\/keys');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{/*\ when\ Object.keys\ is\ not\ present\ */}
+\DoxyCodeLine{delete\ Object.keys;}
+\DoxyCodeLine{var\ shimmedKeys\ =\ keys.shim();}
+\DoxyCodeLine{assert.equal(shimmedKeys,\ keys);}
+\DoxyCodeLine{assert.deepEqual(Object.keys(obj),\ keys(obj));}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ keys\ =\ require('object-\/keys');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{/*\ when\ Object.keys\ is\ present\ */}
+\DoxyCodeLine{var\ shimmedKeys\ =\ keys.shim();}
+\DoxyCodeLine{assert.equal(shimmedKeys,\ Object.keys);}
+\DoxyCodeLine{assert.deepEqual(Object.keys(obj),\ keys(obj));}
+
+\end{DoxyCode}
+\hypertarget{dir_af88d7e7f6e66999991ba10512337bae_autotoc_md1133}{}\doxysubsubsection{\texorpdfstring{Source}{Source}}\label{dir_af88d7e7f6e66999991ba10512337bae_autotoc_md1133}
+Implementation taken directly from \href{https://github.com/es-shims/es5-shim/blob/master/es5-shim.js\#L542-589}{\texttt{es5-\/shim}}, with modifications, including from \href{https://github.com/lodash/lodash}{\texttt{lodash}}.\hypertarget{dir_af88d7e7f6e66999991ba10512337bae_autotoc_md1134}{}\doxysubsubsection{\texorpdfstring{Tests}{Tests}}\label{dir_af88d7e7f6e66999991ba10512337bae_autotoc_md1134}
+Simply clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

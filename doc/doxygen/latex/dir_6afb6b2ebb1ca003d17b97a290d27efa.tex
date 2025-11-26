@@ -1,0 +1,2081 @@
+\doxysection{gui/node\+\_\+modules/got Directory Reference}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa}{}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa}\index{gui/node\_modules/got Directory Reference@{gui/node\_modules/got Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+ ~\newline
+ ~\newline
+  ~\newline
+ ~\newline
+ ~\newline
+ 
+
+Huge thanks to \href{https://moxy.studio}{\texttt{}} for sponsoring Sindre Sorhus! 
+
+ 
+
+\textsuperscript{(they love Got too!)}
+
+ ~\newline
+ ~\newline
+ 
+
+\begin{quote}
+Human-\/friendly and powerful \doxylink{structHTTP}{HTTP} request library for Node.\+js \end{quote}
+
+
+\href{https://travis-ci.com/github/sindresorhus/got}{\texttt{}} \href{https://coveralls.io/github/sindresorhus/got?branch=master}{\texttt{}} \href{https://npmjs.com/got}{\texttt{}} \href{https://packagephobia.now.sh/result?p=got}{\texttt{}}
+
+Moving from Request? \href{https://github.com/request/request/issues/3142}{\texttt{{\itshape (Note that Request is unmaintained)}}}
+
+See how Got compares to other HTTP libraries
+
+For browser usage, we recommend \href{https://github.com/sindresorhus/ky}{\texttt{Ky}} by the same people.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md739}{}\doxysubsubsection{\texorpdfstring{Highlights}{Highlights}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md739}
+
+\begin{DoxyItemize}
+\item \doxylink{dir_0188a3e6da905bc60aceb35bf790b8c9}{Promise API}
+\item Stream API
+\item Pagination API
+\item HTTP2 support
+\item Request cancelation
+\item \doxylink{dir_6afb6b2ebb1ca003d17b97a290d27efa_cache-adapters}{RFC compliant caching}
+\item Follows redirects
+\item \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{Retries on failure}
+\item Progress events
+\item Handles gzip/deflate/brotli
+\item \doxylink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{Timeout handling}
+\item \doxylink{retry-all-errors_8d_af0d8faa332121ce59e1f94e16fd7893c}{Errors with metadata}
+\item JSON mode
+\item WHATWG URL support
+\item HTTPS API
+\item Hooks
+\item Instances with custom defaults
+\item Types
+\item \href{documentation/advanced-creation.md\#merging-instances}{\texttt{Composable}}
+\item Plugins
+\item \href{https://github.com/sindresorhus/got/network/dependents}{\texttt{Used by 4K+ packages and 1.\+8M+ repos}}
+\item \href{https://github.com/sindresorhus/got/graphs/contributors}{\texttt{Actively maintained}}
+\item \doxylink{dir_6afb6b2ebb1ca003d17b97a290d27efa_widely-used}{Trusted by many companies}
+\end{DoxyItemize}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md740}{}\doxysubsubsection{\texorpdfstring{Install}{Install}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md740}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ got}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md741}{}\doxysubsubsection{\texorpdfstring{Usage}{Usage}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md741}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md742}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{Promise}{Promise}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md742}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ response\ =\ await\ got('https://sindresorhus.com');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(response.body);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //=>\ '<!doctype\ html>\ ...'}
+\DoxyCodeLine{\ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(error.response.body);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //=>\ 'Internal\ server\ error\ ...'}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md743}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{JSON}{JSON}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md743}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ \{body\}\ =\ await\ got.post('https://httpbin.org/anything',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ json:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ hello:\ 'world'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ responseType:\ 'json'}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(body.data);}
+\DoxyCodeLine{\ \ \ \ //=>\ \{hello:\ 'world'\}}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+See JSON mode for more details.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md744}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{Streams}{Streams}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md744}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ stream\ =\ require('stream');}
+\DoxyCodeLine{const\ \{promisify\}\ =\ require('util');}
+\DoxyCodeLine{const\ fs\ =\ require('fs');}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ pipeline\ =\ promisify(stream.pipeline);}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ await\ pipeline(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ got.stream('https://sindresorhus.com'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fs.createWriteStream('index.html')}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ For\ POST,\ PUT,\ PATCH,\ and\ DELETE\ methods,\ \`{}got.stream`\ returns\ a\ \`{}stream.Writable`.}
+\DoxyCodeLine{\ \ \ \ await\ pipeline(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fs.createReadStream('index.html'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ got.stream.post('https://sindresorhus.com')}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+{\bfseries{Tip\+:}} {\ttfamily from.\+pipe(to)} doesn\textquotesingle{}t forward errors. Instead, use \href{https://nodejs.org/api/stream.html\#stream_stream_pipeline_streams_callback}{\texttt{{\ttfamily stream.\+pipeline(from, ..., to, callback)}}}.
+
+{\bfseries{Note\+:}} While {\ttfamily got.\+post(\textquotesingle{}\href{https://example.com'}{\texttt{https\+://example.\+com\textquotesingle{}}})} resolves, {\ttfamily got.\+stream.\+post(\textquotesingle{}\href{https://example.com'}{\texttt{https\+://example.\+com\textquotesingle{}}})} will hang indefinitely until a body is provided. If there\textquotesingle{}s no body on purpose, remember to {\ttfamily .end()} the stream or set the \doxylink{md4_8c_a344482b6959f37e40ab32c8216ad00a1}{\`{}body\`{}} option to an empty string.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md745}{}\doxysubsubsubsection{\texorpdfstring{API}{API}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md745}
+It\textquotesingle{}s a {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}} request by default, but can be changed by using different methods or via \doxylink{anyauth_8d_af7b451397d4f130008fb9ac9267e8860}{\`{}options.method\`{}}.
+
+{\bfseries{By default, Got will retry on failure. To disable this option, set \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{\`{}options.retry\`{}} to {\ttfamily 0}.}}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md746}{}\doxysubsubsubsubsection{\texorpdfstring{got(url?, options?)}{got(url?, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md746}
+Returns a Promise giving a \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{Response object} or a Got Stream if {\ttfamily options.\+is\+Stream} is set to true.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md747}{}\doxysubsubsubsubsubsection{\texorpdfstring{url}{url}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md747}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} object}
+
+The URL to request, as a string, a \href{https://nodejs.org/api/https.html\#https_https_request_options_callback}{\texttt{{\ttfamily https.\+request} options object}}, or a \href{https://nodejs.org/api/url.html\#url_class_url}{\texttt{WHATWG {\ttfamily URL}}}.
+
+Properties from {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} will override properties in the parsed {\ttfamily url}.
+
+If no protocol is specified, it will throw a {\ttfamily Type\+Error}.
+
+{\bfseries{Note\+:}} The query string is {\bfseries{not}} parsed as search params. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{got('https://example.com/?query=a\ b');\ //=>\ https://example.com/?query=a\%20b}
+\DoxyCodeLine{got('https://example.com/',\ \{searchParams:\ \{query:\ 'a\ b'\}\});\ //=>\ https://example.com/?query=a+b}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ The\ query\ string\ is\ overridden\ by\ \`{}searchParams`}
+\DoxyCodeLine{got('https://example.com/?query=a\ b',\ \{searchParams:\ \{query:\ 'a\ b'\}\});\ //=>\ https://example.com/?query=a+b}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md748}{}\doxysubsubsubsubsubsection{\texorpdfstring{options}{options}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md748}
+Type\+: {\ttfamily object}
+
+Any of the \href{https://nodejs.org/api/https.html\#https_https_request_options_callback}{\texttt{{\ttfamily https.\+request}}} options.
+
+{\bfseries{Note\+:}} Legacy URL support is disabled. {\ttfamily options.\+path} is supported only for backwards compatibility. Use {\ttfamily options.\+pathname} and {\ttfamily options.\+search\+Params} instead. {\ttfamily options.\+auth} has been replaced with {\ttfamily options.\+username} \& {\ttfamily options.\+password}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md749}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{method}{method}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md749}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}\textbackslash{} Default\+: {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}}
+
+The \doxylink{structHTTP}{HTTP} method used to make the request.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md750}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{prefix\+Url}{prefix\+Url}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md750}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} \doxylink{fail-early_8d_a571737274faf73ee73a627d345729327}{URL}}
+
+When specified, {\ttfamily prefix\+Url} will be prepended to {\ttfamily url}. The prefix can be any valid URL, either relative or absolute.\textbackslash{} A trailing slash {\ttfamily /} is optional -\/ one will be added automatically.
+
+{\bfseries{Note\+:}} {\ttfamily prefix\+Url} will be ignored if the {\ttfamily url} argument is a URL instance.
+
+{\bfseries{Note\+:}} Leading slashes in {\ttfamily \doxylink{structinput}{input}} are disallowed when using this option to enforce consistency and avoid confusion. For example, when the prefix URL is {\ttfamily \href{https://example.com/foo}{\texttt{https\+://example.\+com/foo}}} and the input is {\ttfamily /bar}, there\textquotesingle{}s ambiguity whether the resulting URL would become {\ttfamily \href{https://example.com/foo/bar}{\texttt{https\+://example.\+com/foo/bar}}} or {\ttfamily \href{https://example.com/bar}{\texttt{https\+://example.\+com/bar}}}. The latter is used by browsers.
+
+{\bfseries{Tip\+:}} Useful when used with \`{}got.extend()\`{} to create niche-\/specific Got instances.
+
+{\bfseries{Tip\+:}} You can change {\ttfamily prefix\+Url} using hooks as long as the URL still includes the {\ttfamily prefix\+Url}. If the URL doesn\textquotesingle{}t include it anymore, it will throw.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ await\ got('unicorn',\ \{prefixUrl:\ 'https://cats.com'\});}
+\DoxyCodeLine{\ \ \ \ //=>\ 'https://cats.com/unicorn'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ instance\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ prefixUrl:\ 'https://google.com'}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ await\ instance('unicorn',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ beforeRequest:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options.prefixUrl\ =\ 'https://cats.com';}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ //=>\ 'https://cats.com/unicorn'}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md751}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{headers}{headers}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md751}
+Type\+: {\ttfamily object}\textbackslash{} Default\+: {\ttfamily \{\}}
+
+Request headers.
+
+Existing headers will be overwritten. Headers set to {\ttfamily undefined} will be omitted.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md752}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{is\+Stream}{is\+Stream}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md752}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Returns a {\ttfamily Stream} instead of a {\ttfamily Promise}. This is equivalent to calling {\ttfamily got.\+stream(url, \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}?)}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md753}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{body}{body}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md753}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer \texorpdfstring{$\vert$}{|} stream.\+Readable} or \href{https://github.com/form-data/form-data}{\texttt{{\ttfamily form-\/data} instance}}
+
+{\bfseries{Note \#1\+:}} The {\ttfamily \doxylink{md4_8c_a344482b6959f37e40ab32c8216ad00a1}{body}} option cannot be used with the {\ttfamily json} or {\ttfamily form} option.
+
+{\bfseries{Note \#2\+:}} If you provide this option, {\ttfamily got.\+stream()} will be read-\/only.
+
+{\bfseries{Note \#3\+:}} If you provide a payload with the {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}} or {\ttfamily \doxylink{request_8d_ac4999ab983fd9899b473702ca59138d0}{HEAD}} method, it will throw a {\ttfamily Type\+Error} unless the method is {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}} and the {\ttfamily allow\+Get\+Body} option is set to {\ttfamily true}.
+
+{\bfseries{Note \#4\+:}} This option is not enumerable and will not be merged with the instance defaults.
+
+The {\ttfamily content-\/length} header will be automatically set if {\ttfamily \doxylink{md4_8c_a344482b6959f37e40ab32c8216ad00a1}{body}} is a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} / {\ttfamily Buffer} / {\ttfamily fs.\+create\+Read\+Stream} instance / \href{https://github.com/form-data/form-data}{\texttt{{\ttfamily form-\/data} instance}}, and {\ttfamily content-\/length} and {\ttfamily transfer-\/encoding} are not manually set in {\ttfamily options.\+headers}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md754}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{json}{json}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md754}
+Type\+: {\ttfamily object \texorpdfstring{$\vert$}{|} Array \texorpdfstring{$\vert$}{|} number \texorpdfstring{$\vert$}{|} \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} boolean \texorpdfstring{$\vert$}{|} null} {\itshape (JSON-\/serializable values)}
+
+{\bfseries{Note \#1\+:}} If you provide this option, {\ttfamily got.\+stream()} will be read-\/only.\textbackslash{} {\bfseries{Note \#2\+:}} This option is not enumerable and will not be merged with the instance defaults.
+
+JSON body. If the {\ttfamily Content-\/\+Type} header is not set, it will be set to {\ttfamily application/json}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md755}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{context}{context}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md755}
+Type\+: {\ttfamily object}
+
+User data. In contrast to other options, {\ttfamily context} is not enumerable.
+
+{\bfseries{Note\+:}} The object is never merged, it\textquotesingle{}s just passed through. Got will not modify the object in any way.
+
+It\textquotesingle{}s very useful for storing auth tokens\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ instance\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ beforeRequest:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ options\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (!options.context\ ||\ !options.context.token)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ throw\ new\ Error('Token\ required');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options.headers.token\ =\ options.context.token;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ context\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ token:\ 'secret'}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ response\ =\ await\ instance('https://httpbin.org/headers',\ \{context\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Let's\ see\ the\ headers}
+\DoxyCodeLine{\ \ \ \ console.log(response.body);}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md756}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{response\+Type}{response\+Type}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md756}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}\textbackslash{} Default\+: {\ttfamily \textquotesingle{}text\textquotesingle{}}
+
+{\bfseries{Note\+:}} When using streams, this option is ignored.
+
+The parsing method. Can be {\ttfamily \textquotesingle{}text\textquotesingle{}}, {\ttfamily \textquotesingle{}json\textquotesingle{}} or {\ttfamily \textquotesingle{}\doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}\textquotesingle{}}.
+
+The promise also has {\ttfamily .text()}, {\ttfamily .json()} and {\ttfamily .\doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer()}} methods which return another Got promise for the parsed body.\textbackslash{} It\textquotesingle{}s like setting the options to {\ttfamily \{response\+Type\+: \textquotesingle{}json\textquotesingle{}, resolve\+Body\+Only\+: true\}} but without affecting the main Got promise.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ responsePromise\ =\ got(url);}
+\DoxyCodeLine{\ \ \ \ const\ bufferPromise\ =\ responsePromise.buffer();}
+\DoxyCodeLine{\ \ \ \ const\ jsonPromise\ =\ responsePromise.json();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ [response,\ buffer,\ json]\ =\ await\ Promise.all([responsePromise,\ bufferPromise,\ jsonPromise]);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}response`\ is\ an\ instance\ of\ Got\ Response}
+\DoxyCodeLine{\ \ \ \ //\ \`{}buffer`\ is\ an\ instance\ of\ Buffer}
+\DoxyCodeLine{\ \ \ \ //\ \`{}json`\ is\ an\ object}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ This}
+\DoxyCodeLine{const\ body\ =\ await\ got(url).json();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ is\ semantically\ the\ same\ as\ this}
+\DoxyCodeLine{const\ body\ =\ await\ got(url,\ \{responseType:\ 'json',\ resolveBodyOnly:\ true\});}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} {\ttfamily \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}} will return the raw body buffer. Modifying it will also alter the result of {\ttfamily promise.\+text()} and {\ttfamily promise.\+json()}. Before overwritting the buffer, please copy it first via {\ttfamily Buffer.\+from(buffer)}. See \href{https://github.com/nodejs/node/issues/27080}{\texttt{https\+://github.\+com/nodejs/node/issues/27080}}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md757}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{parse\+Json}{parse\+Json}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md757}
+Type\+: {\ttfamily (text\+: \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}) =\texorpdfstring{$>$}{>} unknown}\textbackslash{} Default\+: {\ttfamily (text\+: \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}) =\texorpdfstring{$>$}{>} JSON.\+parse(text)}
+
+A function used to parse JSON responses.
+
+
+
+{\bfseries{Example}}\begin{adjustwidth}{1em}{0em}
+
+
+Using \href{https://github.com/hapijs/bourne}{\texttt{{\ttfamily bourne}}} to prevent prototype pollution\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ Bourne\ =\ require('@hapi/bourne');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ parsed\ =\ await\ got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ parseJson:\ text\ =>\ Bourne.parse(text)}
+\DoxyCodeLine{\ \ \ \ \}).json();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(parsed);}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md758}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{stringify\+Json}{stringify\+Json}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md758}
+Type\+: {\ttfamily (object\+: unknown) =\texorpdfstring{$>$}{>} \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}\textbackslash{} Default\+: {\ttfamily (object\+: unknown) =\texorpdfstring{$>$}{>} JSON.\+stringify(object)}
+
+A function used to stringify the body of JSON requests.
+
+
+
+{\bfseries{Examples}}\begin{adjustwidth}{1em}{0em}
+
+
+Ignore properties starting with {\ttfamily \+\_\+}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ await\ got.post('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stringifyJson:\ object\ =>\ JSON.stringify(object,\ (key,\ value)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (key.startsWith('\_'))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ value;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ json:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ some:\ 'payload',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \_ignoreMe:\ 1234}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+All numbers as strings\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ await\ got.post('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stringifyJson:\ object\ =>\ JSON.stringify(object,\ (key,\ value)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (typeof\ value\ ===\ 'number')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ value.toString();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ value;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ json:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ some:\ 'payload',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ number:\ 1}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md759}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{resolve\+Body\+Only}{resolve\+Body\+Only}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md759}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+When set to {\ttfamily true} the promise will return the Response body instead of the \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{Response} object.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md760}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{cookie\+Jar}{cookie\+Jar}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md760}
+Type\+: {\ttfamily object} \texorpdfstring{$\vert$}{|} \href{https://github.com/salesforce/tough-cookie\#cookiejar}{\texttt{{\ttfamily tough.\+Cookie\+Jar} instance}}
+
+{\bfseries{Note\+:}} If you provide this option, {\ttfamily options.\+headers.\+cookie} will be overridden.
+
+\doxylink{structCookie}{Cookie} support. You don\textquotesingle{}t have to care about parsing or how to store them. \doxylink{include_8d_a5560acc686c22088ee2f56da8ab10446}{Example}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md761}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{cookie\+Jar.\+set\+Cookie}{cookie\+Jar.\+set\+Cookie}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md761}
+Type\+: {\ttfamily Function\texorpdfstring{$<$}{<}Promise\texorpdfstring{$>$}{>}}
+
+The function takes two arguments\+: {\ttfamily raw\+Cookie} ({\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}) and {\ttfamily url} ({\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}).\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md762}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{cookie\+Jar.\+get\+Cookie\+String}{cookie\+Jar.\+get\+Cookie\+String}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md762}
+Type\+: {\ttfamily Function\texorpdfstring{$<$}{<}Promise\texorpdfstring{$>$}{>}}
+
+The function takes one argument\+: {\ttfamily url} ({\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}).\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md763}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{ignore\+Invalid\+Cookies}{ignore\+Invalid\+Cookies}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md763}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Ignore invalid cookies instead of throwing an error. Only useful when the {\ttfamily cookie\+Jar} option has been set. Not recommended.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md764}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{encoding}{encoding}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md764}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}\textbackslash{} Default\+: {\ttfamily \textquotesingle{}utf8\textquotesingle{}}
+
+\href{https://nodejs.org/api/buffer.html\#buffer_buffers_and_character_encodings}{\texttt{Encoding}} to be used on {\ttfamily set\+Encoding} of the response data.
+
+To get a \href{https://nodejs.org/api/buffer.html}{\texttt{{\ttfamily Buffer}}}, you need to set \`{}response\+Type\`{} to {\ttfamily \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}} instead. Don\textquotesingle{}t set this option to {\ttfamily null}.
+
+{\bfseries{Note\+:}} This doesn\textquotesingle{}t affect streams! Instead, you need to do {\ttfamily got.\+stream(...).set\+Encoding(encoding)}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md765}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{form}{form}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md765}
+Type\+: {\ttfamily object}
+
+{\bfseries{Note \#1\+:}} If you provide this option, {\ttfamily got.\+stream()} will be read-\/only.\textbackslash{} {\bfseries{Note \#2\+:}} This option is not enumerable and will not be merged with the instance defaults.
+
+The form body is converted to a query string using \href{https://nodejs.org/api/url.html\#url_constructor_new_urlsearchparams_obj}{\texttt{{\ttfamily (new URLSearch\+Params(object)).to\+String()}}}.
+
+If the {\ttfamily Content-\/\+Type} header is not present, it will be set to {\ttfamily application/x-\/www-\/form-\/urlencoded}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md766}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{search\+Params}{search\+Params}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md766}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} object\texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}, \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} number\texorpdfstring{$>$}{>} \texorpdfstring{$\vert$}{|} URLSearch\+Params}
+
+Query string that will be added to the request URL. This will override the query string in {\ttfamily url}.
+
+If you need to pass in an array, you can do it using a {\ttfamily URLSearch\+Params} instance\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ searchParams\ =\ new\ URLSearchParams([['key',\ 'a'],\ ['key',\ 'b']]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://example.com',\ \{searchParams\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(searchParams.toString());}
+\DoxyCodeLine{//=>\ 'key=a\&key=b'}
+
+\end{DoxyCode}
+
+
+There are some exceptions in regards to {\ttfamily URLSearch\+Params} behavior\+:
+
+{\bfseries{Note \#1\+:}} {\ttfamily null} values are not stringified, an empty string is used instead.
+
+{\bfseries{Note \#2\+:}} {\ttfamily undefined} values are not stringified, the entry is skipped instead.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md767}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{timeout}{timeout}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md767}
+Type\+: {\ttfamily number \texorpdfstring{$\vert$}{|} object}
+
+Milliseconds to wait for the server to end the response before aborting the request with \`{}got.Timeout\+Error\`{} error (a.\+k.\+a. {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} property). By default, there\textquotesingle{}s no timeout.
+
+This also accepts an {\ttfamily object} with the following fields to constrain the duration of each phase of the request lifecycle\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{easygetopt_8c_a1c94df030354dae0d6a251592c71195f}{lookup}} starts when a socket is assigned and ends when the hostname has been resolved. Does not apply when using a Unix domain socket.
+\item {\ttfamily \doxylink{setup-os400_8h_adfd4ee688142ebda1142c1b0c7577e91}{connect}} starts when {\ttfamily \doxylink{easygetopt_8c_a1c94df030354dae0d6a251592c71195f}{lookup}} completes (or when the socket is assigned if lookup does not apply to the request) and ends when the socket is connected.
+\item {\ttfamily secure\+Connect} starts when {\ttfamily \doxylink{setup-os400_8h_adfd4ee688142ebda1142c1b0c7577e91}{connect}} completes and ends when the handshaking process completes (HTTPS only).
+\item {\ttfamily \doxylink{socks4_8d_a19298f028a5f0f599ce5d74b26912032}{socket}} starts when the socket is connected. See \href{https://nodejs.org/api/http.html\#http_request_settimeout_timeout_callback}{\texttt{request.\+set\+Timeout}}.
+\item {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} starts when the request has been written to the socket and ends when the response headers are received.
+\item {\ttfamily send} starts when the socket is connected and ends with the request has been written to the socket.
+\item {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} starts when the request is initiated and ends when the response\textquotesingle{}s end event fires.
+\end{DoxyItemize}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md768}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{retry}{retry}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md768}
+Type\+: {\ttfamily number \texorpdfstring{$\vert$}{|} object}\textbackslash{} Default\+:
+\begin{DoxyItemize}
+\item limit\+: {\ttfamily 2}
+\item calculate\+Delay\+: {\ttfamily (\{attempt\+Count, retry\+Options, \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}, computed\+Value\}) =\texorpdfstring{$>$}{>} computed\+Value \texorpdfstring{$\vert$}{|} Promise\texorpdfstring{$<$}{<}computed\+Value\texorpdfstring{$>$}{>}}
+\item methods\+: {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}} {\ttfamily PUT} {\ttfamily \doxylink{request_8d_ac4999ab983fd9899b473702ca59138d0}{HEAD}} {\ttfamily DELETE} {\ttfamily OPTIONS} {\ttfamily TRACE}
+\item status\+Codes\+: \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408}{\texttt{{\ttfamily 408}}} \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413}{\texttt{{\ttfamily 413}}} \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429}{\texttt{{\ttfamily 429}}} \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500}{\texttt{{\ttfamily 500}}} \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502}{\texttt{{\ttfamily 502}}} \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503}{\texttt{{\ttfamily 503}}} \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504}{\texttt{{\ttfamily 504}}} \href{https://support.cloudflare.com/hc/en-us/articles/115003011431\#521error}{\texttt{{\ttfamily 521}}} \href{https://support.cloudflare.com/hc/en-us/articles/115003011431\#522error}{\texttt{{\ttfamily 522}}} \href{https://support.cloudflare.com/hc/en-us/articles/115003011431\#524error}{\texttt{{\ttfamily 524}}}
+\item max\+Retry\+After\+: {\ttfamily undefined}
+\item error\+Codes\+: {\ttfamily ETIMEDOUT} {\ttfamily ECONNRESET} {\ttfamily EADDRINUSE} {\ttfamily ECONNREFUSED} {\ttfamily EPIPE} {\ttfamily ENOTFOUND} {\ttfamily ENETUNREACH} {\ttfamily EAI\+\_\+\+AGAIN}
+\end{DoxyItemize}
+
+An object representing {\ttfamily limit}, {\ttfamily calculate\+Delay}, {\ttfamily methods}, {\ttfamily status\+Codes}, {\ttfamily max\+Retry\+After} and {\ttfamily error\+Codes} fields for maximum retry count, retry handler, allowed methods, allowed status codes, maximum \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After}{\texttt{{\ttfamily Retry-\/\+After}}} time and allowed error codes.
+
+If {\ttfamily max\+Retry\+After} is set to {\ttfamily undefined}, it will use {\ttfamily options.\+timeout}.\textbackslash{} If \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After}{\texttt{{\ttfamily Retry-\/\+After}}} header is greater than {\ttfamily max\+Retry\+After}, it will cancel the request.
+
+Delays between retries counts with function {\ttfamily 1000 \texorpdfstring{$\ast$}{*} Math.\+pow(2, \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{retry} -\/ 1) + Math.\+random() \texorpdfstring{$\ast$}{*} 100}, where {\ttfamily \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{retry}} is attempt number (starts from 1).
+
+The {\ttfamily calculate\+Delay} property is a {\ttfamily function} that receives an object with {\ttfamily attempt\+Count}, {\ttfamily retry\+Options}, {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} and {\ttfamily computed\+Value} properties for current retry count, the retry options, error and default computed value. The function must return a delay in milliseconds (or a Promise resolving with it) ({\ttfamily 0} return value cancels retry).
+
+{\bfseries{Note\+:}} The {\ttfamily calculate\+Delay} function is responsible for the entire cache mechanism, including the {\ttfamily limit} property. To support it, you need to check whether {\ttfamily computed\+Value} is different than {\ttfamily 0}.
+
+By default, it retries {\itshape only} on the specified methods, status codes, and on these network errors\+:
+\begin{DoxyItemize}
+\item {\ttfamily ETIMEDOUT}\+: One of the \doxylink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout} limits were reached.
+\item {\ttfamily ECONNRESET}\+: Connection was forcibly closed by a peer.
+\item {\ttfamily EADDRINUSE}\+: Could not bind to any free port.
+\item {\ttfamily ECONNREFUSED}\+: Connection was refused by the server.
+\item {\ttfamily EPIPE}\+: The remote side of the stream being written has been closed.
+\item {\ttfamily ENOTFOUND}\+: Couldn\textquotesingle{}t resolve the hostname to an IP address.
+\item {\ttfamily ENETUNREACH}\+: No internet connection.
+\item {\ttfamily EAI\+\_\+\+AGAIN}\+: DNS lookup timed out.
+\end{DoxyItemize}
+
+\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_retry-stream}%
+\Hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_retry-stream}%
+
+
+You can retry Got streams too. The implementation looks like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ fs\ =\ require('fs');}
+\DoxyCodeLine{}
+\DoxyCodeLine{let\ writeStream;}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ fn\ =\ (retryCount\ =\ 0)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ stream\ =\ got.stream('https://example.com');}
+\DoxyCodeLine{\ \ \ \ stream.retryCount\ =\ retryCount;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ if\ (writeStream)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ writeStream.destroy();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ writeStream\ =\ fs.createWriteStream('example.com');}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ stream.pipe(writeStream);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ If\ you\ don't\ attach\ the\ listener,\ it\ will\ NOT\ make\ a\ retry.}
+\DoxyCodeLine{\ \ \ \ //\ It\ automatically\ checks\ the\ listener\ count\ so\ it\ knows\ whether\ to\ retry\ or\ not\ :)}
+\DoxyCodeLine{\ \ \ \ stream.once('retry',\ fn);}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{fn();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md769}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{follow\+Redirect}{follow\+Redirect}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md769}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Defines if redirect responses should be followed automatically.
+
+Note that if a {\ttfamily 303} is sent by the server in response to any request type ({\ttfamily POST}, {\ttfamily DELETE}, etc.), Got will automatically request the resource pointed to in the location header via {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}}. This is in accordance with \href{https://tools.ietf.org/html/rfc7231\#section-6.4.4}{\texttt{the spec}}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md770}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{method\+Rewriting}{method\+Rewriting}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md770}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+By default, redirects will use \href{https://tools.ietf.org/html/rfc7231\#section-6.4}{\texttt{method rewriting}}. For example, when sending a POST request and receiving a {\ttfamily 302}, it will resend the body to the new location using the same \doxylink{structHTTP}{HTTP} method ({\ttfamily POST} in this case).\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md771}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{allow\+Get\+Body}{allow\+Get\+Body}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md771}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+{\bfseries{Note\+:}} The \href{https://tools.ietf.org/html/rfc7231\#section-4.3.1}{\texttt{RFC 7321}} doesn\textquotesingle{}t specify any particular behavior for the GET method having a payload, therefore {\bfseries{it\textquotesingle{}s considered an \href{https://en.wikipedia.org/wiki/Anti-pattern}{\texttt{anti-\/pattern}}}}.
+
+Set this to {\ttfamily true} to allow sending body for the {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}} method. However, the \href{https://tools.ietf.org/html/rfc7540\#section-8.1.3}{\texttt{HTTP/2 specification}} says that {\ttfamily An \doxylink{structHTTP}{HTTP} \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET} \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request} includes \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request} \doxylink{user-agent_8d_ad8c76b4bdd86e61de828f3429552a54e}{header} fields \doxylink{xattr_8d_ae3da74acb44e2210423a2cef44413785}{and} no payload \doxylink{md4_8c_a344482b6959f37e40ab32c8216ad00a1}{body}}, therefore when using the HTTP/2 protocol this option will have no effect. This option is only meant to interact with non-\/compliant servers when you have no other choice.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md772}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{max\+Redirects}{max\+Redirects}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md772}
+Type\+: {\ttfamily number}\textbackslash{} Default\+: {\ttfamily 10}
+
+If exceeded, the request will be aborted and a {\ttfamily Max\+Redirects\+Error} will be thrown.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md773}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{decompress}{decompress}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md773}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Decompress the response automatically. This will set the {\ttfamily accept-\/encoding} header to {\ttfamily gzip, deflate, br} on Node.\+js 11.\+7.\+0+ or {\ttfamily gzip, deflate} for older Node.\+js versions, unless you set it yourself.
+
+Brotli ({\ttfamily br}) support requires Node.\+js 11.\+7.\+0 or later.
+
+If this is disabled, a compressed response is returned as a {\ttfamily Buffer}. This may be useful if you want to handle decompression yourself or stream the raw compressed data.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md774}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{cache}{cache}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md774}
+Type\+: {\ttfamily object \texorpdfstring{$\vert$}{|} false}\textbackslash{} Default\+: {\ttfamily false}
+
+\doxylink{dir_6afb6b2ebb1ca003d17b97a290d27efa_cache-adapters}{Cache adapter instance} for storing cached response data.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md775}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{cache\+Options}{cache\+Options}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md775}
+Type\+: {\ttfamily object \texorpdfstring{$\vert$}{|} undefined}\textbackslash{} Default\+: {\ttfamily \{\}}
+
+\href{https://github.com/kornelski/http-cache-semantics\#constructor-options}{\texttt{Cache options}} used for the specified request.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md776}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{dns\+Cache}{dns\+Cache}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md776}
+Type\+: {\ttfamily Cacheable\+Lookup \texorpdfstring{$\vert$}{|} false}\textbackslash{} Default\+: {\ttfamily false}
+
+An instance of \href{https://github.com/szmarczak/cacheable-lookup}{\texttt{{\ttfamily Cacheable\+Lookup}}} used for making DNS lookups. Useful when making lots of requests to different {\itshape public} hostnames.
+
+{\bfseries{Note\+:}} This should stay disabled when making requests to internal hostnames such as {\ttfamily localhost}, {\ttfamily database.\+local} etc.\textbackslash{} {\ttfamily Cacheable\+Lookup} uses {\ttfamily dns.\+resolver4(..)} and {\ttfamily dns.\+resolver6(...)} under the hood and fall backs to {\ttfamily dns.\+lookup(...)} when the first two fail, which may lead to additional delay.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md777}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{dns\+Lookup\+Ip\+Version}{dns\+Lookup\+Ip\+Version}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md777}
+Type\+: {\ttfamily \textquotesingle{}auto\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}ipv4\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}ipv6\textquotesingle{}}\textbackslash{} Default\+: {\ttfamily \textquotesingle{}auto\textquotesingle{}}
+
+Indicates which DNS record family to use.\textbackslash{} Values\+:
+\begin{DoxyItemize}
+\item {\ttfamily auto}\+: IPv4 (if present) or IPv6
+\item {\ttfamily ipv4}\+: Only IPv4
+\item {\ttfamily ipv6}\+: Only IPv6
+\end{DoxyItemize}
+
+Note\+: If you are using the undocumented option {\ttfamily family}, {\ttfamily dns\+Lookup\+Ip\+Version} will override it.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ \`{}api6.ipify.org`\ will\ be\ resolved\ as\ IPv4\ and\ the\ request\ will\ be\ over\ IPv4\ (the\ website\ will\ respond\ with\ your\ public\ IPv4)}
+\DoxyCodeLine{await\ got('https://api6.ipify.org',\ \{}
+\DoxyCodeLine{\ \ \ \ dnsLookupIpVersion:\ 'ipv4'}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \`{}api6.ipify.org`\ will\ be\ resolved\ as\ IPv6\ and\ the\ request\ will\ be\ over\ IPv6\ (the\ website\ will\ respond\ with\ your\ public\ IPv6)}
+\DoxyCodeLine{await\ got('https://api6.ipify.org',\ \{}
+\DoxyCodeLine{\ \ \ \ dnsLookupIpVersion:\ 'ipv6'}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md778}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{lookup}{lookup}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md778}
+Type\+: {\ttfamily Function}\textbackslash{} Default\+: \href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{{\ttfamily dns.\+lookup}}}
+
+Custom DNS resolution logic.
+
+The function signature is the same as \href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{{\ttfamily dns.\+lookup}}}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md779}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{request}{request}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md779}
+Type\+: {\ttfamily Function}\textbackslash{} Default\+: {\ttfamily http.\+request \texorpdfstring{$\vert$}{|} https.\+request} {\itshape (Depending on the protocol)}
+
+Custom request function. The main purpose of this is to \href{https://github.com/szmarczak/http2-wrapper}{\texttt{support HTTP2 using a wrapper}}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md780}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{http2}{http2}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md780}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+If set to {\ttfamily true}, Got will additionally accept HTTP2 requests.\textbackslash{} It will choose either HTTP/1.\+1 or HTTP/2 depending on the ALPN protocol.
+
+{\bfseries{Note\+:}} Overriding {\ttfamily options.\+request} will disable HTTP2 support.
+
+{\bfseries{Note\+:}} This option will default to {\ttfamily true} in the next upcoming major release.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ \{headers\}\ =\ await\ got('https://nghttp2.org/httpbin/anything',\ \{http2:\ true\});}
+\DoxyCodeLine{\ \ \ \ console.log(headers.via);}
+\DoxyCodeLine{\ \ \ \ //=>\ '2\ nghttpx'}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md781}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{throw\+Http\+Errors}{throw\+Http\+Errors}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md781}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Determines if a \`{}got.HTTPError\`{} is thrown for unsuccessful responses.
+
+If this is disabled, requests that encounter an error status code will be resolved with the {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} instead of throwing. This may be useful if you are checking for resource availability and are expecting error responses.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md782}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{agent}{agent}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md782}
+Type\+: {\ttfamily object}
+
+An object representing {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}, {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}} and {\ttfamily http2} keys for \href{https://nodejs.org/api/http.html\#http_class_http_agent}{\texttt{{\ttfamily http.\+Agent}}}, \href{https://nodejs.org/api/https.html\#https_class_https_agent}{\texttt{{\ttfamily https.\+Agent}}} and \href{https://github.com/szmarczak/http2-wrapper\#new-http2agentoptions}{\texttt{{\ttfamily http2wrapper.\+Agent}}} instance. This is necessary because a request to one protocol might redirect to another. In such a scenario, Got will switch over to the right protocol agent for you.
+
+If a key is not present, it will default to a global agent.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ HttpAgent\ =\ require('agentkeepalive');}
+\DoxyCodeLine{const\ \{HttpsAgent\}\ =\ HttpAgent;}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{}
+\DoxyCodeLine{\ \ \ \ agent:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ http:\ new\ HttpAgent(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ https:\ new\ HttpsAgent()}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md783}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks}{hooks}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md783}
+Type\+: {\ttfamily object\texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}, Function\mbox{[}\mbox{]}\texorpdfstring{$>$}{>}}
+
+Hooks allow modifications during the request lifecycle. Hook functions may be async and are run serially.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md784}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks.\+init}{hooks.\+init}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md784}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+Called with plain \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{request options}, right before their normalization. This is especially useful in conjunction with \`{}got.extend()\`{} when the input needs custom handling.
+
+See the \href{documentation/migration-guides.md\#breaking-changes}{\texttt{Request migration guide}} for an example.
+
+{\bfseries{Note \#1\+:}} This hook must be synchronous!\textbackslash{} {\bfseries{Note \#2\+:}} Errors in this hook will be converted into an instances of \`{}\+Request\+Error\`{}.\textbackslash{} {\bfseries{Note \#3\+:}} The options object may not have a {\ttfamily url} property. To modify it, use a {\ttfamily before\+Request} hook instead.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md785}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks.\+before\+Request}{hooks.\+before\+Request}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md785}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+Called with \href{source/core/index.ts}{\texttt{normalized}} \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{request options}. Got will make no further changes to the request before it is sent. This is especially useful in conjunction with \`{}got.extend()\`{} when you want to create an API client that, for example, uses HMAC-\/signing.
+
+{\bfseries{Note\+:}} Changing {\ttfamily options.\+json} or {\ttfamily options.\+form} has no effect on the request, you should change {\ttfamily options.\+body} instead. If needed, update the {\ttfamily options.\+headers} accordingly. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got.post(\{}
+\DoxyCodeLine{\ \ \ \ json:\ \{payload:\ 'old'\},}
+\DoxyCodeLine{\ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ beforeRequest:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ options\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options.body\ =\ JSON.stringify(\{payload:\ 'new'\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options.headers['content-\/length']\ =\ options.body.length.toString();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+{\bfseries{Tip\+:}} You can override the {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} function by returning a \href{https://nodejs.org/api/http.html\#http_class_http_clientrequest}{\texttt{{\ttfamily Client\+Request}-\/like}} instance or a \href{https://nodejs.org/api/http.html\#http_class_http_incomingmessage}{\texttt{{\ttfamily Incoming\+Message}-\/like}} instance. This is very useful when creating a custom cache mechanism.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md786}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks.\+before\+Redirect}{hooks.\+before\+Redirect}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md786}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+Called with \href{source/core/index.ts}{\texttt{normalized}} \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{request options} and the redirect \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}. Got will make no further changes to the request. This is especially useful when you want to avoid dead sites. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ beforeRedirect:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (options,\ response)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (options.hostname\ ===\ 'deadSite')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options.hostname\ =\ 'fallbackSite';}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md787}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks.\+before\+Retry}{hooks.\+before\+Retry}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md787}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+{\bfseries{Note\+:}} When using streams, this hook is ignored.
+
+Called with \href{source/normalize-arguments.ts}{\texttt{normalized}} \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{request options}, the error and the retry count. Got will make no further changes to the request. This is especially useful when some extra work is required before the next try. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got.post('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ beforeRetry:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (options,\ error,\ retryCount)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (error.response.statusCode\ ===\ 413)\ \{\ //\ Payload\ too\ large}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ options.body\ =\ getNewBody();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} When retrying in a {\ttfamily after\+Response} hook, all remaining {\ttfamily before\+Retry} hooks will be called without the {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} and {\ttfamily retry\+Count} arguments.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md788}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks.\+after\+Response}{hooks.\+after\+Response}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md788}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+{\bfseries{Note\+:}} When using streams, this hook is ignored.
+
+Called with \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response object} and a retry function. Calling the retry function will trigger {\ttfamily before\+Retry} hooks.
+
+Each function should return the response. This is especially useful when you want to refresh an access token. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ instance\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ afterResponse:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (response,\ retryWithMergedOptions)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (response.statusCode\ ===\ 401)\ \{\ //\ Unauthorized}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ updatedOptions\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ token:\ getNewToken()\ //\ Refresh\ the\ access\ token}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Save\ for\ further\ requests}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instance.defaults.options\ =\ got.mergeOptions(instance.defaults.options,\ updatedOptions);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Make\ a\ new\ retry}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ retryWithMergedOptions(updatedOptions);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ No\ changes\ otherwise}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ response;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ beforeRetry:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (options,\ error,\ retryCount)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ This\ will\ be\ called\ on\ \`{}retryWithMergedOptions(...)`}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ mutableDefaults:\ true}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md789}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{hooks.\+before\+Error}{hooks.\+before\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md789}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+Called with an {\ttfamily Error} instance. The error is passed to the hook right before it\textquotesingle{}s thrown. This is especially useful when you want to have more detailed errors.
+
+{\bfseries{Note\+:}} Errors thrown while normalizing input options are thrown directly and not part of this hook.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://api.github.com/some-\/endpoint',\ \{}
+\DoxyCodeLine{\ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ beforeError:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ error\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \{response\}\ =\ error;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (response\ \&\&\ response.body)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ error.name\ =\ 'GitHubError';}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ error.message\ =\ \`{}\$\{response.body.message\}\ (\$\{response.statusCode\})`;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ error;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md790}{}\doxysubsubsubsubsubsection{\texorpdfstring{pagination}{pagination}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md790}
+Type\+: {\ttfamily object}
+
+{\bfseries{Note\+:}} We\textquotesingle{}re \href{https://github.com/sindresorhus/got/issues/1052}{\texttt{looking for feedback}}, any ideas on how to improve the API are welcome.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md791}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+transform}{pagination.\+transform}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md791}
+Type\+: {\ttfamily Function}\textbackslash{} Default\+: {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response} =\texorpdfstring{$>$}{>} JSON.\+parse(response.\+body)}
+
+A function that transform \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{\`{}\+Response\`{}} into an array of items. This is where you should do the parsing.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md792}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+paginate}{pagination.\+paginate}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md792}
+Type\+: {\ttfamily Function}\textbackslash{} Default\+: \href{source/index.ts}{\texttt{{\ttfamily Link} header logic}}
+
+The function takes three arguments\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} -\/ The current response object.
+\item {\ttfamily all\+Items} -\/ An array of the emitted items.
+\item {\ttfamily current\+Items} -\/ Items from the current response.
+\end{DoxyItemize}
+
+It should return an object representing Got options pointing to the next page. The options are merged automatically with the previous request, therefore the options returned {\ttfamily pagination.\+paginate(...)} must reflect changes only. If there are no more pages, {\ttfamily false} should be returned.
+
+For example, if you want to stop when the response contains less items than expected, you can use something like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ limit\ =\ 10;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ items\ =\ got.paginate('https://example.com/items',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ searchParams:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ limit,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ offset:\ 0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pagination:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ paginate:\ (response,\ allItems,\ currentItems)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ previousSearchParams\ =\ response.request.options.searchParams;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ previousOffset\ =\ previousSearchParams.get('offset');}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (currentItems.length\ <\ limit)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ false;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ searchParams:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ...previousSearchParams,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset:\ Number(previousOffset)\ +\ limit,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log('Items\ from\ all\ pages:',\ items);}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md793}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+filter}{pagination.\+filter}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md793}
+Type\+: {\ttfamily Function}\textbackslash{} Default\+: {\ttfamily (item, all\+Items, current\+Items) =\texorpdfstring{$>$}{>} true}
+
+Checks whether the item should be emitted or not.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md794}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+should\+Continue}{pagination.\+should\+Continue}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md794}
+Type\+: {\ttfamily Function}\textbackslash{} Default\+: {\ttfamily (item, all\+Items, current\+Items) =\texorpdfstring{$>$}{>} true}
+
+Checks whether the pagination should continue.
+
+For example, if you need to stop {\bfseries{before}} emitting an entry with some flag, you should use {\ttfamily (item, all\+Items, current\+Items) =\texorpdfstring{$>$}{>} !item.flag}. If you want to stop {\bfseries{after}} emitting the entry, you should use {\ttfamily (item, all\+Items, current\+Items) =\texorpdfstring{$>$}{>} all\+Items.\+some(entry =\texorpdfstring{$>$}{>} entry.\+flag)} instead.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md795}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+count\+Limit}{pagination.\+count\+Limit}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md795}
+Type\+: {\ttfamily number}\textbackslash{} Default\+: {\ttfamily Infinity}
+
+The maximum amount of items that should be emitted.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md796}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+backoff}{pagination.\+backoff}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md796}
+Type\+: {\ttfamily number}\textbackslash{} Default\+: {\ttfamily 0}
+
+Milliseconds to wait before the next request is triggered.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md797}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+request\+Limit}{pagination.\+request\+Limit}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md797}
+Type\+: {\ttfamily number}\textbackslash{} Default\+: {\ttfamily 10000}
+
+The maximum amount of request that should be triggered. \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{Retries on failure} are not counted towards this limit.
+
+For example, it can be helpful during development to avoid an infinite number of requests.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md798}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{pagination.\+stack\+All\+Items}{pagination.\+stack\+All\+Items}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md798}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Defines how the parameter {\ttfamily all\+Items} in pagination.paginate, pagination.filter and pagination.should\+Continue is managed. When set to {\ttfamily false}, the parameter {\ttfamily all\+Items} is always an empty array.
+
+This option can be helpful to save on memory usage when working with a large dataset.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md799}{}\doxysubsubsubsubsubsection{\texorpdfstring{local\+Address}{local\+Address}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md799}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The IP address used to send the request from.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md800}{}\doxysubsubsubsection{\texorpdfstring{Advanced HTTPS API}{Advanced HTTPS API}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md800}
+Note\+: If the request is not HTTPS, these options will be ignored.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md801}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+certificate\+Authority}{https.\+certificate\+Authority}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md801}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer \texorpdfstring{$\vert$}{|} Array\texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer\texorpdfstring{$>$}{>}}
+
+Override the default Certificate Authorities (\href{https://ccadb-public.secure.force.com/mozilla/IncludedCACertificateReport}{\texttt{from Mozilla}})
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ Single\ Certificate\ Authority}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ certificateAuthority:\ fs.readFileSync('./my\_ca.pem')}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md802}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+key}{https.\+key}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md802}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer \texorpdfstring{$\vert$}{|} Array\texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer\texorpdfstring{$>$}{>} \texorpdfstring{$\vert$}{|} object\mbox{[}\mbox{]}}
+
+Private keys in \href{https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail}{\texttt{PEM}} format.\textbackslash{} \href{https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail}{\texttt{PEM}} allows the option of private keys being encrypted. Encrypted keys will be decrypted with {\ttfamily options.\+https.\+passphrase}.\textbackslash{} Multiple keys with different passphrases can be provided as an array of {\ttfamily \{pem\+: \texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer\texorpdfstring{$>$}{>}, passphrase\+: \texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\texorpdfstring{$>$}{>}\}}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md803}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+certificate}{https.\+certificate}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md803}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer \texorpdfstring{$\vert$}{|} (\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer)\mbox{[}\mbox{]}}
+
+\href{https://en.wikipedia.org/wiki/X.509\#Certificate_chains_and_cross-certification}{\texttt{Certificate chains}} in \href{https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail}{\texttt{PEM}} format.\textbackslash{} One cert chain should be provided per private key ({\ttfamily options.\+https.\+key}).\textbackslash{} When providing multiple cert chains, they do not have to be in the same order as their private keys in {\ttfamily options.\+https.\+key}.\textbackslash{} If the intermediate certificates are not provided, the peer will not be able to validate the certificate, and the handshake will fail.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md804}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+passphrase}{https.\+passphrase}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md804}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The passphrase to decrypt the {\ttfamily options.\+https.\+key} (if different keys have different passphrases refer to {\ttfamily options.\+https.\+key} documentation).\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md805}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+pfx}{https.\+pfx}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md805}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer \texorpdfstring{$\vert$}{|} Array\texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} Buffer \texorpdfstring{$\vert$}{|} object\texorpdfstring{$>$}{>}}
+
+\href{https://en.wikipedia.org/wiki/PKCS_12}{\texttt{PFX or PKCS12}} encoded private key and certificate chain. Using {\ttfamily options.\+https.\+pfx} is an alternative to providing {\ttfamily options.\+https.\+key} and {\ttfamily options.\+https.\+certificate} individually. A PFX is usually encrypted, and if it is, {\ttfamily options.\+https.\+passphrase} will be used to decrypt it.
+
+Multiple PFX\textquotesingle{}s can be be provided as an array of unencrypted buffers or an array of objects like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ buffer:\ string\ |\ Buffer,}
+\DoxyCodeLine{\ \ \ \ passphrase?:\ string}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+This object form can only occur in an array. If the provided buffers are encrypted, {\ttfamily object.\+passphrase} can be used to decrypt them. If {\ttfamily object.\+passphrase} is not provided, {\ttfamily options.\+https.\+passphrase} will be used for decryption.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md806}{}\doxysubsubsubsubsubsection{\texorpdfstring{Examples for {\ttfamily https.\+key}, {\ttfamily https.\+certificate}, {\ttfamily https.\+passphrase}, and {\ttfamily https.\+pfx}}{Examples for {\ttfamily https.\+key}, {\ttfamily https.\+certificate}, {\ttfamily https.\+passphrase}, and {\ttfamily https.\+pfx}}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md806}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ Single\ key\ with\ certificate}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key:\ fs.readFileSync('./client\_key.pem'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ certificate:\ fs.readFileSync('./client\_cert.pem')}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Multiple\ keys\ with\ certificates\ (out\ of\ order)}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fs.readFileSync('./client\_key1.pem'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fs.readFileSync('./client\_key2.pem')}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ certificate:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fs.readFileSync('./client\_cert2.pem'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fs.readFileSync('./client\_cert1.pem')}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Single\ key\ with\ passphrase}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key:\ fs.readFileSync('./client\_key.pem'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ certificate:\ fs.readFileSync('./client\_cert.pem'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ passphrase:\ 'client\_key\_passphrase'}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Multiple\ keys\ with\ different\ passphrases}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{pem:\ fs.readFileSync('./client\_key1.pem'),\ passphrase:\ 'passphrase1'\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{pem:\ fs.readFileSync('./client\_key2.pem'),\ passphrase:\ 'passphrase2'\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ certificate:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fs.readFileSync('./client\_cert1.pem'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fs.readFileSync('./client\_cert2.pem')}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Single\ encrypted\ PFX\ with\ passphrase}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pfx:\ fs.readFileSync('./fake.pfx'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ passphrase:\ 'passphrase'}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Multiple\ encrypted\ PFX's\ with\ different\ passphrases}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pfx:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer:\ fs.readFileSync('./key1.pfx'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ passphrase:\ 'passphrase1'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer:\ fs.readFileSync('./key2.pfx'),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ passphrase:\ 'passphrase2'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Multiple\ encrypted\ PFX's\ with\ single\ passphrase}
+\DoxyCodeLine{got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ passphrase:\ 'passphrase',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pfx:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer:\ fs.readFileSync('./key1.pfx')}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer:\ fs.readFileSync('./key2.pfx')}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md807}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+reject\+Unauthorized}{https.\+reject\+Unauthorized}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md807}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+If set to {\ttfamily false}, all invalid SSL certificates will be ignored and no error will be thrown.\textbackslash{} If set to {\ttfamily true}, it will throw an error whenever an invalid SSL certificate is detected.
+
+We strongly recommend to have this set to {\ttfamily true} for security reasons.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Correct:}
+\DoxyCodeLine{\ \ \ \ await\ got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rejectUnauthorized:\ true}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ You\ can\ disable\ it\ when\ developing\ an\ HTTPS\ app:}
+\DoxyCodeLine{\ \ \ \ await\ got('https://localhost',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rejectUnauthorized:\ false}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Never\ do\ this:}
+\DoxyCodeLine{\ \ \ \ await\ got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rejectUnauthorized:\ false}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md808}{}\doxysubsubsubsubsubsection{\texorpdfstring{https.\+check\+Server\+Identity}{https.\+check\+Server\+Identity}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md808}
+Type\+: {\ttfamily Function}\textbackslash{} Signature\+: {\ttfamily (\doxylink{structhostname}{hostname}\+: \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}, certificate\+: Detailed\+Peer\+Certificate) =\texorpdfstring{$>$}{>} Error \texorpdfstring{$\vert$}{|} undefined}\textbackslash{} Default\+: {\ttfamily tls.\+check\+Server\+Identity} (from the {\ttfamily tls} module)
+
+This function enable a custom check of the certificate.\textbackslash{} Note\+: In order to have the function called the certificate must not be {\ttfamily expired}, {\ttfamily self-\/signed} or with an {\ttfamily untrusted-\/root}.\textbackslash{} The function parameters are\+:
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{structhostname}{hostname}}\+: The server hostname (used when connecting)
+\item {\ttfamily certificate}\+: The server certificate
+\end{DoxyItemize}
+
+The function must return {\ttfamily undefined} if the check succeeded or an {\ttfamily Error} if it failed.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{await\ got('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ https:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ checkServerIdentity:\ (hostname,\ certificate)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (hostname\ ===\ 'example.com')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return;\ //\ Certificate\ OK}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ new\ Error('Invalid\ Hostname');\ //\ Certificate\ NOT\ OK}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md809}{}\doxysubsubsubsubsection{\texorpdfstring{Response}{Response}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md809}
+The response object will typically be a \href{https://nodejs.org/api/http.html\#http_class_http_incomingmessage}{\texttt{Node.\+js HTTP response stream}}, however, if returned from the cache it will be a \href{https://github.com/lukechilds/responselike}{\texttt{response-\/like object}} which behaves in the same way.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md810}{}\doxysubsubsubsubsubsection{\texorpdfstring{request}{request}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md810}
+Type\+: {\ttfamily object}
+
+{\bfseries{Note\+:}} This is not a \href{https://nodejs.org/api/http.html\#http_class_http_clientrequest}{\texttt{http.\+Client\+Request}}.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} -\/ The Got options that were set on this request.
+\end{DoxyItemize}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md811}{}\doxysubsubsubsubsubsection{\texorpdfstring{body}{body}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md811}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} object \texorpdfstring{$\vert$}{|} Buffer} {\itshape (Depending on {\ttfamily options.\+response\+Type})}
+
+The result of the request.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md812}{}\doxysubsubsubsubsubsection{\texorpdfstring{raw\+Body}{raw\+Body}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md812}
+Type\+: {\ttfamily Buffer}
+
+The raw result of the request.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md813}{}\doxysubsubsubsubsubsection{\texorpdfstring{url}{url}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md813}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The request URL or the final URL after redirects.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md814}{}\doxysubsubsubsubsubsection{\texorpdfstring{ip}{ip}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md814}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The remote IP address.
+
+{\bfseries{Note\+:}} Not available when the response is cached. This is hopefully a temporary limitation, see \href{https://github.com/lukechilds/cacheable-request/issues/86}{\texttt{lukechilds/cacheable-\/request\#86}}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md815}{}\doxysubsubsubsubsubsection{\texorpdfstring{request\+Url}{request\+Url}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md815}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The original request URL.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md816}{}\doxysubsubsubsubsubsection{\texorpdfstring{timings}{timings}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md816}
+Type\+: {\ttfamily object}
+
+The object contains the following properties\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily start} -\/ Time when the request started.
+\item {\ttfamily \doxylink{socks4_8d_a19298f028a5f0f599ce5d74b26912032}{socket}} -\/ Time when a socket was assigned to the request.
+\item {\ttfamily \doxylink{easygetopt_8c_a1c94df030354dae0d6a251592c71195f}{lookup}} -\/ Time when the DNS lookup finished.
+\item {\ttfamily \doxylink{setup-os400_8h_adfd4ee688142ebda1142c1b0c7577e91}{connect}} -\/ Time when the socket successfully connected.
+\item {\ttfamily secure\+Connect} -\/ Time when the socket securely connected.
+\item {\ttfamily \doxylink{ftpuploadresume_8c_a01aee8d8856c2abbbd0f33f9be2dfc5f}{upload}} -\/ Time when the request finished uploading.
+\item {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} -\/ Time when the request fired {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} event.
+\item {\ttfamily end} -\/ Time when the response fired {\ttfamily end} event.
+\item {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} -\/ Time when the request fired {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} event.
+\item {\ttfamily abort} -\/ Time when the request fired {\ttfamily abort} event.
+\item {\ttfamily phases}
+\begin{DoxyItemize}
+\item {\ttfamily wait} -\/ {\ttfamily timings.\+socket -\/ timings.\+start}
+\item {\ttfamily dns} -\/ {\ttfamily timings.\+lookup -\/ timings.\+socket}
+\item {\ttfamily tcp} -\/ {\ttfamily timings.\+connect -\/ timings.\+lookup}
+\item {\ttfamily tls} -\/ {\ttfamily timings.\+secure\+Connect -\/ timings.\+connect}
+\item {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} -\/ {\ttfamily timings.\+upload -\/ (timings.\+secure\+Connect \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} timings.\+connect)}
+\item {\ttfamily first\+Byte} -\/ {\ttfamily timings.\+response -\/ timings.\+upload}
+\item {\ttfamily download} -\/ {\ttfamily timings.\+end -\/ timings.\+response}
+\item {\ttfamily total} -\/ {\ttfamily (timings.\+end \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} timings.\+error \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} timings.\+abort) -\/ timings.\+start}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+If something has not been measured yet, it will be {\ttfamily undefined}.
+
+{\bfseries{Note\+:}} The time is a {\ttfamily number} representing the milliseconds elapsed since the UNIX epoch.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md817}{}\doxysubsubsubsubsubsection{\texorpdfstring{is\+From\+Cache}{is\+From\+Cache}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md817}
+Type\+: {\ttfamily boolean}
+
+Whether the response was retrieved from the cache.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md818}{}\doxysubsubsubsubsubsection{\texorpdfstring{redirect\+Urls}{redirect\+Urls}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md818}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\mbox{[}\mbox{]}}
+
+The redirect URLs.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md819}{}\doxysubsubsubsubsubsection{\texorpdfstring{retry\+Count}{retry\+Count}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md819}
+Type\+: {\ttfamily number}
+
+The number of times the request was retried.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md820}{}\doxysubsubsubsubsection{\texorpdfstring{Streams}{Streams}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md820}
+{\bfseries{Note\+:}} \doxylink{structProgress}{Progress} events, redirect events and request/response events can also be used with promises.
+
+{\bfseries{Note\+:}} To access {\ttfamily response.\+is\+From\+Cache} you need to use {\ttfamily got.\+stream(url, options).is\+From\+Cache}. The value will be undefined until the {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} event.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md821}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+stream(url, options?)}{got.\+stream(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md821}
+Sets {\ttfamily options.\+is\+Stream} to {\ttfamily true}.
+
+Returns a \href{https://nodejs.org/api/stream.html\#stream_class_stream_duplex}{\texttt{duplex stream}} with additional events\+:\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md822}{}\doxysubsubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}request\textquotesingle{}, request)}{.on(\textquotesingle{}request\textquotesingle{}, request)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md822}
+{\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} event to get the request object of the request.
+
+{\bfseries{Tip\+:}} You can use {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} event to abort request\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{got.stream('https://github.com')}
+\DoxyCodeLine{\ \ \ \ .on('request',\ request\ =>\ setTimeout(()\ =>\ request.destroy(),\ 50));}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md823}{}\doxysubsubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}response\textquotesingle{}, response)}{.on(\textquotesingle{}response\textquotesingle{}, response)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md823}
+The {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} event to get the response object of the final request.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md824}{}\doxysubsubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}redirect\textquotesingle{}, response, next\+Options)}{.on(\textquotesingle{}redirect\textquotesingle{}, response, next\+Options)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md824}
+The {\ttfamily \doxylink{proto-redir_8d_a11c09c6a93c80b5952106ec5bae344ba}{redirect}} event to get the response object of a redirect. The second argument is options for the next request to the redirect location.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md825}{}\doxysubsubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}upload\+Progress\textquotesingle{}, progress)}{.on(\textquotesingle{}upload\+Progress\textquotesingle{}, progress)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md825}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md826}{}\doxysubsubsubsubsubsection{\texorpdfstring{.upload\+Progress}{.upload\+Progress}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md826}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md827}{}\doxysubsubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}download\+Progress\textquotesingle{}, progress)}{.on(\textquotesingle{}download\+Progress\textquotesingle{}, progress)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md827}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md828}{}\doxysubsubsubsubsubsection{\texorpdfstring{.download\+Progress}{.download\+Progress}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md828}
+\doxylink{structProgress}{Progress} events for uploading (sending a request) and downloading (receiving a response). The {\ttfamily progress} argument is an object like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ percent:\ 0.1,}
+\DoxyCodeLine{\ \ \ \ transferred:\ 1024,}
+\DoxyCodeLine{\ \ \ \ total:\ 10240}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+If the {\ttfamily content-\/length} header is missing, {\ttfamily total} will be {\ttfamily undefined}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ response\ =\ await\ got('https://sindresorhus.com')}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .on('downloadProgress',\ progress\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Report\ download\ progress}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .on('uploadProgress',\ progress\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Report\ upload\ progress}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(response);}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md829}{}\doxysubsubsubsubsubsection{\texorpdfstring{.once(\textquotesingle{}retry\textquotesingle{}, retry\+Count, error)}{.once(\textquotesingle{}retry\textquotesingle{}, retry\+Count, error)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md829}
+To enable retrying on a Got stream, it is required to have a {\ttfamily \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{retry}} handler attached.\textbackslash{} When this event is emitted, you should reset the stream you were writing to and prepare the body again.
+
+See the \doxylink{dir_6afb6b2ebb1ca003d17b97a290d27efa_retry-stream}{\`{}retry\`{}} option for an example implementation.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md830}{}\doxysubsubsubsubsubsection{\texorpdfstring{.ip}{.ip}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md830}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The remote IP address.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md831}{}\doxysubsubsubsubsubsection{\texorpdfstring{.aborted}{.aborted}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md831}
+Type\+: {\ttfamily boolean}
+
+Indicates whether the request has been aborted or not.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md832}{}\doxysubsubsubsubsubsection{\texorpdfstring{.timings}{.timings}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md832}
+The same as {\ttfamily response.\+timings}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md833}{}\doxysubsubsubsubsubsection{\texorpdfstring{.is\+From\+Cache}{.is\+From\+Cache}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md833}
+The same as {\ttfamily response.\+is\+From\+Cache}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md834}{}\doxysubsubsubsubsubsection{\texorpdfstring{.socket}{.socket}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md834}
+The same as {\ttfamily response.\+socket}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md835}{}\doxysubsubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}error\textquotesingle{}, error)}{.on(\textquotesingle{}error\textquotesingle{}, error)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md835}
+The emitted {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} is an instance of \`{}\+Request\+Error\`{}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md836}{}\doxysubsubsubsubsection{\texorpdfstring{Pagination}{Pagination}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md836}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md837}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+paginate(url, options?)}{got.\+paginate(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md837}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md838}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+paginate.\+each(url, options?)}{got.\+paginate.\+each(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md838}
+Returns an async iterator\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ countLimit\ =\ 10;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ pagination\ =\ got.paginate('https://api.github.com/repos/sindresorhus/got/commits',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pagination:\ \{countLimit\}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(`Printing\ latest\ \$\{countLimit\}\ Got\ commits\ (newest\ to\ oldest):`);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ for\ await\ (const\ commitData\ of\ pagination)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(commitData.commit.message);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+See \`{}options.pagination\`{} for more pagination options.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md839}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+paginate.\+all(url, options?)}{got.\+paginate.\+all(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md839}
+Returns a Promise for an array of all results\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ countLimit\ =\ 10;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ results\ =\ await\ got.paginate.all('https://api.github.com/repos/sindresorhus/got/commits',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pagination:\ \{countLimit\}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(`Printing\ latest\ \$\{countLimit\}\ Got\ commits\ (newest\ to\ oldest):`);}
+\DoxyCodeLine{\ \ \ \ console.log(results);}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+See \`{}options.pagination\`{} for more pagination options.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md840}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+get(url, options?)}{got.\+get(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md840}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md841}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+post(url, options?)}{got.\+post(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md841}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md842}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+put(url, options?)}{got.\+put(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md842}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md843}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+patch(url, options?)}{got.\+patch(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md843}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md844}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+head(url, options?)}{got.\+head(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md844}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md845}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+delete(url, options?)}{got.\+delete(url, options?)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md845}
+Sets \doxylink{anyauth_8d_af7b451397d4f130008fb9ac9267e8860}{\`{}options.method\`{}} to the method name and makes a request.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md846}{}\doxysubsubsubsection{\texorpdfstring{Instances}{Instances}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md846}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md847}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+extend(...\+options)}{got.\+extend(...\+options)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md847}
+Configure a new {\ttfamily got} instance with default {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}. The {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} are merged with the parent instance\textquotesingle{}s {\ttfamily defaults.\+options} using \`{}got.merge\+Options\`{}. You can access the resolved options with the {\ttfamily .defaults} property on the instance.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ client\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ prefixUrl:\ 'https://example.com',}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'x-\/unicorn':\ 'rainbow'}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{client.get('demo');}
+\DoxyCodeLine{}
+\DoxyCodeLine{/*\ HTTP\ Request\ =>}
+\DoxyCodeLine{\ *\ GET\ /demo\ HTTP/1.1}
+\DoxyCodeLine{\ *\ Host:\ example.com}
+\DoxyCodeLine{\ *\ x-\/unicorn:\ rainbow}
+\DoxyCodeLine{\ */}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ client\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ prefixUrl:\ 'httpbin.org',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ 'x-\/foo':\ 'bar'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ const\ \{headers\}\ =\ await\ client.get('headers').json();}
+\DoxyCodeLine{\ \ \ \ //=>\ headers['x-\/foo']\ ===\ 'bar'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ jsonClient\ =\ client.extend(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ responseType:\ 'json',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ resolveBodyOnly:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ 'x-\/baz':\ 'qux'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ const\ \{headers:\ headers2\}\ =\ await\ jsonClient.get('headers');}
+\DoxyCodeLine{\ \ \ \ //=>\ headers2['x-\/foo']\ ===\ 'bar'}
+\DoxyCodeLine{\ \ \ \ //=>\ headers2['x-\/baz']\ ===\ 'qux'}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+Additionally, {\ttfamily got.\+extend()} accepts two properties from the {\ttfamily defaults} object\+: {\ttfamily mutable\+Defaults} and {\ttfamily handlers}. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ You\ can\ now\ modify\ \`{}mutableGot.defaults.options`.}
+\DoxyCodeLine{const\ mutableGot\ =\ got.extend(\{mutableDefaults:\ true\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ mergedHandlers\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ handlers:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (options,\ next)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ delete\ options.headers.referer;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ next(options);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ ]}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} Handlers can be asynchronous. The recommended approach is\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ handler\ =\ (options,\ next)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (options.isStream)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ It's\ a\ Stream}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ next(options);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ It's\ a\ Promise}
+\DoxyCodeLine{\ \ \ \ return\ (async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ const\ response\ =\ await\ next(options);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ response.yourOwnProperty\ =\ true;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ response;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Every\ error\ will\ be\ replaced\ by\ this\ one.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Before\ you\ receive\ any\ error\ here,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ it\ will\ be\ passed\ to\ the\ \`{}beforeError`\ hooks\ first.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Note:\ this\ one\ won't\ be\ passed\ to\ \`{}beforeError`\ hook.\ It's\ final.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ throw\ new\ Error('Your\ very\ own\ error.');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \})();}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ instance\ =\ got.extend(\{handlers:\ [handler]\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md848}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+extend(...\+options, ...\+instances, ...)}{got.\+extend(...\+options, ...\+instances, ...)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md848}
+Merges many instances into a single one\+:
+\begin{DoxyItemize}
+\item options are merged using \`{}got.merge\+Options()\`{} (including hooks),
+\item handlers are stored in an array (you can access them through {\ttfamily instance.\+defaults.\+handlers}).
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ a\ =\ \{headers:\ \{cat:\ 'meow'\}\};}
+\DoxyCodeLine{const\ b\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ options:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ cow:\ 'moo'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ The\ same\ as\ \`{}got.extend(a).extend(b)`.}
+\DoxyCodeLine{//\ Note\ \`{}a`\ is\ options\ and\ \`{}b`\ is\ an\ instance.}
+\DoxyCodeLine{got.extend(a,\ b);}
+\DoxyCodeLine{//=>\ \{headers:\ \{cat:\ 'meow',\ cow:\ 'moo'\}\}}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md849}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+merge\+Options(parent, ...\+sources)}{got.\+merge\+Options(parent, ...\+sources)}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md849}
+Extends parent options. Avoid using \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax\#Spread_in_object_literals}{\texttt{object spread}} as it doesn\textquotesingle{}t work recursively\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ a\ =\ \{headers:\ \{cat:\ 'meow',\ wolf:\ ['bark',\ 'wrrr']\}\};}
+\DoxyCodeLine{const\ b\ =\ \{headers:\ \{cow:\ 'moo',\ wolf:\ ['auuu']\}\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\{...a,\ ...b\}\ \ \ \ \ \ \ \ \ \ \ \ //\ =>\ \{headers:\ \{cow:\ 'moo',\ wolf:\ ['auuu']\}\}}
+\DoxyCodeLine{got.mergeOptions(a,\ b)\ \ //\ =>\ \{headers:\ \{cat:\ 'meow',\ cow:\ 'moo',\ wolf:\ ['auuu']\}\}}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} Only Got options are merged! Custom user options should be defined via \`{}options.context\`{}.
+
+Options are deeply merged to a new object. The value of each key is determined as follows\+:
+
+
+\begin{DoxyItemize}
+\item If the new property is not defined, the old value is used.
+\item If the new property is explicitly set to {\ttfamily undefined}\+:
+\begin{DoxyItemize}
+\item If the parent property is a plain {\ttfamily object}, the parent value is deeply cloned.
+\item Otherwise, {\ttfamily undefined} is used.
+\end{DoxyItemize}
+\item If the parent value is an instance of {\ttfamily URLSearch\+Params}\+:
+\begin{DoxyItemize}
+\item If the new value is a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, an {\ttfamily object} or an instance of {\ttfamily URLSearch\+Params}, a new {\ttfamily URLSearch\+Params} instance is created. The values are merged using \href{https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/append}{\texttt{{\ttfamily url\+Search\+Params.\+append(key, value)}}}. The keys defined in the new value override the keys defined in the parent value. Please note that {\ttfamily null} values point to an empty string and {\ttfamily undefined} values will exclude the entry.
+\item Otherwise, the only available value is {\ttfamily undefined}.
+\end{DoxyItemize}
+\item If the new property is a plain {\ttfamily object}\+:
+\begin{DoxyItemize}
+\item If the parent property is a plain {\ttfamily object} too, both values are merged recursively into a new {\ttfamily object}.
+\item Otherwise, only the new value is deeply cloned.
+\end{DoxyItemize}
+\item If the new property is an {\ttfamily Array}, it overwrites the old one with a deep clone of the new property.
+\item Properties that are not enumerable, such as {\ttfamily context}, {\ttfamily \doxylink{md4_8c_a344482b6959f37e40ab32c8216ad00a1}{body}}, {\ttfamily json}, and {\ttfamily form}, will not be merged.
+\item Otherwise, the new value is assigned to the key.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ a\ =\ \{json:\ \{cat:\ 'meow'\}\};}
+\DoxyCodeLine{const\ b\ =\ \{json:\ \{cow:\ 'moo'\}\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{got.mergeOptions(a,\ b);}
+\DoxyCodeLine{//=>\ \{json:\ \{cow:\ 'moo'\}\}}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md850}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+defaults}{got.\+defaults}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md850}
+Type\+: {\ttfamily object}
+
+The Got defaults used in that instance.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md851}{}\doxysubsubsubsubsubsection{\texorpdfstring{\protect\doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}{{options}}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md851}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md852}{}\doxysubsubsubsubsubsection{\texorpdfstring{handlers}{handlers}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md852}
+Type\+: {\ttfamily Function\mbox{[}\mbox{]}}\textbackslash{} Default\+: {\ttfamily \mbox{[}\mbox{]}}
+
+An array of functions. You execute them directly by calling {\ttfamily got()}. They are some sort of "{}global hooks"{} -\/ these functions are called first. The last handler ({\itshape it\textquotesingle{}s hidden}) is either \href{source/core/as-promise/index.ts}{\texttt{{\ttfamily as\+Promise}}} or \href{source/core/index.ts}{\texttt{{\ttfamily as\+Stream}}}, depending on the {\ttfamily options.\+is\+Stream} property.
+
+Each handler takes two arguments\+:\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md853}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{\protect\doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}{{options}}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md853}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md854}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{next()}{next()}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md854}
+Returns a {\ttfamily Promise} or a {\ttfamily Stream} depending on \`{}options.is\+Stream\`{}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ settings\ =\ \{}
+\DoxyCodeLine{\ \ \ \ handlers:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (options,\ next)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (options.isStream)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ It's\ a\ Stream,\ so\ we\ can\ perform\ stream-\/specific\ actions\ on\ it}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ next(options)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .on('request',\ request\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ setTimeout(()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ request.abort();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ 50);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ It's\ a\ Promise}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ next(options);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ options:\ got.mergeOptions(got.defaults.options,\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ responseType:\ 'json'}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ jsonGot\ =\ got.extend(settings);}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md855}{}\doxysubsubsubsubsubsection{\texorpdfstring{mutable\+Defaults}{mutable\+Defaults}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md855}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+A read-\/only boolean describing whether the defaults are mutable or not. If set to {\ttfamily true}, you can update headers over time, for example, update an access token when it expires.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md856}{}\doxysubsubsection{\texorpdfstring{Types}{Types}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md856}
+Got exports some handy Type\+Script types and interfaces. See the type definition for all the exported types.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md857}{}\doxysubsubsubsection{\texorpdfstring{Got}{Got}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md857}
+Type\+Script will automatically infer types for Got instances, but in case you want to define something like dependencies, you can import the available types directly from Got.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{GotRequestFunction\}\ from\ 'got';}
+\DoxyCodeLine{}
+\DoxyCodeLine{interface\ Dependencies\ \{}
+\DoxyCodeLine{\ \ \ \ readonly\ post:\ GotRequestFunction}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md858}{}\doxysubsubsubsection{\texorpdfstring{Hooks}{Hooks}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md858}
+When writing hooks, you can refer to their types to keep your interfaces consistent.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{BeforeRequestHook\}\ from\ 'got';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ addAccessToken\ =\ (accessToken:\ string):\ BeforeRequestHook\ =>\ options\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ options.path\ =\ \`{}\$\{options.path\}?access\_token=\$\{accessToken\}`;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md859}{}\doxysubsubsection{\texorpdfstring{Errors}{Errors}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md859}
+Each error contains an {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} property which are the options Got used to create a request -\/ just to make debugging easier.\textbackslash{} Additionaly, the errors may have {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} (Got Stream) and {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} (Got Response) properties depending on which phase of the request failed.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md860}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Request\+Error}{got.\+Request\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md860}
+When a request fails. Contains a {\ttfamily code} property with error class code, like {\ttfamily ECONNREFUSED}. If there is no specific code supplied, {\ttfamily code} defaults to {\ttfamily ERR\+\_\+\+GOT\+\_\+\+REQUEST\+\_\+\+ERROR}. All the errors below inherit this one.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md861}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Cache\+Error}{got.\+Cache\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md861}
+When a cache method fails, for example, if the database goes down or there\textquotesingle{}s a filesystem error. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+CACHE\+\_\+\+ACCESS} or a more specific failure code.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md862}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Read\+Error}{got.\+Read\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md862}
+When reading from response stream fails. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+READING\+\_\+\+RESPONSE\+\_\+\+STREAM} or a more specific failure code.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md863}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Parse\+Error}{got.\+Parse\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md863}
+When server response code is 2xx, and parsing body fails. Includes a {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} property. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+BODY\+\_\+\+PARSE\+\_\+\+FAILURE} or a more specific failure code.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md864}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Upload\+Error}{got.\+Upload\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md864}
+When the request body is a stream and an error occurs while reading from that stream. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+UPLOAD} or a more specific failure code.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md865}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+HTTPError}{got.\+HTTPError}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md865}
+When the server response code is not 2xx nor 3xx if {\ttfamily options.\+follow\+Redirect} is {\ttfamily true}, but always except for 304. Includes a {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} property. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+NON\+\_\+2\+XX\+\_\+3\+XX\+\_\+\+RESPONSE} or a more specific failure code.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md866}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Max\+Redirects\+Error}{got.\+Max\+Redirects\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md866}
+When the server redirects you more than ten times. Includes a {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} property. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+TOO\+\_\+\+MANY\+\_\+\+REDIRECTS}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md867}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Unsupported\+Protocol\+Error}{got.\+Unsupported\+Protocol\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md867}
+When given an unsupported protocol. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+UNSUPPORTED\+\_\+\+PROTOCOL}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md868}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Timeout\+Error}{got.\+Timeout\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md868}
+When the request is aborted due to a \doxylink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout}. Includes an {\ttfamily event} and {\ttfamily timings} property. Contains a {\ttfamily code} property with {\ttfamily ETIMEDOUT}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md869}{}\doxysubsubsubsubsection{\texorpdfstring{got.\+Cancel\+Error}{got.\+Cancel\+Error}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md869}
+When the request is aborted with {\ttfamily .cancel()}. Contains a {\ttfamily code} property with {\ttfamily ERR\+\_\+\+CANCELED}.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md870}{}\doxysubsubsection{\texorpdfstring{Aborting the request}{Aborting the request}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md870}
+The promise returned by Got has a \href{https://github.com/sindresorhus/p-cancelable}{\texttt{{\ttfamily .cancel()}}} method which when called, aborts the request.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ request\ =\ got(url,\ options);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ …}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ In\ another\ part\ of\ the\ code}
+\DoxyCodeLine{\ \ \ \ if\ (something)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ request.cancel();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ …}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ await\ request;}
+\DoxyCodeLine{\ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (request.isCanceled)\ \{\ //\ Or\ \`{}error\ instanceof\ got.CancelError`}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ //\ Handle\ cancelation}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ Handle\ other\ errors}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+When using hooks, simply throw an error to abort the request.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ request\ =\ got(url,\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ hooks:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ beforeRequest:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ throw\ new\ Error('Oops.\ Request\ canceled.');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ await\ request;}
+\DoxyCodeLine{\ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ …}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+To abort the Got Stream request, just call {\ttfamily stream.\+destroy()}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ stream\ =\ got.stream(url);}
+\DoxyCodeLine{stream.destroy();}
+
+\end{DoxyCode}
+
+
+\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_cache-adapters}%
+\Hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_cache-adapters}%
+ \hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md871}{}\doxysubsubsection{\texorpdfstring{Cache}{Cache}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md871}
+Got implements \href{https://httpwg.org/specs/rfc7234.html}{\texttt{RFC 7234}} compliant \doxylink{structHTTP}{HTTP} caching which works out of the box in-\/memory and is easily pluggable with a wide range of storage adapters. Fresh cache entries are served directly from the cache, and stale cache entries are revalidated with {\ttfamily If-\/\+None-\/\+Match}/{\ttfamily If-\/\+Modified-\/\+Since} headers. You can read more about the underlying cache behavior in the \href{https://github.com/lukechilds/cacheable-request}{\texttt{{\ttfamily cacheable-\/request} documentation}}. For DNS cache, Got uses \href{https://github.com/szmarczak/cacheable-lookup}{\texttt{{\ttfamily cacheable-\/lookup}}}.
+
+You can use the Java\+Script {\ttfamily Map} type as an in-\/memory cache\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ map\ =\ new\ Map();}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ let\ response\ =\ await\ got('https://sindresorhus.com',\ \{cache:\ map\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(response.isFromCache);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //=>\ false}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ response\ =\ await\ got('https://sindresorhus.com',\ \{cache:\ map\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(response.isFromCache);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //=>\ true}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+Got uses \href{https://github.com/lukechilds/keyv}{\texttt{Keyv}} internally to support a wide range of storage adapters. For something more scalable you could use an \href{https://github.com/lukechilds/keyv\#official-storage-adapters}{\texttt{official Keyv storage adapter}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ @keyv/redis}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ KeyvRedis\ =\ require('@keyv/redis');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ redis\ =\ new\ KeyvRedis('redis://user:pass@localhost:6379');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{cache:\ redis\});}
+
+\end{DoxyCode}
+
+
+Got supports anything that follows the Map API, so it\textquotesingle{}s easy to write your own storage adapter or use a third-\/party solution.
+
+For example, the following are all valid storage adapters\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ storageAdapter\ =\ new\ Map();}
+\DoxyCodeLine{//\ Or}
+\DoxyCodeLine{const\ storageAdapter\ =\ require('./my-\/storage-\/adapter');}
+\DoxyCodeLine{//\ Or}
+\DoxyCodeLine{const\ QuickLRU\ =\ require('quick-\/lru');}
+\DoxyCodeLine{const\ storageAdapter\ =\ new\ QuickLRU(\{maxSize:\ 1000\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{cache:\ storageAdapter\});}
+
+\end{DoxyCode}
+
+
+View the \href{https://github.com/lukechilds/keyv}{\texttt{Keyv docs}} for more information on how to use storage adapters.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md872}{}\doxysubsubsection{\texorpdfstring{Proxies}{Proxies}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md872}
+You can use the \href{https://github.com/koichik/node-tunnel}{\texttt{{\ttfamily tunnel}}} package with the {\ttfamily \doxylink{user-agent_8d_a79e53e08bedd8b5a5fc734d746c944bb}{agent}} option to work with proxies\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ tunnel\ =\ require('tunnel');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{}
+\DoxyCodeLine{\ \ \ \ agent:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ https:\ tunnel.httpsOverHttp(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ proxy:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ host:\ 'localhost'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+Otherwise, you can use the \href{https://github.com/delvedor/hpagent}{\texttt{{\ttfamily hpagent}}} package, which keeps the internal sockets alive to be reused.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ \{HttpsProxyAgent\}\ =\ require('hpagent');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{}
+\DoxyCodeLine{\ \ \ \ agent:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ https:\ new\ HttpsProxyAgent(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ keepAlive:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ keepAliveMsecs:\ 1000,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ maxSockets:\ 256,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ maxFreeSockets:\ 256,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ scheduling:\ 'lifo',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ proxy:\ 'https://localhost:8080'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+Alternatively, use \href{https://github.com/gajus/global-agent}{\texttt{{\ttfamily global-\/agent}}} to configure a global proxy for all HTTP/\+HTTPS traffic in your program.
+
+Read the \href{https://github.com/szmarczak/http2-wrapper/\#proxy-support}{\texttt{{\ttfamily http2-\/wrapper}}} docs to learn about proxying for HTTP/2.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md873}{}\doxysubsubsection{\texorpdfstring{Cookies}{Cookies}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md873}
+You can use the \href{https://github.com/salesforce/tough-cookie}{\texttt{{\ttfamily tough-\/cookie}}} package\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{promisify\}\ =\ require('util');}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ \{CookieJar\}\ =\ require('tough-\/cookie');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ cookieJar\ =\ new\ CookieJar();}
+\DoxyCodeLine{\ \ \ \ const\ setCookie\ =\ promisify(cookieJar.setCookie.bind(cookieJar));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ await\ setCookie('foo=bar',\ 'https://example.com');}
+\DoxyCodeLine{\ \ \ \ await\ got('https://example.com',\ \{cookieJar\});}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md874}{}\doxysubsubsection{\texorpdfstring{Form data}{Form data}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md874}
+You can use the \href{https://github.com/form-data/form-data}{\texttt{{\ttfamily form-\/data}}} package to create POST request with form data\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ fs\ =\ require('fs');}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ FormData\ =\ require('form-\/data');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ form\ =\ new\ FormData();}
+\DoxyCodeLine{}
+\DoxyCodeLine{form.append('my\_file',\ fs.createReadStream('/foo/bar.jpg'));}
+\DoxyCodeLine{}
+\DoxyCodeLine{got.post('https://example.com',\ \{}
+\DoxyCodeLine{\ \ \ \ body:\ form}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md875}{}\doxysubsubsection{\texorpdfstring{OAuth}{OAuth}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md875}
+You can use the \href{https://github.com/ddo/oauth-1.0a}{\texttt{{\ttfamily oauth-\/1.\+0a}}} package to create a signed OAuth request\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ crypto\ \ =\ require('crypto');}
+\DoxyCodeLine{const\ OAuth\ =\ require('oauth-\/1.0a');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ oauth\ =\ OAuth(\{}
+\DoxyCodeLine{\ \ \ \ consumer:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key:\ process.env.CONSUMER\_KEY,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ secret:\ process.env.CONSUMER\_SECRET}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ signature\_method:\ 'HMAC-\/SHA1',}
+\DoxyCodeLine{\ \ \ \ hash\_function:\ (baseString,\ key)\ =>\ crypto.createHmac('sha1',\ key).update(baseString).digest('base64')}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ token\ =\ \{}
+\DoxyCodeLine{\ \ \ \ key:\ process.env.ACCESS\_TOKEN,}
+\DoxyCodeLine{\ \ \ \ secret:\ process.env.ACCESS\_TOKEN\_SECRET}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ url\ =\ 'https://api.twitter.com/1.1/statuses/home\_timeline.json';}
+\DoxyCodeLine{}
+\DoxyCodeLine{got(url,\ \{}
+\DoxyCodeLine{\ \ \ \ headers:\ oauth.toHeader(oauth.authorize(\{url,\ method:\ 'GET'\},\ token)),}
+\DoxyCodeLine{\ \ \ \ responseType:\ 'json'}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md876}{}\doxysubsubsection{\texorpdfstring{Unix Domain Sockets}{Unix Domain Sockets}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md876}
+Requests can also be sent via \href{http://serverfault.com/questions/124517/whats-the-difference-between-unix-socket-and-tcp-ip-socket}{\texttt{unix domain sockets}}. Use the following URL scheme\+: {\ttfamily PROTOCOL\+://unix\+:SOCKET\+:PATH}.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily PROTOCOL} -\/ {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}} or {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}} {\itshape (optional)}
+\item {\ttfamily SOCKET} -\/ Absolute path to a unix domain socket, for example\+: {\ttfamily /var/run/docker.sock}
+\item {\ttfamily PATH} -\/ Request path, for example\+: {\ttfamily /v2/keys}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('http://unix:/var/run/docker.sock:/containers/json');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Or\ without\ protocol\ (HTTP\ by\ default)}
+\DoxyCodeLine{got('unix:/var/run/docker.sock:/containers/json');}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md877}{}\doxysubsubsection{\texorpdfstring{AWS}{AWS}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md877}
+Requests to AWS services need to have their headers signed. This can be accomplished by using the \href{https://www.npmjs.com/package/got4aws}{\texttt{{\ttfamily got4aws}}} package. This is an example for querying an \href{https://docs.aws.amazon.com/apigateway/api-reference/signing-requests/}{\texttt{"{}\+API Gateway"{}}} with a signed request.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got4aws\ =\ require('got4aws');;}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ awsClient\ =\ got4aws();}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ response\ =\ await\ awsClient('https://<api-\/id>.execute-\/api.<api-\/region>.amazonaws.com/<stage>/endpoint/path',\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Request-\/specific\ options}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md878}{}\doxysubsubsection{\texorpdfstring{Testing}{Testing}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md878}
+You can test your requests by using the \href{https://github.com/node-nock/nock}{\texttt{{\ttfamily nock}}} package to mock an endpoint\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ nock\ =\ require('nock');}
+\DoxyCodeLine{}
+\DoxyCodeLine{nock('https://sindresorhus.com')}
+\DoxyCodeLine{\ \ \ \ .get('/')}
+\DoxyCodeLine{\ \ \ \ .reply(200,\ 'Hello\ world!');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ response\ =\ await\ got('https://sindresorhus.com');}
+\DoxyCodeLine{\ \ \ \ console.log(response.body);}
+\DoxyCodeLine{\ \ \ \ //=>\ 'Hello\ world!'}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+Bear in mind, that by default {\ttfamily nock} mocks only one request. Got will \doxylink{rate_8d_afaa71451e959b2cb30bcbf91b61cbad8}{retry} on failed requests by default, causing a {\ttfamily No match for \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request} ...} error. The solution is to either disable retrying (set {\ttfamily options.\+retry} to {\ttfamily 0}) or call {\ttfamily .persist()} on the mocked request.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ nock\ =\ require('nock');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ scope\ =\ nock('https://sindresorhus.com')}
+\DoxyCodeLine{\ \ \ \ .get('/')}
+\DoxyCodeLine{\ \ \ \ .reply(500,\ 'Internal\ server\ error')}
+\DoxyCodeLine{\ \ \ \ .persist();}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ await\ got('https://sindresorhus.com')}
+\DoxyCodeLine{\ \ \ \ \}\ catch\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(error.response.body);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //=>\ 'Internal\ server\ error'}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(error.response.retryCount);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //=>\ 2}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ scope.persist(false);}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+For real integration testing we recommend using \href{https://github.com/avajs/ava}{\texttt{{\ttfamily ava}}} with \href{https://github.com/lukechilds/create-test-server}{\texttt{{\ttfamily create-\/test-\/server}}}. We\textquotesingle{}re using a macro so we don\textquotesingle{}t have to {\ttfamily server.\+listen()} and {\ttfamily server.\+close()} every test. Take a look at one of our tests\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{test('retry\ function\ gets\ iteration\ count',\ withServer,\ async\ (t,\ server,\ got)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ let\ knocks\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ server.get('/',\ (request,\ response)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (knocks++\ ===\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ response.end('who`s\ there?');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ await\ got(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retry:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ calculateDelay:\ (\{attemptCount\})\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t.true(is.number(attemptCount));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ attemptCount\ <\ 2\ ?\ 1\ :\ 0;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md879}{}\doxysubsubsection{\texorpdfstring{Tips}{Tips}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md879}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md880}{}\doxysubsubsubsection{\texorpdfstring{JSON mode}{JSON mode}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md880}
+To pass an object as the body, you need to use the {\ttfamily json} option. It will be stringified using {\ttfamily JSON.\+stringify}. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ \{body\}\ =\ await\ got.post('https://httpbin.org/anything',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ json:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ hello:\ 'world'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ responseType:\ 'json'}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(body.data);}
+\DoxyCodeLine{\ \ \ \ //=>\ '\{"{}hello"{}:"{}world"{}\}'}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+
+
+To receive a JSON body you can either set {\ttfamily response\+Type} option to {\ttfamily json} or use {\ttfamily promise.\+json()}. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ body\ =\ await\ got.post('https://httpbin.org/anything',\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ json:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ hello:\ 'world'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}).json();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ console.log(body);}
+\DoxyCodeLine{\ \ \ \ //=>\ \{…\}}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md881}{}\doxysubsubsubsection{\texorpdfstring{User Agent}{User Agent}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md881}
+It\textquotesingle{}s a good idea to set the {\ttfamily \textquotesingle{}user-\/agent\textquotesingle{}} header so the provider can more easily see how their resource is used. By default, it\textquotesingle{}s the URL to this repo. You can omit this header by setting it to {\ttfamily undefined}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ pkg\ =\ require('./package.json');}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'user-\/agent':\ \`{}my-\/package/\$\{pkg.version\}\ (https://github.com/username/my-\/package)`}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{got('https://sindresorhus.com',\ \{}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'user-\/agent':\ undefined}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md882}{}\doxysubsubsubsection{\texorpdfstring{304 Responses}{304 Responses}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md882}
+Bear in mind; if you send an {\ttfamily if-\/modified-\/since} header and receive a {\ttfamily 304 Not Modified} response, the body will be empty. It\textquotesingle{}s your responsibility to cache and retrieve the body contents.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md883}{}\doxysubsubsubsection{\texorpdfstring{Custom endpoints}{Custom endpoints}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md883}
+Use {\ttfamily got.\+extend()} to make it nicer to work with REST APIs. Especially if you use the {\ttfamily prefix\+Url} option.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ got\ =\ require('got');}
+\DoxyCodeLine{const\ pkg\ =\ require('./package.json');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ custom\ =\ got.extend(\{}
+\DoxyCodeLine{\ \ \ \ prefixUrl:\ 'example.com',}
+\DoxyCodeLine{\ \ \ \ responseType:\ 'json',}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'user-\/agent':\ \`{}my-\/package/\$\{pkg.version\}\ (https://github.com/username/my-\/package)`}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Use\ \`{}custom`\ exactly\ how\ you\ use\ \`{}got`}
+\DoxyCodeLine{(async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ list\ =\ await\ custom('v1/users/list');}
+\DoxyCodeLine{\})();}
+
+\end{DoxyCode}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md884}{}\doxysubsubsection{\texorpdfstring{FAQ}{FAQ}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md884}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md885}{}\doxysubsubsubsection{\texorpdfstring{Why yet another HTTP client?}{Why yet another HTTP client?}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md885}
+Got was created because the popular \href{https://github.com/request/request}{\texttt{{\ttfamily request}}} package is bloated\+: \href{https://packagephobia.now.sh/result?p=request}{\texttt{}}\textbackslash{} Furthermore, Got is fully written in Type\+Script and actively maintained.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md886}{}\doxysubsubsubsection{\texorpdfstring{Electron support has been removed}{Electron support has been removed}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md886}
+The Electron {\ttfamily net} module is not consistent with the Node.\+js {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}} module. See \href{https://github.com/sindresorhus/got/issues/899}{\texttt{\#899}} for more info.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md887}{}\doxysubsubsection{\texorpdfstring{Comparison}{Comparison}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md887}
+
+\begin{DoxyTable}{7}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}{\ttfamily got}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/request/request}{\texttt{{\ttfamily request}}}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/node-fetch/node-fetch}{\texttt{{\ttfamily node-\/fetch}}}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/sindresorhus/ky}{\texttt{{\ttfamily ky}}}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/axios/axios}{\texttt{{\ttfamily axios}}}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/visionmedia/superagent}{\texttt{{\ttfamily superagent}}}  \\
+HTTP/2 support  &\SetCell{c}\+:sparkle\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}  \\
+Browser support  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:\texorpdfstring{$\ast$}{*}  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Promise API  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Stream API  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}Node.\+js only  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Pagination API  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  \\
+Request cancelation  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+RFC compliant caching  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  \\
+Cookies (out-\/of-\/box)  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  \\
+Follows redirects  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Retries on failure  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+\doxylink{structProgress}{Progress} events  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}  &\SetCell{c}Browser only  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Handles gzip/deflate  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Advanced timeouts  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  \\
+Timings  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  \\
+Errors with metadata  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  \\
+JSON mode  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Custom defaults  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  \\
+Composable  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  \\
+Hooks  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:x\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:heavy\+\_\+check\+\_\+mark\+:  &\SetCell{c}\+:x\+:  \\
+Issues open  &\SetCell{c}\href{https://github.com/sindresorhus/got/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/request/request/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/bitinn/node-fetch/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/sindresorhus/ky/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/axios/axios/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/visionmedia/superagent/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc}{\texttt{}}  \\
+Issues closed  &\SetCell{c}\href{https://github.com/sindresorhus/got/issues?q=is\%3Aissue+is\%3Aclosed+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/request/request/issues?q=is\%3Aissue+is\%3Aclosed+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/bitinn/node-fetch/issues?q=is\%3Aissue+is\%3Aclosed+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/sindresorhus/ky/issues?q=is\%3Aissue+is\%3Aclosed+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/axios/axios/issues?q=is\%3Aissue+is\%3Aclosed+sort\%3Aupdated-desc}{\texttt{}}  &\SetCell{c}\href{https://github.com/visionmedia/superagent/issues?q=is\%3Aissue+is\%3Aclosed+sort\%3Aupdated-desc}{\texttt{}}  \\
+Downloads  &\SetCell{c}\href{https://www.npmjs.com/package/got}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/request}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/node-fetch}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/ky}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/axios}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/superagent}{\texttt{}}  \\
+Coverage  &\SetCell{c}\href{https://coveralls.io/github/sindresorhus/got}{\texttt{}}  &\SetCell{c}\href{https://coveralls.io/github/request/request}{\texttt{}}  &\SetCell{c}\href{https://coveralls.io/github/bitinn/node-fetch}{\texttt{}}  &\SetCell{c}\href{https://codecov.io/gh/sindresorhus/ky}{\texttt{}}  &\SetCell{c}\href{https://coveralls.io/github/mzabriskie/axios}{\texttt{}}  &\SetCell{c}\href{https://codecov.io/gh/visionmedia/superagent}{\texttt{}}  \\
+Build  &\SetCell{c}\href{https://travis-ci.com/github/sindresorhus/got}{\texttt{}}  &\SetCell{c}\href{https://travis-ci.org/github/request/request}{\texttt{}}  &\SetCell{c}\href{https://travis-ci.org/github/bitinn/node-fetch}{\texttt{}}  &\SetCell{c}\href{https://travis-ci.com/github/sindresorhus/ky}{\texttt{}}  &\SetCell{c}\href{https://travis-ci.org/github/axios/axios}{\texttt{}}  &\SetCell{c}\href{https://travis-ci.org/github/visionmedia/superagent}{\texttt{}}  \\
+Bugs  &\SetCell{c}\href{https://github.com/sindresorhus/got/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc+label\%3Abug}{\texttt{}}  &\SetCell{c}\texorpdfstring{$<$}{<}a href="{}https\+://github.\+com/request/request/issues?q=is\%3\+Aissue+is\%3\+Aopen+sort\%3\+Aupdated-\/desc+label\%3\+A"{}Needs+investigation"{}"{} \texorpdfstring{$>$}{>}  &\SetCell{c}\href{https://github.com/bitinn/node-fetch/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc+label\%3Abug}{\texttt{}}  &\SetCell{c}\href{https://github.com/sindresorhus/ky/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc+label\%3Abug}{\texttt{}}  &\SetCell{c}\href{https://github.com/axios/axios/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc+label\%3A\%22type\%3Aconfirmed+bug\%22}{\texttt{}}  &\SetCell{c}\href{https://github.com/visionmedia/superagent/issues?q=is\%3Aissue+is\%3Aopen+sort\%3Aupdated-desc+label\%3ABug}{\texttt{}}  \\
+Dependents  &\SetCell{c}\href{https://www.npmjs.com/package/got?activeTab=dependents}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/request?activeTab=dependents}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/node-fetch?activeTab=dependents}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/ky?activeTab=dependents}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/axios?activeTab=dependents}{\texttt{}}  &\SetCell{c}\href{https://www.npmjs.com/package/visionmedia?activeTab=dependents}{\texttt{}}  \\
+Install size  &\SetCell{c}\href{https://packagephobia.now.sh/result?p=got}{\texttt{}}  &\SetCell{c}\href{https://packagephobia.now.sh/result?p=request}{\texttt{}}  &\SetCell{c}\href{https://packagephobia.now.sh/result?p=node-fetch}{\texttt{}}  &\SetCell{c}\href{https://packagephobia.now.sh/result?p=ky}{\texttt{}}  &\SetCell{c}\href{https://packagephobia.now.sh/result?p=axios}{\texttt{}}  &\SetCell{c}\href{https://packagephobia.now.sh/result?p=superagent}{\texttt{}}  \\
+Git\+Hub stars  &\SetCell{c}\href{https://github.com/sindresorhus/got}{\texttt{}}  &\SetCell{c}\href{https://github.com/request/request}{\texttt{}}  &\SetCell{c}\href{https://github.com/node-fetch/node-fetch}{\texttt{}}  &\SetCell{c}\href{https://github.com/sindresorhus/ky}{\texttt{}}  &\SetCell{c}\href{https://github.com/axios/axios}{\texttt{}}  &\SetCell{c}\href{https://github.com/visionmedia/superagent}{\texttt{}}  \\
+Type\+Script support  &\SetCell{c}\href{https://github.com/sindresorhus/got}{\texttt{}}  &\SetCell{c}\href{https://github.com/request/request}{\texttt{}}  &\SetCell{c}\href{https://github.com/node-fetch/node-fetch}{\texttt{}}  &\SetCell{c}\href{https://github.com/sindresorhus/ky}{\texttt{}}  &\SetCell{c}\href{https://github.com/axios/axios}{\texttt{}}  &\SetCell{c}\href{https://github.com/visionmedia/superagent/commits}{\texttt{}}  \\
+Last commit  &\SetCell{c}\href{https://github.com/sindresorhus/got/commits}{\texttt{}}  &\SetCell{c}\href{https://github.com/request/request/commits}{\texttt{}}  &\SetCell{c}\href{https://github.com/node-fetch/node-fetch/commits}{\texttt{}}  &\SetCell{c}\href{https://github.com/sindresorhus/ky/commits}{\texttt{}}  &\SetCell{c}\href{https://github.com/axios/axios/commits}{\texttt{}}  &\SetCell{c}\href{https://github.com/visionmedia/superagent/commits}{\texttt{}}  \\
+\end{DoxyTable}
+
+
+
+\begin{DoxyItemize}
+\item It\textquotesingle{}s almost API compatible with the browser {\ttfamily fetch} API.\textbackslash{} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Need to switch the protocol manually. Doesn\textquotesingle{}t accept PUSH streams and doesn\textquotesingle{}t reuse HTTP/2 sessions.\textbackslash{} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Currently, only {\ttfamily Download\+Progress} event is supported, {\ttfamily Upload\+Progress} event is not supported.\textbackslash{} \+:sparkle\+: Almost-\/stable feature, but the API may change. Don\textquotesingle{}t hesitate to try it out!\textbackslash{} \+:grey\+\_\+question\+: Feature in early stage of development. Very experimental.
+\end{DoxyItemize}
+
+\href{https://packagephobia.com/result?p=@sindresorhus/is@3.0.0,@szmarczak/http-timer@4.0.5,@types/cacheable-request@6.0.1,@types/responselike@1.0.0,cacheable-lookup@5.0.3,cacheable-request@7.0.1,decompress-response@6.0.0,http2-wrapper@1.0.0,lowercase-keys@2.0.0,p-cancelable@2.0.0,responselike@2.0.0}{\texttt{Click here}} to see the install size of the Got dependencies.\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md888}{}\doxysubsubsection{\texorpdfstring{Related}{Related}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md888}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/gh-got}{\texttt{gh-\/got}} -\/ Got convenience wrapper to interact with the Git\+Hub API
+\item \href{https://github.com/singapore/gl-got}{\texttt{gl-\/got}} -\/ Got convenience wrapper to interact with the Git\+Lab API
+\item \href{https://github.com/samverschueren/travis-got}{\texttt{travis-\/got}} -\/ Got convenience wrapper to interact with the Travis API
+\item \href{https://github.com/kevva/graphql-got}{\texttt{graphql-\/got}} -\/ Got convenience wrapper to interact with Graph\+QL
+\item \href{https://github.com/khaosdoctor/gotql}{\texttt{Got\+QL}} -\/ Got convenience wrapper to interact with Graph\+QL using JSON-\/parsed queries instead of strings
+\item \href{https://github.com/alexghr/got-fetch}{\texttt{got-\/fetch}} -\/ Got with a {\ttfamily fetch} interface
+\end{DoxyItemize}\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md889}{}\doxysubsubsection{\texorpdfstring{Maintainers}{Maintainers}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md889}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://sindresorhus.com}{\texttt{}}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/szmarczak}{\texttt{}}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\href{https://github.com/Giotino}{\texttt{}}  \\
+\href{https://sindresorhus.com}{\texttt{Sindre Sorhus}}  &\href{https://github.com/szmarczak}{\texttt{Szymon Marczak}}  &\href{https://github.com/Giotino}{\texttt{Giovanni Minotti}}  \\
+\end{DoxyTable}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md890}{}\doxysubsubsubsubsubsubsection{\texorpdfstring{Former}{Former}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md890}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/floatdrop}{\texttt{Vsevolod Strukchinsky}}
+\item \href{https://github.com/alextes}{\texttt{Alexander Tesfamichael}}
+\item \href{https://github.com/brandon93s}{\texttt{Brandon Smith}}
+\item \href{https://github.com/lukechilds}{\texttt{Luke Childs}}
+\end{DoxyItemize}
+
+\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_widely-used}%
+\Hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_widely-used}%
+ \hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md891}{}\doxysubsubsection{\texorpdfstring{These amazing companies are using Got}{These amazing companies are using Got}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md891}
+\href{https://segment.com}{\texttt{}} ~~~~ \href{https://antora.org}{\texttt{}} ~~~~ \href{https://getvoip.com}{\texttt{}} ~~~~ \href{https://github.com/exoframejs/exoframe}{\texttt{}} ~~~~ \href{http://karaokes.moe}{\texttt{}} ~~~~ \href{https://github.com/renovatebot/renovate}{\texttt{}} ~~~~ \href{https://resist.bot}{\texttt{}} ~~~~ \href{https://www.naturalcycles.com}{\texttt{}} ~~~~ \href{https://microlink.io}{\texttt{}} ~~~~ \href{https://radity.com}{\texttt{}}
+
+~\newline
+
+
+\begin{quote}
+Segment is a happy user of Got! Got powers the main backend API that our app talks to. It\textquotesingle{}s used by our in-\/house RPC client that we use to communicate with all microservices.
+
+— \href{https://github.com/vadimdemedes}{\texttt{Vadim Demedes}} \end{quote}
+
+
+\begin{quote}
+Antora, a static site generator for creating documentation sites, uses Got to download the UI bundle. In Antora, the UI bundle (aka theme) is maintained as a separate project. That project exports the UI as a zip file we call the UI bundle. The main site generator downloads that UI from a URL using Got and streams it to vinyl-\/zip to extract the files. Those files go on to be used to create the HTML pages and supporting assets.
+
+— \href{https://github.com/mojavelinux}{\texttt{Dan Allen}} \end{quote}
+
+
+\begin{quote}
+Get\+Vo\+IP is happily using Got in production. One of the unique capabilities of Got is the ability to handle Unix sockets which enables us to build a full control interfaces for our docker stack.
+
+— \href{https://github.com/danielkalen}{\texttt{Daniel Kalen}} \end{quote}
+
+
+\begin{quote}
+We\textquotesingle{}re using Got inside of Exoframe to handle all the communication between CLI and server. Exoframe is a self-\/hosted tool that allows simple one-\/command deployments using Docker.
+
+— \href{https://github.com/yamalight}{\texttt{Tim Ermilov}} \end{quote}
+
+
+\begin{quote}
+Karaoke Mugen uses Got to fetch content updates from its online server.
+
+— \href{https://github.com/AxelTerizaki}{\texttt{Axel Terizaki}} \end{quote}
+
+
+\begin{quote}
+Renovate uses Got, gh-\/got and gl-\/got to send millions of queries per day to Git\+Hub, Git\+Lab, npmjs, Py\+Pi, Packagist, Docker Hub, Terraform, Circle\+CI, and more.
+
+— \href{https://github.com/rarkins}{\texttt{Rhys Arkins}} \end{quote}
+
+
+\begin{quote}
+Resistbot uses Got to communicate from the API frontend where all correspondence ingresses to the officials lookup database in back.
+
+— \href{https://github.com/chris-erickson}{\texttt{Chris Erickson}} \end{quote}
+
+
+\begin{quote}
+Natural Cycles is using Got to communicate with all kinds of 3rd-\/party REST APIs (over 9000!).
+
+— \href{https://github.com/kirillgroshkov}{\texttt{Kirill Groshkov}} \end{quote}
+
+
+\begin{quote}
+Microlink is a cloud browser as an API service that uses Got widely as the main \doxylink{structHTTP}{HTTP} client, serving \texorpdfstring{$\sim$}{\string~}22M requests a month, every time a network call needs to be performed.
+
+— \href{https://github.com/Kikobeats}{\texttt{Kiko Beats}} \end{quote}
+
+
+\begin{quote}
+We’re using Got at Radity. Thanks for such an amazing work!
+
+— \href{https://github.com/MirzayevFarid}{\texttt{Mirzayev Farid}} \end{quote}
+\hypertarget{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md892}{}\doxysubsubsection{\texorpdfstring{For enterprise}{For enterprise}}\label{dir_6afb6b2ebb1ca003d17b97a290d27efa_autotoc_md892}
+Available as part of the Tidelift Subscription.
+
+The maintainers of {\ttfamily got} and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. \href{https://tidelift.com/subscription/pkg/npm-got?utm_source=npm-got&utm_medium=referral&utm_campaign=enterprise&utm_term=repo}{\texttt{Learn more.}} 

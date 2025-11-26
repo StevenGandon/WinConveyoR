@@ -1,0 +1,56 @@
+\doxysection{share.\+h}
+\hypertarget{share_8h_source}{}\label{share_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/share.h@{lib/libwconr/build/\_deps/curl-\/src/lib/share.h}}
+\mbox{\hyperlink{share_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SHARE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SHARE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cookie_8h}{cookie.h}}"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{psl_8h}{psl.h}}"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{conncache_8h}{conncache.h}}"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ SalfordC\ says\ "{}A\ structure\ member\ may\ not\ be\ volatile"{}.\ Hence:}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ \_\_SALFORDC\_\_}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ CURL\_VOLATILE}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ CURL\_VOLATILE\ volatile}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ CURL\_GOOD\_SHARE\ 0x7e117a1e}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ GOOD\_SHARE\_HANDLE(x)\ ((x)\ \&\&\ (x)-\/>magic\ ==\ CURL\_GOOD\_SHARE)}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ this\ struct\ is\ libcurl-\/private,\ don't\ export\ details\ */}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__share}{Curl\_share}}\ \{}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__share_a535291664cca30d944f234e48309aa8e}{magic}};\ \textcolor{comment}{/*\ CURL\_GOOD\_SHARE\ */}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__share_a53dba618b80aead91be646956b236b74}{specifier}};}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{share_8h_a07759221b96020cd46c0982438518379}{CURL\_VOLATILE}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__share_a9c02e4c6bc8902d062416520d41d76db}{dirty}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{curl_8h_a405c5881424ec798ade7c5ce49d61f46}{curl\_lock\_function}}\ \mbox{\hyperlink{structCurl__share_af3750274a50a537b467d22553402f8a5}{lockfunc}};}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{curl_8h_ac8b67e1561a2a74912591723ccf0712f}{curl\_unlock\_function}}\ \mbox{\hyperlink{structCurl__share_a0515f65b605e1212596d8d9d9df7ed32}{unlockfunc}};}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structCurl__share_aa0ff1b382d1f199509af35d4361ef3f7}{clientdata}};}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconncache}{conncache}}\ \mbox{\hyperlink{structCurl__share_aae10c85bd1ae07bd1573d2bb7b0eb7c0}{conn\_cache}};}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ \mbox{\hyperlink{structCurl__share_a86baa6b0447108ef737667ac7f9e5af6}{hostcache}};}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_HTTP)\ \&\&\ !defined(CURL\_DISABLE\_COOKIES)}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCookieInfo}{CookieInfo}}\ *\mbox{\hyperlink{structCurl__share_ab77c09f49a86ba43fe6edf4544c47e5a}{cookies}};}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifdef\ USE\_LIBPSL}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{struct\ }PslCache\ psl;}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__ssl__session}{Curl\_ssl\_session}}\ *\mbox{\hyperlink{structCurl__share_a9305ce1e45753a5737fc93d3a3f5126e}{sslsession}};}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structCurl__share_aebf1a7b7a7d27745b36fadb2755210c5}{max\_ssl\_sessions}};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structCurl__share_a5b4df746c913b03df7c60af06e2f4577}{sessionage}};}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \mbox{\hyperlink{curl_8h_ac43d8db465228ea2d53762dc58fc8e44}{CURLSHcode}}\ \mbox{\hyperlink{share_8h_aed7dde6be83852d7a5ab3b55a2564ff6}{Curl\_share\_lock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *,\ \mbox{\hyperlink{curl_8h_af898dd6eb71573ccb1668c3d2380549c}{curl\_lock\_data}},}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_a0ea2c7f23828ae93fb4eb9ab701bf6fe}{curl\_lock\_access}});}
+\DoxyCodeLine{00070\ \mbox{\hyperlink{curl_8h_ac43d8db465228ea2d53762dc58fc8e44}{CURLSHcode}}\ \mbox{\hyperlink{share_8h_a0635fd3e2f77df5272f6ba68facf4d01}{Curl\_share\_unlock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *,\ \mbox{\hyperlink{curl_8h_af898dd6eb71573ccb1668c3d2380549c}{curl\_lock\_data}});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SHARE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

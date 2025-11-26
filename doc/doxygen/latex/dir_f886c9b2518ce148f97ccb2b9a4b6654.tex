@@ -1,0 +1,52 @@
+\doxysection{gui/node\+\_\+modules/define-\/data-\/property Directory Reference}
+\hypertarget{dir_f886c9b2518ce148f97ccb2b9a4b6654}{}\label{dir_f886c9b2518ce148f97ccb2b9a4b6654}\index{gui/node\_modules/define-\/data-\/property Directory Reference@{gui/node\_modules/define-\/data-\/property Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_f886c9b2518ce148f97ccb2b9a4b6654_autotoc_md393}{}\doxysubsection{\texorpdfstring{define-\/data-\/property \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}package-\/url\mbox{]}}}{define-\/data-\/property \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}package-\/url\mbox{]}}}}\label{dir_f886c9b2518ce148f97ccb2b9a4b6654_autotoc_md393}
+\href{https://github.com/ljharb/define-data-property/actions}{\texttt{}} \href{https://app.codecov.io/gh/ljharb/define-data-property/}{\texttt{}} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=define-data-property}{\texttt{}}
+
+\href{https://npmjs.org/package/define-data-property}{\texttt{}}
+
+Define a data property on an object. Will fall back to assignment in an engine without descriptors.
+
+The three {\ttfamily non\texorpdfstring{$\ast$}{*}} argument can also be passed {\ttfamily null}, which will use the existing state if available.
+
+The {\ttfamily loose} argument will mean that if you attempt to set a non-\/normal data property, in an environment without descriptor support, it will fall back to normal assignment.\hypertarget{dir_f886c9b2518ce148f97ccb2b9a4b6654_autotoc_md394}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_f886c9b2518ce148f97ccb2b9a4b6654_autotoc_md394}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ defineDataProperty\ =\ require('define-\/data-\/property');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ obj\ =\ \{\};}
+\DoxyCodeLine{defineDataProperty(obj,\ 'key',\ 'value');}
+\DoxyCodeLine{defineDataProperty(}
+\DoxyCodeLine{\ \ \ \ obj,}
+\DoxyCodeLine{\ \ \ \ 'key2',}
+\DoxyCodeLine{\ \ \ \ 'value',}
+\DoxyCodeLine{\ \ \ \ true,\ //\ nonEnumerable,\ optional}
+\DoxyCodeLine{\ \ \ \ false,\ //\ nonWritable,\ optional}
+\DoxyCodeLine{\ \ \ \ true,\ //\ nonConfigurable,\ optional}
+\DoxyCodeLine{\ \ \ \ false\ //\ loose,\ optional}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.deepEqual(}
+\DoxyCodeLine{\ \ \ \ Object.getOwnPropertyDescriptors(obj),}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ configurable:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ enumerable:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ value:\ 'value',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ writable:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ key2:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ configurable:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ enumerable:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ value:\ 'value',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ writable:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+ 

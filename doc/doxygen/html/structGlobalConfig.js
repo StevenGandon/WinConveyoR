@@ -1,0 +1,26 @@
+var structGlobalConfig =
+[
+    [ "current", "structGlobalConfig.html#acbc097975aa82bd26799ea7412add789", null ],
+    [ "errors", "structGlobalConfig.html#af87198ad3c9c77861ed042bf1779c5d3", null ],
+    [ "errors_fopened", "structGlobalConfig.html#a04231017108f199103fb45fd6497ba90", null ],
+    [ "fail_early", "structGlobalConfig.html#a1c1cce7e7dc141a854ea77f35893574e", null ],
+    [ "first", "structGlobalConfig.html#a9db6ff82dc2c12afbff67fcbd9f5beb3", null ],
+    [ "help_category", "structGlobalConfig.html#a73c4252a666a728917058015afa44657", null ],
+    [ "isatty", "structGlobalConfig.html#a10705bd14848bd494788f35ef1c10f70", null ],
+    [ "last", "structGlobalConfig.html#acd71172371f2aa72c87f9dd9fcff9c6d", null ],
+    [ "libcurl", "structGlobalConfig.html#a523182cc120d9c0c16101d49ca01765b", null ],
+    [ "ms_per_transfer", "structGlobalConfig.html#af1b7d6b1c4b9981185ca4d96d5f72ef3", null ],
+    [ "mute", "structGlobalConfig.html#a86b26318583e4626e06fb6c82c26ead7", null ],
+    [ "noprogress", "structGlobalConfig.html#ab576a5f5ef6a161d08bb67d7ae98c06c", null ],
+    [ "parallel", "structGlobalConfig.html#addb363194e677df787853572ce93293a", null ],
+    [ "parallel_connect", "structGlobalConfig.html#a847e8d4cd9a0dec9febb608f25bcfb41", null ],
+    [ "parallel_max", "structGlobalConfig.html#a57627a4dca8e85e5ea387f119c2511b5", null ],
+    [ "progressmode", "structGlobalConfig.html#a7ac1076553346732f3efbd02e43bddd5", null ],
+    [ "showerror", "structGlobalConfig.html#acb8c42b98c64675be27d3225fb3d4894", null ],
+    [ "styled_output", "structGlobalConfig.html#a67f9cac2dc8d690e8ba5eea33fa4ec43", null ],
+    [ "trace_dump", "structGlobalConfig.html#a04247e79eab8ecdf29345a44b16513e8", null ],
+    [ "trace_fopened", "structGlobalConfig.html#a9f7ecb3effabdc2a3c2d99ce99c6194e", null ],
+    [ "trace_stream", "structGlobalConfig.html#ab485f0ad1bab76bc1c8fb787217242df", null ],
+    [ "tracetime", "structGlobalConfig.html#accad22454c7b4e230d69ac8283fb1cb6", null ],
+    [ "tracetype", "structGlobalConfig.html#abcd053d005f1c4028fb53862f5109a2e", null ]
+];

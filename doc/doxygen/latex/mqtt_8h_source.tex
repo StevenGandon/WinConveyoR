@@ -1,0 +1,45 @@
+\doxysection{mqtt.\+h}
+\hypertarget{mqtt_8h_source}{}\label{mqtt_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/mqtt.h@{lib/libwconr/build/\_deps/curl-\/src/lib/mqtt.h}}
+\mbox{\hyperlink{mqtt_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_MQTT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_MQTT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_MQTT}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ \mbox{\hyperlink{mqtt_8c_aa36acdf5761468c1c52f3b6d39a9ac22}{Curl\_handler\_mqtt}};}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}}\ \{}
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034a157043110efb1732fc212277a31c33a9}{MQTT\_FIRST}},\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 0\ */}}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034a400d2a212568c013c62887e902018a95}{MQTT\_REMAINING\_LENGTH}},\ \ \textcolor{comment}{/*\ 1\ */}}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034a2fc130dd24f77d61134c8524641f931b}{MQTT\_CONNACK}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 2\ */}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034aae8442410eba50f8c08726d9559c64f1}{MQTT\_SUBACK}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 3\ */}}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034a7e4364cdb5c77972a5b69a7de8cfb371}{MQTT\_SUBACK\_COMING}},\ \ \ \ \ \textcolor{comment}{/*\ 4\ -\/\ the\ SUBACK\ remainder\ */}}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034adabbe21aefff2767757968eee1395da1}{MQTT\_PUBWAIT}},\ \ \ \ \textcolor{comment}{/*\ 5\ -\/\ wait\ for\ publish\ */}}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034a79716fcd3fef4e0522f5b55e4a1e565d}{MQTT\_PUB\_REMAIN}},\ \ \textcolor{comment}{/*\ 6\ -\/\ wait\ for\ the\ remainder\ of\ the\ publish\ */}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034a04a1ac3ce87c7bc0412073c45767a61f}{MQTT\_NOSTATE}}\ \textcolor{comment}{/*\ 7\ -\/\ never\ used\ an\ actual\ state\ */}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmqtt__conn}{mqtt\_conn}}\ \{}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}}\ \mbox{\hyperlink{structmqtt__conn_a2bc0b690a2b09a71f67e6028c3132127}{state}};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}}\ \mbox{\hyperlink{structmqtt__conn_afa5347a80dee3c6d7688d1ea9dc515ad}{nextstate}};\ \textcolor{comment}{/*\ switch\ to\ this\ after\ remaining\ length\ is}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ done\ */}}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structmqtt__conn_a6f488f8d8bb80f7749cc3bcf3aa89f21}{packetid}};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{/*\ protocol-\/specific\ transfer-\/related\ data\ */}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMQTT}{MQTT}}\ \{}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structMQTT_a6fdb50d0bc724dae3ac5b2d51ca05782}{sendleftovers}};}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structMQTT_a1cb764498b9011c767a2acd2c762cc4c}{nsend}};\ \textcolor{comment}{/*\ size\ of\ sendleftovers\ */}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{/*\ when\ receiving\ */}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structMQTT_a161c9bc8efe05f00316e320e70053858}{npacket}};\ \textcolor{comment}{/*\ byte\ counter\ */}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structMQTT_a36d0371ebbd3ef57ca51f498a23858d8}{firstbyte}};}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structMQTT_a1b5ff6d22dde49372b44c7d47dafd29a}{remaining\_length}};}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_MQTT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

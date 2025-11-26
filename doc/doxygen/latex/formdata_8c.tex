@@ -1,0 +1,189 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/formdata.c File Reference}
+\hypertarget{formdata_8c}{}\label{formdata_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/formdata.c@{lib/libwconr/build/\_deps/curl-\/src/lib/formdata.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}formdata.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}mime.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}rand.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_a152dd38815c2d61ccf8e6cfe454c81c2}{HTTPPOST\+\_\+\+PTRNAME}}~\mbox{\hyperlink{curl_8h_af9b6dad2cf1c0a8fba03c91a65fd0c8f}{CURL\+\_\+\+HTTPPOST\+\_\+\+PTRNAME}}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_a1902b6e96f01aaaed3180714df4faef4}{HTTPPOST\+\_\+\+FILENAME}}~\mbox{\hyperlink{curl_8h_aa99aa2ccf2beae5baf0e80dad601e601}{CURL\+\_\+\+HTTPPOST\+\_\+\+FILENAME}}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_a2cba177058c75264d396b0f4b3b6886f}{HTTPPOST\+\_\+\+PTRCONTENTS}}~\mbox{\hyperlink{curl_8h_a00233912976ce35075f70b83a00f1a4d}{CURL\+\_\+\+HTTPPOST\+\_\+\+PTRCONTENTS}}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_a9f5ad2d20687360fd9cf86b7c6887d86}{HTTPPOST\+\_\+\+READFILE}}~\mbox{\hyperlink{curl_8h_a972eaadaac9269dbb142cf9613289bdf}{CURL\+\_\+\+HTTPPOST\+\_\+\+READFILE}}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_a6cee088e31c4d14204d6788e79047493}{HTTPPOST\+\_\+\+PTRBUFFER}}~\mbox{\hyperlink{curl_8h_abf5c93f0d45da2f4026632191eeba5c4}{CURL\+\_\+\+HTTPPOST\+\_\+\+PTRBUFFER}}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_a627323fd2b367b08f01a417cd996aa06}{HTTPPOST\+\_\+\+CALLBACK}}~\mbox{\hyperlink{curl_8h_a44837e2334aee4eaba483d7af579190d}{CURL\+\_\+\+HTTPPOST\+\_\+\+CALLBACK}}
+\item 
+\#define \mbox{\hyperlink{formdata_8c_af8f32e09b4f89edf57c763dff0eaf39e}{HTTPPOST\+\_\+\+BUFFER}}~\mbox{\hyperlink{curl_8h_a3abda83c00ac222c947a5d7c4e0f7c27}{CURL\+\_\+\+HTTPPOST\+\_\+\+BUFFER}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{formdata_8c_adfd6402178a65840033e86e94c406ce7}{Add\+Http\+Post}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, size\+\_\+t namelength, char \texorpdfstring{$\ast$}{*}value, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} contentslength, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t bufferlength, char \texorpdfstring{$\ast$}{*}contenttype, long flags, struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}content\+Header, char \texorpdfstring{$\ast$}{*}showfilename, char \texorpdfstring{$\ast$}{*}userp, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}parent\+\_\+post, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}httppost, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}last\+\_\+post)
+\item 
+static struct \mbox{\hyperlink{structFormInfo}{Form\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{formdata_8c_a5f70a4c08d5dc41b87d55919644ea820}{Add\+Form\+Info}} (char \texorpdfstring{$\ast$}{*}value, char \texorpdfstring{$\ast$}{*}contenttype, struct \mbox{\hyperlink{structFormInfo}{Form\+Info}} \texorpdfstring{$\ast$}{*}parent\+\_\+form\+\_\+info)
+\item 
+static \mbox{\hyperlink{curl_8h_ad019905d2198c6b5937b21b0ac025271}{CURLFORMcode}} \mbox{\hyperlink{formdata_8c_a3eac73796a74f20d2b5423bbf0083d6f}{Form\+Add}} (struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}httppost, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}last\+\_\+post, va\+\_\+list params)
+\item 
+\mbox{\hyperlink{curl_8h_ad019905d2198c6b5937b21b0ac025271}{CURLFORMcode}} \mbox{\hyperlink{formdata_8c_a783fccdc6c10d15379a4563523518b08}{curl\+\_\+formadd}} (struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}httppost, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}last\+\_\+post,...)
+\item 
+int \mbox{\hyperlink{formdata_8c_a286d6011097457c9f9e4370415d9e5c6}{curl\+\_\+formget}} (struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}form, void \texorpdfstring{$\ast$}{*}arg, \mbox{\hyperlink{curl_8h_ab1d1a6e0621528e0406be23fa5e7d425}{curl\+\_\+formget\+\_\+callback}} append)
+\item 
+void \mbox{\hyperlink{formdata_8c_a84207336e50b3862bba56e249f246e46}{curl\+\_\+formfree}} (struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}form)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{formdata_8c_a022bc6a25875b20bc51a67b92c0fbc0c}{setname}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{formdata_8c_ad3f5007831015b4fdf8b2078b525eeea}{Curl\+\_\+getformdata}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}finalform, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}post, \mbox{\hyperlink{curl_8h_a7516630ec17f247697dd3272be7ada74}{curl\+\_\+read\+\_\+callback}} fread\+\_\+func)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{formdata_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{formdata_8c_af8f32e09b4f89edf57c763dff0eaf39e}\index{formdata.c@{formdata.c}!HTTPPOST\_BUFFER@{HTTPPOST\_BUFFER}}
+\index{HTTPPOST\_BUFFER@{HTTPPOST\_BUFFER}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_BUFFER}{HTTPPOST\_BUFFER}}
+{\footnotesize\ttfamily \label{formdata_8c_af8f32e09b4f89edf57c763dff0eaf39e} 
+\#define HTTPPOST\+\_\+\+BUFFER~\mbox{\hyperlink{curl_8h_a3abda83c00ac222c947a5d7c4e0f7c27}{CURL\+\_\+\+HTTPPOST\+\_\+\+BUFFER}}}
+
+\Hypertarget{formdata_8c_a627323fd2b367b08f01a417cd996aa06}\index{formdata.c@{formdata.c}!HTTPPOST\_CALLBACK@{HTTPPOST\_CALLBACK}}
+\index{HTTPPOST\_CALLBACK@{HTTPPOST\_CALLBACK}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_CALLBACK}{HTTPPOST\_CALLBACK}}
+{\footnotesize\ttfamily \label{formdata_8c_a627323fd2b367b08f01a417cd996aa06} 
+\#define HTTPPOST\+\_\+\+CALLBACK~\mbox{\hyperlink{curl_8h_a44837e2334aee4eaba483d7af579190d}{CURL\+\_\+\+HTTPPOST\+\_\+\+CALLBACK}}}
+
+\Hypertarget{formdata_8c_a1902b6e96f01aaaed3180714df4faef4}\index{formdata.c@{formdata.c}!HTTPPOST\_FILENAME@{HTTPPOST\_FILENAME}}
+\index{HTTPPOST\_FILENAME@{HTTPPOST\_FILENAME}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_FILENAME}{HTTPPOST\_FILENAME}}
+{\footnotesize\ttfamily \label{formdata_8c_a1902b6e96f01aaaed3180714df4faef4} 
+\#define HTTPPOST\+\_\+\+FILENAME~\mbox{\hyperlink{curl_8h_aa99aa2ccf2beae5baf0e80dad601e601}{CURL\+\_\+\+HTTPPOST\+\_\+\+FILENAME}}}
+
+\Hypertarget{formdata_8c_a6cee088e31c4d14204d6788e79047493}\index{formdata.c@{formdata.c}!HTTPPOST\_PTRBUFFER@{HTTPPOST\_PTRBUFFER}}
+\index{HTTPPOST\_PTRBUFFER@{HTTPPOST\_PTRBUFFER}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_PTRBUFFER}{HTTPPOST\_PTRBUFFER}}
+{\footnotesize\ttfamily \label{formdata_8c_a6cee088e31c4d14204d6788e79047493} 
+\#define HTTPPOST\+\_\+\+PTRBUFFER~\mbox{\hyperlink{curl_8h_abf5c93f0d45da2f4026632191eeba5c4}{CURL\+\_\+\+HTTPPOST\+\_\+\+PTRBUFFER}}}
+
+\Hypertarget{formdata_8c_a2cba177058c75264d396b0f4b3b6886f}\index{formdata.c@{formdata.c}!HTTPPOST\_PTRCONTENTS@{HTTPPOST\_PTRCONTENTS}}
+\index{HTTPPOST\_PTRCONTENTS@{HTTPPOST\_PTRCONTENTS}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_PTRCONTENTS}{HTTPPOST\_PTRCONTENTS}}
+{\footnotesize\ttfamily \label{formdata_8c_a2cba177058c75264d396b0f4b3b6886f} 
+\#define HTTPPOST\+\_\+\+PTRCONTENTS~\mbox{\hyperlink{curl_8h_a00233912976ce35075f70b83a00f1a4d}{CURL\+\_\+\+HTTPPOST\+\_\+\+PTRCONTENTS}}}
+
+\Hypertarget{formdata_8c_a152dd38815c2d61ccf8e6cfe454c81c2}\index{formdata.c@{formdata.c}!HTTPPOST\_PTRNAME@{HTTPPOST\_PTRNAME}}
+\index{HTTPPOST\_PTRNAME@{HTTPPOST\_PTRNAME}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_PTRNAME}{HTTPPOST\_PTRNAME}}
+{\footnotesize\ttfamily \label{formdata_8c_a152dd38815c2d61ccf8e6cfe454c81c2} 
+\#define HTTPPOST\+\_\+\+PTRNAME~\mbox{\hyperlink{curl_8h_af9b6dad2cf1c0a8fba03c91a65fd0c8f}{CURL\+\_\+\+HTTPPOST\+\_\+\+PTRNAME}}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{formdata_8c_a9f5ad2d20687360fd9cf86b7c6887d86}\index{formdata.c@{formdata.c}!HTTPPOST\_READFILE@{HTTPPOST\_READFILE}}
+\index{HTTPPOST\_READFILE@{HTTPPOST\_READFILE}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{HTTPPOST\_READFILE}{HTTPPOST\_READFILE}}
+{\footnotesize\ttfamily \label{formdata_8c_a9f5ad2d20687360fd9cf86b7c6887d86} 
+\#define HTTPPOST\+\_\+\+READFILE~\mbox{\hyperlink{curl_8h_a972eaadaac9269dbb142cf9613289bdf}{CURL\+\_\+\+HTTPPOST\+\_\+\+READFILE}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{formdata_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{formdata_8c_a5f70a4c08d5dc41b87d55919644ea820}\index{formdata.c@{formdata.c}!AddFormInfo@{AddFormInfo}}
+\index{AddFormInfo@{AddFormInfo}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{AddFormInfo()}{AddFormInfo()}}
+{\footnotesize\ttfamily \label{formdata_8c_a5f70a4c08d5dc41b87d55919644ea820} 
+struct \mbox{\hyperlink{structFormInfo}{Form\+Info}} \texorpdfstring{$\ast$}{*} Add\+Form\+Info (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{contenttype}{, }\item[{struct \mbox{\hyperlink{structFormInfo}{Form\+Info}} \texorpdfstring{$\ast$}{*}}]{parent\+\_\+form\+\_\+info}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{formdata_8c_a5f70a4c08d5dc41b87d55919644ea820}{Add\+Form\+Info()}
+
+Adds a \doxylink{structFormInfo}{Form\+Info} structure to the list presented by parent\+\_\+form\+\_\+info.
+
+Returns newly allocated \doxylink{structFormInfo}{Form\+Info} on success and NULL if malloc failed/ parent\+\_\+form\+\_\+info is NULL. \Hypertarget{formdata_8c_adfd6402178a65840033e86e94c406ce7}\index{formdata.c@{formdata.c}!AddHttpPost@{AddHttpPost}}
+\index{AddHttpPost@{AddHttpPost}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{AddHttpPost()}{AddHttpPost()}}
+{\footnotesize\ttfamily \label{formdata_8c_adfd6402178a65840033e86e94c406ce7} 
+struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*} Add\+Http\+Post (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{namelength}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{contentslength}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{bufferlength}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{contenttype}{, }\item[{long}]{flags}{, }\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{content\+Header}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{showfilename}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{userp}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}}]{parent\+\_\+post}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{httppost}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{last\+\_\+post}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{formdata_8c_adfd6402178a65840033e86e94c406ce7}{Add\+Http\+Post()}
+
+Adds a Http\+Post structure to the list, if parent\+\_\+post is given becomes a subpost of parent\+\_\+post instead of a direct list element.
+
+Returns newly allocated Http\+Post on success and NULL if malloc failed. \Hypertarget{formdata_8c_a783fccdc6c10d15379a4563523518b08}\index{formdata.c@{formdata.c}!curl\_formadd@{curl\_formadd}}
+\index{curl\_formadd@{curl\_formadd}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{curl\_formadd()}{curl\_formadd()}}
+{\footnotesize\ttfamily \label{formdata_8c_a783fccdc6c10d15379a4563523518b08} 
+\mbox{\hyperlink{curl_8h_ad019905d2198c6b5937b21b0ac025271}{CURLFORMcode}} curl\+\_\+formadd (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{httppost}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{last\+\_\+post}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{formdata_8c_a84207336e50b3862bba56e249f246e46}\index{formdata.c@{formdata.c}!curl\_formfree@{curl\_formfree}}
+\index{curl\_formfree@{curl\_formfree}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{curl\_formfree()}{curl\_formfree()}}
+{\footnotesize\ttfamily \label{formdata_8c_a84207336e50b3862bba56e249f246e46} 
+void curl\+\_\+formfree (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}}]{form}{}\end{DoxyParamCaption})}
+
+\Hypertarget{formdata_8c_a286d6011097457c9f9e4370415d9e5c6}\index{formdata.c@{formdata.c}!curl\_formget@{curl\_formget}}
+\index{curl\_formget@{curl\_formget}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{curl\_formget()}{curl\_formget()}}
+{\footnotesize\ttfamily \label{formdata_8c_a286d6011097457c9f9e4370415d9e5c6} 
+int curl\+\_\+formget (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}}]{form}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{, }\item[{\mbox{\hyperlink{curl_8h_ab1d1a6e0621528e0406be23fa5e7d425}{curl\+\_\+formget\+\_\+callback}}}]{append}{}\end{DoxyParamCaption})}
+
+\Hypertarget{formdata_8c_ad3f5007831015b4fdf8b2078b525eeea}\index{formdata.c@{formdata.c}!Curl\_getformdata@{Curl\_getformdata}}
+\index{Curl\_getformdata@{Curl\_getformdata}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_getformdata()}{Curl\_getformdata()}}
+{\footnotesize\ttfamily \label{formdata_8c_ad3f5007831015b4fdf8b2078b525eeea} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+getformdata (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{finalform}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}}]{post}{, }\item[{\mbox{\hyperlink{curl_8h_a7516630ec17f247697dd3272be7ada74}{curl\+\_\+read\+\_\+callback}}}]{fread\+\_\+func}{}\end{DoxyParamCaption})}
+
+\Hypertarget{formdata_8c_a3eac73796a74f20d2b5423bbf0083d6f}\index{formdata.c@{formdata.c}!FormAdd@{FormAdd}}
+\index{FormAdd@{FormAdd}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{FormAdd()}{FormAdd()}}
+{\footnotesize\ttfamily \label{formdata_8c_a3eac73796a74f20d2b5423bbf0083d6f} 
+\mbox{\hyperlink{curl_8h_ad019905d2198c6b5937b21b0ac025271}{CURLFORMcode}} Form\+Add (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{httppost}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{last\+\_\+post}{, }\item[{va\+\_\+list}]{params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{formdata_8c_a3eac73796a74f20d2b5423bbf0083d6f}{Form\+Add()}
+
+Stores a formpost parameter and builds the appropriate linked list.
+
+Has two principal functionalities\+: using files and byte arrays as post parts. Byte arrays are either copied or just the pointer is stored (as the user requests) while for files only the filename and not the content is stored.
+
+While you may have only one byte array for each name, multiple filenames are allowed (and because of this feature CURLFORM\+\_\+\+END is needed after using CURLFORM\+\_\+\+FILE).
+
+Examples\+:
+
+Simple name/value pair with copied contents\+: curl\+\_\+formadd (\&post, \&last, CURLFORM\+\_\+\+COPYNAME, "{}name"{}, CURLFORM\+\_\+\+COPYCONTENTS, "{}value"{}, CURLFORM\+\_\+\+END);
+
+name/value pair where only the content pointer is remembered\+: curl\+\_\+formadd (\&post, \&last, CURLFORM\+\_\+\+COPYNAME, "{}name"{}, CURLFORM\+\_\+\+PTRCONTENTS, ptr, CURLFORM\+\_\+\+CONTENTSLENGTH, 10, CURLFORM\+\_\+\+END); (if CURLFORM\+\_\+\+CONTENTSLENGTH is missing strlen () is used)
+
+storing a filename (CONTENTTYPE is optional!)\+: curl\+\_\+formadd (\&post, \&last, CURLFORM\+\_\+\+COPYNAME, "{}name"{}, CURLFORM\+\_\+\+FILE, "{}filename1"{}, CURLFORM\+\_\+\+CONTENTTYPE, "{}plain/text"{}, CURLFORM\+\_\+\+END);
+
+storing multiple filenames\+: curl\+\_\+formadd (\&post, \&last, CURLFORM\+\_\+\+COPYNAME, "{}name"{}, CURLFORM\+\_\+\+FILE, "{}filename1"{}, CURLFORM\+\_\+\+FILE, "{}filename2"{}, CURLFORM\+\_\+\+END);
+
+Returns\+: CURL\+\_\+\+FORMADD\+\_\+\+OK on success CURL\+\_\+\+FORMADD\+\_\+\+MEMORY if the \doxylink{structFormInfo}{Form\+Info} allocation fails CURL\+\_\+\+FORMADD\+\_\+\+OPTION\+\_\+\+TWICE if one option is given twice for one Form CURL\+\_\+\+FORMADD\+\_\+\+NULL if a null pointer was given for a char CURL\+\_\+\+FORMADD\+\_\+\+MEMORY if the allocation of a \doxylink{structFormInfo}{Form\+Info} struct failed CURL\+\_\+\+FORMADD\+\_\+\+UNKNOWN\+\_\+\+OPTION if an unknown option was used CURL\+\_\+\+FORMADD\+\_\+\+INCOMPLETE if the some \doxylink{structFormInfo}{Form\+Info} is not complete (or error) CURL\+\_\+\+FORMADD\+\_\+\+MEMORY if a Http\+Post struct cannot be allocated CURL\+\_\+\+FORMADD\+\_\+\+MEMORY if some allocation for string copying failed. CURL\+\_\+\+FORMADD\+\_\+\+ILLEGAL\+\_\+\+ARRAY if an illegal option is used in an array \Hypertarget{formdata_8c_a022bc6a25875b20bc51a67b92c0fbc0c}\index{formdata.c@{formdata.c}!setname@{setname}}
+\index{setname@{setname}!formdata.c@{formdata.c}}
+\doxysubsubsection{\texorpdfstring{setname()}{setname()}}
+{\footnotesize\ttfamily \label{formdata_8c_a022bc6a25875b20bc51a67b92c0fbc0c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} setname (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

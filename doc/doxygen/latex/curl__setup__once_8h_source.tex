@@ -1,0 +1,395 @@
+\doxysection{curl\+\_\+setup\+\_\+once.\+h}
+\hypertarget{curl__setup__once_8h_source}{}\label{curl__setup__once_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_setup\_once.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_setup\_once.h}}
+\mbox{\hyperlink{curl__setup__once_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SETUP\_ONCE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SETUP\_ONCE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ Inclusion\ of\ common\ header\ files.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifdef\ HAVE\_ERRNO\_H}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_TYPES\_H}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifdef\ NEED\_MALLOC\_H}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <malloc.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ NEED\_MEMORY\_H}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <memory.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_STAT\_H}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <sys/stat.h>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_TIME\_H}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ <io.h>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ defined(HAVE\_STDBOOL\_H)\ \&\&\ defined(HAVE\_BOOL\_T)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifdef\ HAVE\_UNISTD\_H}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifdef\ \_\_hpux}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#\ \ if\ !defined(\_XOPEN\_SOURCE\_EXTENDED)\ ||\ defined(\_KERNEL)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#\ \ \ \ ifdef\ \_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ OLD\_APP32\_64BIT\_OFF\_T\ \_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#\ \ \ \ \ \ undef\ \_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#\ \ \ \ else}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ \ \ \ \ \ undef\ OLD\_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SYS\_SOCKET\_H}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{functypes_8h}{functypes.h}}"{}}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifdef\ \_\_hpux}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#\ \ if\ !defined(\_XOPEN\_SOURCE\_EXTENDED)\ ||\ defined(\_KERNEL)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#\ \ \ \ ifdef\ OLD\_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ \_APP32\_64BIT\_OFF\_T\ OLD\_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ \ \ \ \ \ undef\ OLD\_APP32\_64BIT\_OFF\_T}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ Definition\ of\ timeval\ struct\ for\ platforms\ that\ don't\ have\ it.}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#ifndef\ HAVE\_STRUCT\_TIMEVAL}}
+\DoxyCodeLine{00106\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtimeval}{timeval}}\ \{}
+\DoxyCodeLine{00107\ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structtimeval_a3599199839a89e99a2ce29d45312b5cf}{tv\_sec}};}
+\DoxyCodeLine{00108\ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structtimeval_aa8396731f2914f9ed2a457d3da602b80}{tv\_usec}};}
+\DoxyCodeLine{00109\ \};}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ If\ we\ have\ the\ MSG\_NOSIGNAL\ define,\ make\ sure\ we\ use}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ it\ as\ the\ fourth\ argument\ of\ function\ send()}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#ifdef\ HAVE\_MSG\_NOSIGNAL}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ SEND\_4TH\_ARG\ MSG\_NOSIGNAL}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ SEND\_4TH\_ARG\ 0}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#if\ defined(\_\_minix)}}
+\DoxyCodeLine{00126\ \textcolor{comment}{/*\ Minix\ doesn't\ support\ recv\ on\ TCP\ sockets\ */}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ sread(x,y,z)\ (ssize\_t)read((RECV\_TYPE\_ARG1)(x),\ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RECV\_TYPE\_ARG2)(y),\ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RECV\_TYPE\_ARG3)(z))}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_RECV)}}
+\DoxyCodeLine{00132\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ The\ definitions\ for\ the\ return\ type\ and\ arguments\ types}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ of\ functions\ recv()\ and\ send()\ belong\ and\ come\ from\ the}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ configuration\ file.\ Do\ not\ define\ them\ in\ any\ other\ place.}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ HAVE\_RECV\ is\ defined\ if\ you\ have\ a\ function\ named\ recv()}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ which\ is\ used\ to\ read\ incoming\ data\ from\ sockets.\ If\ your}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ function\ has\ another\ name\ then\ don't\ define\ HAVE\_RECV.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ If\ HAVE\_RECV\ is\ defined\ then\ RECV\_TYPE\_ARG1,\ RECV\_TYPE\_ARG2,}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ RECV\_TYPE\_ARG3,\ RECV\_TYPE\_ARG4\ and\ RECV\_TYPE\_RETV\ must\ also}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ be\ defined.}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ HAVE\_SEND\ is\ defined\ if\ you\ have\ a\ function\ named\ send()}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ which\ is\ used\ to\ write\ outgoing\ data\ on\ a\ connected\ socket.}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ *\ If\ yours\ has\ another\ name\ then\ don't\ define\ HAVE\_SEND.}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ If\ HAVE\_SEND\ is\ defined\ then\ SEND\_TYPE\_ARG1,\ SEND\_QUAL\_ARG2,}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ *\ SEND\_TYPE\_ARG2,\ SEND\_TYPE\_ARG3,\ SEND\_TYPE\_ARG4\ and}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *\ SEND\_TYPE\_RETV\ must\ also\ be\ defined.}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ sread(x,y,z)\ (ssize\_t)recv((RECV\_TYPE\_ARG1)(x),\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RECV\_TYPE\_ARG2)(y),\ \(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RECV\_TYPE\_ARG3)(z),\ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RECV\_TYPE\_ARG4)(0))}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ HAVE\_RECV\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#ifndef\ sread}}
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00161\ \ \ Error\ Missing\_definition\_of\_macro\_sread}
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_RECV\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#if\ defined(\_\_minix)}}
+\DoxyCodeLine{00168\ \textcolor{comment}{/*\ Minix\ doesn't\ support\ send\ on\ TCP\ sockets\ */}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ swrite(x,y,z)\ (ssize\_t)write((SEND\_TYPE\_ARG1)(x),\ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (SEND\_TYPE\_ARG2)(y),\ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (SEND\_TYPE\_ARG3)(z))}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_SEND)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ swrite(x,y,z)\ (ssize\_t)send((SEND\_TYPE\_ARG1)(x),\ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (SEND\_QUAL\_ARG2\ SEND\_TYPE\_ARG2)(y),\ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (SEND\_TYPE\_ARG3)(z),\ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (SEND\_TYPE\_ARG4)(SEND\_4TH\_ARG))}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ HAVE\_SEND\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#ifndef\ swrite}}
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00181\ \ \ Error\ Missing\_definition\_of\_macro\_swrite}
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_SEND\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ *\ Function-\/like\ macro\ definition\ used\ to\ close\ a\ socket.}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#if\ defined(HAVE\_CLOSESOCKET)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#\ \ define\ sclose(x)\ \ closesocket((x))}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_CLOSESOCKET\_CAMEL)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#\ \ define\ sclose(x)\ \ CloseSocket((x))}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_CLOSE\_S)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#\ \ define\ sclose(x)\ \ close\_s((x))}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#elif\ defined(USE\_LWIPSOCK)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#\ \ define\ sclose(x)\ \ lwip\_close((x))}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#\ \ define\ sclose(x)\ \ close((x))}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ *\ Stack-\/independent\ version\ of\ fcntl()\ on\ sockets:}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#if\ defined(USE\_LWIPSOCK)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#\ \ define\ sfcntl\ \ lwip\_fcntl}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#\ \ define\ sfcntl\ \ fcntl}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ *\ 'bool'\ stuff\ compatible\ with\ HP-\/UX\ headers.}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#if\ defined(\_\_hpux)\ \&\&\ !defined(HAVE\_BOOL\_T)}}
+\DoxyCodeLine{00217\ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}};}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#\ \ define\ false\ 0}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#\ \ define\ true\ 1}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#\ \ define\ HAVE\_BOOL\_T}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ *\ 'bool'\ exists\ on\ platforms\ with\ <stdbool.h>,\ i.e.\ C99\ platforms.}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *\ On\ non-\/C99\ platforms\ there's\ no\ bool,\ so\ define\ an\ enum\ for\ that.}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ On\ C99\ platforms\ 'false'\ and\ 'true'\ also\ exist.\ Enum\ uses\ a}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ global\ namespace\ though,\ so\ use\ bool\_false\ and\ bool\_true.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#ifndef\ HAVE\_BOOL\_T}}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ bool\_false\ =\ 0,}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ bool\_true\ \ =\ 1}
+\DoxyCodeLine{00235\ \ \ \}\ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ *\ Use\ a\ define\ to\ let\ 'true'\ and\ 'false'\ use\ those\ enums.\ \ There}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ *\ are\ currently\ no\ use\ of\ true\ and\ false\ in\ libcurl\ proper,\ but}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ *\ there\ are\ some\ in\ the\ examples.\ This\ will\ cater\ for\ any\ later}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ *\ code\ happening\ to\ use\ true\ and\ false.}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#\ \ define\ false\ bool\_false}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#\ \ define\ true\ \ bool\_true}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#\ \ define\ HAVE\_BOOL\_T}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{comment}{/*\ the\ type\ we\ use\ for\ storing\ a\ single\ boolean\ bit\ */}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00250\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{curl__setup__once_8h_a187157a8f8d068c47c3024bd662496bc}{bit}};}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ BIT(x)\ bool\ x}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00253\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__setup__once_8h_a187157a8f8d068c47c3024bd662496bc}{bit}};}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ BIT(x)\ bit\ x:1}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ *\ Redefine\ TRUE\ and\ FALSE\ too,\ to\ catch\ current\ use.\ With\ this}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ *\ change,\ 'bool\ found\ =\ 1'\ will\ give\ a\ warning\ on\ MIPSPro,\ but}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ *\ 'bool\ found\ =\ TRUE'\ will\ not.\ Change\ tested\ on\ IRIX/MIPSPro,}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ *\ AIX\ 5.1/Xlc,\ Tru64\ 5.1/cc,\ w/make\ test\ too.}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#ifndef\ TRUE}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ TRUE\ true}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#ifndef\ FALSE}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ FALSE\ false}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__ctype_8h}{curl\_ctype.h}}"{}}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ *\ Macro\ used\ to\ include\ code\ only\ in\ debug\ builds.}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#ifdef\ DEBUGBUILD}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ DEBUGF(x)\ x}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#define\ DEBUGF(x)\ do\ \{\ \}\ while(0)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ *\ Macro\ used\ to\ include\ assertion\ code\ only\ in\ debug\ builds.}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#undef\ DEBUGASSERT}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#if\ defined(DEBUGBUILD)\ \&\&\ defined(HAVE\_ASSERT\_H)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ DEBUGASSERT(x)\ assert(x)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ DEBUGASSERT(x)\ do\ \{\ \}\ while(0)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ *\ Macro\ SOCKERRNO\ /\ SET\_SOCKERRNO()\ returns\ /\ sets\ the\ *socket-\/related*\ errno}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ *\ (or\ equivalent)\ on\ this\ platform\ to\ hide\ platform\ details\ to\ code\ using\ it.}}
+\DoxyCodeLine{00300\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#ifdef\ USE\_WINSOCK}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ SOCKERRNO\ \ \ \ \ \ \ \ \ ((int)WSAGetLastError())}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ SET\_SOCKERRNO(x)\ \ (WSASetLastError((int)(x)))}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ SOCKERRNO\ \ \ \ \ \ \ \ \ (errno)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ SET\_SOCKERRNO(x)\ \ (errno\ =\ (x))}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ *\ Portable\ error\ number\ symbolic\ names\ defined\ to\ Winsock\ error\ codes.}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#ifdef\ USE\_WINSOCK}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#undef\ \ EBADF\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#define\ EBADF\ \ \ \ \ \ \ \ \ \ \ \ WSAEBADF}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#undef\ \ EINTR\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ EINTR\ \ \ \ \ \ \ \ \ \ \ \ WSAEINTR}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#undef\ \ EINVAL\ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ EINVAL\ \ \ \ \ \ \ \ \ \ \ WSAEINVAL}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#undef\ \ EWOULDBLOCK\ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#define\ EWOULDBLOCK\ \ \ \ \ \ WSAEWOULDBLOCK}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#undef\ \ EINPROGRESS\ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ EINPROGRESS\ \ \ \ \ \ WSAEINPROGRESS}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#undef\ \ EALREADY\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#define\ EALREADY\ \ \ \ \ \ \ \ \ WSAEALREADY}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#undef\ \ ENOTSOCK\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#define\ ENOTSOCK\ \ \ \ \ \ \ \ \ WSAENOTSOCK}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#undef\ \ EDESTADDRREQ\ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#define\ EDESTADDRREQ\ \ \ \ \ WSAEDESTADDRREQ}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#undef\ \ EMSGSIZE\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ EMSGSIZE\ \ \ \ \ \ \ \ \ WSAEMSGSIZE}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#undef\ \ EPROTOTYPE\ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ EPROTOTYPE\ \ \ \ \ \ \ WSAEPROTOTYPE}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#undef\ \ ENOPROTOOPT\ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#define\ ENOPROTOOPT\ \ \ \ \ \ WSAENOPROTOOPT}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#undef\ \ EPROTONOSUPPORT\ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#define\ EPROTONOSUPPORT\ \ WSAEPROTONOSUPPORT}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ ESOCKTNOSUPPORT\ \ WSAESOCKTNOSUPPORT}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#undef\ \ EOPNOTSUPP\ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#define\ EOPNOTSUPP\ \ \ \ \ \ \ WSAEOPNOTSUPP}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ EPFNOSUPPORT\ \ \ \ \ WSAEPFNOSUPPORT}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#undef\ \ EAFNOSUPPORT\ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ EAFNOSUPPORT\ \ \ \ \ WSAEAFNOSUPPORT}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#undef\ \ EADDRINUSE\ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#define\ EADDRINUSE\ \ \ \ \ \ \ WSAEADDRINUSE}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#undef\ \ EADDRNOTAVAIL\ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ EADDRNOTAVAIL\ \ \ \ WSAEADDRNOTAVAIL}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#undef\ \ ENETDOWN\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#define\ ENETDOWN\ \ \ \ \ \ \ \ \ WSAENETDOWN}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#undef\ \ ENETUNREACH\ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#define\ ENETUNREACH\ \ \ \ \ \ WSAENETUNREACH}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#undef\ \ ENETRESET\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ ENETRESET\ \ \ \ \ \ \ \ WSAENETRESET}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#undef\ \ ECONNABORTED\ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ ECONNABORTED\ \ \ \ \ WSAECONNABORTED}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#undef\ \ ECONNRESET\ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#define\ ECONNRESET\ \ \ \ \ \ \ WSAECONNRESET}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#undef\ \ ENOBUFS\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ ENOBUFS\ \ \ \ \ \ \ \ \ \ WSAENOBUFS}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#undef\ \ EISCONN\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#define\ EISCONN\ \ \ \ \ \ \ \ \ \ WSAEISCONN}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#undef\ \ ENOTCONN\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ ENOTCONN\ \ \ \ \ \ \ \ \ WSAENOTCONN}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ ESHUTDOWN\ \ \ \ \ \ \ \ WSAESHUTDOWN}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#define\ ETOOMANYREFS\ \ \ \ \ WSAETOOMANYREFS}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#undef\ \ ETIMEDOUT\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ ETIMEDOUT\ \ \ \ \ \ \ \ WSAETIMEDOUT}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#undef\ \ ECONNREFUSED\ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ ECONNREFUSED\ \ \ \ \ WSAECONNREFUSED}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#undef\ \ ELOOP\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ ELOOP\ \ \ \ \ \ \ \ \ \ \ \ WSAELOOP}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#ifndef\ ENAMETOOLONG\ \ \ \ \ }\textcolor{comment}{/*\ possible\ previous\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#define\ ENAMETOOLONG\ \ \ \ \ WSAENAMETOOLONG}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#define\ EHOSTDOWN\ \ \ \ \ \ \ \ WSAEHOSTDOWN}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#undef\ \ EHOSTUNREACH\ \ \ \ \ }\textcolor{comment}{/*\ override\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#define\ EHOSTUNREACH\ \ \ \ \ WSAEHOSTUNREACH}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#ifndef\ ENOTEMPTY\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ possible\ previous\ definition\ in\ errno.h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#define\ ENOTEMPTY\ \ \ \ \ \ \ \ WSAENOTEMPTY}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#define\ EPROCLIM\ \ \ \ \ \ \ \ \ WSAEPROCLIM}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#define\ EUSERS\ \ \ \ \ \ \ \ \ \ \ WSAEUSERS}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\#define\ EDQUOT\ \ \ \ \ \ \ \ \ \ \ WSAEDQUOT}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ ESTALE\ \ \ \ \ \ \ \ \ \ \ WSAESTALE}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ EREMOTE\ \ \ \ \ \ \ \ \ \ WSAEREMOTE}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00391\ \textcolor{comment}{\ *\ Macro\ argv\_item\_t\ hides\ platform\ details\ to\ code\ using\ it.}}
+\DoxyCodeLine{00392\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#ifdef\ \_\_VMS}}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#define\ argv\_item\_t\ \ \_\_char\_ptr32}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#elif\ defined(\_UNICODE)}}
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#define\ argv\_item\_t\ wchar\_t\ *}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ argv\_item\_t\ \ char\ *}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00404\ \textcolor{comment}{\ *\ We\ use\ this\ ZERO\_NULL\ to\ avoid\ picky\ compiler\ warnings,}}
+\DoxyCodeLine{00405\ \textcolor{comment}{\ *\ when\ assigning\ a\ NULL\ pointer\ to\ a\ function\ pointer\ var.}}
+\DoxyCodeLine{00406\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#define\ ZERO\_NULL\ 0}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SETUP\_ONCE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

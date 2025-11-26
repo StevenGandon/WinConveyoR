@@ -1,0 +1,212 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/hsts.c File Reference}
+\hypertarget{hsts_8c}{}\label{hsts_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/hsts.c@{lib/libwconr/build/\_deps/curl-\/src/lib/hsts.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}llist.\+h"{}}\newline
+{\ttfamily \#include "{}hsts.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+get\+\_\+line.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}parsedate.\+h"{}}\newline
+{\ttfamily \#include "{}fopen.\+h"{}}\newline
+{\ttfamily \#include "{}rename.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{hsts_8c_a6ca1c71c8cb7154ebdc4051f9eba6d7f}{MAX\+\_\+\+HSTS\+\_\+\+LINE}}~4095
+\item 
+\#define \mbox{\hyperlink{hsts_8c_a1616fb2408cd00bc0628544bb81462d2}{MAX\+\_\+\+HSTS\+\_\+\+HOSTLEN}}~256
+\item 
+\#define \mbox{\hyperlink{hsts_8c_ab6a1a00fbda2dbbbb88799b98db9b2f2}{MAX\+\_\+\+HSTS\+\_\+\+HOSTLENSTR}}~"{}256"{}
+\item 
+\#define \mbox{\hyperlink{hsts_8c_a06f1d80ff6beb425b99bd9d99ab63142}{MAX\+\_\+\+HSTS\+\_\+\+DATELEN}}~64
+\item 
+\#define \mbox{\hyperlink{hsts_8c_a58cc419c59e438376f8d76870a3d4ce2}{MAX\+\_\+\+HSTS\+\_\+\+DATELENSTR}}~"{}64"{}
+\item 
+\#define \mbox{\hyperlink{hsts_8c_a1b77eb39ec1231e2ff4d607b49749de3}{UNLIMITED}}~"{}unlimited"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hsts_8c_ad6c85eaf84981d30c5d6d4c516cdabb7}{Curl\+\_\+hsts\+\_\+init}} (void)
+\item 
+static void \mbox{\hyperlink{hsts_8c_aed77cf41041c28ea5623825e677b7bdc}{hsts\+\_\+free}} (struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*}e)
+\item 
+void \mbox{\hyperlink{hsts_8c_a9a2f9b403688110f49294e728032dc84}{Curl\+\_\+hsts\+\_\+cleanup}} (struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}hp)
+\item 
+static struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hsts_8c_a25b49f8ce6741f2588f0c74c7dea58d0}{hsts\+\_\+entry}} (void)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_a3277eb299309ae32b54e2a9ea4b0b640}{hsts\+\_\+create}} (struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} subdomains, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} expires)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_a10494cfdc101efa14d2504c6ea99fe2f}{Curl\+\_\+hsts\+\_\+parse}} (struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{user-agent_8d_ad8c76b4bdd86e61de828f3429552a54e}{header}})
+\item 
+struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hsts_8c_acc9aae5ce82dab3128604a9fa7b47d80}{Curl\+\_\+hsts}} (struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} subdomain)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_afa2850783d27e66036109fdedd4d8703}{hsts\+\_\+push}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcurl__index}{curl\+\_\+index}} \texorpdfstring{$\ast$}{*}i, struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*}sts, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}stop)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_a96d0538e948f87a18474402bc8170df0}{hsts\+\_\+out}} (struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*}sts, FILE \texorpdfstring{$\ast$}{*}fp)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_af0337ab1fa322dc37a901d65ddf30d7e}{Curl\+\_\+hsts\+\_\+save}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_ad649d224d8c9734754c4fdcadf86d033}{hsts\+\_\+add}} (struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_aa35ce63b9aaef02a8bdca0224dce645c}{hsts\+\_\+pull}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_ac63cf7651055e9462dd9ad89b480b850}{hsts\+\_\+load}} (struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_ace1dcda9aebf92c5188c8fb43ebc3d0e}{Curl\+\_\+hsts\+\_\+loadfile}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hsts_8c_a00c851be94d3b12c09367347b29b5b41}{Curl\+\_\+hsts\+\_\+loadcb}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{hsts_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hsts_8c_a06f1d80ff6beb425b99bd9d99ab63142}\index{hsts.c@{hsts.c}!MAX\_HSTS\_DATELEN@{MAX\_HSTS\_DATELEN}}
+\index{MAX\_HSTS\_DATELEN@{MAX\_HSTS\_DATELEN}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_HSTS\_DATELEN}{MAX\_HSTS\_DATELEN}}
+{\footnotesize\ttfamily \label{hsts_8c_a06f1d80ff6beb425b99bd9d99ab63142} 
+\#define MAX\+\_\+\+HSTS\+\_\+\+DATELEN~64}
+
+\Hypertarget{hsts_8c_a58cc419c59e438376f8d76870a3d4ce2}\index{hsts.c@{hsts.c}!MAX\_HSTS\_DATELENSTR@{MAX\_HSTS\_DATELENSTR}}
+\index{MAX\_HSTS\_DATELENSTR@{MAX\_HSTS\_DATELENSTR}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_HSTS\_DATELENSTR}{MAX\_HSTS\_DATELENSTR}}
+{\footnotesize\ttfamily \label{hsts_8c_a58cc419c59e438376f8d76870a3d4ce2} 
+\#define MAX\+\_\+\+HSTS\+\_\+\+DATELENSTR~"{}64"{}}
+
+\Hypertarget{hsts_8c_a1616fb2408cd00bc0628544bb81462d2}\index{hsts.c@{hsts.c}!MAX\_HSTS\_HOSTLEN@{MAX\_HSTS\_HOSTLEN}}
+\index{MAX\_HSTS\_HOSTLEN@{MAX\_HSTS\_HOSTLEN}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_HSTS\_HOSTLEN}{MAX\_HSTS\_HOSTLEN}}
+{\footnotesize\ttfamily \label{hsts_8c_a1616fb2408cd00bc0628544bb81462d2} 
+\#define MAX\+\_\+\+HSTS\+\_\+\+HOSTLEN~256}
+
+\Hypertarget{hsts_8c_ab6a1a00fbda2dbbbb88799b98db9b2f2}\index{hsts.c@{hsts.c}!MAX\_HSTS\_HOSTLENSTR@{MAX\_HSTS\_HOSTLENSTR}}
+\index{MAX\_HSTS\_HOSTLENSTR@{MAX\_HSTS\_HOSTLENSTR}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_HSTS\_HOSTLENSTR}{MAX\_HSTS\_HOSTLENSTR}}
+{\footnotesize\ttfamily \label{hsts_8c_ab6a1a00fbda2dbbbb88799b98db9b2f2} 
+\#define MAX\+\_\+\+HSTS\+\_\+\+HOSTLENSTR~"{}256"{}}
+
+\Hypertarget{hsts_8c_a6ca1c71c8cb7154ebdc4051f9eba6d7f}\index{hsts.c@{hsts.c}!MAX\_HSTS\_LINE@{MAX\_HSTS\_LINE}}
+\index{MAX\_HSTS\_LINE@{MAX\_HSTS\_LINE}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_HSTS\_LINE}{MAX\_HSTS\_LINE}}
+{\footnotesize\ttfamily \label{hsts_8c_a6ca1c71c8cb7154ebdc4051f9eba6d7f} 
+\#define MAX\+\_\+\+HSTS\+\_\+\+LINE~4095}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2020 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{hsts_8c_a1b77eb39ec1231e2ff4d607b49749de3}\index{hsts.c@{hsts.c}!UNLIMITED@{UNLIMITED}}
+\index{UNLIMITED@{UNLIMITED}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{UNLIMITED}{UNLIMITED}}
+{\footnotesize\ttfamily \label{hsts_8c_a1b77eb39ec1231e2ff4d607b49749de3} 
+\#define UNLIMITED~"{}unlimited"{}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{hsts_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{hsts_8c_acc9aae5ce82dab3128604a9fa7b47d80}\index{hsts.c@{hsts.c}!Curl\_hsts@{Curl\_hsts}}
+\index{Curl\_hsts@{Curl\_hsts}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts()}{Curl\_hsts()}}
+{\footnotesize\ttfamily \label{hsts_8c_acc9aae5ce82dab3128604a9fa7b47d80} 
+struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*} Curl\+\_\+hsts (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{subdomain}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_a9a2f9b403688110f49294e728032dc84}\index{hsts.c@{hsts.c}!Curl\_hsts\_cleanup@{Curl\_hsts\_cleanup}}
+\index{Curl\_hsts\_cleanup@{Curl\_hsts\_cleanup}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts\_cleanup()}{Curl\_hsts\_cleanup()}}
+{\footnotesize\ttfamily \label{hsts_8c_a9a2f9b403688110f49294e728032dc84} 
+void Curl\+\_\+hsts\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{hp}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_ad6c85eaf84981d30c5d6d4c516cdabb7}\index{hsts.c@{hsts.c}!Curl\_hsts\_init@{Curl\_hsts\_init}}
+\index{Curl\_hsts\_init@{Curl\_hsts\_init}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts\_init()}{Curl\_hsts\_init()}}
+{\footnotesize\ttfamily \label{hsts_8c_ad6c85eaf84981d30c5d6d4c516cdabb7} 
+struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*} Curl\+\_\+hsts\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_a00c851be94d3b12c09367347b29b5b41}\index{hsts.c@{hsts.c}!Curl\_hsts\_loadcb@{Curl\_hsts\_loadcb}}
+\index{Curl\_hsts\_loadcb@{Curl\_hsts\_loadcb}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts\_loadcb()}{Curl\_hsts\_loadcb()}}
+{\footnotesize\ttfamily \label{hsts_8c_a00c851be94d3b12c09367347b29b5b41} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+hsts\+\_\+loadcb (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_ace1dcda9aebf92c5188c8fb43ebc3d0e}\index{hsts.c@{hsts.c}!Curl\_hsts\_loadfile@{Curl\_hsts\_loadfile}}
+\index{Curl\_hsts\_loadfile@{Curl\_hsts\_loadfile}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts\_loadfile()}{Curl\_hsts\_loadfile()}}
+{\footnotesize\ttfamily \label{hsts_8c_ace1dcda9aebf92c5188c8fb43ebc3d0e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+hsts\+\_\+loadfile (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_a10494cfdc101efa14d2504c6ea99fe2f}\index{hsts.c@{hsts.c}!Curl\_hsts\_parse@{Curl\_hsts\_parse}}
+\index{Curl\_hsts\_parse@{Curl\_hsts\_parse}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts\_parse()}{Curl\_hsts\_parse()}}
+{\footnotesize\ttfamily \label{hsts_8c_a10494cfdc101efa14d2504c6ea99fe2f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+hsts\+\_\+parse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{header}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_af0337ab1fa322dc37a901d65ddf30d7e}\index{hsts.c@{hsts.c}!Curl\_hsts\_save@{Curl\_hsts\_save}}
+\index{Curl\_hsts\_save@{Curl\_hsts\_save}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hsts\_save()}{Curl\_hsts\_save()}}
+{\footnotesize\ttfamily \label{hsts_8c_af0337ab1fa322dc37a901d65ddf30d7e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+hsts\+\_\+save (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hsts_8c_ad649d224d8c9734754c4fdcadf86d033}\index{hsts.c@{hsts.c}!hsts\_add@{hsts\_add}}
+\index{hsts\_add@{hsts\_add}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_add()}{hsts\_add()}}
+{\footnotesize\ttfamily \label{hsts_8c_ad649d224d8c9734754c4fdcadf86d033} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} hsts\+\_\+add (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{line}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_a3277eb299309ae32b54e2a9ea4b0b640}\index{hsts.c@{hsts.c}!hsts\_create@{hsts\_create}}
+\index{hsts\_create@{hsts\_create}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_create()}{hsts\_create()}}
+{\footnotesize\ttfamily \label{hsts_8c_a3277eb299309ae32b54e2a9ea4b0b640} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} hsts\+\_\+create (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{subdomains}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{expires}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_a25b49f8ce6741f2588f0c74c7dea58d0}\index{hsts.c@{hsts.c}!hsts\_entry@{hsts\_entry}}
+\index{hsts\_entry@{hsts\_entry}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_entry()}{hsts\_entry()}}
+{\footnotesize\ttfamily \label{hsts_8c_a25b49f8ce6741f2588f0c74c7dea58d0} 
+struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*} hsts\+\_\+entry (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_aed77cf41041c28ea5623825e677b7bdc}\index{hsts.c@{hsts.c}!hsts\_free@{hsts\_free}}
+\index{hsts\_free@{hsts\_free}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_free()}{hsts\_free()}}
+{\footnotesize\ttfamily \label{hsts_8c_aed77cf41041c28ea5623825e677b7bdc} 
+void hsts\+\_\+free (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*}}]{e}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_ac63cf7651055e9462dd9ad89b480b850}\index{hsts.c@{hsts.c}!hsts\_load@{hsts\_load}}
+\index{hsts\_load@{hsts\_load}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_load()}{hsts\_load()}}
+{\footnotesize\ttfamily \label{hsts_8c_ac63cf7651055e9462dd9ad89b480b850} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} hsts\+\_\+load (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_a96d0538e948f87a18474402bc8170df0}\index{hsts.c@{hsts.c}!hsts\_out@{hsts\_out}}
+\index{hsts\_out@{hsts\_out}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_out()}{hsts\_out()}}
+{\footnotesize\ttfamily \label{hsts_8c_a96d0538e948f87a18474402bc8170df0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} hsts\+\_\+out (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*}}]{sts}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{fp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_aa35ce63b9aaef02a8bdca0224dce645c}\index{hsts.c@{hsts.c}!hsts\_pull@{hsts\_pull}}
+\index{hsts\_pull@{hsts\_pull}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_pull()}{hsts\_pull()}}
+{\footnotesize\ttfamily \label{hsts_8c_aa35ce63b9aaef02a8bdca0224dce645c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} hsts\+\_\+pull (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structhsts}{hsts}} \texorpdfstring{$\ast$}{*}}]{h}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{hsts_8c_afa2850783d27e66036109fdedd4d8703}\index{hsts.c@{hsts.c}!hsts\_push@{hsts\_push}}
+\index{hsts\_push@{hsts\_push}!hsts.c@{hsts.c}}
+\doxysubsubsection{\texorpdfstring{hsts\_push()}{hsts\_push()}}
+{\footnotesize\ttfamily \label{hsts_8c_afa2850783d27e66036109fdedd4d8703} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} hsts\+\_\+push (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcurl__index}{curl\+\_\+index}} \texorpdfstring{$\ast$}{*}}]{i}{, }\item[{struct \mbox{\hyperlink{structstsentry}{stsentry}} \texorpdfstring{$\ast$}{*}}]{sts}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{stop}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

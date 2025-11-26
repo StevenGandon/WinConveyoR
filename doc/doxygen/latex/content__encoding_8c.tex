@@ -1,0 +1,278 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/content\+\_\+encoding.c File Reference}
+\hypertarget{content__encoding_8c}{}\label{content__encoding_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/content\_encoding.c@{lib/libwconr/build/\_deps/curl-\/src/lib/content\_encoding.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}content\+\_\+encoding.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{content__encoding_8c_a592409dca77b0bc0d9abf5e5aaed368d}{CONTENT\+\_\+\+ENCODING\+\_\+\+DEFAULT}}~"{}identity"{}
+\item 
+\#define \mbox{\hyperlink{content__encoding_8c_a3a264e697cf79ff701b222364d3990db}{DSIZ}}~\mbox{\hyperlink{curl_8h_a0417440dcb84270d40959fa70aec6f86}{CURL\+\_\+\+MAX\+\_\+\+WRITE\+\_\+\+SIZE}} /\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} for decompressed \mbox{\hyperlink{structdata}{data}} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{content__encoding_8c_af4c22b44df0a2a24fff33ff04731fad7}{MAX\+\_\+\+ENCODE\+\_\+\+STACK}}~5
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_a017a08ea9e38a25a2850503c022a39df}{identity\+\_\+init\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_ad44b3ec2944585736e0c6b3ef77aa2a6}{identity\+\_\+unencode\+\_\+write}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}}, const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t nbytes)
+\item 
+static void \mbox{\hyperlink{content__encoding_8c_a2a62861c3aaa780007035f35a06bdb46}{identity\+\_\+close\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}})
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{content__encoding_8c_a14ccd76a74cb608720344bcaa319bfbf}{Curl\+\_\+all\+\_\+content\+\_\+encodings}} (void)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_a3462a42fc81c4810de83311d2041a9f7}{client\+\_\+init\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_ae9c1a0dad6545e010b4da4a9a90f6081}{client\+\_\+unencode\+\_\+write}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}}, const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t nbytes)
+\item 
+static void \mbox{\hyperlink{content__encoding_8c_abbcf93018a889c88d64f7a25ef80d47d}{client\+\_\+close\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_aca097049a5022188baf3a24ee4b34f23}{error\+\_\+init\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_ad25ae7056f7ca98999ac6dd849afe26d}{error\+\_\+unencode\+\_\+write}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}}, const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t nbytes)
+\item 
+static void \mbox{\hyperlink{content__encoding_8c_a03d0d9cb633a06553a4f189b308c006e}{error\+\_\+close\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}})
+\item 
+static struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{content__encoding_8c_a2216937b9544dd3056a7b910cfa0578a}{new\+\_\+unencoding\+\_\+writer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \texorpdfstring{$\ast$}{*}handler, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}downstream)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_a9fc1d604c69a42283abe54c6c4b335d0}{Curl\+\_\+unencode\+\_\+write}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}}, const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t nbytes)
+\item 
+void \mbox{\hyperlink{content__encoding_8c_ab8f8fe5a9d847d73c5d949cce471595e}{Curl\+\_\+unencode\+\_\+cleanup}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{content__encoding_8c_a2717737137633db0826be065de9ab84e}{find\+\_\+encoding}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{content__encoding_8c_a381846c71942ddde72b8f6dd10df6d53}{Curl\+\_\+build\+\_\+unencoding\+\_\+stack}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}enclist, int maybechunked)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \mbox{\hyperlink{content__encoding_8c_aa43ce488b102eaf17c984be58cb260f8}{identity\+\_\+encoding}}
+\item 
+static const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{content__encoding_8c_afdf8b450f9c080e4d46e846bf9772ee5}{encodings}} \mbox{[}$\,$\mbox{]}
+\item 
+static const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \mbox{\hyperlink{content__encoding_8c_a51a9520d4da8b8f5b442628b9cc21834}{client\+\_\+encoding}}
+\item 
+static const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \mbox{\hyperlink{content__encoding_8c_aab78f4b105979f2395d95e93edbdfb96}{error\+\_\+encoding}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{content__encoding_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{content__encoding_8c_a592409dca77b0bc0d9abf5e5aaed368d}\index{content\_encoding.c@{content\_encoding.c}!CONTENT\_ENCODING\_DEFAULT@{CONTENT\_ENCODING\_DEFAULT}}
+\index{CONTENT\_ENCODING\_DEFAULT@{CONTENT\_ENCODING\_DEFAULT}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{CONTENT\_ENCODING\_DEFAULT}{CONTENT\_ENCODING\_DEFAULT}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a592409dca77b0bc0d9abf5e5aaed368d} 
+\#define CONTENT\+\_\+\+ENCODING\+\_\+\+DEFAULT~"{}identity"{}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{content__encoding_8c_a3a264e697cf79ff701b222364d3990db}\index{content\_encoding.c@{content\_encoding.c}!DSIZ@{DSIZ}}
+\index{DSIZ@{DSIZ}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{DSIZ}{DSIZ}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a3a264e697cf79ff701b222364d3990db} 
+\#define DSIZ~\mbox{\hyperlink{curl_8h_a0417440dcb84270d40959fa70aec6f86}{CURL\+\_\+\+MAX\+\_\+\+WRITE\+\_\+\+SIZE}} /\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} for decompressed \mbox{\hyperlink{structdata}{data}} \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{content__encoding_8c_af4c22b44df0a2a24fff33ff04731fad7}\index{content\_encoding.c@{content\_encoding.c}!MAX\_ENCODE\_STACK@{MAX\_ENCODE\_STACK}}
+\index{MAX\_ENCODE\_STACK@{MAX\_ENCODE\_STACK}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ENCODE\_STACK}{MAX\_ENCODE\_STACK}}
+{\footnotesize\ttfamily \label{content__encoding_8c_af4c22b44df0a2a24fff33ff04731fad7} 
+\#define MAX\+\_\+\+ENCODE\+\_\+\+STACK~5}
+
+
+
+\label{doc-func-members}
+\Hypertarget{content__encoding_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{content__encoding_8c_abbcf93018a889c88d64f7a25ef80d47d}\index{content\_encoding.c@{content\_encoding.c}!client\_close\_writer@{client\_close\_writer}}
+\index{client\_close\_writer@{client\_close\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{client\_close\_writer()}{client\_close\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_abbcf93018a889c88d64f7a25ef80d47d} 
+void client\+\_\+close\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_a3462a42fc81c4810de83311d2041a9f7}\index{content\_encoding.c@{content\_encoding.c}!client\_init\_writer@{client\_init\_writer}}
+\index{client\_init\_writer@{client\_init\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{client\_init\_writer()}{client\_init\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a3462a42fc81c4810de83311d2041a9f7} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} client\+\_\+init\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_ae9c1a0dad6545e010b4da4a9a90f6081}\index{content\_encoding.c@{content\_encoding.c}!client\_unencode\_write@{client\_unencode\_write}}
+\index{client\_unencode\_write@{client\_unencode\_write}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{client\_unencode\_write()}{client\_unencode\_write()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_ae9c1a0dad6545e010b4da4a9a90f6081} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} client\+\_\+unencode\+\_\+write (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{nbytes}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_a14ccd76a74cb608720344bcaa319bfbf}\index{content\_encoding.c@{content\_encoding.c}!Curl\_all\_content\_encodings@{Curl\_all\_content\_encodings}}
+\index{Curl\_all\_content\_encodings@{Curl\_all\_content\_encodings}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_all\_content\_encodings()}{Curl\_all\_content\_encodings()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a14ccd76a74cb608720344bcaa319bfbf} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+all\+\_\+content\+\_\+encodings (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{content__encoding_8c_a381846c71942ddde72b8f6dd10df6d53}\index{content\_encoding.c@{content\_encoding.c}!Curl\_build\_unencoding\_stack@{Curl\_build\_unencoding\_stack}}
+\index{Curl\_build\_unencoding\_stack@{Curl\_build\_unencoding\_stack}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_build\_unencoding\_stack()}{Curl\_build\_unencoding\_stack()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a381846c71942ddde72b8f6dd10df6d53} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+build\+\_\+unencoding\+\_\+stack (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{enclist}{, }\item[{int}]{maybechunked}{}\end{DoxyParamCaption})}
+
+\Hypertarget{content__encoding_8c_ab8f8fe5a9d847d73c5d949cce471595e}\index{content\_encoding.c@{content\_encoding.c}!Curl\_unencode\_cleanup@{Curl\_unencode\_cleanup}}
+\index{Curl\_unencode\_cleanup@{Curl\_unencode\_cleanup}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_unencode\_cleanup()}{Curl\_unencode\_cleanup()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_ab8f8fe5a9d847d73c5d949cce471595e} 
+void Curl\+\_\+unencode\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{content__encoding_8c_a9fc1d604c69a42283abe54c6c4b335d0}\index{content\_encoding.c@{content\_encoding.c}!Curl\_unencode\_write@{Curl\_unencode\_write}}
+\index{Curl\_unencode\_write@{Curl\_unencode\_write}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_unencode\_write()}{Curl\_unencode\_write()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a9fc1d604c69a42283abe54c6c4b335d0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+unencode\+\_\+write (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{nbytes}{}\end{DoxyParamCaption})}
+
+\Hypertarget{content__encoding_8c_a03d0d9cb633a06553a4f189b308c006e}\index{content\_encoding.c@{content\_encoding.c}!error\_close\_writer@{error\_close\_writer}}
+\index{error\_close\_writer@{error\_close\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{error\_close\_writer()}{error\_close\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a03d0d9cb633a06553a4f189b308c006e} 
+void error\+\_\+close\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_aca097049a5022188baf3a24ee4b34f23}\index{content\_encoding.c@{content\_encoding.c}!error\_init\_writer@{error\_init\_writer}}
+\index{error\_init\_writer@{error\_init\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{error\_init\_writer()}{error\_init\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_aca097049a5022188baf3a24ee4b34f23} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} error\+\_\+init\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_ad25ae7056f7ca98999ac6dd849afe26d}\index{content\_encoding.c@{content\_encoding.c}!error\_unencode\_write@{error\_unencode\_write}}
+\index{error\_unencode\_write@{error\_unencode\_write}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{error\_unencode\_write()}{error\_unencode\_write()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_ad25ae7056f7ca98999ac6dd849afe26d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} error\+\_\+unencode\+\_\+write (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{nbytes}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_a2717737137633db0826be065de9ab84e}\index{content\_encoding.c@{content\_encoding.c}!find\_encoding@{find\_encoding}}
+\index{find\_encoding@{find\_encoding}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{find\_encoding()}{find\_encoding()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a2717737137633db0826be065de9ab84e} 
+const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \texorpdfstring{$\ast$}{*} find\+\_\+encoding (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_a2a62861c3aaa780007035f35a06bdb46}\index{content\_encoding.c@{content\_encoding.c}!identity\_close\_writer@{identity\_close\_writer}}
+\index{identity\_close\_writer@{identity\_close\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{identity\_close\_writer()}{identity\_close\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a2a62861c3aaa780007035f35a06bdb46} 
+void identity\+\_\+close\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_a017a08ea9e38a25a2850503c022a39df}\index{content\_encoding.c@{content\_encoding.c}!identity\_init\_writer@{identity\_init\_writer}}
+\index{identity\_init\_writer@{identity\_init\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{identity\_init\_writer()}{identity\_init\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a017a08ea9e38a25a2850503c022a39df} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} identity\+\_\+init\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_ad44b3ec2944585736e0c6b3ef77aa2a6}\index{content\_encoding.c@{content\_encoding.c}!identity\_unencode\_write@{identity\_unencode\_write}}
+\index{identity\_unencode\_write@{identity\_unencode\_write}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{identity\_unencode\_write()}{identity\_unencode\_write()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_ad44b3ec2944585736e0c6b3ef77aa2a6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} identity\+\_\+unencode\+\_\+write (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{writer}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{nbytes}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{content__encoding_8c_a2216937b9544dd3056a7b910cfa0578a}\index{content\_encoding.c@{content\_encoding.c}!new\_unencoding\_writer@{new\_unencoding\_writer}}
+\index{new\_unencoding\_writer@{new\_unencoding\_writer}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{new\_unencoding\_writer()}{new\_unencoding\_writer()}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a2216937b9544dd3056a7b910cfa0578a} 
+struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*} new\+\_\+unencoding\+\_\+writer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} \texorpdfstring{$\ast$}{*}}]{handler}{, }\item[{struct \mbox{\hyperlink{structcontenc__writer}{contenc\+\_\+writer}} \texorpdfstring{$\ast$}{*}}]{downstream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{content__encoding_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{content__encoding_8c_a51a9520d4da8b8f5b442628b9cc21834}\index{content\_encoding.c@{content\_encoding.c}!client\_encoding@{client\_encoding}}
+\index{client\_encoding@{client\_encoding}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{client\_encoding}{client\_encoding}}
+{\footnotesize\ttfamily \label{content__encoding_8c_a51a9520d4da8b8f5b442628b9cc21834} 
+const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} client\+\_\+encoding\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ NULL,}
+\DoxyCodeLine{\ \ NULL,}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_a3462a42fc81c4810de83311d2041a9f7}{client\_init\_writer}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_ae9c1a0dad6545e010b4da4a9a90f6081}{client\_unencode\_write}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_abbcf93018a889c88d64f7a25ef80d47d}{client\_close\_writer}},}
+\DoxyCodeLine{\ \ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}})}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{content__encoding_8c_afdf8b450f9c080e4d46e846bf9772ee5}\index{content\_encoding.c@{content\_encoding.c}!encodings@{encodings}}
+\index{encodings@{encodings}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{encodings}{encodings}}
+{\footnotesize\ttfamily \label{content__encoding_8c_afdf8b450f9c080e4d46e846bf9772ee5} 
+const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}}\texorpdfstring{$\ast$}{*} const encodings\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \&\mbox{\hyperlink{content__encoding_8c_aa43ce488b102eaf17c984be58cb260f8}{identity\_encoding}},}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ NULL}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{content__encoding_8c_aab78f4b105979f2395d95e93edbdfb96}\index{content\_encoding.c@{content\_encoding.c}!error\_encoding@{error\_encoding}}
+\index{error\_encoding@{error\_encoding}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{error\_encoding}{error\_encoding}}
+{\footnotesize\ttfamily \label{content__encoding_8c_aab78f4b105979f2395d95e93edbdfb96} 
+const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} error\+\_\+encoding\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ NULL,}
+\DoxyCodeLine{\ \ NULL,}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_aca097049a5022188baf3a24ee4b34f23}{error\_init\_writer}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_ad25ae7056f7ca98999ac6dd849afe26d}{error\_unencode\_write}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_a03d0d9cb633a06553a4f189b308c006e}{error\_close\_writer}},}
+\DoxyCodeLine{\ \ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}})}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{content__encoding_8c_aa43ce488b102eaf17c984be58cb260f8}\index{content\_encoding.c@{content\_encoding.c}!identity\_encoding@{identity\_encoding}}
+\index{identity\_encoding@{identity\_encoding}!content\_encoding.c@{content\_encoding.c}}
+\doxysubsubsection{\texorpdfstring{identity\_encoding}{identity\_encoding}}
+{\footnotesize\ttfamily \label{content__encoding_8c_aa43ce488b102eaf17c984be58cb260f8} 
+const struct \mbox{\hyperlink{structcontent__encoding}{content\+\_\+encoding}} identity\+\_\+encoding\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}identity"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}none"{}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_a017a08ea9e38a25a2850503c022a39df}{identity\_init\_writer}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_ad44b3ec2944585736e0c6b3ef77aa2a6}{identity\_unencode\_write}},}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{content__encoding_8c_a2a62861c3aaa780007035f35a06bdb46}{identity\_close\_writer}},}
+\DoxyCodeLine{\ \ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}})}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

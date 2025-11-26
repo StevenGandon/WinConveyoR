@@ -1,0 +1,102 @@
+\doxysection{curlx.\+h}
+\hypertarget{curlx_8h_source}{}\label{curlx_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curlx.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curlx.h}}
+\mbox{\hyperlink{curlx_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_CURLX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_CURLX\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ Defines\ protos\ and\ includes\ all\ header\ files\ that\ provide\ the\ curlx\_*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ functions.\ The\ curlx\_*\ functions\ are\ not\ part\ of\ the\ libcurl\ API,\ but\ are}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ stand-\/alone\ functions\ whose\ sources\ can\ be\ built\ and\ linked\ by\ apps\ if\ need}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ be.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{mprintf_8h}{curl/mprintf.h}}>}}
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ this\ is\ still\ a\ public\ header\ file\ that\ provides\ the\ curl\_mprintf()}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ functions\ while\ they\ still\ are\ offered\ publicly.\ They\ will\ be\ made\ library-\/}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ private\ one\ day\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{strcase_8h}{strcase.h}}"{}}}
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ "{}strcase.h"{}\ provides\ the\ strcasecompare\ protos\ */}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{strtoofft_8h}{strtoofft.h}}"{}}}
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ "{}strtoofft.h"{}\ provides\ this\ function:\ curlx\_strtoofft(),\ returns\ a}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ curl\_off\_t\ number\ from\ a\ given\ string.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nonblock_8h}{nonblock.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ "{}nonblock.h"{}\ provides\ curlx\_nonblock()\ */}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{warnless_8h}{warnless.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ "{}warnless.h"{}\ provides\ functions:}}
+\DoxyCodeLine{00052\ \textcolor{comment}{}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ curlx\_ultous()}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ curlx\_ultouc()}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ curlx\_uztosi()}}
+\DoxyCodeLine{00056\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__multibyte_8h}{curl\_multibyte.h}}"{}}}
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ "{}curl\_multibyte.h"{}\ provides\ these\ functions\ and\ macros:}}
+\DoxyCodeLine{00060\ \textcolor{comment}{}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ curlx\_convert\_UTF8\_to\_wchar()}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ curlx\_convert\_wchar\_to\_UTF8()}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ curlx\_convert\_UTF8\_to\_tchar()}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ curlx\_convert\_tchar\_to\_UTF8()}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ curlx\_unicodefree()}}
+\DoxyCodeLine{00066\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{version__win32_8h}{version\_win32.h}}"{}}}
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ "{}version\_win32.h"{}\ provides\ curlx\_verify\_windows\_version()\ */}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ Now\ setup\ curlx\_\ *\ names\ for\ the\ functions\ that\ are\ to\ become\ curlx\_\ and}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ be\ removed\ from\ a\ future\ libcurl\ official\ API:}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ curlx\_getenv}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ curlx\_mprintf\ (and\ its\ variations)}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ curlx\_strcasecompare}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ curlx\_strncasecompare}}
+\DoxyCodeLine{00077\ \textcolor{comment}{}}
+\DoxyCodeLine{00078\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ curlx\_getenv\ curl\_getenv}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ curlx\_mvsnprintf\ curl\_mvsnprintf}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ curlx\_msnprintf\ curl\_msnprintf}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ curlx\_maprintf\ curl\_maprintf}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ curlx\_mvaprintf\ curl\_mvaprintf}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ curlx\_msprintf\ curl\_msprintf}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ curlx\_mprintf\ curl\_mprintf}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ curlx\_mfprintf\ curl\_mfprintf}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ curlx\_mvsprintf\ curl\_mvsprintf}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ curlx\_mvprintf\ curl\_mvprintf}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ curlx\_mvfprintf\ curl\_mvfprintf}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_CURLX\_PRINTF}}
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ If\ this\ define\ is\ set,\ we\ define\ all\ "{}standard"{}\ printf()\ functions\ to\ use}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ the\ curlx\_*\ version\ instead.\ It\ makes\ the\ source\ code\ transparent\ and}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ easier\ to\ understand/patch.\ Undefine\ them\ first.\ */}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ undef\ printf}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#\ undef\ fprintf}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ undef\ sprintf}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#\ undef\ msnprintf}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ undef\ vprintf}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#\ undef\ vfprintf}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#\ undef\ vsprintf}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#\ undef\ mvsnprintf}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#\ undef\ aprintf}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#\ undef\ vaprintf}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#\ define\ printf\ curlx\_mprintf}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#\ define\ fprintf\ curlx\_mfprintf}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#\ define\ sprintf\ curlx\_msprintf}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#\ define\ msnprintf\ curlx\_msnprintf}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#\ define\ vprintf\ curlx\_mvprintf}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#\ define\ vfprintf\ curlx\_mvfprintf}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#\ define\ mvsnprintf\ curlx\_mvsnprintf}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#\ define\ aprintf\ curlx\_maprintf}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#\ define\ vaprintf\ curlx\_mvaprintf}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ENABLE\_CURLX\_PRINTF\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_CURLX\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

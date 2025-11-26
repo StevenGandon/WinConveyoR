@@ -1,0 +1,53 @@
+\doxysection{ws.\+h}
+\hypertarget{ws_8h_source}{}\label{ws_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/ws.h@{lib/libwconr/build/\_deps/curl-\/src/lib/ws.h}}
+\mbox{\hyperlink{ws_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_WS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_WS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ USE\_WEBSOCKETS}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ USE\_HYPER}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ REQTYPE\ void}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ REQTYPE\ struct\ dynbuf}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ this\ is\ the\ largest\ single\ fragment\ size\ we\ support\ */}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ MAX\_WS\_SIZE\ 65535}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ part\ of\ 'struct\ HTTP',\ when\ used\ in\ the\ 'struct\ SingleRequest'\ in\ the}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ Curl\_easy\ struct\ */}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }websocket\ \{}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ contfragment;\ \textcolor{comment}{/*\ set\ TRUE\ if\ the\ previous\ fragment\ sent\ was\ not\ final\ */}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ mask[4];\ \textcolor{comment}{/*\ 32\ bit\ mask\ for\ this\ connection\ */}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{struct\ }Curl\_easy\ *\mbox{\hyperlink{get_8d_a00d2460ce518188826774e291dc0d686}{data}};\ \textcolor{comment}{/*\ used\ for\ write\ callback\ handling\ */}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{struct\ }dynbuf\ buf;}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{size\_t}\ usedbuf;\ \textcolor{comment}{/*\ number\ of\ leading\ bytes\ in\ 'buf'\ the\ most\ recent\ complete}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ websocket\ frame\ uses\ */}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{struct\ }curl\_ws\_frame\ frame;\ \textcolor{comment}{/*\ the\ struct\ used\ for\ frame\ state\ */}}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ oleft;\ \textcolor{comment}{/*\ outstanding\ number\ of\ payload\ bytes\ left\ from\ the}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ server\ */}}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ stillbuffer;\ \textcolor{comment}{/*\ number\ of\ bytes\ left\ in\ the\ buffer\ to\ deliver\ in}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ next\ curl\_ws\_recv()\ call\ */}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{char}\ *stillb;\ \textcolor{comment}{/*\ the\ stillbuffer\ pending\ bytes\ are\ here\ */}}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ sleft;\ \textcolor{comment}{/*\ outstanding\ number\ of\ payload\ bytes\ left\ to\ send\ */}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ xori;\ \textcolor{comment}{/*\ xor\ index\ */}}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{ws_8h_a1ff996a330d56fb0c37e818675b63a77}{Curl\_ws\_request}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ REQTYPE\ *req);}
+\DoxyCodeLine{00059\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ws\_accept(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{size\_t}\ Curl\_ws\_writecb(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},\ \textcolor{keywordtype}{size\_t}\ nitems,\ \textcolor{keywordtype}{void}\ *userp);}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ws_8h_aeb7a60bb0f9aee78e644b6d3b30242be}{Curl\_ws\_done}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ Curl\_ws\_request(x,y)\ CURLE\_OK}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ Curl\_ws\_done(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_WS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

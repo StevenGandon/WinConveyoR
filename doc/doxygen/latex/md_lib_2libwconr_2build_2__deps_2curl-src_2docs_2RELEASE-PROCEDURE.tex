@@ -1,0 +1,68 @@
+\chapter{curl release procedure -\/ how to do a release }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE}\index{curl release procedure -\/ how to do a release@{curl release procedure -\/ how to do a release}}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1798}{}\doxysection{\texorpdfstring{in the source code repo}{in the source code repo}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1798}
+
+\begin{DoxyItemize}
+\item run {\ttfamily ./scripts/copyright.pl} and correct possible omissions
+\item edit {\ttfamily RELEASE-\/\+NOTES} to be accurate
+\item update {\ttfamily docs/\+THANKS}
+\item make sure all relevant changes are committed on the master branch
+\item tag the git repo in this style\+: {\ttfamily git tag -\/a curl-\/7\+\_\+34\+\_\+0}. -\/a annotates the tag and we use underscores instead of dots in the version number. Make sure the tag is GPG signed (using -\/s).
+\item run {\ttfamily ./maketgz 7.\+34.\+0} to build the release tarballs. It is important that you run this on a machine with the correct set of autotools etc installed as this is what then will be shipped and used by most users on \texorpdfstring{$\ast$}{*}nix like systems.
+\item push the git commits and the new tag
+\item GPG sign the 4 tarballs as {\ttfamily maketgz} suggests
+\item upload the 8 resulting files to the primary download directory
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1799}{}\doxysection{\texorpdfstring{in the curl-\/www repo}{in the curl-\/www repo}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1799}
+
+\begin{DoxyItemize}
+\item edit {\ttfamily Makefile} (version number and date),
+\item edit {\ttfamily \+\_\+newslog.\+html} (announce the new release) and
+\item edit {\ttfamily \+\_\+changes.\+html} (insert changes+bugfixes from RELEASE-\/\+NOTES)
+\item commit all local changes
+\item tag the repo with the same name as used for the source repo.
+\item make sure all relevant changes are committed and pushed on the master branch
+
+(the website then updates its contents automatically)
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1800}{}\doxysection{\texorpdfstring{on Git\+Hub}{on Git\+Hub}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1800}
+
+\begin{DoxyItemize}
+\item edit the newly made release tag so that it is listed as the latest release
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1801}{}\doxysection{\texorpdfstring{inform}{inform}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1801}
+
+\begin{DoxyItemize}
+\item send an email to curl-\/users, curl-\/announce and curl-\/library. Insert the RELEASE-\/\+NOTES into the mail.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1802}{}\doxysection{\texorpdfstring{celebrate}{celebrate}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1802}
+
+\begin{DoxyItemize}
+\item suitable beverage intake is encouraged for the festivities
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1803}{}\doxysection{\texorpdfstring{curl release scheduling}{curl release scheduling}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1803}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1804}{}\doxysubsection{\texorpdfstring{Release Cycle}{Release Cycle}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1804}
+We do releases every 8 weeks on Wednesdays. If critical problems arise, we can insert releases outside of the schedule or we can move the release date -\/ but this is rare.
+
+Each 8 week release cycle is split in two 4-\/week periods.
+
+
+\begin{DoxyItemize}
+\item During the first 4 weeks after a release, we allow new features and changes to curl and libcurl. If we accept any such changes, we bump the minor number used for the next release.
+\item During the second 4-\/week period we do not merge any features or changes, we then only focus on fixing bugs and polishing things to make a solid coming release.
+\item After a regular procedure-\/following release (made on Wednesdays), the feature window remains closed until the following Monday in case of special actions or patch releases etc.
+\end{DoxyItemize}
+
+If a future release date happens to end up on a "{}bad date"{}, like in the middle of common public holidays or when the lead release manager is away traveling, the release date can be moved forwards or backwards a full week. This is then advertised well in advance.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1805}{}\doxysubsection{\texorpdfstring{Critical problems}{Critical problems}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1805}
+We can break the release cycle and do a patch release at any point if a critical enough problem is reported. There is no exact definition of how to assess such criticality, but if an issue is highly disturbing or has a security impact on a large enough share of the user population it might qualify.
+
+If you think an issue qualifies, bring it to the curl-\/library mailing list and push for it.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1806}{}\doxysubsection{\texorpdfstring{Coming dates}{Coming dates}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2RELEASE-PROCEDURE_autotoc_md1806}
+Based on the description above, here are some planned release dates (at the time of this writing)\+:
+
+
+\begin{DoxyItemize}
+\item October 26, 2022 (7.\+86.\+0)
+\item December 21, 2022
+\item February 15, 2023 (last version 7 release, no feature window after)
+\item March 20, 2023 (8.\+0.\+0 -\/ curl 25 years)
+\item April 17, 2023
+\item July 12, 2023
+\item September 6, 2023
+\item November 1, 2023
+\item December 27, 2023 
+\end{DoxyItemize}

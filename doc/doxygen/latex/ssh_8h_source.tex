@@ -1,0 +1,254 @@
+\doxysection{ssh.\+h}
+\hypertarget{ssh_8h_source}{}\label{ssh_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vssh/ssh.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vssh/ssh.h}}
+\mbox{\hyperlink{ssh_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SSH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SSH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ defined(USE\_LIBSSH2)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <libssh2.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <libssh2\_sftp.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#elif\ defined(USE\_LIBSSH)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <libssh/libssh.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <libssh/sftp.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#elif\ defined(USE\_WOLFSSH)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <wolfssh/ssh.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <wolfssh/wolfsftp.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a57398e661e3c2b5402b6cca311118552}{SSH\_NO\_STATE}}\ =\ -\/1,\ \ \textcolor{comment}{/*\ Used\ for\ "{}nextState"{}\ so\ say\ there\ is\ none\ */}}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a53282f65131218c0caf48d8d8fb8bbef}{SSH\_STOP}}\ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{/*\ do\ nothing\ state,\ stops\ the\ state\ machine\ */}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a5cdac19d2002ef1d1597d667784c6299}{SSH\_INIT}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ First\ state\ in\ SSH-\/CONNECT\ */}}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aef93a99d67af1cab2085802e9f78caf7}{SSH\_S\_STARTUP}},\ \ \ \ \ \ \textcolor{comment}{/*\ Session\ startup\ */}}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ab797e803b6a7e57abb303f80fc947b82}{SSH\_HOSTKEY}},\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ verify\ hostkey\ */}}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a12048833860d694a6fcbf9b1cac72c47}{SSH\_AUTHLIST}},}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a9b79063da6f10bf2e8c3c6d282c568a2}{SSH\_AUTH\_PKEY\_INIT}},}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a4075f958722f09d8746890a761d6d1ea}{SSH\_AUTH\_PKEY}},}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a5465afeb639447c1a8626f819d1cc2ef}{SSH\_AUTH\_PASS\_INIT}},}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a5c67eebfd73e685f1a10633114e32905}{SSH\_AUTH\_PASS}},}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aac0c0a6d6a6f4fc51e7da64b9ae4aaa3}{SSH\_AUTH\_AGENT\_INIT}},\ \textcolor{comment}{/*\ initialize\ then\ wait\ for\ connection\ to\ agent\ */}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a1018b514b731f55da10d13d0d9d41fa1}{SSH\_AUTH\_AGENT\_LIST}},\ \textcolor{comment}{/*\ ask\ for\ list\ then\ wait\ for\ entire\ list\ to\ come\ */}}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a39a8dcea793c406f0fe90f3175c4318e}{SSH\_AUTH\_AGENT}},\ \ \ \ \ \ \textcolor{comment}{/*\ attempt\ one\ key\ at\ a\ time\ */}}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155acdf68fd9dff6d50629e5c85b61e77a68}{SSH\_AUTH\_HOST\_INIT}},}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a2ad1eb54054ddfe0c51afa636b4a3ec7}{SSH\_AUTH\_HOST}},}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ae4c45b0778b8b4baeda1601b8045a798}{SSH\_AUTH\_KEY\_INIT}},}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a926c157a7f1fea670ccc8637a187d137}{SSH\_AUTH\_KEY}},}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a6264a71469928ad51fa802f65f1a934a}{SSH\_AUTH\_GSSAPI}},}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a9a01d1c887661d69cce820c0c7a4dc7d}{SSH\_AUTH\_DONE}},}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155af25c7426674f7700d154cc99c8da3225}{SSH\_SFTP\_INIT}},}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a19f1aee7174c87a5ff0f4a4f1f84bf38}{SSH\_SFTP\_REALPATH}},\ \ \ \textcolor{comment}{/*\ Last\ state\ in\ SSH-\/CONNECT\ */}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a2a0961ddbd8d3ae72d6358c3a8cbab82}{SSH\_SFTP\_QUOTE\_INIT}},\ \textcolor{comment}{/*\ First\ state\ in\ SFTP-\/DO\ */}}
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a82a38d1411e28aefb6602256bd19ad41}{SSH\_SFTP\_POSTQUOTE\_INIT}},\ \textcolor{comment}{/*\ (Possibly)\ First\ state\ in\ SFTP-\/DONE\ */}}
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a7d0075d017c77f4fc950229f379aa3db}{SSH\_SFTP\_QUOTE}},}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a9cf4aacf206558d6b55aae7b5f346770}{SSH\_SFTP\_NEXT\_QUOTE}},}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a41b9d0ea7f5e40dc888bf4095f1cefc7}{SSH\_SFTP\_QUOTE\_STAT}},}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a478208d363b3ca34ce36e1007c51e5cf}{SSH\_SFTP\_QUOTE\_SETSTAT}},}
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a9d05c4441ab2f2cad33081b8daaf4fdb}{SSH\_SFTP\_QUOTE\_SYMLINK}},}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a5dc08ad6288c41e4b2f351153cc1aa49}{SSH\_SFTP\_QUOTE\_MKDIR}},}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a7990d4c09b5cbfa789c98c754cd22d86}{SSH\_SFTP\_QUOTE\_RENAME}},}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155acf487de8306ae12c4c2078eae16dc381}{SSH\_SFTP\_QUOTE\_RMDIR}},}
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ac2f24f005342f31ed0b9febfc3069f2a}{SSH\_SFTP\_QUOTE\_UNLINK}},}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a72a488c8172dff205bc4a2c10098e5af}{SSH\_SFTP\_QUOTE\_STATVFS}},}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a3224d44a23e7a1ca4e10a8fd44745c8b}{SSH\_SFTP\_GETINFO}},}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ad2c237c6190088699325ebd28d51a8e2}{SSH\_SFTP\_FILETIME}},}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aebcaedd56b4c4833848a3a76de8891e1}{SSH\_SFTP\_TRANS\_INIT}},}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ad47a9bd7f1d9328e1f540445637a4e30}{SSH\_SFTP\_UPLOAD\_INIT}},}
+\DoxyCodeLine{00083\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aca97cdea855f1673011ea80938c49b67}{SSH\_SFTP\_CREATE\_DIRS\_INIT}},}
+\DoxyCodeLine{00084\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aed6c3122e1ba7a9f8d4dc09d3fa86810}{SSH\_SFTP\_CREATE\_DIRS}},}
+\DoxyCodeLine{00085\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a2a221f200953b8fbcc9a7b52060dab1a}{SSH\_SFTP\_CREATE\_DIRS\_MKDIR}},}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aa3f829baf0f6b30e199d170e81af5f11}{SSH\_SFTP\_READDIR\_INIT}},}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a74cbfb06d0e1bd628c748732b740d537}{SSH\_SFTP\_READDIR}},}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a53cfe441f339b20ea9f0ec7166731cb0}{SSH\_SFTP\_READDIR\_LINK}},}
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a36eba67995c9ec186205d399f63d1c31}{SSH\_SFTP\_READDIR\_BOTTOM}},}
+\DoxyCodeLine{00090\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a1dc834bc0b1d8802ebc858904073cbd9}{SSH\_SFTP\_READDIR\_DONE}},}
+\DoxyCodeLine{00091\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ad03152131eb7914f86fbcd60918d61c8}{SSH\_SFTP\_DOWNLOAD\_INIT}},}
+\DoxyCodeLine{00092\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155aaf7960e33ca19016cb814447d550abde}{SSH\_SFTP\_DOWNLOAD\_STAT}},\ \textcolor{comment}{/*\ Last\ state\ in\ SFTP-\/DO\ */}}
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a40b3379e471a188cd84ad6352319dedf}{SSH\_SFTP\_CLOSE}},\ \ \ \ \textcolor{comment}{/*\ Last\ state\ in\ SFTP-\/DONE\ */}}
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155af6b8a1e4e68b08575dad3a1538f7bb90}{SSH\_SFTP\_SHUTDOWN}},\ \textcolor{comment}{/*\ First\ state\ in\ SFTP-\/DISCONNECT\ */}}
+\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ae9f445617cf13fbfd7433f9427c57984}{SSH\_SCP\_TRANS\_INIT}},\ \textcolor{comment}{/*\ First\ state\ in\ SCP-\/DO\ */}}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a7433bf998dca68117aaec3a12915b9a5}{SSH\_SCP\_UPLOAD\_INIT}},}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a1f9bf5b98cffecdb86a6d00a154926ae}{SSH\_SCP\_DOWNLOAD\_INIT}},}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155abdfc9673e1c42cf14b802b9d8f33d745}{SSH\_SCP\_DOWNLOAD}},}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a26712b6294ddf680ee2d147685e4f515}{SSH\_SCP\_DONE}},}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a7ee7bc4f03443dd0567490c89d33fe21}{SSH\_SCP\_SEND\_EOF}},}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155adec7e463f505ee0b3339480ea142cf4a}{SSH\_SCP\_WAIT\_EOF}},}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a89dc7b7405898571810b14c40d003c05}{SSH\_SCP\_WAIT\_CLOSE}},}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155ae055de62e5b733e40bcb4f1c576c807d}{SSH\_SCP\_CHANNEL\_FREE}},\ \ \ \textcolor{comment}{/*\ Last\ state\ in\ SCP-\/DONE\ */}}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a610baf195df01fd177c7f5b28ada1511}{SSH\_SESSION\_DISCONNECT}},\ \textcolor{comment}{/*\ First\ state\ in\ SCP-\/DISCONNECT\ */}}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a0d2698e2dcbcffd6c10285989455dbae}{SSH\_SESSION\_FREE}},\ \ \ \ \ \ \ \textcolor{comment}{/*\ Last\ state\ in\ SCP/SFTP-\/DISCONNECT\ */}}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155a69bd14ee22fe23d7e992acab35c907be}{SSH\_QUIT}},}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155af47677ce5d43d9db968108f9c11930dc}{SSH\_LAST}}\ \ \textcolor{comment}{/*\ never\ used\ */}}
+\DoxyCodeLine{00108\ \}\ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155}{sshstate}};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{/*\ this\ struct\ is\ used\ in\ the\ HandleData\ struct\ which\ is\ part\ of\ the}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ Curl\_easy,\ which\ means\ this\ is\ used\ on\ a\ per-\/easy\ handle\ basis.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ Everything\ that\ is\ strictly\ related\ to\ a\ connection\ is\ banned\ from\ this}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ struct.\ */}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSSHPROTO}{SSHPROTO}}\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structSSHPROTO_a39d032e7720c80b9e4ba27a7d4fc7e4f}{path}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ path\ we\ operate\ on\ */}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#ifdef\ USE\_LIBSSH2}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ readdir\_link;}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ readdir;}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{char}\ *readdir\_filename;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{char}\ *readdir\_longentry;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ LIBSSH2\_SFTP\_ATTRIBUTES\ quote\_attrs;\ \textcolor{comment}{/*\ used\ by\ the\ SFTP\_QUOTE\ state\ */}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{comment}{/*\ Here's\ a\ set\ of\ struct\ members\ used\ by\ the\ SFTP\_READDIR\ state\ */}}
+\DoxyCodeLine{00125\ \ \ LIBSSH2\_SFTP\_ATTRIBUTES\ readdir\_attrs;}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{/*\ ssh\_conn\ is\ used\ for\ struct\ connection-\/oriented\ data\ in\ the\ connectdata}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ struct\ */}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structssh__conn}{ssh\_conn}}\ \{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_aa522fee088f6caed4d6b5b13c98f87a2}{authlist}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ List\ of\ auth.\ methods,\ managed\ by\ libssh2\ */}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{/*\ common\ */}}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_a3d54710232343d045f7faf4e535e1a7b}{passphrase}};\ \ \ \ \ \textcolor{comment}{/*\ pass-\/phrase\ to\ use\ */}}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_a1289664846d462a153b38e894becb287}{rsa\_pub}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ strdup'ed\ public\ key\ file\ */}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_aa227541779cedbff515f875ef10d7dbe}{rsa}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ strdup'ed\ private\ key\ file\ */}}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structssh__conn_a9f6b43060b5e57ea768294e9a2eb1a56}{authed}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ connection\ has\ been\ authenticated\ fine\ */}}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structssh__conn_a8602d55ddb9e0bb1ea24fbeb5bf3becd}{acceptfail}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ used\ by\ the\ SFTP\_QUOTE\ (continue\ if}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ quote\ command\ fails)\ */}}
+\DoxyCodeLine{00141\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155}{sshstate}}\ \mbox{\hyperlink{structssh__conn_a6f4662ea373394ef092284e6b996dc76}{state}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ always\ use\ ssh.c:state()\ to\ change\ state!\ */}}
+\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{ssh_8h_a57c7506ee3fd3af8a70c263384c07155}{sshstate}}\ \mbox{\hyperlink{structssh__conn_a61381c8320fa5537d633b176c99913e8}{nextstate}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ state\ to\ goto\ after\ stopping\ */}}
+\DoxyCodeLine{00143\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{structssh__conn_a5a9da33bd9691741ccc3359600258a0a}{actualcode}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ actual\ error\ code\ */}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structssh__conn_a312b587a6a0b14b3b105d0f79be5ec75}{quote\_item}};\ \textcolor{comment}{/*\ for\ the\ quote\ option\ */}}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_aeaeee5f5049f963b51b6107e5f7c0c65}{quote\_path1}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ two\ generic\ pointers\ for\ the\ QUOTE\ stuff\ */}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_a5991ff1ccbb9229e24e7e4395365aa70}{quote\_path2}};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_a09603187ff0537c6c7f70bb518d235d7}{homedir}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ when\ doing\ SFTP\ we\ figure\ out\ home\ dir\ in\ the}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ connect\ phase\ */}}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_a831dda96c8c85ad102244347baaf4d67}{readdir\_line}};}
+\DoxyCodeLine{00151\ \ \ \textcolor{comment}{/*\ end\ of\ READDIR\ stuff\ */}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structssh__conn_a4f17e42bcd635b4bf7d5f123f806325f}{secondCreateDirs}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ counter\ use\ by\ the\ code\ to\ see\ if\ the}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ second\ attempt\ has\ been\ made\ to\ change}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to/create\ a\ directory\ */}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structssh__conn_a3922fc5207f8e269e6fd8f0483468e8e}{orig\_waitfor}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ default\ READ/WRITE\ bits\ wait\ for\ */}}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structssh__conn_aa25a7d74e4020a50a8f5ff69da296fa0}{slash\_pos}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ used\ by\ the\ SFTP\_CREATE\_DIRS\ state\ */}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#if\ defined(USE\_LIBSSH)}}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{char}\ *readdir\_linkPath;}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{size\_t}\ readdir\_len,\ readdir\_totalLen,\ readdir\_currLen;}
+\DoxyCodeLine{00162\ \textcolor{comment}{/*\ our\ variables\ */}}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{unsigned}\ kbd\_state;\ \textcolor{comment}{/*\ 0\ or\ 1\ */}}
+\DoxyCodeLine{00164\ \ \ ssh\_key\ privkey;}
+\DoxyCodeLine{00165\ \ \ ssh\_key\ pubkey;}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{int}\ auth\_methods;}
+\DoxyCodeLine{00167\ \ \ ssh\_session\ ssh\_session;}
+\DoxyCodeLine{00168\ \ \ ssh\_scp\ scp\_session;}
+\DoxyCodeLine{00169\ \ \ sftp\_session\ sftp\_session;}
+\DoxyCodeLine{00170\ \ \ sftp\_file\ sftp\_file;}
+\DoxyCodeLine{00171\ \ \ sftp\_dir\ sftp\_dir;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{unsigned}\ sftp\_recv\_state;\ \textcolor{comment}{/*\ 0\ or\ 1\ */}}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{int}\ sftp\_file\_index;\ \textcolor{comment}{/*\ for\ async\ read\ */}}
+\DoxyCodeLine{00175\ \ \ sftp\_attributes\ readdir\_attrs;\ \textcolor{comment}{/*\ used\ by\ the\ SFTP\ readdir\ actions\ */}}
+\DoxyCodeLine{00176\ \ \ sftp\_attributes\ readdir\_link\_attrs;\ \textcolor{comment}{/*\ used\ by\ the\ SFTP\ readdir\ actions\ */}}
+\DoxyCodeLine{00177\ \ \ sftp\_attributes\ quote\_attrs;\ \textcolor{comment}{/*\ used\ by\ the\ SFTP\_QUOTE\ state\ */}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *readdir\_filename;\ \textcolor{comment}{/*\ points\ within\ readdir\_attrs\ */}}
+\DoxyCodeLine{00180\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *readdir\_longentry;}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{char}\ *readdir\_tmp;}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#elif\ defined(USE\_LIBSSH2)}}
+\DoxyCodeLine{00183\ \ \ LIBSSH2\_SESSION\ *ssh\_session;\ \textcolor{comment}{/*\ Secure\ Shell\ session\ */}}
+\DoxyCodeLine{00184\ \ \ LIBSSH2\_CHANNEL\ *ssh\_channel;\ \textcolor{comment}{/*\ Secure\ Shell\ channel\ handle\ */}}
+\DoxyCodeLine{00185\ \ \ LIBSSH2\_SFTP\ *sftp\_session;\ \ \ \textcolor{comment}{/*\ SFTP\ handle\ */}}
+\DoxyCodeLine{00186\ \ \ LIBSSH2\_SFTP\_HANDLE\ *sftp\_handle;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_PROXY}}
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{/*\ for\ HTTPS\ proxy\ storage\ */}}
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{urldata_8h_a13e6cab65485b46d31f6cc82b3868f50}{Curl\_recv}}\ *tls\_recv;}
+\DoxyCodeLine{00191\ \ \ \mbox{\hyperlink{urldata_8h_a00194511bf9944dc60473432bc384b3e}{Curl\_send}}\ *tls\_send;}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#ifdef\ HAVE\_LIBSSH2\_AGENT\_API}}
+\DoxyCodeLine{00195\ \ \ LIBSSH2\_AGENT\ *ssh\_agent;\ \ \ \ \ \textcolor{comment}{/*\ proxy\ to\ ssh-\/agent/pageant\ */}}
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{struct\ }libssh2\_agent\_publickey\ *sshagent\_identity,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *sshagent\_prev\_identity;}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{/*\ note\ that\ HAVE\_LIBSSH2\_KNOWNHOST\_API\ is\ a\ define\ set\ in\ the\ libssh2.h}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ \ \ \ header\ */}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#ifdef\ HAVE\_LIBSSH2\_KNOWNHOST\_API}}
+\DoxyCodeLine{00203\ \ \ LIBSSH2\_KNOWNHOSTS\ *kh;}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#elif\ defined(USE\_WOLFSSH)}}
+\DoxyCodeLine{00206\ \ \ WOLFSSH\ *ssh\_session;}
+\DoxyCodeLine{00207\ \ \ WOLFSSH\_CTX\ *ctx;}
+\DoxyCodeLine{00208\ \ \ word32\ handleSz;}
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{byte}\ handle[WOLFSSH\_MAX\_HANDLE];}
+\DoxyCodeLine{00210\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ offset;}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_LIBSSH\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00212\ \};}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#if\ defined(USE\_LIBSSH2)}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{comment}{/*\ Feature\ detection\ based\ on\ version\ numbers\ to\ better\ work\ with}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ non-\/configure\ platforms\ */}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#if\ !defined(LIBSSH2\_VERSION\_NUM)\ ||\ (LIBSSH2\_VERSION\_NUM\ <\ 0x001000)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#\ \ error\ "{}SCP/SFTP\ protocols\ require\ libssh2\ 0.16\ or\ later"{}}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#if\ LIBSSH2\_VERSION\_NUM\ >=\ 0x010000}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_SFTP\_SEEK64\ 1}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#if\ LIBSSH2\_VERSION\_NUM\ >=\ 0x010100}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_VERSION\ 1}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#if\ LIBSSH2\_VERSION\_NUM\ >=\ 0x010205}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_INIT\ 1}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_EXIT\ 1}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#if\ LIBSSH2\_VERSION\_NUM\ >=\ 0x010206}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_KNOWNHOST\_CHECKP\ 1}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_SCP\_SEND64\ 1}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#if\ LIBSSH2\_VERSION\_NUM\ >=\ 0x010208}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#define\ HAVE\_LIBSSH2\_SESSION\_HANDSHAKE\ 1}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#ifdef\ HAVE\_LIBSSH2\_VERSION}}
+\DoxyCodeLine{00246\ \textcolor{comment}{/*\ get\ it\ run-\/time\ if\ possible\ */}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ CURL\_LIBSSH2\_VERSION\ libssh2\_version(0)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00249\ \textcolor{comment}{/*\ use\ build-\/time\ if\ run-\/time\ not\ possible\ */}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ CURL\_LIBSSH2\_VERSION\ LIBSSH2\_VERSION}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_LIBSSH2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#ifdef\ USE\_SSH}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ Curl\_handler\_scp;}
+\DoxyCodeLine{00258\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ Curl\_handler\_sftp;}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{comment}{/*\ generic\ SSH\ backend\ functions\ */}}
+\DoxyCodeLine{00261\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ssh\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00262\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ssh_8h_a4b001a05da423db64d300baf6f21bf7b}{Curl\_ssh\_cleanup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00263\ \textcolor{keywordtype}{void}\ Curl\_ssh\_version(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ buflen);}
+\DoxyCodeLine{00264\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ssh_8h_a5c6067fcf4addf9febfebd5fd82b384a}{Curl\_ssh\_attach}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00267\ \textcolor{comment}{/*\ for\ non-\/SSH\ builds\ */}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ Curl\_ssh\_cleanup()}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ Curl\_ssh\_attach(x,y)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SSH\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

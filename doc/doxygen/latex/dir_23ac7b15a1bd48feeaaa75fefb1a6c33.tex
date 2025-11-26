@@ -1,0 +1,99 @@
+\doxysection{gui/node\+\_\+modules/matcher Directory Reference}
+\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33}{}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33}\index{gui/node\_modules/matcher Directory Reference@{gui/node\_modules/matcher Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1050}{}\doxysubsection{\texorpdfstring{matcher \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.com/sindresorhus/matcher.svg?branch=master}{\texttt{https\+://travis-\/ci.\+com/sindresorhus/matcher.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.com/sindresorhus/matcher}{\texttt{https\+://travis-\/ci.\+com/sindresorhus/matcher}})}{matcher \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.com/sindresorhus/matcher.svg?branch=master}{\texttt{https\+://travis-\/ci.\+com/sindresorhus/matcher.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.com/sindresorhus/matcher}{\texttt{https\+://travis-\/ci.\+com/sindresorhus/matcher}})}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1050}
+\begin{quote}
+Simple \href{https://en.wikipedia.org/wiki/Wildcard_character}{\texttt{wildcard}} matching \end{quote}
+
+
+Useful when you want to accept loose string input and regexes/globs are too convoluted.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1051}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1051}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ matcher}
+
+\end{DoxyCode}
+\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1052}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1052}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ matcher\ =\ require('matcher');}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher(['foo',\ 'bar',\ 'moo'],\ ['*oo',\ '!foo']);}
+\DoxyCodeLine{//=>\ ['moo']}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher(['foo',\ 'bar',\ 'moo'],\ ['!*oo']);}
+\DoxyCodeLine{//=>\ ['bar']}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('unicorn',\ 'uni*');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('unicorn',\ '*corn');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('unicorn',\ 'un*rn');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('rainbow',\ '!unicorn');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('foo\ bar\ baz',\ 'foo\ b*\ b*');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('unicorn',\ 'uni\(\backslash\)\(\backslash\)*');}
+\DoxyCodeLine{//=>\ false}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('UNICORN',\ 'UNI*',\ \{caseSensitive:\ true\});}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('UNICORN',\ 'unicorn',\ \{caseSensitive:\ true\});}
+\DoxyCodeLine{//=>\ false}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch(['foo',\ 'bar'],\ 'f*');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch(['foo',\ 'bar'],\ ['a*',\ 'b*']);}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{matcher.isMatch('unicorn',\ ['tri*',\ 'UNI*'],\ \{caseSensitive:\ true\});}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1053}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1053}
+It matches even across newlines. For example, {\ttfamily foo\texorpdfstring{$\ast$}{*}r} will match {\ttfamily foo\textbackslash{}nbar}.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1054}{}\doxysubsubsection{\texorpdfstring{matcher(inputs, patterns, options?)}{matcher(inputs, patterns, options?)}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1054}
+Accepts an array of {\ttfamily \doxylink{structinput}{input}}\textquotesingle{}s and {\ttfamily pattern}\textquotesingle{}s.
+
+Returns an array of {\ttfamily inputs} filtered based on the {\ttfamily patterns}.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1055}{}\doxysubsubsection{\texorpdfstring{matcher.\+is\+Match(input, pattern, options?)}{matcher.\+is\+Match(input, pattern, options?)}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1055}
+Accepts either a string or array of strings for both {\ttfamily \doxylink{structinput}{input}} and {\ttfamily pattern}.
+
+Returns a {\ttfamily boolean} of whether any given {\ttfamily \doxylink{structinput}{input}} matches every given {\ttfamily pattern}.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1056}{}\doxysubsubsubsection{\texorpdfstring{input}{input}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1056}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\mbox{[}\mbox{]}}
+
+String or array of strings to match.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1057}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1057}
+Type\+: {\ttfamily object}\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1058}{}\doxysubsubsubsubsection{\texorpdfstring{case\+Sensitive}{case\+Sensitive}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1058}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Treat uppercase and lowercase characters as being the same.
+
+Ensure you use this correctly. For example, files and directories should be matched case-\/insensitively, while most often, object keys should be matched case-\/sensitively.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1059}{}\doxysubsubsubsection{\texorpdfstring{pattern}{pattern}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1059}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\mbox{[}\mbox{]}}
+
+Use {\ttfamily \texorpdfstring{$\ast$}{*}} to match zero or more characters. A pattern starting with {\ttfamily !} will be negated.\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1060}{}\doxysubsection{\texorpdfstring{Benchmark}{Benchmark}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1060}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ run\ bench}
+
+\end{DoxyCode}
+\hypertarget{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1061}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_23ac7b15a1bd48feeaaa75fefb1a6c33_autotoc_md1061}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/matcher-cli}{\texttt{matcher-\/cli}} -\/ CLI for this module
+\item \href{https://github.com/sindresorhus/multimatch}{\texttt{multimatch}} -\/ Extends {\ttfamily minimatch.\+match()} with support for multiple patterns
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+ {\bfseries{ \href{https://tidelift.com/subscription/pkg/npm-matcher?utm_source=npm-matcher&utm_medium=referral&utm_campaign=readme}{\texttt{Get professional support for this package with a Tidelift subscription}} }} ~\newline
+ \textsubscript{ Tidelift helps make open source sustainable for maintainers while giving companies~\newline
+assurances about security, maintenance, and licensing for their dependencies. }  

@@ -17,6 +17,56 @@ env:
   BINARIES_NT: "'./cli/dist/wcr.exe', './lib/libwconr/build/Release/libwconr.dll'"
 
 jobs:
+  build-documentation:
+    if: ${{ github.event_name == 'push' && github.base_ref == 'dev' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install doxygen
+      run: sudo apt install doxygen -y
+  
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Create pages
+      run: |
+        doxygen doc/doxygen/doxydoc
+    - name: Commit pages
+      run: |
+        git config --global --add safe.directory /
+        GIT_STATUS=$(git status --porcelain)
+        echo $GIT_STATUS
+        git config user.name github-actions[bot]
+        git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        git add doc/
+        if [ "$GIT_STATUS" != "" ]; then git commit -m "[AUTO] documentation generation"; fi
+        if [ "$GIT_STATUS" != "" ]; then git push; fi
+
+    - name: Update pages artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: doc/doxygen/html
+
+  deploy-documentation:
+    if: ${{ github.event_name == 'push' && github.base_ref == 'dev' }}
+
+    needs: build-documentation
+
+    permissions:
+      pages: write
+      id-token: write
+  
+    environment:
+      name: github-pages
+      url: ${\{ steps.deployment.outputs.page_url }}
+  
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
   check_build:
     if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
     strategy:

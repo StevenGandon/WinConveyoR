@@ -1,0 +1,65 @@
+\doxysection{http\+\_\+proxy.\+h}
+\hypertarget{http__proxy_8h_source}{}\label{http__proxy_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/http\_proxy.h@{lib/libwconr/build/\_deps/curl-\/src/lib/http\_proxy.h}}
+\mbox{\hyperlink{http__proxy_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HTTP\_PROXY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HTTP\_PROXY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_PROXY)\ \&\&\ !defined(CURL\_DISABLE\_HTTP)}}
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ ftp\ can\ use\ this\ as\ well\ */}}
+\DoxyCodeLine{00032\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http__proxy_8h_ad3392e3d84c442ea54cab2606af5ea1a}{Curl\_proxyCONNECT}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tunnelsocket,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},\ \textcolor{keywordtype}{int}\ remote\_port);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ Default\ proxy\ timeout\ in\ milliseconds\ */}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ PROXY\_TIMEOUT\ (3600*1000)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{http__proxy_8h_a385a97f92d9775c904e027261c4afc49}{Curl\_proxy\_connect}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{http__proxy_8h_aefbaf7cf98e512186d12b98156355df7}{Curl\_connect\_complete}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{http__proxy_8h_a64cc706da81f4e2a504fc457b79542e2}{Curl\_connect\_ongoing}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{http__proxy_8h_a83b29d644b2ba99459385c85ae1d99a3}{Curl\_connect\_getsock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http__proxy_8h_aaacf82ce1b13ea02c3693a1fc40cde39}{Curl\_connect\_done}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ Curl\_proxyCONNECT(x,y,z,w)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ Curl\_proxy\_connect(x,y)\ CURLE\_OK}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ Curl\_connect\_complete(x)\ CURLE\_OK}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ Curl\_connect\_ongoing(x)\ FALSE}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ Curl\_connect\_getsock(x)\ 0}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ Curl\_connect\_done(x)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http__proxy_8h_a23d5abbb021d10ac416259cad0495c61}{Curl\_connect\_free}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ struct\ for\ HTTP\ CONNECT\ state\ data\ */}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhttp__connect__state}{http\_connect\_state}}\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHTTP}{HTTP}}\ \mbox{\hyperlink{structhttp__connect__state_aa8fc7371eefe09e197aefda3702b0e49}{http\_proxy}};}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHTTP}{HTTP}}\ *\mbox{\hyperlink{structhttp__connect__state_a015d6d06474b2c5dee926c3e3480b09d}{prot\_save}};}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \mbox{\hyperlink{structhttp__connect__state_acfd4cfe30538be809ad1aa359fb0c553}{rcvbuf}};}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \mbox{\hyperlink{structhttp__connect__state_afeb5c8fe79f8b99dd42cc6e02bdab61a}{req}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structhttp__connect__state_a27e3b7fa0fec034c1a6db12072bbd937}{nsend}};}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structhttp__connect__state_a15a3e640b2a1d1c674d5761b5b9f28d2}{headerlines}};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{structhttp__connect__state_ae09475c1f59c2bad8007bd0a2107e4af}{keeponval}}\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ae09475c1f59c2bad8007bd0a2107e4afa2bfa56cfdae7b149a03deb8845c54851}{KEEPON\_DONE}},}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ae09475c1f59c2bad8007bd0a2107e4afab10407d59af6a39a3600eef1ff4930f2}{KEEPON\_CONNECT}},}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ae09475c1f59c2bad8007bd0a2107e4afac2069616555723ece7356c19c5ed11e3}{KEEPON\_IGNORE}}}
+\DoxyCodeLine{00069\ \ \ \}\ \mbox{\hyperlink{structhttp__connect__state_a368f5dcdecc2bb64e93ea36b75157d62}{keepon}};}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structhttp__connect__state_a632e98f19525d826886fba5650f3453b}{cl}};\ \textcolor{comment}{/*\ size\ of\ content\ to\ read\ and\ ignore\ */}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ad0f044d83329fc9007f57873e1a14ec6a67025127316ebfef1baa1d56606466c7}{TUNNEL\_INIT}},\ \ \ \ \ \textcolor{comment}{/*\ init/default/no\ tunnel\ state\ */}}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ad0f044d83329fc9007f57873e1a14ec6a8fc9a8099f9b0fe5b1ff415c0f1dbd38}{TUNNEL\_CONNECT}},\ \ \textcolor{comment}{/*\ CONNECT\ has\ been\ sent\ off\ */}}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ad0f044d83329fc9007f57873e1a14ec6a14f6b5d1c8037d3c0f51158a57af0c9e}{TUNNEL\_COMPLETE}},\ \textcolor{comment}{/*\ CONNECT\ response\ received\ completely\ */}}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{structhttp__connect__state_ad0f044d83329fc9007f57873e1a14ec6ad5585a518f15b653807196ff5fff5bf0}{TUNNEL\_EXIT}}}
+\DoxyCodeLine{00076\ \ \ \}\ \mbox{\hyperlink{structhttp__connect__state_aecb5bbf6d1c593af6ac9b0169fab3aab}{tunnel\_state}};}
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{structhttp__connect__state_a57861c44705682764da7d2376370b4eb}{BIT}}(chunked\_encoding);}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{structhttp__connect__state_a0dff66cd0dabe637468ae2c8a349382a}{BIT}}(close\_connection);}
+\DoxyCodeLine{00079\ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HTTP\_PROXY\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,25 @@
+\doxysection{QCPColor\+Map\+Data Class Reference}
+\hypertarget{classQCPColorMapData}{}\label{classQCPColorMapData}\index{QCPColorMapData@{QCPColorMapData}}
+
+
+Holds the two-\/dimensional data of a \doxylink{classQCPColorMap}{QCPColor\+Map} plottable.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Holds the two-\/dimensional data of a \doxylink{classQCPColorMap}{QCPColor\+Map} plottable. 
+
+This class is a data storage for \doxylink{classQCPColorMap}{QCPColor\+Map}. It holds a two-\/dimensional array, which \doxylink{classQCPColorMap}{QCPColor\+Map} then displays as a 2D image in the plot, where the array values are represented by a color, depending on the value.
+
+The size of the array can be controlled via set\+Size (or set\+Key\+Size, set\+Value\+Size). Which plot coordinates these cells correspond to can be configured with set\+Range (or set\+Key\+Range, set\+Value\+Range).
+
+The data cells can be accessed in two ways\+: They can be directly addressed by an integer index with set\+Cell. This is the fastest method. Alternatively, they can be addressed by their plot coordinate with set\+Data. plot coordinate to cell index transformations and vice versa are provided by the functions coord\+To\+Cell and cell\+To\+Coord.
+
+A \doxylink{classQCPColorMapData}{QCPColor\+Map\+Data} also holds an on-\/demand two-\/dimensional array of alpha values which (if allocated) has the same size as the data map. It can be accessed via set\+Alpha, fill\+Alpha and clear\+Alpha. The memory for the alpha map is only allocated if needed, i.\+e. on the first call of set\+Alpha. clear\+Alpha restores full opacity and frees the alpha map.
+
+This class also buffers the minimum and maximum values that are in the data set, to provide QCPColor\+Map\+::rescale\+Data\+Range with the necessary information quickly. Setting a cell to a value that is greater than the current maximum increases this maximum to the new value. However, setting the cell that currently holds the maximum value to a smaller value doesn\textquotesingle{}t decrease the maximum again, because finding the true new maximum would require going through the entire data array, which might be time consuming. The same holds for the data minimum. This functionality is given by recalculate\+Data\+Bounds, such that you can decide when it is sensible to find the true current minimum and maximum. The method QCPColor\+Map\+::rescale\+Data\+Range offers a convenience parameter {\itshape recalculate\+Data\+Bounds} which may be set to true to automatically call recalculate\+Data\+Bounds internally. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,33 @@
+\chapter{Alt-\/\+Svc }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC}\index{Alt-\/Svc@{Alt-\/Svc}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1400}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1400}%
+
+
+curl features support for the Alt-\/\+Svc\+: \doxylink{structHTTP}{HTTP} header.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1401}{}\doxysection{\texorpdfstring{Enable Alt-\/\+Svc in build}{Enable Alt-\/\+Svc in build}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1401}
+{\ttfamily ./configure -\/-\/enable-\/alt-\/svc}
+
+(enabled by default since 7.\+73.\+0)\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1402}{}\doxysection{\texorpdfstring{Standard}{Standard}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1402}
+\href{https://datatracker.ietf.org/doc/html/rfc7838}{\texttt{RFC 7838}}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1403}{}\doxysection{\texorpdfstring{Alt-\/\+Svc cache file format}{Alt-\/\+Svc cache file format}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1403}
+This is a text based file with one line per entry and each line consists of nine space separated fields.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1404}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1404}
+\begin{DoxyVerb}h2 quic.tech 8443 h3-22 quic.tech 8443 "20190808 06:18:37" 0 0
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1405}{}\doxysubsection{\texorpdfstring{Fields}{Fields}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1405}
+
+\begin{DoxyEnumerate}
+\item The ALPN id for the source origin
+\item The host name for the source origin
+\item The port number for the source origin
+\item The ALPN id for the destination host
+\item The host name for the destination host
+\item The host number for the destination host
+\item The expiration date and time of this entry within double quotes. The date format is "{}\+YYYYMMDD HH\+:\+MM\+:\+SS"{} and the time zone is GMT.
+\item Boolean (1 or 0) if "{}persist"{} was set for this entry
+\item Integer priority value (not currently used)
+\end{DoxyEnumerate}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1406}{}\doxysection{\texorpdfstring{TODO}{TODO}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2ALTSVC_autotoc_md1406}
+
+\begin{DoxyItemize}
+\item handle multiple response headers, when one of them says {\ttfamily clear} (should override them all)
+\item using {\ttfamily Age\+:} value for caching age as per spec
+\item {\ttfamily CURLALTSVC\+\_\+\+IMMEDIATELY} support 
+\end{DoxyItemize}

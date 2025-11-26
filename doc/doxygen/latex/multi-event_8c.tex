@@ -1,0 +1,150 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/multi-\/event.c File Reference}
+\hypertarget{multi-event_8c}{}\label{multi-event_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/multi-\/event.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/multi-\/event.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$event2/event.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcurl__context__s}{curl\+\_\+context\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structcurl__context__s}{curl\+\_\+context\+\_\+s}} \mbox{\hyperlink{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}{curl\+\_\+context\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{multi-event_8c_a5d238028cb6e1aa75580adaa043a7ef0}{curl\+\_\+perform}} (int fd, short event, void \texorpdfstring{$\ast$}{*}arg)
+\item 
+static \mbox{\hyperlink{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}{curl\+\_\+context\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{multi-event_8c_aa01941728ba0b5369eb077233cac840b}{create\+\_\+curl\+\_\+context}} (\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} sockfd)
+\item 
+static void \mbox{\hyperlink{multi-event_8c_af814511237761e4c151c67e157358013}{destroy\+\_\+curl\+\_\+context}} (\mbox{\hyperlink{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}{curl\+\_\+context\+\_\+t}} \texorpdfstring{$\ast$}{*}context)
+\item 
+static void \mbox{\hyperlink{multi-event_8c_a2125604a9d2d09eafbb5d578522e39f2}{add\+\_\+download}} (const char \texorpdfstring{$\ast$}{*}url, int num)
+\item 
+static void \mbox{\hyperlink{multi-event_8c_af64438b5c87940dd54e75104c8aeaab7}{check\+\_\+multi\+\_\+info}} (void)
+\item 
+static void \mbox{\hyperlink{multi-event_8c_a1e4106df5e60955cc8a8450d3b579bf2}{on\+\_\+timeout}} (evutil\+\_\+socket\+\_\+t fd, short events, void \texorpdfstring{$\ast$}{*}arg)
+\item 
+static int \mbox{\hyperlink{multi-event_8c_a64d19a464e5ea3c19ad12de708f5e8eb}{start\+\_\+timeout}} (\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}multi, long timeout\+\_\+ms, void \texorpdfstring{$\ast$}{*}userp)
+\item 
+static int \mbox{\hyperlink{multi-event_8c_ac72cfa26068c1816144d0d3c6bbf4028}{handle\+\_\+socket}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}easy, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}, int action, void \texorpdfstring{$\ast$}{*}userp, void \texorpdfstring{$\ast$}{*}socketp)
+\item 
+int \mbox{\hyperlink{multi-event_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct event\+\_\+base \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{multi-event_8c_ab1a154f7530a81e9dd1d63fc6b98a5c7}{base}}
+\item 
+\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{multi-event_8c_a7aa6aa869d7e788f42f1df6737e89ea1}{curl\+\_\+handle}}
+\item 
+struct event \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-typedef-members}
+\Hypertarget{multi-event_8c_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}\index{multi-\/event.c@{multi-\/event.c}!curl\_context\_t@{curl\_context\_t}}
+\index{curl\_context\_t@{curl\_context\_t}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{curl\_context\_t}{curl\_context\_t}}
+{\footnotesize\ttfamily \label{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb} 
+typedef struct \mbox{\hyperlink{structcurl__context__s}{curl\+\_\+context\+\_\+s}} \mbox{\hyperlink{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}{curl\+\_\+context\+\_\+t}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{multi-event_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{multi-event_8c_a2125604a9d2d09eafbb5d578522e39f2}\index{multi-\/event.c@{multi-\/event.c}!add\_download@{add\_download}}
+\index{add\_download@{add\_download}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{add\_download()}{add\_download()}}
+{\footnotesize\ttfamily \label{multi-event_8c_a2125604a9d2d09eafbb5d578522e39f2} 
+void add\+\_\+download (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{int}]{num}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_af64438b5c87940dd54e75104c8aeaab7}\index{multi-\/event.c@{multi-\/event.c}!check\_multi\_info@{check\_multi\_info}}
+\index{check\_multi\_info@{check\_multi\_info}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{check\_multi\_info()}{check\_multi\_info()}}
+{\footnotesize\ttfamily \label{multi-event_8c_af64438b5c87940dd54e75104c8aeaab7} 
+void check\+\_\+multi\+\_\+info (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_aa01941728ba0b5369eb077233cac840b}\index{multi-\/event.c@{multi-\/event.c}!create\_curl\_context@{create\_curl\_context}}
+\index{create\_curl\_context@{create\_curl\_context}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{create\_curl\_context()}{create\_curl\_context()}}
+{\footnotesize\ttfamily \label{multi-event_8c_aa01941728ba0b5369eb077233cac840b} 
+\mbox{\hyperlink{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}{curl\+\_\+context\+\_\+t}} \texorpdfstring{$\ast$}{*} create\+\_\+curl\+\_\+context (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}}}]{sockfd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_a5d238028cb6e1aa75580adaa043a7ef0}\index{multi-\/event.c@{multi-\/event.c}!curl\_perform@{curl\_perform}}
+\index{curl\_perform@{curl\_perform}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{curl\_perform()}{curl\_perform()}}
+{\footnotesize\ttfamily \label{multi-event_8c_a5d238028cb6e1aa75580adaa043a7ef0} 
+void curl\+\_\+perform (\begin{DoxyParamCaption}\item[{int}]{fd}{, }\item[{short}]{event}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_af814511237761e4c151c67e157358013}\index{multi-\/event.c@{multi-\/event.c}!destroy\_curl\_context@{destroy\_curl\_context}}
+\index{destroy\_curl\_context@{destroy\_curl\_context}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{destroy\_curl\_context()}{destroy\_curl\_context()}}
+{\footnotesize\ttfamily \label{multi-event_8c_af814511237761e4c151c67e157358013} 
+void destroy\+\_\+curl\+\_\+context (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{multi-event_8c_a3f7749d28ea8f2ab44870e3408de7afb}{curl\+\_\+context\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_ac72cfa26068c1816144d0d3c6bbf4028}\index{multi-\/event.c@{multi-\/event.c}!handle\_socket@{handle\_socket}}
+\index{handle\_socket@{handle\_socket}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{handle\_socket()}{handle\_socket()}}
+{\footnotesize\ttfamily \label{multi-event_8c_ac72cfa26068c1816144d0d3c6bbf4028} 
+int handle\+\_\+socket (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{easy}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}}}]{s}{, }\item[{int}]{action}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{socketp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_a3c04138a5bfe5d72780bb7e82a18e627}\index{multi-\/event.c@{multi-\/event.c}!main@{main}}
+\index{main@{main}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{multi-event_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+\Hypertarget{multi-event_8c_a1e4106df5e60955cc8a8450d3b579bf2}\index{multi-\/event.c@{multi-\/event.c}!on\_timeout@{on\_timeout}}
+\index{on\_timeout@{on\_timeout}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{on\_timeout()}{on\_timeout()}}
+{\footnotesize\ttfamily \label{multi-event_8c_a1e4106df5e60955cc8a8450d3b579bf2} 
+void on\+\_\+timeout (\begin{DoxyParamCaption}\item[{evutil\+\_\+socket\+\_\+t}]{fd}{, }\item[{short}]{events}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{multi-event_8c_a64d19a464e5ea3c19ad12de708f5e8eb}\index{multi-\/event.c@{multi-\/event.c}!start\_timeout@{start\_timeout}}
+\index{start\_timeout@{start\_timeout}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{start\_timeout()}{start\_timeout()}}
+{\footnotesize\ttfamily \label{multi-event_8c_a64d19a464e5ea3c19ad12de708f5e8eb} 
+int start\+\_\+timeout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}}]{multi}{, }\item[{long}]{timeout\+\_\+ms}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{multi-event_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{multi-event_8c_ab1a154f7530a81e9dd1d63fc6b98a5c7}\index{multi-\/event.c@{multi-\/event.c}!base@{base}}
+\index{base@{base}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{base}{base}}
+{\footnotesize\ttfamily \label{multi-event_8c_ab1a154f7530a81e9dd1d63fc6b98a5c7} 
+struct event\+\_\+base\texorpdfstring{$\ast$}{*} base}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{multi-event_8c_a7aa6aa869d7e788f42f1df6737e89ea1}\index{multi-\/event.c@{multi-\/event.c}!curl\_handle@{curl\_handle}}
+\index{curl\_handle@{curl\_handle}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{curl\_handle}{curl\_handle}}
+{\footnotesize\ttfamily \label{multi-event_8c_a7aa6aa869d7e788f42f1df6737e89ea1} 
+\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}}\texorpdfstring{$\ast$}{*} curl\+\_\+handle}
+
+\Hypertarget{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}\index{multi-\/event.c@{multi-\/event.c}!timeout@{timeout}}
+\index{timeout@{timeout}!multi-\/event.c@{multi-\/event.c}}
+\doxysubsubsection{\texorpdfstring{timeout}{timeout}}
+{\footnotesize\ttfamily \label{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7} 
+struct event\texorpdfstring{$\ast$}{*} timeout}
+

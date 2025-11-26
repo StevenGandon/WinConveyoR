@@ -1,0 +1,85 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/hmac.c File Reference}
+\hypertarget{hmac_8c}{}\label{hmac_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/hmac.c@{lib/libwconr/build/\_deps/curl-\/src/lib/hmac.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}curl\+\_\+hmac.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structHMAC__context}{HMAC\+\_\+context}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hmac_8c_a465b589846428de0df5329cb020d03bd}{Curl\+\_\+\+HMAC\+\_\+init}} (const struct \mbox{\hyperlink{structHMAC__params}{HMAC\+\_\+params}} \texorpdfstring{$\ast$}{*}hashparams, const unsigned char \texorpdfstring{$\ast$}{*}key, unsigned int keylen)
+\item 
+int \mbox{\hyperlink{hmac_8c_af421d6abe9aa269882c4aa985c90d889}{Curl\+\_\+\+HMAC\+\_\+update}} (struct \mbox{\hyperlink{structHMAC__context}{HMAC\+\_\+context}} \texorpdfstring{$\ast$}{*}ctxt, const unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, unsigned int \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+int \mbox{\hyperlink{hmac_8c_a03a6096ea4ea32c0ae4f929941df0b08}{Curl\+\_\+\+HMAC\+\_\+final}} (struct \mbox{\hyperlink{structHMAC__context}{HMAC\+\_\+context}} \texorpdfstring{$\ast$}{*}ctxt, unsigned char \texorpdfstring{$\ast$}{*}result)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hmac_8c_adfce84704f99c4180eddbed042d1cd3e}{Curl\+\_\+hmacit}} (const struct \mbox{\hyperlink{structHMAC__params}{HMAC\+\_\+params}} \texorpdfstring{$\ast$}{*}hashparams, const unsigned char \texorpdfstring{$\ast$}{*}key, const size\+\_\+t keylen, const unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const size\+\_\+t datalen, unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const unsigned char \mbox{\hyperlink{hmac_8c_abcabc2550272372fcb06b502c1130be4}{hmac\+\_\+ipad}} = 0x36
+\item 
+static const unsigned char \mbox{\hyperlink{hmac_8c_a4c59cc2fa30a70eca8fd39c18324ccb0}{hmac\+\_\+opad}} = 0x5C
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{hmac_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{hmac_8c_a03a6096ea4ea32c0ae4f929941df0b08}\index{hmac.c@{hmac.c}!Curl\_HMAC\_final@{Curl\_HMAC\_final}}
+\index{Curl\_HMAC\_final@{Curl\_HMAC\_final}!hmac.c@{hmac.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_HMAC\_final()}{Curl\_HMAC\_final()}}
+{\footnotesize\ttfamily \label{hmac_8c_a03a6096ea4ea32c0ae4f929941df0b08} 
+int Curl\+\_\+\+HMAC\+\_\+final (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structHMAC__context}{HMAC\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctxt}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hmac_8c_a465b589846428de0df5329cb020d03bd}\index{hmac.c@{hmac.c}!Curl\_HMAC\_init@{Curl\_HMAC\_init}}
+\index{Curl\_HMAC\_init@{Curl\_HMAC\_init}!hmac.c@{hmac.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_HMAC\_init()}{Curl\_HMAC\_init()}}
+{\footnotesize\ttfamily \label{hmac_8c_a465b589846428de0df5329cb020d03bd} 
+struct \mbox{\hyperlink{structHMAC__context}{HMAC\+\_\+context}} \texorpdfstring{$\ast$}{*} Curl\+\_\+\+HMAC\+\_\+init (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structHMAC__params}{HMAC\+\_\+params}} \texorpdfstring{$\ast$}{*}}]{hashparams}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{unsigned int}]{keylen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hmac_8c_af421d6abe9aa269882c4aa985c90d889}\index{hmac.c@{hmac.c}!Curl\_HMAC\_update@{Curl\_HMAC\_update}}
+\index{Curl\_HMAC\_update@{Curl\_HMAC\_update}!hmac.c@{hmac.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_HMAC\_update()}{Curl\_HMAC\_update()}}
+{\footnotesize\ttfamily \label{hmac_8c_af421d6abe9aa269882c4aa985c90d889} 
+int Curl\+\_\+\+HMAC\+\_\+update (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structHMAC__context}{HMAC\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctxt}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{unsigned int}]{len}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hmac_8c_adfce84704f99c4180eddbed042d1cd3e}\index{hmac.c@{hmac.c}!Curl\_hmacit@{Curl\_hmacit}}
+\index{Curl\_hmacit@{Curl\_hmacit}!hmac.c@{hmac.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_hmacit()}{Curl\_hmacit()}}
+{\footnotesize\ttfamily \label{hmac_8c_adfce84704f99c4180eddbed042d1cd3e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+hmacit (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structHMAC__params}{HMAC\+\_\+params}} \texorpdfstring{$\ast$}{*}}]{hashparams}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const size\+\_\+t}]{keylen}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const size\+\_\+t}]{datalen}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{output}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{hmac_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{hmac_8c_abcabc2550272372fcb06b502c1130be4}\index{hmac.c@{hmac.c}!hmac\_ipad@{hmac\_ipad}}
+\index{hmac\_ipad@{hmac\_ipad}!hmac.c@{hmac.c}}
+\doxysubsubsection{\texorpdfstring{hmac\_ipad}{hmac\_ipad}}
+{\footnotesize\ttfamily \label{hmac_8c_abcabc2550272372fcb06b502c1130be4} 
+const unsigned char hmac\+\_\+ipad = 0x36\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+RFC2104 Keyed-\/\+Hashing for Message Authentication \Hypertarget{hmac_8c_a4c59cc2fa30a70eca8fd39c18324ccb0}\index{hmac.c@{hmac.c}!hmac\_opad@{hmac\_opad}}
+\index{hmac\_opad@{hmac\_opad}!hmac.c@{hmac.c}}
+\doxysubsubsection{\texorpdfstring{hmac\_opad}{hmac\_opad}}
+{\footnotesize\ttfamily \label{hmac_8c_a4c59cc2fa30a70eca8fd39c18324ccb0} 
+const unsigned char hmac\+\_\+opad = 0x5C\hspace{0.3cm}{\ttfamily [static]}}
+

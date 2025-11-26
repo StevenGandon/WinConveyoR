@@ -1,0 +1,50 @@
+\doxysection{curl\+\_\+threads.\+h}
+\hypertarget{curl__threads_8h_source}{}\label{curl__threads_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_threads.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_threads.h}}
+\mbox{\hyperlink{curl__threads_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_THREADS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_THREADS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(USE\_THREADS\_POSIX)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ define\ CURL\_STDCALL}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#\ \ define\ curl\_mutex\_t\ \ \ \ \ \ \ \ \ \ \ pthread\_mutex\_t}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#\ \ define\ curl\_thread\_t\ \ \ \ \ \ \ \ \ \ pthread\_t\ *}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#\ \ define\ curl\_thread\_t\_null\ \ \ \ \ (pthread\_t\ *)0}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_init(m)\ \ \ \ \ pthread\_mutex\_init(m,\ NULL)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_acquire(m)\ \ pthread\_mutex\_lock(m)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_release(m)\ \ pthread\_mutex\_unlock(m)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_destroy(m)\ \ pthread\_mutex\_destroy(m)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#elif\ defined(USE\_THREADS\_WIN32)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ define\ CURL\_STDCALL\ \ \ \ \ \ \ \ \ \ \ \_\_stdcall}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ define\ curl\_mutex\_t\ \ \ \ \ \ \ \ \ \ \ CRITICAL\_SECTION}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ define\ curl\_thread\_t\ \ \ \ \ \ \ \ \ \ HANDLE}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ define\ curl\_thread\_t\_null\ \ \ \ \ (HANDLE)0}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ if\ !defined(\_WIN32\_WINNT)\ ||\ !defined(\_WIN32\_WINNT\_VISTA)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ \ \ (\_WIN32\_WINNT\ <\ \_WIN32\_WINNT\_VISTA)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ (defined(\_\_MINGW32\_\_)\ \&\&\ !defined(\_\_MINGW64\_VERSION\_MAJOR))}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ \ \ define\ Curl\_mutex\_init(m)\ \ \ InitializeCriticalSection(m)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#\ \ \ \ define\ Curl\_mutex\_init(m)\ \ \ InitializeCriticalSectionEx(m,\ 0,\ 1)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_acquire(m)\ \ EnterCriticalSection(m)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_release(m)\ \ LeaveCriticalSection(m)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ define\ Curl\_mutex\_destroy(m)\ \ DeleteCriticalSection(m)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#if\ defined(USE\_THREADS\_POSIX)\ ||\ defined(USE\_THREADS\_WIN32)}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ !checksrc!\ disable\ SPACEBEFOREPAREN\ 1\ */}}
+\DoxyCodeLine{00057\ curl\_thread\_t\ Curl\_thread\_create(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ (CURL\_STDCALL\ *func)\ (\textcolor{keywordtype}{void}\ *),}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ Curl\_thread\_destroy(curl\_thread\_t\ hnd);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{int}\ Curl\_thread\_join(curl\_thread\_t\ *hnd);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_THREADS\_POSIX\ ||\ USE\_THREADS\_WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_THREADS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,48 @@
+\doxysection{gui/node\+\_\+modules/pend Directory Reference}
+\hypertarget{dir_104c2627574226a43c669044cf23c328}{}\label{dir_104c2627574226a43c669044cf23c328}\index{gui/node\_modules/pend Directory Reference@{gui/node\_modules/pend Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_104c2627574226a43c669044cf23c328_autotoc_md1153}{}\doxysubsection{\texorpdfstring{Pend}{Pend}}\label{dir_104c2627574226a43c669044cf23c328_autotoc_md1153}
+Dead-\/simple optimistic async helper.\hypertarget{dir_104c2627574226a43c669044cf23c328_autotoc_md1154}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_104c2627574226a43c669044cf23c328_autotoc_md1154}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ Pend\ =\ require('pend');}
+\DoxyCodeLine{var\ pend\ =\ new\ Pend();}
+\DoxyCodeLine{pend.max\ =\ 10;\ //\ defaults\ to\ Infinity}
+\DoxyCodeLine{setTimeout(pend.hold(),\ 1000);\ //\ pend.wait\ will\ have\ to\ wait\ for\ this\ hold\ to\ finish}
+\DoxyCodeLine{pend.go(function(cb)\ \{}
+\DoxyCodeLine{\ \ console.log("{}this\ function\ is\ immediately\ executed"{});}
+\DoxyCodeLine{\ \ setTimeout(function()\ \{}
+\DoxyCodeLine{\ \ \ \ console.log("{}calling\ cb\ 1"{});}
+\DoxyCodeLine{\ \ \ \ cb();}
+\DoxyCodeLine{\ \ \},\ 500);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{pend.go(function(cb)\ \{}
+\DoxyCodeLine{\ \ console.log("{}this\ function\ is\ also\ immediately\ executed"{});}
+\DoxyCodeLine{\ \ setTimeout(function()\ \{}
+\DoxyCodeLine{\ \ \ \ console.log("{}calling\ cb\ 2"{});}
+\DoxyCodeLine{\ \ \ \ cb();}
+\DoxyCodeLine{\ \ \},\ 1000);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{pend.wait(function(err)\ \{}
+\DoxyCodeLine{\ \ console.log("{}this\ is\ excuted\ when\ the\ first\ 2\ have\ returned."{});}
+\DoxyCodeLine{\ \ console.log("{}err\ is\ a\ possible\ error\ in\ the\ standard\ callback\ style."{});}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+Output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{this\ function\ is\ immediately\ executed}
+\DoxyCodeLine{this\ function\ is\ also\ immediately\ executed}
+\DoxyCodeLine{calling\ cb\ 1}
+\DoxyCodeLine{calling\ cb\ 2}
+\DoxyCodeLine{this\ is\ excuted\ when\ the\ first\ 2\ have\ returned.}
+\DoxyCodeLine{err\ is\ a\ possible\ error\ in\ the\ standard\ callback\ style.}
+
+\end{DoxyCode}
+ 

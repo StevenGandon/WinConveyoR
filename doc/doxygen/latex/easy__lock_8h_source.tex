@@ -1,0 +1,89 @@
+\doxysection{easy\+\_\+lock.\+h}
+\hypertarget{easy__lock_8h_source}{}\label{easy__lock_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/easy\_lock.h@{lib/libwconr/build/\_deps/curl-\/src/lib/easy\_lock.h}}
+\mbox{\hyperlink{easy__lock_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ GLOBAL\_INIT\_IS\_THREADSAFE}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ defined(\_WIN32\_WINNT)\ \&\&\ \_WIN32\_WINNT\ >=\ 0x600}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ \_\_MINGW64\_VERSION\_MAJOR}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ (\_\_MINGW32\_MAJOR\_VERSION\ <\ 5)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ (\_\_MINGW32\_MAJOR\_VERSION\ ==\ 5\ \&\&\ \_\_MINGW32\_MINOR\_VERSION\ ==\ 0)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ mingw\ >=\ 5.0.1\ defines\ SRWLOCK,\ and\ slightly\ different\ from\ MS\ define\ */}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ PVOID\ SRWLOCK,\ *PSRWLOCK;}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifndef\ SRWLOCK\_INIT}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SRWLOCK\_INIT\ NULL}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_MINGW32\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ curl\_simple\_lock\ SRWLOCK}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ CURL\_SIMPLE\_LOCK\_INIT\ SRWLOCK\_INIT}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ curl\_simple\_lock\_lock(m)\ AcquireSRWLockExclusive(m)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ curl\_simple\_lock\_unlock(m)\ ReleaseSRWLockExclusive(m)}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_ATOMIC)\ \&\&\ defined(HAVE\_STDATOMIC\_H)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <stdatomic.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#if\ defined(HAVE\_SCHED\_YIELD)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <sched.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ curl\_simple\_lock\ atomic\_int}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ CURL\_SIMPLE\_LOCK\_INIT\ 0}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ a\ clang-\/thing\ */}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifndef\ \_\_has\_builtin}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ \_\_has\_builtin(x)\ 0}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifndef\ \_\_INTEL\_COMPILER}}
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ The\ Intel\ compiler\ tries\ to\ look\ like\ GCC\ *and*\ clang\ *and*\ lies\ in\ its}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \_\_has\_builtin()\ function,\ so\ override\ it.\ */}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{/*\ if\ GCC\ on\ i386/x86\_64\ or\ if\ the\ built-\/in\ is\ present\ */}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#if\ (\ (defined(\_\_GNUC\_\_)\ \&\&\ !defined(\_\_clang\_\_))\ \&\&\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ (defined(\_\_i386\_\_)\ ||\ defined(\_\_x86\_64\_\_)))\ ||\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \_\_has\_builtin(\_\_builtin\_ia32\_pause)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ HAVE\_BUILTIN\_IA32\_PAUSE}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ curl\_simple\_lock\_lock(curl\_simple\_lock\ *\mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}})}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{for}(;;)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}(!atomic\_exchange\_explicit(\mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}},\ \textcolor{keyword}{true},\ memory\_order\_acquire))}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{/*\ Reduce\ cache\ coherency\ traffic\ */}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{while}(atomic\_load\_explicit(\mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}},\ memory\_order\_relaxed))\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{comment}{/*\ Reduce\ load\ (not\ mandatory)\ */}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#ifdef\ HAVE\_BUILTIN\_IA32\_PAUSE}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \_\_builtin\_ia32\_pause();}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#elif\ defined(\_\_aarch64\_\_)}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \_\_asm\_\_\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}yield"{}}\ :::\ \textcolor{stringliteral}{"{}memory"{}});}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_SCHED\_YIELD)}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ sched\_yield();}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \}}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ curl\_simple\_lock\_unlock(curl\_simple\_lock\ *\mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}})}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \ \ atomic\_store\_explicit(\mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}},\ \textcolor{keyword}{false},\ memory\_order\_release);}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#undef\ \ GLOBAL\_INIT\_IS\_THREADSAFE}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

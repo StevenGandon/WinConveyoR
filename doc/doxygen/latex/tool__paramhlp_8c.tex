@@ -1,0 +1,332 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+paramhlp.c File Reference}
+\hypertarget{tool__paramhlp_8c}{}\label{tool__paramhlp_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_paramhlp.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_paramhlp.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+getparam.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+getpass.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+paramhlp.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+libinfo.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+util.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+version.\+h"{}}\newline
+{\ttfamily \#include "{}dynbuf.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__paramhlp_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__paramhlp_8c_a8ad458ae3b79db352775e3abb9b7d670}{MAX\+\_\+\+FILE2\+STRING}}~(256\texorpdfstring{$\ast$}{*}1024\texorpdfstring{$\ast$}{*}1024) /\texorpdfstring{$\ast$}{*} big enough ? \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{tool__paramhlp_8c_aa0a75955a6259f2fbbe5bd06f0b6624d}{MAX\+\_\+\+FILE2\+MEMORY}}~(1024\texorpdfstring{$\ast$}{*}1024\texorpdfstring{$\ast$}{*}1024) /\texorpdfstring{$\ast$}{*} big enough ? \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{tool__paramhlp_8c_a8d45e5b826e0f01793cb7b890725f469}{MAX\+\_\+\+PROTOSTRING}}~(64\texorpdfstring{$\ast$}{*}11) /\texorpdfstring{$\ast$}{*} Enough room for 64 10-\/chars \mbox{\hyperlink{proto_8d_a35331448ea9198df6eb68114fcfe3e18}{proto}} names. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{tool__paramhlp_8c_a9938f005798e204dfd14d5735c6796e8}{MAX\+\_\+\+USERPWDLENGTH}}~(100\texorpdfstring{$\ast$}{*}1024)
+\item 
+\#define \mbox{\hyperlink{tool__paramhlp_8c_aa3ae3bc61fc053bc1d91667a38c73ee9}{isheadersep}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structgetout}{getout}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__paramhlp_8c_a13f2c3bc5bdf89bcdbacba980414b057}{new\+\_\+getout}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_aa4f6843b56f31a4346d537cf49fe03da}{file2string}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}bufp, FILE \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_ad6d2eb7f0090c1bbf8c417735ec74524}{file2memory}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}bufp, size\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, FILE \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}})
+\item 
+static \mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a3626fca7bcf720c33c89402e38ce1905}{getnum}} (long \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str, int \mbox{\hyperlink{namespacebase}{base}})
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_ab491ea2328f49cc98342e85acc36ec18}{str2num}} (long \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a33e2f4ae574cf8e0c2f0f5e3c53f881b}{oct2nummax}} (long \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str, long max)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a81022cf5445bdbded10261ba6bd93648}{str2unum}} (long \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a8b1efbf40cd379857d4721c260c8c5be}{str2unummax}} (long \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str, long max)
+\item 
+static \mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a5c00d1801b05f68eff4c9e1646abd0e0}{str2double}} (double \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str, double max)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_aaa70ee22b57e48d4b90ba490ab056471}{str2udouble}} (double \texorpdfstring{$\ast$}{*}valp, const char \texorpdfstring{$\ast$}{*}str, double max)
+\item 
+static size\+\_\+t \mbox{\hyperlink{tool__paramhlp_8c_af90bcd4c960e62418ee3344547b2941a}{protoset\+\_\+index}} (const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}protoset, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{proto_8d_a35331448ea9198df6eb68114fcfe3e18}{proto}})
+\item 
+static void \mbox{\hyperlink{tool__paramhlp_8c_a89bde62ee3216816c4251caee1507b10}{protoset\+\_\+set}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}protoset, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{proto_8d_a35331448ea9198df6eb68114fcfe3e18}{proto}})
+\item 
+static void \mbox{\hyperlink{tool__paramhlp_8c_af9365c14182ac4a658ce5ff6e5232cbe}{protoset\+\_\+clear}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}protoset, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{proto_8d_a35331448ea9198df6eb68114fcfe3e18}{proto}})
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a114dd9d8779ff4deae78ac36df5a176e}{proto2num}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}val, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ostr, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_abee733cd80f1882afdfd522de4826d38}{check\+\_\+protocol}} (const char \texorpdfstring{$\ast$}{*}str)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a2047160e165e37453c8a64a0f0f9a1e7}{str2offset}} (\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__paramhlp_8c_a7c262ed81bbc25f6b39ada62a501a3b2}{checkpasswd}} (const char \texorpdfstring{$\ast$}{*}kind, const size\+\_\+t i, const \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} last, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}userpwd)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_a1f5695e03aa28c2524e4ef14baa2dfa4}{add2list}} (struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tool__findfile_8c_ae21df68c1a8e862f3daccb3f660a6f18}{list}}, const char \texorpdfstring{$\ast$}{*}ptr)
+\item 
+int \mbox{\hyperlink{tool__paramhlp_8c_a69e9f046a3c7e95c66f38da5a6f94843}{ftpfilemethod}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+int \mbox{\hyperlink{tool__paramhlp_8c_a836039263c3731fd00ce9a4a5d578f90}{ftpcccmethod}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+long \mbox{\hyperlink{tool__paramhlp_8c_a40f236b99160c6030fe114e0cd835b78}{delegation}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}str)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__paramhlp_8c_a5d7582bf51400d0d1bbb7a593c917e64}{my\+\_\+useragent}} (void)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{tool__paramhlp_8c_aa25c2014bd8b75c43586cf6f4006cf5b}{inlist}} (const struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{get_8d_aad827a2dad0c5f442868a9d3f8abf01a}{head}}, const char \texorpdfstring{$\ast$}{*}checkfor)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__paramhlp_8c_a34d90f396ad0eb4e4cf7e5d01c72df0d}{get\+\_\+args}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const size\+\_\+t i)
+\item 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} \mbox{\hyperlink{tool__paramhlp_8c_ae15795db1ba63098a196a2fd14d4b513}{str2tls\+\_\+max}} (long \texorpdfstring{$\ast$}{*}val, const char \texorpdfstring{$\ast$}{*}str)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__paramhlp_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__paramhlp_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__paramhlp_8c_aa3ae3bc61fc053bc1d91667a38c73ee9}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!isheadersep@{isheadersep}}
+\index{isheadersep@{isheadersep}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{isheadersep}{isheadersep}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_aa3ae3bc61fc053bc1d91667a38c73ee9} 
+\#define isheadersep(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})==\textcolor{charliteral}{':'})\ ||\ ((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})==\textcolor{charliteral}{';'})))}
+
+\end{DoxyCode}
+\Hypertarget{tool__paramhlp_8c_aa0a75955a6259f2fbbe5bd06f0b6624d}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!MAX\_FILE2MEMORY@{MAX\_FILE2MEMORY}}
+\index{MAX\_FILE2MEMORY@{MAX\_FILE2MEMORY}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_FILE2MEMORY}{MAX\_FILE2MEMORY}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_aa0a75955a6259f2fbbe5bd06f0b6624d} 
+\#define MAX\+\_\+\+FILE2\+MEMORY~(1024\texorpdfstring{$\ast$}{*}1024\texorpdfstring{$\ast$}{*}1024) /\texorpdfstring{$\ast$}{*} big enough ? \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{tool__paramhlp_8c_a8ad458ae3b79db352775e3abb9b7d670}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!MAX\_FILE2STRING@{MAX\_FILE2STRING}}
+\index{MAX\_FILE2STRING@{MAX\_FILE2STRING}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_FILE2STRING}{MAX\_FILE2STRING}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a8ad458ae3b79db352775e3abb9b7d670} 
+\#define MAX\+\_\+\+FILE2\+STRING~(256\texorpdfstring{$\ast$}{*}1024\texorpdfstring{$\ast$}{*}1024) /\texorpdfstring{$\ast$}{*} big enough ? \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{tool__paramhlp_8c_a8d45e5b826e0f01793cb7b890725f469}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!MAX\_PROTOSTRING@{MAX\_PROTOSTRING}}
+\index{MAX\_PROTOSTRING@{MAX\_PROTOSTRING}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_PROTOSTRING}{MAX\_PROTOSTRING}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a8d45e5b826e0f01793cb7b890725f469} 
+\#define MAX\+\_\+\+PROTOSTRING~(64\texorpdfstring{$\ast$}{*}11) /\texorpdfstring{$\ast$}{*} Enough room for 64 10-\/chars \mbox{\hyperlink{proto_8d_a35331448ea9198df6eb68114fcfe3e18}{proto}} names. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{tool__paramhlp_8c_a9938f005798e204dfd14d5735c6796e8}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!MAX\_USERPWDLENGTH@{MAX\_USERPWDLENGTH}}
+\index{MAX\_USERPWDLENGTH@{MAX\_USERPWDLENGTH}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_USERPWDLENGTH}{MAX\_USERPWDLENGTH}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a9938f005798e204dfd14d5735c6796e8} 
+\#define MAX\+\_\+\+USERPWDLENGTH~(100\texorpdfstring{$\ast$}{*}1024)}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__paramhlp_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__paramhlp_8c_a1f5695e03aa28c2524e4ef14baa2dfa4}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!add2list@{add2list}}
+\index{add2list@{add2list}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{add2list()}{add2list()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a1f5695e03aa28c2524e4ef14baa2dfa4} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} add2list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{list}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{ptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_abee733cd80f1882afdfd522de4826d38}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!check\_protocol@{check\_protocol}}
+\index{check\_protocol@{check\_protocol}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{check\_protocol()}{check\_protocol()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_abee733cd80f1882afdfd522de4826d38} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} check\+\_\+protocol (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+Check if the given string is a protocol supported by libcurl
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & the protocol name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+PARAM\+\_\+\+OK protocol supported 
+
+PARAM\+\_\+\+LIBCURL\+\_\+\+UNSUPPORTED\+\_\+\+PROTOCOL protocol not supported 
+
+PARAM\+\_\+\+REQUIRES\+\_\+\+PARAMETER missing parameter 
+\end{DoxyReturn}
+\Hypertarget{tool__paramhlp_8c_a7c262ed81bbc25f6b39ada62a501a3b2}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!checkpasswd@{checkpasswd}}
+\index{checkpasswd@{checkpasswd}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{checkpasswd()}{checkpasswd()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a7c262ed81bbc25f6b39ada62a501a3b2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} checkpasswd (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{kind}{, }\item[{const size\+\_\+t}]{i}{, }\item[{const \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{last}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{userpwd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_a40f236b99160c6030fe114e0cd835b78}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!delegation@{delegation}}
+\index{delegation@{delegation}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{delegation()}{delegation()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a40f236b99160c6030fe114e0cd835b78} 
+long delegation (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_ad6d2eb7f0090c1bbf8c417735ec74524}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!file2memory@{file2memory}}
+\index{file2memory@{file2memory}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{file2memory()}{file2memory()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_ad6d2eb7f0090c1bbf8c417735ec74524} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} file2memory (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{bufp}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{size}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_aa4f6843b56f31a4346d537cf49fe03da}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!file2string@{file2string}}
+\index{file2string@{file2string}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{file2string()}{file2string()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_aa4f6843b56f31a4346d537cf49fe03da} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} file2string (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{bufp}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a836039263c3731fd00ce9a4a5d578f90}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!ftpcccmethod@{ftpcccmethod}}
+\index{ftpcccmethod@{ftpcccmethod}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{ftpcccmethod()}{ftpcccmethod()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a836039263c3731fd00ce9a4a5d578f90} 
+int ftpcccmethod (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a69e9f046a3c7e95c66f38da5a6f94843}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!ftpfilemethod@{ftpfilemethod}}
+\index{ftpfilemethod@{ftpfilemethod}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{ftpfilemethod()}{ftpfilemethod()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a69e9f046a3c7e95c66f38da5a6f94843} 
+int ftpfilemethod (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a34d90f396ad0eb4e4cf7e5d01c72df0d}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!get\_args@{get\_args}}
+\index{get\_args@{get\_args}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{get\_args()}{get\_args()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a34d90f396ad0eb4e4cf7e5d01c72df0d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} get\+\_\+args (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const size\+\_\+t}]{i}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a3626fca7bcf720c33c89402e38ce1905}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!getnum@{getnum}}
+\index{getnum@{getnum}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{getnum()}{getnum()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a3626fca7bcf720c33c89402e38ce1905} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} getnum (\begin{DoxyParamCaption}\item[{long \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{int}]{base}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_aa25c2014bd8b75c43586cf6f4006cf5b}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!inlist@{inlist}}
+\index{inlist@{inlist}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{inlist()}{inlist()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_aa25c2014bd8b75c43586cf6f4006cf5b} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} inlist (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{head}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{checkfor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_a5d7582bf51400d0d1bbb7a593c917e64}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!my\_useragent@{my\_useragent}}
+\index{my\_useragent@{my\_useragent}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{my\_useragent()}{my\_useragent()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a5d7582bf51400d0d1bbb7a593c917e64} 
+char \texorpdfstring{$\ast$}{*} my\+\_\+useragent (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_a13f2c3bc5bdf89bcdbacba980414b057}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!new\_getout@{new\_getout}}
+\index{new\_getout@{new\_getout}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{new\_getout()}{new\_getout()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a13f2c3bc5bdf89bcdbacba980414b057} 
+struct \mbox{\hyperlink{structgetout}{getout}} \texorpdfstring{$\ast$}{*} new\+\_\+getout (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__paramhlp_8c_a33e2f4ae574cf8e0c2f0f5e3c53f881b}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!oct2nummax@{oct2nummax}}
+\index{oct2nummax@{oct2nummax}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{oct2nummax()}{oct2nummax()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a33e2f4ae574cf8e0c2f0f5e3c53f881b} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} oct2nummax (\begin{DoxyParamCaption}\item[{long \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{long}]{max}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a114dd9d8779ff4deae78ac36df5a176e}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!proto2num@{proto2num}}
+\index{proto2num@{proto2num}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{proto2num()}{proto2num()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a114dd9d8779ff4deae78ac36df5a176e} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} proto2num (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{ostr}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_af9365c14182ac4a658ce5ff6e5232cbe}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!protoset\_clear@{protoset\_clear}}
+\index{protoset\_clear@{protoset\_clear}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{protoset\_clear()}{protoset\_clear()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_af9365c14182ac4a658ce5ff6e5232cbe} 
+void protoset\+\_\+clear (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{protoset}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{proto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_af90bcd4c960e62418ee3344547b2941a}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!protoset\_index@{protoset\_index}}
+\index{protoset\_index@{protoset\_index}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{protoset\_index()}{protoset\_index()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_af90bcd4c960e62418ee3344547b2941a} 
+size\+\_\+t protoset\+\_\+index (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}}]{protoset}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{proto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_a89bde62ee3216816c4251caee1507b10}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!protoset\_set@{protoset\_set}}
+\index{protoset\_set@{protoset\_set}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{protoset\_set()}{protoset\_set()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a89bde62ee3216816c4251caee1507b10} 
+void protoset\+\_\+set (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{protoset}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{proto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_a5c00d1801b05f68eff4c9e1646abd0e0}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2double@{str2double}}
+\index{str2double@{str2double}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2double()}{str2double()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a5c00d1801b05f68eff4c9e1646abd0e0} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2double (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{double}]{max}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__paramhlp_8c_ab491ea2328f49cc98342e85acc36ec18}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2num@{str2num}}
+\index{str2num@{str2num}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2num()}{str2num()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_ab491ea2328f49cc98342e85acc36ec18} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2num (\begin{DoxyParamCaption}\item[{long \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a2047160e165e37453c8a64a0f0f9a1e7}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2offset@{str2offset}}
+\index{str2offset@{str2offset}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2offset()}{str2offset()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a2047160e165e37453c8a64a0f0f9a1e7} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+Parses the given string looking for an offset (which may be a larger-\/than-\/integer value). The offset CANNOT be negative!
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & the offset to populate \\
+\hline
+{\em str} & the buffer containing the offset \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+PARAM\+\_\+\+OK if successful, a parameter specific error enum if failure. 
+\end{DoxyReturn}
+\Hypertarget{tool__paramhlp_8c_ae15795db1ba63098a196a2fd14d4b513}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2tls\_max@{str2tls\_max}}
+\index{str2tls\_max@{str2tls\_max}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2tls\_max()}{str2tls\_max()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_ae15795db1ba63098a196a2fd14d4b513} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2tls\+\_\+max (\begin{DoxyParamCaption}\item[{long \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_aaa70ee22b57e48d4b90ba490ab056471}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2udouble@{str2udouble}}
+\index{str2udouble@{str2udouble}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2udouble()}{str2udouble()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_aaa70ee22b57e48d4b90ba490ab056471} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2udouble (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{valp}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{double}]{max}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a81022cf5445bdbded10261ba6bd93648}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2unum@{str2unum}}
+\index{str2unum@{str2unum}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2unum()}{str2unum()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a81022cf5445bdbded10261ba6bd93648} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2unum (\begin{DoxyParamCaption}\item[{long \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__paramhlp_8c_a8b1efbf40cd379857d4721c260c8c5be}\index{tool\_paramhlp.c@{tool\_paramhlp.c}!str2unummax@{str2unummax}}
+\index{str2unummax@{str2unummax}!tool\_paramhlp.c@{tool\_paramhlp.c}}
+\doxysubsubsection{\texorpdfstring{str2unummax()}{str2unummax()}}
+{\footnotesize\ttfamily \label{tool__paramhlp_8c_a8b1efbf40cd379857d4721c260c8c5be} 
+\mbox{\hyperlink{tool__getparam_8h_a49752d5670e8c2b9199c3d3f1a479078}{Parameter\+Error}} str2unummax (\begin{DoxyParamCaption}\item[{long \texorpdfstring{$\ast$}{*}}]{val}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{long}]{max}{}\end{DoxyParamCaption})}
+

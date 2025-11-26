@@ -1,0 +1,28 @@
+var classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader =
+[
+    [ "DAFHeader", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a72d5d1e521c90cdade8e2c65eb0bdb5f", null ],
+    [ "DAFHeader", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#ab27bff6be1244515d2449592dfbf3fbb", null ],
+    [ "~DAFHeader", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#ae5d64a54af88f6cf09e74da1ca2501f8", null ],
+    [ "isValid", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a8a3a4f232060e2c3aa7ea1ccfbec3b58", null ],
+    [ "operator=", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a6bc5f6ad7056fa5780393c6900d80861", null ],
+    [ "parseHeader", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a2e900202c3e8533d06b9d9ba99bfd9da", null ],
+    [ "write", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a372006b834a0394196134eeaaee54612", null ],
+    [ "acquisitionSize", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a453393859f70622c021783bc3e831cbe", null ],
+    [ "acquisitionTime", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a1f891697f1cadd54f945b83bc00a9327", null ],
+    [ "batchName", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#ac9943b83e1791c585e32b108dce68800", null ],
+    [ "choosenMarker", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a89e49c158559577daa359fbf6cb15b6d", null ],
+    [ "comments", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a9014d66ff0c872e52578994e621c96c0", null ],
+    [ "decayTime", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a9c0b7e78ae78650f471cce06dce9e5c5", null ],
+    [ "eventCount", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a431901f021e5b890403e742075ac93e2", null ],
+    [ "eventVersion", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a3c2fb9bc07f021bbabd3557d573db11f", null ],
+    [ "headerVersion", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a11d225fbcf4ca79670b241a95d889f86", null ],
+    [ "imageRect", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a12ecae0b15f099f84b2d060abdcaa437", null ],
+    [ "instrumentType", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a13ade982c20c09f649f147b68ab842b8", null ],
+    [ "magic", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a3d8ee6c6d3e9daa5e7b24113cd09f50e", null ],
+    [ "operatorName", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a7ca823be42adde333bdad46224146315", null ],
+    [ "reserved", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a00a24d10a037650def3a119cf0f52528", null ],
+    [ "sampleHolderType", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#ad526b84e5b57987221a4729f08c622b7", null ],
+    [ "sampleName", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#aa6f5a794a715204bb52019d71f9b3280", null ],
+    [ "serialNumber", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#a52563ebfec2395dd352eb90b10c419db", null ],
+    [ "timestamp", "classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader.html#ad16a81136747979bbb20651f2394585e", null ]
+];

@@ -1,0 +1,218 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+progress.c File Reference}
+\hypertarget{tool__progress_8c}{}\label{tool__progress_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_progress.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_progress.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+operate.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+progress.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+util.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structspeedcount}{speedcount}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_a4c523cda4c3fdef82056a14af468a461}{ONE\+\_\+\+KILOBYTE}}~\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024)
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_aae4d4761b231a4321c08bd4bd18937e0}{ONE\+\_\+\+MEGABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_a4c523cda4c3fdef82056a14af468a461}{ONE\+\_\+\+KILOBYTE}})
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}{ONE\+\_\+\+GIGABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_aae4d4761b231a4321c08bd4bd18937e0}{ONE\+\_\+\+MEGABYTE}})
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}{ONE\+\_\+\+TERABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}{ONE\+\_\+\+GIGABYTE}})
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_a80037231a88b4e05a656d4eb7234adff}{ONE\+\_\+\+PETABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}{ONE\+\_\+\+TERABYTE}})
+\item 
+\#define \mbox{\hyperlink{tool__progress_8c_a14ea6f88c4958b33f7a8bad4db45cccd}{SPEEDCNT}}~10
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_a9df453f796003793338a113d742ba3ef}{max5data}} (\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} bytes, char \texorpdfstring{$\ast$}{*}max5)
+\item 
+int \mbox{\hyperlink{tool__progress_8c_aac164a5f9e239b0ad4c472a37bb0ec93}{xferinfo\+\_\+cb}} (void \texorpdfstring{$\ast$}{*}clientp, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} dltotal, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} dlnow, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} ultotal, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} ulnow)
+\item 
+static void \mbox{\hyperlink{tool__progress_8c_a868046b28baa9bed9cf0e9aaa5bc0139}{time2str}} (char \texorpdfstring{$\ast$}{*}r, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} seconds)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{tool__progress_8c_a11b8c1e075c45a5e3470e349f813688e}{progress\+\_\+meter}} (struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}global, struct \mbox{\hyperlink{structtimeval}{timeval}} \texorpdfstring{$\ast$}{*}start, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} final)
+\item 
+void \mbox{\hyperlink{tool__progress_8c_aa309ccfdc7a06a3ea28dee53b33d2f32}{progress\+\_\+finalize}} (struct \mbox{\hyperlink{structper__transfer}{per\+\_\+transfer}} \texorpdfstring{$\ast$}{*}per)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{tool__progress_8c_a748ab8bcadaf69ed53ef08b5b8821f08}{all\+\_\+dltotal}} = 0
+\item 
+static \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{tool__progress_8c_af95e5db7ac9e306d2f56e6ffda0fb5ee}{all\+\_\+ultotal}} = 0
+\item 
+static \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{tool__progress_8c_ad279c921c4b9962a0ee042882d0c5fc6}{all\+\_\+dlalready}} = 0
+\item 
+static \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{tool__progress_8c_a15640521c1fa2910c397bdd53c11a253}{all\+\_\+ulalready}} = 0
+\item 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{tool__progress_8c_aab6a55c703fc15924cba8634c68a38a9}{all\+\_\+xfers}} = 0
+\item 
+static unsigned int \mbox{\hyperlink{tool__progress_8c_a68e9fcb6d303aacf59869079b0885100}{speedindex}}
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{tool__progress_8c_a31fc5647183297c78f07b20fd258513a}{indexwrapped}}
+\item 
+static struct \mbox{\hyperlink{structspeedcount}{speedcount}} \mbox{\hyperlink{tool__progress_8c_ae4d1ca91035871d6c8baf5a843301fab}{speedstore}} \mbox{[}\mbox{\hyperlink{tool__progress_8c_a14ea6f88c4958b33f7a8bad4db45cccd}{SPEEDCNT}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__progress_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__progress_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_progress.c@{tool\_progress.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}\index{tool\_progress.c@{tool\_progress.c}!ONE\_GIGABYTE@{ONE\_GIGABYTE}}
+\index{ONE\_GIGABYTE@{ONE\_GIGABYTE}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_GIGABYTE}{ONE\_GIGABYTE}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a392b0fd73abc05b7803d7db8975d1ffa} 
+\#define ONE\+\_\+\+GIGABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_aae4d4761b231a4321c08bd4bd18937e0}{ONE\+\_\+\+MEGABYTE}})}
+
+\Hypertarget{tool__progress_8c_a4c523cda4c3fdef82056a14af468a461}\index{tool\_progress.c@{tool\_progress.c}!ONE\_KILOBYTE@{ONE\_KILOBYTE}}
+\index{ONE\_KILOBYTE@{ONE\_KILOBYTE}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_KILOBYTE}{ONE\_KILOBYTE}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a4c523cda4c3fdef82056a14af468a461} 
+\#define ONE\+\_\+\+KILOBYTE~\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024)}
+
+\Hypertarget{tool__progress_8c_aae4d4761b231a4321c08bd4bd18937e0}\index{tool\_progress.c@{tool\_progress.c}!ONE\_MEGABYTE@{ONE\_MEGABYTE}}
+\index{ONE\_MEGABYTE@{ONE\_MEGABYTE}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_MEGABYTE}{ONE\_MEGABYTE}}
+{\footnotesize\ttfamily \label{tool__progress_8c_aae4d4761b231a4321c08bd4bd18937e0} 
+\#define ONE\+\_\+\+MEGABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_a4c523cda4c3fdef82056a14af468a461}{ONE\+\_\+\+KILOBYTE}})}
+
+\Hypertarget{tool__progress_8c_a80037231a88b4e05a656d4eb7234adff}\index{tool\_progress.c@{tool\_progress.c}!ONE\_PETABYTE@{ONE\_PETABYTE}}
+\index{ONE\_PETABYTE@{ONE\_PETABYTE}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_PETABYTE}{ONE\_PETABYTE}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a80037231a88b4e05a656d4eb7234adff} 
+\#define ONE\+\_\+\+PETABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}{ONE\+\_\+\+TERABYTE}})}
+
+\Hypertarget{tool__progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}\index{tool\_progress.c@{tool\_progress.c}!ONE\_TERABYTE@{ONE\_TERABYTE}}
+\index{ONE\_TERABYTE@{ONE\_TERABYTE}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_TERABYTE}{ONE\_TERABYTE}}
+{\footnotesize\ttfamily \label{tool__progress_8c_ac4076c4c4d46cac7e008f22150bf1a80} 
+\#define ONE\+\_\+\+TERABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}{ONE\+\_\+\+GIGABYTE}})}
+
+\Hypertarget{tool__progress_8c_a14ea6f88c4958b33f7a8bad4db45cccd}\index{tool\_progress.c@{tool\_progress.c}!SPEEDCNT@{SPEEDCNT}}
+\index{SPEEDCNT@{SPEEDCNT}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{SPEEDCNT}{SPEEDCNT}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a14ea6f88c4958b33f7a8bad4db45cccd} 
+\#define SPEEDCNT~10}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__progress_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__progress_8c_a9df453f796003793338a113d742ba3ef}\index{tool\_progress.c@{tool\_progress.c}!max5data@{max5data}}
+\index{max5data@{max5data}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{max5data()}{max5data()}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a9df453f796003793338a113d742ba3ef} 
+char \texorpdfstring{$\ast$}{*} max5data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{bytes}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{max5}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_aa309ccfdc7a06a3ea28dee53b33d2f32}\index{tool\_progress.c@{tool\_progress.c}!progress\_finalize@{progress\_finalize}}
+\index{progress\_finalize@{progress\_finalize}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{progress\_finalize()}{progress\_finalize()}}
+{\footnotesize\ttfamily \label{tool__progress_8c_aa309ccfdc7a06a3ea28dee53b33d2f32} 
+void progress\+\_\+finalize (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structper__transfer}{per\+\_\+transfer}} \texorpdfstring{$\ast$}{*}}]{per}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__progress_8c_a11b8c1e075c45a5e3470e349f813688e}\index{tool\_progress.c@{tool\_progress.c}!progress\_meter@{progress\_meter}}
+\index{progress\_meter@{progress\_meter}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{progress\_meter()}{progress\_meter()}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a11b8c1e075c45a5e3470e349f813688e} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} progress\+\_\+meter (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{global}{, }\item[{struct \mbox{\hyperlink{structtimeval}{timeval}} \texorpdfstring{$\ast$}{*}}]{start}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{final}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__progress_8c_a868046b28baa9bed9cf0e9aaa5bc0139}\index{tool\_progress.c@{tool\_progress.c}!time2str@{time2str}}
+\index{time2str@{time2str}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{time2str()}{time2str()}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a868046b28baa9bed9cf0e9aaa5bc0139} 
+void time2str (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{r}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{seconds}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_aac164a5f9e239b0ad4c472a37bb0ec93}\index{tool\_progress.c@{tool\_progress.c}!xferinfo\_cb@{xferinfo\_cb}}
+\index{xferinfo\_cb@{xferinfo\_cb}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{xferinfo\_cb()}{xferinfo\_cb()}}
+{\footnotesize\ttfamily \label{tool__progress_8c_aac164a5f9e239b0ad4c472a37bb0ec93} 
+int xferinfo\+\_\+cb (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{clientp}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{dltotal}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{dlnow}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{ultotal}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{ulnow}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-var-members}
+\Hypertarget{tool__progress_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tool__progress_8c_ad279c921c4b9962a0ee042882d0c5fc6}\index{tool\_progress.c@{tool\_progress.c}!all\_dlalready@{all\_dlalready}}
+\index{all\_dlalready@{all\_dlalready}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{all\_dlalready}{all\_dlalready}}
+{\footnotesize\ttfamily \label{tool__progress_8c_ad279c921c4b9962a0ee042882d0c5fc6} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} all\+\_\+dlalready = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_a748ab8bcadaf69ed53ef08b5b8821f08}\index{tool\_progress.c@{tool\_progress.c}!all\_dltotal@{all\_dltotal}}
+\index{all\_dltotal@{all\_dltotal}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{all\_dltotal}{all\_dltotal}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a748ab8bcadaf69ed53ef08b5b8821f08} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} all\+\_\+dltotal = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_a15640521c1fa2910c397bdd53c11a253}\index{tool\_progress.c@{tool\_progress.c}!all\_ulalready@{all\_ulalready}}
+\index{all\_ulalready@{all\_ulalready}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{all\_ulalready}{all\_ulalready}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a15640521c1fa2910c397bdd53c11a253} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} all\+\_\+ulalready = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_af95e5db7ac9e306d2f56e6ffda0fb5ee}\index{tool\_progress.c@{tool\_progress.c}!all\_ultotal@{all\_ultotal}}
+\index{all\_ultotal@{all\_ultotal}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{all\_ultotal}{all\_ultotal}}
+{\footnotesize\ttfamily \label{tool__progress_8c_af95e5db7ac9e306d2f56e6ffda0fb5ee} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} all\+\_\+ultotal = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_aab6a55c703fc15924cba8634c68a38a9}\index{tool\_progress.c@{tool\_progress.c}!all\_xfers@{all\_xfers}}
+\index{all\_xfers@{all\_xfers}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{all\_xfers}{all\_xfers}}
+{\footnotesize\ttfamily \label{tool__progress_8c_aab6a55c703fc15924cba8634c68a38a9} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} all\+\_\+xfers = 0}
+
+\Hypertarget{tool__progress_8c_a31fc5647183297c78f07b20fd258513a}\index{tool\_progress.c@{tool\_progress.c}!indexwrapped@{indexwrapped}}
+\index{indexwrapped@{indexwrapped}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{indexwrapped}{indexwrapped}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a31fc5647183297c78f07b20fd258513a} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} indexwrapped\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_a68e9fcb6d303aacf59869079b0885100}\index{tool\_progress.c@{tool\_progress.c}!speedindex@{speedindex}}
+\index{speedindex@{speedindex}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{speedindex}{speedindex}}
+{\footnotesize\ttfamily \label{tool__progress_8c_a68e9fcb6d303aacf59869079b0885100} 
+unsigned int speedindex\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__progress_8c_ae4d1ca91035871d6c8baf5a843301fab}\index{tool\_progress.c@{tool\_progress.c}!speedstore@{speedstore}}
+\index{speedstore@{speedstore}!tool\_progress.c@{tool\_progress.c}}
+\doxysubsubsection{\texorpdfstring{speedstore}{speedstore}}
+{\footnotesize\ttfamily \label{tool__progress_8c_ae4d1ca91035871d6c8baf5a843301fab} 
+struct \mbox{\hyperlink{structspeedcount}{speedcount}} speedstore\mbox{[}\mbox{\hyperlink{tool__progress_8c_a14ea6f88c4958b33f7a8bad4db45cccd}{SPEEDCNT}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+

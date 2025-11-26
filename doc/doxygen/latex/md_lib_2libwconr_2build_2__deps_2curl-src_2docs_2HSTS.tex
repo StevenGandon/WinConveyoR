@@ -1,0 +1,32 @@
+\chapter{HSTS support }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS}\index{HSTS support@{HSTS support}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1689}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1689}%
+
+
+\doxylink{structHTTP}{HTTP} Strict-\/\+Transport-\/\+Security. Added as experimental in curl 7.\+74.\+0. Supported "{}for real"{} since 7.\+77.\+0.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1690}{}\doxysection{\texorpdfstring{Standard}{Standard}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1690}
+\href{https://datatracker.ietf.org/doc/html/rfc6797}{\texttt{HTTP Strict Transport Security}}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1691}{}\doxysection{\texorpdfstring{Behavior}{Behavior}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1691}
+libcurl features an in-\/memory cache for HSTS hosts, so that subsequent HTTP-\/only requests to a host name present in the cache will get internally "{}redirected"{} to the HTTPS version.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1692}{}\doxysection{\texorpdfstring{{\ttfamily curl\+\_\+easy\+\_\+setopt()} options\+:}{{\ttfamily curl\+\_\+easy\+\_\+setopt()} options\+:}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1692}
+
+\begin{DoxyItemize}
+\item {\ttfamily CURLOPT\+\_\+\+HSTS\+\_\+\+CTRL} -\/ enable HSTS for this easy handle
+\item {\ttfamily CURLOPT\+\_\+\+HSTS} -\/ specify file name where to store the HSTS cache on close (and possibly read from at startup)
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1693}{}\doxysection{\texorpdfstring{curl command line options}{curl command line options}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1693}
+
+\begin{DoxyItemize}
+\item {\ttfamily -\/-\/\doxylink{structhsts}{hsts} \mbox{[}\doxylink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}\mbox{]}} -\/ enable HSTS, use the file as HSTS cache. If filename is {\ttfamily "{}"{}} (no length) then no file will be used, only in-\/memory cache.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1694}{}\doxysection{\texorpdfstring{HSTS cache file format}{HSTS cache file format}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1694}
+Lines starting with {\ttfamily \#} are ignored.
+
+For each hsts entry\+: \begin{DoxyVerb}[host name] "YYYYMMDD HH:MM:SS"
+\end{DoxyVerb}
+
+
+The {\ttfamily \mbox{[}\doxylink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host} \doxylink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}\mbox{]}} is dot-\/prefixed if it includes subdomains.
+
+The time stamp is when the entry expires.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1695}{}\doxysection{\texorpdfstring{Possible future additions}{Possible future additions}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HSTS_autotoc_md1695}
+
+\begin{DoxyItemize}
+\item {\ttfamily CURLOPT\+\_\+\+HSTS\+\_\+\+PRELOAD} -\/ provide a set of HSTS host names to load first
+\item ability to save to something else than a file 
+\end{DoxyItemize}

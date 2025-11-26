@@ -1,0 +1,173 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/http\+\_\+chunks.h File Reference}
+\hypertarget{http__chunks_8h}{}\label{http__chunks_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/http\_chunks.h@{lib/libwconr/build/\_deps/curl-\/src/lib/http\_chunks.h}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__chunker}{Curl\+\_\+chunker}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{http__chunks_8h_aa5e7af206bb875a5cf400f7accca144d}{CHUNK\+\_\+\+MAXNUM\+\_\+\+LEN}}~(\mbox{\hyperlink{curl__config_8h_aab7cc8c3a92c35b185cfd685102141c8}{SIZEOF\+\_\+\+CURL\+\_\+\+OFF\+\_\+T}} \texorpdfstring{$\ast$}{*} 2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6c}{Chunky\+State}} \{ \newline
+\mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca8fce4d846b4285564d94ba1349516c6e}{CHUNK\+\_\+\+HEX}}
+, \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cae4a184c512fc8b032301b70d2571c5c7}{CHUNK\+\_\+\+LF}}
+, \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca04a4a213523e9d25dd55fb6ffaa45e67}{CHUNK\+\_\+\+DATA}}
+, \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca227c43200b7912a55591efd359ab8b0d}{CHUNK\+\_\+\+POSTLF}}
+, \newline
+\mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cada1bd400ffe095d84a67c9cb84ee4368}{CHUNK\+\_\+\+STOP}}
+, \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cab4d8292bc24443689f7827d8351fad95}{CHUNK\+\_\+\+TRAILER}}
+, \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca4f082a1c67ebe83c17a34b49ed6df5c9}{CHUNK\+\_\+\+TRAILER\+\_\+\+CR}}
+, \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca69e086007a7f0e2f337355c78135470f}{CHUNK\+\_\+\+TRAILER\+\_\+\+POSTCR}}
+ \}
+\item 
+enum \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} \{ \newline
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca189de71d73fd3b6c8fbc4b11fc16ad01}{CHUNKE\+\_\+\+STOP}} = -\/1
+, \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecae1530ccd260bd8f764651103e4b4cc93}{CHUNKE\+\_\+\+OK}} = 0
+, \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca6077b4b432f10e60ec8a596823b843ae}{CHUNKE\+\_\+\+TOO\+\_\+\+LONG\+\_\+\+HEX}} = 1
+, \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca9d812ccfd018d3dc89199e8dff31795f}{CHUNKE\+\_\+\+ILLEGAL\+\_\+\+HEX}}
+, \newline
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecaf84c8e2afac397c911e6a84c48568d79}{CHUNKE\+\_\+\+BAD\+\_\+\+CHUNK}}
+, \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca2c9ddacf1a80c8350155a67cec7423d0}{CHUNKE\+\_\+\+BAD\+\_\+\+ENCODING}}
+, \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecabe67d38a0a23a824a7c3633f83217043}{CHUNKE\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY}}
+, \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca306aab0540155e1eb1d0377dde85ea5b}{CHUNKE\+\_\+\+PASSTHRU\+\_\+\+ERROR}}
+, \newline
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecafcb375a9b542000730f395813515b7f7}{CHUNKE\+\_\+\+LAST}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__chunks_8h_a5c9e04b68f8b1184732cff74134a3dde}{Curl\+\_\+chunked\+\_\+strerror}} (\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} code)
+\item 
+void \mbox{\hyperlink{http__chunks_8h_aa0844ca026f71fe294dc08d98288b4bf}{Curl\+\_\+httpchunk\+\_\+init}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} \mbox{\hyperlink{http__chunks_8h_ab3460e5657515c9d7f729279bbe30565}{Curl\+\_\+httpchunk\+\_\+read}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}datap, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} length, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}wrote, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \texorpdfstring{$\ast$}{*}passthru)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{http__chunks_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{http__chunks_8h_aa5e7af206bb875a5cf400f7accca144d}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_MAXNUM\_LEN@{CHUNK\_MAXNUM\_LEN}}
+\index{CHUNK\_MAXNUM\_LEN@{CHUNK\_MAXNUM\_LEN}!http\_chunks.h@{http\_chunks.h}}
+\doxysubsubsection{\texorpdfstring{CHUNK\_MAXNUM\_LEN}{CHUNK\_MAXNUM\_LEN}}
+{\footnotesize\ttfamily \label{http__chunks_8h_aa5e7af206bb875a5cf400f7accca144d} 
+\#define CHUNK\+\_\+\+MAXNUM\+\_\+\+LEN~(\mbox{\hyperlink{curl__config_8h_aab7cc8c3a92c35b185cfd685102141c8}{SIZEOF\+\_\+\+CURL\+\_\+\+OFF\+\_\+T}} \texorpdfstring{$\ast$}{*} 2)}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{http__chunks_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}\index{http\_chunks.h@{http\_chunks.h}!CHUNKcode@{CHUNKcode}}
+\index{CHUNKcode@{CHUNKcode}!http\_chunks.h@{http\_chunks.h}}
+\doxysubsubsection{\texorpdfstring{CHUNKcode}{CHUNKcode}}
+{\footnotesize\ttfamily \label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec} 
+enum \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_STOP@{CHUNKE\_STOP}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_STOP@{CHUNKE\_STOP}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca189de71d73fd3b6c8fbc4b11fc16ad01}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca189de71d73fd3b6c8fbc4b11fc16ad01} 
+CHUNKE\+\_\+\+STOP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_OK@{CHUNKE\_OK}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_OK@{CHUNKE\_OK}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecae1530ccd260bd8f764651103e4b4cc93}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecae1530ccd260bd8f764651103e4b4cc93} 
+CHUNKE\+\_\+\+OK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_TOO\_LONG\_HEX@{CHUNKE\_TOO\_LONG\_HEX}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_TOO\_LONG\_HEX@{CHUNKE\_TOO\_LONG\_HEX}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca6077b4b432f10e60ec8a596823b843ae}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca6077b4b432f10e60ec8a596823b843ae} 
+CHUNKE\+\_\+\+TOO\+\_\+\+LONG\+\_\+\+HEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_ILLEGAL\_HEX@{CHUNKE\_ILLEGAL\_HEX}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_ILLEGAL\_HEX@{CHUNKE\_ILLEGAL\_HEX}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca9d812ccfd018d3dc89199e8dff31795f}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca9d812ccfd018d3dc89199e8dff31795f} 
+CHUNKE\+\_\+\+ILLEGAL\+\_\+\+HEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_BAD\_CHUNK@{CHUNKE\_BAD\_CHUNK}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_BAD\_CHUNK@{CHUNKE\_BAD\_CHUNK}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecaf84c8e2afac397c911e6a84c48568d79}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecaf84c8e2afac397c911e6a84c48568d79} 
+CHUNKE\+\_\+\+BAD\+\_\+\+CHUNK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_BAD\_ENCODING@{CHUNKE\_BAD\_ENCODING}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_BAD\_ENCODING@{CHUNKE\_BAD\_ENCODING}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca2c9ddacf1a80c8350155a67cec7423d0}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca2c9ddacf1a80c8350155a67cec7423d0} 
+CHUNKE\+\_\+\+BAD\+\_\+\+ENCODING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_OUT\_OF\_MEMORY@{CHUNKE\_OUT\_OF\_MEMORY}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_OUT\_OF\_MEMORY@{CHUNKE\_OUT\_OF\_MEMORY}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecabe67d38a0a23a824a7c3633f83217043}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecabe67d38a0a23a824a7c3633f83217043} 
+CHUNKE\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_PASSTHRU\_ERROR@{CHUNKE\_PASSTHRU\_ERROR}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_PASSTHRU\_ERROR@{CHUNKE\_PASSTHRU\_ERROR}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca306aab0540155e1eb1d0377dde85ea5b}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca306aab0540155e1eb1d0377dde85ea5b} 
+CHUNKE\+\_\+\+PASSTHRU\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNKE\_LAST@{CHUNKE\_LAST}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNKE\_LAST@{CHUNKE\_LAST}}}\Hypertarget{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecafcb375a9b542000730f395813515b7f7}\label{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecafcb375a9b542000730f395813515b7f7} 
+CHUNKE\+\_\+\+LAST&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6c}\index{http\_chunks.h@{http\_chunks.h}!ChunkyState@{ChunkyState}}
+\index{ChunkyState@{ChunkyState}!http\_chunks.h@{http\_chunks.h}}
+\doxysubsubsection{\texorpdfstring{ChunkyState}{ChunkyState}}
+{\footnotesize\ttfamily \label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6c} 
+enum \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6c}{Chunky\+State}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_HEX@{CHUNK\_HEX}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_HEX@{CHUNK\_HEX}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca8fce4d846b4285564d94ba1349516c6e}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca8fce4d846b4285564d94ba1349516c6e} 
+CHUNK\+\_\+\+HEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_LF@{CHUNK\_LF}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_LF@{CHUNK\_LF}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cae4a184c512fc8b032301b70d2571c5c7}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cae4a184c512fc8b032301b70d2571c5c7} 
+CHUNK\+\_\+\+LF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_DATA@{CHUNK\_DATA}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_DATA@{CHUNK\_DATA}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca04a4a213523e9d25dd55fb6ffaa45e67}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca04a4a213523e9d25dd55fb6ffaa45e67} 
+CHUNK\+\_\+\+DATA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_POSTLF@{CHUNK\_POSTLF}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_POSTLF@{CHUNK\_POSTLF}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca227c43200b7912a55591efd359ab8b0d}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca227c43200b7912a55591efd359ab8b0d} 
+CHUNK\+\_\+\+POSTLF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_STOP@{CHUNK\_STOP}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_STOP@{CHUNK\_STOP}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cada1bd400ffe095d84a67c9cb84ee4368}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cada1bd400ffe095d84a67c9cb84ee4368} 
+CHUNK\+\_\+\+STOP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_TRAILER@{CHUNK\_TRAILER}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_TRAILER@{CHUNK\_TRAILER}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cab4d8292bc24443689f7827d8351fad95}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cab4d8292bc24443689f7827d8351fad95} 
+CHUNK\+\_\+\+TRAILER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_TRAILER\_CR@{CHUNK\_TRAILER\_CR}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_TRAILER\_CR@{CHUNK\_TRAILER\_CR}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca4f082a1c67ebe83c17a34b49ed6df5c9}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca4f082a1c67ebe83c17a34b49ed6df5c9} 
+CHUNK\+\_\+\+TRAILER\+\_\+\+CR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHUNK\_TRAILER\_POSTCR@{CHUNK\_TRAILER\_POSTCR}!http\_chunks.h@{http\_chunks.h}}\index{http\_chunks.h@{http\_chunks.h}!CHUNK\_TRAILER\_POSTCR@{CHUNK\_TRAILER\_POSTCR}}}\Hypertarget{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca69e086007a7f0e2f337355c78135470f}\label{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca69e086007a7f0e2f337355c78135470f} 
+CHUNK\+\_\+\+TRAILER\+\_\+\+POSTCR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{http__chunks_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{http__chunks_8h_a5c9e04b68f8b1184732cff74134a3dde}\index{http\_chunks.h@{http\_chunks.h}!Curl\_chunked\_strerror@{Curl\_chunked\_strerror}}
+\index{Curl\_chunked\_strerror@{Curl\_chunked\_strerror}!http\_chunks.h@{http\_chunks.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_chunked\_strerror()}{Curl\_chunked\_strerror()}}
+{\footnotesize\ttfamily \label{http__chunks_8h_a5c9e04b68f8b1184732cff74134a3dde} 
+const char \texorpdfstring{$\ast$}{*} Curl\+\_\+chunked\+\_\+strerror (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}}}]{code}{}\end{DoxyParamCaption})}
+
+\Hypertarget{http__chunks_8h_aa0844ca026f71fe294dc08d98288b4bf}\index{http\_chunks.h@{http\_chunks.h}!Curl\_httpchunk\_init@{Curl\_httpchunk\_init}}
+\index{Curl\_httpchunk\_init@{Curl\_httpchunk\_init}!http\_chunks.h@{http\_chunks.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_httpchunk\_init()}{Curl\_httpchunk\_init()}}
+{\footnotesize\ttfamily \label{http__chunks_8h_aa0844ca026f71fe294dc08d98288b4bf} 
+void Curl\+\_\+httpchunk\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{http__chunks_8h_ab3460e5657515c9d7f729279bbe30565}\index{http\_chunks.h@{http\_chunks.h}!Curl\_httpchunk\_read@{Curl\_httpchunk\_read}}
+\index{Curl\_httpchunk\_read@{Curl\_httpchunk\_read}!http\_chunks.h@{http\_chunks.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_httpchunk\_read()}{Curl\_httpchunk\_read()}}
+{\footnotesize\ttfamily \label{http__chunks_8h_ab3460e5657515c9d7f729279bbe30565} 
+\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}} Curl\+\_\+httpchunk\+\_\+read (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{datap}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}}}]{length}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{wrote}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \texorpdfstring{$\ast$}{*}}]{passthru}{}\end{DoxyParamCaption})}
+

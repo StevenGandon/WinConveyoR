@@ -1,0 +1,44 @@
+\doxysection{QCPAxis\+Ticker\+Time Class Reference}
+\hypertarget{classQCPAxisTickerTime}{}\label{classQCPAxisTickerTime}\index{QCPAxisTickerTime@{QCPAxisTickerTime}}
+
+
+Specialized axis ticker for time spans in units of milliseconds to days.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Specialized axis ticker for time spans in units of milliseconds to days. 
+
+
+
+This \doxylink{classQCPAxisTicker}{QCPAxis\+Ticker} subclass generates ticks that corresponds to time intervals.
+
+The format of the time display in the tick labels is controlled with set\+Time\+Format and set\+Field\+Width. The time coordinate is in the unit of seconds with respect to the time coordinate zero. Unlike with \doxylink{classQCPAxisTickerDateTime}{QCPAxis\+Ticker\+Date\+Time}, the ticks don\textquotesingle{}t correspond to a specific calendar date and time.
+
+The time can be displayed in milliseconds, seconds, minutes, hours and days. Depending on the largest available unit in the format specified with set\+Time\+Format, any time spans above will be carried in that largest unit. So for example if the format string is "{}\%m\+:\%s"{} and a tick at coordinate value 7815 (being 2 hours, 10 minutes and 15 seconds) is created, the resulting tick label will show "{}130\+:15"{} (130 minutes, 15 seconds). If the format string is "{}\%h\+:\%m\+:\%s"{}, the hour unit will be used and the label will thus be "{}02\+:10\+:15"{}. Negative times with respect to the axis zero will carry a leading minus sign.
+
+The ticker can be created and assigned to an axis like this\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+Here is an example of a time axis providing time information in days, hours and minutes. Due to the axis range spanning a few days and the wanted tick count (set\+Tick\+Count), the ticker decided to use tick steps of 12 hours\+:
+
+
+
+The format string for this example is 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxyNote}{Note}
+If you rather wish to display calendar dates and times, have a look at \doxylink{classQCPAxisTickerDateTime}{QCPAxis\+Ticker\+Date\+Time} instead. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+\doxysection{tool\+\_\+doswin.\+h}
+\hypertarget{tool__doswin_8h_source}{}\label{tool__doswin_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_doswin.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_doswin.h}}
+\mbox{\hyperlink{tool__doswin_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_DOSWIN\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_DOSWIN\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(MSDOS)\ ||\ defined(WIN32)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ SANITIZE\_ALLOW\_COLONS\ \ \ \ (1<<0)\ \ }\textcolor{comment}{/*\ Allow\ colons\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SANITIZE\_ALLOW\_PATH\ \ \ \ \ \ (1<<1)\ \ }\textcolor{comment}{/*\ Allow\ path\ separators\ and\ colons\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ SANITIZE\_ALLOW\_RESERVED\ \ (1<<2)\ \ }\textcolor{comment}{/*\ Allow\ reserved\ device\ names\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ SANITIZE\_ALLOW\_TRUNCATE\ \ (1<<3)\ \ }\textcolor{comment}{/*\ Allow\ truncating\ a\ long\ filename\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00036\ \ \ SANITIZE\_ERR\_OK\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 0\ -\/\ OK\ */}}
+\DoxyCodeLine{00037\ \ \ SANITIZE\_ERR\_INVALID\_PATH,\ \ \ \ \ \textcolor{comment}{/*\ 1\ -\/\ the\ path\ is\ invalid\ */}}
+\DoxyCodeLine{00038\ \ \ SANITIZE\_ERR\_BAD\_ARGUMENT,\ \ \ \ \ \textcolor{comment}{/*\ 2\ -\/\ bad\ function\ parameter\ */}}
+\DoxyCodeLine{00039\ \ \ SANITIZE\_ERR\_OUT\_OF\_MEMORY,\ \ \ \ \textcolor{comment}{/*\ 3\ -\/\ out\ of\ memory\ */}}
+\DoxyCodeLine{00040\ \ \ SANITIZE\_ERR\_LAST\ \textcolor{comment}{/*\ never\ use!\ */}}
+\DoxyCodeLine{00041\ \}\ SANITIZEcode;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ SANITIZEcode\ sanitize\_file\_name(\textcolor{keywordtype}{char}\ **\textcolor{keyword}{const}\ sanitized,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_name,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flags);}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifdef\ UNITTESTS}}
+\DoxyCodeLine{00046\ SANITIZEcode\ truncate\_dryrun(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ truncate\_pos);}
+\DoxyCodeLine{00047\ SANITIZEcode\ msdosify(\textcolor{keywordtype}{char}\ **\textcolor{keyword}{const}\ sanitized,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_name,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flags);}
+\DoxyCodeLine{00049\ SANITIZEcode\ rename\_if\_reserved\_dos\_device\_name(\textcolor{keywordtype}{char}\ **\textcolor{keyword}{const}\ sanitized,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_name,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flags);}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ UNITTESTS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#if\ defined(MSDOS)\ \&\&\ (defined(\_\_DJGPP\_\_)\ ||\ defined(\_\_GO32\_\_))}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{char}\ **\_\_crt0\_glob\_function(\textcolor{keywordtype}{char}\ *arg);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MSDOS\ \&\&\ (\_\_DJGPP\_\_\ ||\ \_\_GO32\_\_)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ FindWin32CACert(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *config,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\_sslbackend}}\ backend,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TCHAR\ *bundle\_file);}
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *GetLoadedModulePaths(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00066\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ win32\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MSDOS\ ||\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_DOSWIN\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

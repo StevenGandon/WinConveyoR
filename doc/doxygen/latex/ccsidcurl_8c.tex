@@ -1,0 +1,435 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/packages/\+OS400/ccsidcurl.c File Reference}
+\hypertarget{ccsidcurl_8c}{}\label{ccsidcurl_8c}\index{lib/libwconr/build/\_deps/curl-\/src/packages/OS400/ccsidcurl.c@{lib/libwconr/build/\_deps/curl-\/src/packages/OS400/ccsidcurl.c}}
+{\ttfamily \#include $<$iconv.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include "{}curl.\+h"{}}\newline
+{\ttfamily \#include "{}mprintf.\+h"{}}\newline
+{\ttfamily \#include "{}slist.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}setopt.\+h"{}}\newline
+{\ttfamily \#include "{}getinfo.\+h"{}}\newline
+{\ttfamily \#include "{}ccsidcurl.\+h"{}}\newline
+{\ttfamily \#include "{}os400sys.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcfcdata}{cfcdata}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ccsidcurl_8c_a3c75bb398badb69c7577b21486f9963f}{SIZE\+\_\+\+MAX}}~((size\+\_\+t) \texorpdfstring{$\sim$}{\string~}0)   /\texorpdfstring{$\ast$}{*} Is unsigned \mbox{\hyperlink{output_8d_a6a76cbf346d11ea9d44fb34b9207479e}{on}} \mbox{\hyperlink{curl__config_8h_a3324dbb5e25daac23e988901bb085447}{OS}}/400. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{ccsidcurl_8c_a1fd5647549ab06fa469bfda679987218}{ASCII\+\_\+\+CCSID}}~819     /\texorpdfstring{$\ast$}{*} Use ISO-\/8859-\/1 \mbox{\hyperlink{write-out_8d_a867d082a9857341bb503593f47a365e0}{as}} ASCII. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{ccsidcurl_8c_a109d5265c9dba0e1e561f77798bde9ed}{NOCONV\+\_\+\+CCSID}}~65535   /\texorpdfstring{$\ast$}{*} No conversion. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{ccsidcurl_8c_a3fd61786a07626e561caa7918fbd630c}{ICONV\+\_\+\+ID\+\_\+\+SIZE}}~32      /\texorpdfstring{$\ast$}{*} Size \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} iconv\+\_\+open() code identifier. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{ccsidcurl_8c_ab5f855329e225df6cce024a3ab17ff8c}{ICONV\+\_\+\+OPEN\+\_\+\+ERROR}}(\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}})
+\item 
+\#define \mbox{\hyperlink{ccsidcurl_8c_a3c420253461504803a3b6914c80fc4ea}{ALLOC\+\_\+\+GRANULE}}~8       /\texorpdfstring{$\ast$}{*} Alloc. granule for \mbox{\hyperlink{ccsidcurl_8c_a8de8b50ce98882f52473e8f70d9e7c08}{curl\+\_\+formadd\+\_\+ccsid}}(). \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{ccsidcurl_8c_a7f587097a7bfca406d49f4b1fc29b0a8}{make\+OS400\+Iconv\+Code}} (char buf\mbox{[}\mbox{\hyperlink{ccsidcurl_8c_a3fd61786a07626e561caa7918fbd630c}{ICONV\+\_\+\+ID\+\_\+\+SIZE}}\mbox{]}, unsigned int ccsid)
+\item 
+static iconv\+\_\+t \mbox{\hyperlink{ccsidcurl_8c_a5ae7fa6c2b0391e403147d8ea9459376}{iconv\+\_\+open\+\_\+\+CCSID}} (unsigned int ccsidout, unsigned int ccsidin, unsigned int cstr)
+\item 
+static int \mbox{\hyperlink{ccsidcurl_8c_a5dd0a4a37cc058d2bd015668780d2ca8}{convert}} (char \texorpdfstring{$\ast$}{*}d, size\+\_\+t dlen, int dccsid, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}, int slen, int sccsid)
+\item 
+static struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_aed0628091ed3ae9ad5190ddb7c6bc710}{slist\+\_\+convert}} (int dccsid, struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ac74282a503e155a3712a5bd3afb69639}{from}}, int sccsid)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a712498b52a9ee69f849b054f0c7655d0}{curl\+\_\+version\+\_\+ccsid}} (unsigned int ccsid)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_aee321a0ab948b4fcf09400fb4571e2af}{curl\+\_\+easy\+\_\+escape\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}handle, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, int length, unsigned int sccsid, unsigned int dccsid)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_ab978b092194c477a6a8e53efc87948c6}{curl\+\_\+easy\+\_\+unescape\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}handle, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, int length, int \texorpdfstring{$\ast$}{*}outlength, unsigned int sccsid, unsigned int dccsid)
+\item 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_aabb80a72d7a85ad47d1402b209f9cb10}{curl\+\_\+slist\+\_\+append\+\_\+ccsid}} (struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tool__findfile_8c_ae21df68c1a8e862f3daccb3f660a6f18}{list}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, unsigned int ccsid)
+\item 
+time\+\_\+t \mbox{\hyperlink{ccsidcurl_8c_a2123b288d847a88986cdac9c0531c9bd}{curl\+\_\+getdate\+\_\+ccsid}} (const char \texorpdfstring{$\ast$}{*}p, const time\+\_\+t \texorpdfstring{$\ast$}{*}unused, unsigned int ccsid)
+\item 
+static int \mbox{\hyperlink{ccsidcurl_8c_a2c0fdb8d5e2b75c06fe432ab1a59c40d}{convert\+\_\+version\+\_\+info\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}stringp, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}bufp, int \texorpdfstring{$\ast$}{*}left, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{structcurl__version__info__data}{curl\+\_\+version\+\_\+info\+\_\+data}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_ac6236ff210119d51d452d77b8a3ee19b}{curl\+\_\+version\+\_\+info\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_a5354571aaeb1637cb595ab4515ec15fe}{CURLversion}} stamp, unsigned int ccsid)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a6af9768b36754a585c9df10c3588bcf7}{curl\+\_\+easy\+\_\+strerror\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}}, unsigned int ccsid)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a2017487af668cced3a48e4d9a21f524e}{curl\+\_\+share\+\_\+strerror\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_ac43d8db465228ea2d53762dc58fc8e44}{CURLSHcode}} \mbox{\hyperlink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}}, unsigned int ccsid)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a81716f8f7b367f5f41b40a12dbd769f0}{curl\+\_\+multi\+\_\+strerror\+\_\+ccsid}} (\mbox{\hyperlink{multi_8h_a92acc8d3a23eaae72955b8a8b22c83e3}{CURLMcode}} \mbox{\hyperlink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}}, unsigned int ccsid)
+\item 
+void \mbox{\hyperlink{ccsidcurl_8c_aefa8da2de2f8af5f3a5cdf4dca98e77d}{curl\+\_\+certinfo\+\_\+free\+\_\+all}} (struct \mbox{\hyperlink{structcurl__certinfo}{curl\+\_\+certinfo}} \texorpdfstring{$\ast$}{*}info)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_a97cc3d97ab4b8ff2a7da069d4e375ae2}{curl\+\_\+easy\+\_\+getinfo\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, \mbox{\hyperlink{curl_8h_aabc03ec968a2fdccde5c6709f712dd7b}{CURLINFO}} info,...)
+\item 
+static int \mbox{\hyperlink{ccsidcurl_8c_a3202cbaeeb82bed9cbaf871c7c8fb39f}{Curl\+\_\+is\+\_\+formadd\+\_\+string}} (\mbox{\hyperlink{curl_8h_ae5d88dd64ce41daec95c47679b8c000f}{CURLformoption}} \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static void \mbox{\hyperlink{ccsidcurl_8c_ad5bed9892583f8becd73a2db924d31a5}{Curl\+\_\+formadd\+\_\+release\+\_\+local}} (struct \mbox{\hyperlink{structcurl__forms}{curl\+\_\+forms}} \texorpdfstring{$\ast$}{*}forms, int nargs, int \mbox{\hyperlink{parsedate_8c_a1f1232539b22faa166624bdf6fc7c368}{skip}})
+\item 
+static int \mbox{\hyperlink{ccsidcurl_8c_ad6203ed7e924f90e9c09b82ec2e46e69}{Curl\+\_\+formadd\+\_\+convert}} (struct \mbox{\hyperlink{structcurl__forms}{curl\+\_\+forms}} \texorpdfstring{$\ast$}{*}forms, int formx, int lengthx, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_ad019905d2198c6b5937b21b0ac025271}{CURLFORMcode}} \mbox{\hyperlink{ccsidcurl_8c_a8de8b50ce98882f52473e8f70d9e7c08}{curl\+\_\+formadd\+\_\+ccsid}} (struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}httppost, struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}last\+\_\+post,...)
+\item 
+static size\+\_\+t \mbox{\hyperlink{ccsidcurl_8c_aac04b60f6d904e5779bf6c751820125b}{Curl\+\_\+formget\+\_\+callback\+\_\+ccsid}} (void \texorpdfstring{$\ast$}{*}arg, const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+int \mbox{\hyperlink{ccsidcurl_8c_a18ae90c0a9580d0d22ecdd57029f98e4}{curl\+\_\+formget\+\_\+ccsid}} (struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}form, void \texorpdfstring{$\ast$}{*}arg, \mbox{\hyperlink{curl_8h_ab1d1a6e0621528e0406be23fa5e7d425}{curl\+\_\+formget\+\_\+callback}} append, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_a36253a344daa80bcc7324807abc8ef1f}{curl\+\_\+easy\+\_\+setopt\+\_\+ccsid}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, \mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}} tag,...)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a4e666faef728c177866a777649790f90}{curl\+\_\+form\+\_\+long\+\_\+value}} (long value)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_af970d2dcb13de546379c1215d6f11773}{curl\+\_\+pushheader\+\_\+bynum\+\_\+cssid}} (struct curl\+\_\+pushheaders \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, size\+\_\+t num, unsigned int ccsid)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a9e8285a10298597af928c04daaf95bf7}{curl\+\_\+pushheader\+\_\+byname\+\_\+ccsid}} (struct curl\+\_\+pushheaders \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{user-agent_8d_ad8c76b4bdd86e61de828f3429552a54e}{header}}, unsigned int ccsidin, unsigned int ccsidout)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_a8748e7f7a58000cdfdbf8863df080143}{mime\+\_\+string\+\_\+call}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, unsigned int ccsid, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}(\texorpdfstring{$\ast$}{*}mimefunc)(\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}))
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_aa7745a55eb25945771492dfeb8ffee0b}{curl\+\_\+mime\+\_\+name\+\_\+ccsid}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_a7909066c66789106f9d46de8a98456f4}{curl\+\_\+mime\+\_\+filename\+\_\+ccsid}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}}, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_ae194ff42ae28b6a84ae5c5cd0cede129}{curl\+\_\+mime\+\_\+type\+\_\+ccsid}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}mimetype, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_aaebbef901802530769771d4e4bfff850}{curl\+\_\+mime\+\_\+encoder\+\_\+ccsid}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{compressed_8d_ac0773d551ebc1033cd05b56897a6c744}{encoding}}, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_ac92820aed96bb61c88fc8042d11b83a7}{curl\+\_\+mime\+\_\+filedata\+\_\+ccsid}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}}, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ccsidcurl_8c_ac476213ecae4fa4e4d6f001e17ff7ae2}{curl\+\_\+mime\+\_\+data\+\_\+ccsid}} (\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, size\+\_\+t datasize, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{ccsidcurl_8c_af1ebb619f10e836b773470455829a150}{curl\+\_\+url\+\_\+get\+\_\+ccsid}} (\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}handle, \mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}} what, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}part, unsigned int flags, unsigned int ccsid)
+\item 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{ccsidcurl_8c_afac402d73284b3bb97bfa4b6ec068dc6}{curl\+\_\+url\+\_\+set\+\_\+ccsid}} (\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}handle, \mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}} what, const char \texorpdfstring{$\ast$}{*}part, unsigned int flags, unsigned int ccsid)
+\item 
+const struct \mbox{\hyperlink{structcurl__easyoption}{curl\+\_\+easyoption}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a7380fd554298af996520583cbdbfd5d2}{curl\+\_\+easy\+\_\+option\+\_\+by\+\_\+name\+\_\+ccsid}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, unsigned int ccsid)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ccsidcurl_8c_a85a075025021430c8d3cb5089f5952d9}{curl\+\_\+easy\+\_\+option\+\_\+get\+\_\+name\+\_\+ccsid}} (const struct \mbox{\hyperlink{structcurl__easyoption}{curl\+\_\+easyoption}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}}, unsigned int ccsid)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ccsidcurl_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ccsidcurl_8c_a3c420253461504803a3b6914c80fc4ea}\index{ccsidcurl.c@{ccsidcurl.c}!ALLOC\_GRANULE@{ALLOC\_GRANULE}}
+\index{ALLOC\_GRANULE@{ALLOC\_GRANULE}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{ALLOC\_GRANULE}{ALLOC\_GRANULE}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a3c420253461504803a3b6914c80fc4ea} 
+\#define ALLOC\+\_\+\+GRANULE~8       /\texorpdfstring{$\ast$}{*} Alloc. granule for \mbox{\hyperlink{ccsidcurl_8c_a8de8b50ce98882f52473e8f70d9e7c08}{curl\+\_\+formadd\+\_\+ccsid}}(). \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{ccsidcurl_8c_a1fd5647549ab06fa469bfda679987218}\index{ccsidcurl.c@{ccsidcurl.c}!ASCII\_CCSID@{ASCII\_CCSID}}
+\index{ASCII\_CCSID@{ASCII\_CCSID}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{ASCII\_CCSID}{ASCII\_CCSID}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a1fd5647549ab06fa469bfda679987218} 
+\#define ASCII\+\_\+\+CCSID~819     /\texorpdfstring{$\ast$}{*} Use ISO-\/8859-\/1 \mbox{\hyperlink{write-out_8d_a867d082a9857341bb503593f47a365e0}{as}} ASCII. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{ccsidcurl_8c_a3fd61786a07626e561caa7918fbd630c}\index{ccsidcurl.c@{ccsidcurl.c}!ICONV\_ID\_SIZE@{ICONV\_ID\_SIZE}}
+\index{ICONV\_ID\_SIZE@{ICONV\_ID\_SIZE}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{ICONV\_ID\_SIZE}{ICONV\_ID\_SIZE}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a3fd61786a07626e561caa7918fbd630c} 
+\#define ICONV\+\_\+\+ID\+\_\+\+SIZE~32      /\texorpdfstring{$\ast$}{*} Size \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} iconv\+\_\+open() code identifier. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{ccsidcurl_8c_ab5f855329e225df6cce024a3ab17ff8c}\index{ccsidcurl.c@{ccsidcurl.c}!ICONV\_OPEN\_ERROR@{ICONV\_OPEN\_ERROR}}
+\index{ICONV\_OPEN\_ERROR@{ICONV\_OPEN\_ERROR}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{ICONV\_OPEN\_ERROR}{ICONV\_OPEN\_ERROR}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ab5f855329e225df6cce024a3ab17ff8c} 
+\#define ICONV\+\_\+\+OPEN\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\mbox{\hyperlink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}}).return\_value\ ==\ -\/1)}
+
+\end{DoxyCode}
+\Hypertarget{ccsidcurl_8c_a109d5265c9dba0e1e561f77798bde9ed}\index{ccsidcurl.c@{ccsidcurl.c}!NOCONV\_CCSID@{NOCONV\_CCSID}}
+\index{NOCONV\_CCSID@{NOCONV\_CCSID}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{NOCONV\_CCSID}{NOCONV\_CCSID}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a109d5265c9dba0e1e561f77798bde9ed} 
+\#define NOCONV\+\_\+\+CCSID~65535   /\texorpdfstring{$\ast$}{*} No conversion. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{ccsidcurl_8c_a3c75bb398badb69c7577b21486f9963f}\index{ccsidcurl.c@{ccsidcurl.c}!SIZE\_MAX@{SIZE\_MAX}}
+\index{SIZE\_MAX@{SIZE\_MAX}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{SIZE\_MAX}{SIZE\_MAX}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a3c75bb398badb69c7577b21486f9963f} 
+\#define SIZE\+\_\+\+MAX~((size\+\_\+t) \texorpdfstring{$\sim$}{\string~}0)   /\texorpdfstring{$\ast$}{*} Is unsigned \mbox{\hyperlink{output_8d_a6a76cbf346d11ea9d44fb34b9207479e}{on}} \mbox{\hyperlink{curl__config_8h_a3324dbb5e25daac23e988901bb085447}{OS}}/400. \texorpdfstring{$\ast$}{*}/}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{ccsidcurl_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ccsidcurl_8c_a5dd0a4a37cc058d2bd015668780d2ca8}\index{ccsidcurl.c@{ccsidcurl.c}!convert@{convert}}
+\index{convert@{convert}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{convert()}{convert()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a5dd0a4a37cc058d2bd015668780d2ca8} 
+int convert (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{d}{, }\item[{size\+\_\+t}]{dlen}{, }\item[{int}]{dccsid}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{int}]{slen}{, }\item[{int}]{sccsid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert {\ttfamily sccsid\textquotesingle{}-\/coded }slen\textquotesingle{}-\/data bytes at {\ttfamily \doxylink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}\textquotesingle{} into }dccsid\textquotesingle{}-\/coded data stored in the {\ttfamily dlen\textquotesingle{}-\/byte \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer} at }d\textquotesingle{}. If \`{}slen\textquotesingle{} \texorpdfstring{$<$}{<} 0, source string is null-\/terminated. CCSID 65535 (no conversion) is replaced by the ASCII CCSID. Return the converted destination byte count, or -\/1 if error. \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}/
+
+if(sccsid == 65535) sccsid = ASCII\+\_\+\+CCSID;
+
+if(dccsid == 65535) dccsid = ASCII\+\_\+\+CCSID;
+
+if(sccsid == dccsid) \{ lslen = slen \texorpdfstring{$>$}{>}= 0? slen\+: strlen(s) + 1; i = lslen \texorpdfstring{$<$}{<} dlen? lslen\+: dlen;
+
+if(s != d \&\& i \texorpdfstring{$>$}{>} 0) memcpy(d, s, i);
+
+return i; \}
+
+if(slen $<$ 0) \{ lslen = 0; cd = iconv\+\_\+open\+\_\+\+CCSID(dccsid, sccsid, 1); \} else \{ lslen = (size\+\_\+t) slen; cd = iconv\+\_\+open\+\_\+\+CCSID(dccsid, sccsid, 0); \}
+
+if(\+ICONV\+\_\+\+OPEN\+\_\+\+ERROR(cd)) return -\/1;
+
+i = dlen;
+
+if((int) iconv(cd, (char \texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}) \&s, \&lslen, \&d, \&dlen) \texorpdfstring{$<$}{<} 0) i = -\/1; else i -\/= dlen;
+
+iconv\+\_\+close(cd); return i; \}
+
+static char \texorpdfstring{$\ast$}{*}dynconvert(int dccsid, const char \texorpdfstring{$\ast$}{*}s, int slen, int sccsid) \{ char \texorpdfstring{$\ast$}{*}d; char \texorpdfstring{$\ast$}{*}cp; size\+\_\+t dlen; int l; static const char nullbyte = 0;
+
+/\texorpdfstring{$\ast$}{*} Like convert, but the destination is allocated and returned.\Hypertarget{ccsidcurl_8c_a2c0fdb8d5e2b75c06fe432ab1a59c40d}\index{ccsidcurl.c@{ccsidcurl.c}!convert\_version\_info\_string@{convert\_version\_info\_string}}
+\index{convert\_version\_info\_string@{convert\_version\_info\_string}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{convert\_version\_info\_string()}{convert\_version\_info\_string()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a2c0fdb8d5e2b75c06fe432ab1a59c40d} 
+int convert\+\_\+version\+\_\+info\+\_\+string (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{stringp}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{bufp}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{left}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ccsidcurl_8c_aefa8da2de2f8af5f3a5cdf4dca98e77d}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_certinfo\_free\_all@{curl\_certinfo\_free\_all}}
+\index{curl\_certinfo\_free\_all@{curl\_certinfo\_free\_all}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_certinfo\_free\_all()}{curl\_certinfo\_free\_all()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aefa8da2de2f8af5f3a5cdf4dca98e77d} 
+void curl\+\_\+certinfo\+\_\+free\+\_\+all (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__certinfo}{curl\+\_\+certinfo}} \texorpdfstring{$\ast$}{*}}]{info}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_aee321a0ab948b4fcf09400fb4571e2af}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_escape\_ccsid@{curl\_easy\_escape\_ccsid}}
+\index{curl\_easy\_escape\_ccsid@{curl\_easy\_escape\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_escape\_ccsid()}{curl\_easy\_escape\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aee321a0ab948b4fcf09400fb4571e2af} 
+char \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+escape\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{handle}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{int}]{length}{, }\item[{unsigned int}]{sccsid}{, }\item[{unsigned int}]{dccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a97cc3d97ab4b8ff2a7da069d4e375ae2}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_getinfo\_ccsid@{curl\_easy\_getinfo\_ccsid}}
+\index{curl\_easy\_getinfo\_ccsid@{curl\_easy\_getinfo\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_getinfo\_ccsid()}{curl\_easy\_getinfo\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a97cc3d97ab4b8ff2a7da069d4e375ae2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+getinfo\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{\mbox{\hyperlink{curl_8h_aabc03ec968a2fdccde5c6709f712dd7b}{CURLINFO}}}]{info}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a7380fd554298af996520583cbdbfd5d2}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_option\_by\_name\_ccsid@{curl\_easy\_option\_by\_name\_ccsid}}
+\index{curl\_easy\_option\_by\_name\_ccsid@{curl\_easy\_option\_by\_name\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_option\_by\_name\_ccsid()}{curl\_easy\_option\_by\_name\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a7380fd554298af996520583cbdbfd5d2} 
+const struct \mbox{\hyperlink{structcurl__easyoption}{curl\+\_\+easyoption}} \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+option\+\_\+by\+\_\+name\+\_\+ccsid (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a85a075025021430c8d3cb5089f5952d9}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_option\_get\_name\_ccsid@{curl\_easy\_option\_get\_name\_ccsid}}
+\index{curl\_easy\_option\_get\_name\_ccsid@{curl\_easy\_option\_get\_name\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_option\_get\_name\_ccsid()}{curl\_easy\_option\_get\_name\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a85a075025021430c8d3cb5089f5952d9} 
+const char \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+option\+\_\+get\+\_\+name\+\_\+ccsid (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structcurl__easyoption}{curl\+\_\+easyoption}} \texorpdfstring{$\ast$}{*}}]{option}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a36253a344daa80bcc7324807abc8ef1f}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_setopt\_ccsid@{curl\_easy\_setopt\_ccsid}}
+\index{curl\_easy\_setopt\_ccsid@{curl\_easy\_setopt\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_setopt\_ccsid()}{curl\_easy\_setopt\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a36253a344daa80bcc7324807abc8ef1f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+setopt\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{\mbox{\hyperlink{curl_8h_a683f408ac299e0409f0c8b3f73c36610}{CURLoption}}}]{tag}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a6af9768b36754a585c9df10c3588bcf7}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_strerror\_ccsid@{curl\_easy\_strerror\_ccsid}}
+\index{curl\_easy\_strerror\_ccsid@{curl\_easy\_strerror\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_strerror\_ccsid()}{curl\_easy\_strerror\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a6af9768b36754a585c9df10c3588bcf7} 
+const char \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+strerror\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{error}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_ab978b092194c477a6a8e53efc87948c6}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_easy\_unescape\_ccsid@{curl\_easy\_unescape\_ccsid}}
+\index{curl\_easy\_unescape\_ccsid@{curl\_easy\_unescape\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_unescape\_ccsid()}{curl\_easy\_unescape\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ab978b092194c477a6a8e53efc87948c6} 
+char \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+unescape\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{handle}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{int}]{length}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{outlength}{, }\item[{unsigned int}]{sccsid}{, }\item[{unsigned int}]{dccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a4e666faef728c177866a777649790f90}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_form\_long\_value@{curl\_form\_long\_value}}
+\index{curl\_form\_long\_value@{curl\_form\_long\_value}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_form\_long\_value()}{curl\_form\_long\_value()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a4e666faef728c177866a777649790f90} 
+char \texorpdfstring{$\ast$}{*} curl\+\_\+form\+\_\+long\+\_\+value (\begin{DoxyParamCaption}\item[{long}]{value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a8de8b50ce98882f52473e8f70d9e7c08}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_formadd\_ccsid@{curl\_formadd\_ccsid}}
+\index{curl\_formadd\_ccsid@{curl\_formadd\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_formadd\_ccsid()}{curl\_formadd\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a8de8b50ce98882f52473e8f70d9e7c08} 
+\mbox{\hyperlink{curl_8h_ad019905d2198c6b5937b21b0ac025271}{CURLFORMcode}} curl\+\_\+formadd\+\_\+ccsid (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{httppost}{, }\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{last\+\_\+post}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_ad6203ed7e924f90e9c09b82ec2e46e69}\index{ccsidcurl.c@{ccsidcurl.c}!Curl\_formadd\_convert@{Curl\_formadd\_convert}}
+\index{Curl\_formadd\_convert@{Curl\_formadd\_convert}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_formadd\_convert()}{Curl\_formadd\_convert()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ad6203ed7e924f90e9c09b82ec2e46e69} 
+int Curl\+\_\+formadd\+\_\+convert (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__forms}{curl\+\_\+forms}} \texorpdfstring{$\ast$}{*}}]{forms}{, }\item[{int}]{formx}{, }\item[{int}]{lengthx}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ccsidcurl_8c_ad5bed9892583f8becd73a2db924d31a5}\index{ccsidcurl.c@{ccsidcurl.c}!Curl\_formadd\_release\_local@{Curl\_formadd\_release\_local}}
+\index{Curl\_formadd\_release\_local@{Curl\_formadd\_release\_local}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_formadd\_release\_local()}{Curl\_formadd\_release\_local()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ad5bed9892583f8becd73a2db924d31a5} 
+void Curl\+\_\+formadd\+\_\+release\+\_\+local (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__forms}{curl\+\_\+forms}} \texorpdfstring{$\ast$}{*}}]{forms}{, }\item[{int}]{nargs}{, }\item[{int}]{skip}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ccsidcurl_8c_aac04b60f6d904e5779bf6c751820125b}\index{ccsidcurl.c@{ccsidcurl.c}!Curl\_formget\_callback\_ccsid@{Curl\_formget\_callback\_ccsid}}
+\index{Curl\_formget\_callback\_ccsid@{Curl\_formget\_callback\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_formget\_callback\_ccsid()}{Curl\_formget\_callback\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aac04b60f6d904e5779bf6c751820125b} 
+size\+\_\+t Curl\+\_\+formget\+\_\+callback\+\_\+ccsid (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ccsidcurl_8c_a18ae90c0a9580d0d22ecdd57029f98e4}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_formget\_ccsid@{curl\_formget\_ccsid}}
+\index{curl\_formget\_ccsid@{curl\_formget\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_formget\_ccsid()}{curl\_formget\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a18ae90c0a9580d0d22ecdd57029f98e4} 
+int curl\+\_\+formget\+\_\+ccsid (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__httppost}{curl\+\_\+httppost}} \texorpdfstring{$\ast$}{*}}]{form}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{, }\item[{\mbox{\hyperlink{curl_8h_ab1d1a6e0621528e0406be23fa5e7d425}{curl\+\_\+formget\+\_\+callback}}}]{append}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a2123b288d847a88986cdac9c0531c9bd}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_getdate\_ccsid@{curl\_getdate\_ccsid}}
+\index{curl\_getdate\_ccsid@{curl\_getdate\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_getdate\_ccsid()}{curl\_getdate\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a2123b288d847a88986cdac9c0531c9bd} 
+time\+\_\+t curl\+\_\+getdate\+\_\+ccsid (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{, }\item[{const time\+\_\+t \texorpdfstring{$\ast$}{*}}]{unused}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a3202cbaeeb82bed9cbaf871c7c8fb39f}\index{ccsidcurl.c@{ccsidcurl.c}!Curl\_is\_formadd\_string@{Curl\_is\_formadd\_string}}
+\index{Curl\_is\_formadd\_string@{Curl\_is\_formadd\_string}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_is\_formadd\_string()}{Curl\_is\_formadd\_string()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a3202cbaeeb82bed9cbaf871c7c8fb39f} 
+int Curl\+\_\+is\+\_\+formadd\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ae5d88dd64ce41daec95c47679b8c000f}{CURLformoption}}}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ccsidcurl_8c_ac476213ecae4fa4e4d6f001e17ff7ae2}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_mime\_data\_ccsid@{curl\_mime\_data\_ccsid}}
+\index{curl\_mime\_data\_ccsid@{curl\_mime\_data\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_mime\_data\_ccsid()}{curl\_mime\_data\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ac476213ecae4fa4e4d6f001e17ff7ae2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+mime\+\_\+data\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{datasize}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_aaebbef901802530769771d4e4bfff850}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_mime\_encoder\_ccsid@{curl\_mime\_encoder\_ccsid}}
+\index{curl\_mime\_encoder\_ccsid@{curl\_mime\_encoder\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_mime\_encoder\_ccsid()}{curl\_mime\_encoder\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aaebbef901802530769771d4e4bfff850} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+mime\+\_\+encoder\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{encoding}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_ac92820aed96bb61c88fc8042d11b83a7}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_mime\_filedata\_ccsid@{curl\_mime\_filedata\_ccsid}}
+\index{curl\_mime\_filedata\_ccsid@{curl\_mime\_filedata\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_mime\_filedata\_ccsid()}{curl\_mime\_filedata\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ac92820aed96bb61c88fc8042d11b83a7} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+mime\+\_\+filedata\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a7909066c66789106f9d46de8a98456f4}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_mime\_filename\_ccsid@{curl\_mime\_filename\_ccsid}}
+\index{curl\_mime\_filename\_ccsid@{curl\_mime\_filename\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_mime\_filename\_ccsid()}{curl\_mime\_filename\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a7909066c66789106f9d46de8a98456f4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+mime\+\_\+filename\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_aa7745a55eb25945771492dfeb8ffee0b}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_mime\_name\_ccsid@{curl\_mime\_name\_ccsid}}
+\index{curl\_mime\_name\_ccsid@{curl\_mime\_name\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_mime\_name\_ccsid()}{curl\_mime\_name\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aa7745a55eb25945771492dfeb8ffee0b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+mime\+\_\+name\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_ae194ff42ae28b6a84ae5c5cd0cede129}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_mime\_type\_ccsid@{curl\_mime\_type\_ccsid}}
+\index{curl\_mime\_type\_ccsid@{curl\_mime\_type\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_mime\_type\_ccsid()}{curl\_mime\_type\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ae194ff42ae28b6a84ae5c5cd0cede129} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+mime\+\_\+type\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mimetype}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a81716f8f7b367f5f41b40a12dbd769f0}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_multi\_strerror\_ccsid@{curl\_multi\_strerror\_ccsid}}
+\index{curl\_multi\_strerror\_ccsid@{curl\_multi\_strerror\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_multi\_strerror\_ccsid()}{curl\_multi\_strerror\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a81716f8f7b367f5f41b40a12dbd769f0} 
+const char \texorpdfstring{$\ast$}{*} curl\+\_\+multi\+\_\+strerror\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{multi_8h_a92acc8d3a23eaae72955b8a8b22c83e3}{CURLMcode}}}]{error}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a9e8285a10298597af928c04daaf95bf7}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_pushheader\_byname\_ccsid@{curl\_pushheader\_byname\_ccsid}}
+\index{curl\_pushheader\_byname\_ccsid@{curl\_pushheader\_byname\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_pushheader\_byname\_ccsid()}{curl\_pushheader\_byname\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a9e8285a10298597af928c04daaf95bf7} 
+char \texorpdfstring{$\ast$}{*} curl\+\_\+pushheader\+\_\+byname\+\_\+ccsid (\begin{DoxyParamCaption}\item[{struct curl\+\_\+pushheaders \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{header}{, }\item[{unsigned int}]{ccsidin}{, }\item[{unsigned int}]{ccsidout}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_af970d2dcb13de546379c1215d6f11773}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_pushheader\_bynum\_cssid@{curl\_pushheader\_bynum\_cssid}}
+\index{curl\_pushheader\_bynum\_cssid@{curl\_pushheader\_bynum\_cssid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_pushheader\_bynum\_cssid()}{curl\_pushheader\_bynum\_cssid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_af970d2dcb13de546379c1215d6f11773} 
+char \texorpdfstring{$\ast$}{*} curl\+\_\+pushheader\+\_\+bynum\+\_\+cssid (\begin{DoxyParamCaption}\item[{struct curl\+\_\+pushheaders \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{size\+\_\+t}]{num}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a2017487af668cced3a48e4d9a21f524e}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_share\_strerror\_ccsid@{curl\_share\_strerror\_ccsid}}
+\index{curl\_share\_strerror\_ccsid@{curl\_share\_strerror\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_share\_strerror\_ccsid()}{curl\_share\_strerror\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a2017487af668cced3a48e4d9a21f524e} 
+const char \texorpdfstring{$\ast$}{*} curl\+\_\+share\+\_\+strerror\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ac43d8db465228ea2d53762dc58fc8e44}{CURLSHcode}}}]{error}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_aabb80a72d7a85ad47d1402b209f9cb10}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_slist\_append\_ccsid@{curl\_slist\_append\_ccsid}}
+\index{curl\_slist\_append\_ccsid@{curl\_slist\_append\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_slist\_append\_ccsid()}{curl\_slist\_append\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aabb80a72d7a85ad47d1402b209f9cb10} 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} curl\+\_\+slist\+\_\+append\+\_\+ccsid (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{list}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_af1ebb619f10e836b773470455829a150}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_url\_get\_ccsid@{curl\_url\_get\_ccsid}}
+\index{curl\_url\_get\_ccsid@{curl\_url\_get\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url\_get\_ccsid()}{curl\_url\_get\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_af1ebb619f10e836b773470455829a150} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} curl\+\_\+url\+\_\+get\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{handle}{, }\item[{\mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}}}]{what}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{part}{, }\item[{unsigned int}]{flags}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_afac402d73284b3bb97bfa4b6ec068dc6}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_url\_set\_ccsid@{curl\_url\_set\_ccsid}}
+\index{curl\_url\_set\_ccsid@{curl\_url\_set\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url\_set\_ccsid()}{curl\_url\_set\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_afac402d73284b3bb97bfa4b6ec068dc6} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} curl\+\_\+url\+\_\+set\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{handle}{, }\item[{\mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}}}]{what}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{unsigned int}]{flags}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a712498b52a9ee69f849b054f0c7655d0}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_version\_ccsid@{curl\_version\_ccsid}}
+\index{curl\_version\_ccsid@{curl\_version\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_version\_ccsid()}{curl\_version\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a712498b52a9ee69f849b054f0c7655d0} 
+char \texorpdfstring{$\ast$}{*} curl\+\_\+version\+\_\+ccsid (\begin{DoxyParamCaption}\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{ccsidcurl_8c_ac6236ff210119d51d452d77b8a3ee19b}\index{ccsidcurl.c@{ccsidcurl.c}!curl\_version\_info\_ccsid@{curl\_version\_info\_ccsid}}
+\index{curl\_version\_info\_ccsid@{curl\_version\_info\_ccsid}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{curl\_version\_info\_ccsid()}{curl\_version\_info\_ccsid()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_ac6236ff210119d51d452d77b8a3ee19b} 
+\mbox{\hyperlink{structcurl__version__info__data}{curl\+\_\+version\+\_\+info\+\_\+data}} \texorpdfstring{$\ast$}{*} curl\+\_\+version\+\_\+info\+\_\+ccsid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_a5354571aaeb1637cb595ab4515ec15fe}{CURLversion}}}]{stamp}{, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ccsidcurl_8c_a5ae7fa6c2b0391e403147d8ea9459376}\index{ccsidcurl.c@{ccsidcurl.c}!iconv\_open\_CCSID@{iconv\_open\_CCSID}}
+\index{iconv\_open\_CCSID@{iconv\_open\_CCSID}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{iconv\_open\_CCSID()}{iconv\_open\_CCSID()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a5ae7fa6c2b0391e403147d8ea9459376} 
+iconv\+\_\+t iconv\+\_\+open\+\_\+\+CCSID (\begin{DoxyParamCaption}\item[{unsigned int}]{ccsidout}{, }\item[{unsigned int}]{ccsidin}{, }\item[{unsigned int}]{cstr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Like iconv\+\_\+open(), but character codes are given as CCSIDs. If \`{}cstr\textquotesingle{} is non-\/zero, conversion is set up to stop whenever a null character is encountered. See iconv\+\_\+open() IBM description in "{}\+National Language Support API"{}. \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}/
+
+make\+OS400\+Iconv\+Code(fromcode, ccsidin); make\+OS400\+Iconv\+Code(tocode, ccsidout); memset(tocode + 13, 0, sizeof(tocode) -\/ 13); /\texorpdfstring{$\ast$}{*} Dest. code id format.\Hypertarget{ccsidcurl_8c_a7f587097a7bfca406d49f4b1fc29b0a8}\index{ccsidcurl.c@{ccsidcurl.c}!makeOS400IconvCode@{makeOS400IconvCode}}
+\index{makeOS400IconvCode@{makeOS400IconvCode}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{makeOS400IconvCode()}{makeOS400IconvCode()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a7f587097a7bfca406d49f4b1fc29b0a8} 
+void make\+OS400\+Iconv\+Code (\begin{DoxyParamCaption}\item[{char}]{buf}{\mbox{[}\+ICONV\+\_\+\+ID\+\_\+\+SIZE\mbox{]}, }\item[{unsigned int}]{ccsid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert a CCSID to the corresponding IBM iconv\+\_\+open() character code identifier. This code is specific to the OS400 implementation of the iconv library. CCSID 65535 (no conversion) is replaced by the ASCII CCSID. CCSID 0 is interpreted by the OS400 as the job\textquotesingle{}s CCSID.\Hypertarget{ccsidcurl_8c_a8748e7f7a58000cdfdbf8863df080143}\index{ccsidcurl.c@{ccsidcurl.c}!mime\_string\_call@{mime\_string\_call}}
+\index{mime\_string\_call@{mime\_string\_call}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{mime\_string\_call()}{mime\_string\_call()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_a8748e7f7a58000cdfdbf8863df080143} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mime\+\_\+string\+\_\+call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{unsigned int}]{ccsid}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}(\texorpdfstring{$\ast$}{*}}]{mimefunc~}{)(\mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}})}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ccsidcurl_8c_aed0628091ed3ae9ad5190ddb7c6bc710}\index{ccsidcurl.c@{ccsidcurl.c}!slist\_convert@{slist\_convert}}
+\index{slist\_convert@{slist\_convert}!ccsidcurl.c@{ccsidcurl.c}}
+\doxysubsubsection{\texorpdfstring{slist\_convert()}{slist\_convert()}}
+{\footnotesize\ttfamily \label{ccsidcurl_8c_aed0628091ed3ae9ad5190ddb7c6bc710} 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} slist\+\_\+convert (\begin{DoxyParamCaption}\item[{int}]{dccsid}{, }\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{from}{, }\item[{int}]{sccsid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

@@ -1,0 +1,62 @@
+\doxysection{gui/node\+\_\+modules/extract-\/zip Directory Reference}
+\hypertarget{dir_cfc221be2e3eea78568fbe669f71f0eb}{}\label{dir_cfc221be2e3eea78568fbe669f71f0eb}\index{gui/node\_modules/extract-\/zip Directory Reference@{gui/node\_modules/extract-\/zip Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md489}{}\doxysubsection{\texorpdfstring{extract-\/zip}{extract-\/zip}}\label{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md489}
+Unzip written in pure Java\+Script. Extracts a zip into a directory. Available as a library or a command line program.
+
+Uses the \href{http://npmjs.org/yauzl}{\texttt{{\ttfamily yauzl}}} ZIP parser.
+
+\href{https://npm.im/extract-zip}{\texttt{}} \href{https://github.com/standard/standard}{\texttt{}} \href{https://github.com/maxogden/extract-zip/actions?query=workflow\%3ACI}{\texttt{}}\hypertarget{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md490}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md490}
+Make sure you have Node 10 or greater installed.
+
+Get the library\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ extract-\/zip\ -\/-\/save}
+
+\end{DoxyCode}
+
+
+Install the command line program\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ extract-\/zip\ -\/g}
+
+\end{DoxyCode}
+\hypertarget{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md491}{}\doxysubsection{\texorpdfstring{JS API}{JS API}}\label{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md491}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ extract\ =\ require('extract-\/zip')}
+\DoxyCodeLine{}
+\DoxyCodeLine{async\ function\ main\ ()\ \{}
+\DoxyCodeLine{\ \ try\ \{}
+\DoxyCodeLine{\ \ \ \ await\ extract(source,\ \{\ dir:\ target\ \})}
+\DoxyCodeLine{\ \ \ \ console.log('Extraction\ complete')}
+\DoxyCodeLine{\ \ \}\ catch\ (err)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ handle\ any\ errors}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md492}{}\doxysubsubsection{\texorpdfstring{Options}{Options}}\label{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md492}
+
+\begin{DoxyItemize}
+\item {\ttfamily dir} (required) -\/ the path to the directory where the extracted files are written
+\item {\ttfamily default\+Dir\+Mode} -\/ integer -\/ Directory Mode (permissions), defaults to {\ttfamily 0o755}
+\item {\ttfamily default\+File\+Mode} -\/ integer -\/ File Mode (permissions), defaults to {\ttfamily 0o644}
+\item {\ttfamily on\+Entry} -\/ function -\/ if present, will be called with {\ttfamily (entry, zipfile)}, entry is every entry from the zip file forwarded from the {\ttfamily entry} event from yauzl. {\ttfamily zipfile} is the {\ttfamily yauzl} instance
+\end{DoxyItemize}
+
+Default modes are only used if no permissions are set in the zip file.\hypertarget{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md493}{}\doxysubsection{\texorpdfstring{CLI Usage}{CLI Usage}}\label{dir_cfc221be2e3eea78568fbe669f71f0eb_autotoc_md493}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{extract-\/zip\ foo.zip\ <targetDirectory>}
+
+\end{DoxyCode}
+
+
+If not specified, {\ttfamily target\+Directory} will default to {\ttfamily process.\+cwd()}. 

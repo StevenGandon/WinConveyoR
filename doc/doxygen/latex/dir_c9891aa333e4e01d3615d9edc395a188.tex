@@ -1,0 +1,59 @@
+\doxysection{gui/node\+\_\+modules/globalthis Directory Reference}
+\hypertarget{dir_c9891aa333e4e01d3615d9edc395a188}{}\label{dir_c9891aa333e4e01d3615d9edc395a188}\index{gui/node\_modules/globalthis Directory Reference@{gui/node\_modules/globalthis Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_c9891aa333e4e01d3615d9edc395a188_autotoc_md725}{}\doxysubsection{\texorpdfstring{global\+This \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}npm-\/url\mbox{]}}}{global\+This \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}npm-\/url\mbox{]}}}}\label{dir_c9891aa333e4e01d3615d9edc395a188_autotoc_md725}
+\href{https://github.com/es-shims/globalThis/actions}{\texttt{}} \href{https://app.codecov.io/gh/es-shims/globalThis/}{\texttt{}} \href{https://david-dm.org/ljharb/globalThis}{\texttt{}} \href{https://david-dm.org/ljharb/globalThis\#info=devDependencies}{\texttt{}} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=globalthis}{\texttt{}}
+
+\href{https://npmjs.org/package/globalthis}{\texttt{}}
+
+An ECMAScript spec-\/compliant polyfill/shim for {\ttfamily global\+This}. Invoke its "{}shim"{} method to shim {\ttfamily global\+This} if it is unavailable.
+
+This package implements the \href{https://github.com/es-shims/api}{\texttt{es-\/shim API}} interface. It works in an ES3-\/supported environment and complies with the \href{https://github.com/tc39/proposal-global}{\texttt{spec proposal}}.
+
+Most common usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ globalThis\ =\ require('globalthis')();\ //\ returns\ native\ globalThis\ if\ compliant}
+\DoxyCodeLine{\ \ \ \ /*\ or\ */}
+\DoxyCodeLine{var\ globalThis\ =\ require('globalthis/polyfill')();\ //\ returns\ native\ globalThis\ if\ compliant}
+
+\end{DoxyCode}
+\hypertarget{dir_c9891aa333e4e01d3615d9edc395a188_autotoc_md726}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{dir_c9891aa333e4e01d3615d9edc395a188_autotoc_md726}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ the\ below\ function\ is\ not\ CSP-\/compliant,\ but\ reliably\ gets\ the}
+\DoxyCodeLine{//\ global\ object\ in\ sloppy\ mode\ in\ every\ engine.}
+\DoxyCodeLine{var\ getGlobal\ =\ Function('return\ this');}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.equal(globalThis,\ getGlobal());}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/*\ when\ \`{}globalThis`\ is\ not\ present\ */}
+\DoxyCodeLine{var\ shimmedGlobal\ =\ require('globalthis').shim();}
+\DoxyCodeLine{\ \ \ \ /*\ or\ */}
+\DoxyCodeLine{var\ shimmedGlobal\ =\ require('globalthis/shim')();}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.equal(shimmedGlobal,\ globalThis);}
+\DoxyCodeLine{assert.equal(shimmedGlobal,\ getGlobal());}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/*\ when\ \`{}globalThis`\ is\ present\ */}
+\DoxyCodeLine{var\ shimmedGlobal\ =\ require('globalthis').shim();}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.equal(shimmedGlobal,\ globalThis);}
+\DoxyCodeLine{assert.equal(shimmedGlobal,\ getGlobal());}
+
+\end{DoxyCode}
+\hypertarget{dir_c9891aa333e4e01d3615d9edc395a188_autotoc_md727}{}\doxysubsection{\texorpdfstring{Tests}{Tests}}\label{dir_c9891aa333e4e01d3615d9edc395a188_autotoc_md727}
+Simply clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

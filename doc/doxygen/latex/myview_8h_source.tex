@@ -1,0 +1,96 @@
+\doxysection{myview.\+h}
+\hypertarget{myview_8h_source}{}\label{myview_8h_source}\index{Beamage/myview.h@{Beamage/myview.h}}
+\mbox{\hyperlink{myview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QGraphicsView>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}ui\_myview.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <qcursor.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{abstractimage_8h}{abstractimage.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}qprinter.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}qpainter.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmyView_a2149366aadf2f2e31a38366a244775aa}{myView}}\ :\ \textcolor{keyword}{public}\ QGraphicsView}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classmyView_a2149366aadf2f2e31a38366a244775aa}{myView}}(QWidget\ *parent\ =\ 0);}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classmyView_a2149366aadf2f2e31a38366a244775aa}{myView}}(QGraphicsScene\ *scene,\ QWidget\ *parent\ =\ 0);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classmyView_a674a35d75d4c28319979bcda14c70230}{myView}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmyView_a2149366aadf2f2e31a38366a244775aa}{myView}}\ \&view)\ \{\}}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classmyView_ad2e542d843db62495d9ab552c8e93ba8}{\string~myView}}();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classmyView_af153a2a078f1791de28f30bf8be39589}{getScale}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fScale;\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a3e1c49353d2e3ae87728f33525e2c177}{setScale}}(\textcolor{keywordtype}{double}\ scale);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a4f8d7427ded415a9bada174dbf5b727d}{createContextMenu}}();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_ab23ed4ae049d533659c60c6dd8d91edf}{associateImage}}(\mbox{\hyperlink{classAbstractImage}{AbstractImage}}*\ img)\ \{\ fassociatedImage\ =\ img;\ fNdpi\ =\ 25400.\ /\ img-\/>\mbox{\hyperlink{classAbstractImage_a4a4ce20af85ef61bf30b585822721511}{getPixelSize}}();\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}*\ \mbox{\hyperlink{classmyView_a511e79155d1b272545d4993e5fb8ccc1}{getAssociatedImage}}()\ \{\ \textcolor{keywordflow}{return}\ fassociatedImage;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classmyView_adfbb2235790f8ba6b09fabbece156f35}{getNdpi}}()\ \{\ \textcolor{keywordflow}{return}\ fNdpi;\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_aa355e8a5250c4221fa7180eebcad910b}{print}}(QPrinter\ *printer);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a11db184dec1e62ef2fecaf7a939a1108}{render}}(QPainter\ *\ painter,\ \textcolor{keyword}{const}\ QRectF\ \&\ target\ =\ QRectF(),\ \textcolor{keyword}{const}\ QRect\ \&\ source\ =\ QRect(),\ Qt::AspectRatioMode\ aspectRatioMode\ =\ Qt::KeepAspectRatio);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a64735a9c8b6e000139bdb5dd5720c425}{setSmooth}}(\textcolor{keywordtype}{bool}\ val)\ \{\ fSmooth\ =\ val;\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyView_a382b7e8cecf67e51e334ad6f5863d049}{smooth}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fSmooth;\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyView_a53e0c92bdb96c5979fbf06d4caec672b}{zoom}}(\textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyView_aa65749098e0bba6d7706ed0755f2b6ea}{zoomIn}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyView_ac67c20ca534b2d07bca48289a824c684}{zoomOut}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_aa764ee9c94c9f4a3334085d24e92d888}{setCurrentCursor}}(\textcolor{keyword}{const}\ QCursor\ \&cursor);}
+\DoxyCodeLine{00039\ \ \ \ \ QCursor\ \mbox{\hyperlink{classmyView_aac65ea5f15004ffa6e9ede8a9d64dda5}{currentCursor}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fCurrentCursor;\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_ae96fa3d7eb0037b378bb1631b47c7dcb}{setBackground}}(\textcolor{keyword}{const}\ QImage\ \&img);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_adc305bf2cf79705ee6777e49ed753066}{updateBackground}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a705c70266af4b725296299c2f52eb7e9}{rotateImageClockwise}}();}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a4387f02ec298bac2fa5081453851e73c}{rotateImageAntiClockwise}}();}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_ab30ecdda195b845ebba73b213d86768a}{HFlipImage}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_aea2dac79ec1ea21811a66eb5baaa4c3e}{VFlipImage}}();}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_ac23c512fda7571925ce39237e91e8898}{zoomSceneToFit}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ signals:}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_adaef2af67827195aa8719478deef7913}{mousePosition}}(\textcolor{keywordtype}{double}\ px,\ \textcolor{keywordtype}{double}\ py);}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//void\ visibleAera(QRectF\ exposed);}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a98a349080bb7f8e968089e8abccea277}{wheelEvent}}(QWheelEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a802eb27a42e8818ce47e5a406609c3d4}{mousePressEvent}}(QMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_ab0e41527ff1a6cabc60950062bb0d0ed}{mouseMoveEvent}}(QMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_add546865ab5e9df025b4f7e86d0d29ae}{mouseReleaseEvent}}(QMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_abae2ac4c4e906ceb8c085793c06c2c4d}{drawBackground}}(QPainter\ *painter,\ \textcolor{keyword}{const}\ QRectF\ \&rect)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_ace5ccc3cd0b11f2edf707fcb196f754a}{enterEvent}}(QEvent\ *event);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a2d65c1052e77e4847aac509613ba6f89}{keyPressEvent}}(QKeyEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a02dcdaa03508f185bfbd360ad0ec4437}{keyReleaseEvent}}(QKeyEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyView_a8cde032f7e24c3838b2f66077e7f85e3}{showEvent}}(QShowEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ printHeader(QPainter\ \&painter,\ \textcolor{keyword}{const}\ QRectF\ \&headerArea,\ \textcolor{keyword}{const}\ QString\ \&headerText);}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ printFooter(QPainter\ \&painter,\ \textcolor{keyword}{const}\ QRectF\ \&footerArea,\ \textcolor{keyword}{const}\ QString\ \&footerText);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ QRectF\ mappedSceneRect()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ sceneNeedSave();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ Ui::myView\ ui;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{double}\ fScale;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{double}\ fNdpi;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{double}\ fAngle;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{bool}\ fSmooth;}
+\DoxyCodeLine{00079\ \ \ \ \ QPointF\ fOffset;}
+\DoxyCodeLine{00080\ \ \ \ \ QPointF\ flastDragPos;}
+\DoxyCodeLine{00081\ \ \ \ \ QImage\ fBack;}
+\DoxyCodeLine{00082\ \ \ \ \ QMenu\ *fMenu;}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}\ *fassociatedImage;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ firstShow;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ QCursor\ fCurrentCursor;}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ QDataStream\ \&\mbox{\hyperlink{myview_8h_a7943147418198556adb57d81173e522f}{operator<<}}(QDataStream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmyView}{myView}}\ \&myObj);}
+\DoxyCodeLine{00090\ QDataStream\ \&\mbox{\hyperlink{myview_8h_aafc4f48c0b8d93c0024ed15612ef92a0}{operator>>}}(QDataStream\ \&in,\ \mbox{\hyperlink{classmyView}{myView}}\ \&myObj);}
+
+\end{DoxyCode}

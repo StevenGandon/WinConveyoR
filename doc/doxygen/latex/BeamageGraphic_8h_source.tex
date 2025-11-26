@@ -1,0 +1,81 @@
+\doxysection{Beamage\+Graphic.\+h}
+\hypertarget{BeamageGraphic_8h_source}{}\label{BeamageGraphic_8h_source}\index{BeamageGraphic/BeamageGraphic.h@{BeamageGraphic/BeamageGraphic.h}}
+\mbox{\hyperlink{BeamageGraphic_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <qstring.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <qobject.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QMdiSubWindow>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QMutex>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage}{Beamage}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage_1_1Graphic}{Graphic}}\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ae257244a5605c31a1eeb25df506f6c3f}{WINDOW\_INIT\_FLAGS}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ae257244a5605c31a1eeb25df506f6c3fa4b00ce674a093f9f045ba43305cd9957}{WIN\_INIT\_NONE}}\ =\ 0}
+\DoxyCodeLine{00020\ \ \ \ \ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ QString\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(\textcolor{keyword}{const}\ std::string\&\ str)\ \{\ \textcolor{keywordflow}{return}\ (QString(str.c\_str()));\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_aab867b17fd9e37ae85f12a3ce4d6cd73}{showError}}(\textcolor{keyword}{const}\ std::string\&\ title,\ \textcolor{keyword}{const}\ std::string\&\ description)\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ QMessageBox::critical(\textcolor{keyword}{nullptr},\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(title),\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(description));}
+\DoxyCodeLine{00042\ \ \ \ \ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_a70147e07ee20b5ed0c3c3ec695f0d76a}{showWarning}}(\textcolor{keyword}{const}\ std::string\&\ title,\ \textcolor{keyword}{const}\ std::string\&\ description)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ QMessageBox::warning(\textcolor{keyword}{nullptr},\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(title),\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(description));}
+\DoxyCodeLine{00054\ \ \ \ \ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_af04c45dc09b337ce0a1c26bcd16eb856}{showInformation}}(\textcolor{keyword}{const}\ std::string\&\ title,\ \textcolor{keyword}{const}\ std::string\&\ description)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ QMessageBox::information(\textcolor{keyword}{nullptr},\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(title),\ \mbox{\hyperlink{namespaceBeamage_1_1Graphic_ad26367fbaac271ae6a5c1ca7a42a8552}{stringToQTString}}(description));}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1Graphic_1_1Window_a99c3880c6a20e1fcdaace2b7206c9c12}{Window}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1Window_a99c3880c6a20e1fcdaace2b7206c9c12}{Window}}(\textcolor{keyword}{const}\ std::string\&\ name\ =\ \textcolor{stringliteral}{"{}main\ window"{}},\ uint64\_t\ flags\ =\ 0,\ \textcolor{keywordtype}{void}*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1Window_a685d9661a512fa2e05e46dea7e9b378d}{setName}}(\textcolor{keyword}{const}\ std::string\&\ name);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1Window_ab5aa408560fa10d909549ff2e1abfb4c}{getName}}(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1Window_a79833654aae9dea2ec15a65cdb0c4265}{getFlag}}(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ Qt::WindowFlags\ \_build\_qtwin\_flags(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::string\ \_name;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ uint64\_t\ \_flags;}
+\DoxyCodeLine{00091\ \ \ \ \ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1Graphic_1_1SubWindow_ac7e40ce7eec524b2c3e69cea4ce23c2d}{SubWindow}}\ :\ \textcolor{keyword}{public}\ QMdiSubWindow}
+\DoxyCodeLine{00101\ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1SubWindow_ac7e40ce7eec524b2c3e69cea4ce23c2d}{SubWindow}}(\textcolor{keyword}{const}\ std::string\&\ name\ =\ \textcolor{stringliteral}{"{}sub\ window"{}},\ uint64\_t\ flags\ =\ 0,\ \textcolor{keywordtype}{void}*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1SubWindow_ac15cb91bd8ea40367d2f2e1b26b84b33}{setName}}(\textcolor{keyword}{const}\ std::string\&\ name);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1SubWindow_a96c9914e3c2339c667bba85219d86b9b}{getName}}(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1Graphic_1_1SubWindow_af3a2dd3a1fb5f1b5ffe7b7c803a9aebf}{getFlag}}(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ Qt::WindowFlags\ \_build\_qtwin\_flags(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ std::string\ \_name;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ uint64\_t\ \_flags;}
+\DoxyCodeLine{00116\ \ \ \ \ \};}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ \}}
+
+\end{DoxyCode}

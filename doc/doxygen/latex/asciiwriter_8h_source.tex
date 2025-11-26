@@ -1,0 +1,62 @@
+\doxysection{asciiwriter.\+h}
+\hypertarget{asciiwriter_8h_source}{}\label{asciiwriter_8h_source}\index{Beamage/asciiwriter.h@{Beamage/asciiwriter.h}}
+\mbox{\hyperlink{asciiwriter_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <qlist.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <qpolygon.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <qfile.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <qtextstream.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <TEntryList.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <qmap.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <qstring.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classasciiWriter_a97d375b81d0035c65847f00a45bd48ef}{asciiWriter}}\ :\ \textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classasciiWriter_a97d375b81d0035c65847f00a45bd48ef}{asciiWriter}}(QObject\ *parent);}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classasciiWriter_ac5ca07c34784051b49348b2bdf599aa7}{\string~asciiWriter}}();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a558c940afdfc2538a0f60a358506dcda}{setOutputFormat}}(\textcolor{keyword}{const}\ QString\ \&format)\ \{\ fOutputFormat\ =\ format;\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a43388d25ad0ff4152b1e572b8c5242e5}{setOutputFilename}}(\textcolor{keyword}{const}\ QString\ \&filename)\ \{\ fOutputFilename\ =\ filename;\}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a3050706f4120bf1c456b0ca76ef3a9bc}{setDafFilename}}(\textcolor{keyword}{const}\ QString\ \&filename)\ \{\ fDafFilename\ =\ filename;\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_ad3d87e340a5b1bfb39b9713f91404074}{setSeparator}}(\textcolor{keyword}{const}\ QString\ \&separator)\ \{\ fSeparator\ =\ separator;\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_aeac4f735b202f378f399394eed1cc4cf}{limitEntries}}(\textcolor{keywordtype}{int}\ value)\ \{\ fLimitEntries\ =\ value;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a4f2d874a452245dc1dd4460c63a4c3bb}{exportRootEntryList}}(\textcolor{keywordtype}{bool}\ val)\ \{\ fROOTEntryList\ =\ val;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a70a941c70fde8095b7debf56611e1271}{write}}();}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a48d51d9e1b7305cda252c591e92909ea}{writeRootCutG}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a6b3d561a1c48116b80d6c21b59772a54}{setSelection}}(\textcolor{keyword}{const}\ QList<QPolygonF>\ \&selection)\ \{\ fSelectedArea\ =\ selection;\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a53dbfb9aeaa48a82c74cc27f6e4c3914}{setSelectionName}}(\textcolor{keyword}{const}\ QList<QString>\ names)\ \{\ fNameOfSelectedArea\ =\ names;\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_af8810885c5cda5c6fc3ca851383458ae}{setSelectionTitle}}(\textcolor{keyword}{const}\ QList<QString>\ names)\ \{\ fTitleOfSelectedArea\ =\ names;\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classasciiWriter_a70a941c70fde8095b7debf56611e1271}{write}}(\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ charge,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ time,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ eventNumber);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ writeFormat();}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ decodeFormat();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ QString\ fOutputFormat;}
+\DoxyCodeLine{00040\ \ \ \ \ QString\ fDafFilename;}
+\DoxyCodeLine{00041\ \ \ \ \ QString\ fOutputFilename;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ fLimitEntries;}
+\DoxyCodeLine{00043\ \ \ \ \ QList<QPolygonF>\ fSelectedArea;}
+\DoxyCodeLine{00044\ \ \ \ \ QList<QString>\ fNameOfSelectedArea;}
+\DoxyCodeLine{00045\ \ \ \ \ QList<QString>\ fTitleOfSelectedArea;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ QFile\ fFile;}
+\DoxyCodeLine{00048\ \ \ \ \ QTextStream\ fIn;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ fROOTEntryList;}
+\DoxyCodeLine{00051\ \ \ \ \ TEntryList*\ fEntryList;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ QString\ fSeparator;}
+\DoxyCodeLine{00054\ \ \ \ \ QMap<QString,\ int>\ fWriteParam;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ fNParam;}
+\DoxyCodeLine{00056\ \};}
+
+\end{DoxyCode}

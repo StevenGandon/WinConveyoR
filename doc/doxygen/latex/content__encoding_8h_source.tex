@@ -1,0 +1,40 @@
+\doxysection{content\+\_\+encoding.\+h}
+\hypertarget{content__encoding_8h_source}{}\label{content__encoding_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/content\_encoding.h@{lib/libwconr/build/\_deps/curl-\/src/lib/content\_encoding.h}}
+\mbox{\hyperlink{content__encoding_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_CONTENT\_ENCODING\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_CONTENT\_ENCODING\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}}\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontent__encoding}{content\_encoding}}\ *\mbox{\hyperlink{structcontenc__writer_a816253d78aa81d24e6ee49fac36fcfb7}{handler}};\ \ \textcolor{comment}{/*\ Encoding\ handler.\ */}}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}}\ *\mbox{\hyperlink{structcontenc__writer_a63f49ca1553d3f71952a1d46117b05cf}{downstream}};\ \ \textcolor{comment}{/*\ Downstream\ writer.\ */}}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*\ Content\ encoding\ writer.\ */}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontent__encoding}{content\_encoding}}\ \{}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcontent__encoding_a3507daef50127c73647dc9b19e9580db}{name}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Encoding\ name.\ */}}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcontent__encoding_adca5cfc9c7c969ee7cd7137042a9be7f}{alias}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Encoding\ name\ alias.\ */}}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structcontent__encoding_afe5914c50695d02e9d95dba77a3b2913}{init\_writer}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}}\ *\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}});}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structcontent__encoding_a38aac769c5a4156cba3a025e9469b6a7}{unencode\_write}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}}\ *\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}},}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ nbytes);}
+\DoxyCodeLine{00042\ \ \ void\ (*\mbox{\hyperlink{structcontent__encoding_a28a8df771ded22be44b52517eaa9a9c7}{close\_writer}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcontenc__writer}{contenc\_writer}}\ *\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}});}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structcontent__encoding_a6a1579c8ab6f398a37d95a1cd4e05edc}{writersize}};}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{content__encoding_8h_a381846c71942ddde72b8f6dd10df6d53}{Curl\_build\_unencoding\_stack}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *enclist,\ \textcolor{keywordtype}{int}\ maybechunked);}
+\DoxyCodeLine{00050\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{content__encoding_8h_a9fc1d604c69a42283abe54c6c4b335d0}{Curl\_unencode\_write}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcontenc__writer}{contenc\_writer}}\ *\mbox{\hyperlink{htmltitle_8cpp_a0c75caf304f33bf226e09922d61464d4}{writer}},}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ nbytes);}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{content__encoding_8h_ab8f8fe5a9d847d73c5d949cce471595e}{Curl\_unencode\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{content__encoding_8h_a14ccd76a74cb608720344bcaa319bfbf}{Curl\_all\_content\_encodings}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_CONTENT\_ENCODING\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

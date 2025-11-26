@@ -1,0 +1,168 @@
+\doxysection{gui/node\+\_\+modules/fd-\/slicer Directory Reference}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363}{}\label{dir_4c7a1967c537388a5dd9b3a59e06e363}\index{gui/node\_modules/fd-\/slicer Directory Reference@{gui/node\_modules/fd-\/slicer Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md505}{}\doxysubsection{\texorpdfstring{fd-\/slicer}{fd-\/slicer}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md505}
+\href{https://travis-ci.org/andrewrk/node-fd-slicer}{\texttt{}}
+
+Safe {\ttfamily fs.\+Read\+Stream} and {\ttfamily fs.\+Write\+Stream} using the same fd.
+
+Let\textquotesingle{}s say that you want to perform a parallel upload of a file to a remote server. To do this, we want to create multiple read streams. The first thing you might think of is to use the {\ttfamily \{start\+: 0, end\+: 0\}} API of {\ttfamily fs.\+create\+Read\+Stream}. This gives you two choices\+:
+
+
+\begin{DoxyEnumerate}
+\item Use the same file descriptor for all {\ttfamily fs.\+Read\+Stream} objects.
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Open the file multiple times, resulting in a separate file descriptor for each read stream.
+\end{DoxyEnumerate}
+
+Neither of these are acceptable options. The first one is a severe bug, because the API docs for {\ttfamily fs.\+write} state\+:
+
+\begin{quote}
+Note that it is unsafe to use {\ttfamily fs.\+write} multiple times on the same file without waiting for the callback. For this scenario, {\ttfamily fs.\+create\+Write\+Stream} is strongly recommended. \end{quote}
+
+
+{\ttfamily fs.\+create\+Write\+Stream} will solve the problem if you only create one of them for the file descriptor, but it will exhibit this unsafety if you create multiple write streams per file descriptor.
+
+The second option suffers from a race condition. For each additional time the file is opened after the first, it is possible that the file is modified. So in our parallel uploading example, we might upload a corrupt file that never existed on the client\textquotesingle{}s computer.
+
+This module solves this problem by providing {\ttfamily create\+Read\+Stream} and {\ttfamily create\+Write\+Stream} that operate on a shared file descriptor and provides the convenient stream API while still allowing slicing and dicing.
+
+This module also gives you some additional power that the builtin {\ttfamily fs.\+create\+Write\+Stream} do not give you. These features are\+:
+
+
+\begin{DoxyItemize}
+\item Emitting a \textquotesingle{}progress\textquotesingle{} event on write.
+\item Ability to set a maximum size and emit an error if this size is exceeded.
+\item Ability to create an {\ttfamily Fd\+Slicer} instance from a {\ttfamily Buffer}. This enables you to provide API for handling files as well as buffers using the same API.
+\end{DoxyItemize}\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md506}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md506}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ fdSlicer\ =\ require('fd-\/slicer');}
+\DoxyCodeLine{var\ fs\ =\ require('fs');}
+\DoxyCodeLine{}
+\DoxyCodeLine{fs.open("{}file.txt"{},\ 'r',\ function(err,\ fd)\ \{}
+\DoxyCodeLine{\ \ if\ (err)\ throw\ err;}
+\DoxyCodeLine{\ \ var\ slicer\ =\ fdSlicer.createFromFd(fd);}
+\DoxyCodeLine{\ \ var\ firstPart\ =\ slicer.createReadStream(\{start:\ 0,\ end:\ 100\});}
+\DoxyCodeLine{\ \ var\ secondPart\ =\ slicer.createReadStream(\{start:\ 100\});}
+\DoxyCodeLine{\ \ var\ firstOut\ =\ fs.createWriteStream("{}first.txt"{});}
+\DoxyCodeLine{\ \ var\ secondOut\ =\ fs.createWriteStream("{}second.txt"{});}
+\DoxyCodeLine{\ \ firstPart.pipe(firstOut);}
+\DoxyCodeLine{\ \ secondPart.pipe(secondOut);}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+You can also create from a buffer\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ fdSlicer\ =\ require('fd-\/slicer');}
+\DoxyCodeLine{var\ slicer\ =\ FdSlicer.createFromBuffer(someBuffer);}
+\DoxyCodeLine{var\ firstPart\ =\ slicer.createReadStream(\{start:\ 0,\ end:\ 100\});}
+\DoxyCodeLine{var\ secondPart\ =\ slicer.createReadStream(\{start:\ 100\});}
+\DoxyCodeLine{var\ firstOut\ =\ fs.createWriteStream("{}first.txt"{});}
+\DoxyCodeLine{var\ secondOut\ =\ fs.createWriteStream("{}second.txt"{});}
+\DoxyCodeLine{firstPart.pipe(firstOut);}
+\DoxyCodeLine{secondPart.pipe(secondOut);}
+
+\end{DoxyCode}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md507}{}\doxysubsection{\texorpdfstring{API Documentation}{API Documentation}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md507}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md508}{}\doxysubsubsection{\texorpdfstring{fd\+Slicer.\+create\+From\+Fd(fd, \mbox{[}options\mbox{]})}{fd\+Slicer.\+create\+From\+Fd(fd, \mbox{[}options\mbox{]})}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md508}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ fdSlicer\ =\ require('fd-\/slicer');}
+\DoxyCodeLine{fs.open("{}file.txt"{},\ 'r',\ function(err,\ fd)\ \{}
+\DoxyCodeLine{\ \ if\ (err)\ throw\ err;}
+\DoxyCodeLine{\ \ var\ slicer\ =\ fdSlicer.createFromFd(fd);}
+\DoxyCodeLine{\ \ //\ ...}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+Make sure {\ttfamily fd} is a properly initialized file descriptor. If you want to use {\ttfamily create\+Read\+Stream} make sure you open it for reading and if you want to use {\ttfamily create\+Write\+Stream} make sure you open it for writing.
+
+{\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} is an optional object which can contain\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily auto\+Close} -\/ if set to {\ttfamily true}, the file descriptor will be automatically closed once the last stream that references it is closed. Defaults to {\ttfamily false}. {\ttfamily ref()} and {\ttfamily unref()} can be used to increase or decrease the reference count, respectively.
+\end{DoxyItemize}\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md509}{}\doxysubsubsection{\texorpdfstring{fd\+Slicer.\+create\+From\+Buffer(buffer, \mbox{[}options\mbox{]})}{fd\+Slicer.\+create\+From\+Buffer(buffer, \mbox{[}options\mbox{]})}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md509}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ fdSlicer\ =\ require('fd-\/slicer');}
+\DoxyCodeLine{var\ slicer\ =\ fdSlicer.createFromBuffer(someBuffer);}
+\DoxyCodeLine{//\ ...}
+
+\end{DoxyCode}
+
+
+{\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} is an optional object which can contain\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily max\+Chunk\+Size} -\/ A {\ttfamily Number} of bytes. see {\ttfamily create\+Read\+Stream()}. If falsey, defaults to unlimited.
+\end{DoxyItemize}\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md510}{}\doxysubsubsubsection{\texorpdfstring{Properties}{Properties}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md510}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md511}{}\doxysubsubsubsubsection{\texorpdfstring{fd}{fd}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md511}
+The file descriptor passed in. {\ttfamily undefined} if created from a buffer.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md512}{}\doxysubsubsubsection{\texorpdfstring{Methods}{Methods}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md512}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md513}{}\doxysubsubsubsubsection{\texorpdfstring{create\+Read\+Stream(options)}{create\+Read\+Stream(options)}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md513}
+Available {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily start} -\/ Number. The offset into the file to start reading from. Defaults to 0.
+\item {\ttfamily end} -\/ Number. Exclusive upper bound offset into the file to stop reading from.
+\item {\ttfamily high\+Water\+Mark} -\/ Number. The maximum number of bytes to store in the internal buffer before ceasing to read from the underlying resource. Defaults to 16 KB.
+\item {\ttfamily \doxylink{compressed_8d_ac0773d551ebc1033cd05b56897a6c744}{encoding}} -\/ String. If specified, then buffers will be decoded to strings using the specified encoding. Defaults to {\ttfamily null}.
+\end{DoxyItemize}
+
+The Readable\+Stream that this returns has these additional methods\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily destroy(err)} -\/ stop streaming. {\ttfamily err} is optional and is the error that will be emitted in order to cause the streaming to stop. Defaults to {\ttfamily new Error("{}\doxylink{data-binary_8d_a73d1d2257c0428f3cbe588f0ac996fad}{stream} destroyed"{})}.
+\end{DoxyItemize}
+
+If {\ttfamily max\+Chunk\+Size} was specified (see {\ttfamily create\+From\+Buffer()}), the read stream will provide chunks of at most that size. Normally, the read stream provides the entire range requested in a single chunk, but this can cause performance problems in some circumstances. See \href{https://github.com/thejoshwolfe/yauzl/issues/87}{\texttt{thejoshwolfe/yauzl\#87}}.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md514}{}\doxysubsubsubsubsection{\texorpdfstring{create\+Write\+Stream(options)}{create\+Write\+Stream(options)}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md514}
+Available {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}}\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily start} -\/ Number. The offset into the file to start writing to. Defaults to 0.
+\item {\ttfamily end} -\/ Number. Exclusive upper bound offset into the file. If this offset is reached, the write stream will emit an \textquotesingle{}error\textquotesingle{} event and stop functioning. In this situation, {\ttfamily err.\+code === \textquotesingle{}ETOOBIG\textquotesingle{}}. Defaults to {\ttfamily Infinity}.
+\item {\ttfamily high\+Water\+Mark} -\/ Number. Buffer level when {\ttfamily write()} starts returning false. Defaults to 16KB.
+\item {\ttfamily decode\+Strings} -\/ Boolean. Whether or not to decode strings into Buffers before passing them to{\ttfamily  \+\_\+write()}. Defaults to {\ttfamily true}.
+\end{DoxyItemize}
+
+The Writable\+Stream that this returns has these additional methods\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily destroy()} -\/ stop streaming
+\end{DoxyItemize}
+
+And these additional properties\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily bytes\+Written} -\/ number of bytes written to the stream
+\end{DoxyItemize}
+
+And these additional events\+:
+
+
+\begin{DoxyItemize}
+\item \textquotesingle{}progress\textquotesingle{} -\/ emitted when {\ttfamily bytes\+Written} changes.
+\end{DoxyItemize}\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md515}{}\doxysubsubsubsubsection{\texorpdfstring{read(buffer, offset, length, position, callback)}{read(buffer, offset, length, position, callback)}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md515}
+Equivalent to {\ttfamily fs.\+read}, but with concurrency protection. {\ttfamily callback} must be defined.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md516}{}\doxysubsubsubsubsection{\texorpdfstring{write(buffer, offset, length, position, callback)}{write(buffer, offset, length, position, callback)}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md516}
+Equivalent to {\ttfamily fs.\+write}, but with concurrency protection. {\ttfamily callback} must be defined.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md517}{}\doxysubsubsubsubsection{\texorpdfstring{ref()}{ref()}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md517}
+Increase the {\ttfamily auto\+Close} reference count by 1.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md518}{}\doxysubsubsubsubsection{\texorpdfstring{unref()}{unref()}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md518}
+Decrease the {\ttfamily auto\+Close} reference count by 1.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md519}{}\doxysubsubsubsection{\texorpdfstring{Events}{Events}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md519}
+\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md520}{}\doxysubsubsubsubsection{\texorpdfstring{\textquotesingle{}error\textquotesingle{}}{\textquotesingle{}error\textquotesingle{}}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md520}
+Emitted if {\ttfamily fs.\+close} returns an error when auto closing.\hypertarget{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md521}{}\doxysubsubsubsubsection{\texorpdfstring{\textquotesingle{}close\textquotesingle{}}{\textquotesingle{}close\textquotesingle{}}}\label{dir_4c7a1967c537388a5dd9b3a59e06e363_autotoc_md521}
+Emitted when fd-\/slicer closes the file descriptor due to {\ttfamily auto\+Close}. Never emitted if created from a buffer. 

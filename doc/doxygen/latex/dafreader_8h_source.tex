@@ -1,0 +1,91 @@
+\doxysection{dafreader.\+h}
+\hypertarget{dafreader_8h_source}{}\label{dafreader_8h_source}\index{Beamage/dafreader.h@{Beamage/dafreader.h}}
+\mbox{\hyperlink{dafreader_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dafheader_8h}{dafheader.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{event__structure_8h}{event\_structure.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QFileInfoList>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{entrylist_8h}{entrylist.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ EVENTTAB\ 256000}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdafReader_a0099611a67ed13dc2faa1b84f95c0e35}{dafReader}}\ :\ \textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classdafReader_a0099611a67ed13dc2faa1b84f95c0e35}{dafReader}}(QObject\ *parent);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classdafReader_a6cb3776896a0624cfef75cdd67e47bdc}{\string~dafReader}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ QString\ \mbox{\hyperlink{classdafReader_a97233d35d99e57ca0cd6f08f3e76546b}{getFilename}}()\ \{\ \ \textcolor{keywordflow}{return}\ fFilename;\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafReader_adaab470ace8d604e5192967288c772d9}{readEvents}}(\textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_a7fa652674ca97f574cffc8388363f177}{setEntryList}}(\mbox{\hyperlink{classentryList}{entryList}}*\ list\ =\ \textcolor{keyword}{nullptr})\ \{\ fEntryList\ =\ list;\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafReader_a3237de645b0977aca9de77dcce4d2d83}{nFiles}}()\ \{\ \textcolor{keywordflow}{return}\ fnFiles;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ QStringList\ \mbox{\hyperlink{classdafReader_a6da005415e87663c8769dec8a4eb8a5e}{filesfound}}()\ \{\ \textcolor{keywordflow}{return}\ flistdafFiles;\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_a80742c37bd3c0ffcc7ece49aa344ed6d}{jumpTo}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ pos);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdafReader_a02042316863ba28e381c2dc56ddc742b}{goodFile}}();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//events\_v3\ evOut;}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//events\_v3\ *evOuts;}}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{structevents__out}{events\_out}}\ \mbox{\hyperlink{classdafReader_a06d40d32a59d5d5a8b97fdba8a2d7cfb}{evOut}};}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{structevents__out}{events\_out}}*\ \mbox{\hyperlink{classdafReader_a1e4d6b01716bcf45031be09adf74ccab}{evOuts}};}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classdafHeader}{dafHeader}}\ \mbox{\hyperlink{classdafReader_a84970e9dbfbee59de58bcebf7b3ea89b}{head}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ signals:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_a72ee29334f39c368298e477cc655f01a}{headerContent}}(\textcolor{keyword}{const}\ QString\ \&str);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_afebdc1006d82248011de550b04412380}{currentfilename}}(\textcolor{keyword}{const}\ QString\ \&str);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_ae4392da5cfd538700252678405320500}{setFilename}}(QString\ str);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_ac68e92193be8e17fcb78cf70891cde68}{openFile}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_ac68e92193be8e17fcb78cf70891cde68}{openFile}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdafReader_ac9408c844c733375df210f371e50ca12}{openMainFile}}();}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classdafReader_a4dd350343178aecccf03900bc0a2489a}{openNextFile}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_a3317e991193dd2bb06068c5bc6e41321}{close}}();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafReader_a329d3fd6710ec6519984ec502c5e756c}{length}}()\ \{\ \textcolor{keywordflow}{return}\ fLength;\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafReader_ae2fa0ddb9badd8a75da750226a336811}{currentPos}}()\ \{\ \textcolor{keywordflow}{return}\ fCurrentPos;\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_a7d98dd439b40dd132173fd789da0a268}{rewind}}();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_a10969497f7679891b26d8a7833ec35de}{readHeader}}();}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafReader_ae123f6421f900895f44581a235f4f727}{readEvent}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{structevents__v0}{events\_v0}}\ ev0;}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{structevents__v1}{events\_v1}}\ ev1;}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{structevents__v2}{events\_v2}}\ ev2;}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{structevents__v3}{events\_v3}}\ ev3;}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{structevents__v4}{events\_v4}}\ ev4;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ QString\ fFilename;}
+\DoxyCodeLine{00066\ \ \ \ \ QString\ fCurrentFilename;}
+\DoxyCodeLine{00067\ \ \ \ \ QStringList\ flistdafFiles;}
+\DoxyCodeLine{00068\ \ \ \ \ QFileInfoList\ flistdafInfo;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ std::ifstream\ fIn;}
+\DoxyCodeLine{00071\ \ \ \ \ std::ofstream\ fOut;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{int}\ fVersion;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{int}\ fEventVersion;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ fLength;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ fCurrentLength;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ fCurrentPos;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{bool}\ fmultipleFile;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ fnFiles;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{int}\ fCurrentFile;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ fHeaderSize;}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{classentryList}{entryList}}*\ fEntryList;}
+\DoxyCodeLine{00085\ \};}
+
+\end{DoxyCode}

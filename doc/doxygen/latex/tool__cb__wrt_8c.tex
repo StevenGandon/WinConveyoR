@@ -1,0 +1,89 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+cb\+\_\+wrt.c File Reference}
+\hypertarget{tool__cb__wrt_8c}{}\label{tool__cb__wrt_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cb\_wrt.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cb\_wrt.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cb\+\_\+wrt.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+operate.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__cb__wrt_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__cb__wrt_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\+\_\+\+BINARY}}~0
+\item 
+\#define \mbox{\hyperlink{tool__cb__wrt_8c_a8ed6f952c2dd45782460cb42c8af66c9}{OPENMODE}}~S\+\_\+\+IRUSR \texorpdfstring{$\vert$}{|} S\+\_\+\+IWUSR \texorpdfstring{$\vert$}{|} S\+\_\+\+IRGRP \texorpdfstring{$\vert$}{|} S\+\_\+\+IWGRP \texorpdfstring{$\vert$}{|} S\+\_\+\+IROTH \texorpdfstring{$\vert$}{|} S\+\_\+\+IWOTH
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{tool__cb__wrt_8c_a555f5998ccd0086b6958e40d32c398ec}{tool\+\_\+create\+\_\+output\+\_\+file}} (struct \mbox{\hyperlink{structOutStruct}{Out\+Struct}} \texorpdfstring{$\ast$}{*}outs, struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+size\+\_\+t \mbox{\hyperlink{tool__cb__wrt_8c_ad4dcb270cb15f0b9f010d35035d461cb}{tool\+\_\+write\+\_\+cb}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t sz, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}userdata)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__cb__wrt_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__cb__wrt_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_cb\_wrt.c@{tool\_cb\_wrt.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_cb\_wrt.c@{tool\_cb\_wrt.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__cb__wrt_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__cb__wrt_8c_a36fa9b2e726512bc17a7a6d3e39002be}\index{tool\_cb\_wrt.c@{tool\_cb\_wrt.c}!O\_BINARY@{O\_BINARY}}
+\index{O\_BINARY@{O\_BINARY}!tool\_cb\_wrt.c@{tool\_cb\_wrt.c}}
+\doxysubsubsection{\texorpdfstring{O\_BINARY}{O\_BINARY}}
+{\footnotesize\ttfamily \label{tool__cb__wrt_8c_a36fa9b2e726512bc17a7a6d3e39002be} 
+\#define O\+\_\+\+BINARY~0}
+
+\Hypertarget{tool__cb__wrt_8c_a8ed6f952c2dd45782460cb42c8af66c9}\index{tool\_cb\_wrt.c@{tool\_cb\_wrt.c}!OPENMODE@{OPENMODE}}
+\index{OPENMODE@{OPENMODE}!tool\_cb\_wrt.c@{tool\_cb\_wrt.c}}
+\doxysubsubsection{\texorpdfstring{OPENMODE}{OPENMODE}}
+{\footnotesize\ttfamily \label{tool__cb__wrt_8c_a8ed6f952c2dd45782460cb42c8af66c9} 
+\#define OPENMODE~S\+\_\+\+IRUSR \texorpdfstring{$\vert$}{|} S\+\_\+\+IWUSR \texorpdfstring{$\vert$}{|} S\+\_\+\+IRGRP \texorpdfstring{$\vert$}{|} S\+\_\+\+IWGRP \texorpdfstring{$\vert$}{|} S\+\_\+\+IROTH \texorpdfstring{$\vert$}{|} S\+\_\+\+IWOTH}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__cb__wrt_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__cb__wrt_8c_a555f5998ccd0086b6958e40d32c398ec}\index{tool\_cb\_wrt.c@{tool\_cb\_wrt.c}!tool\_create\_output\_file@{tool\_create\_output\_file}}
+\index{tool\_create\_output\_file@{tool\_create\_output\_file}!tool\_cb\_wrt.c@{tool\_cb\_wrt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_create\_output\_file()}{tool\_create\_output\_file()}}
+{\footnotesize\ttfamily \label{tool__cb__wrt_8c_a555f5998ccd0086b6958e40d32c398ec} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} tool\+\_\+create\+\_\+output\+\_\+file (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOutStruct}{Out\+Struct}} \texorpdfstring{$\ast$}{*}}]{outs}{, }\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__cb__wrt_8c_ad4dcb270cb15f0b9f010d35035d461cb}\index{tool\_cb\_wrt.c@{tool\_cb\_wrt.c}!tool\_write\_cb@{tool\_write\_cb}}
+\index{tool\_write\_cb@{tool\_write\_cb}!tool\_cb\_wrt.c@{tool\_cb\_wrt.c}}
+\doxysubsubsection{\texorpdfstring{tool\_write\_cb()}{tool\_write\_cb()}}
+{\footnotesize\ttfamily \label{tool__cb__wrt_8c_ad4dcb270cb15f0b9f010d35035d461cb} 
+size\+\_\+t tool\+\_\+write\+\_\+cb (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{sz}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userdata}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

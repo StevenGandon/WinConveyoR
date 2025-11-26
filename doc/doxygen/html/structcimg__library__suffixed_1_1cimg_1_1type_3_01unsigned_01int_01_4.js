@@ -1,0 +1,25 @@
+var structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4 =
+[
+    [ "cut", "structcimg__library__suffixed_1_1cimg_1_1type.html#ab8b72e82c0f03c5494f32ccde25940f9", null ],
+    [ "cut", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#ac2a5f870a911680eddedb55c597d84fb", null ],
+    [ "format", "structcimg__library__suffixed_1_1cimg_1_1type.html#a960fc11ef116030f6ea1e219b2103c76", null ],
+    [ "format", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#ade6275fe27f8fc289ae8176d3318efdc", null ],
+    [ "format", "structcimg__library__suffixed_1_1cimg_1_1type.html#af0d0596c38db6b3616e759964f891b41", null ],
+    [ "format", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a593652a22fb4f158deffec436521a2cc", null ],
+    [ "format_s", "structcimg__library__suffixed_1_1cimg_1_1type.html#af1b2d4eb9d8c23e6ac849d7196c533dc", null ],
+    [ "format_s", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a3b51a826e8fbdc3b4bea3c424aac37d8", null ],
+    [ "inf", "structcimg__library__suffixed_1_1cimg_1_1type.html#ac818c4773392cc85c58676270d752f90", null ],
+    [ "inf", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a82e7fa61ed58b84a312383144b3f35c5", null ],
+    [ "is_float", "structcimg__library__suffixed_1_1cimg_1_1type.html#a61e33681478cafa8ad578265de1640ff", null ],
+    [ "is_float", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#adfd810516fe355f866c55f6caa220af3", null ],
+    [ "is_inf", "structcimg__library__suffixed_1_1cimg_1_1type.html#a9901998d7d790ba3e47c9ca8d09c043b", null ],
+    [ "is_inf", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#abf57b9d1150e6df6a9c09eab4fc79f81", null ],
+    [ "is_nan", "structcimg__library__suffixed_1_1cimg_1_1type.html#a2e5b828afd6f5e0e82358059642887a7", null ],
+    [ "is_nan", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a3feb26909c08ae4cd82e5bc8730b7a87", null ],
+    [ "max", "structcimg__library__suffixed_1_1cimg_1_1type.html#a4b01a896aa0c86ce9f3162f36fa2ae72", null ],
+    [ "max", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a45d1747956c26023092b03f87052d53a", null ],
+    [ "min", "structcimg__library__suffixed_1_1cimg_1_1type.html#aa487045af10501b8718e50735aa13317", null ],
+    [ "min", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a6ef9cc96e90c1b4465c2dcad72a3450b", null ],
+    [ "string", "structcimg__library__suffixed_1_1cimg_1_1type.html#af3ed630c9b92dac97885289448d268ed", null ],
+    [ "string", "structcimg__library__suffixed_1_1cimg_1_1type_3_01unsigned_01int_01_4.html#a2861cb7fc9184c6e981effc35fdefff0", null ]
+];

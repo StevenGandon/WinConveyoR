@@ -1,0 +1,351 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/hostip.h File Reference}
+\hypertarget{hostip_8h}{}\label{hostip_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/hostip.h@{lib/libwconr/build/\_deps/curl-\/src/lib/hostip.h}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}hash.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+addrinfo.\+h"{}}\newline
+{\ttfamily \#include "{}timeval.\+h"{}}\newline
+{\ttfamily \#include "{}asyn.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{hostip_8h_aafdc47a6bd3e3644905f753afb02e5f7}{CURL\+\_\+\+HOSTENT\+\_\+\+SIZE}}~9000
+\item 
+\#define \mbox{\hyperlink{hostip_8h_a1bdc7d46492751b6943684b9b46fb75c}{CURL\+\_\+\+TIMEOUT\+\_\+\+RESOLVE}}
+\item 
+\#define \mbox{\hyperlink{hostip_8h_a48be359479723afe633cf8816ad01ad0}{CURL\+\_\+\+ASYNC\+\_\+\+SUCCESS}}~\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951af2fb280cf805aa199f6b63a2a27c318b}{CURLE\+\_\+\+OK}}
+\item 
+\#define \mbox{\hyperlink{hostip_8h_aaf3d2ca06b0544c7ffb0aaec4365c207}{Curl\+\_\+ipv6works}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{hostip_8h_acc09ea8e0656cb54fc53cda222940572}{CURL\+\_\+\+INADDR\+\_\+\+NONE}}~(\mbox{\hyperlink{config-dos_8h_a64ca7e440847b0f5d19cbe94f9e114bd}{in\+\_\+addr\+\_\+t}}) \texorpdfstring{$\sim$}{\string~}0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800ba}{resolve\+\_\+t}} \{ \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800baa2b8e7a369500380851f7a1f079387ca6}{CURLRESOLV\+\_\+\+TIMEDOUT}} = -\/2
+, \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800baa349b6c4ad138316be172e4dc2bdb5537}{CURLRESOLV\+\_\+\+ERROR}} = -\/1
+, \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800baac06343d1abe1899ab5b1351895321b72}{CURLRESOLV\+\_\+\+RESOLVED}} = 0
+, \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800baa2e9a6d9bacf5457aca620dbe1c0ee249}{CURLRESOLV\+\_\+\+PENDING}} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hostip_8h_adcbfb2963b5e5ff76eca7cc05abd6f1b}{Curl\+\_\+global\+\_\+host\+\_\+cache\+\_\+init}} (void)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{hostip_8h_a28ac17260aac0512be7fe2fba54bef44}{Curl\+\_\+host\+\_\+is\+\_\+ipnum}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}})
+\item 
+enum \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800ba}{resolve\+\_\+t}} \mbox{\hyperlink{hostip_8h_a9633cd60c6aa2d1172126a79c0c8587f}{Curl\+\_\+resolv}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} allow\+DOH, struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dnsentry)
+\item 
+enum \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800ba}{resolve\+\_\+t}} \mbox{\hyperlink{hostip_8h_aa39074ac38553ce2f1f3b39146e22603}{Curl\+\_\+resolv\+\_\+timeout}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port, struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dnsentry, \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\+\_\+t}} timeoutms)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{hostip_8h_abb3dc20d85fc74b37e23c7b76266d3b4}{Curl\+\_\+ipvalid}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hostip_8h_aa064eadac58b3ea76121ab13a55e784c}{Curl\+\_\+getaddrinfo}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port, int \texorpdfstring{$\ast$}{*}waitp)
+\item 
+void \mbox{\hyperlink{hostip_8h_a47fa53659ab4a0c796ea2fd58629674c}{Curl\+\_\+resolv\+\_\+unlock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}dns)
+\item 
+void \mbox{\hyperlink{hostip_8h_a9c99ec211176bf00a0cb2940bd0e6445}{Curl\+\_\+init\+\_\+dnscache}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}hash, int hashsize)
+\item 
+void \mbox{\hyperlink{hostip_8h_a77525441d6420606360f8430fa9c15ea}{Curl\+\_\+hostcache\+\_\+prune}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+int \mbox{\hyperlink{hostip_8h_a5bc596c7c55a51c16f1b3edb1ea1b746}{Curl\+\_\+num\+\_\+addresses}} (const struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}addr)
+\item 
+struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hostip_8h_ab4d96ee6c877eff8bbfb9dff1f557968}{Curl\+\_\+ipv4\+\_\+resolve\+\_\+r}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a09e54bcb7d05c66f144ff6251695674d}{Curl\+\_\+once\+\_\+resolved}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{multi_8c_a00c5580cec5b9adb4be9e5b92f85b937}{protocol\+\_\+connect}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a83170d6de25b84ab7cd3fe613ae5fbcb}{Curl\+\_\+addrinfo\+\_\+callback}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int status, struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}ai)
+\item 
+void \mbox{\hyperlink{hostip_8h_a2a9a6a5bd62aab8e00cb300f2857a144}{Curl\+\_\+printable\+\_\+address}} (const struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}ip, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t bufsize)
+\item 
+struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hostip_8h_a1efaf6f628a258ea1df13087415c55fb}{Curl\+\_\+fetch\+\_\+addr}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port)
+\item 
+struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hostip_8h_a197a888b5b72e60b57e9a8a5b573b6ed}{Curl\+\_\+cache\+\_\+addr}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}addr, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, int port)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a444cd2041dbaefe44f9ec53e44e0f3a4}{Curl\+\_\+set\+\_\+dns\+\_\+servers}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}servers)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a839c597f273748d9bc27c7ed470f4a7a}{Curl\+\_\+set\+\_\+dns\+\_\+interface}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}interf)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_ad602a853eadd67e8f55bf971de5beba3}{Curl\+\_\+set\+\_\+dns\+\_\+local\+\_\+ip4}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}local\+\_\+ip4)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a8bf8926cf10ca76c318b143a8420d3fa}{Curl\+\_\+set\+\_\+dns\+\_\+local\+\_\+ip6}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}local\+\_\+ip6)
+\item 
+void \mbox{\hyperlink{hostip_8h_abcbfd1384f41ee7a44f892ad687bc63b}{Curl\+\_\+hostcache\+\_\+clean}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}hash)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a8b9544b1eed8e7a9680f3f06520c11e6}{Curl\+\_\+loadhostpairs}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_a2cd4949d794653d612fce595ad6d3336}{Curl\+\_\+resolv\+\_\+check}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dns)
+\item 
+int \mbox{\hyperlink{hostip_8h_a3e0bc15c0815579bd9fa1d1b3456960a}{Curl\+\_\+resolv\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{hostip_8h_ada65641b92c3bae36d8a4d30f7812a77}{Curl\+\_\+resolver\+\_\+error}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{hostip_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hostip_8h_a48be359479723afe633cf8816ad01ad0}\index{hostip.h@{hostip.h}!CURL\_ASYNC\_SUCCESS@{CURL\_ASYNC\_SUCCESS}}
+\index{CURL\_ASYNC\_SUCCESS@{CURL\_ASYNC\_SUCCESS}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{CURL\_ASYNC\_SUCCESS}{CURL\_ASYNC\_SUCCESS}}
+{\footnotesize\ttfamily \label{hostip_8h_a48be359479723afe633cf8816ad01ad0} 
+\#define CURL\+\_\+\+ASYNC\+\_\+\+SUCCESS~\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951af2fb280cf805aa199f6b63a2a27c318b}{CURLE\+\_\+\+OK}}}
+
+\Hypertarget{hostip_8h_aafdc47a6bd3e3644905f753afb02e5f7}\index{hostip.h@{hostip.h}!CURL\_HOSTENT\_SIZE@{CURL\_HOSTENT\_SIZE}}
+\index{CURL\_HOSTENT\_SIZE@{CURL\_HOSTENT\_SIZE}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{CURL\_HOSTENT\_SIZE}{CURL\_HOSTENT\_SIZE}}
+{\footnotesize\ttfamily \label{hostip_8h_aafdc47a6bd3e3644905f753afb02e5f7} 
+\#define CURL\+\_\+\+HOSTENT\+\_\+\+SIZE~9000}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{hostip_8h_acc09ea8e0656cb54fc53cda222940572}\index{hostip.h@{hostip.h}!CURL\_INADDR\_NONE@{CURL\_INADDR\_NONE}}
+\index{CURL\_INADDR\_NONE@{CURL\_INADDR\_NONE}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{CURL\_INADDR\_NONE}{CURL\_INADDR\_NONE}}
+{\footnotesize\ttfamily \label{hostip_8h_acc09ea8e0656cb54fc53cda222940572} 
+\#define CURL\+\_\+\+INADDR\+\_\+\+NONE~(\mbox{\hyperlink{config-dos_8h_a64ca7e440847b0f5d19cbe94f9e114bd}{in\+\_\+addr\+\_\+t}}) \texorpdfstring{$\sim$}{\string~}0}
+
+\Hypertarget{hostip_8h_aaf3d2ca06b0544c7ffb0aaec4365c207}\index{hostip.h@{hostip.h}!Curl\_ipv6works@{Curl\_ipv6works}}
+\index{Curl\_ipv6works@{Curl\_ipv6works}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ipv6works}{Curl\_ipv6works}}
+{\footnotesize\ttfamily \label{hostip_8h_aaf3d2ca06b0544c7ffb0aaec4365c207} 
+\#define Curl\+\_\+ipv6works(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FALSE}
+
+\end{DoxyCode}
+\Hypertarget{hostip_8h_a1bdc7d46492751b6943684b9b46fb75c}\index{hostip.h@{hostip.h}!CURL\_TIMEOUT\_RESOLVE@{CURL\_TIMEOUT\_RESOLVE}}
+\index{CURL\_TIMEOUT\_RESOLVE@{CURL\_TIMEOUT\_RESOLVE}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{CURL\_TIMEOUT\_RESOLVE}{CURL\_TIMEOUT\_RESOLVE}}
+{\footnotesize\ttfamily \label{hostip_8h_a1bdc7d46492751b6943684b9b46fb75c} 
+\#define CURL\+\_\+\+TIMEOUT\+\_\+\+RESOLVE}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 300\ \textcolor{comment}{/*\ when\ using\ asynch\ methods,\ we\ allow\ this}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ many\ seconds\ for\ a\ name\ resolve\ */}}
+
+\end{DoxyCode}
+
+
+\label{doc-enum-members}
+\Hypertarget{hostip_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{hostip_8h_a8405274f6a76e501e39be0218b6800ba}\index{hostip.h@{hostip.h}!resolve\_t@{resolve\_t}}
+\index{resolve\_t@{resolve\_t}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{resolve\_t}{resolve\_t}}
+{\footnotesize\ttfamily \label{hostip_8h_a8405274f6a76e501e39be0218b6800ba} 
+enum \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800ba}{resolve\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLRESOLV\_TIMEDOUT@{CURLRESOLV\_TIMEDOUT}!hostip.h@{hostip.h}}\index{hostip.h@{hostip.h}!CURLRESOLV\_TIMEDOUT@{CURLRESOLV\_TIMEDOUT}}}\Hypertarget{hostip_8h_a8405274f6a76e501e39be0218b6800baa2b8e7a369500380851f7a1f079387ca6}\label{hostip_8h_a8405274f6a76e501e39be0218b6800baa2b8e7a369500380851f7a1f079387ca6} 
+CURLRESOLV\+\_\+\+TIMEDOUT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLRESOLV\_ERROR@{CURLRESOLV\_ERROR}!hostip.h@{hostip.h}}\index{hostip.h@{hostip.h}!CURLRESOLV\_ERROR@{CURLRESOLV\_ERROR}}}\Hypertarget{hostip_8h_a8405274f6a76e501e39be0218b6800baa349b6c4ad138316be172e4dc2bdb5537}\label{hostip_8h_a8405274f6a76e501e39be0218b6800baa349b6c4ad138316be172e4dc2bdb5537} 
+CURLRESOLV\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLRESOLV\_RESOLVED@{CURLRESOLV\_RESOLVED}!hostip.h@{hostip.h}}\index{hostip.h@{hostip.h}!CURLRESOLV\_RESOLVED@{CURLRESOLV\_RESOLVED}}}\Hypertarget{hostip_8h_a8405274f6a76e501e39be0218b6800baac06343d1abe1899ab5b1351895321b72}\label{hostip_8h_a8405274f6a76e501e39be0218b6800baac06343d1abe1899ab5b1351895321b72} 
+CURLRESOLV\+\_\+\+RESOLVED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLRESOLV\_PENDING@{CURLRESOLV\_PENDING}!hostip.h@{hostip.h}}\index{hostip.h@{hostip.h}!CURLRESOLV\_PENDING@{CURLRESOLV\_PENDING}}}\Hypertarget{hostip_8h_a8405274f6a76e501e39be0218b6800baa2e9a6d9bacf5457aca620dbe1c0ee249}\label{hostip_8h_a8405274f6a76e501e39be0218b6800baa2e9a6d9bacf5457aca620dbe1c0ee249} 
+CURLRESOLV\+\_\+\+PENDING&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{hostip_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{hostip_8h_a83170d6de25b84ab7cd3fe613ae5fbcb}\index{hostip.h@{hostip.h}!Curl\_addrinfo\_callback@{Curl\_addrinfo\_callback}}
+\index{Curl\_addrinfo\_callback@{Curl\_addrinfo\_callback}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_addrinfo\_callback()}{Curl\_addrinfo\_callback()}}
+{\footnotesize\ttfamily \label{hostip_8h_a83170d6de25b84ab7cd3fe613ae5fbcb} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+addrinfo\+\_\+callback (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{status}{, }\item[{struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}}]{ai}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a197a888b5b72e60b57e9a8a5b573b6ed}\index{hostip.h@{hostip.h}!Curl\_cache\_addr@{Curl\_cache\_addr}}
+\index{Curl\_cache\_addr@{Curl\_cache\_addr}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_cache\_addr()}{Curl\_cache\_addr()}}
+{\footnotesize\ttfamily \label{hostip_8h_a197a888b5b72e60b57e9a8a5b573b6ed} 
+struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*} Curl\+\_\+cache\+\_\+addr (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}}]{addr}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a1efaf6f628a258ea1df13087415c55fb}\index{hostip.h@{hostip.h}!Curl\_fetch\_addr@{Curl\_fetch\_addr}}
+\index{Curl\_fetch\_addr@{Curl\_fetch\_addr}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_fetch\_addr()}{Curl\_fetch\_addr()}}
+{\footnotesize\ttfamily \label{hostip_8h_a1efaf6f628a258ea1df13087415c55fb} 
+struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*} Curl\+\_\+fetch\+\_\+addr (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_aa064eadac58b3ea76121ab13a55e784c}\index{hostip.h@{hostip.h}!Curl\_getaddrinfo@{Curl\_getaddrinfo}}
+\index{Curl\_getaddrinfo@{Curl\_getaddrinfo}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_getaddrinfo()}{Curl\_getaddrinfo()}}
+{\footnotesize\ttfamily \label{hostip_8h_aa064eadac58b3ea76121ab13a55e784c} 
+struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*} Curl\+\_\+getaddrinfo (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{waitp}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_adcbfb2963b5e5ff76eca7cc05abd6f1b}\index{hostip.h@{hostip.h}!Curl\_global\_host\_cache\_init@{Curl\_global\_host\_cache\_init}}
+\index{Curl\_global\_host\_cache\_init@{Curl\_global\_host\_cache\_init}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_global\_host\_cache\_init()}{Curl\_global\_host\_cache\_init()}}
+{\footnotesize\ttfamily \label{hostip_8h_adcbfb2963b5e5ff76eca7cc05abd6f1b} 
+struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*} Curl\+\_\+global\+\_\+host\+\_\+cache\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a28ac17260aac0512be7fe2fba54bef44}\index{hostip.h@{hostip.h}!Curl\_host\_is\_ipnum@{Curl\_host\_is\_ipnum}}
+\index{Curl\_host\_is\_ipnum@{Curl\_host\_is\_ipnum}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_host\_is\_ipnum()}{Curl\_host\_is\_ipnum()}}
+{\footnotesize\ttfamily \label{hostip_8h_a28ac17260aac0512be7fe2fba54bef44} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+host\+\_\+is\+\_\+ipnum (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_abcbfd1384f41ee7a44f892ad687bc63b}\index{hostip.h@{hostip.h}!Curl\_hostcache\_clean@{Curl\_hostcache\_clean}}
+\index{Curl\_hostcache\_clean@{Curl\_hostcache\_clean}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hostcache\_clean()}{Curl\_hostcache\_clean()}}
+{\footnotesize\ttfamily \label{hostip_8h_abcbfd1384f41ee7a44f892ad687bc63b} 
+void Curl\+\_\+hostcache\+\_\+clean (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{hash}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a77525441d6420606360f8430fa9c15ea}\index{hostip.h@{hostip.h}!Curl\_hostcache\_prune@{Curl\_hostcache\_prune}}
+\index{Curl\_hostcache\_prune@{Curl\_hostcache\_prune}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hostcache\_prune()}{Curl\_hostcache\_prune()}}
+{\footnotesize\ttfamily \label{hostip_8h_a77525441d6420606360f8430fa9c15ea} 
+void Curl\+\_\+hostcache\+\_\+prune (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a9c99ec211176bf00a0cb2940bd0e6445}\index{hostip.h@{hostip.h}!Curl\_init\_dnscache@{Curl\_init\_dnscache}}
+\index{Curl\_init\_dnscache@{Curl\_init\_dnscache}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_init\_dnscache()}{Curl\_init\_dnscache()}}
+{\footnotesize\ttfamily \label{hostip_8h_a9c99ec211176bf00a0cb2940bd0e6445} 
+void Curl\+\_\+init\+\_\+dnscache (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{hash}{, }\item[{int}]{hashsize}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_ab4d96ee6c877eff8bbfb9dff1f557968}\index{hostip.h@{hostip.h}!Curl\_ipv4\_resolve\_r@{Curl\_ipv4\_resolve\_r}}
+\index{Curl\_ipv4\_resolve\_r@{Curl\_ipv4\_resolve\_r}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ipv4\_resolve\_r()}{Curl\_ipv4\_resolve\_r()}}
+{\footnotesize\ttfamily \label{hostip_8h_ab4d96ee6c877eff8bbfb9dff1f557968} 
+struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*} Curl\+\_\+ipv4\+\_\+resolve\+\_\+r (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_abb3dc20d85fc74b37e23c7b76266d3b4}\index{hostip.h@{hostip.h}!Curl\_ipvalid@{Curl\_ipvalid}}
+\index{Curl\_ipvalid@{Curl\_ipvalid}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_ipvalid()}{Curl\_ipvalid()}}
+{\footnotesize\ttfamily \label{hostip_8h_abb3dc20d85fc74b37e23c7b76266d3b4} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+ipvalid (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl Only for plain IPv4 builds \Hypertarget{hostip_8h_a8b9544b1eed8e7a9680f3f06520c11e6}\index{hostip.h@{hostip.h}!Curl\_loadhostpairs@{Curl\_loadhostpairs}}
+\index{Curl\_loadhostpairs@{Curl\_loadhostpairs}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_loadhostpairs()}{Curl\_loadhostpairs()}}
+{\footnotesize\ttfamily \label{hostip_8h_a8b9544b1eed8e7a9680f3f06520c11e6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+loadhostpairs (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a5bc596c7c55a51c16f1b3edb1ea1b746}\index{hostip.h@{hostip.h}!Curl\_num\_addresses@{Curl\_num\_addresses}}
+\index{Curl\_num\_addresses@{Curl\_num\_addresses}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_num\_addresses()}{Curl\_num\_addresses()}}
+{\footnotesize\ttfamily \label{hostip_8h_a5bc596c7c55a51c16f1b3edb1ea1b746} 
+int Curl\+\_\+num\+\_\+addresses (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}}]{addr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a09e54bcb7d05c66f144ff6251695674d}\index{hostip.h@{hostip.h}!Curl\_once\_resolved@{Curl\_once\_resolved}}
+\index{Curl\_once\_resolved@{Curl\_once\_resolved}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_once\_resolved()}{Curl\_once\_resolved()}}
+{\footnotesize\ttfamily \label{hostip_8h_a09e54bcb7d05c66f144ff6251695674d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+once\+\_\+resolved (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{protocol\+\_\+connect}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a2a9a6a5bd62aab8e00cb300f2857a144}\index{hostip.h@{hostip.h}!Curl\_printable\_address@{Curl\_printable\_address}}
+\index{Curl\_printable\_address@{Curl\_printable\_address}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_printable\_address()}{Curl\_printable\_address()}}
+{\footnotesize\ttfamily \label{hostip_8h_a2a9a6a5bd62aab8e00cb300f2857a144} 
+void Curl\+\_\+printable\+\_\+address (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}}]{ip}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{bufsize}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a9633cd60c6aa2d1172126a79c0c8587f}\index{hostip.h@{hostip.h}!Curl\_resolv@{Curl\_resolv}}
+\index{Curl\_resolv@{Curl\_resolv}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_resolv()}{Curl\_resolv()}}
+{\footnotesize\ttfamily \label{hostip_8h_a9633cd60c6aa2d1172126a79c0c8587f} 
+enum \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800ba}{resolve\+\_\+t}} Curl\+\_\+resolv (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{allow\+DOH}{, }\item[{struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dnsentry}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a2cd4949d794653d612fce595ad6d3336}\index{hostip.h@{hostip.h}!Curl\_resolv\_check@{Curl\_resolv\_check}}
+\index{Curl\_resolv\_check@{Curl\_resolv\_check}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_resolv\_check()}{Curl\_resolv\_check()}}
+{\footnotesize\ttfamily \label{hostip_8h_a2cd4949d794653d612fce595ad6d3336} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+resolv\+\_\+check (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dns}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a3e0bc15c0815579bd9fa1d1b3456960a}\index{hostip.h@{hostip.h}!Curl\_resolv\_getsock@{Curl\_resolv\_getsock}}
+\index{Curl\_resolv\_getsock@{Curl\_resolv\_getsock}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_resolv\_getsock()}{Curl\_resolv\_getsock()}}
+{\footnotesize\ttfamily \label{hostip_8h_a3e0bc15c0815579bd9fa1d1b3456960a} 
+int Curl\+\_\+resolv\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_aa39074ac38553ce2f1f3b39146e22603}\index{hostip.h@{hostip.h}!Curl\_resolv\_timeout@{Curl\_resolv\_timeout}}
+\index{Curl\_resolv\_timeout@{Curl\_resolv\_timeout}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_resolv\_timeout()}{Curl\_resolv\_timeout()}}
+{\footnotesize\ttfamily \label{hostip_8h_aa39074ac38553ce2f1f3b39146e22603} 
+enum \mbox{\hyperlink{hostip_8h_a8405274f6a76e501e39be0218b6800ba}{resolve\+\_\+t}} Curl\+\_\+resolv\+\_\+timeout (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{int}]{port}{, }\item[{struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dnsentry}{, }\item[{\mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\+\_\+t}}}]{timeoutms}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a47fa53659ab4a0c796ea2fd58629674c}\index{hostip.h@{hostip.h}!Curl\_resolv\_unlock@{Curl\_resolv\_unlock}}
+\index{Curl\_resolv\_unlock@{Curl\_resolv\_unlock}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_resolv\_unlock()}{Curl\_resolv\_unlock()}}
+{\footnotesize\ttfamily \label{hostip_8h_a47fa53659ab4a0c796ea2fd58629674c} 
+void Curl\+\_\+resolv\+\_\+unlock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCurl__dns__entry}{Curl\+\_\+dns\+\_\+entry}} \texorpdfstring{$\ast$}{*}}]{dns}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_ada65641b92c3bae36d8a4d30f7812a77}\index{hostip.h@{hostip.h}!Curl\_resolver\_error@{Curl\_resolver\_error}}
+\index{Curl\_resolver\_error@{Curl\_resolver\_error}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_resolver\_error()}{Curl\_resolver\_error()}}
+{\footnotesize\ttfamily \label{hostip_8h_ada65641b92c3bae36d8a4d30f7812a77} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+resolver\+\_\+error (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a839c597f273748d9bc27c7ed470f4a7a}\index{hostip.h@{hostip.h}!Curl\_set\_dns\_interface@{Curl\_set\_dns\_interface}}
+\index{Curl\_set\_dns\_interface@{Curl\_set\_dns\_interface}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_set\_dns\_interface()}{Curl\_set\_dns\_interface()}}
+{\footnotesize\ttfamily \label{hostip_8h_a839c597f273748d9bc27c7ed470f4a7a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+set\+\_\+dns\+\_\+interface (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{interf}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_ad602a853eadd67e8f55bf971de5beba3}\index{hostip.h@{hostip.h}!Curl\_set\_dns\_local\_ip4@{Curl\_set\_dns\_local\_ip4}}
+\index{Curl\_set\_dns\_local\_ip4@{Curl\_set\_dns\_local\_ip4}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_set\_dns\_local\_ip4()}{Curl\_set\_dns\_local\_ip4()}}
+{\footnotesize\ttfamily \label{hostip_8h_ad602a853eadd67e8f55bf971de5beba3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+set\+\_\+dns\+\_\+local\+\_\+ip4 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{local\+\_\+ip4}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a8bf8926cf10ca76c318b143a8420d3fa}\index{hostip.h@{hostip.h}!Curl\_set\_dns\_local\_ip6@{Curl\_set\_dns\_local\_ip6}}
+\index{Curl\_set\_dns\_local\_ip6@{Curl\_set\_dns\_local\_ip6}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_set\_dns\_local\_ip6()}{Curl\_set\_dns\_local\_ip6()}}
+{\footnotesize\ttfamily \label{hostip_8h_a8bf8926cf10ca76c318b143a8420d3fa} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+set\+\_\+dns\+\_\+local\+\_\+ip6 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{local\+\_\+ip6}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hostip_8h_a444cd2041dbaefe44f9ec53e44e0f3a4}\index{hostip.h@{hostip.h}!Curl\_set\_dns\_servers@{Curl\_set\_dns\_servers}}
+\index{Curl\_set\_dns\_servers@{Curl\_set\_dns\_servers}!hostip.h@{hostip.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_set\_dns\_servers()}{Curl\_set\_dns\_servers()}}
+{\footnotesize\ttfamily \label{hostip_8h_a444cd2041dbaefe44f9ec53e44e0f3a4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+set\+\_\+dns\+\_\+servers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{servers}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl Only for builds using synchronous name resolves 

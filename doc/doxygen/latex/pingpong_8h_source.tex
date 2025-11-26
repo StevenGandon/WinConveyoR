@@ -1,0 +1,124 @@
+\doxysection{pingpong.\+h}
+\hypertarget{pingpong_8h_source}{}\label{pingpong_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/pingpong.h@{lib/libwconr/build/\_deps/curl-\/src/lib/pingpong.h}}
+\mbox{\hyperlink{pingpong_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_PINGPONG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_PINGPONG\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_IMAP)\ ||\ !defined(CURL\_DISABLE\_FTP)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ !defined(CURL\_DISABLE\_POP3)\ ||\ !defined(CURL\_DISABLE\_SMTP)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ USE\_PINGPONG}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ forward-\/declaration,\ this\ is\ defined\ in\ urldata.h\ */}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{pingpong_8h_aa1cf969282409b2cbdfb2beade8b652ea537d9a4f96ac7425e02e4fe45dcba5cb}{PPTRANSFER\_BODY}},\ \textcolor{comment}{/*\ yes\ do\ transfer\ a\ body\ */}}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{pingpong_8h_aa1cf969282409b2cbdfb2beade8b652eab76eb6aaea65544f3e73b9c0a1b5aab5}{PPTRANSFER\_INFO}},\ \textcolor{comment}{/*\ do\ still\ go\ through\ to\ get\ info/headers\ */}}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{pingpong_8h_aa1cf969282409b2cbdfb2beade8b652eadeed974b52afa1db826f936914038755}{PPTRANSFER\_NONE}}\ \ \textcolor{comment}{/*\ don't\ get\ anything\ and\ don't\ get\ info\ */}}
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{pingpong_8h_aa1cf969282409b2cbdfb2beade8b652e}{curl\_pp\_transfer}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ 'pingpong'\ is\ the\ generic\ struct\ used\ for\ protocols\ doing\ server<-\/>client}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ conversations\ in\ a\ back-\/and-\/forth\ style\ such\ as\ FTP,\ IMAP,\ POP3,\ SMTP\ etc.}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ It\ holds\ response\ cache\ and\ non-\/blocking\ sending\ data.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00049\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpingpong}{pingpong}}\ \{}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structpingpong_ac6242b076d5ebd5ff7c2325aeebcea36}{cache}};\ \ \ \ \ \textcolor{comment}{/*\ data\ cache\ between\ getresponse()-\/calls\ */}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpingpong_a3114f4d2dc54a2816b07d3688e425a43}{cache\_size}};\ \ \textcolor{comment}{/*\ size\ of\ cache\ in\ bytes\ */}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpingpong_a59a03e67f589c910bee02c2c4eee9393}{nread\_resp}};\ \ \textcolor{comment}{/*\ number\ of\ bytes\ currently\ read\ of\ a\ server\ response\ */}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structpingpong_a328a2b8bee5d62ddc63a981df6b45e33}{linestart\_resp}};\ \textcolor{comment}{/*\ line\ start\ pointer\ for\ the\ server\ response}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reader\ function\ */}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structpingpong_a3a10091c256aed9fce33a95f12bf5b8f}{pending\_resp}};\ \ \textcolor{comment}{/*\ set\ TRUE\ when\ a\ server\ response\ is\ pending\ or\ in}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ progress,\ and\ is\ cleared\ once\ the\ last\ response\ is}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ read\ */}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structpingpong_ae6b550ab542a7d57914f7277cd975c33}{sendthis}};\ \textcolor{comment}{/*\ allocated\ pointer\ to\ a\ buffer\ that\ is\ to\ be\ sent\ to\ the}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ server\ */}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpingpong_a4f9a725e7d24dbfe7b0574ce14671048}{sendleft}};\ \textcolor{comment}{/*\ number\ of\ bytes\ left\ to\ send\ from\ the\ sendthis\ buffer\ */}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpingpong_a1e223e8cff08d06347c6ce4292fb856c}{sendsize}};\ \textcolor{comment}{/*\ total\ size\ of\ the\ sendthis\ buffer\ */}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurltime}{curltime}}\ \mbox{\hyperlink{structpingpong_a41d7af4e20ce3d40d90eddf0f62cb64d}{response}};\ \textcolor{comment}{/*\ set\ to\ Curl\_now()\ when\ a\ command\ has\ been\ sent}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ off,\ used\ to\ time-\/out\ response\ reading\ */}}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ \mbox{\hyperlink{structpingpong_a1b180c8b011f2f86bb84950af6379c61}{response\_time}};\ \textcolor{comment}{/*\ When\ no\ timeout\ is\ given,\ this\ is\ the\ amount\ of}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ milliseconds\ we\ await\ for\ a\ server\ response.\ */}}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \mbox{\hyperlink{structpingpong_a9432919ef296c4b890fb06beb99420b5}{sendbuf}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{comment}{/*\ Function\ pointers\ the\ protocols\ MUST\ implement\ and\ provide\ for\ the}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ pingpong\ layer\ to\ function\ */}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structpingpong_a88a6d3bc134e53c30b78965392ea0d82}{statemachine}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}\ (*\mbox{\hyperlink{structpingpong_ad9683f5bc1a216d6307027d76257e780}{endofresp}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},\ \textcolor{keywordtype}{int}\ *code);}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ PINGPONG\_SETUP(pp,s,e)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ pp-\/>response\_time\ =\ RESP\_TIMEOUT;\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ pp-\/>statemachine\ =\ s;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ pp-\/>endofresp\ =\ e;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ Curl\_pp\_statemach()}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ called\ repeatedly\ until\ done.\ Set\ 'wait'\ to\ make\ it\ wait\ a\ while\ on\ the}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ socket\ if\ there's\ no\ traffic.}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00089\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{pingpong_8h_a203ff9fc6209e147bf1b649e56d26cf8}{Curl\_pp\_statemach}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ block,\ \textcolor{keywordtype}{bool}\ disconnecting);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*\ initialize\ stuff\ to\ prepare\ for\ reading\ a\ fresh\ new\ response\ */}}
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{pingpong_8h_af088cc73c97e94b5d9c9999eb59ba50d}{Curl\_pp\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{/*\ setup\ for\ the\ transfer\ */}}
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{pingpong_8h_adfebe736470e381517f34b36abcc2415}{Curl\_pp\_setup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{/*\ Returns\ timeout\ in\ ms.\ 0\ or\ negative\ number\ means\ the\ timeout\ has\ already}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ triggered\ */}}
+\DoxyCodeLine{00100\ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ \mbox{\hyperlink{pingpong_8h_a0c69cf402df09c301141821cf34f14f2}{Curl\_pp\_state\_timeout}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp,\ \textcolor{keywordtype}{bool}\ disconnecting);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00114\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{pingpong_8h_a75e72a5d5dec2fc6a0f0043296f636d1}{Curl\_pp\_sendf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00128\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{pingpong_8h_acda51ce1dd2cf4eac0a33962e644d154}{Curl\_pp\_vsendf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ va\_list\ args);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ Curl\_pp\_readresp()}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ Reads\ a\ piece\ of\ a\ server\ response.}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00138\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{pingpong_8h_ab6f9f01192248cc7228a59b7764fb9f3}{Curl\_pp\_readresp}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ \mbox{\hyperlink{structconnectdata_adbc9021ab6a2581b41035b181d27a1ea}{sockfd}},}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *code,\ \textcolor{comment}{/*\ return\ the\ server\ code\ if\ done\ */}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}});\ \textcolor{comment}{/*\ size\ of\ the\ response\ */}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{pingpong_8h_aa52a6c5aabf322ae549b4fe0dcbddbe7}{Curl\_pp\_flushsend}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{/*\ call\ this\ when\ a\ pingpong\ connection\ is\ disconnected\ */}}
+\DoxyCodeLine{00149\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{pingpong_8h_a6ba0ccd2a13cada0cffd6fa6c2ea98f6}{Curl\_pp\_disconnect}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{pingpong_8h_a5eca629a9e6393ab6c26dfde6071bf19}{Curl\_pp\_getsock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *socks);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{pingpong_8h_a73961c0abe7e8733e6b7364af2e84cfa}{Curl\_pp\_moredata}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structpingpong}{pingpong}}\ *pp);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_PINGPONG\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

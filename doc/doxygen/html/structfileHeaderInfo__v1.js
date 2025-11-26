@@ -1,0 +1,26 @@
+var structfileHeaderInfo__v1 =
+[
+    [ "AcquisitionHeight", "structfileHeaderInfo__v1.html#ab7bb3d142898810c04e6ebdb0872bd5e", null ],
+    [ "AcquisitionTime", "structfileHeaderInfo__v1.html#a9c3cb1d5f22f68551cbf70a424f02d57", null ],
+    [ "AcquisitionWidth", "structfileHeaderInfo__v1.html#a3c13a54c2548a6247e9e7cddcb46cbdc", null ],
+    [ "BatchName", "structfileHeaderInfo__v1.html#ab0e6cabb158e11340fd3ac67f4f85752", null ],
+    [ "ChosenMarker", "structfileHeaderInfo__v1.html#a6e836f79b09461991cb1aab7d69c667f", null ],
+    [ "Day", "structfileHeaderInfo__v1.html#a1f563f1d39906a5df67bb7cb6ecacdf8", null ],
+    [ "EventVersion", "structfileHeaderInfo__v1.html#a6a1c5f4b0ff48409e5e48051c858bc6d", null ],
+    [ "fileHeaderSize", "structfileHeaderInfo__v1.html#ac16c282c49a0a4aeebff767130b4b149", null ],
+    [ "Hour", "structfileHeaderInfo__v1.html#a4a90bb58582af2e1647ab513f493d701", null ],
+    [ "ImageMaxX", "structfileHeaderInfo__v1.html#a5d3ceb99d843a92df87f184ba5daddc6", null ],
+    [ "ImageMaxY", "structfileHeaderInfo__v1.html#aed2420fa4824802c5e93676d917925bb", null ],
+    [ "ImageMinX", "structfileHeaderInfo__v1.html#a11284c6a01500f8f79f51ba4945db51c", null ],
+    [ "ImageMinY", "structfileHeaderInfo__v1.html#a0f15dab616a1b38e603fbf7fde675b3c", null ],
+    [ "IntrumentType", "structfileHeaderInfo__v1.html#a30f545da84227991ad32949cdbe80fb5", null ],
+    [ "Minute", "structfileHeaderInfo__v1.html#afbe85fedd1b206228d3b34c44127afdb", null ],
+    [ "Month", "structfileHeaderInfo__v1.html#a8674253b4998161d4a7fb38c823fcae9", null ],
+    [ "NbEvent", "structfileHeaderInfo__v1.html#a89aefc7d39d4f7be51df928923bd6994", null ],
+    [ "OperatorName", "structfileHeaderInfo__v1.html#a622461423d141a1f4a330fc2add0e92f", null ],
+    [ "SampleHolderType", "structfileHeaderInfo__v1.html#a8c666b4f50f61d0798b3a5dbc9313625", null ],
+    [ "SampleName", "structfileHeaderInfo__v1.html#ab9898fcfa73e7452432db8c3ba7e5845", null ],
+    [ "Second", "structfileHeaderInfo__v1.html#a9e28742fe15718a27ca26413529c1a52", null ],
+    [ "SerialNumber", "structfileHeaderInfo__v1.html#a32ebee3e19ec9f3b865e5c40a05ce8fb", null ],
+    [ "Year", "structfileHeaderInfo__v1.html#ac8744fd4ad1dbc1b5817e460817d9709", null ]
+];

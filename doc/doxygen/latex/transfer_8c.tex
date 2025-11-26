@@ -1,0 +1,238 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/transfer.c File Reference}
+\hypertarget{transfer_8c}{}\label{transfer_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/transfer.c@{lib/libwconr/build/\_deps/curl-\/src/lib/transfer.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}netrc.\+h"{}}\newline
+{\ttfamily \#include "{}content\+\_\+encoding.\+h"{}}\newline
+{\ttfamily \#include "{}hostip.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}speedcheck.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}getinfo.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}http2.\+h"{}}\newline
+{\ttfamily \#include "{}mime.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}urlapi-\/int.\+h"{}}\newline
+{\ttfamily \#include "{}hsts.\+h"{}}\newline
+{\ttfamily \#include "{}setopt.\+h"{}}\newline
+{\ttfamily \#include "{}headers.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{transfer_8c_a1718bf5edce26e06c21b7ad18e4b6956}{win\+\_\+update\+\_\+buffer\+\_\+size}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{transfer_8c_ac3d803fa4b052c00ea96efe98cd133b8}{curl\+\_\+upload\+\_\+refill\+\_\+watermark}}(\mbox{\hyperlink{structdata}{data}})
+\item 
+\#define \mbox{\hyperlink{transfer_8c_ab727b1483bda24d9c83f3bab8b1210b3}{CONN\+\_\+\+MAX\+\_\+\+RETRIES}}~5
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{transfer_8c_a33874741a8addc49ac59eb75669e1fc7}{Curl\+\_\+checkheaders}} (const struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}thisheader, const size\+\_\+t thislen)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_a15440032c495bf0f3f6c535ec5e811e3}{Curl\+\_\+get\+\_\+upload\+\_\+buffer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static size\+\_\+t \mbox{\hyperlink{transfer_8c_a7164e861bea8ec325557f17269e94ffe}{trailers\+\_\+read}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nitems, void \texorpdfstring{$\ast$}{*}raw)
+\item 
+static size\+\_\+t \mbox{\hyperlink{transfer_8c_a07537a15dab812bd1d991b73a22ef6f1}{trailers\+\_\+left}} (void \texorpdfstring{$\ast$}{*}raw)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_aaa429e6e04e6df09a6b389bdeac795af}{Curl\+\_\+fillreadbuffer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, size\+\_\+t bytes, size\+\_\+t \texorpdfstring{$\ast$}{*}nreadp)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_ac1ade793c623fae78190e398bf827b69}{Curl\+\_\+readrewind}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static int \mbox{\hyperlink{transfer_8c_ace61ce87d2115ff5833d4e6e4facf745}{data\+\_\+pending}} (const struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{transfer_8c_a110f6f53341d61200abc2b0b7cdd53f2}{Curl\+\_\+meets\+\_\+timecondition}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, time\+\_\+t timeofdoc)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_a69f101ab0a55ed97bc8d71ebafcc2d34}{readwrite\+\_\+data}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, struct \mbox{\hyperlink{structSingleRequest}{Single\+Request}} \texorpdfstring{$\ast$}{*}k, int \texorpdfstring{$\ast$}{*}didwhat, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}comeback)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_aa0bd5e431162628573c21148b7e8cdd1}{Curl\+\_\+done\+\_\+sending}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structSingleRequest}{Single\+Request}} \texorpdfstring{$\ast$}{*}k)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_a047def37a2496deab9e6a23ab2d19665}{readwrite\+\_\+upload}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int \texorpdfstring{$\ast$}{*}didwhat)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_ac06679494870ed2a702de92759b06c7d}{Curl\+\_\+readwrite}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}comeback)
+\item 
+int \mbox{\hyperlink{transfer_8c_a274da01073cbcdc947112b2845bbcefb}{Curl\+\_\+single\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}sock)
+\item 
+void \mbox{\hyperlink{transfer_8c_a055b20e035ac986f69148eaa4a44eaaa}{Curl\+\_\+init\+\_\+\+CONNECT}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_a0dae98156f3b0dc5f703d4d19d15c137}{Curl\+\_\+pretransfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_a6afc3b6e11b658604fb00a32646c2f15}{Curl\+\_\+posttransfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_a96a72bb80c85af1210d7fc49244920e9}{Curl\+\_\+follow}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}newurl, \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963}{followtype}} \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{transfer_8c_ad452c9820e9491b689d4618789c40f0a}{Curl\+\_\+retry\+\_\+request}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}url)
+\item 
+void \mbox{\hyperlink{transfer_8c_a12ac91ee5b865f947ad27c81d41c22f6}{Curl\+\_\+setup\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int sockindex, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} getheader, int writesockindex)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{transfer_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{transfer_8c_ab727b1483bda24d9c83f3bab8b1210b3}\index{transfer.c@{transfer.c}!CONN\_MAX\_RETRIES@{CONN\_MAX\_RETRIES}}
+\index{CONN\_MAX\_RETRIES@{CONN\_MAX\_RETRIES}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{CONN\_MAX\_RETRIES}{CONN\_MAX\_RETRIES}}
+{\footnotesize\ttfamily \label{transfer_8c_ab727b1483bda24d9c83f3bab8b1210b3} 
+\#define CONN\+\_\+\+MAX\+\_\+\+RETRIES~5}
+
+\Hypertarget{transfer_8c_ac3d803fa4b052c00ea96efe98cd133b8}\index{transfer.c@{transfer.c}!curl\_upload\_refill\_watermark@{curl\_upload\_refill\_watermark}}
+\index{curl\_upload\_refill\_watermark@{curl\_upload\_refill\_watermark}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{curl\_upload\_refill\_watermark}{curl\_upload\_refill\_watermark}}
+{\footnotesize\ttfamily \label{transfer_8c_ac3d803fa4b052c00ea96efe98cd133b8} 
+\#define curl\+\_\+upload\+\_\+refill\+\_\+watermark(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{structdata}{data}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ((\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}})((\mbox{\hyperlink{structdata}{data}})-\/>set.upload\_buffer\_size\ >>\ 5))}
+
+\end{DoxyCode}
+\Hypertarget{transfer_8c_a1718bf5edce26e06c21b7ad18e4b6956}\index{transfer.c@{transfer.c}!win\_update\_buffer\_size@{win\_update\_buffer\_size}}
+\index{win\_update\_buffer\_size@{win\_update\_buffer\_size}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{win\_update\_buffer\_size}{win\_update\_buffer\_size}}
+{\footnotesize\ttfamily \label{transfer_8c_a1718bf5edce26e06c21b7ad18e4b6956} 
+\#define win\+\_\+update\+\_\+buffer\+\_\+size(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{transfer_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{transfer_8c_a33874741a8addc49ac59eb75669e1fc7}\index{transfer.c@{transfer.c}!Curl\_checkheaders@{Curl\_checkheaders}}
+\index{Curl\_checkheaders@{Curl\_checkheaders}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_checkheaders()}{Curl\_checkheaders()}}
+{\footnotesize\ttfamily \label{transfer_8c_a33874741a8addc49ac59eb75669e1fc7} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+checkheaders (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{thisheader}{, }\item[{const size\+\_\+t}]{thislen}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{transfer_8c_aa0bd5e431162628573c21148b7e8cdd1}\index{transfer.c@{transfer.c}!Curl\_done\_sending@{Curl\_done\_sending}}
+\index{Curl\_done\_sending@{Curl\_done\_sending}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_done\_sending()}{Curl\_done\_sending()}}
+{\footnotesize\ttfamily \label{transfer_8c_aa0bd5e431162628573c21148b7e8cdd1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+done\+\_\+sending (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structSingleRequest}{Single\+Request}} \texorpdfstring{$\ast$}{*}}]{k}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_aaa429e6e04e6df09a6b389bdeac795af}\index{transfer.c@{transfer.c}!Curl\_fillreadbuffer@{Curl\_fillreadbuffer}}
+\index{Curl\_fillreadbuffer@{Curl\_fillreadbuffer}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_fillreadbuffer()}{Curl\_fillreadbuffer()}}
+{\footnotesize\ttfamily \label{transfer_8c_aaa429e6e04e6df09a6b389bdeac795af} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+fillreadbuffer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{bytes}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{nreadp}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a96a72bb80c85af1210d7fc49244920e9}\index{transfer.c@{transfer.c}!Curl\_follow@{Curl\_follow}}
+\index{Curl\_follow@{Curl\_follow}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_follow()}{Curl\_follow()}}
+{\footnotesize\ttfamily \label{transfer_8c_a96a72bb80c85af1210d7fc49244920e9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+follow (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{newurl}{, }\item[{\mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963}{followtype}}}]{type}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a15440032c495bf0f3f6c535ec5e811e3}\index{transfer.c@{transfer.c}!Curl\_get\_upload\_buffer@{Curl\_get\_upload\_buffer}}
+\index{Curl\_get\_upload\_buffer@{Curl\_get\_upload\_buffer}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_get\_upload\_buffer()}{Curl\_get\_upload\_buffer()}}
+{\footnotesize\ttfamily \label{transfer_8c_a15440032c495bf0f3f6c535ec5e811e3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+get\+\_\+upload\+\_\+buffer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a055b20e035ac986f69148eaa4a44eaaa}\index{transfer.c@{transfer.c}!Curl\_init\_CONNECT@{Curl\_init\_CONNECT}}
+\index{Curl\_init\_CONNECT@{Curl\_init\_CONNECT}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_init\_CONNECT()}{Curl\_init\_CONNECT()}}
+{\footnotesize\ttfamily \label{transfer_8c_a055b20e035ac986f69148eaa4a44eaaa} 
+void Curl\+\_\+init\+\_\+\+CONNECT (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a110f6f53341d61200abc2b0b7cdd53f2}\index{transfer.c@{transfer.c}!Curl\_meets\_timecondition@{Curl\_meets\_timecondition}}
+\index{Curl\_meets\_timecondition@{Curl\_meets\_timecondition}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_meets\_timecondition()}{Curl\_meets\_timecondition()}}
+{\footnotesize\ttfamily \label{transfer_8c_a110f6f53341d61200abc2b0b7cdd53f2} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+meets\+\_\+timecondition (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{time\+\_\+t}]{timeofdoc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a6afc3b6e11b658604fb00a32646c2f15}\index{transfer.c@{transfer.c}!Curl\_posttransfer@{Curl\_posttransfer}}
+\index{Curl\_posttransfer@{Curl\_posttransfer}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_posttransfer()}{Curl\_posttransfer()}}
+{\footnotesize\ttfamily \label{transfer_8c_a6afc3b6e11b658604fb00a32646c2f15} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+posttransfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a0dae98156f3b0dc5f703d4d19d15c137}\index{transfer.c@{transfer.c}!Curl\_pretransfer@{Curl\_pretransfer}}
+\index{Curl\_pretransfer@{Curl\_pretransfer}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pretransfer()}{Curl\_pretransfer()}}
+{\footnotesize\ttfamily \label{transfer_8c_a0dae98156f3b0dc5f703d4d19d15c137} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+pretransfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_ac1ade793c623fae78190e398bf827b69}\index{transfer.c@{transfer.c}!Curl\_readrewind@{Curl\_readrewind}}
+\index{Curl\_readrewind@{Curl\_readrewind}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_readrewind()}{Curl\_readrewind()}}
+{\footnotesize\ttfamily \label{transfer_8c_ac1ade793c623fae78190e398bf827b69} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+readrewind (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_ac06679494870ed2a702de92759b06c7d}\index{transfer.c@{transfer.c}!Curl\_readwrite@{Curl\_readwrite}}
+\index{Curl\_readwrite@{Curl\_readwrite}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_readwrite()}{Curl\_readwrite()}}
+{\footnotesize\ttfamily \label{transfer_8c_ac06679494870ed2a702de92759b06c7d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+readwrite (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{comeback}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_ad452c9820e9491b689d4618789c40f0a}\index{transfer.c@{transfer.c}!Curl\_retry\_request@{Curl\_retry\_request}}
+\index{Curl\_retry\_request@{Curl\_retry\_request}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_retry\_request()}{Curl\_retry\_request()}}
+{\footnotesize\ttfamily \label{transfer_8c_ad452c9820e9491b689d4618789c40f0a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+retry\+\_\+request (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{url}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a12ac91ee5b865f947ad27c81d41c22f6}\index{transfer.c@{transfer.c}!Curl\_setup\_transfer@{Curl\_setup\_transfer}}
+\index{Curl\_setup\_transfer@{Curl\_setup\_transfer}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_setup\_transfer()}{Curl\_setup\_transfer()}}
+{\footnotesize\ttfamily \label{transfer_8c_a12ac91ee5b865f947ad27c81d41c22f6} 
+void Curl\+\_\+setup\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{sockindex}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{size}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{getheader}{, }\item[{int}]{writesockindex}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_a274da01073cbcdc947112b2845bbcefb}\index{transfer.c@{transfer.c}!Curl\_single\_getsock@{Curl\_single\_getsock}}
+\index{Curl\_single\_getsock@{Curl\_single\_getsock}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_single\_getsock()}{Curl\_single\_getsock()}}
+{\footnotesize\ttfamily \label{transfer_8c_a274da01073cbcdc947112b2845bbcefb} 
+int Curl\+\_\+single\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{sock}{}\end{DoxyParamCaption})}
+
+\Hypertarget{transfer_8c_ace61ce87d2115ff5833d4e6e4facf745}\index{transfer.c@{transfer.c}!data\_pending@{data\_pending}}
+\index{data\_pending@{data\_pending}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{data\_pending()}{data\_pending()}}
+{\footnotesize\ttfamily \label{transfer_8c_ace61ce87d2115ff5833d4e6e4facf745} 
+int data\+\_\+pending (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{transfer_8c_a69f101ab0a55ed97bc8d71ebafcc2d34}\index{transfer.c@{transfer.c}!readwrite\_data@{readwrite\_data}}
+\index{readwrite\_data@{readwrite\_data}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{readwrite\_data()}{readwrite\_data()}}
+{\footnotesize\ttfamily \label{transfer_8c_a69f101ab0a55ed97bc8d71ebafcc2d34} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} readwrite\+\_\+data (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{struct \mbox{\hyperlink{structSingleRequest}{Single\+Request}} \texorpdfstring{$\ast$}{*}}]{k}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{didwhat}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{comeback}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{transfer_8c_a047def37a2496deab9e6a23ab2d19665}\index{transfer.c@{transfer.c}!readwrite\_upload@{readwrite\_upload}}
+\index{readwrite\_upload@{readwrite\_upload}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{readwrite\_upload()}{readwrite\_upload()}}
+{\footnotesize\ttfamily \label{transfer_8c_a047def37a2496deab9e6a23ab2d19665} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} readwrite\+\_\+upload (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{didwhat}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+(k-\/\texorpdfstring{$>$}{>}upload\+\_\+done once k-\/\texorpdfstring{$>$}{>}upload\+\_\+present sent)\Hypertarget{transfer_8c_a07537a15dab812bd1d991b73a22ef6f1}\index{transfer.c@{transfer.c}!trailers\_left@{trailers\_left}}
+\index{trailers\_left@{trailers\_left}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{trailers\_left()}{trailers\_left()}}
+{\footnotesize\ttfamily \label{transfer_8c_a07537a15dab812bd1d991b73a22ef6f1} 
+size\+\_\+t trailers\+\_\+left (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{raw}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{transfer_8c_a7164e861bea8ec325557f17269e94ffe}\index{transfer.c@{transfer.c}!trailers\_read@{trailers\_read}}
+\index{trailers\_read@{trailers\_read}!transfer.c@{transfer.c}}
+\doxysubsubsection{\texorpdfstring{trailers\_read()}{trailers\_read()}}
+{\footnotesize\ttfamily \label{transfer_8c_a7164e861bea8ec325557f17269e94ffe} 
+size\+\_\+t trailers\+\_\+read (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nitems}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{raw}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

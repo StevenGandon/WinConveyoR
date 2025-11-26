@@ -1,0 +1,25 @@
+\doxysection{QCPLegend Class Reference}
+\hypertarget{classQCPLegend}{}\label{classQCPLegend}\index{QCPLegend@{QCPLegend}}
+
+
+Manages a legend inside a \doxylink{classQCustomPlot}{QCustom\+Plot}.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Manages a legend inside a \doxylink{classQCustomPlot}{QCustom\+Plot}. 
+
+A legend is a small box somewhere in the plot which lists plottables with their name and icon.
+
+A legend is populated with legend items by calling QCPAbstract\+Plottable\+::add\+To\+Legend on the plottable, for which a legend item shall be created. In the case of the main legend (QCustom\+Plot\+::legend), simply adding plottables to the plot while QCustom\+Plot\+::set\+Auto\+Add\+Plottable\+To\+Legend is set to true (the default) creates corresponding legend items. The legend item associated with a certain plottable can be removed with QCPAbstract\+Plottable\+::remove\+From\+Legend. However, \doxylink{classQCPLegend}{QCPLegend} also offers an interface to add and manipulate legend items directly\+: item, item\+With\+Plottable, item\+Count, add\+Item, remove\+Item, etc.
+
+Since \doxylink{classQCPLegend}{QCPLegend} derives from \doxylink{classQCPLayoutGrid}{QCPLayout\+Grid}, it can be placed in any position a \doxylink{classQCPLayoutElement}{QCPLayout\+Element} may be positioned. The legend items are themselves \doxylink{classQCPLayoutElement}{QCPLayout\+Elements} which are placed in the grid layout of the legend. \doxylink{classQCPLegend}{QCPLegend} only adds an interface specialized for handling child elements of type \doxylink{classQCPAbstractLegendItem}{QCPAbstract\+Legend\+Item}, as mentioned above. In principle, any other layout elements may also be added to a legend via the normal \doxylink{classQCPLayoutGrid}{QCPLayout\+Grid} interface. See the special page about \doxylink{}{The Layout System} for examples on how to add other elements to the legend and move it outside the axis rect.
+
+Use the methods set\+Fill\+Order and set\+Wrap inherited from \doxylink{classQCPLayoutGrid}{QCPLayout\+Grid} to control in which order (column first or row first) the legend is filled up when calling add\+Item, and at which column or row wrapping occurs.
+
+By default, every \doxylink{classQCustomPlot}{QCustom\+Plot} has one legend (QCustom\+Plot\+::legend) which is placed in the inset layout of the main axis rect (QCPAxis\+Rect\+::inset\+Layout). To move the legend to another position inside the axis rect, use the methods of the \doxylink{classQCPLayoutInset}{QCPLayout\+Inset}. To move the legend outside of the axis rect, place it anywhere else with the QCPLayout/ \doxylink{classQCPLayoutElement}{QCPLayout\+Element} interface. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

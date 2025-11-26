@@ -1,0 +1,243 @@
+\doxysection{gui/node\+\_\+modules/global-\/agent Directory Reference}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891}{}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891}\index{gui/node\_modules/global-\/agent Directory Reference@{gui/node\_modules/global-\/agent Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_b31e4b7bc537393e22456a66394a6f10}{node\+\_\+modules}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md695}{}\doxysubsection{\texorpdfstring{global-\/agent}{global-\/agent}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md695}
+\href{https://gitspo.com/mentions/gajus/global-agent}{\texttt{}} \href{https://travis-ci.org/gajus/global-agent}{\texttt{}} \href{https://coveralls.io/github/gajus/global-agent}{\texttt{}} \href{https://www.npmjs.org/package/global-agent}{\texttt{}} \href{https://github.com/gajus/canonical}{\texttt{}} \href{https://twitter.com/kuizinas}{\texttt{}}
+
+Global HTTP/\+HTTPS proxy configurable using environment variables.
+
+
+\begin{DoxyItemize}
+\item Usage
+\begin{DoxyItemize}
+\item Setup proxy using \`{}global-\/agent/bootstrap\`{}
+\item Setup proxy using \`{}bootstrap\`{} routine
+\item Runtime configuration
+\item Exclude URLs
+\item Enable logging
+\end{DoxyItemize}
+\item \doxylink{dir_0188a3e6da905bc60aceb35bf790b8c9}{API}
+\begin{DoxyItemize}
+\item \`{}create\+Global\+Proxy\+Agent\`{}
+\item Environment variables
+\item \`{}global.GLOBAL\+\_\+\+AGENT\`{}
+\end{DoxyItemize}
+\item Supported libraries
+\item FAQ
+\begin{DoxyItemize}
+\item What is the reason \`{}global-\/agent\`{} overrides explicitly configured HTTP(S) agent?
+\item What is the reason \`{}global-\/agent/bootstrap\`{} does not use \`{}\+HTTP\+\_\+\+PROXY\`{}?
+\item What is the difference from \`{}global-\/tunnel\`{} and \`{}tunnel\`{}?
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md696}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md696}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md697}{}\doxysubsubsection{\texorpdfstring{Setup proxy using {\ttfamily global-\/agent/bootstrap}}{Setup proxy using {\ttfamily global-\/agent/bootstrap}}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md697}
+To configure \doxylink{structHTTP}{HTTP} proxy\+:
+
+
+\begin{DoxyEnumerate}
+\item Import {\ttfamily global-\/agent/bootstrap}.
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Export \doxylink{structHTTP}{HTTP} proxy address as {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+HTTP\+\_\+\+PROXY} environment variable.
+\end{DoxyEnumerate}
+
+Code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ 'global-\/agent/bootstrap';}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ or:}
+\DoxyCodeLine{//\ import\ \{bootstrap\}\ from\ 'global-\/agent';}
+\DoxyCodeLine{//\ bootstrap();}
+
+\end{DoxyCode}
+
+
+Bash\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ export\ GLOBAL\_AGENT\_HTTP\_PROXY=http://127.0.0.1:8080}
+
+\end{DoxyCode}
+
+
+Alternatively, you can preload module using Node.\+js {\ttfamily -\/-\/require, -\/r} configuration, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ export\ GLOBAL\_AGENT\_HTTP\_PROXY=http://127.0.0.1:8080}
+\DoxyCodeLine{\$\ node\ -\/r\ 'global-\/agent/bootstrap'\ your-\/script.js}
+
+\end{DoxyCode}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md698}{}\doxysubsubsection{\texorpdfstring{Setup proxy using {\ttfamily bootstrap} routine}{Setup proxy using {\ttfamily bootstrap} routine}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md698}
+Instead of importing a self-\/initialising script with side-\/effects as demonstrated in the setup proxy using \`{}global-\/agent/bootstrap\`{} documentation, you can import {\ttfamily bootstrap} routine and explicitly evaluate the bootstrap logic, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{}
+\DoxyCodeLine{\ \ bootstrap}
+\DoxyCodeLine{\}\ from\ 'global-\/agent';}
+\DoxyCodeLine{}
+\DoxyCodeLine{bootstrap();}
+
+\end{DoxyCode}
+
+
+This is useful if you need to conditionally bootstrap {\ttfamily global-\/agent}, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{}
+\DoxyCodeLine{\ \ bootstrap}
+\DoxyCodeLine{\}\ from\ 'global-\/agent';}
+\DoxyCodeLine{import\ globalTunnel\ from\ 'global-\/tunnel-\/ng';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ MAJOR\_NODEJS\_VERSION\ =\ parseInt(process.version.slice(1).split('.')[0],\ 10);}
+\DoxyCodeLine{}
+\DoxyCodeLine{if\ (MAJOR\_NODEJS\_VERSION\ >=\ 10)\ \{}
+\DoxyCodeLine{\ \ //\ \`{}global-\/agent`\ works\ with\ Node.js\ v10\ and\ above.}
+\DoxyCodeLine{\ \ bootstrap();}
+\DoxyCodeLine{\}\ else\ \{}
+\DoxyCodeLine{\ \ //\ \`{}global-\/tunnel-\/ng`\ works\ only\ with\ Node.js\ v10\ and\ below.}
+\DoxyCodeLine{\ \ globalTunnel.initialize();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md699}{}\doxysubsubsection{\texorpdfstring{Setup proxy using {\ttfamily create\+Global\+Proxy\+Agent}}{Setup proxy using {\ttfamily create\+Global\+Proxy\+Agent}}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md699}
+If you do not want to use {\ttfamily global.\+GLOBAL\+\_\+\+AGENT} variable, then you can use {\ttfamily create\+Global\+Proxy\+Agent} to instantiate a controlled instance of {\ttfamily global-\/agent}, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{}
+\DoxyCodeLine{\ \ createGlobalProxyAgent}
+\DoxyCodeLine{\}\ from\ 'global-\/agent';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ globalProxyAgent\ =\ createGlobalProxyAgent();}
+
+\end{DoxyCode}
+
+
+Unlike {\ttfamily bootstrap} routine, {\ttfamily create\+Global\+Proxy\+Agent} factory does not create {\ttfamily global.\+GLOBAL\+\_\+\+AGENT} variable and does not guard against multiple initializations of {\ttfamily global-\/agent}. The result object of {\ttfamily create\+Global\+Proxy\+Agent} is equivalent to {\ttfamily global.\+GLOBAL\+\_\+\+AGENT}.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md700}{}\doxysubsubsection{\texorpdfstring{Runtime configuration}{Runtime configuration}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md700}
+{\ttfamily global-\/agent/bootstrap} script copies {\ttfamily process.\+env.\+GLOBAL\+\_\+\+AGENT\+\_\+\+HTTP\+\_\+\+PROXY} value to {\ttfamily global.\+GLOBAL\+\_\+\+AGENT.\+HTTP\+\_\+\+PROXY} and continues to use the latter variable.
+
+You can override the {\ttfamily global.\+GLOBAL\+\_\+\+AGENT.\+HTTP\+\_\+\+PROXY} value at runtime to change proxy behaviour, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{http.get('http://127.0.0.1:8000');}
+\DoxyCodeLine{}
+\DoxyCodeLine{global.GLOBAL\_AGENT.HTTP\_PROXY\ =\ 'http://127.0.0.1:8001';}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.get('http://127.0.0.1:8000');}
+\DoxyCodeLine{}
+\DoxyCodeLine{global.GLOBAL\_AGENT.HTTP\_PROXY\ =\ 'http://127.0.0.1:8002';}
+
+\end{DoxyCode}
+
+
+The first \doxylink{structHTTP}{HTTP} request is going to use \href{http://127.0.0.1:8001}{\texttt{http\+://127.\+0.\+0.\+1\+:8001}} proxy and the secord request is going to use \href{http://127.0.0.1:8002}{\texttt{http\+://127.\+0.\+0.\+1\+:8002}}.
+
+All {\ttfamily global-\/agent} configuration is available under {\ttfamily global.\+GLOBAL\+\_\+\+AGENT} namespace.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md701}{}\doxysubsubsection{\texorpdfstring{Exclude URLs}{Exclude URLs}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md701}
+The {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+NO\+\_\+\+PROXY} environment variable specifies a pattern of URLs that should be excluded from proxying. {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+NO\+\_\+\+PROXY} value is a comma-\/separated list of domain names. Asterisks can be used as wildcards, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ GLOBAL\_AGENT\_NO\_PROXY='*.foo.com,baz.com'}
+
+\end{DoxyCode}
+
+
+says to contact all machines with the \textquotesingle{}foo.\+com\textquotesingle{} TLD and \textquotesingle{}baz.\+com\textquotesingle{} domains directly.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md702}{}\doxysubsubsection{\texorpdfstring{Separate proxy for HTTPS}{Separate proxy for HTTPS}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md702}
+The environment variable {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+HTTPS\+\_\+\+PROXY} can be set to specify a separate proxy for HTTPS requests. When this variable is not set {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+HTTP\+\_\+\+PROXY} is used for both \doxylink{structHTTP}{HTTP} and HTTPS requests.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md703}{}\doxysubsubsection{\texorpdfstring{Enable logging}{Enable logging}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md703}
+{\ttfamily global-\/agent} is using \href{https://www.npmjs.com/package/roarr}{\texttt{{\ttfamily roarr}}} logger to log \doxylink{structHTTP}{HTTP} requests and response (\doxylink{structHTTP}{HTTP} status code and headers), e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{"{}context"{}:\{"{}program"{}:"{}global-\/agent"{},"{}namespace"{}:"{}Agent"{},"{}logLevel"{}:10,"{}destination"{}:"{}http://gajus.com"{},"{}proxy"{}:"{}http://127.0.0.1:8076"{}\},"{}message"{}:"{}proxying\ request"{},"{}sequence"{}:1,"{}time"{}:1556269669663,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{\{"{}context"{}:\{"{}program"{}:"{}global-\/agent"{},"{}namespace"{}:"{}Agent"{},"{}logLevel"{}:10,"{}headers"{}:\{"{}content-\/type"{}:"{}text/plain"{},"{}content-\/length"{}:"{}2"{},"{}date"{}:"{}Fri,\ 26\ Apr\ 2019\ 12:07:50\ GMT"{},"{}connection"{}:"{}close"{}\},"{}requestId"{}:6,"{}statusCode"{}:200\},"{}message"{}:"{}proxying\ response"{},"{}sequence"{}:2,"{}time"{}:1557133856955,"{}version"{}:"{}1.0.0"{}\}}
+
+\end{DoxyCode}
+
+
+Export {\ttfamily ROARR\+\_\+\+LOG=true} environment variable to enable log printing to stdout.
+
+Use \href{https://github.com/gajus/roarr-cli}{\texttt{{\ttfamily roarr-\/cli}}} program to pretty-\/print the logs.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md704}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md704}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md705}{}\doxysubsubsection{\texorpdfstring{{\ttfamily create\+Global\+Proxy\+Agent}}{{\ttfamily create\+Global\+Proxy\+Agent}}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md705}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/**}
+\DoxyCodeLine{\ *\ @property\ environmentVariableNamespace\ Defines\ namespace\ of\ \`{}HTTP\_PROXY`,\ \`{}HTTPS\_PROXY`\ and\ \`{}NO\_PROXY`\ environment\ variables.\ (Default:\ \`{}GLOBAL\_AGENT\_`)}
+\DoxyCodeLine{\ *\ @property\ forceGlobalAgent\ Forces\ to\ use\ \`{}global-\/agent`\ HTTP(S)\ agent\ even\ when\ request\ was\ explicitly\ constructed\ with\ another\ agent.\ (Default:\ \`{}true`)}
+\DoxyCodeLine{\ *\ @property\ socketConnectionTimeout\ Destroys\ socket\ if\ connection\ is\ not\ established\ within\ the\ timeout.\ (Default:\ \`{}60000`)}
+\DoxyCodeLine{\ */}
+\DoxyCodeLine{type\ ProxyAgentConfigurationInputType\ =\ \{|}
+\DoxyCodeLine{\ \ +environmentVariableNamespace?:\ string,}
+\DoxyCodeLine{\ \ +forceGlobalAgent?:\ boolean,}
+\DoxyCodeLine{\ \ +socketConnectionTimeout?:\ number,}
+\DoxyCodeLine{|\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{(configurationInput:\ ProxyAgentConfigurationInputType)\ =>\ ProxyAgentConfigurationType;}
+
+\end{DoxyCode}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md706}{}\doxysubsubsection{\texorpdfstring{Environment variables}{Environment variables}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md706}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Name  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Default  \\
+{\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+ENVIRONMENT\+\_\+\+VARIABLE\+\_\+\+NAMESPACE}  &Defines namespace of {\ttfamily HTTP\+\_\+\+PROXY}, {\ttfamily HTTPS\+\_\+\+PROXY} and {\ttfamily NO\+\_\+\+PROXY} environment variables.  &{\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+}  \\
+{\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+FORCE\+\_\+\+GLOBAL\+\_\+\+AGENT}  &Forces to use {\ttfamily global-\/agent} \doxylink{http2_8d_a4ff068e053ca83462d01531f1567cd72}{HTTP(\+S)} agent even when request was explicitly constructed with another agent.  &{\ttfamily true}  \\
+{\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+SOCKET\+\_\+\+CONNECTION\+\_\+\+TIMEOUT}  &Destroys socket if connection is not established within the timeout.  &{\ttfamily 60000}  \\
+{\ttfamily \$\{NAMESPACE\}\+\_\+\+HTTP\+\_\+\+PROXY}  &Sets the initial proxy controller HTTP\+\_\+\+PROXY value.  &N/A  \\
+{\ttfamily \$\{NAMESPACE\}\+\_\+\+HTTPS\+\_\+\+PROXY}  &Sets the initial proxy controller HTTPS\+\_\+\+PROXY value.  &N/A  \\
+{\ttfamily \$\{NAMESPACE\}\+\_\+\+NO\+\_\+\+PROXY}  &Sets the initial proxy controller NO\+\_\+\+PROXY value.  &N/A  \\
+\end{DoxyTable}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md707}{}\doxysubsubsection{\texorpdfstring{{\ttfamily global.\+GLOBAL\+\_\+\+AGENT}}{{\ttfamily global.\+GLOBAL\+\_\+\+AGENT}}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md707}
+{\ttfamily global.\+GLOBAL\+\_\+\+AGENT} is initialized by {\ttfamily bootstrap} routine.
+
+{\ttfamily global.\+GLOBAL\+\_\+\+AGENT} has the following properties\+:
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Name  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Configurable  \\
+{\ttfamily HTTP\+\_\+\+PROXY}  &Yes  &Sets \doxylink{structHTTP}{HTTP} proxy to use.  \\
+{\ttfamily HTTPS\+\_\+\+PROXY}  &Yes  &Sets a distinct proxy to use for HTTPS requests.  \\
+{\ttfamily NO\+\_\+\+PROXY}  &Yes  &Specifies a pattern of URLs that should be excluded from proxying. See Exclude URLs.  \\
+\end{DoxyTable}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md708}{}\doxysubsection{\texorpdfstring{Supported libraries}{Supported libraries}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md708}
+{\ttfamily global-\/agent} works with all libraries that internally use \href{https://nodejs.org/api/http.html\#http_http_request_options_callback}{\texttt{{\ttfamily http.\+request}}}.
+
+{\ttfamily global-\/agent} has been tested to work with\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://www.npmjs.com/package/got}{\texttt{{\ttfamily got}}}
+\item \href{https://www.npmjs.com/package/axios}{\texttt{{\ttfamily axios}}}
+\item \href{https://www.npmjs.com/package/axios}{\texttt{{\ttfamily request}}}
+\end{DoxyItemize}\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md709}{}\doxysubsection{\texorpdfstring{FAQ}{FAQ}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md709}
+\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md710}{}\doxysubsubsection{\texorpdfstring{What is the reason {\ttfamily global-\/agent} overrides explicitly configured HTTP(\+S) agent?}{What is the reason {\ttfamily global-\/agent} overrides explicitly configured HTTP(\+S) agent?}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md710}
+By default, {\ttfamily global-\/agent} overrides \href{https://nodejs.org/api/http.html\#http_http_request_options_callback}{\texttt{{\ttfamily agent} property}} of any \doxylink{structHTTP}{HTTP} request, even if {\ttfamily \doxylink{user-agent_8d_a79e53e08bedd8b5a5fc734d746c944bb}{agent}} property was explicitly set when constructing a \doxylink{structHTTP}{HTTP} request. This behaviour allows to intercept requests of libraries that use a custom instance of an agent per default (e.\+g. Stripe SDK \href{https://github.com/stripe/stripe-node/blob/e542902dd8fbe591fe3c3ce07a7e89d1d60e4cf7/lib/StripeResource.js\#L11-L12}{\texttt{uses an {\ttfamily http(s).global\+Agent} instance pre-\/configured with {\ttfamily keep\+Alive\+: true}}}).
+
+This behaviour can be disabled with {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+FORCE\+\_\+\+GLOBAL\+\_\+\+AGENT=false} environment variable. When disabled, then {\ttfamily global-\/agent} will only set {\ttfamily \doxylink{user-agent_8d_a79e53e08bedd8b5a5fc734d746c944bb}{agent}} property when it is not already defined or if {\ttfamily \doxylink{user-agent_8d_a79e53e08bedd8b5a5fc734d746c944bb}{agent}} is an instance of {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http(s)}.global\+Agent}.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md711}{}\doxysubsubsection{\texorpdfstring{What is the reason {\ttfamily global-\/agent/bootstrap} does not use {\ttfamily HTTP\+\_\+\+PROXY}?}{What is the reason {\ttfamily global-\/agent/bootstrap} does not use {\ttfamily HTTP\+\_\+\+PROXY}?}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md711}
+Some libraries (e.\+g. \href{https://npmjs.org/package/request}{\texttt{{\ttfamily request}}}) change their behaviour when {\ttfamily HTTP\+\_\+\+PROXY} environment variable is present. Using a namespaced environment variable prevents conflicting library behaviour.
+
+You can override this behaviour by configuring {\ttfamily GLOBAL\+\_\+\+AGENT\+\_\+\+ENVIRONMENT\+\_\+\+VARIABLE\+\_\+\+NAMESPACE} variable, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ export\ GLOBAL\_AGENT\_ENVIRONMENT\_VARIABLE\_NAMESPACE=}
+
+\end{DoxyCode}
+
+
+Now script initialized using {\ttfamily global-\/agent/bootstrap} will use {\ttfamily HTTP\+\_\+\+PROXY}, {\ttfamily HTTPS\+\_\+\+PROXY} and {\ttfamily NO\+\_\+\+PROXY} environment variables.\hypertarget{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md712}{}\doxysubsubsection{\texorpdfstring{What is the difference from {\ttfamily global-\/tunnel} and {\ttfamily tunnel}?}{What is the difference from {\ttfamily global-\/tunnel} and {\ttfamily tunnel}?}}\label{dir_f5d5f63afc4acf27f5573e65ddb5c891_autotoc_md712}
+\href{https://github.com/salesforce/global-tunnel}{\texttt{{\ttfamily global-\/tunnel}}} (including \href{https://github.com/np-maintain/global-tunnel}{\texttt{{\ttfamily global-\/tunnel-\/ng}}} and \href{https://npmjs.com/package/tunnel}{\texttt{{\ttfamily tunnel}}}) are designed to support legacy Node.\+js versions. They use various \href{https://github.com/koichik/node-tunnel/blob/5fb2fb424788597146b7be6729006cad1cf9e9a8/lib/tunnel.js\#L134-L144}{\texttt{workarounds}} and rely on \href{https://github.com/np-maintain/global-tunnel/blob/51413dcf0534252b5049ec213105c7063ccc6367/index.js\#L302-L338}{\texttt{monkey-\/patching {\ttfamily http.\+request}, {\ttfamily http.\+get}, {\ttfamily https.\+request} and {\ttfamily https.\+get} methods}}.
+
+In contrast, {\ttfamily global-\/agent} supports Node.\+js v10 and above, and does not implements workarounds for the older Node.\+js versions. 

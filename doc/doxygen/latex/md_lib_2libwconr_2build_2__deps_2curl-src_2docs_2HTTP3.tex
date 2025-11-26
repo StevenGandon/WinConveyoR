@@ -1,0 +1,244 @@
+\chapter{HTTP3 (and QUIC) }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3}\index{HTTP3 (and QUIC)@{HTTP3 (and QUIC)}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1713}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1713}%
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1714}{}\doxysection{\texorpdfstring{Resources}{Resources}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1714}
+\href{https://http3-explained.haxx.se/en/}{\texttt{HTTP/3 Explained}} -\/ the online free book describing the protocols involved.
+
+\href{https://quicwg.org/}{\texttt{quicwg.\+org}} -\/ home of the official protocol drafts\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1715}{}\doxysection{\texorpdfstring{QUIC libraries}{QUIC libraries}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1715}
+QUIC libraries we are experimenting with\+:
+
+\href{https://github.com/ngtcp2/ngtcp2}{\texttt{ngtcp2}}
+
+\href{https://github.com/cloudflare/quiche}{\texttt{quiche}}
+
+\href{https://github.com/microsoft/msquic}{\texttt{msquic}} \& \href{https://github.com/nibanks/msh3}{\texttt{msh3}}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1716}{}\doxysection{\texorpdfstring{Experimental}{Experimental}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1716}
+HTTP/3 and QUIC support in curl is considered {\bfseries{EXPERIMENTAL}} until further notice. It needs to be enabled at build-\/time.
+
+Further development and tweaking of the HTTP/3 support in curl will happen in the master branch using pull-\/requests, just like ordinary changes.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1717}{}\doxysection{\texorpdfstring{ngtcp2 version}{ngtcp2 version}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1717}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1718}{}\doxysubsection{\texorpdfstring{Build with Open\+SSL}{Build with Open\+SSL}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1718}
+Build (patched) Open\+SSL \begin{DoxyVerb} % git clone --depth 1 -b openssl-3.0.0+quic https://github.com/quictls/openssl
+ % cd openssl
+ % ./config enable-tls1_3 --prefix=<somewhere1>
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build nghttp3 \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/ngtcp2/nghttp3
+ % cd nghttp3
+ % autoreconf -fi
+ % ./configure --prefix=<somewhere2> --enable-lib-only
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build ngtcp2 \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/ngtcp2/ngtcp2
+ % cd ngtcp2
+ % autoreconf -fi
+ % ./configure PKG_CONFIG_PATH=<somewhere1>/lib/pkgconfig:<somewhere2>/lib/pkgconfig LDFLAGS="-Wl,-rpath,<somewhere1>/lib" --prefix=<somewhere3> --enable-lib-only
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build curl \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/curl/curl
+ % cd curl
+ % autoreconf -fi
+ % LDFLAGS="-Wl,-rpath,<somewhere1>/lib" ./configure --with-openssl=<somewhere1> --with-nghttp3=<somewhere2> --with-ngtcp2=<somewhere3>
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+For Open\+SSL 3.\+0.\+0 or later builds on Linux for x86\+\_\+64 architecture, substitute all occurrences of "{}/lib"{} with "{}/lib64"{}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1719}{}\doxysubsection{\texorpdfstring{Build with Gnu\+TLS}{Build with Gnu\+TLS}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1719}
+Build Gnu\+TLS \begin{DoxyVerb} % git clone --depth 1 https://gitlab.com/gnutls/gnutls.git
+ % cd gnutls
+ % ./bootstrap
+ % ./configure --prefix=<somewhere1>
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build nghttp3 \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/ngtcp2/nghttp3
+ % cd nghttp3
+ % autoreconf -fi
+ % ./configure --prefix=<somewhere2> --enable-lib-only
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build ngtcp2 \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/ngtcp2/ngtcp2
+ % cd ngtcp2
+ % autoreconf -fi
+ % ./configure PKG_CONFIG_PATH=<somewhere1>/lib/pkgconfig:<somewhere2>/lib/pkgconfig LDFLAGS="-Wl,-rpath,<somewhere1>/lib" --prefix=<somewhere3> --enable-lib-only --with-gnutls
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build curl \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/curl/curl
+ % cd curl
+ % autoreconf -fi
+ % ./configure --with-gnutls=<somewhere1> --with-nghttp3=<somewhere2> --with-ngtcp2=<somewhere3>
+ % make
+ % make install
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1720}{}\doxysubsection{\texorpdfstring{Build with wolf\+SSL}{Build with wolf\+SSL}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1720}
+Build wolf\+SSL \begin{DoxyVerb} % git clone https://github.com/wolfSSL/wolfssl.git
+ % cd wolfssl
+ % autoreconf -fi
+ % ./configure --prefix=<somewhere1> --enable-quic --enable-session-ticket --enable-earlydata --enable-psk --enable-harden --enable-altcertchains
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build nghttp3 \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/ngtcp2/nghttp3
+ % cd nghttp3
+ % autoreconf -fi
+ % ./configure --prefix=<somewhere2> --enable-lib-only
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build ngtcp2 (once \href{https://github.com/ngtcp2/ngtcp2/pull/505}{\texttt{https\+://github.\+com/ngtcp2/ngtcp2/pull/505}} is merged) \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/ngtcp2/ngtcp2
+ % cd ngtcp2
+ % autoreconf -fi
+ % ./configure PKG_CONFIG_PATH=<somewhere1>/lib/pkgconfig:<somewhere2>/lib/pkgconfig LDFLAGS="-Wl,-rpath,<somewhere1>/lib" --prefix=<somewhere3> --enable-lib-only --with-wolfssl
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Build curl \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/curl/curl
+ % cd curl
+ % autoreconf -fi
+ % ./configure --with-wolfssl=<somewhere1> --with-nghttp3=<somewhere2> --with-ngtcp2=<somewhere3>
+ % make
+ % make install
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1721}{}\doxysection{\texorpdfstring{quiche version}{quiche version}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1721}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1722}{}\doxysubsection{\texorpdfstring{build}{build}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1722}
+Build quiche and Boring\+SSL\+: \begin{DoxyVerb} % git clone --recursive https://github.com/cloudflare/quiche
+ % cd quiche
+ % cargo build --package quiche --release --features ffi,pkg-config-meta,qlog
+ % mkdir quiche/deps/boringssl/src/lib
+ % ln -vnf $(find target/release -name libcrypto.a -o -name libssl.a) quiche/deps/boringssl/src/lib/
+\end{DoxyVerb}
+
+
+Build curl\+: \begin{DoxyVerb} % cd ..
+ % git clone https://github.com/curl/curl
+ % cd curl
+ % autoreconf -fi
+ % ./configure LDFLAGS="-Wl,-rpath,$PWD/../quiche/target/release" --with-openssl=$PWD/../quiche/quiche/deps/boringssl/src --with-quiche=$PWD/../quiche/target/release
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+If {\ttfamily make install} results in {\ttfamily Permission denied} error, you will need to prepend it with {\ttfamily sudo}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1723}{}\doxysection{\texorpdfstring{msh3 (msquic) version}{msh3 (msquic) version}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1723}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1724}{}\doxysubsection{\texorpdfstring{Build Linux (with quictls fork of Open\+SSL)}{Build Linux (with quictls fork of Open\+SSL)}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1724}
+Build msh3\+: \begin{DoxyVerb} % git clone -b v0.4.0 --depth 1 --recursive https://github.com/nibanks/msh3
+ % cd msh3 && mkdir build && cd build
+ % cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+ % cmake --build .
+ % cmake --install .
+\end{DoxyVerb}
+
+
+Build curl\+: \begin{DoxyVerb} % git clone https://github.com/curl/curl
+ % cd curl
+ % autoreconf -fi
+ % ./configure LDFLAGS="-Wl,-rpath,/usr/local/lib" --with-msh3=/usr/local --with-openssl
+ % make
+ % make install
+\end{DoxyVerb}
+
+
+Run from {\ttfamily /usr/local/bin/curl}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1725}{}\doxysubsection{\texorpdfstring{Build Windows}{Build Windows}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1725}
+Build msh3\+: \begin{DoxyVerb} % git clone -b v0.4.0 --depth 1 --recursive https://github.com/nibanks/msh3
+ % cd msh3 && mkdir build && cd build
+ % cmake -G 'Visual Studio 17 2022' -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+ % cmake --build . --config Release
+ % cmake --install . --config Release
+\end{DoxyVerb}
+
+
+{\bfseries{Note}} -\/ On Windows, Schannel will be used for TLS support by default. If you with to use (the quictls fork of) Open\+SSL, specify the {\ttfamily -\/DQUIC\+\_\+\+TLS=openssl} option to the generate command above. Also note that Open\+SSL brings with it an additional set of build dependencies not specified here.
+
+Build curl (in \href{../winbuild/README.md\#open-a-command-prompt}{\texttt{Visual Studio Command prompt}})\+: \begin{DoxyVerb} % git clone https://github.com/curl/curl
+ % cd curl/winbuild
+ % nmake /f Makefile.vc mode=dll WITH_MSH3=dll MSH3_PATH="C:/Program Files/msh3" MACHINE=x64
+\end{DoxyVerb}
+
+
+{\bfseries{Note}} -\/ If you encounter a build error with {\ttfamily \doxylink{tool__hugehelp_8c}{tool\+\_\+hugehelp.\+c}} being missing, rename {\ttfamily tool\+\_\+hugehelp.\+c.\+cvs} in the same directory to {\ttfamily \doxylink{tool__hugehelp_8c}{tool\+\_\+hugehelp.\+c}} and then run {\ttfamily nmake} again.
+
+Run in the {\ttfamily C\+:/\+Program Files/msh3/lib} directory, copy {\ttfamily curl.\+exe} to that directory, or copy {\ttfamily msquic.\+dll} and {\ttfamily msh3.\+dll} from that directory to the {\ttfamily curl.\+exe} directory. For example\+: \begin{DoxyVerb} % C:\Program Files\msh3\lib> F:\curl\builds\libcurl-vc-x64-release-dll-ipv6-sspi-schannel-msh3\bin\curl.exe --http3 https://www.google.com
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1726}{}\doxysection{\texorpdfstring{{\ttfamily -\/-\/http3}}{{\ttfamily -\/-\/http3}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1726}
+Use HTTP/3 directly\+: \begin{DoxyVerb}curl --http3 https://nghttp2.org:4433/
+\end{DoxyVerb}
+
+
+Upgrade via Alt-\/\+Svc\+: \begin{DoxyVerb}curl --alt-svc altsvc.cache https://quic.aiortc.org/
+\end{DoxyVerb}
+
+
+See this \href{https://bagder.github.io/HTTP3-test/}{\texttt{list of public HTTP/3 servers}}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1727}{}\doxysubsection{\texorpdfstring{Known Bugs}{Known Bugs}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1727}
+Check out the \href{https://curl.se/docs/knownbugs.html\#HTTP3}{\texttt{list of known HTTP3 bugs}}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1728}{}\doxysection{\texorpdfstring{HTTP/3 Test server}{HTTP/3 Test server}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1728}
+This is not advice on how to run anything in production. This is for development and experimenting.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1729}{}\doxysubsection{\texorpdfstring{Prerequisite(s)}{Prerequisite(s)}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1729}
+An existing local HTTP/1.\+1 server that hosts files. Preferably also a few huge ones. You can easily create huge local files like {\ttfamily truncate -\/\doxylink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}=8\doxylink{md4_8c_ad96b7cf3182ce2ba85e5a7a93b12c441}{G} 8GB} -\/ they are huge but do not occupy that much space on disk since they are just big holes.
+
+In my Debian setup I just installed {\bfseries{apache2}}. It runs on port 80 and has a document root in {\ttfamily /var/www/html}. I can get the 8GB file from it with {\ttfamily \doxylink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl} localhost/8\+GB -\/o dev/null}
+
+In this description we setup and run an HTTP/3 reverse-\/proxy in front of the HTTP/1 server.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1730}{}\doxysubsection{\texorpdfstring{Setup}{Setup}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1730}
+You can select either or both of these server solutions.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1731}{}\doxysubsubsection{\texorpdfstring{nghttpx}{nghttpx}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1731}
+Get, build and install {\bfseries{quictls}}, {\bfseries{nghttp3}} and {\bfseries{ngtcp2}} as described above.
+
+Get, build and install {\bfseries{nghttp2}}\+: \begin{DoxyVerb}git clone https://github.com/nghttp2/nghttp2.git
+cd nghttp2
+autoreconf -fi
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/daniel/build-quictls/lib/pkgconfig:/home/daniel/build-nghttp3/lib/pkgconfig:/home/daniel/build-ngtcp2/lib/pkgconfig  LDFLAGS=-L/home/daniel/build-quictls/lib CFLAGS=-I/home/daniel/build-quictls/include ./configure --enable-maintainer-mode --prefix=/home/daniel/build-nghttp2 --disable-shared --enable-app --enable-http3 --without-jemalloc --without-libxml2 --without-systemd
+make && make install
+\end{DoxyVerb}
+
+
+Run the local h3 server on port 9443, make it proxy all traffic through to HTTP/1 on localhost port 80. For local toying, we can just use the test cert that exists in curl\textquotesingle{}s test dir. \begin{DoxyVerb}CERT=$CURLSRC/tests/stunnel.pem
+$HOME/bin/nghttpx $CERT $CERT --backend=localhost,80 \
+  --frontend="localhost,9443;quic"
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1732}{}\doxysubsubsection{\texorpdfstring{Caddy}{Caddy}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2HTTP3_autotoc_md1732}
+\href{https://caddyserver.com/docs/install}{\texttt{Install Caddy}}. For easiest use, the binary should be either in your PATH or your current directory.
+
+Create a {\ttfamily Caddyfile} with the following content\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{localhost:7443\ \{}
+\DoxyCodeLine{\ \ \ \ respond\ "{}Hello,\ world!\ You're\ using\ \{http.request.proto\}"{}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Then run Caddy\+: \begin{DoxyVerb}./caddy start
+\end{DoxyVerb}
+
+
+Making requests to {\ttfamily \href{https://localhost:7443}{\texttt{https\+://localhost\+:7443}}} should tell you which protocol is being used.
+
+You can change the hard-\/coded response to something more useful by replacing {\ttfamily respond} with {\ttfamily reverse\+\_\+proxy} or {\ttfamily file\+\_\+server}, for example\+: {\ttfamily reverse\+\_\+proxy localhost\+:80} 

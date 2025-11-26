@@ -1,0 +1,213 @@
+\doxysection{setup-\/os400.h}
+\hypertarget{setup-os400_8h_source}{}\label{setup-os400_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/setup-\/os400.h@{lib/libwconr/build/\_deps/curl-\/src/lib/setup-\/os400.h}}
+\mbox{\hyperlink{setup-os400_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SETUP\_OS400\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SETUP\_OS400\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ OS/400\ netdb.h\ does\ not\ define\ NI\_MAXHOST.\ */}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ NI\_MAXHOST\ \ \ \ \ \ 1025}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ OS/400\ netdb.h\ does\ not\ define\ NI\_MAXSERV.\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ NI\_MAXSERV\ \ \ \ \ \ 32}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ No\ OS/400\ header\ file\ defines\ u\_int32\_t.\ */}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \mbox{\hyperlink{setup-os400_8h_acb58d6261a51ba1d6fd4d00de0872f84}{u\_int32\_t}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ System\ API\ wrapper\ prototypes\ \&\ definitions\ to\ support\ ASCII\ parameters.\ */}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <netdb.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <gskssl.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <qsoasync.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <gssapi.h>}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_a94b30574af9802914d21cf5c6afcc51a}{Curl\_getaddrinfo\_a}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nodename,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *servname,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ addrinfo\ *hints,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ addrinfo\ **res);}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ getaddrinfo\ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_getaddrinfo\_a}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_a105a6dc488da139ab644ca74e9174b6a}{Curl\_getnameinfo\_a}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ sockaddr\ *sa,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\_socklen\_t}}\ salen,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *nodename,\ \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\_socklen\_t}}\ nodenamelen,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *servname,\ \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\_socklen\_t}}\ servnamelen,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flags);}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ getnameinfo\ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_getnameinfo\_a}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*\ GSKit\ wrappers.\ */}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a34ac37ffba37fbcff0ffecc3aca51bb8}{Curl\_gsk\_environment\_open}}(gsk\_handle\ *\ my\_env\_handle);}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ gsk\_environment\_open\ \ \ \ Curl\_gsk\_environment\_open}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a0c767427782c7fa7dfada153ef61925e}{Curl\_gsk\_secure\_soc\_open}}(gsk\_handle\ my\_env\_handle,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gsk\_handle\ *\ my\_session\_handle);}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_open\ \ \ \ \ Curl\_gsk\_secure\_soc\_open}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a3a38eb59ef37f2a5b6d3870d3fed296b}{Curl\_gsk\_environment\_close}}(gsk\_handle\ *\ my\_env\_handle);}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ gsk\_environment\_close\ \ \ Curl\_gsk\_environment\_close}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_ab3bc238b9e34619f5e167bd20b336101}{Curl\_gsk\_secure\_soc\_close}}(gsk\_handle\ *\ my\_session\_handle);}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_close\ \ \ \ Curl\_gsk\_secure\_soc\_close}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a7c0fd106da30d668750a22e78aac8bc9}{Curl\_gsk\_environment\_init}}(gsk\_handle\ my\_env\_handle);}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ gsk\_environment\_init\ \ \ \ Curl\_gsk\_environment\_init}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a4fe3350fc6c1fbb93b51bac59a8bcf76}{Curl\_gsk\_secure\_soc\_init}}(gsk\_handle\ my\_session\_handle);}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_init\ \ \ \ \ Curl\_gsk\_secure\_soc\_init}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a2cdf4633d73d3f20e51a5b7b3fa21f7b}{Curl\_gsk\_attribute\_set\_buffer\_a}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_BUF\_ID\ bufID,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ bufSize);}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_set\_buffer\ \ \ \ \ \ \ \ Curl\_gsk\_attribute\_set\_buffer\_a}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_ac190e68c55924647ea52d530fefccce3}{Curl\_gsk\_attribute\_set\_enum}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_ENUM\_ID\ enumID,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_ENUM\_VALUE\ enumValue);}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_set\_enum\ \ Curl\_gsk\_attribute\_set\_enum}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a4bc9a1e7e14a2972fb6990d07e9f4618}{Curl\_gsk\_attribute\_set\_numeric\_value}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_NUM\_ID\ numID,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numValue);}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_set\_numeric\_value\ Curl\_gsk\_attribute\_set\_numeric\_value}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a4da64abba050be7b3394aca06082cd2d}{Curl\_gsk\_attribute\_set\_callback}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_CALLBACK\_ID\ callBackID,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *callBackAreaPtr);}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_set\_callback\ \ \ \ \ \ Curl\_gsk\_attribute\_set\_callback}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a6f45929c99942a09526a652692b82087}{Curl\_gsk\_attribute\_get\_buffer\_a}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_BUF\_ID\ bufID,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *bufSize);}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_get\_buffer\ \ \ \ \ \ \ \ Curl\_gsk\_attribute\_get\_buffer\_a}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a79a0f0cef46b797e13556128488b4289}{Curl\_gsk\_attribute\_get\_enum}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_ENUM\_ID\ enumID,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_ENUM\_VALUE\ *enumValue);}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_get\_enum\ \ Curl\_gsk\_attribute\_get\_enum}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_ad44fe7ff90f5920ad4d4075fbf9730d2}{Curl\_gsk\_attribute\_get\_numeric\_value}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_NUM\_ID\ numID,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *numValue);}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_get\_numeric\_value\ Curl\_gsk\_attribute\_get\_numeric\_value}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_ae69aa46912e2b32464629ef0c9dae3d8}{Curl\_gsk\_attribute\_get\_cert\_info}}(gsk\_handle\ my\_gsk\_handle,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_CERT\_ID\ certID,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ gsk\_cert\_data\_elem\ **certDataElem,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *certDataElementCount);}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ gsk\_attribute\_get\_cert\_info\ \ \ \ \ Curl\_gsk\_attribute\_get\_cert\_info}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a3ec31554702347a51e3e1bcd4a83d61a}{Curl\_gsk\_secure\_soc\_misc}}(gsk\_handle\ my\_session\_handle,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GSK\_MISC\_ID\ miscID);}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_misc\ \ \ \ \ Curl\_gsk\_secure\_soc\_misc}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_adf644a090c472c6e35700d2e423a75d9}{Curl\_gsk\_secure\_soc\_read}}(gsk\_handle\ my\_session\_handle,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *readBuffer,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ readBufSize,\ \textcolor{keywordtype}{int}\ *amtRead);}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_read\ \ \ \ \ Curl\_gsk\_secure\_soc\_read}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a305b934382e97cfbdedd7d95f9ade45f}{Curl\_gsk\_secure\_soc\_write}}(gsk\_handle\ my\_session\_handle,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *writeBuffer,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ writeBufSize,\ \textcolor{keywordtype}{int}\ *amtWritten);}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_write\ \ \ \ Curl\_gsk\_secure\_soc\_write}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a1551ed59734572cdb3b7d9e60da78465}{Curl\_gsk\_strerror\_a}}(\textcolor{keywordtype}{int}\ gsk\_return\_value);}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ gsk\_strerror\ \ \ \ Curl\_gsk\_strerror\_a}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{setup-os400_8h_a8bd57dec8ac434e6a39b0170d1d6d80e}{Curl\_gsk\_secure\_soc\_startInit}}(gsk\_handle\ my\_session\_handle,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ IOCompletionPort,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qso\_OverlappedIO\_t\ *\ communicationsArea);}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ gsk\_secure\_soc\_startInit\ \ \ \ \ \ \ \ Curl\_gsk\_secure\_soc\_startInit}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{/*\ GSSAPI\ wrappers.\ */}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{extern}\ OM\_uint32\ \mbox{\hyperlink{setup-os400_8h_a5c1f7a939ef26d7532719025c65f2091}{Curl\_gss\_import\_name\_a}}(OM\_uint32\ *\ minor\_status,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_buffer\_t\ in\_name,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_OID\ in\_name\_type,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_name\_t\ *\ out\_name);}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ gss\_import\_name\ \ \ \ \ \ \ \ \ Curl\_gss\_import\_name\_a}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{extern}\ OM\_uint32\ \mbox{\hyperlink{setup-os400_8h_a76373c2baa56e6de279f302e7b690633}{Curl\_gss\_display\_status\_a}}(OM\_uint32\ *\ minor\_status,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OM\_uint32\ status\_value,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ status\_type,\ gss\_OID\ mech\_type,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_msg\_ctx\_t\ *\ message\_context,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_buffer\_t\ status\_string);}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ gss\_display\_status\ \ \ \ \ \ Curl\_gss\_display\_status\_a}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{extern}\ OM\_uint32\ \mbox{\hyperlink{setup-os400_8h_a2ee8957fb83f869554b1c455ddfe5758}{Curl\_gss\_init\_sec\_context\_a}}(OM\_uint32\ *\ minor\_status,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_cred\_id\_t\ cred\_handle,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_ctx\_id\_t\ *\ context\_handle,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_name\_t\ target\_name,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_OID\ mech\_type,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_flags\_t\ req\_flags,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OM\_uint32\ time\_req,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_channel\_bindings\_t}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_chan\_bindings,}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_buffer\_t\ input\_token,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_OID\ *\ actual\_mech\_type,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_buffer\_t\ output\_token,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_flags\_t\ *\ ret\_flags,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OM\_uint32\ *\ time\_rec);}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ gss\_init\_sec\_context\ \ \ \ Curl\_gss\_init\_sec\_context\_a}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{keyword}{extern}\ OM\_uint32\ \mbox{\hyperlink{setup-os400_8h_abff013234d94e763277d932998397583}{Curl\_gss\_delete\_sec\_context\_a}}(OM\_uint32\ *\ minor\_status,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_ctx\_id\_t\ *\ context\_handle,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gss\_buffer\_t\ output\_token);}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ gss\_delete\_sec\_context\ \ Curl\_gss\_delete\_sec\_context\_a}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{comment}{/*\ LDAP\ wrappers.\ */}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ BerValue\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ struct\ berval}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ ldap\_url\_parse\ \ \ \ \ \ \ \ \ \ ldap\_url\_parse\_utf8}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ ldap\_init\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_ldap\_init\_a}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ ldap\_simple\_bind\_s\ \ \ \ \ \ Curl\_ldap\_simple\_bind\_s\_a}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ ldap\_search\_s\ \ \ \ \ \ \ \ \ \ \ Curl\_ldap\_search\_s\_a}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ ldap\_get\_values\_len\ \ \ \ \ Curl\_ldap\_get\_values\_len\_a}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ ldap\_err2string\ \ \ \ \ \ \ \ \ Curl\_ldap\_err2string\_a}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ ldap\_get\_dn\ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_ldap\_get\_dn\_a}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ ldap\_first\_attribute\ \ \ \ Curl\_ldap\_first\_attribute\_a}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ ldap\_next\_attribute\ \ \ \ \ Curl\_ldap\_next\_attribute\_a}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{comment}{/*\ Some\ socket\ functions\ must\ be\ wrapped\ to\ process\ textual\ addresses}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ \ \ like\ AF\_UNIX.\ */}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_ae4d4846b78f9955040176e74d77a6806}{Curl\_os400\_connect}}(\textcolor{keywordtype}{int}\ sd,\ \textcolor{keyword}{struct}\ sockaddr\ *destaddr,\ \textcolor{keywordtype}{int}\ addrlen);}
+\DoxyCodeLine{00206\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_a883d0bc74848b803f32197e366fc339f}{Curl\_os400\_bind}}(\textcolor{keywordtype}{int}\ sd,\ \textcolor{keyword}{struct}\ sockaddr\ *localaddr,\ \textcolor{keywordtype}{int}\ addrlen);}
+\DoxyCodeLine{00207\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_ac29446ef93ec2052b091162d3c47683a}{Curl\_os400\_sendto}}(\textcolor{keywordtype}{int}\ sd,\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{int}\ buflen,\ \textcolor{keywordtype}{int}\ flags,}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ sockaddr\ *dstaddr,\ \textcolor{keywordtype}{int}\ addrlen);}
+\DoxyCodeLine{00209\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_a83d656361246e6e529fe5eeb32c66e2f}{Curl\_os400\_recvfrom}}(\textcolor{keywordtype}{int}\ sd,\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{int}\ buflen,\ \textcolor{keywordtype}{int}\ flags,}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ sockaddr\ *fromaddr,\ \textcolor{keywordtype}{int}\ *addrlen);}
+\DoxyCodeLine{00211\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_a2ba998af81ef51400ff9f93c397e9a8e}{Curl\_os400\_getpeername}}(\textcolor{keywordtype}{int}\ sd,\ \textcolor{keyword}{struct}\ sockaddr\ *addr,\ \textcolor{keywordtype}{int}\ *addrlen);}
+\DoxyCodeLine{00212\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-os400_8h_a3fd77152941087418bd7ff728537d699}{Curl\_os400\_getsockname}}(\textcolor{keywordtype}{int}\ sd,\ \textcolor{keyword}{struct}\ sockaddr\ *addr,\ \textcolor{keywordtype}{int}\ *addrlen);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ connect\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_connect}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ bind\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_bind}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ sendto\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_sendto}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ recvfrom\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_recvfrom}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ getpeername\ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_getpeername}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ getsockname\ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_getsockname}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#ifdef\ HAVE\_LIBZ}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ zlibVersion\ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_zlibVersion}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ inflateInit\_\ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_inflateInit\_}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ inflateInit2\_\ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_inflateInit2\_}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ inflate\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_inflate}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ inflateEnd\ \ \ \ \ \ \ \ \ \ \ \ \ \ Curl\_os400\_inflateEnd}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SETUP\_OS400\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

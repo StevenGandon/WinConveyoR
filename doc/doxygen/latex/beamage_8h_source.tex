@@ -1,0 +1,286 @@
+\doxysection{beamage.\+h}
+\hypertarget{beamage_8h_source}{}\label{beamage_8h_source}\index{Beamage/beamage.h@{Beamage/beamage.h}}
+\mbox{\hyperlink{beamage_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ui\_beamage.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{myundostack_8h}{myundostack.h}}>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{dafimagecut_8h}{dafimagecut.h}}>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{thread__renderimage_8h}{thread\_renderimage.h}}>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{BeamageGraphic_8h}{BeamageGraphic.h}}>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QMutex>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{roicontroller_8h}{roicontroller.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{imagecontroller_8h}{imagecontroller.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{editcontroller_8h}{editcontroller.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{annotationcontroller_8h}{annotationcontroller.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{blurcontroller_8h}{blurcontroller.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{graphcontroller_8h}{graphcontroller.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{reportcontroller_8h}{reportcontroller.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{palettetoolbar_8h}{palettetoolbar.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{samplepositiondialog_8h}{samplepositiondialog.h}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{chargeseparationcontroller_8h}{chargeseparationcontroller.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{graphworkspacecontroller_8h}{graphworkspacecontroller.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{myplot_8h}{myplot.h}}"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mytableview_8h}{mytableview.h}}"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mdichildimage_8h}{mdichildimage.h}}"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{myview_8h}{myview.h}}"{}}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamageMain_a6252ae4d1fa97fb0ae5a7cec44ecc7af}{BeamageMain}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ac1c7733c440e0d5687e5ab36aae162cf}{resetInstance}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \_singleton\ =\ NULL;}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classBeamageMain_a6252ae4d1fa97fb0ae5a7cec44ecc7af}{BeamageMain}}\ *\mbox{\hyperlink{classBeamageMain_aca38d537ef2018e0f45cde1369265f48}{getInstance}}()}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ ==\ \_singleton)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \_singleton\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classBeamageMain_a6252ae4d1fa97fb0ae5a7cec44ecc7af}{BeamageMain}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_singleton;}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a7126677da3cf547993fae776101d879c}{kill}}()}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ \_singleton)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \_singleton;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \_singleton\ =\ NULL;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classBeamageMain_a6252ae4d1fa97fb0ae5a7cec44ecc7af}{BeamageMain}}(QWidget\ *parent\ =\ 0);}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{classBeamageMain_aa86d5dde8305fe64ac6726af345a0be3}{\string~BeamageMain}}();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamageMain_a527878940d8612e6792d881ae4a849b4}{openBDEFile}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a632f1075315ebfb0f3ac0e04798eead3}{createScene}}();}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamageMain_a0781a1fc55e2de3ce5e7856993d8ab58}{openDAFFile}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamageMain_a5efc84cd4d5aa2c14038d9f65ce06698}{openTIFFile}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamageMain_a4942eb1833498f6fba4a8d48d3128ca7}{openItemsFile}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classmyMdiArea}{myMdiArea}}\ *\mbox{\hyperlink{classBeamageMain_a9d8b19bab06d4004932789b8631a45bb}{fileArea}}()\ \{\ \textcolor{keywordflow}{return}\ ui.mdiArea;\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//bool\ eventFilter(QObject\ *object,\ QEvent\ *event);}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_abf16cdde0975f0f8bd7c62686c563f47}{deleteImageConnection}}(\mbox{\hyperlink{classmdiChild}{mdiChild}}\ *child);}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a2c9942a25253d3dac41c1100a004003c}{deleteTabConnection}}(\mbox{\hyperlink{classmdiChild}{mdiChild}}\ *child);}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a22120de0962702c253f36ba0f6137126}{createImageConnection}}(\mbox{\hyperlink{classmdiChild}{mdiChild}}\ *child);}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a7805c982f01a7692b8799fcc3fb30a90}{createTabConnection}}(\mbox{\hyperlink{classmdiChild}{mdiChild}}*\ child);}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_acb2c0f3f9a075e61e565dc6c7ea37a2c}{createGraphConnection}}(\mbox{\hyperlink{classmdiChild}{mdiChild}}\ *child);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a60d4f890e3caa53663374e1d0eede5f1}{createImageCopy}}(\mbox{\hyperlink{classAbstractImage}{AbstractImage}}*\ img);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a657a77df122cc1fd8f00867f4fad4ef0}{createImageCopyWithEntryList}}(\mbox{\hyperlink{classAbstractImage}{AbstractImage}}*\ img,\ \mbox{\hyperlink{classentryList}{entryList}}\ *newList);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ signals:}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a02cad2d6d95e7e15e5d8b0aa11e7461e}{imageCreated}}(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a03ae2907b16dbce6443eac96036896d4}{openFile}}();}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a03ae2907b16dbce6443eac96036896d4}{openFile}}(\textcolor{keyword}{const}\ QString\ \&filename,\ \textcolor{keywordtype}{bool}\ addToRecentFile\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a7d19d2f923a4a1b24f4093ca8a74df82}{openArgumentFile}}();}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a23b83a9bf1d75b4939068650dc095c12}{openRecentFile}}();}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ab40900c388a67370f18029cb620202e7}{openPreferences}}();}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a45093afb2ae2f7e629af05d44137cd19}{openSlideConfiguration}}();}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ae4d31f6a0f1c6a27fd91c199753ad786}{setCurrentFile}}(\textcolor{keyword}{const}\ QString\ \&fileName);}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_afe0e2b776e3b7c8305d046f95932cfe6}{updateRecentFileActions}}();}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a0c733a356eccf6df270863f3071f9b93}{updateWindowMenu}}();}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a7bd9b100fadc5233f37622c2b6cdc3a9}{changeActiveSubwindow}}(QMdiSubWindow*\ wind);}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ad7810f2b2c29c5e3d344ee2e73848b17}{changePaletteWindow}}(QMdiSubWindow*\ wind);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a5c26fc67c58ce5ba938410da413e3b45}{createImage}}(\textcolor{keyword}{const}\ QString\ \&filename,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ offX,\ \textcolor{keywordtype}{double}\ offY,\ \textcolor{keywordtype}{double}\ width,\ \textcolor{keywordtype}{double}\ height,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ pixelsize,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pasteROImode\ =\ 0,}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ gamma\ =\ 1,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdafImageCut}{dafImageCut}}\ *dafCut\ =\ 0,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ openImageMode\ =\ 0);}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a5c26fc67c58ce5ba938410da413e3b45}{createImage}}(\textcolor{keyword}{const}\ QString\ \&filename,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QRectF\ \&imageRec,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ pixelsize,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pasteROImode\ =\ 0,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ gamma\ =\ 1,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdafImageCut}{dafImageCut}}\ *dafCut\ =\ 0,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ openImageMode\ =\ 0);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a69cc181a274997f7fb819e77c6b04d31}{checkForUpdate}}();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_aa286f2657da45ed74964015ea6cb0890}{showImage}}(\textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00116\ \ \ \ \ QMdiSubWindow*\ \mbox{\hyperlink{classBeamageMain_aa286f2657da45ed74964015ea6cb0890}{showImage}}(\mbox{\hyperlink{classAbstractImage}{AbstractImage}}\ *img);}
+\DoxyCodeLine{00117\ \ \ \ \ QMdiSubWindow*\ \mbox{\hyperlink{classBeamageMain_a59ec128a03bf037ef0f80240d77c63f4}{showGraph}}(\mbox{\hyperlink{classmyPlot}{myPlot}}\ *plot\ =\ 0);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ac4d3aae19e507259b13810576efb70c5}{connectImageToController}}(QMdiSubWindow*\ window);}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_afacb175ab9abe0d6f461451a012c3063}{disconnectImageFromController}}(QMdiSubWindow*\ window);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_aeb7ffe57ce78dd39368a65988d2ed245}{connectGraphToController}}(QMdiSubWindow*\ window);}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a7528246779da2fa666d266131ba15411}{disconnectGraphFromController}}(QMdiSubWindow*\ window);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a0e728625aea9ed1cf10f5aefdf642919}{save}}();}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a2d2e0095d58bd17fa02cffd23aff8bb5}{saveAs}}();}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//void\ saveAsPicture();}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ac8e3317195d81fb93e73a4ed2680a6b4}{saveAsPicture}}();}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ad50a2ea8074b38637e0c18234ed7019b}{saveVisibleAsPicture}}();}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a40524bc2442cdccbc99f8bd3bf01c744}{saveVisiblePictureOptionAs}}();}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ae2a23c4f4bb1839f30f25bd75d7cabc0}{saveAsTiff8}}();}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_abb034d5be969253750da768be471c846}{saveAsTiff16}}();}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ae72205c58197cb43a694f165d9054ead}{saveAsTiff32}}();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a38cec2ab18865561b6cc64741357eadc}{saveAsAscii}}();}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a1fbbdb04ca41eb7d4c0e90767984cb52}{importAscii}}();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a604c76f96193c1e7c04661d5b8bc2859}{saveAsItems}}();}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_abf3b170ee95236b903f29b0a43428408}{importItems}}();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a0aaebbf3407bde9a024c45672fbc2b02}{importEntryList}}();}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a08ff6e68a65eda73ceb68b653c882975}{newPixelSize}}(\textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ab89e388d23b8e17d8adef52bea755029}{newImageCut}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdafImageCut}{dafImageCut}}\ \&cut);}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a70bc7668e5ca37df4be508731e2a2769}{draggedFile}}(\textcolor{keyword}{const}\ QMimeData\ *mimeData);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_af5004d91871a3e47f2eab6535f93481c}{createReport}}();}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a00aa260c5ce817149d56d1fe5bd94c1c}{updateReport}}();}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{//void\ saveReportCSV();}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{comment}{//void\ saveReportXLS();}}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_afa1774d1d3a35730f7f56112f5fefb0c}{saveReport}}();}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a35861e1f186db636df5b68c69148b116}{copySelectedLinesReport}}();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ab5b8959b11ea8e660f7cd75ad19fe5a8}{toggleSampleLebels}}();}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a3b5ba4945fb1ec2ceab7ffc97f7242b5}{print}}();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a53df2066790f0819baae16eef87bdecc}{test}}();}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a0c0c578961efdfda38ae33dfa5aba271}{showBDEinformation}}();}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a6a96eeb49cca9cb25c38f629d6a366ac}{closeFile}}(\textcolor{keyword}{const}\ QString\ \&str);}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a22aeec36cee636f17f525e83448de27f}{startChargeSeparation}}();}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_acdd4598648e7f08b7b9e86f9054573b5}{startAmplitude}}();}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_ac3e69d71f7612d1400fc669759ef9375}{imageHandler}}(QAction*\ action);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a9212229de6206de196c052d5c0ef35f6}{closeEvent}}(QCloseEvent\ *\mbox{\hyperlink{classBeamageMain_a9212229de6206de196c052d5c0ef35f6}{closeEvent}});}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamageMain_a97054c8fb6804e5f58dab77978bb36d9}{timerEvent}}(QTimerEvent\ *event);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ checkNormallyClosed();}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ clearOpenFilelist();}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ openHelp(QString\ pluginName\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{void}\ openHelpChargeSeparation();}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{void}\ openHelpAmplitude();}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{void}\ openAbout();}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{void}\ childStateChanged(Qt::WindowStates\ oldState,\ Qt::WindowStates\ newState);}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ printPreview(QPrinter*\ printer);}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ openWhatsNew();}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ Ui::BeamageClass\ ui;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ QString\ strippedName(\textcolor{keyword}{const}\ QString\ \&fullFileName);}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{void}\ createMenu();}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{void}\ createToolBar();}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{void}\ createStatus();}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{void}\ createROIReport(\mbox{\hyperlink{classmdiChild}{mdiChild}}*\ mdi);}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{void}\ createGraphAreaReport(\mbox{\hyperlink{classmdiChild}{mdiChild}}*\ mdi);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{bool}\ recover();}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{bool}\ openBinary(\textcolor{keyword}{const}\ QString\ \&filename,\ \mbox{\hyperlink{classdafImage}{dafImage}}\ *img,\ \mbox{\hyperlink{classmyScene}{myScene}}\ *scene\ =\ 0,\ \mbox{\hyperlink{classmyView}{myView}}\ *view\ =\ 0);}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{void}\ createSceneFromFile(\textcolor{keyword}{const}\ QString\ \&filename,\ \mbox{\hyperlink{classmyScene}{myScene}}\ *scene,\ \mbox{\hyperlink{classmyView}{myView}}\ *view);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//void\ displayImage(thread\_renderImage\ *thread\ =\ 0);}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordtype}{bool}\ checkFileExists(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{bool}\ readDafFile(\textcolor{keyword}{const}\ QString\ \&filename);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{bool}\ internetAvailable();}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{bool}\ checkLastUpdateDate();}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \mbox{\hyperlink{classmytableView}{mytableView}}*\ getTableViewFromImage(\mbox{\hyperlink{classmdiChildImage}{mdiChildImage}}*\ image);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{enum}\ \{\ fMaxRecentFiles\ =\ 10\ \};}
+\DoxyCodeLine{00212\ \ \ \ \ QAction\ *fRecentFileActs[fMaxRecentFiles];}
+\DoxyCodeLine{00213\ \ \ \ \ QAction\ *separatorAct;}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ QMenu\ *fileMenu;}
+\DoxyCodeLine{00216\ \ \ \ \ QMenu\ *optionMenu;}
+\DoxyCodeLine{00217\ \ \ \ \ QMenu\ *windowMenu;}
+\DoxyCodeLine{00218\ \ \ \ \ QMenu\ *imageMenu;}
+\DoxyCodeLine{00219\ \ \ \ \ QMenu\ *workspaceMenu;}
+\DoxyCodeLine{00220\ \ \ \ \ QMenu\ *toolMenu;}
+\DoxyCodeLine{00221\ \ \ \ \ QMenu\ *reportMenu;}
+\DoxyCodeLine{00222\ \ \ \ \ QMenu\ *helpMenu;}
+\DoxyCodeLine{00223\ \ \ \ \ QAction\ *closeAct;}
+\DoxyCodeLine{00224\ \ \ \ \ QAction\ *closeAllAct;}
+\DoxyCodeLine{00225\ \ \ \ \ QAction\ *tileAct;}
+\DoxyCodeLine{00226\ \ \ \ \ QAction\ *cascadeAct;}
+\DoxyCodeLine{00227\ \ \ \ \ QAction\ *windowMenuSeparatorAct;}
+\DoxyCodeLine{00228\ \ \ \ \ QAction\ *roiAct;}
+\DoxyCodeLine{00229\ \ \ \ \ QAction\ *annotationAct;}
+\DoxyCodeLine{00230\ \ \ \ \ QAction\ *editorAct;}
+\DoxyCodeLine{00231\ \ \ \ \ QAction\ *reportAct;}
+\DoxyCodeLine{00232\ \ \ \ \ QAction\ *paletteAct;}
+\DoxyCodeLine{00233\ \ \ \ \ QAction\ *imageAct;}
+\DoxyCodeLine{00234\ \ \ \ \ QAction\ *chargeSeparationAct;}
+\DoxyCodeLine{00235\ \ \ \ \ QAction\ *graphAct;}
+\DoxyCodeLine{00236\ \ \ \ \ QAction\ *undoAction;}
+\DoxyCodeLine{00237\ \ \ \ \ QAction\ *redoAction;}
+\DoxyCodeLine{00238\ \ \ \ \ QAction\ *blurAct;}
+\DoxyCodeLine{00239\ \ \ \ \ QAction*\ plotAct;}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}\ *dafImg;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ QLabel\ *l\_imageInfo;}
+\DoxyCodeLine{00244\ \ \ \ \ QLabel\ *l\_imageInfoPos;}
+\DoxyCodeLine{00245\ \ \ \ \ QLabel\ *l\_imageInfoCadre;}
+\DoxyCodeLine{00246\ \ \ \ \ QLabel\ *l\_autosaveInfo;}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ QMdiSubWindow\ *mdiROI;}
+\DoxyCodeLine{00249\ \ \ \ \ QMdiSubWindow\ *mdiPalette;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \mbox{\hyperlink{classmdiChildImage}{mdiChildImage}}\ *mdiImage;}
+\DoxyCodeLine{00252\ \ \ \ \ \mbox{\hyperlink{classmdiChild}{mdiChild}}\ *mdiPrint;}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ QDockWidget\ *dockPalette;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ QToolBar\ *roiTool;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \mbox{\hyperlink{classroiController}{roiController}}\ *roiControl;}
+\DoxyCodeLine{00259\ \ \ \ \ \mbox{\hyperlink{classimageController}{imageController}}\ *imageControl;}
+\DoxyCodeLine{00260\ \ \ \ \ \mbox{\hyperlink{classannotationController}{annotationController}}\ *anotControl;}
+\DoxyCodeLine{00261\ \ \ \ \ \mbox{\hyperlink{classeditController}{editController}}\ *editControl;}
+\DoxyCodeLine{00262\ \ \ \ \ \mbox{\hyperlink{classreportController}{reportController}}\ *reportControl;}
+\DoxyCodeLine{00263\ \ \ \ \ \mbox{\hyperlink{classchargeSeparationController}{chargeSeparationController}}\ *chargeSeparationControl;}
+\DoxyCodeLine{00264\ \ \ \ \ \mbox{\hyperlink{classgraphWorkspaceController}{graphWorkspaceController}}\ *graphWorkspaceControl;}
+\DoxyCodeLine{00265\ \ \ \ \ \mbox{\hyperlink{classblurController}{blurController}}\ *blurControl;}
+\DoxyCodeLine{00266\ \ \ \ \ \mbox{\hyperlink{classgraphController}{graphController}}*\ graphControl;}
+\DoxyCodeLine{00267\ \ \ \ \ \mbox{\hyperlink{classpaletteToolBar}{paletteToolBar}}\ *paletteControl;}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ QString\ fOpenFilename;}
+\DoxyCodeLine{00270\ \ \ \ \ QStringList\ fOpenedFiles;}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ QMutex\ fMutex;}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \mbox{\hyperlink{classsamplePositionDialog}{samplePositionDialog}}\ *sampleConfigurator;}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ QUndoView*\ fUndoView;}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classBeamageMain}{BeamageMain}}\ *\_singleton;}
+\DoxyCodeLine{00278\ \};}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classmyUndoStack}{myUndoStack}}\ *\mbox{\hyperlink{beamage_8cpp_a62161432b66ff741fbcc82507e142b79}{\_undoStack}};}
+
+\end{DoxyCode}

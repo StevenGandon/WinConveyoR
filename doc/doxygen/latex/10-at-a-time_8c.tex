@@ -1,0 +1,91 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/10-\/at-\/a-\/time.c File Reference}
+\hypertarget{10-at-a-time_8c}{}\label{10-at-a-time_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/10-\/at-\/a-\/time.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/10-\/at-\/a-\/time.c}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{10-at-a-time_8c_a08024f7ebd1b4171120e76062e9293e6}{MAX\+\_\+\+PARALLEL}}~10 /\texorpdfstring{$\ast$}{*} number \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} simultaneous \mbox{\hyperlink{rate_8d_ad3bb81a715d22c4c2a85d6f6cc00240e}{transfers}} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{10-at-a-time_8c_ad90a6c800107aa064523dae9ebd301c3}{NUM\+\_\+\+URLS}}~sizeof(\mbox{\hyperlink{10-at-a-time_8c_a833cfc6fdb6bcb08958a6731bbc3e5ce}{urls}})/sizeof(char \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static size\+\_\+t \mbox{\hyperlink{10-at-a-time_8c_ac5fce3b32b64b0aca920327b34e144fa}{write\+\_\+cb}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, size\+\_\+t \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}}, size\+\_\+t l, void \texorpdfstring{$\ast$}{*}userp)
+\item 
+static void \mbox{\hyperlink{10-at-a-time_8c_acca8c0fd9d81bbe52ddd76c7ac083686}{add\+\_\+transfer}} (\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}cm, int i)
+\item 
+int \mbox{\hyperlink{10-at-a-time_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{10-at-a-time_8c_a833cfc6fdb6bcb08958a6731bbc3e5ce}{urls}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{10-at-a-time_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{10-at-a-time_8c_a08024f7ebd1b4171120e76062e9293e6}\index{10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}!MAX\_PARALLEL@{MAX\_PARALLEL}}
+\index{MAX\_PARALLEL@{MAX\_PARALLEL}!10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_PARALLEL}{MAX\_PARALLEL}}
+{\footnotesize\ttfamily \label{10-at-a-time_8c_a08024f7ebd1b4171120e76062e9293e6} 
+\#define MAX\+\_\+\+PARALLEL~10 /\texorpdfstring{$\ast$}{*} number \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} simultaneous \mbox{\hyperlink{rate_8d_ad3bb81a715d22c4c2a85d6f6cc00240e}{transfers}} \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{10-at-a-time_8c_ad90a6c800107aa064523dae9ebd301c3}\index{10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}!NUM\_URLS@{NUM\_URLS}}
+\index{NUM\_URLS@{NUM\_URLS}!10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}}
+\doxysubsubsection{\texorpdfstring{NUM\_URLS}{NUM\_URLS}}
+{\footnotesize\ttfamily \label{10-at-a-time_8c_ad90a6c800107aa064523dae9ebd301c3} 
+\#define NUM\+\_\+\+URLS~sizeof(\mbox{\hyperlink{10-at-a-time_8c_a833cfc6fdb6bcb08958a6731bbc3e5ce}{urls}})/sizeof(char \texorpdfstring{$\ast$}{*})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{10-at-a-time_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{10-at-a-time_8c_acca8c0fd9d81bbe52ddd76c7ac083686}\index{10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}!add\_transfer@{add\_transfer}}
+\index{add\_transfer@{add\_transfer}!10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}}
+\doxysubsubsection{\texorpdfstring{add\_transfer()}{add\_transfer()}}
+{\footnotesize\ttfamily \label{10-at-a-time_8c_acca8c0fd9d81bbe52ddd76c7ac083686} 
+void add\+\_\+transfer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}}]{cm}{, }\item[{int}]{i}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{10-at-a-time_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}!main@{main}}
+\index{main@{main}!10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{10-at-a-time_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{10-at-a-time_8c_ac5fce3b32b64b0aca920327b34e144fa}\index{10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}!write\_cb@{write\_cb}}
+\index{write\_cb@{write\_cb}!10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}}
+\doxysubsubsection{\texorpdfstring{write\_cb()}{write\_cb()}}
+{\footnotesize\ttfamily \label{10-at-a-time_8c_ac5fce3b32b64b0aca920327b34e144fa} 
+size\+\_\+t write\+\_\+cb (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{n}{, }\item[{size\+\_\+t}]{l}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{10-at-a-time_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{10-at-a-time_8c_a833cfc6fdb6bcb08958a6731bbc3e5ce}\index{10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}!urls@{urls}}
+\index{urls@{urls}!10-\/at-\/a-\/time.c@{10-\/at-\/a-\/time.c}}
+\doxysubsubsection{\texorpdfstring{urls}{urls}}
+{\footnotesize\ttfamily \label{10-at-a-time_8c_a833cfc6fdb6bcb08958a6731bbc3e5ce} 
+const char\texorpdfstring{$\ast$}{*} urls\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

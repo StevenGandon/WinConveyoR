@@ -1,0 +1,178 @@
+\doxysection{tiff\+\_\+stream.\+h}
+\hypertarget{tiff__stream_8h_source}{}\label{tiff__stream_8h_source}\index{Beamage/tiff\_stream.h@{Beamage/tiff\_stream.h}}
+\mbox{\hyperlink{tiff__stream_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\#\ \ File\ \ \ \ \ \ \ \ :\ tiff\_stream.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ C++\ header\ file\ -\/\ CImg\ plug-\/in\ )}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\#\ \ Description\ :\ This\ CImg\ plug-\/in\ provide\ functions\ to\ load\ and\ save\ tiff\ images}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ from\ std::istream/\ to\ std::ostream}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ file\ is\ a\ part\ of\ the\ CImg\ Library\ project.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ http://cimg.eu\ )}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\#\ \ Copyright\ \ \ :\ Wolf\ Blecher}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ Wolf.Blecher(at)sirona.com\ )}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\#\ \ License\ \ \ \ \ :\ CeCILL\ v2.0}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ http://www.cecill.info/licences/Licence\_CeCILL\_V2-\/en.html\ )}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\#\ \ This\ software\ is\ governed\ by\ the\ CeCILL\ \ license\ under\ French\ law\ and}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\#\ \ abiding\ by\ the\ rules\ of\ distribution\ of\ free\ software.\ \ You\ can\ \ use,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\#\ \ modify\ and/\ or\ redistribute\ the\ software\ under\ the\ terms\ of\ the\ CeCILL}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\#\ \ license\ as\ circulated\ by\ CEA,\ CNRS\ and\ INRIA\ at\ the\ following\ URL}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\#\ \ "{}http://www.cecill.info"{}.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\#\ \ As\ a\ counterpart\ to\ the\ access\ to\ the\ source\ code\ and\ \ rights\ to\ copy,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\#\ \ modify\ and\ redistribute\ granted\ by\ the\ license,\ users\ are\ provided\ only}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\#\ \ with\ a\ limited\ warranty\ \ and\ the\ software's\ author,\ \ the\ holder\ of\ the}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\#\ \ economic\ rights,\ \ and\ the\ successive\ licensors\ \ have\ only\ \ limited}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\#\ \ liability.}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#\ \ In\ this\ respect,\ the\ user's\ attention\ is\ drawn\ to\ the\ risks\ associated}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#\ \ with\ loading,\ \ using,\ \ modifying\ and/or\ developing\ or\ reproducing\ the}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#\ \ software\ by\ the\ user\ in\ light\ of\ its\ specific\ status\ of\ free\ software,}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#\ \ that\ may\ mean\ \ that\ it\ is\ complicated\ to\ manipulate,\ \ and\ \ that\ \ also}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#\ \ therefore\ means\ \ that\ it\ is\ reserved\ for\ developers\ \ and\ \ experienced}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\#\ \ professionals\ having\ in-\/depth\ computer\ knowledge.\ Users\ are\ therefore}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\#\ \ encouraged\ to\ load\ and\ test\ the\ software's\ suitability\ as\ regards\ their}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\#\ \ requirements\ in\ conditions\ enabling\ the\ security\ of\ their\ systems\ and/or}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\#\ \ data\ to\ be\ ensured\ and,\ \ more\ generally,\ to\ use\ and\ operate\ it\ in\ the}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\#\ \ same\ conditions\ as\ regards\ security.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\#\ \ The\ fact\ that\ you\ are\ presently\ reading\ this\ means\ that\ you\ have\ had}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\#\ \ knowledge\ of\ the\ CeCILL\ license\ and\ that\ you\ accept\ its\ terms.}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\#}}
+\DoxyCodeLine{00043\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00046\ \textcolor{comment}{}}
+\DoxyCodeLine{00047\ \textcolor{comment}{IMPORTANT\ NOTE\ :}}
+\DoxyCodeLine{00048\ \textcolor{comment}{}}
+\DoxyCodeLine{00049\ \textcolor{comment}{You\ *need*\ to\ include\ the\ following\ lines\ in\ your\ own\ code\ to\ use\ this\ plugin:}}
+\DoxyCodeLine{00050\ \textcolor{comment}{}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\#include\ "{}tiffio.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\#include\ "{}tiffio.hxx"{}}}
+\DoxyCodeLine{00053\ \textcolor{comment}{}}
+\DoxyCodeLine{00054\ \textcolor{comment}{You\ *need*\ to\ link\ your\ code\ with\ the\ libtiff\ and\ libtiffxx\ libraries\ as\ well.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{}}
+\DoxyCodeLine{00056\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifndef\ cimg\_use\_tiff}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#error\ cimg\_use\_tiff\ not\ defined}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifndef\ cimg\_plugin\_tiff\_stream}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ cimg\_plugin\_tiff\_stream}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <ios>}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ \ \ Define\ main\ CImg\ plugin\ functions.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \ \ \ (you\ should\ use\ these\ functions\ only\ in\ your\ own\ code)}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{const}\ CImg<T>\&\ \mbox{\hyperlink{tiff__stream_8h_abf7214e7ee9e1d6acbace2d7c73aec8e}{save\_tiff}}(std::ostream\ *tiffOutStream,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ compression\_type=0)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{if}\ (!tiffOutStream-\/>good())}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ CImgArgumentException(\_cimg\_instance}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}save\_tiff():\ tiffstream\ is\ not\ good!"{}},}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cimg\_instance);}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordflow}{if}\ (is\_empty())}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ CImgArgumentException(\_cimg\_instance}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Not\ allowed\ to\ write\ empty\ images\ to\ stream"{}},}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cimg\_instance}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ TIFF\ *tif\ =\ TIFFStreamOpen(\textcolor{stringliteral}{"{}MemTiff"{}},\ tiffOutStream);}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{if}\ (tif)}
+\DoxyCodeLine{00104\ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ cimg\_forZ(*\textcolor{keyword}{this},z)\ get\_slice(z).\_save\_tiff(tif,z,z,compression\_type,0,0);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ tiffOutStream-\/>flush();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ TIFFClose(tif);}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00110\ \ \ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ CImgIOException(\_cimg\_instance}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}save\_tiff():\ Failed\ to\ stream\ for\ writing."{}},}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cimg\_instance);}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00126\ CImg<T>\&\ \mbox{\hyperlink{tiff__stream_8h_adda92af25ee2fb2e3a92117571a24aa4}{load\_tiff}}(std::istream*\ tiffInStream,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ first\_frame=0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ last\_frame=\string~0U,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ step\_frame=1)}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00131\ \ \ \ \ nfirst\_frame\ =\ first\_frame<last\_frame?first\_frame:last\_frame,}
+\DoxyCodeLine{00132\ \ \ \ \ nstep\_frame\ =\ step\_frame?step\_frame:1;}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nlast\_frame\ =\ first\_frame<last\_frame?last\_frame:first\_frame;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ TIFF\ *tif\ =\ TIFFStreamOpen(\textcolor{stringliteral}{"{}MemTiff"{}},\ tiffInStream);}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordflow}{if}\ (tif)}
+\DoxyCodeLine{00137\ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nb\_images\ =\ 0;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ ++nb\_images;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (TIFFReadDirectory(tif));}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nfirst\_frame>=nb\_images\ ||\ (nlast\_frame!=\string~0U\ \&\&\ nlast\_frame>=nb\_images))}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ cimg::warn(\textcolor{stringliteral}{"{}load\_tiff():\ Invalid\ specified\ frame\ range\ is\ [\%u,\%u]\ (step\ \%u)\ "{}}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}since\ stream\ contains\ \%u\ image(s)."{}},}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nfirst\_frame,nlast\_frame,nstep\_frame,nb\_images);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nfirst\_frame>=nb\_images)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ assign();}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nlast\_frame>=nb\_images)}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ nlast\_frame\ =\ nb\_images\ -\/\ 1;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ TIFFSetDirectory(tif,0);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ CImg<T>\ frame;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ l\ =\ nfirst\_frame;\ l<=nlast\_frame;\ l+=nstep\_frame)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ frame.\_load\_tiff(tif,l,0,0);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (l==nfirst\_frame)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ assign(frame.\_width,frame.\_height,1\ +\ (nlast\_frame\ -\/\ nfirst\_frame)/nstep\_frame,frame.\_spectrum);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (frame.\_width>\_width\ ||\ frame.\_height>\_height\ ||\ frame.\_spectrum>\_spectrum)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ resize(cimg::max(frame.\_width,\_width),cimg::max(frame.\_height,\_height),}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/100,cimg::max(frame.\_spectrum,\_spectrum),0);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ draw\_image(0,0,(l\ -\/\ nfirst\_frame)/nstep\_frame,frame);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ TIFFClose(tif);}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00173\ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ CImgIOException(\_cimg\_instance}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}load\_tiff():\ Failed\ to\ read\ data\ from\ stream"{}},}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cimg\_instance);}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00180\ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{static}\ CImg<T>\ \mbox{\hyperlink{tiff__stream_8h_a6b1f65564364c0e2b852d7d7e74a5ccc}{get\_load\_tiff}}(std::istream*\ tiffInStream,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ first\_frame=0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ last\_frame=\string~0U,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ step\_frame=1)}
+\DoxyCodeLine{00186\ \{}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordflow}{return}\ CImg<T>().load\_tiff(tiffInStream,first\_frame,last\_frame,step\_frame);}
+\DoxyCodeLine{00188\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{comment}{//\ End\ of\ the\ plug-\/in}}
+\DoxyCodeLine{00191\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ cimg\_plugin\_tiff\_stream\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,194 @@
+\doxysection{gui/node\+\_\+modules/http-\/cache-\/semantics Directory Reference}
+\hypertarget{dir_8250d8464da1896bdda994f9931a9d65}{}\label{dir_8250d8464da1896bdda994f9931a9d65}\index{gui/node\_modules/http-\/cache-\/semantics Directory Reference@{gui/node\_modules/http-\/cache-\/semantics Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md915}{}\doxysubsection{\texorpdfstring{Can I cache this? \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.org/kornelski/http-cache-semantics.svg?branch=master}{\texttt{https\+://travis-\/ci.\+org/kornelski/http-\/cache-\/semantics.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.org/kornelski/http-cache-semantics}{\texttt{https\+://travis-\/ci.\+org/kornelski/http-\/cache-\/semantics}})}{Can I cache this? \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.org/kornelski/http-cache-semantics.svg?branch=master}{\texttt{https\+://travis-\/ci.\+org/kornelski/http-\/cache-\/semantics.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.org/kornelski/http-cache-semantics}{\texttt{https\+://travis-\/ci.\+org/kornelski/http-\/cache-\/semantics}})}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md915}
+{\ttfamily Cache\+Policy} tells when responses can be reused from a cache, taking into account \href{http://httpwg.org/specs/rfc7234.html}{\texttt{HTTP RFC 7234}} rules for user agents and shared caches. It also implements \href{https://tools.ietf.org/html/rfc5861}{\texttt{RFC 5861}}, implementing {\ttfamily stale-\/if-\/error} and {\ttfamily stale-\/while-\/revalidate}. It\textquotesingle{}s aware of many tricky details such as the {\ttfamily Vary} header, proxy revalidation, and authenticated responses.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md916}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md916}
+Cacheability of an \doxylink{structHTTP}{HTTP} response depends on how it was requested, so both {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} and {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} are required to create the policy.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ policy\ =\ new\ CachePolicy(request,\ response,\ options);}
+\DoxyCodeLine{}
+\DoxyCodeLine{if\ (!policy.storable())\ \{}
+\DoxyCodeLine{\ \ \ \ //\ throw\ the\ response\ away,\ it's\ not\ usable\ at\ all}
+\DoxyCodeLine{\ \ \ \ return;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Cache\ the\ data\ AND\ the\ policy\ object\ in\ your\ cache}
+\DoxyCodeLine{//\ (this\ is\ pseudocode,\ roll\ your\ own\ cache\ (lru-\/cache\ package\ works))}
+\DoxyCodeLine{letsPretendThisIsSomeCache.set(}
+\DoxyCodeLine{\ \ \ \ request.url,}
+\DoxyCodeLine{\ \ \ \ \{\ policy,\ response\ \},}
+\DoxyCodeLine{\ \ \ \ policy.timeToLive()}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ And\ later,\ when\ you\ receive\ a\ new\ request:}
+\DoxyCodeLine{const\ \{\ policy,\ response\ \}\ =\ letsPretendThisIsSomeCache.get(newRequest.url);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ It's\ not\ enough\ that\ it\ exists\ in\ the\ cache,\ it\ has\ to\ match\ the\ new\ request,\ too:}
+\DoxyCodeLine{if\ (policy\ \&\&\ policy.satisfiesWithoutRevalidation(newRequest))\ \{}
+\DoxyCodeLine{\ \ \ \ //\ OK,\ the\ previous\ response\ can\ be\ used\ to\ respond\ to\ the\ \`{}newRequest`.}
+\DoxyCodeLine{\ \ \ \ //\ Response\ headers\ have\ to\ be\ updated,\ e.g.\ to\ add\ Age\ and\ remove\ uncacheable\ headers.}
+\DoxyCodeLine{\ \ \ \ response.headers\ =\ policy.responseHeaders();}
+\DoxyCodeLine{\ \ \ \ return\ response;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+It may be surprising, but it\textquotesingle{}s not enough for an \doxylink{structHTTP}{HTTP} response to be fresh to satisfy a request. It may need to match request headers specified in {\ttfamily Vary}. Even a matching fresh response may still not be usable if the new request restricted cacheability, etc.
+
+The key method is {\ttfamily satisfies\+Without\+Revalidation(new\+Request)}, which checks whether the {\ttfamily new\+Request} is compatible with the original request and whether all caching conditions are met.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md917}{}\doxysubsubsection{\texorpdfstring{Constructor options}{Constructor options}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md917}
+Request and response must have a {\ttfamily \doxylink{anyauth_8d_aff4e2b09daa0a774d26a587239e80e15}{headers}} property with all header names in lower case. {\ttfamily url}, {\ttfamily status} and {\ttfamily \doxylink{anyauth_8d_af7b451397d4f130008fb9ac9267e8860}{method}} are optional (defaults are any URL, status {\ttfamily 200}, and {\ttfamily \doxylink{md4_8c_a22c5b6b56a260ea33a06c9fdebed523e}{GET}} method).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ request\ =\ \{}
+\DoxyCodeLine{\ \ \ \ url:\ '/',}
+\DoxyCodeLine{\ \ \ \ method:\ 'GET',}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ accept:\ '*/*',}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ response\ =\ \{}
+\DoxyCodeLine{\ \ \ \ status:\ 200,}
+\DoxyCodeLine{\ \ \ \ headers:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'cache-\/control':\ 'public,\ max-\/age=7234',}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ options\ =\ \{}
+\DoxyCodeLine{\ \ \ \ shared:\ true,}
+\DoxyCodeLine{\ \ \ \ cacheHeuristic:\ 0.1,}
+\DoxyCodeLine{\ \ \ \ immutableMinTimeToLive:\ 24\ *\ 3600\ *\ 1000,\ //\ 24h}
+\DoxyCodeLine{\ \ \ \ ignoreCargoCult:\ false,}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+If {\ttfamily options.\+shared} is {\ttfamily true} (default), then the response is evaluated from a perspective of a shared cache (i.\+e. {\ttfamily private} is not cacheable and {\ttfamily s-\/maxage} is respected). If {\ttfamily options.\+shared} is {\ttfamily false}, then the response is evaluated from a perspective of a single-\/user cache (i.\+e. {\ttfamily private} is cacheable and {\ttfamily s-\/maxage} is ignored). {\ttfamily shared\+: true} is recommended for \doxylink{structHTTP}{HTTP} clients.
+
+{\ttfamily options.\+cache\+Heuristic} is a fraction of response\textquotesingle{}s age that is used as a fallback cache duration. The default is 0.\+1 (10\%), e.\+g. if a file hasn\textquotesingle{}t been modified for 100 days, it\textquotesingle{}ll be cached for 100\texorpdfstring{$\ast$}{*}0.1 = 10 days.
+
+{\ttfamily options.\+immutable\+Min\+Time\+To\+Live} is a number of milliseconds to assume as the default time to cache responses with {\ttfamily Cache-\/\+Control\+: immutable}. Note that \href{http://httpwg.org/http-extensions/immutable.html}{\texttt{per RFC}} these can become stale, so {\ttfamily max-\/age} still overrides the default.
+
+If {\ttfamily options.\+ignore\+Cargo\+Cult} is true, common anti-\/cache directives will be completely ignored if the non-\/standard {\ttfamily pre-\/check} and {\ttfamily post-\/check} directives are present. These two useless directives are most commonly found in bad Stack\+Overflow answers and PHP\textquotesingle{}s "{}session limiter"{} defaults.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md918}{}\doxysubsubsection{\texorpdfstring{{\ttfamily storable()}}{{\ttfamily storable()}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md918}
+Returns {\ttfamily true} if the response can be stored in a cache. If it\textquotesingle{}s {\ttfamily false} then you MUST NOT store either the request or the response.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md919}{}\doxysubsubsection{\texorpdfstring{{\ttfamily satisfies\+Without\+Revalidation(new\+Request)}}{{\ttfamily satisfies\+Without\+Revalidation(new\+Request)}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md919}
+This is the most important method. Use this method to check whether the cached response is still fresh in the context of the new request.
+
+If it returns {\ttfamily true}, then the given {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} matches the original response this cache policy has been created with, and the response can be reused without contacting the server. Note that the old response can\textquotesingle{}t be returned without being updated, see {\ttfamily response\+Headers()}.
+
+If it returns {\ttfamily false}, then the response may not be matching at all (e.\+g. it\textquotesingle{}s for a different URL or method), or may require to be refreshed first (see {\ttfamily revalidation\+Headers()}).\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md920}{}\doxysubsubsection{\texorpdfstring{{\ttfamily response\+Headers()}}{{\ttfamily response\+Headers()}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md920}
+Returns updated, filtered set of response headers to return to clients receiving the cached response. This function is necessary, because proxies MUST always remove hop-\/by-\/hop headers (such as {\ttfamily TE} and {\ttfamily Connection}) and update response\textquotesingle{}s {\ttfamily Age} to avoid doubling cache time.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cachedResponse.headers\ =\ cachePolicy.responseHeaders(cachedResponse);}
+
+\end{DoxyCode}
+\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md921}{}\doxysubsubsection{\texorpdfstring{{\ttfamily time\+To\+Live()}}{{\ttfamily time\+To\+Live()}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md921}
+Returns approximate time in {\itshape milliseconds} until the response becomes stale (i.\+e. not fresh).
+
+After that time (when {\ttfamily time\+To\+Live() \texorpdfstring{$<$}{<}= 0}) the response might not be usable without revalidation. However, there are exceptions, e.\+g. a client can explicitly allow stale responses, so always check with {\ttfamily satisfies\+Without\+Revalidation()}. {\ttfamily stale-\/if-\/error} and {\ttfamily stale-\/while-\/revalidate} extend the time to live of the cache, that can still be used if stale.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md922}{}\doxysubsubsection{\texorpdfstring{{\ttfamily to\+Object()}/{\ttfamily from\+Object(json)}}{{\ttfamily to\+Object()}/{\ttfamily from\+Object(json)}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md922}
+Chances are you\textquotesingle{}ll want to store the {\ttfamily Cache\+Policy} object along with the cached response. {\ttfamily obj = policy.\+to\+Object()} gives a plain JSON-\/serializable object. {\ttfamily policy = Cache\+Policy.\+from\+Object(obj)} creates an instance from it.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md923}{}\doxysubsubsection{\texorpdfstring{Refreshing stale cache (revalidation)}{Refreshing stale cache (revalidation)}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md923}
+When a cached response has expired, it can be made fresh again by making a request to the origin server. The server may respond with status 304 (Not Modified) without sending the response body again, saving bandwidth.
+
+The following methods help perform the update efficiently and correctly.\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md924}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily revalidation\+Headers(new\+Request)}}{{\ttfamily revalidation\+Headers(new\+Request)}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md924}
+Returns updated, filtered set of request headers to send to the origin server to check if the cached response can be reused. These headers allow the origin server to return status 304 indicating the response is still fresh. All headers unrelated to caching are passed through as-\/is.
+
+Use this method when updating cache from the origin server.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{updateRequest.headers\ =\ cachePolicy.revalidationHeaders(updateRequest);}
+
+\end{DoxyCode}
+\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md925}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily revalidated\+Policy(revalidation\+Request, revalidation\+Response)}}{{\ttfamily revalidated\+Policy(revalidation\+Request, revalidation\+Response)}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md925}
+Use this method to update the cache after receiving a new response from the origin server. It returns an object with two keys\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily policy} — A new {\ttfamily Cache\+Policy} with \doxylink{structHTTP}{HTTP} headers updated from {\ttfamily revalidation\+Response}. You can always replace the old cached {\ttfamily Cache\+Policy} with the new one.
+\item {\ttfamily modified} — Boolean indicating whether the response body has changed.
+\begin{DoxyItemize}
+\item If {\ttfamily false}, then a valid 304 Not Modified response has been received, and you can reuse the old cached response body. This is also affected by {\ttfamily stale-\/if-\/error}.
+\item If {\ttfamily true}, you should use new response\textquotesingle{}s body (if present), or make another request to the origin server without any conditional headers (i.\+e. don\textquotesingle{}t use {\ttfamily revalidation\+Headers()} this time) to get the new resource.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ When\ serving\ requests\ from\ cache:}
+\DoxyCodeLine{const\ \{\ oldPolicy,\ oldResponse\ \}\ =\ letsPretendThisIsSomeCache.get(}
+\DoxyCodeLine{\ \ \ \ newRequest.url}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{if\ (!oldPolicy.satisfiesWithoutRevalidation(newRequest))\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Change\ the\ request\ to\ ask\ the\ origin\ server\ if\ the\ cached\ response\ can\ be\ used}
+\DoxyCodeLine{\ \ \ \ newRequest.headers\ =\ oldPolicy.revalidationHeaders(newRequest);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Send\ request\ to\ the\ origin\ server.\ The\ server\ may\ respond\ with\ status\ 304}
+\DoxyCodeLine{\ \ \ \ const\ newResponse\ =\ await\ makeRequest(newRequest);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Create\ updated\ policy\ and\ combined\ response\ from\ the\ old\ and\ new\ data}
+\DoxyCodeLine{\ \ \ \ const\ \{\ policy,\ modified\ \}\ =\ oldPolicy.revalidatedPolicy(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ newRequest,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ newResponse}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ const\ response\ =\ modified\ ?\ newResponse\ :\ oldResponse;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Update\ the\ cache\ with\ the\ newer/fresher\ response}
+\DoxyCodeLine{\ \ \ \ letsPretendThisIsSomeCache.set(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ newRequest.url,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ policy,\ response\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ policy.timeToLive()}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ And\ proceed\ returning\ cached\ response\ as\ usual}
+\DoxyCodeLine{\ \ \ \ response.headers\ =\ policy.responseHeaders();}
+\DoxyCodeLine{\ \ \ \ return\ response;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md926}{}\doxysubsection{\texorpdfstring{Yo, FRESH}{Yo, FRESH}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md926}
+\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md927}{}\doxysubsubsection{\texorpdfstring{Used by}{Used by}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md927}
+
+\begin{DoxyItemize}
+\item \href{https://imageoptim.com/api}{\texttt{Image\+Optim API}}, \href{https://github.com/zkat/make-fetch-happen}{\texttt{make-\/fetch-\/happen}}, \href{https://www.npmjs.com/package/cacheable-request}{\texttt{cacheable-\/request}} (\href{https://www.npmjs.com/package/got}{\texttt{got}}), \href{https://github.com/npm/registry-fetch}{\texttt{npm/registry-\/fetch}}, \href{https://github.com/kornelski/http-cache-semantics/network/dependents}{\texttt{etc.}}
+\end{DoxyItemize}\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md928}{}\doxysubsubsection{\texorpdfstring{Implemented}{Implemented}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md928}
+
+\begin{DoxyItemize}
+\item {\ttfamily Cache-\/\+Control} response header with all the quirks.
+\item {\ttfamily Expires} with check for bad clocks.
+\item {\ttfamily Pragma} response header.
+\item {\ttfamily Age} response header.
+\item {\ttfamily Vary} response header.
+\item Default cacheability of statuses and methods.
+\item Requests for stale data.
+\item Filtering of hop-\/by-\/hop headers.
+\item Basic revalidation request
+\item {\ttfamily stale-\/if-\/error}
+\end{DoxyItemize}\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md929}{}\doxysubsubsection{\texorpdfstring{Unimplemented}{Unimplemented}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md929}
+
+\begin{DoxyItemize}
+\item Merging of range requests, {\ttfamily If-\/\+Range} (but correctly supports them as non-\/cacheable)
+\item Revalidation of multiple representations
+\end{DoxyItemize}\hypertarget{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md930}{}\doxysubsubsubsection{\texorpdfstring{Trusting server {\ttfamily Date}}{Trusting server {\ttfamily Date}}}\label{dir_8250d8464da1896bdda994f9931a9d65_autotoc_md930}
+Per the RFC, the cache should take into account the time between server-\/supplied {\ttfamily \doxylink{header_8d_a88d1a3f7ddbf927c2b3702bed3e5f6fb}{Date}} and the time it received the response. The RFC-\/mandated behavior creates two problems\+:
+
+
+\begin{DoxyItemize}
+\item Servers with incorrectly set timezone may add several hours to cache age (or more, if the clock is completely wrong).
+\item Even reasonably correct clocks may be off by a couple of seconds, breaking {\ttfamily max-\/age=1} trick (which is useful for reverse proxies on high-\/traffic servers).
+\end{DoxyItemize}
+
+Previous versions of this library had an option to ignore the server date if it was "{}too inaccurate"{}. To support the {\ttfamily max-\/age=1} trick the library also has to ignore dates that pretty accurate. There\textquotesingle{}s no point of having an option to trust dates that are only a bit inaccurate, so this library won\textquotesingle{}t trust any server dates. {\ttfamily max-\/age} will be interpreted from the time the response has been received, not from when it has been sent. This will affect only \href{https://tools.ietf.org/html/rfc1149}{\texttt{RFC 1149 networks}}. 

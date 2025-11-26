@@ -1,0 +1,130 @@
+\doxysection{ntlm.\+h}
+\hypertarget{ntlm_8h_source}{}\label{ntlm_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vauth/ntlm.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vauth/ntlm.h}}
+\mbox{\hyperlink{ntlm_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_VAUTH\_NTLM\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_VAUTH\_NTLM\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_NTLM}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ NTLM\ buffer\ fixed\ size,\ large\ enough\ for\ long\ user\ +\ host\ +\ domain\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ NTLM\_BUFSIZE\ 1024}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ Stuff\ only\ required\ for\ curl\_ntlm\_msgs.c\ */}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ BUILDING\_CURL\_NTLM\_MSGS\_C}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*\ Flag\ bits\ definitions\ based\ on}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ https://davenport.sourceforge.net/ntlm.html\ */}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_UNICODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<0)}}
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ Indicates\ that\ Unicode\ strings\ are\ supported\ for\ use\ in\ security\ buffer}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ data.\ */}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_OEM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<1)}}
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ Indicates\ that\ OEM\ strings\ are\ supported\ for\ use\ in\ security\ buffer\ data.\ */}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_REQUEST\_TARGET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<2)}}
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ Requests\ that\ the\ server's\ authentication\ realm\ be\ included\ in\ the\ Type\ 2}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ message.\ */}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ unknown\ (1<<3)\ */}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_SIGN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<4)}}
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ Specifies\ that\ authenticated\ communication\ between\ the\ client\ and\ server}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ should\ carry\ a\ digital\ signature\ (message\ integrity).\ */}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_SEAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<5)}}
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Specifies\ that\ authenticated\ communication\ between\ the\ client\ and\ server}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ should\ be\ encrypted\ (message\ confidentiality).\ */}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_DATAGRAM\_STYLE\ \ \ \ \ \ \ \ (1<<6)}}
+\DoxyCodeLine{00061\ \textcolor{comment}{/*\ Indicates\ that\ datagram\ authentication\ is\ being\ used.\ */}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_LM\_KEY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<7)}}
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ Indicates\ that\ the\ LAN\ Manager\ session\ key\ should\ be\ used\ for\ signing\ and}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ sealing\ authenticated\ communications.\ */}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_NETWARE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<8)}}
+\DoxyCodeLine{00068\ \textcolor{comment}{/*\ unknown\ purpose\ */}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_NTLM\_KEY\ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<9)}}
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ Indicates\ that\ NTLM\ authentication\ is\ being\ used.\ */}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{/*\ unknown\ (1<<10)\ */}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_ANONYMOUS\ \ \ \ \ \ \ \ \ \ \ \ \ (1<<11)}}
+\DoxyCodeLine{00076\ \textcolor{comment}{/*\ Sent\ by\ the\ client\ in\ the\ Type\ 3\ message\ to\ indicate\ that\ an\ anonymous}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ context\ has\ been\ established.\ This\ also\ affects\ the\ response\ fields.\ */}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_DOMAIN\_SUPPLIED\ \ \ \ \ \ \ (1<<12)}}
+\DoxyCodeLine{00080\ \textcolor{comment}{/*\ Sent\ by\ the\ client\ in\ the\ Type\ 1\ message\ to\ indicate\ that\ a\ desired}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ authentication\ realm\ is\ included\ in\ the\ message.\ */}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_WORKSTATION\_SUPPLIED\ \ (1<<13)}}
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ Sent\ by\ the\ client\ in\ the\ Type\ 1\ message\ to\ indicate\ that\ the\ client}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ workstation's\ name\ is\ included\ in\ the\ message.\ */}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_LOCAL\_CALL\ \ \ \ \ \ \ \ \ \ \ \ (1<<14)}}
+\DoxyCodeLine{00088\ \textcolor{comment}{/*\ Sent\ by\ the\ server\ to\ indicate\ that\ the\ server\ and\ client\ are\ on\ the\ same}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ machine.\ Implies\ that\ the\ client\ may\ use\ a\ pre-\/established\ local\ security}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ context\ rather\ than\ responding\ to\ the\ challenge.\ */}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_ALWAYS\_SIGN\ \ \ \ \ \ \ \ \ \ \ (1<<15)}}
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ Indicates\ that\ authenticated\ communication\ between\ the\ client\ and\ server}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ should\ be\ signed\ with\ a\ "{}dummy"{}\ signature.\ */}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_TARGET\_TYPE\_DOMAIN\ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<16)}}
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ Sent\ by\ the\ server\ in\ the\ Type\ 2\ message\ to\ indicate\ that\ the\ target}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ authentication\ realm\ is\ a\ domain.\ */}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_TARGET\_TYPE\_SERVER\ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<17)}}
+\DoxyCodeLine{00101\ \textcolor{comment}{/*\ Sent\ by\ the\ server\ in\ the\ Type\ 2\ message\ to\ indicate\ that\ the\ target}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ authentication\ realm\ is\ a\ server.\ */}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_TARGET\_TYPE\_SHARE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<18)}}
+\DoxyCodeLine{00105\ \textcolor{comment}{/*\ Sent\ by\ the\ server\ in\ the\ Type\ 2\ message\ to\ indicate\ that\ the\ target}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ authentication\ realm\ is\ a\ share.\ Presumably,\ this\ is\ for\ share-\/level}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ authentication.\ Usage\ is\ unclear.\ */}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_NTLM2\_KEY\ \ \ \ \ \ \ \ \ \ \ \ \ (1<<19)}}
+\DoxyCodeLine{00110\ \textcolor{comment}{/*\ Indicates\ that\ the\ NTLM2\ signing\ and\ sealing\ scheme\ should\ be\ used\ for}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ protecting\ authenticated\ communications.\ */}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_REQUEST\_INIT\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ (1<<20)}}
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ unknown\ purpose\ */}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_REQUEST\_ACCEPT\_RESPONSE\ \ \ \ \ \ \ \ \ (1<<21)}}
+\DoxyCodeLine{00117\ \textcolor{comment}{/*\ unknown\ purpose\ */}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_REQUEST\_NONNT\_SESSION\_KEY\ \ \ \ \ \ \ (1<<22)}}
+\DoxyCodeLine{00120\ \textcolor{comment}{/*\ unknown\ purpose\ */}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_TARGET\_INFO\ \ \ \ \ \ \ \ \ \ \ (1<<23)}}
+\DoxyCodeLine{00123\ \textcolor{comment}{/*\ Sent\ by\ the\ server\ in\ the\ Type\ 2\ message\ to\ indicate\ that\ it\ is\ including\ a}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ Target\ Information\ block\ in\ the\ message.\ */}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{/*\ unknown\ (1<24)\ */}}
+\DoxyCodeLine{00127\ \textcolor{comment}{/*\ unknown\ (1<25)\ */}}
+\DoxyCodeLine{00128\ \textcolor{comment}{/*\ unknown\ (1<26)\ */}}
+\DoxyCodeLine{00129\ \textcolor{comment}{/*\ unknown\ (1<27)\ */}}
+\DoxyCodeLine{00130\ \textcolor{comment}{/*\ unknown\ (1<28)\ */}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<29)}}
+\DoxyCodeLine{00133\ \textcolor{comment}{/*\ Indicates\ that\ 128-\/bit\ encryption\ is\ supported.\ */}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_KEY\_EXCHANGE\ \ \ \ \ \ \ \ \ \ (1<<30)}}
+\DoxyCodeLine{00136\ \textcolor{comment}{/*\ Indicates\ that\ the\ client\ will\ provide\ an\ encrypted\ master\ key\ in}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ the\ "{}Session\ Key"{}\ field\ of\ the\ Type\ 3\ message.\ */}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ NTLMFLAG\_NEGOTIATE\_56\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<31)}}
+\DoxyCodeLine{00140\ \textcolor{comment}{/*\ Indicates\ that\ 56-\/bit\ encryption\ is\ supported.\ */}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BUILDING\_CURL\_NTLM\_MSGS\_C\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_NTLM\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_VAUTH\_NTLM\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

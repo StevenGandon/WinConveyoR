@@ -1,0 +1,667 @@
+\doxysection{gui/node\+\_\+modules/type-\/fest Directory Reference}
+\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536}{}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536}\index{gui/node\_modules/type-\/fest Directory Reference@{gui/node\_modules/type-\/fest Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+ ~\newline
+ ~\newline
+  ~\newline
+ ~\newline
+ {\bfseries{A collection of essential Type\+Script types}} ~\newline
+ \DoxyHorRuler{0}
+  ~\newline
+ ~\newline
+
+
+\href{https://travis-ci.com/sindresorhus/type-fest}{\texttt{}} \href{https://www.youtube.com/watch?v=9auOCbH5Ns4}{\texttt{}}  
+
+Many of the types here should have been built-\/in. You can help by suggesting some of them to the \href{https://github.com/Microsoft/TypeScript/blob/master/CONTRIBUTING.md}{\texttt{Type\+Script project}}.
+
+Either add this package as a dependency or copy-\/paste the needed types. No credit required. 👌
+
+PR welcome for additional commonly needed types and docs improvements. Read the contributing guidelines first.\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1333}{}\doxysubsubsection{\texorpdfstring{Install}{Install}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1333}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ type-\/fest}
+
+\end{DoxyCode}
+
+
+{\itshape Requires Type\+Script \texorpdfstring{$>$}{>}=3.\+2}\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1334}{}\doxysubsubsection{\texorpdfstring{Usage}{Usage}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1334}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{Except\}\ from\ 'type-\/fest';}
+\DoxyCodeLine{}
+\DoxyCodeLine{type\ Foo\ =\ \{}
+\DoxyCodeLine{\ \ \ \ unicorn:\ string;}
+\DoxyCodeLine{\ \ \ \ rainbow:\ boolean;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{type\ FooWithoutRainbow\ =\ Except<Foo,\ 'rainbow'>;}
+\DoxyCodeLine{//=>\ \{unicorn:\ string\}}
+
+\end{DoxyCode}
+\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1335}{}\doxysubsubsection{\texorpdfstring{API}{API}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1335}
+Click the type names for complete docs.\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1336}{}\doxysubsubsubsection{\texorpdfstring{Basic}{Basic}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1336}
+
+\begin{DoxyItemize}
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Primitive}}} -\/ Matches any \href{https://developer.mozilla.org/en-US/docs/Glossary/Primitive}{\texttt{primitive value}}.
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Class}}} -\/ Matches a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes}{\texttt{{\ttfamily class} constructor}}.
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Typed\+Array}}} -\/ Matches any \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray}{\texttt{typed array}}, like {\ttfamily Uint8\+Array} or {\ttfamily Float64\+Array}.
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Json\+Object}}} -\/ Matches a JSON object.
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Json\+Array}}} -\/ Matches a JSON array.
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Json\+Value}}} -\/ Matches any valid JSON value.
+\item \href{source/basic.d.ts}{\texttt{{\ttfamily Observable\+Like}}} -\/ Matches a value that is like an \href{https://github.com/tc39/proposal-observable}{\texttt{Observable}}.
+\end{DoxyItemize}\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1337}{}\doxysubsubsubsection{\texorpdfstring{Utilities}{Utilities}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1337}
+
+\begin{DoxyItemize}
+\item \href{source/except.d.ts}{\texttt{{\ttfamily Except}}} -\/ Create a type from an object type without certain keys. This is a stricter version of \href{https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-5.html\#the-omit-helper-type}{\texttt{{\ttfamily Omit}}}.
+\item \href{source/mutable.d.ts}{\texttt{{\ttfamily Mutable}}} -\/ Convert an object with {\ttfamily readonly} keys into a mutable object. The inverse of {\ttfamily Readonly\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}.
+\item \href{source/merge.d.ts}{\texttt{{\ttfamily Merge}}} -\/ Merge two types into a new type. Keys of the second type overrides keys of the first type.
+\item \href{source/merge-exclusive.d.ts}{\texttt{{\ttfamily Merge\+Exclusive}}} -\/ Create a type that has mutually exclusive keys.
+\item \href{source/require-at-least-one.d.ts}{\texttt{{\ttfamily Require\+At\+Least\+One}}} -\/ Create a type that requires at least one of the given keys.
+\item \href{source/require-exactly-one.d.ts}{\texttt{{\ttfamily Require\+Exactly\+One}}} -\/ Create a type that requires exactly a single key of the given keys and disallows more.
+\item \href{source/partial-deep.d.ts}{\texttt{{\ttfamily Partial\+Deep}}} -\/ Create a deeply optional version of another type. Use \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1401-L1406}{\texttt{{\ttfamily Partial\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} if you only need one level deep.
+\item \href{source/readonly-deep.d.ts}{\texttt{{\ttfamily Readonly\+Deep}}} -\/ Create a deeply immutable version of an {\ttfamily object}/{\ttfamily Map}/{\ttfamily Set}/{\ttfamily Array} type. Use \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1415-L1420}{\texttt{{\ttfamily Readonly\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} if you only need one level deep.
+\item \href{source/literal-union.d.ts}{\texttt{{\ttfamily Literal\+Union}}} -\/ Create a union type by combining primitive types and literal types without sacrificing auto-\/completion in IDEs for the literal type part of the union. Workaround for \href{https://github.com/Microsoft/TypeScript/issues/29729}{\texttt{Microsoft/\+Type\+Script\#29729}}.
+\item \href{source/promisable.d.ts}{\texttt{{\ttfamily Promisable}}} -\/ Create a type that represents either the value or the value wrapped in {\ttfamily Promise\+Like}.
+\item \href{source/opaque.d.ts}{\texttt{{\ttfamily Opaque}}} -\/ Create an \href{https://codemix.com/opaque-types-in-javascript/}{\texttt{opaque type}}.
+\item \href{source/set-optional.d.ts}{\texttt{{\ttfamily Set\+Optional}}} -\/ Create a type that makes the given keys optional.
+\item \href{source/set-required.d.ts}{\texttt{{\ttfamily Set\+Required}}} -\/ Create a type that makes the given keys required.
+\item \href{source/value-of.d.ts}{\texttt{{\ttfamily Value\+Of}}} -\/ Create a union of the given object\textquotesingle{}s values, and optionally specify which keys to get the values from.
+\item \href{source/promise-value.d.ts}{\texttt{{\ttfamily Promise\+Value}}} -\/ Returns the type that is wrapped inside a {\ttfamily Promise}.
+\item \href{source/async-return-type.d.ts}{\texttt{{\ttfamily Async\+Return\+Type}}} -\/ Unwrap the return type of a function that returns a {\ttfamily Promise}.
+\item \href{source/conditional-keys.d.ts}{\texttt{{\ttfamily Conditional\+Keys}}} -\/ Extract keys from a shape where values extend the given {\ttfamily Condition} type.
+\item \href{source/conditional-pick.d.ts}{\texttt{{\ttfamily Conditional\+Pick}}} -\/ Like {\ttfamily Pick} except it selects properties from a shape where the values extend the given {\ttfamily Condition} type.
+\item \href{source/conditional-except.d.ts}{\texttt{{\ttfamily Conditional\+Except}}} -\/ Like {\ttfamily Omit} except it removes properties from a shape where the values extend the given {\ttfamily Condition} type.
+\item \href{source/union-to-intersection.d.ts}{\texttt{{\ttfamily Union\+To\+Intersection}}} -\/ Convert a union type to an intersection type.
+\item \href{source/stringified.d.ts}{\texttt{{\ttfamily Stringified}}} -\/ Create a type with the keys of the given type changed to {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} type.
+\end{DoxyItemize}\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1338}{}\doxysubsubsubsection{\texorpdfstring{Miscellaneous}{Miscellaneous}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1338}
+
+\begin{DoxyItemize}
+\item \href{source/package-json.d.ts}{\texttt{{\ttfamily Package\+Json}}} -\/ Type for \href{https://docs.npmjs.com/creating-a-package-json-file}{\texttt{npm\textquotesingle{}s {\ttfamily package.\+json} file}}.
+\item \href{source/tsconfig-json.d.ts}{\texttt{{\ttfamily Ts\+Config\+Json}}} -\/ Type for \href{https://www.typescriptlang.org/docs/handbook/tsconfig-json.html}{\texttt{Type\+Script\textquotesingle{}s {\ttfamily tsconfig.\+json} file}} (Type\+Script 3.\+7).
+\end{DoxyItemize}\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1339}{}\doxysubsubsection{\texorpdfstring{Declined types}{Declined types}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1339}
+{\itshape If we decline a type addition, we will make sure to document the better solution here.}
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/type-fest/pull/7}{\texttt{{\ttfamily Diff} and {\ttfamily Spread}}} -\/ The PR author didn\textquotesingle{}t provide any real-\/world use-\/cases and the PR went stale. If you think this type is useful, provide some real-\/world use-\/cases and we might reconsider.
+\item \href{https://github.com/sindresorhus/type-fest/issues/33}{\texttt{{\ttfamily Dictionary}}} -\/ You only save a few characters ({\ttfamily Dictionary\texorpdfstring{$<$}{<}number\texorpdfstring{$>$}{>}} vs {\ttfamily Record\texorpdfstring{$<$}{<}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}, number\texorpdfstring{$>$}{>}}) from \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1429-L1434}{\texttt{{\ttfamily Record}}}, which is more flexible and well-\/known. Also, you shouldn\textquotesingle{}t use an object as a dictionary. We have {\ttfamily Map} in Java\+Script now.
+\item \href{https://github.com/sindresorhus/type-fest/issues/22}{\texttt{{\ttfamily Sub\+Type}}} -\/ The type is powerful, but lacks good use-\/cases and is prone to misuse.
+\item \href{https://github.com/sindresorhus/type-fest/pull/4}{\texttt{{\ttfamily Extract\+Properties} and {\ttfamily Extract\+Methods}}} -\/ The types violate the single responsibility principle. Instead, refine your types into more granular type hierarchies.
+\end{DoxyItemize}\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1340}{}\doxysubsubsection{\texorpdfstring{Tips}{Tips}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1340}
+\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1341}{}\doxysubsubsubsection{\texorpdfstring{Built-\/in types}{Built-\/in types}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1341}
+There are many advanced types most users don\textquotesingle{}t know about.
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1401-L1406}{\texttt{{\ttfamily Partial\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} -\/ Make all properties in {\ttfamily T} optional. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://www.typescriptlang.org/play/\#code/JYOwLgpgTgZghgYwgAgHIHsAmEDC6QzADmyA3gLABQyycADnanALYQBcyAzmFKEQNxUaddFDAcQAV2YAjaIMoBfKlQQAbOJ05osEAIIMAQpOBrsUMkOR1eANziRkCfISKSoD4Pg4ZseAsTIALyW1DS0DEysHADkvvoMMQA0VsKi4sgAzAAMuVaKClY2wPaOknSYDrguADwA0sgQAB6QIJjaANYQAJ7oMDp+LsQAfAAUXd0cdUnI9mo+uv6uANp1ALoAlKHhyGAAFsCcAHTOAW4eYF4gyxNrwbNwago0ypRWp66jH8QcAApwYmAjxq8SWIy2FDCNDA3ToKFBQyIdR69wmfQG1TOhShyBgomQX3w3GQE2Q6IA8jIAFYQBBgI4TTiEs5bTQYsFInrLTbbHZOIlgZDlSqQABqj0kKBC3yINx6a2xfOQwH6o2FVXFaklwSCIUkbQghBAEEwENSfNOlykEGefNe5uhB2O6sgS3GPRmLogmslG1tLxUOKgEDA7hAuydtteryAA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{interface\ NodeConfig\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ appName:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ port:\ number;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ NodeAppBuilder\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ private\ configuration:\ NodeConfig\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ appName:\ 'NodeApp',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ port:\ 3000}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ private\ updateConfig<Key\ extends\ keyof\ NodeConfig>(key:\ Key,\ value:\ NodeConfig[Key])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.configuration[key]\ =\ value;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ config(config:\ Partial<NodeConfig>)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type\ NodeConfigKey\ =\ keyof\ NodeConfig;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ (const\ key\ of\ Object.keys(config)\ as\ NodeConfigKey[])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ updateValue\ =\ config[key];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (updateValue\ ===\ undefined)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ continue;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.updateConfig(key,\ updateValue);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ this;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \`{}Partial<NodeConfig>``\ allows\ us\ to\ provide\ only\ a\ part\ of\ the}
+\DoxyCodeLine{//\ NodeConfig\ interface.}
+\DoxyCodeLine{new\ NodeAppBuilder().config(\{appName:\ 'ToDoApp'\});}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1408-L1413}{\texttt{{\ttfamily Required\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} -\/ Make all properties in {\ttfamily T} required. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/AQ4SwOwFwUwJwGYEMDGNgGED21VQGJZwC2wA3gFCjXAzFJgA2A-AFzADOUckA5gNxUaIYjA4ckvGG07c+g6gF8KQkAgCuEFFDA5O6gEbEwUbLm2ESwABQIixACJIoSdgCUYAR3Vg4MACYAPGYuFvYAfACU5Ko0APRxwADKMBD+wFAAFuh2Vv7OSBlYGdmc8ABu8LHKsRyGxqY4oQT21pTCIHQMjOwA5DAAHgACxAAOjDAAdChYxL0ANLHUouKSMH0AEmAAhJhY6ozpAJ77GTCMjMCiV0ToSAb7UJPPC9WRgrEJwAAqR6MwSRQPFGUFocDgRHYxnEfGAowh-zgUCOwF6KwkUl6tXqJhCeEsxDaS1AXSYfUGI3GUxmc0WSneQA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{interface\ ContactForm\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ email?:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ message?:\ string;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ submitContactForm(formData:\ Required<ContactForm>)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ Send\ the\ form\ data\ to\ the\ server.}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{submitContactForm(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ email:\ 'ex@mple.com',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ message:\ 'Hi!\ Could\ you\ tell\ me\ more\ about…',}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ TypeScript\ error:\ missing\ property\ 'message'}
+\DoxyCodeLine{submitContactForm(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ email:\ 'ex@mple.com',}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1415-L1420}{\texttt{{\ttfamily Readonly\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} -\/ Make all properties in {\ttfamily T} readonly. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/AQ4UwOwVwW2AZA9gc3mAbmANsA3gKFCOAHkAzMgGkOJABEwAjKZa2kAUQCcvEu32AMQCGAF2FYBIAL4BufDRABLCKLBcywgMZgEKZOoDCiCGSXI8i4hGEwwALmABnUVxXJ57YFgzZHSVF8sT1BpBSItLGEnJz1kAy5LLy0TM2RHACUwYQATEywATwAeAITjU3MAPnkrCJMXLigtUT4AClxgGztKbyDgaX99I1TzAEokr1BRAAslJwA6FIqLAF48TtswHp9MHDla9hJGACswZvmyLjAwAC8wVpm5xZHkUZDaMKIwqyWXYCW0oN4sNlsA1h0ug5gAByACyBQAggAHJHQ7ZBIFoXbzBjMCz7OoQP5YIaJNYQMAAdziCVaALGNSIAHomcAACoFJFgADKWjcSNEwG4vC4ji0wggEEQguiTnMEGALWAV1yAFp8gVgEjeFyuKICvMrCTgVxnst5jtsGC4ljsPNhXxGaAWcAAOq6YRXYDCRg+RWIcA5JSC+kWdCepQ+v3RYCU3RInzRMCGwlpC19NYBW1Ye08R1AA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enum\ LogLevel\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Off,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Debug,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Error,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Fatal}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{interface\ LoggerConfig\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ name:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ level:\ LogLevel;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ Logger\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ config:\ Readonly<LoggerConfig>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ constructor(\{name,\ level\}:\ LoggerConfig)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.config\ =\ \{name,\ level\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Object.freeze(this.config);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ config:\ LoggerConfig\ =\ \{}
+\DoxyCodeLine{\ \ \ \ name:\ 'MyApp',}
+\DoxyCodeLine{\ \ \ \ level:\ LogLevel.Debug}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ logger\ =\ new\ Logger(config);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ TypeScript\ Error:\ cannot\ assign\ to\ read-\/only\ property.}
+\DoxyCodeLine{logger.config.level\ =\ LogLevel.Error;}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ We\ are\ able\ to\ edit\ config\ variable\ as\ we\ please.}
+\DoxyCodeLine{config.level\ =\ LogLevel.Error;}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1422-L1427}{\texttt{{\ttfamily Pick\texorpdfstring{$<$}{<}T, K\texorpdfstring{$>$}{>}}}} -\/ From {\ttfamily T}, pick a set of properties whose keys are in the union {\ttfamily \doxylink{sha256_8c_abb2cc8d3454ac3b0a2c264a1c7ed6db8}{K}}. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/AQ4SwOwFwUwJwGYEMDGNgEE5TCgNugN4BQoZwOUBAXMAM5RyQDmA3KeSFABYCuAtgCMISMHloMmENh04oA9tBjQJjFuzIBfYrOAB6PcADCcGElh1gEGAHcKATwAO6ebyjB5CTNlwFwSxFR0BX5HeToYABNgBDh5fm8cfBg6AHIKG3ldA2BHOOcfFNpUygJ0pAhokr4hETFUgDpswywkggAFUwA3MFtgAF5gQgowKhhVKTYKGuFRcXo1aVZgbTIoJ3RW3xhOmB6+wfbcAGsAHi3kgBpgEtGy4AAfG54BWfqAPnZm4AAlZUj4MAkMA8GAGB4vEgfMlLLw6CwPBA8PYRmMgZVgAC6CgmI4cIommQELwICh8RBgKZKvALh1ur0bHQABR5PYMui0Wk7em2ADaAF0AJS0AASABUALIAGQAogR+Mp3CROCAFBBwVC2ikBpj5CgBIqGjizLA5TAFdAmalImAuqlBRoVQh5HBgEy1eDWfs7J5cjzGYKhroVfpDEhHM4MV6GRR5NN0JrtnRg6BVirTFBeHAKYmYY6QNpdB73LmCJZBlSAXAubtvczeSmQMNSuMbmKNgBlHFgPEUNwusBIPAAQlS1xetTmxT0SDoESgdD0C4aACtHMwxytLrohawgA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{interface\ Article\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ title:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ thumbnail:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ content:\ string;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Creates\ new\ type\ out\ of\ the\ \`{}Article`\ interface\ composed}
+\DoxyCodeLine{//\ from\ the\ Articles'\ two\ properties:\ \`{}title`\ and\ \`{}thumbnail`.}
+\DoxyCodeLine{//\ \`{}ArticlePreview\ =\ \{title:\ string;\ thumbnail:\ string\}`}
+\DoxyCodeLine{type\ ArticlePreview\ =\ Pick<Article,\ 'title'\ |\ 'thumbnail'>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Render\ a\ list\ of\ articles\ using\ only\ title\ and\ description.}
+\DoxyCodeLine{function\ renderArticlePreviews(previews:\ ArticlePreview[]):\ HTMLElement\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ articles\ =\ document.createElement('div');}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ for\ (const\ preview\ of\ previews)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Append\ preview\ to\ the\ articles.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ articles;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ articles\ =\ renderArticlePreviews([}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ title:\ 'TypeScript\ tutorial!',}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ thumbnail:\ '/assets/ts.jpg'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{]);}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1429-L1434}{\texttt{{\ttfamily Record\texorpdfstring{$<$}{<}K, T\texorpdfstring{$>$}{>}}}} -\/ Construct a type with a set of properties {\ttfamily \doxylink{sha256_8c_abb2cc8d3454ac3b0a2c264a1c7ed6db8}{K}} of type {\ttfamily T}. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/AQ4ejYAUHsGcCWAXBMB2dgwGbAKYC2ADgDYwCeeemCaWArgE7ADGMxAhmuQHQBQoYEnJE8wALKEARnkaxEKdMAC8wAOS0kstGuAAfdQBM8ANzxlRjXQbVaWACwC0JPB0NqA3HwGgIwAJJoWozYHCxixnAsjAhStADmwESMMJYo1Fi4HMCIaPEu+MRklHj8gpqyoeHAAKJFFFTAAN4+giDYCIxwSAByHAR4AFw5SDF5Xm2gJBzdfQPD3WPxE5PAlBxdAPLYNQAelgh4aOHDaPQEMowrIAC+3oJ+AMKMrlrAXFhSAFZ4LEhC9g4-0BmA4JBISXgiCkBQABpILrJ5MhUGhYcATGD6Bk4Hh-jNgABrPDkOBlXyQAAq9ngYmJpOAAHcEOCRjAXqwYODfoo6DhakUSph+Uh7GI4P0xER4Cj0OSQGwMP8tP1hgAlX7swwAHgRl2RvIANALSA08ABtAC6AD4VM1Wm0Kow0MMrYaHYJjGYLLJXZb3at1HYnC43Go-QHQDcvA6-JsmEJXARgCDgMYWAhjIYhDAU+YiMAAFIwex0ZmilMITCGF79TLAGRsAgJYAAZRwSEZGzEABFTOZUrJ5Yn+jwnWgeER6HB7AAKJrADpdXqS4ZqYultTG6azVfqHswPBbtauLY7fayQ7HIbAAAMwBuAEoYw9IBq2Ixs9h2eFMOQYPQObALQKJgggABeYhghCIpikkKRpOQRIknAsZUiIeCttECBEP8NSMCkjDDAARMGziuIYxHwYOjDCMBmDNnAuTxA6irdCOBB1Lh5Dqpqn66tISIykawBnOCtqqC0gbjqc9DgpGkxegOliyfJDrRkAA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ Positions\ of\ employees\ in\ our\ company.}
+\DoxyCodeLine{type\ MemberPosition\ =\ 'intern'\ |\ 'developer'\ |\ 'tech-\/lead';}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Interface\ describing\ properties\ of\ a\ single\ employee.}
+\DoxyCodeLine{interface\ Employee\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ firstName:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ lastName:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ yearsOfExperience:\ number;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Create\ an\ object\ that\ has\ all\ possible\ \`{}MemberPosition`\ values\ set\ as\ keys.}
+\DoxyCodeLine{//\ Those\ keys\ will\ store\ a\ collection\ of\ Employees\ of\ the\ same\ position.}
+\DoxyCodeLine{const\ team:\ Record<MemberPosition,\ Employee[]>\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ intern:\ [],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ developer:\ [],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 'tech-\/lead':\ [],}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Our\ team\ has\ decided\ to\ help\ John\ with\ his\ dream\ of\ becoming\ Software\ Developer.}
+\DoxyCodeLine{team.intern.push(\{}
+\DoxyCodeLine{\ \ \ \ firstName:\ 'John',}
+\DoxyCodeLine{\ \ \ \ lastName:\ 'Doe',}
+\DoxyCodeLine{\ \ \ \ yearsOfExperience:\ 0}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \`{}Record`\ forces\ you\ to\ initialize\ all\ of\ the\ property\ keys.}
+\DoxyCodeLine{//\ TypeScript\ Error:\ "{}tech-\/lead"{}\ property\ is\ missing}
+\DoxyCodeLine{const\ teamEmpty:\ Record<MemberPosition,\ null>\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ intern:\ null,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ developer:\ null,}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1436-L1439}{\texttt{{\ttfamily Exclude\texorpdfstring{$<$}{<}T, U\texorpdfstring{$>$}{>}}}} -\/ Exclude from {\ttfamily T} those types that are assignable to {\ttfamily U}. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/JYOwLgpgTgZghgYwgAgMrQG7QMIHsQzADmyA3gFDLIAOuUYAXMiAK4A2byAPsgM5hRQJHqwC2AI2gBucgF9y5MAE9qKAEoQAjiwj8AEnBAATNtGQBeZAAooWphu26wAGmS3e93bRC8IASgsAPmRDJRlyAHoI5ABRAA8ENhYjFFYOZGVVZBgoXFFkAAM0zh5+QRBhZhYJaAKAOkjogEkQZAQ4X2QAdwALCFbaemRgXmQtFjhOMFwq9K6ULuB0lk6U+HYwZAxJnQaYFhAEMGB8ZCIIMAAFOjAANR2IK0HGWISklIAedCgsKDwCYgAbQA5M9gQBdVzFQJ+JhiSRQMiUYYwayZCC4VHPCzmSzAspCYEBWxgFhQAZwKC+FpgJ43VwARgADH4ZFQSWSBjcZPJyPtDsdTvxKWBvr8rD1DCZoJ5HPopaYoK4EPhCEQmGKcKriLCtrhgEYkVQVT5Nr4fmZLLZtMBbFZgT0wGBqES6ghbHBIJqoBKFdBWQpjfh+DQbhY2tqiHVsbjLMVkAB+ZAAZiZaeQTHOVxu9ySjxNaujNwDVHNvzqbBGkBAdPoAfkQA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{interface\ ServerConfig\ \{}
+\DoxyCodeLine{\ \ \ \ port:\ null\ |\ string\ |\ number;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{type\ RequestHandler\ =\ (request:\ Request,\ response:\ Response)\ =>\ void;}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Exclude\ \`{}null`\ type\ from\ \`{}null\ |\ string\ |\ number`.}
+\DoxyCodeLine{//\ In\ case\ the\ port\ is\ equal\ to\ \`{}null`,\ we\ will\ use\ default\ value.}
+\DoxyCodeLine{function\ getPortValue(port:\ Exclude<ServerConfig['port'],\ null>):\ number\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (typeof\ port\ ===\ 'string')\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ parseInt(port,\ 10);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ return\ port;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ startServer(handler:\ RequestHandler,\ config:\ ServerConfig):\ void\ \{}
+\DoxyCodeLine{\ \ \ \ const\ server\ =\ require('http').createServer(handler);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ port\ =\ config.port\ ===\ null\ ?\ 3000\ :\ getPortValue(config.port);}
+\DoxyCodeLine{\ \ \ \ server.listen(port);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1441-L1444}{\texttt{{\ttfamily Extract\texorpdfstring{$<$}{<}T, U\texorpdfstring{$>$}{>}}}} -\/ Extract from {\ttfamily T} those types that are assignable to {\ttfamily U}. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/CYUwxgNghgTiAEAzArgOzAFwJYHtXzSwEdkQBJYACgEoAueVZAWwCMQYBuAKDDwGcM8MgBF4AXngBlAJ6scESgHIRi6ty5ZUGdoihgEABXZ888AN5d48ANoiAuvUat23K6ihMQ9ATE0BzV3goPy8GZjZOLgBfLi4Aejj4AEEICBwAdz54MAALKFQQ+BxEeAAHY1NgKAwoIKy0grr4DByEUpgccpgMaXgAaxBerCzi+B9-ZulygDouFHRsU1z8kKMYE1RhaqgAHkt4AHkWACt4EAAPbVRgLLWNgBp9gGlBs8uQa6yAUUuYPQwdgNpKM7nh7mMML4CgA+R5WABqUAgpDeVxuhxO1he0jsXGh8EoOBO9COx3BQPo2PBADckaR6IjkSA6PBqTgsMBzPsicdrEC7OJWXSQNwYvFEgAVTS9JLXODpeDpKBZFg4GCoWa8VACIJykAKiQWKy2YQOAioYikCg0OEMDyhRSy4DyxS24KhAAMjyi6gS8AAwjh5OD0iBFHAkJoEOksC1mnkMJq8gUQKDNttKPlnfrwYp3J5XfBHXqoKpfYkAOI4ansTxaeDADmoRSCCBYAbxhC6TDx6rwYHIRX5bScjA4bLJwoDmDwDkfbA9JMrVMVdM1TN69LgkTgwgkchUahqIA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{declare\ function\ uniqueId():\ number;}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ ID\ =\ Symbol('ID');}
+\DoxyCodeLine{}
+\DoxyCodeLine{interface\ Person\ \{}
+\DoxyCodeLine{\ \ \ \ [ID]:\ number;}
+\DoxyCodeLine{\ \ \ \ name:\ string;}
+\DoxyCodeLine{\ \ \ \ age:\ number;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Allows\ changing\ the\ person\ data\ as\ long\ as\ the\ property\ key\ is\ of\ string\ type.}
+\DoxyCodeLine{function\ changePersonData<}
+\DoxyCodeLine{\ \ \ \ Obj\ extends\ Person,}
+\DoxyCodeLine{\ \ \ \ Key\ extends\ Extract<keyof\ Person,\ string>,}
+\DoxyCodeLine{\ \ \ \ Value\ extends\ Obj[Key]}
+\DoxyCodeLine{>\ (obj:\ Obj,\ key:\ Key,\ value:\ Value):\ void\ \{}
+\DoxyCodeLine{\ \ \ \ obj[key]\ =\ value;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Tiny\ Andrew\ was\ born.}
+\DoxyCodeLine{const\ andrew\ =\ \{}
+\DoxyCodeLine{\ \ \ \ [ID]:\ uniqueId(),}
+\DoxyCodeLine{\ \ \ \ name:\ 'Andrew',}
+\DoxyCodeLine{\ \ \ \ age:\ 0,}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Cool,\ we're\ fine\ with\ that.}
+\DoxyCodeLine{changePersonData(andrew,\ 'name',\ 'Pony');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Goverment\ didn't\ like\ the\ fact\ that\ you\ wanted\ to\ change\ your\ identity.}
+\DoxyCodeLine{changePersonData(andrew,\ ID,\ uniqueId());}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1446-L1449}{\texttt{{\ttfamily Non\+Nullable\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} -\/ Exclude {\ttfamily null} and {\ttfamily undefined} from {\ttfamily T}. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+Works with {\ttfamily strict\+Null\+Checks} set to {\ttfamily true}. (Read more \href{https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html}{\texttt{here}})
+
+\href{https://typescript-play.js.org/?target=6\#code/C4TwDgpgBACg9gJ2AOQK4FsBGEFQLxQDOwCAlgHYDmUAPlORtrnQwDasDcAUFwPQBU-WAEMkUOADMowqAGNWwwoSgATCBIqlgpOOSjAAFsOBRSy1IQgr9cKJlSlW1mZYQA3HFH68u8xcoBlHA8EACEHJ08Aby4oKDBUTFZSWXjEFEYcAEIALihkXTR2YSSIAB54JDQsHAA+blj4xOTUsHSACkMzPKD3HHDHNQQAGjSkPMqMmoQASh7g-oihqBi4uNIpdraxPAI2VhmVxrX9AzMAOm2ppnwoAA4ABifuE4BfKAhWSyOTuK7CS7pao3AhXF5rV48E4ICDAVAIPT-cGQyG+XTEIgLMJLTx7CAAdygvRCA0iCHaMwarhJOIQjUBSHaACJHk8mYdeLwxtdcVAAOSsh58+lXdr7Dlcq7A3n3J4PEUdADMcspUE53OluAIUGVTx46oAKuAIAFZGQwCYAKIIBCILjUxaDHAMnla+iodjcIA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{type\ PortNumber\ =\ string\ |\ number\ |\ null;}
+\DoxyCodeLine{}
+\DoxyCodeLine{/**\ Part\ of\ a\ class\ definition\ that\ is\ used\ to\ build\ a\ server\ */}
+\DoxyCodeLine{class\ ServerBuilder\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ portNumber!:\ NonNullable<PortNumber>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ port(this:\ ServerBuilder,\ port:\ PortNumber):\ ServerBuilder\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (port\ ==\ null)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.portNumber\ =\ 8000;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ else\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.portNumber\ =\ port;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ this;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ serverBuilder\ =\ new\ ServerBuilder();}
+\DoxyCodeLine{}
+\DoxyCodeLine{serverBuilder}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .port('8000')\ \ \ //\ portNumber\ =\ '8000'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .port(null)\ \ \ \ \ //\ portNumber\ =\ \ 8000}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .port(3000);\ \ \ \ //\ portNumber\ =\ \ 3000}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ TypeScript\ error}
+\DoxyCodeLine{serverBuilder.portNumber\ =\ null;}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1451-L1454}{\texttt{{\ttfamily Parameters\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} -\/ Obtain the parameters of a function type in a tuple. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/GYVwdgxgLglg9mABAZwBYmMANgUwBQxgAOIUAXIgIZgCeA2gLoCUFAbnDACaIDeAUIkQB6IYgCypSlBxUATrMo1ECsJzgBbLEoipqAc0J7EMKMgDkiHLnU4wp46pwAPHMgB0fAL58+oSLARECEosLAA5ABUYG2QAHgAxJGdpVWREPDdMylk9ZApqemZEAF4APipacrw-CApEgBogkKwAYThwckQwEHUAIxxZJl4BYVEImiIZKF0oZRwiWVdbeygJmThgOYgcGFYcbhqApCJsyhtpWXcR1cnEePBoeDAABVPzgbTixFeFd8uEsClADcIxGiygIFkSEOT3SmTc2VydQeRx+ZxwF2QQ34gkEwDgsnSuFmMBKiAADEDjIhYk1Qm0OlSYABqZnYka4xA1DJZHJYkGc7yCbyeRA+CAIZCzNAYbA4CIAdxg2zJwVCkWirjwMswuEaACYmCCgA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{function\ shuffle(input:\ any[]):\ void\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Mutate\ array\ randomly\ changing\ its'\ elements\ indexes.}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ callNTimes<Fn\ extends\ (...args:\ any[])\ =>\ any>\ (func:\ Fn,\ callCount:\ number)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Type\ that\ represents\ the\ type\ of\ the\ received\ function\ parameters.}
+\DoxyCodeLine{\ \ \ \ type\ FunctionParameters\ =\ Parameters<Fn>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ return\ function\ (...args:\ FunctionParameters)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ for\ (let\ i\ =\ 0;\ i\ <\ callCount;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ func(...args);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ shuffleTwice\ =\ callNTimes(shuffle,\ 2);}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1456-L1459}{\texttt{{\ttfamily Constructor\+Parameters\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} -\/ Obtain the parameters of a constructor function type in a tuple. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/MYGwhgzhAECCBOAXAlqApgWQPYBM0mgG8AoaaFRENALmgkXmQDsBzAblOmCycTV4D8teo1YdO3JiICuwRFngAKClWENmLAJRFOZRAAtkEAHQq00ALzlklNBzIBfYk+KhIMAJJTEYJsDQAwmDA+mgAPAAq0GgAHnxMODCKTGgA7tCKxllg8CwQtL4AngDaALraFgB80EWa1SRkAA6MAG5gfNAB4FABPDJyCrQR9tDNyG0dwMGhtBhgjWEiGgA00F70vv4RhY3hEZXVVinpc42KmuJkkv3y8Bly8EPaDWTkhiZd7r3e8LK3llwGCMXGQWGhEOsfH5zJlsrl8p0+gw-goAAo5MAAW3BaHgEEilU0tEhmzQ212BJ0ry4SOg+kg+gBBiMximIGA0nAfAQLGk2N4EAAEgzYcYcnkLsRdDTvNEYkYUKwSdCme9WdM0MYwYhFPSIPpJdTkAAzDKxBUaZX+aAAQgsVmkCTQxuYaBw2ng4Ok8CYcotSu8pMur09iG9vuObxZnx6SN+AyUWTF8MN0CcZE4Ywm5jZHK5aB5fP4iCFIqT4oRRTKRLo6lYVNeAHpG50wOzOe1zHr9NLQ+HoABybsD4HOKXXRA1JCoKhBELmI5pNaB6Fz0KKBAodDYPAgSUTmqYsAALx4m5nC6nW9nGq14KtaEUA9gR9PvuNCjQ9BgACNvcwNBtAcLiAA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{class\ ArticleModel\ \{}
+\DoxyCodeLine{\ \ \ \ title:\ string;}
+\DoxyCodeLine{\ \ \ \ content?:\ string;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ constructor(title:\ string)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.title\ =\ title;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ InstanceCache<T\ extends\ (new\ (...args:\ any[])\ =>\ any)>\ \{}
+\DoxyCodeLine{\ \ \ \ private\ ClassConstructor:\ T;}
+\DoxyCodeLine{\ \ \ \ private\ cache:\ Map<string,\ InstanceType<T>>\ =\ new\ Map();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ constructor\ (ctr:\ T)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.ClassConstructor\ =\ ctr;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ getInstance\ (...args:\ ConstructorParameters<T>):\ InstanceType<T>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ hash\ =\ this.calculateArgumentsHash(...args);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ existingInstance\ =\ this.cache.get(hash);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (existingInstance\ !==\ undefined)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ return\ existingInstance;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ new\ this.ClassConstructor(...args);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ private\ calculateArgumentsHash(...args:\ any[]):\ string\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ Calculate\ hash.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ 'hash';}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ articleCache\ =\ new\ InstanceCache(ArticleModel);}
+\DoxyCodeLine{const\ amazonArticle\ =\ articleCache.getInstance('Amazon\ forests\ burining!');}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1461-L1464}{\texttt{{\ttfamily Return\+Type\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} – Obtain the return type of a function type. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/MYGwhgzhAECSAmICmBlJAnAbgS2E6A3gFDTTwD2AcuQC4AW2AdgOYAUAlAFzSbnbyEAvkWFFQkGJSQB3GMVI1sNZNwg10TZgG4S0YOUY0kh1es07d+xmvQBXYDXLpWi5UlMaWAGj0GjJ6BtNdkJdBQYIADpXZGgAXmgYpB1ScOwoq38aeN9DYxoU6GFRKzVoJjUwRjwAYXJbPPRuAFkwAAcAHgAxBodsAx9GWwBbACMMAD4cxhloVraOCyYjdAAzMDxoOut1e0d0UNIZ6WhWSPOwdGYIbiqATwBtAF0uaHudUQB6ACpv6ABpJBINqJdAbADW0Do5BOw3u5R2VTwMHIq2gAANtjZ0bkbHsnFCwJh8ONjHp0EgwEZ4JFoN9PkRVr1FAZoMwkDRYIjqkgOrosepoEgAB7+eAwAV2BxOLy6ACCVxgIrFEoMeOl6AACpcwMMORgIB1JRMiBNWKVdhruJKfOdIpdrtwFddXlzKjyACp3Nq842HaDIbL6BrZBIVGhIpB1EMYSLsmjmtWW-YhAA+qegAAYLKQLQj3ZsEsdccmnGcLor2Dn8xGedHGpEIBzEzspfsfMHDNAANTQACMVaIljV5GQkRA5DYmIpVKQAgAJARO9le33BDXIyi0YuLW2nJFGLqkOvxFB0YPdBSaLZ0IwNzyPkO8-xkGgsLh8Al427a3hWAhXwwHA8EHT5PmgAB1bAQBAANJ24adKWpft72RaBUTgRBUCAj89HAM8xCTaBjggABRQx0DuHJv25P9dCkWRZVIAAiBjoFImpmjlFBgA0NpsjadByDacgIDAEAIAAQmYpjoGYgAZSBsmGPw6DtZiiFA8CoJguDmAQmoZ2QvtUKQLdoAYmBTwgdEiCAA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/**\ Provides\ every\ element\ of\ the\ iterable\ \`{}iter`\ into\ the\ \`{}callback`\ function\ and\ stores\ the\ results\ in\ an\ array.\ */}
+\DoxyCodeLine{function\ mapIter<}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Elem,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Func\ extends\ (elem:\ Elem)\ =>\ any,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Ret\ extends\ ReturnType<Func>}
+\DoxyCodeLine{>(iter:\ Iterable<Elem>,\ callback:\ Func):\ Ret[]\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ mapped:\ Ret[]\ =\ [];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ for\ (const\ elem\ of\ iter)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mapped.push(callback(elem));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ mapped;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ setObject:\ Set<string>\ =\ new\ Set();}
+\DoxyCodeLine{const\ mapObject:\ Map<number,\ string>\ =\ new\ Map();}
+\DoxyCodeLine{}
+\DoxyCodeLine{mapIter(setObject,\ (value:\ string)\ =>\ value.indexOf('Foo'));\ //\ number[]}
+\DoxyCodeLine{}
+\DoxyCodeLine{mapIter(mapObject,\ ([key,\ value]:\ [number,\ string])\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ key\ \%\ 2\ ===\ 0\ ?\ value\ :\ 'Odd';}
+\DoxyCodeLine{\});\ //\ string[]}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/Microsoft/TypeScript/blob/2961bc3fc0ea1117d4e53bc8e97fa76119bc33e3/src/lib/es5.d.ts\#L1466-L1469}{\texttt{{\ttfamily Instance\+Type\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}}} – Obtain the instance type of a constructor function type. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/MYGwhgzhAECSAmICmBlJAnAbgS2E6A3gFDTTwD2AcuQC4AW2AdgOYAUAlAFzSbnbyEAvkWFFQkGJSQB3GMVI1sNZNwg10TZgG4S0YOUY0kh1es07d+xmvQBXYDXLpWi5UlMaWAGj0GjJ6BtNdkJdBQYIADpXZGgAXmgYpB1ScOwoq38aeN9DYxoU6GFRKzVoJjUwRjwAYXJbPPRuAFkwAAcAHgAxBodsAx9GWwBbACMMAD4cxhloVraOCyYjdAAzMDxoOut1e0d0UNIZ6WhWSPOwdGYIbiqATwBtAF0uaHudUQB6ACpv6ABpJBINqJdAbADW0Do5BOw3u5R2VTwMHIq2gAANtjZ0bkbHsnFCwJh8ONjHp0EgwEZ4JFoN9PkRVr1FAZoMwkDRYIjqkgOrosepoEgAB7+eAwAV2BxOLy6ACCVxgIrFEoMeOl6AACpcwMMORgIB1JRMiBNWKVdhruJKfOdIpdrtwFddXlzKjyACp3Nq842HaDIbL6BrZBIVGhIpB1EMYSLsmjmtWW-YhAA+qegAAYLKQLQj3ZsEsdccmnGcLor2Dn8xGedHGpEIBzEzspfsfMHDNAANTQACMVaIljV5GQkRA5DYmIpVKQAgAJARO9le33BDXIyi0YuLW2nJFGLqkOvxFB0YPdBSaLZ0IwNzyPkO8-xkGgsLh8Al427a3hWAhXwwHA8EHT5PmgAB1bAQBAANJ24adKWpft72RaBUTgRBUCAj89HAM8xCTaBjggABRQx0DuHJv25P9dCkWRZVIAAiBjoFImpmjlFBgA0NpsjadByDacgIDAEAIAAQmYpjoGYgAZSBsmGPw6DtZiiFA8CoJguDmAQmoZ2QvtUKQLdoAYmBTwgdEiCAA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{class\ IdleService\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ doNothing\ ():\ void\ \{\}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ News\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ title:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ content:\ string;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ constructor(title:\ string,\ content:\ string)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.title\ =\ title;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this.content\ =\ content;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ instanceCounter:\ Map<Function,\ number>\ =\ new\ Map();}
+\DoxyCodeLine{}
+\DoxyCodeLine{interface\ Constructor\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ new(...args:\ any[]):\ any;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Keep\ track\ how\ many\ instances\ of\ \`{}Constr`\ constructor\ have\ been\ created.}
+\DoxyCodeLine{function\ getInstance<}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Constr\ extends\ Constructor,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Args\ extends\ ConstructorParameters<Constr>}
+\DoxyCodeLine{>(constructor:\ Constr,\ ...args:\ Args):\ InstanceType<Constr>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ let\ count\ =\ instanceCounter.get(constructor)\ ||\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ instance\ =\ new\ constructor(...args);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ instanceCounter.set(constructor,\ count\ +\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(`Created\ \$\{count\ +\ 1\}\ instances\ of\ \$\{Constr.name\}\ class`);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ instance;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ idleService\ =\ getInstance(IdleService);}
+\DoxyCodeLine{//\ Will\ log:\ \`{}Created\ 1\ instances\ of\ IdleService\ class`}
+\DoxyCodeLine{const\ newsEntry\ =\ getInstance(News,\ 'New\ ECMAScript\ proposals!',\ 'Last\ month...');}
+\DoxyCodeLine{//\ Will\ log:\ \`{}Created\ 1\ instances\ of\ News\ class`}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\item \href{https://github.com/microsoft/TypeScript/blob/71af02f7459dc812e85ac31365bfe23daf14b4e4/src/lib/es5.d.ts\#L1446}{\texttt{{\ttfamily Omit\texorpdfstring{$<$}{<}T, K\texorpdfstring{$>$}{>}}}} – Constructs a type by picking all properties from T and then removing K. 
+
+{\bfseries{}}\begin{adjustwidth}{1em}{0em}
+Example 
+
+
+
+\href{https://typescript-play.js.org/?target=6\#code/JYOwLgpgTgZghgYwgAgIImAWzgG2QbwChlks4BzCAVShwC5kBnMKUcgbmKYAcIFgIjBs1YgOXMpSFMWbANoBdTiW5woFddwAW0kfKWEAvoUIB6U8gDCUCHEiNkICAHdkYAJ69kz4GC3JcPG4oAHteKDABBxCYNAxsPFBIWEQUCAAPJG4wZABySUFcgJAAEzMLXNV1ck0dIuCw6EjBADpy5AB1FAQ4EGQAV0YUP2AHDy8wEOQbUugmBLwtEIA3OcmQnEjuZBgQqE7gAGtgZAhwKHdkHFGwNvGUdDIcAGUliIBJEF3kAF5kAHlML4ADyPBIAGjyBUYRQAPnkqho4NoYQA+TiEGD9EAISIhPozErQMG4AASK2gn2+AApek9pCSXm8wFSQooAJQMUkAFQAsgAZACiOAgmDOOSIJAQ+OYyGl4DgoDmf2QJRCCH6YvALQQNjsEGFovF1NyJWAy1y7OUyHMyE+yRAuFImG4Iq1YDswHxbRINjA-SgfXlHqVUE4xiAA}{\texttt{Playground}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{interface\ Animal\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ imageUrl:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ species:\ string;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ images:\ string[];}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paragraphs:\ string[];}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Creates\ new\ type\ with\ all\ properties\ of\ the\ \`{}Animal`\ interface}
+\DoxyCodeLine{//\ except\ 'images'\ and\ 'paragraphs'\ properties.\ We\ can\ use\ this}
+\DoxyCodeLine{//\ type\ to\ render\ small\ hover\ tooltip\ for\ a\ wiki\ entry\ list.}
+\DoxyCodeLine{type\ AnimalShortInfo\ =\ Omit<Animal,\ 'images'\ |\ 'paragraphs'>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ renderAnimalHoverInfo\ (animals:\ AnimalShortInfo[]):\ HTMLElement\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ const\ container\ =\ \ document.createElement('div');}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ Internal\ implementation.}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ container;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \end{adjustwidth}
+
+\end{DoxyItemize}
+
+You can find some examples in the \href{https://www.typescriptlang.org/docs/handbook/advanced-types.html\#predefined-conditional-types}{\texttt{Type\+Script docs}}.\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1342}{}\doxysubsubsection{\texorpdfstring{Maintainers}{Maintainers}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1342}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus}{\texttt{Sindre Sorhus}}
+\item \href{https://github.com/CvX}{\texttt{Jarek Radosz}}
+\item \href{https://github.com/BendingBender}{\texttt{Dimitri Benin}}
+\end{DoxyItemize}\hypertarget{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1343}{}\doxysubsubsection{\texorpdfstring{License}{License}}\label{dir_91a54b7d2ac2163ae6e8629cd58b4536_autotoc_md1343}
+(MIT OR CC0-\/1.\+0)
+
+\DoxyHorRuler{0}
+
+
+ {\bfseries{ \href{https://tidelift.com/subscription/pkg/npm-type-fest?utm_source=npm-type-fest&utm_medium=referral&utm_campaign=readme}{\texttt{Get professional support for this package with a Tidelift subscription}} }} ~\newline
+ \textsubscript{ Tidelift helps make open source sustainable for maintainers while giving companies~\newline
+assurances about security, maintenance, and licensing for their dependencies. }  

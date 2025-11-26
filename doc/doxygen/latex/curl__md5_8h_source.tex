@@ -1,0 +1,49 @@
+\doxysection{curl\+\_\+md5.\+h}
+\hypertarget{curl__md5_8h_source}{}\label{curl__md5_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_md5.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_md5.h}}
+\mbox{\hyperlink{curl__md5_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_MD5\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_MD5\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_CRYPTO\_AUTH}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__hmac_8h}{curl\_hmac.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ MD5\_DIGEST\_LEN\ \ 16}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\ \mbox{\hyperlink{curl__md5_8h_ac5f311e0fdf7b70c70033b693ad41f47}{Curl\_MD5\_init\_func}})(\textcolor{keywordtype}{void}\ *context);}
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ void\ (*\ \mbox{\hyperlink{curl__md5_8h_ab5e2dc3a4ecc5a0a27697eb2be0b2ee5}{Curl\_MD5\_update\_func}})(\textcolor{keywordtype}{void}\ *context,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ void\ (*\ \mbox{\hyperlink{curl__md5_8h_ab044023207bdbd6f852728a150639c4a}{Curl\_MD5\_final\_func}})(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *result,\ \textcolor{keywordtype}{void}\ *context);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMD5__params}{MD5\_params}}\ \{}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{curl__md5_8h_ac5f311e0fdf7b70c70033b693ad41f47}{Curl\_MD5\_init\_func}}\ \ \ \ \ \mbox{\hyperlink{structMD5__params_a885ae7596b266200be52a3a780b19d16}{md5\_init\_func}};\ \ \ \textcolor{comment}{/*\ Initialize\ context\ procedure\ */}}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{curl__md5_8h_ab5e2dc3a4ecc5a0a27697eb2be0b2ee5}{Curl\_MD5\_update\_func}}\ \ \ \mbox{\hyperlink{structMD5__params_ad09f5b0ea4e7e46dd18f283dc3a79ed8}{md5\_update\_func}};\ \textcolor{comment}{/*\ Update\ context\ with\ data\ */}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{curl__md5_8h_ab044023207bdbd6f852728a150639c4a}{Curl\_MD5\_final\_func}}\ \ \ \ \mbox{\hyperlink{structMD5__params_add4cfa8be3f5db9a6f2a3c0204ae8ca7}{md5\_final\_func}};\ \ \textcolor{comment}{/*\ Get\ final\ result\ procedure\ */}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structMD5__params_a48c4b0b61d8997be04391fc880ea2351}{md5\_ctxtsize}};\ \ \textcolor{comment}{/*\ Context\ structure\ size\ */}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structMD5__params_a5d531f2f40932c7ed54eb79912672ce5}{md5\_resultlen}};\ \textcolor{comment}{/*\ Result\ length\ (bytes)\ */}}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMD5__context}{MD5\_context}}\ \{}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMD5__params}{MD5\_params}}\ *\mbox{\hyperlink{structMD5__context_a468ef3ecba6df68f4087775506ff203c}{md5\_hash}};\ \ \ \ \textcolor{comment}{/*\ Hash\ function\ definition\ */}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structMD5__context_afcd55d5ab097a18a48ed3edbbbe35bd0}{md5\_hashctx}};\ \ \ \textcolor{comment}{/*\ Hash\ function\ context\ */}}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMD5__params}{MD5\_params}}\ \mbox{\hyperlink{curl__md5_8h_a8774067c622160073b71d36170127a29}{Curl\_DIGEST\_MD5}}[1];}
+\DoxyCodeLine{00052\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structHMAC__params}{HMAC\_params}}\ \mbox{\hyperlink{curl__md5_8h_a1844ce1a54628b5d64e4d1f033eaaec7}{Curl\_HMAC\_MD5}}[1];}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__md5_8h_abc9413c71303334daa48c19337502b8c}{Curl\_md5it}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structinput}{input}},}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structMD5__context}{MD5\_context}}\ *\mbox{\hyperlink{curl__md5_8h_ade5ec62d4d09cbb4cb240d0974cc57b4}{Curl\_MD5\_init}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structMD5__params}{MD5\_params}}\ *md5params);}
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__md5_8h_a21c5ea37843ae00365d57ea0f5547c18}{Curl\_MD5\_update}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structMD5__context}{MD5\_context}}\ *context,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+\DoxyCodeLine{00061\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{curl__md5_8h_af983daad8622c612f0a76d28a53850e7}{Curl\_MD5\_final}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structMD5__context}{MD5\_context}}\ *context,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *result);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_MD5\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,74 @@
+\doxysection{gui/node\+\_\+modules/pump Directory Reference}
+\hypertarget{dir_d953e7816291527b202ba0ed92255f1a}{}\label{dir_d953e7816291527b202ba0ed92255f1a}\index{gui/node\_modules/pump Directory Reference@{gui/node\_modules/pump Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1179}{}\doxysubsection{\texorpdfstring{pump}{pump}}\label{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1179}
+pump is a small node module that pipes streams together and destroys all of them if one of them closes.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ pump}
+
+\end{DoxyCode}
+
+
+\href{http://travis-ci.org/mafintosh/pump}{\texttt{}}\hypertarget{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1180}{}\doxysubsection{\texorpdfstring{What problem does it solve?}{What problem does it solve?}}\label{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1180}
+When using standard {\ttfamily source.\+pipe(dest)} source will {\itshape not} be destroyed if dest emits close or an error. You are also not able to provide a callback to tell when then pipe has finished.
+
+pump does these two things for you\hypertarget{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1181}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1181}
+Simply pass the streams you want to pipe together to pump and add an optional callback
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{var\ pump\ =\ require('pump')}
+\DoxyCodeLine{var\ fs\ =\ require('fs')}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ source\ =\ fs.createReadStream('/dev/random')}
+\DoxyCodeLine{var\ dest\ =\ fs.createWriteStream('/dev/null')}
+\DoxyCodeLine{}
+\DoxyCodeLine{pump(source,\ dest,\ function(err)\ \{}
+\DoxyCodeLine{\ \ console.log('pipe\ finished',\ err)}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{setTimeout(function()\ \{}
+\DoxyCodeLine{\ \ dest.destroy()\ //\ when\ dest\ is\ closed\ pump\ will\ destroy\ source}
+\DoxyCodeLine{\},\ 1000)}
+
+\end{DoxyCode}
+
+
+You can use pump to pipe more than two streams together as well
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{var\ transform\ =\ someTransformStream()}
+\DoxyCodeLine{}
+\DoxyCodeLine{pump(source,\ transform,\ anotherTransform,\ dest,\ function(err)\ \{}
+\DoxyCodeLine{\ \ console.log('pipe\ finished',\ err)}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+
+
+If {\ttfamily source}, {\ttfamily transform}, {\ttfamily another\+Transform} or {\ttfamily dest} closes all of them will be destroyed.
+
+Similarly to {\ttfamily stream.\+pipe()}, {\ttfamily pump()} returns the last stream passed in, so you can do\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{return\ pump(s1,\ s2)\ //\ returns\ s2}
+
+\end{DoxyCode}
+
+
+Note that {\ttfamily pump} attaches error handlers to the streams to do internal error handling, so if {\ttfamily s2} emits an error in the above scenario, it will not trigger a {\ttfamily proccess.\+on(\textquotesingle{}uncaught\+Exception\textquotesingle{})} if you do not listen for it.
+
+If you want to return a stream that combines {\itshape both} s1 and s2 to a single stream use \href{https://github.com/mafintosh/pumpify}{\texttt{pumpify}} instead.\hypertarget{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1182}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1182}
+MIT\hypertarget{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1183}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1183}
+{\ttfamily pump} is part of the \href{https://github.com/maxogden/mississippi}{\texttt{mississippi stream utility collection}} which includes more useful stream modules similar to this one.\hypertarget{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1184}{}\doxysubsection{\texorpdfstring{For enterprise}{For enterprise}}\label{dir_d953e7816291527b202ba0ed92255f1a_autotoc_md1184}
+Available as part of the Tidelift Subscription.
+
+The maintainers of pump and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. \href{https://tidelift.com/subscription/pkg/npm-pump?utm_source=npm-pump&utm_medium=referral&utm_campaign=enterprise}{\texttt{Learn more.}} 

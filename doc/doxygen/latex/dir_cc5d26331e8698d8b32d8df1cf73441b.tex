@@ -1,0 +1,175 @@
+\doxysection{gui/node\+\_\+modules/cacheable-\/lookup Directory Reference}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b}{}\label{dir_cc5d26331e8698d8b32d8df1cf73441b}\index{gui/node\_modules/cacheable-\/lookup Directory Reference@{gui/node\_modules/cacheable-\/lookup Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md269}{}\doxysubsection{\texorpdfstring{cacheable-\/lookup}{cacheable-\/lookup}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md269}
+\begin{quote}
+A cacheable \href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{{\ttfamily dns.\+lookup(…)}}} that respects TTL \+:tada\+: \end{quote}
+
+
+\href{https://github.com/szmarczak/cacheable-lookup/actions}{\texttt{}} \href{https://coveralls.io/github/szmarczak/cacheable-lookup?branch=master}{\texttt{}} \href{https://www.npmjs.com/package/cacheable-lookup}{\texttt{}} \href{https://packagephobia.now.sh/result?p=cacheable-lookup}{\texttt{}}
+
+Making lots of \doxylink{structHTTP}{HTTP} requests? You can save some time by caching DNS lookups \+:zap\+:\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md270}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md270}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md271}{}\doxysubsubsection{\texorpdfstring{Using the {\ttfamily lookup} option}{Using the {\ttfamily lookup} option}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md271}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http\ =\ require('http');}
+\DoxyCodeLine{const\ CacheableLookup\ =\ require('cacheable-\/lookup');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cacheable\ =\ new\ CacheableLookup();}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.get('http://example.com',\ \{lookup:\ cacheable.lookup\},\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Handle\ the\ response\ here}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md272}{}\doxysubsubsection{\texorpdfstring{Attaching Cacheable\+Lookup to an Agent}{Attaching Cacheable\+Lookup to an Agent}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md272}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http\ =\ require('http');}
+\DoxyCodeLine{const\ CacheableLookup\ =\ require('cacheable-\/lookup');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cacheable\ =\ new\ CacheableLookup();}
+\DoxyCodeLine{cacheable.install(http.globalAgent);}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.get('http://example.com',\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Handle\ the\ response\ here}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md273}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md273}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md274}{}\doxysubsubsection{\texorpdfstring{new Cacheable\+Lookup(options)}{new Cacheable\+Lookup(options)}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md274}
+Returns a new instance of {\ttfamily Cacheable\+Lookup}.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md275}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md275}
+Type\+: {\ttfamily object}~\newline
+ Default\+: {\ttfamily \{\}}
+
+Options used to cache the DNS lookups.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md276}{}\doxysubsubsubsubsection{\texorpdfstring{cache}{cache}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md276}
+Type\+: {\ttfamily Map} \texorpdfstring{$\vert$}{|} \href{https://github.com/lukechilds/keyv/}{\texttt{{\ttfamily Keyv}}}~\newline
+ Default\+: {\ttfamily new Map()}
+
+Custom cache instance. If {\ttfamily undefined}, it will create a new one.
+
+{\bfseries{Note}}\+: If you decide to use Keyv instead of the native implementation, the performance will drop by 10x. \doxylink{structMemory}{Memory} leaks may occur as it doesn\textquotesingle{}t provide any way to remove all the deprecated values at once.
+
+{\bfseries{Tip}}\+: \href{https://github.com/sindresorhus/quick-lru}{\texttt{{\ttfamily Quick\+LRU}}} is fully compatible with the Map API, you can use it to limit the amount of cached entries. Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http\ =\ require('http');}
+\DoxyCodeLine{const\ CacheableLookup\ =\ require('cacheable-\/lookup');}
+\DoxyCodeLine{const\ QuickLRU\ =\ require('quick-\/lru');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cacheable\ =\ new\ CacheableLookup(\{}
+\DoxyCodeLine{\ \ \ \ cache:\ new\ QuickLRU(\{maxSize:\ 1000\})}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{http.get('http://example.com',\ \{lookup:\ cacheable.lookup\},\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Handle\ the\ response\ here}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md277}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+max\+Ttl}{options.\+max\+Ttl}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md277}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily Infinity}
+
+The maximum lifetime of the entries received from the specifed DNS server (TTL in seconds).
+
+If set to {\ttfamily 0}, it will make a new DNS query each time.
+
+{\bfseries{Pro Tip}}\+: This shouldn\textquotesingle{}t be lower than your DNS server response time in order to prevent bottlenecks. For example, if you use Cloudflare, this value should be greater than {\ttfamily 0.\+01}.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md278}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+fallback\+Duration}{options.\+fallback\+Duration}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md278}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily 3600} (1 hour)
+
+When the DNS server responds with {\ttfamily ENOTFOUND} or {\ttfamily ENODATA} and the OS reports that the entry is available, it will use {\ttfamily dns.\+lookup(...)} directly for the requested hostnames for the specified amount of time (in seconds).
+
+If you don\textquotesingle{}t query internal hostnames (such as {\ttfamily localhost}, {\ttfamily database.\+local} etc.), it is strongly recommended to set this value to {\ttfamily 0}.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md279}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+error\+Ttl}{options.\+error\+Ttl}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md279}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily 0.\+15}
+
+The time how long it needs to remember queries that threw {\ttfamily ENOTFOUND} or {\ttfamily ENODATA} (TTL in seconds).
+
+{\bfseries{Note}}\+: This option is independent, {\ttfamily options.\+max\+Ttl} does not affect this.
+
+{\bfseries{Pro Tip}}\+: This shouldn\textquotesingle{}t be lower than your DNS server response time in order to prevent bottlenecks. For example, if you use Cloudflare, this value should be greater than {\ttfamily 0.\+01}.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md280}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+resolver}{options.\+resolver}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md280}
+Type\+: {\ttfamily dns.\+Resolver \texorpdfstring{$\vert$}{|} dns.\+promises.\+Resolver}~\newline
+ Default\+: \href{https://nodejs.org/api/dns.html\#dns_class_dns_resolver}{\texttt{{\ttfamily new dns.\+promises.\+Resolver()}}}
+
+An instance of \href{https://nodejs.org/api/dns.html\#dns_class_dns_resolver}{\texttt{DNS Resolver}} used to make DNS queries.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md281}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+lookup}{options.\+lookup}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md281}
+Type\+: {\ttfamily Function}~\newline
+ Default\+: \href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{{\ttfamily dns.\+lookup}}}
+
+The fallback function to use when the DNS server responds with {\ttfamily ENOTFOUND} or {\ttfamily ENODATA}.
+
+{\bfseries{Note}}\+: This has no effect if the {\ttfamily fallback\+Duration} option is less than {\ttfamily 1}.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md282}{}\doxysubsubsection{\texorpdfstring{Entry object}{Entry object}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md282}
+Type\+: {\ttfamily object}\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md283}{}\doxysubsubsubsection{\texorpdfstring{address}{address}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md283}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+The IP address (can be an IPv4 or IPv6 address).\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md284}{}\doxysubsubsubsection{\texorpdfstring{family}{family}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md284}
+Type\+: {\ttfamily number}
+
+The IP family ({\ttfamily 4} or {\ttfamily 6}).\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md285}{}\doxysubsubsubsubsection{\texorpdfstring{expires}{expires}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md285}
+Type\+: {\ttfamily number}
+
+{\bfseries{Note}}\+: This is not present when falling back to {\ttfamily dns.\+lookup(...)}!
+
+The timestamp ({\ttfamily Date.\+now() + ttl \texorpdfstring{$\ast$}{*} 1000}) when the entry expires.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md286}{}\doxysubsubsubsection{\texorpdfstring{ttl}{ttl}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md286}
+{\bfseries{Note}}\+: This is not present when falling back to {\ttfamily dns.\+lookup(...)}!
+
+The time in seconds for its lifetime.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md287}{}\doxysubsubsection{\texorpdfstring{Entry object (callback-\/style)}{Entry object (callback-\/style)}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md287}
+When {\ttfamily options.\+all} is {\ttfamily false}, then {\ttfamily callback(error, address, family, expires, ttl)} is called. ~\newline
+ When {\ttfamily options.\+all} is {\ttfamily true}, then {\ttfamily callback(error, entries)} is called.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md288}{}\doxysubsubsection{\texorpdfstring{Cacheable\+Lookup instance}{Cacheable\+Lookup instance}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md288}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md289}{}\doxysubsubsubsection{\texorpdfstring{servers}{servers}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md289}
+Type\+: {\ttfamily Array}
+
+The DNS servers used to make queries. Can be overridden -\/ doing so will clear the cache.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md290}{}\doxysubsubsubsection{\texorpdfstring{\href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{lookup(hostname, options, callback)}}}{\href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{lookup(hostname, options, callback)}}}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md290}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md291}{}\doxysubsubsubsection{\texorpdfstring{lookup\+Async(hostname, options)}{lookup\+Async(hostname, options)}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md291}
+The asynchronous version of {\ttfamily dns.\+lookup(…)}.
+
+Returns an entry object.~\newline
+ If {\ttfamily options.\+all} is true, returns an array of entry objects.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md292}{}\doxysubsubsubsubsection{\texorpdfstring{hostname}{hostname}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md292}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md293}{}\doxysubsubsubsubsection{\texorpdfstring{options}{options}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md293}
+Type\+: {\ttfamily object}
+
+The same as the \href{https://nodejs.org/api/dns.html\#dns_dns_lookup_hostname_options_callback}{\texttt{{\ttfamily dns.\+lookup(…)}}} options.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md294}{}\doxysubsubsubsection{\texorpdfstring{query(hostname)}{query(hostname)}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md294}
+An asynchronous function which returns cached DNS lookup entries.~\newline
+ This is the base for {\ttfamily lookup\+Async(hostname, options)} and {\ttfamily lookup(hostname, options, callback)}.
+
+{\bfseries{Note}}\+: This function has no options.
+
+Returns an array of objects with {\ttfamily address}, {\ttfamily family}, {\ttfamily ttl} and {\ttfamily expires} properties.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md295}{}\doxysubsubsubsection{\texorpdfstring{query\+And\+Cache(hostname)}{query\+And\+Cache(hostname)}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md295}
+An asynchronous function which makes two DNS queries\+: A and AAAA. The result is cached.~\newline
+ This is used by {\ttfamily query(hostname)} if no entry in the database is present.
+
+Returns an array of objects with {\ttfamily address}, {\ttfamily family}, {\ttfamily ttl} and {\ttfamily expires} properties.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md296}{}\doxysubsubsubsection{\texorpdfstring{update\+Interface\+Info()}{update\+Interface\+Info()}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md296}
+Updates interface info. For example, you need to run this when you plug or unplug your Wi\+Fi driver.
+
+{\bfseries{Note\+:}} Running {\ttfamily update\+Interface\+Info()} will trigger {\ttfamily clear()} only on network interface removal.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md297}{}\doxysubsubsubsection{\texorpdfstring{clear(hostname?)}{clear(hostname?)}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md297}
+Clears the cache for the given hostname. If the hostname argument is not present, the entire cache will be emptied.\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md298}{}\doxysubsection{\texorpdfstring{High performance}{High performance}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md298}
+Performed on\+:
+\begin{DoxyItemize}
+\item Query\+: {\ttfamily example.\+com}
+\item CPU\+: i7-\/7700k
+\item CPU governor\+: performance
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CacheableLookup\#lookupAsync\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 2,896,251\ ops/sec\ ±1.07\%\ (85\ runs\ sampled)}
+\DoxyCodeLine{CacheableLookup\#lookupAsync.all\ \ \ \ \ \ \ \ \ \ \ \ x\ 2,842,664\ ops/sec\ ±1.11\%\ (88\ runs\ sampled)}
+\DoxyCodeLine{CacheableLookup\#lookupAsync.all.ADDRCONFIG\ x\ 2,598,283\ ops/sec\ ±1.21\%\ (88\ runs\ sampled)}
+\DoxyCodeLine{CacheableLookup\#lookup\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 2,565,913\ ops/sec\ ±1.56\%\ (85\ runs\ sampled)}
+\DoxyCodeLine{CacheableLookup\#lookup.all\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 2,609,039\ ops/sec\ ±1.01\%\ (86\ runs\ sampled)}
+\DoxyCodeLine{CacheableLookup\#lookup.all.ADDRCONFIG\ \ \ \ \ \ x\ 2,416,242\ ops/sec\ ±0.89\%\ (85\ runs\ sampled)}
+\DoxyCodeLine{dns\#lookup\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 7,272\ \ \ \ \ ops/sec\ ±0.36\%\ (86\ runs\ sampled)}
+\DoxyCodeLine{dns\#lookup.all\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 7,249\ \ \ \ \ ops/sec\ ±0.40\%\ (86\ runs\ sampled)}
+\DoxyCodeLine{dns\#lookup.all.ADDRCONFIG\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ 5,693\ \ \ \ \ ops/sec\ ±0.28\%\ (85\ runs\ sampled)}
+\DoxyCodeLine{Fastest\ is\ CacheableLookup\#lookupAsync.all}
+
+\end{DoxyCode}
+\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md299}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md299}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/lukechilds/cacheable-request}{\texttt{cacheable-\/request}} -\/ Wrap native \doxylink{structHTTP}{HTTP} requests with RFC compliant cache support
+\end{DoxyItemize}\hypertarget{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md300}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_cc5d26331e8698d8b32d8df1cf73441b_autotoc_md300}
+MIT 

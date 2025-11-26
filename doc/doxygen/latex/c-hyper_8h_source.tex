@@ -1,0 +1,44 @@
+\doxysection{c-\/hyper.h}
+\hypertarget{c-hyper_8h_source}{}\label{c-hyper_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/c-\/hyper.h@{lib/libwconr/build/\_deps/curl-\/src/lib/c-\/hyper.h}}
+\mbox{\hyperlink{c-hyper_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HYPER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HYPER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_HTTP)\ \&\&\ defined(USE\_HYPER)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <hyper.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{/*\ per-\/transfer\ data\ for\ the\ Hyper\ backend\ */}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }hyptransfer\ \{}
+\DoxyCodeLine{00034\ \ \ hyper\_waker\ *write\_waker;}
+\DoxyCodeLine{00035\ \ \ hyper\_waker\ *read\_waker;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{const}\ hyper\_executor\ *exec;}
+\DoxyCodeLine{00037\ \ \ hyper\_task\ *endtask;}
+\DoxyCodeLine{00038\ \ \ hyper\_waker\ *exp100\_waker;}
+\DoxyCodeLine{00039\ \ \ hyper\_waker\ *send\_body\_waker;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{size\_t}\ Curl\_hyper\_recv(\textcolor{keywordtype}{void}\ *userp,\ hyper\_context\ *ctx,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ buflen);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{size\_t}\ Curl\_hyper\_send(\textcolor{keywordtype}{void}\ *userp,\ hyper\_context\ *ctx,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ buflen);}
+\DoxyCodeLine{00046\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_hyper\_stream(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *didwhat,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *done,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ select\_res);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_hyper\_header(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ hyper\_headers\ *\mbox{\hyperlink{anyauth_8d_aff4e2b09daa0a774d26a587239e80e15}{headers}},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}});}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{c-hyper_8h_a7d4b32712fdb6ee4fb61f5a3f5c6713f}{Curl\_hyper\_done}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ Curl\_hyper\_done(x)}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !defined(CURL\_DISABLE\_HTTP)\ \&\&\ defined(USE\_HYPER)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HYPER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

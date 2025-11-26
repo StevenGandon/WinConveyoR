@@ -1,0 +1,357 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/mime.h File Reference}
+\hypertarget{mime_8h}{}\label{mime_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/mime.h@{lib/libwconr/build/\_deps/curl-\/src/lib/mime.h}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmime__encoder}{mime\+\_\+encoder}}
+\item 
+struct \mbox{\hyperlink{structmime__encoder__state}{mime\+\_\+encoder\+\_\+state}}
+\item 
+struct \mbox{\hyperlink{structmime__state}{mime\+\_\+state}}
+\item 
+struct \mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}}
+\item 
+struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{mime_8h_ad5164d139168afe4c27368e4cab06ec8}{MIME\+\_\+\+BOUNDARY\+\_\+\+DASHES}}~24  /\texorpdfstring{$\ast$}{*} leading boundary \mbox{\hyperlink{config_8d_a689bf58eb5e329e7ea62a9b13fd34651}{dashes}} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{mime_8h_ae00bf7b30ba982a8ea1742f71a62e656}{MIME\+\_\+\+RAND\+\_\+\+BOUNDARY\+\_\+\+CHARS}}~16  /\texorpdfstring{$\ast$}{*} Nb. \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} random boundary chars. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{mime_8h_a87cd972177607de17e317cf9272c1f02}{MAX\+\_\+\+ENCODED\+\_\+\+LINE\+\_\+\+LENGTH}}~76  /\texorpdfstring{$\ast$}{*} Maximum encoded \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}} length. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{mime_8h_abe3e5be5161161e88475b2f2b23c62dd}{ENCODING\+\_\+\+BUFFER\+\_\+\+SIZE}}~256 /\texorpdfstring{$\ast$}{*} Encoding temp buffers size. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{mime_8h_ac54b8e877d304c4fec36c1f8be0f02f1}{MIME\+\_\+\+USERHEADERS\+\_\+\+OWNER}}~(1 $<$$<$ 0)
+\item 
+\#define \mbox{\hyperlink{mime_8h_ae6faa301cc4b37f4112e9acc984db066}{MIME\+\_\+\+BODY\+\_\+\+ONLY}}~(1 $<$$<$ 1)
+\item 
+\#define \mbox{\hyperlink{mime_8h_a9edff6a9d8c6a2619aaa0c16456748ff}{MIME\+\_\+\+FAST\+\_\+\+READ}}~(1 $<$$<$ 2)
+\item 
+\#define \mbox{\hyperlink{mime_8h_ab2a72961faaa6c0ce26963a8013fed2e}{FILE\+\_\+\+CONTENTTYPE\+\_\+\+DEFAULT}}~"{}application/octet-\/stream"{}
+\item 
+\#define \mbox{\hyperlink{mime_8h_aaebb2a8b4bf26dfb612ce460b4328c85}{MULTIPART\+\_\+\+CONTENTTYPE\+\_\+\+DEFAULT}}~"{}multipart/mixed"{}
+\item 
+\#define \mbox{\hyperlink{mime_8h_aa5c7e54854ee53fcaeef2e3d826f15e6}{DISPOSITION\+\_\+\+DEFAULT}}~"{}attachment"{}
+\item 
+\#define \mbox{\hyperlink{mime_8h_a2525739b2fc45f5ac6b2ca7014788641}{MIME\+\_\+\+BOUNDARY\+\_\+\+LEN}}~(\mbox{\hyperlink{mime_8h_ad5164d139168afe4c27368e4cab06ec8}{MIME\+\_\+\+BOUNDARY\+\_\+\+DASHES}} + \mbox{\hyperlink{mime_8h_ae00bf7b30ba982a8ea1742f71a62e656}{MIME\+\_\+\+RAND\+\_\+\+BOUNDARY\+\_\+\+CHARS}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101}{mimekind}} \{ \newline
+\mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101abe93c496b53ded1073ef46824c2e260b}{MIMEKIND\+\_\+\+NONE}} = 0
+, \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a3fa11ee93428c5cb981af0dbc5ff745a}{MIMEKIND\+\_\+\+DATA}}
+, \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101ae008e417ccf479abfb3d3117c330df4b}{MIMEKIND\+\_\+\+FILE}}
+, \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a73ab828a446b18e6c64cf58121c2876c}{MIMEKIND\+\_\+\+CALLBACK}}
+, \newline
+\mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a6167535771a4ad417b9d4cb82be44fe2}{MIMEKIND\+\_\+\+MULTIPART}}
+, \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a25866420cb7860c0f07c81234a6171c3}{MIMEKIND\+\_\+\+LAST}}
+ \}
+\item 
+enum \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30}{mimestate}} \{ \newline
+\mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30ae986dee840014a75ec576769fda3d31c}{MIMESTATE\+\_\+\+BEGIN}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a0fe3323e6cdcb2985a7f23f7038b927a}{MIMESTATE\+\_\+\+CURLHEADERS}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a75222abd526c43d846a29d1dc7129f48}{MIMESTATE\+\_\+\+USERHEADERS}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a6e1ee28103ed68ef48e14de419e20c02}{MIMESTATE\+\_\+\+EOH}}
+, \newline
+\mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a26f14961a9c8856beaf155b62a958145}{MIMESTATE\+\_\+\+BODY}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30ad253a9d2d1bd2c40cf1ea26fe42ae563}{MIMESTATE\+\_\+\+BOUNDARY1}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a38e49688e71df767cd2f1c2261faead7}{MIMESTATE\+\_\+\+BOUNDARY2}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a0d49370eb200044ef0caf87f127bec91}{MIMESTATE\+\_\+\+CONTENT}}
+, \newline
+\mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30af392f88ef7fd223144ee718ab32b22a2}{MIMESTATE\+\_\+\+END}}
+, \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30ac12d6331daf814b5e5c75dded9bb4d6e}{MIMESTATE\+\_\+\+LAST}}
+ \}
+\item 
+enum \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}{mimestrategy}} \{ \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172a52e324a18fd8b30fa3c3801991ecbded}{MIMESTRATEGY\+\_\+\+MAIL}}
+, \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ac556c9982f42232a0d711e2e1a7dbd0a}{MIMESTRATEGY\+\_\+\+FORM}}
+, \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ad63f140f1e54f1e1b0bcff917b8e9cc0}{MIMESTRATEGY\+\_\+\+LAST}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mime_8h_a18951691569e3c259cba64edf1d3bd4b}{Curl\+\_\+mime\+\_\+add\+\_\+header}} (struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}slp, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+void \mbox{\hyperlink{mime_8h_a2f268d07bebff5abbafc1775433b6885}{Curl\+\_\+mime\+\_\+initpart}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}easy)
+\item 
+void \mbox{\hyperlink{mime_8h_ab9a4dfe14017d3b76502a757c271507b}{Curl\+\_\+mime\+\_\+cleanpart}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mime_8h_a21631327d50101d3459247fbd3dc6316}{Curl\+\_\+mime\+\_\+duppart}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}dst, const \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacesrc}{src}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mime_8h_aae3d8e16641f873b986a1fd36e83cbac}{Curl\+\_\+mime\+\_\+set\+\_\+subparts}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, struct \mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}subparts, int take\+\_\+ownership)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mime_8h_a73949f80d17ff2c32e67ff87259348ae}{Curl\+\_\+mime\+\_\+prepare\+\_\+headers}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part, const char \texorpdfstring{$\ast$}{*}contenttype, const char \texorpdfstring{$\ast$}{*}disposition, enum \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}{mimestrategy}} strategy)
+\item 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{mime_8h_a9b02db2452a0bc84daecd02dff7ac8a6}{Curl\+\_\+mime\+\_\+size}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part)
+\item 
+size\+\_\+t \mbox{\hyperlink{mime_8h_a421afd16d330a7d51f13ec1aecca05be}{Curl\+\_\+mime\+\_\+read}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nitems, void \texorpdfstring{$\ast$}{*}instream)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mime_8h_a94ad2966914f5b80f057528d6b9a75a2}{Curl\+\_\+mime\+\_\+rewind}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mime_8h_aa26cdd97339de1e9df7f1a0950d50cba}{Curl\+\_\+mime\+\_\+contenttype}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}})
+\item 
+void \mbox{\hyperlink{mime_8h_a8f469c7131c9b795f2c37e6efd18733e}{Curl\+\_\+mime\+\_\+unpause}} (struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}part)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{mime_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{mime_8h_aa5c7e54854ee53fcaeef2e3d826f15e6}\index{mime.h@{mime.h}!DISPOSITION\_DEFAULT@{DISPOSITION\_DEFAULT}}
+\index{DISPOSITION\_DEFAULT@{DISPOSITION\_DEFAULT}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{DISPOSITION\_DEFAULT}{DISPOSITION\_DEFAULT}}
+{\footnotesize\ttfamily \label{mime_8h_aa5c7e54854ee53fcaeef2e3d826f15e6} 
+\#define DISPOSITION\+\_\+\+DEFAULT~"{}attachment"{}}
+
+\Hypertarget{mime_8h_abe3e5be5161161e88475b2f2b23c62dd}\index{mime.h@{mime.h}!ENCODING\_BUFFER\_SIZE@{ENCODING\_BUFFER\_SIZE}}
+\index{ENCODING\_BUFFER\_SIZE@{ENCODING\_BUFFER\_SIZE}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{ENCODING\_BUFFER\_SIZE}{ENCODING\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \label{mime_8h_abe3e5be5161161e88475b2f2b23c62dd} 
+\#define ENCODING\+\_\+\+BUFFER\+\_\+\+SIZE~256 /\texorpdfstring{$\ast$}{*} Encoding temp buffers size. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{mime_8h_ab2a72961faaa6c0ce26963a8013fed2e}\index{mime.h@{mime.h}!FILE\_CONTENTTYPE\_DEFAULT@{FILE\_CONTENTTYPE\_DEFAULT}}
+\index{FILE\_CONTENTTYPE\_DEFAULT@{FILE\_CONTENTTYPE\_DEFAULT}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{FILE\_CONTENTTYPE\_DEFAULT}{FILE\_CONTENTTYPE\_DEFAULT}}
+{\footnotesize\ttfamily \label{mime_8h_ab2a72961faaa6c0ce26963a8013fed2e} 
+\#define FILE\+\_\+\+CONTENTTYPE\+\_\+\+DEFAULT~"{}application/octet-\/stream"{}}
+
+\Hypertarget{mime_8h_a87cd972177607de17e317cf9272c1f02}\index{mime.h@{mime.h}!MAX\_ENCODED\_LINE\_LENGTH@{MAX\_ENCODED\_LINE\_LENGTH}}
+\index{MAX\_ENCODED\_LINE\_LENGTH@{MAX\_ENCODED\_LINE\_LENGTH}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_ENCODED\_LINE\_LENGTH}{MAX\_ENCODED\_LINE\_LENGTH}}
+{\footnotesize\ttfamily \label{mime_8h_a87cd972177607de17e317cf9272c1f02} 
+\#define MAX\+\_\+\+ENCODED\+\_\+\+LINE\+\_\+\+LENGTH~76  /\texorpdfstring{$\ast$}{*} Maximum encoded \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}} length. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{mime_8h_ae6faa301cc4b37f4112e9acc984db066}\index{mime.h@{mime.h}!MIME\_BODY\_ONLY@{MIME\_BODY\_ONLY}}
+\index{MIME\_BODY\_ONLY@{MIME\_BODY\_ONLY}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MIME\_BODY\_ONLY}{MIME\_BODY\_ONLY}}
+{\footnotesize\ttfamily \label{mime_8h_ae6faa301cc4b37f4112e9acc984db066} 
+\#define MIME\+\_\+\+BODY\+\_\+\+ONLY~(1 $<$$<$ 1)}
+
+\Hypertarget{mime_8h_ad5164d139168afe4c27368e4cab06ec8}\index{mime.h@{mime.h}!MIME\_BOUNDARY\_DASHES@{MIME\_BOUNDARY\_DASHES}}
+\index{MIME\_BOUNDARY\_DASHES@{MIME\_BOUNDARY\_DASHES}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MIME\_BOUNDARY\_DASHES}{MIME\_BOUNDARY\_DASHES}}
+{\footnotesize\ttfamily \label{mime_8h_ad5164d139168afe4c27368e4cab06ec8} 
+\#define MIME\+\_\+\+BOUNDARY\+\_\+\+DASHES~24  /\texorpdfstring{$\ast$}{*} leading boundary \mbox{\hyperlink{config_8d_a689bf58eb5e329e7ea62a9b13fd34651}{dashes}} \texorpdfstring{$\ast$}{*}/}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{mime_8h_a2525739b2fc45f5ac6b2ca7014788641}\index{mime.h@{mime.h}!MIME\_BOUNDARY\_LEN@{MIME\_BOUNDARY\_LEN}}
+\index{MIME\_BOUNDARY\_LEN@{MIME\_BOUNDARY\_LEN}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MIME\_BOUNDARY\_LEN}{MIME\_BOUNDARY\_LEN}}
+{\footnotesize\ttfamily \label{mime_8h_a2525739b2fc45f5ac6b2ca7014788641} 
+\#define MIME\+\_\+\+BOUNDARY\+\_\+\+LEN~(\mbox{\hyperlink{mime_8h_ad5164d139168afe4c27368e4cab06ec8}{MIME\+\_\+\+BOUNDARY\+\_\+\+DASHES}} + \mbox{\hyperlink{mime_8h_ae00bf7b30ba982a8ea1742f71a62e656}{MIME\+\_\+\+RAND\+\_\+\+BOUNDARY\+\_\+\+CHARS}})}
+
+\Hypertarget{mime_8h_a9edff6a9d8c6a2619aaa0c16456748ff}\index{mime.h@{mime.h}!MIME\_FAST\_READ@{MIME\_FAST\_READ}}
+\index{MIME\_FAST\_READ@{MIME\_FAST\_READ}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MIME\_FAST\_READ}{MIME\_FAST\_READ}}
+{\footnotesize\ttfamily \label{mime_8h_a9edff6a9d8c6a2619aaa0c16456748ff} 
+\#define MIME\+\_\+\+FAST\+\_\+\+READ~(1 $<$$<$ 2)}
+
+\Hypertarget{mime_8h_ae00bf7b30ba982a8ea1742f71a62e656}\index{mime.h@{mime.h}!MIME\_RAND\_BOUNDARY\_CHARS@{MIME\_RAND\_BOUNDARY\_CHARS}}
+\index{MIME\_RAND\_BOUNDARY\_CHARS@{MIME\_RAND\_BOUNDARY\_CHARS}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MIME\_RAND\_BOUNDARY\_CHARS}{MIME\_RAND\_BOUNDARY\_CHARS}}
+{\footnotesize\ttfamily \label{mime_8h_ae00bf7b30ba982a8ea1742f71a62e656} 
+\#define MIME\+\_\+\+RAND\+\_\+\+BOUNDARY\+\_\+\+CHARS~16  /\texorpdfstring{$\ast$}{*} Nb. \mbox{\hyperlink{ftp-port_8d_a5603b7f2e91d3de2419945259da9f442}{of}} random boundary chars. \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{mime_8h_ac54b8e877d304c4fec36c1f8be0f02f1}\index{mime.h@{mime.h}!MIME\_USERHEADERS\_OWNER@{MIME\_USERHEADERS\_OWNER}}
+\index{MIME\_USERHEADERS\_OWNER@{MIME\_USERHEADERS\_OWNER}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MIME\_USERHEADERS\_OWNER}{MIME\_USERHEADERS\_OWNER}}
+{\footnotesize\ttfamily \label{mime_8h_ac54b8e877d304c4fec36c1f8be0f02f1} 
+\#define MIME\+\_\+\+USERHEADERS\+\_\+\+OWNER~(1 $<$$<$ 0)}
+
+\Hypertarget{mime_8h_aaebb2a8b4bf26dfb612ce460b4328c85}\index{mime.h@{mime.h}!MULTIPART\_CONTENTTYPE\_DEFAULT@{MULTIPART\_CONTENTTYPE\_DEFAULT}}
+\index{MULTIPART\_CONTENTTYPE\_DEFAULT@{MULTIPART\_CONTENTTYPE\_DEFAULT}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{MULTIPART\_CONTENTTYPE\_DEFAULT}{MULTIPART\_CONTENTTYPE\_DEFAULT}}
+{\footnotesize\ttfamily \label{mime_8h_aaebb2a8b4bf26dfb612ce460b4328c85} 
+\#define MULTIPART\+\_\+\+CONTENTTYPE\+\_\+\+DEFAULT~"{}multipart/mixed"{}}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{mime_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101}\index{mime.h@{mime.h}!mimekind@{mimekind}}
+\index{mimekind@{mimekind}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{mimekind}{mimekind}}
+{\footnotesize\ttfamily \label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101} 
+enum \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101}{mimekind}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMEKIND\_NONE@{MIMEKIND\_NONE}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMEKIND\_NONE@{MIMEKIND\_NONE}}}\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101abe93c496b53ded1073ef46824c2e260b}\label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101abe93c496b53ded1073ef46824c2e260b} 
+MIMEKIND\+\_\+\+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMEKIND\_DATA@{MIMEKIND\_DATA}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMEKIND\_DATA@{MIMEKIND\_DATA}}}\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a3fa11ee93428c5cb981af0dbc5ff745a}\label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a3fa11ee93428c5cb981af0dbc5ff745a} 
+MIMEKIND\+\_\+\+DATA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMEKIND\_FILE@{MIMEKIND\_FILE}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMEKIND\_FILE@{MIMEKIND\_FILE}}}\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101ae008e417ccf479abfb3d3117c330df4b}\label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101ae008e417ccf479abfb3d3117c330df4b} 
+MIMEKIND\+\_\+\+FILE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMEKIND\_CALLBACK@{MIMEKIND\_CALLBACK}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMEKIND\_CALLBACK@{MIMEKIND\_CALLBACK}}}\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a73ab828a446b18e6c64cf58121c2876c}\label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a73ab828a446b18e6c64cf58121c2876c} 
+MIMEKIND\+\_\+\+CALLBACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMEKIND\_MULTIPART@{MIMEKIND\_MULTIPART}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMEKIND\_MULTIPART@{MIMEKIND\_MULTIPART}}}\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a6167535771a4ad417b9d4cb82be44fe2}\label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a6167535771a4ad417b9d4cb82be44fe2} 
+MIMEKIND\+\_\+\+MULTIPART&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMEKIND\_LAST@{MIMEKIND\_LAST}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMEKIND\_LAST@{MIMEKIND\_LAST}}}\Hypertarget{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a25866420cb7860c0f07c81234a6171c3}\label{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a25866420cb7860c0f07c81234a6171c3} 
+MIMEKIND\+\_\+\+LAST&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30}\index{mime.h@{mime.h}!mimestate@{mimestate}}
+\index{mimestate@{mimestate}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{mimestate}{mimestate}}
+{\footnotesize\ttfamily \label{mime_8h_aa435b43174844a5636586eb1393ebf30} 
+enum \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30}{mimestate}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_BEGIN@{MIMESTATE\_BEGIN}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_BEGIN@{MIMESTATE\_BEGIN}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30ae986dee840014a75ec576769fda3d31c}\label{mime_8h_aa435b43174844a5636586eb1393ebf30ae986dee840014a75ec576769fda3d31c} 
+MIMESTATE\+\_\+\+BEGIN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_CURLHEADERS@{MIMESTATE\_CURLHEADERS}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_CURLHEADERS@{MIMESTATE\_CURLHEADERS}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30a0fe3323e6cdcb2985a7f23f7038b927a}\label{mime_8h_aa435b43174844a5636586eb1393ebf30a0fe3323e6cdcb2985a7f23f7038b927a} 
+MIMESTATE\+\_\+\+CURLHEADERS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_USERHEADERS@{MIMESTATE\_USERHEADERS}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_USERHEADERS@{MIMESTATE\_USERHEADERS}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30a75222abd526c43d846a29d1dc7129f48}\label{mime_8h_aa435b43174844a5636586eb1393ebf30a75222abd526c43d846a29d1dc7129f48} 
+MIMESTATE\+\_\+\+USERHEADERS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_EOH@{MIMESTATE\_EOH}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_EOH@{MIMESTATE\_EOH}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30a6e1ee28103ed68ef48e14de419e20c02}\label{mime_8h_aa435b43174844a5636586eb1393ebf30a6e1ee28103ed68ef48e14de419e20c02} 
+MIMESTATE\+\_\+\+EOH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_BODY@{MIMESTATE\_BODY}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_BODY@{MIMESTATE\_BODY}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30a26f14961a9c8856beaf155b62a958145}\label{mime_8h_aa435b43174844a5636586eb1393ebf30a26f14961a9c8856beaf155b62a958145} 
+MIMESTATE\+\_\+\+BODY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_BOUNDARY1@{MIMESTATE\_BOUNDARY1}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_BOUNDARY1@{MIMESTATE\_BOUNDARY1}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30ad253a9d2d1bd2c40cf1ea26fe42ae563}\label{mime_8h_aa435b43174844a5636586eb1393ebf30ad253a9d2d1bd2c40cf1ea26fe42ae563} 
+MIMESTATE\+\_\+\+BOUNDARY1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_BOUNDARY2@{MIMESTATE\_BOUNDARY2}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_BOUNDARY2@{MIMESTATE\_BOUNDARY2}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30a38e49688e71df767cd2f1c2261faead7}\label{mime_8h_aa435b43174844a5636586eb1393ebf30a38e49688e71df767cd2f1c2261faead7} 
+MIMESTATE\+\_\+\+BOUNDARY2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_CONTENT@{MIMESTATE\_CONTENT}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_CONTENT@{MIMESTATE\_CONTENT}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30a0d49370eb200044ef0caf87f127bec91}\label{mime_8h_aa435b43174844a5636586eb1393ebf30a0d49370eb200044ef0caf87f127bec91} 
+MIMESTATE\+\_\+\+CONTENT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_END@{MIMESTATE\_END}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_END@{MIMESTATE\_END}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30af392f88ef7fd223144ee718ab32b22a2}\label{mime_8h_aa435b43174844a5636586eb1393ebf30af392f88ef7fd223144ee718ab32b22a2} 
+MIMESTATE\+\_\+\+END&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTATE\_LAST@{MIMESTATE\_LAST}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTATE\_LAST@{MIMESTATE\_LAST}}}\Hypertarget{mime_8h_aa435b43174844a5636586eb1393ebf30ac12d6331daf814b5e5c75dded9bb4d6e}\label{mime_8h_aa435b43174844a5636586eb1393ebf30ac12d6331daf814b5e5c75dded9bb4d6e} 
+MIMESTATE\+\_\+\+LAST&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}\index{mime.h@{mime.h}!mimestrategy@{mimestrategy}}
+\index{mimestrategy@{mimestrategy}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{mimestrategy}{mimestrategy}}
+{\footnotesize\ttfamily \label{mime_8h_afdc5138da8e131f5e919d4f8e67ae172} 
+enum \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}{mimestrategy}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTRATEGY\_MAIL@{MIMESTRATEGY\_MAIL}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTRATEGY\_MAIL@{MIMESTRATEGY\_MAIL}}}\Hypertarget{mime_8h_afdc5138da8e131f5e919d4f8e67ae172a52e324a18fd8b30fa3c3801991ecbded}\label{mime_8h_afdc5138da8e131f5e919d4f8e67ae172a52e324a18fd8b30fa3c3801991ecbded} 
+MIMESTRATEGY\+\_\+\+MAIL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTRATEGY\_FORM@{MIMESTRATEGY\_FORM}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTRATEGY\_FORM@{MIMESTRATEGY\_FORM}}}\Hypertarget{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ac556c9982f42232a0d711e2e1a7dbd0a}\label{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ac556c9982f42232a0d711e2e1a7dbd0a} 
+MIMESTRATEGY\+\_\+\+FORM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIMESTRATEGY\_LAST@{MIMESTRATEGY\_LAST}!mime.h@{mime.h}}\index{mime.h@{mime.h}!MIMESTRATEGY\_LAST@{MIMESTRATEGY\_LAST}}}\Hypertarget{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ad63f140f1e54f1e1b0bcff917b8e9cc0}\label{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ad63f140f1e54f1e1b0bcff917b8e9cc0} 
+MIMESTRATEGY\+\_\+\+LAST&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{mime_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{mime_8h_a18951691569e3c259cba64edf1d3bd4b}\index{mime.h@{mime.h}!Curl\_mime\_add\_header@{Curl\_mime\_add\_header}}
+\index{Curl\_mime\_add\_header@{Curl\_mime\_add\_header}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_add\_header()}{Curl\_mime\_add\_header()}}
+{\footnotesize\ttfamily \label{mime_8h_a18951691569e3c259cba64edf1d3bd4b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+mime\+\_\+add\+\_\+header (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{slp}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fmt}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_ab9a4dfe14017d3b76502a757c271507b}\index{mime.h@{mime.h}!Curl\_mime\_cleanpart@{Curl\_mime\_cleanpart}}
+\index{Curl\_mime\_cleanpart@{Curl\_mime\_cleanpart}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_cleanpart()}{Curl\_mime\_cleanpart()}}
+{\footnotesize\ttfamily \label{mime_8h_ab9a4dfe14017d3b76502a757c271507b} 
+void Curl\+\_\+mime\+\_\+cleanpart (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_aa26cdd97339de1e9df7f1a0950d50cba}\index{mime.h@{mime.h}!Curl\_mime\_contenttype@{Curl\_mime\_contenttype}}
+\index{Curl\_mime\_contenttype@{Curl\_mime\_contenttype}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_contenttype()}{Curl\_mime\_contenttype()}}
+{\footnotesize\ttfamily \label{mime_8h_aa26cdd97339de1e9df7f1a0950d50cba} 
+const char \texorpdfstring{$\ast$}{*} Curl\+\_\+mime\+\_\+contenttype (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a21631327d50101d3459247fbd3dc6316}\index{mime.h@{mime.h}!Curl\_mime\_duppart@{Curl\_mime\_duppart}}
+\index{Curl\_mime\_duppart@{Curl\_mime\_duppart}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_duppart()}{Curl\_mime\_duppart()}}
+{\footnotesize\ttfamily \label{mime_8h_a21631327d50101d3459247fbd3dc6316} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+mime\+\_\+duppart (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{const \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{src}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a2f268d07bebff5abbafc1775433b6885}\index{mime.h@{mime.h}!Curl\_mime\_initpart@{Curl\_mime\_initpart}}
+\index{Curl\_mime\_initpart@{Curl\_mime\_initpart}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_initpart()}{Curl\_mime\_initpart()}}
+{\footnotesize\ttfamily \label{mime_8h_a2f268d07bebff5abbafc1775433b6885} 
+void Curl\+\_\+mime\+\_\+initpart (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{easy}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a73949f80d17ff2c32e67ff87259348ae}\index{mime.h@{mime.h}!Curl\_mime\_prepare\_headers@{Curl\_mime\_prepare\_headers}}
+\index{Curl\_mime\_prepare\_headers@{Curl\_mime\_prepare\_headers}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_prepare\_headers()}{Curl\_mime\_prepare\_headers()}}
+{\footnotesize\ttfamily \label{mime_8h_a73949f80d17ff2c32e67ff87259348ae} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+mime\+\_\+prepare\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{contenttype}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{disposition}{, }\item[{enum \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}{mimestrategy}}}]{strategy}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a421afd16d330a7d51f13ec1aecca05be}\index{mime.h@{mime.h}!Curl\_mime\_read@{Curl\_mime\_read}}
+\index{Curl\_mime\_read@{Curl\_mime\_read}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_read()}{Curl\_mime\_read()}}
+{\footnotesize\ttfamily \label{mime_8h_a421afd16d330a7d51f13ec1aecca05be} 
+size\+\_\+t Curl\+\_\+mime\+\_\+read (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nitems}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{instream}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a94ad2966914f5b80f057528d6b9a75a2}\index{mime.h@{mime.h}!Curl\_mime\_rewind@{Curl\_mime\_rewind}}
+\index{Curl\_mime\_rewind@{Curl\_mime\_rewind}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_rewind()}{Curl\_mime\_rewind()}}
+{\footnotesize\ttfamily \label{mime_8h_a94ad2966914f5b80f057528d6b9a75a2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+mime\+\_\+rewind (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_aae3d8e16641f873b986a1fd36e83cbac}\index{mime.h@{mime.h}!Curl\_mime\_set\_subparts@{Curl\_mime\_set\_subparts}}
+\index{Curl\_mime\_set\_subparts@{Curl\_mime\_set\_subparts}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_set\_subparts()}{Curl\_mime\_set\_subparts()}}
+{\footnotesize\ttfamily \label{mime_8h_aae3d8e16641f873b986a1fd36e83cbac} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+mime\+\_\+set\+\_\+subparts (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{struct \mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{subparts}{, }\item[{int}]{take\+\_\+ownership}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a9b02db2452a0bc84daecd02dff7ac8a6}\index{mime.h@{mime.h}!Curl\_mime\_size@{Curl\_mime\_size}}
+\index{Curl\_mime\_size@{Curl\_mime\_size}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_size()}{Curl\_mime\_size()}}
+{\footnotesize\ttfamily \label{mime_8h_a9b02db2452a0bc84daecd02dff7ac8a6} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} Curl\+\_\+mime\+\_\+size (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{}\end{DoxyParamCaption})}
+
+\Hypertarget{mime_8h_a8f469c7131c9b795f2c37e6efd18733e}\index{mime.h@{mime.h}!Curl\_mime\_unpause@{Curl\_mime\_unpause}}
+\index{Curl\_mime\_unpause@{Curl\_mime\_unpause}!mime.h@{mime.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_mime\_unpause()}{Curl\_mime\_unpause()}}
+{\footnotesize\ttfamily \label{mime_8h_a8f469c7131c9b795f2c37e6efd18733e} 
+void Curl\+\_\+mime\+\_\+unpause (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__mimepart}{curl\+\_\+mimepart}} \texorpdfstring{$\ast$}{*}}]{part}{}\end{DoxyParamCaption})}
+

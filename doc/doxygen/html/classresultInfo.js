@@ -1,0 +1,26 @@
+var classresultInfo =
+[
+    [ "resultInfo", "classresultInfo.html#ad3371e7cef8cb6d6a6eb9a1598449d3b", null ],
+    [ "resultInfo", "classresultInfo.html#a73a16c8db0e6ede488dc9faec52b1a2b", null ],
+    [ "~resultInfo", "classresultInfo.html#af000f803bbfc5add0b28d17b8ce3622d", null ],
+    [ "addData", "classresultInfo.html#a16238dbcf60f095c1b24e3cf290b75a5", null ],
+    [ "addToMap", "classresultInfo.html#a450b79e922c3b9285fd525106195b55d", null ],
+    [ "buildDefault", "classresultInfo.html#a35301c70e0bd52901e641c3b882c3ef3", null ],
+    [ "changeData", "classresultInfo.html#a013715a0b5366554bfd0219f8c1a6f9d", null ],
+    [ "changeDescription", "classresultInfo.html#a885435af9e00072c9a8e4447d0a7e65f", null ],
+    [ "changeIntoMap", "classresultInfo.html#a6e413967069246a3fb9ddde1201a35f7", null ],
+    [ "changeValue", "classresultInfo.html#affcbb48b566f232a5a87d64611c5087a", null ],
+    [ "changeValue", "classresultInfo.html#abfb0da382e14472d6f78a4738bd28338", null ],
+    [ "changeValue", "classresultInfo.html#ad61492247cd357d1889665d9d5294018", null ],
+    [ "data", "classresultInfo.html#a803f6b45a463b09d2ae352f46edb9153", null ],
+    [ "displayedInformation", "classresultInfo.html#a2a894535b468256ff3446abeb4362e5d", null ],
+    [ "evaluate", "classresultInfo.html#a16f47f08862c6f8a92557f460184ce75", null ],
+    [ "map", "classresultInfo.html#ade245e565a2f2d63949942deb2f4a0cc", null ],
+    [ "operator=", "classresultInfo.html#a43a8f06ea1a6b3c0b09813a133e388d3", null ],
+    [ "removeData", "classresultInfo.html#a0bc0ae564416bd98633e4eaf1d329bd1", null ],
+    [ "removeFromMap", "classresultInfo.html#a73ab735198a7f01501e211aac934916d", null ],
+    [ "setMap", "classresultInfo.html#a9f374547073d664a6d528ee10c11fccc", null ],
+    [ "toString", "classresultInfo.html#ae35c37fa47d8ba376625dfb2f8dd654e", null ],
+    [ "fId", "classresultInfo.html#a18fe1cade3121141311fa3bf61fc3f54", null ],
+    [ "fMap", "classresultInfo.html#ab203630a10358180d8bd417511dadb18", null ]
+];

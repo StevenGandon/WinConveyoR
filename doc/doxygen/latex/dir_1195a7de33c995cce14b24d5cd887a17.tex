@@ -1,0 +1,102 @@
+\doxysection{gui/node\+\_\+modules/@szmarczak/http-\/timer Directory Reference}
+\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17}{}\label{dir_1195a7de33c995cce14b24d5cd887a17}\index{gui/node\_modules/"@szmarczak/http-\/timer Directory Reference@{gui/node\_modules/"@szmarczak/http-\/timer Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md128}{}\doxysubsection{\texorpdfstring{http-\/timer}{http-\/timer}}\label{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md128}
+\begin{quote}
+Timings for \doxylink{structHTTP}{HTTP} requests \end{quote}
+
+
+\href{https://travis-ci.org/szmarczak/http-timer}{\texttt{}} \href{https://coveralls.io/github/szmarczak/http-timer?branch=master}{\texttt{}} \href{https://packagephobia.now.sh/result?p=@szmarczak/http-timer}{\texttt{}}
+
+Inspired by the \href{https://github.com/request/request}{\texttt{{\ttfamily request} package}}.\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md129}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md129}
+NPM\+:
+
+\begin{quote}
+{\ttfamily npm install @szmarczak/http-\/timer} \end{quote}
+
+
+Yarn\+:
+
+\begin{quote}
+{\ttfamily yarn add @szmarczak/http-\/timer} \end{quote}
+\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md130}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md130}
+{\bfseries{Note\+:}} \begin{quote}
+
+\begin{DoxyItemize}
+\item The measured events resemble Node.\+js events, not the kernel ones.
+\item Sending a chunk greater than \href{https://nodejs.org/api/stream.html\#stream_new_stream_writable_options}{\texttt{{\ttfamily high\+Water\+Mark}}} will result in invalid {\ttfamily \doxylink{ftpuploadresume_8c_a01aee8d8856c2abbbd0f33f9be2dfc5f}{upload}} and {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} timings. You can avoid this by splitting the payload into smaller chunks. 
+\end{DoxyItemize}\end{quote}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ https\ =\ require('https');}
+\DoxyCodeLine{const\ timer\ =\ require('@szmarczak/http-\/timer');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ request\ =\ https.get('https://httpbin.org/anything');}
+\DoxyCodeLine{timer(request);}
+\DoxyCodeLine{}
+\DoxyCodeLine{request.once('response',\ response\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ response.resume();}
+\DoxyCodeLine{\ \ \ \ response.once('end',\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ console.log(response.timings);\ //\ You\ can\ use\ \`{}request.timings`\ as\ well}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \{}
+\DoxyCodeLine{//\ \ \ start:\ 1572712180361,}
+\DoxyCodeLine{//\ \ \ socket:\ 1572712180362,}
+\DoxyCodeLine{//\ \ \ lookup:\ 1572712180415,}
+\DoxyCodeLine{//\ \ \ connect:\ 1572712180571,}
+\DoxyCodeLine{//\ \ \ upload:\ 1572712180884,}
+\DoxyCodeLine{//\ \ \ response:\ 1572712181037,}
+\DoxyCodeLine{//\ \ \ end:\ 1572712181039,}
+\DoxyCodeLine{//\ \ \ error:\ undefined,}
+\DoxyCodeLine{//\ \ \ abort:\ undefined,}
+\DoxyCodeLine{//\ \ \ phases:\ \{}
+\DoxyCodeLine{//\ \ \ \ \ wait:\ 1,}
+\DoxyCodeLine{//\ \ \ \ \ dns:\ 53,}
+\DoxyCodeLine{//\ \ \ \ \ tcp:\ 156,}
+\DoxyCodeLine{//\ \ \ \ \ request:\ 313,}
+\DoxyCodeLine{//\ \ \ \ \ firstByte:\ 153,}
+\DoxyCodeLine{//\ \ \ \ \ download:\ 2,}
+\DoxyCodeLine{//\ \ \ \ \ total:\ 678}
+\DoxyCodeLine{//\ \ \ \}}
+\DoxyCodeLine{//\ \}}
+
+\end{DoxyCode}
+\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md131}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md131}
+\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md132}{}\doxysubsubsection{\texorpdfstring{timer(request)}{timer(request)}}\label{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md132}
+Returns\+: {\ttfamily Object}
+
+{\bfseries{Note}}\+: The time is a {\ttfamily number} representing the milliseconds elapsed since the UNIX epoch.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily start} -\/ Time when the request started.
+\item {\ttfamily \doxylink{socks4_8d_a19298f028a5f0f599ce5d74b26912032}{socket}} -\/ Time when a socket was assigned to the request.
+\item {\ttfamily \doxylink{easygetopt_8c_a1c94df030354dae0d6a251592c71195f}{lookup}} -\/ Time when the DNS lookup finished.
+\item {\ttfamily \doxylink{setup-os400_8h_adfd4ee688142ebda1142c1b0c7577e91}{connect}} -\/ Time when the socket successfully connected.
+\item {\ttfamily secure\+Connect} -\/ Time when the socket securely connected.
+\item {\ttfamily \doxylink{ftpuploadresume_8c_a01aee8d8856c2abbbd0f33f9be2dfc5f}{upload}} -\/ Time when the request finished uploading.
+\item {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} -\/ Time when the request fired {\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} event.
+\item {\ttfamily end} -\/ Time when the response fired {\ttfamily end} event.
+\item {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} -\/ Time when the request fired {\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} event.
+\item {\ttfamily abort} -\/ Time when the request fired {\ttfamily abort} event.
+\item {\ttfamily phases}
+\begin{DoxyItemize}
+\item {\ttfamily wait} -\/ {\ttfamily timings.\+socket -\/ timings.\+start}
+\item {\ttfamily dns} -\/ {\ttfamily timings.\+lookup -\/ timings.\+socket}
+\item {\ttfamily tcp} -\/ {\ttfamily timings.\+connect -\/ timings.\+lookup}
+\item {\ttfamily tls} -\/ {\ttfamily timings.\+secure\+Connect -\/ timings.\+connect}
+\item {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} -\/ {\ttfamily timings.\+upload -\/ (timings.\+secure\+Connect \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} timings.\+connect)}
+\item {\ttfamily first\+Byte} -\/ {\ttfamily timings.\+response -\/ timings.\+upload}
+\item {\ttfamily download} -\/ {\ttfamily timings.\+end -\/ timings.\+response}
+\item {\ttfamily total} -\/ {\ttfamily (timings.\+end \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} timings.\+error \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} timings.\+abort) -\/ timings.\+start}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+If something has not been measured yet, it will be {\ttfamily undefined}.\hypertarget{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md133}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_1195a7de33c995cce14b24d5cd887a17_autotoc_md133}
+MIT 

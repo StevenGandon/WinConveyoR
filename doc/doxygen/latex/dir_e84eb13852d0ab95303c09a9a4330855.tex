@@ -1,0 +1,44 @@
+\doxysection{gui/node\+\_\+modules/buffer-\/crc32 Directory Reference}
+\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855}{}\label{dir_e84eb13852d0ab95303c09a9a4330855}\index{gui/node\_modules/buffer-\/crc32 Directory Reference@{gui/node\_modules/buffer-\/crc32 Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md263}{}\doxysubsection{\texorpdfstring{buffer-\/crc32}{buffer-\/crc32}}\label{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md263}
+\href{http://travis-ci.org/brianloveswords/buffer-crc32}{\texttt{}}
+
+crc32 that works with binary data and fancy character sets, outputs buffer, signed or unsigned data and has tests.
+
+Derived from the sample CRC implementation in the PNG specification\+: \href{http://www.w3.org/TR/PNG/\#D-CRCAppendix}{\texttt{http\+://www.\+w3.\+org/\+TR/\+PNG/\#\+D-\/\+CRCAppendix}}\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md264}{}\doxysubsection{\texorpdfstring{install}{install}}\label{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md264}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ buffer-\/crc32}
+
+\end{DoxyCode}
+\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md265}{}\doxysubsection{\texorpdfstring{example}{example}}\label{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md265}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ crc32\ =\ require('buffer-\/crc32');}
+\DoxyCodeLine{//\ works\ with\ buffers}
+\DoxyCodeLine{var\ buf\ =\ Buffer([0x00,\ 0x73,\ 0x75,\ 0x70,\ 0x20,\ 0x62,\ 0x72,\ 0x6f,\ 0x00])}
+\DoxyCodeLine{crc32(buf)\ //\ -\/>\ <Buffer\ 94\ 5a\ ab\ 4a>}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ has\ convenience\ methods\ for\ getting\ signed\ or\ unsigned\ ints}
+\DoxyCodeLine{crc32.signed(buf)\ //\ -\/>\ -\/1805997238}
+\DoxyCodeLine{crc32.unsigned(buf)\ //\ -\/>\ 2488970058}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ will\ cast\ to\ buffer\ if\ given\ a\ string,\ so\ you\ can}
+\DoxyCodeLine{//\ directly\ use\ foreign\ characters\ safely}
+\DoxyCodeLine{crc32('自動販売機')\ //\ -\/>\ <Buffer\ cb\ 03\ 1a\ c5>}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ and\ works\ in\ append\ mode\ too}
+\DoxyCodeLine{var\ partialCrc\ =\ crc32('hey');}
+\DoxyCodeLine{var\ partialCrc\ =\ crc32('\ ',\ partialCrc);}
+\DoxyCodeLine{var\ partialCrc\ =\ crc32('sup',\ partialCrc);}
+\DoxyCodeLine{var\ partialCrc\ =\ crc32('\ ',\ partialCrc);}
+\DoxyCodeLine{var\ finalCrc\ =\ crc32('bros',\ partialCrc);\ //\ -\/>\ <Buffer\ 47\ fa\ 55\ 70>}
+
+\end{DoxyCode}
+\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md266}{}\doxysubsection{\texorpdfstring{tests}{tests}}\label{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md266}
+This was tested against the output of zlib\textquotesingle{}s crc32 method. You can run the tests with{\ttfamily npm test} (requires tap)\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md267}{}\doxysubsection{\texorpdfstring{see also}{see also}}\label{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md267}
+\href{https://github.com/alexgorbatchev/node-crc}{\texttt{https\+://github.\+com/alexgorbatchev/node-\/crc}}, {\ttfamily crc.\+buffer.\+crc32} also supports buffer inputs and return unsigned ints (thanks @tjholowaychuk).\hypertarget{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md268}{}\doxysubsection{\texorpdfstring{license}{license}}\label{dir_e84eb13852d0ab95303c09a9a4330855_autotoc_md268}
+MIT/\+X11 

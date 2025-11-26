@@ -1,0 +1,109 @@
+\doxysection{gui/node\+\_\+modules/sprintf-\/js Directory Reference}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461}{}\label{dir_bc597a054f16a903d4a5c9a63cb94461}\index{gui/node\_modules/sprintf-\/js Directory Reference@{gui/node\_modules/sprintf-\/js Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1278}{}\doxysubsection{\texorpdfstring{sprintf-\/js}{sprintf-\/js}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1278}
+\href{https://travis-ci.org/alexei/sprintf.js}{\texttt{}} \href{https://badge.fury.io/js/sprintf-js}{\texttt{}} \href{https://david-dm.org/alexei/sprintf.js}{\texttt{}} \href{https://david-dm.org/alexei/sprintf.js\#info=devDependencies}{\texttt{}}
+
+{\bfseries{sprintf-\/js}} is a complete open source Java\+Script {\ttfamily sprintf} implementation for the {\bfseries{browser}} and {\bfseries{Node.\+js}}.
+
+{\bfseries{Note\+: as of v1.\+1.\+1 you might need some polyfills for older environments. See \doxylink{pinnedpubkey_8d_aa379746aae17eeaa3dbaf22a6cbf7eee}{Support} section below.}}\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1279}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1279}
+\begin{DoxyVerb}var sprintf = require('sprintf-js').sprintf,
+    vsprintf = require('sprintf-js').vsprintf
+
+sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants')
+vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd'])
+\end{DoxyVerb}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1280}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1280}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1281}{}\doxysubsubsection{\texorpdfstring{NPM}{NPM}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1281}
+\begin{DoxyVerb}npm install sprintf-js
+\end{DoxyVerb}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1282}{}\doxysubsubsection{\texorpdfstring{Bower}{Bower}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1282}
+\begin{DoxyVerb}bower install sprintf
+\end{DoxyVerb}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1283}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1283}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1284}{}\doxysubsubsection{\texorpdfstring{{\ttfamily sprintf}}{{\ttfamily sprintf}}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1284}
+Returns a formatted string\+: \begin{DoxyVerb}string sprintf(string format, mixed arg1?, mixed arg2?, ...)
+\end{DoxyVerb}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1285}{}\doxysubsubsection{\texorpdfstring{{\ttfamily vsprintf}}{{\ttfamily vsprintf}}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1285}
+Same as {\ttfamily sprintf} except it takes an array of arguments, rather than a variable number of arguments\+: \begin{DoxyVerb}string vsprintf(string format, array arguments?)
+\end{DoxyVerb}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1286}{}\doxysubsection{\texorpdfstring{Format specification}{Format specification}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1286}
+The placeholders in the format string are marked by {\ttfamily \%} and are followed by one or more of these elements, in this order\+:
+
+
+\begin{DoxyItemize}
+\item An optional number followed by a {\ttfamily \$} sign that selects which argument index to use for the value. If not specified, arguments will be placed in the same order as the placeholders in the input string.
+\item An optional {\ttfamily +} sign that forces to precede the result with a plus or minus sign on numeric values. By default, only the {\ttfamily -\/} sign is used on negative numbers.
+\item An optional padding specifier that says what character to use for padding (if specified). Possible values are {\ttfamily 0} or any other character preceded by a {\ttfamily \textquotesingle{}} (single quote). The default is to pad with {\itshape spaces}.
+\item An optional {\ttfamily -\/} sign, that causes {\ttfamily sprintf} to left-\/align the result of this placeholder. The default is to right-\/align the result.
+\item An optional number, that says how many characters the result should have. If the value to be returned is shorter than this number, the result will be padded. When used with the {\ttfamily \doxylink{smooth-gtk-thread_8c_a37d972ae0b47b9099e30983131d31916}{j}} (JSON) type specifier, the padding length specifies the tab size used for indentation.
+\item An optional precision modifier, consisting of a {\ttfamily .} (dot) followed by a number, that says how many digits should be displayed for floating point numbers. When used with the {\ttfamily g} type specifier, it specifies the number of significant digits. When used on a string, it causes the result to be truncated.
+\item A type specifier that can be any of\+:
+\begin{DoxyItemize}
+\item {\ttfamily \%} — yields a literal {\ttfamily \%} character
+\item {\ttfamily b} — yields an integer as a binary number
+\item {\ttfamily c} — yields an integer as the character with that ASCII value
+\item {\ttfamily d} or {\ttfamily i} — yields an integer as a signed decimal number
+\item {\ttfamily e} — yields a float using scientific notation
+\item {\ttfamily \doxylink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}} — yields an integer as an unsigned decimal number
+\item {\ttfamily f} — yields a float as is; see notes on precision above
+\item {\ttfamily g} — yields a float as is; see notes on precision above
+\item {\ttfamily o} — yields an integer as an octal number
+\item {\ttfamily \doxylink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}} — yields a string as is
+\item {\ttfamily \doxylink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}} — yields {\ttfamily true} or {\ttfamily false}
+\item {\ttfamily T} — yields the type of the argument\textsuperscript{\label{dir_bc597a054f16a903d4a5c9a63cb94461_fn-ref-1}%
+\Hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_fn-ref-1}%
+1}
+\item {\ttfamily v} — yields the primitive value of the specified argument
+\item {\ttfamily \doxylink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}} — yields an integer as a hexadecimal number (lower-\/case)
+\item {\ttfamily X} — yields an integer as a hexadecimal number (upper-\/case)
+\item {\ttfamily \doxylink{smooth-gtk-thread_8c_a37d972ae0b47b9099e30983131d31916}{j}} — yields a Java\+Script object or array as a JSON encoded string
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1287}{}\doxysubsection{\texorpdfstring{Features}{Features}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1287}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1288}{}\doxysubsubsection{\texorpdfstring{Argument swapping}{Argument swapping}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1288}
+You can also swap the arguments. That is, the order of the placeholders doesn\textquotesingle{}t have to match the order of the arguments. You can do that by simply indicating in the format string which arguments the placeholders refer to\+: \begin{DoxyVerb}sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants')
+\end{DoxyVerb}
+
+
+And, of course, you can repeat the placeholders without having to increase the number of arguments.\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1289}{}\doxysubsubsection{\texorpdfstring{Named arguments}{Named arguments}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1289}
+Format strings may contain replacement fields rather than positional placeholders. Instead of referring to a certain argument, you can now refer to a certain key within an object. Replacement fields are surrounded by rounded parentheses -\/ {\ttfamily (} and {\ttfamily )} -\/ and begin with a keyword that refers to a key\+: \begin{DoxyVerb}var user = {
+    name: 'Dolly',
+}
+sprintf('Hello %(name)s', user) // Hello Dolly
+\end{DoxyVerb}
+
+
+Keywords in replacement fields can be optionally followed by any number of keywords or indexes\+: \begin{DoxyVerb}var users = [
+    {name: 'Dolly'},
+    {name: 'Molly'},
+    {name: 'Polly'},
+]
+sprintf('Hello %(users[0].name)s, %(users[1].name)s and %(users[2].name)s', {users: users}) // Hello Dolly, Molly and Polly
+\end{DoxyVerb}
+
+
+Note\+: mixing positional and named placeholders is not (yet) supported\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1290}{}\doxysubsubsection{\texorpdfstring{Computed values}{Computed values}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1290}
+You can pass in a function as a dynamic value and it will be invoked (with no arguments) in order to compute the value on the fly. \begin{DoxyVerb}sprintf('Current date and time: %s', function() { return new Date().toString() })
+\end{DoxyVerb}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1291}{}\doxysubsubsection{\texorpdfstring{Angular\+JS}{Angular\+JS}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1291}
+You can use {\ttfamily sprintf} and {\ttfamily vsprintf} (also aliased as {\ttfamily fmt} and {\ttfamily vfmt} respectively) in your Angular\+JS projects. See {\ttfamily demo/}.\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1292}{}\doxysubsection{\texorpdfstring{Support}{Support}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1292}
+\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1293}{}\doxysubsubsection{\texorpdfstring{Node.\+js}{Node.\+js}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1293}
+{\ttfamily sprintf-\/js} runs in all active Node versions (4.\+x+).\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1294}{}\doxysubsubsection{\texorpdfstring{Browser}{Browser}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1294}
+{\ttfamily sprintf-\/js} should work in all modern browsers. As of v1.\+1.\+1, you might need polyfills for the following\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily String.\+prototype.\+repeat()} (any IE)
+\item {\ttfamily Array.\+is\+Array()} (IE \texorpdfstring{$<$}{<} 9)
+\item {\ttfamily Object.\+create()} (IE \texorpdfstring{$<$}{<} 9)
+\end{DoxyItemize}
+
+YMMV\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1295}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1295}
+{\bfseries{sprintf-\/js}} is licensed under the terms of the BSD 3-\/Clause License.\hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1296}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{dir_bc597a054f16a903d4a5c9a63cb94461_autotoc_md1296}
+
+\footnotesize \textsuperscript{\label{dir_bc597a054f16a903d4a5c9a63cb94461_fn-1}%
+\Hypertarget{dir_bc597a054f16a903d4a5c9a63cb94461_fn-1}%
+1} {\ttfamily sprintf} doesn\textquotesingle{}t use the {\ttfamily typeof} operator. As such, the value {\ttfamily null} is a {\ttfamily null}, an array is an {\ttfamily array} (not an {\ttfamily object}), a date value is a {\ttfamily date} etc.
+\normalsize  

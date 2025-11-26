@@ -1,0 +1,103 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+parsecfg.c File Reference}
+\hypertarget{tool__parsecfg_8c}{}\label{tool__parsecfg_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_parsecfg.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_parsecfg.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+getparam.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+helpers.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+findfile.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+parsecfg.\+h"{}}\newline
+{\ttfamily \#include "{}dynbuf.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__parsecfg_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__parsecfg_8c_acbb3d7f1cbc9c9c3bcfbeb80cb85d778}{ISSEP}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  \mbox{\hyperlink{json_8d_ad7e2a8d047f0729325c5d9364fc9728a}{dash}})
+\item 
+\#define \mbox{\hyperlink{tool__parsecfg_8c_a7a59d185582c81b6efe84a1f792c0f78}{MAX\+\_\+\+CONFIG\+\_\+\+LINE\+\_\+\+LENGTH}}~(100\texorpdfstring{$\ast$}{*}1024)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__parsecfg_8c_a18f59dcc2af62f6e68a9687edfde84e5}{unslashquote}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}, char \texorpdfstring{$\ast$}{*}param)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{tool__parsecfg_8c_ae0e2f8f05170ffe12e7658645eb58b9f}{my\+\_\+get\+\_\+line}} (FILE \texorpdfstring{$\ast$}{*}fp, struct \mbox{\hyperlink{dynbuf_8h_ac399d2f4f834eafceb0631915e5da3e6}{curlx\+\_\+dynbuf}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}})
+\item 
+int \mbox{\hyperlink{tool__parsecfg_8c_af3affb9917762876593209d02a08f31d}{parseconfig}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}}, struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}global)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__parsecfg_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__parsecfg_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_parsecfg.c@{tool\_parsecfg.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_parsecfg.c@{tool\_parsecfg.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__parsecfg_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__parsecfg_8c_acbb3d7f1cbc9c9c3bcfbeb80cb85d778}\index{tool\_parsecfg.c@{tool\_parsecfg.c}!ISSEP@{ISSEP}}
+\index{ISSEP@{ISSEP}!tool\_parsecfg.c@{tool\_parsecfg.c}}
+\doxysubsubsection{\texorpdfstring{ISSEP}{ISSEP}}
+{\footnotesize\ttfamily \label{tool__parsecfg_8c_acbb3d7f1cbc9c9c3bcfbeb80cb85d778} 
+\#define ISSEP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{\mbox{\hyperlink{json_8d_ad7e2a8d047f0729325c5d9364fc9728a}{dash}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(!\mbox{\hyperlink{json_8d_ad7e2a8d047f0729325c5d9364fc9728a}{dash}}\ \&\&\ (((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{'='})\ ||\ ((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{':'})))}
+
+\end{DoxyCode}
+\Hypertarget{tool__parsecfg_8c_a7a59d185582c81b6efe84a1f792c0f78}\index{tool\_parsecfg.c@{tool\_parsecfg.c}!MAX\_CONFIG\_LINE\_LENGTH@{MAX\_CONFIG\_LINE\_LENGTH}}
+\index{MAX\_CONFIG\_LINE\_LENGTH@{MAX\_CONFIG\_LINE\_LENGTH}!tool\_parsecfg.c@{tool\_parsecfg.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_CONFIG\_LINE\_LENGTH}{MAX\_CONFIG\_LINE\_LENGTH}}
+{\footnotesize\ttfamily \label{tool__parsecfg_8c_a7a59d185582c81b6efe84a1f792c0f78} 
+\#define MAX\+\_\+\+CONFIG\+\_\+\+LINE\+\_\+\+LENGTH~(100\texorpdfstring{$\ast$}{*}1024)}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__parsecfg_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__parsecfg_8c_ae0e2f8f05170ffe12e7658645eb58b9f}\index{tool\_parsecfg.c@{tool\_parsecfg.c}!my\_get\_line@{my\_get\_line}}
+\index{my\_get\_line@{my\_get\_line}!tool\_parsecfg.c@{tool\_parsecfg.c}}
+\doxysubsubsection{\texorpdfstring{my\_get\_line()}{my\_get\_line()}}
+{\footnotesize\ttfamily \label{tool__parsecfg_8c_ae0e2f8f05170ffe12e7658645eb58b9f} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} my\+\_\+get\+\_\+line (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{fp}{, }\item[{struct \mbox{\hyperlink{dynbuf_8h_ac399d2f4f834eafceb0631915e5da3e6}{curlx\+\_\+dynbuf}} \texorpdfstring{$\ast$}{*}}]{db}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{error}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__parsecfg_8c_af3affb9917762876593209d02a08f31d}\index{tool\_parsecfg.c@{tool\_parsecfg.c}!parseconfig@{parseconfig}}
+\index{parseconfig@{parseconfig}!tool\_parsecfg.c@{tool\_parsecfg.c}}
+\doxysubsubsection{\texorpdfstring{parseconfig()}{parseconfig()}}
+{\footnotesize\ttfamily \label{tool__parsecfg_8c_af3affb9917762876593209d02a08f31d} 
+int parseconfig (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__parsecfg_8c_a18f59dcc2af62f6e68a9687edfde84e5}\index{tool\_parsecfg.c@{tool\_parsecfg.c}!unslashquote@{unslashquote}}
+\index{unslashquote@{unslashquote}!tool\_parsecfg.c@{tool\_parsecfg.c}}
+\doxysubsubsection{\texorpdfstring{unslashquote()}{unslashquote()}}
+{\footnotesize\ttfamily \label{tool__parsecfg_8c_a18f59dcc2af62f6e68a9687edfde84e5} 
+const char \texorpdfstring{$\ast$}{*} unslashquote (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

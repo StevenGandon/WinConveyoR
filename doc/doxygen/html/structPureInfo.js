@@ -1,0 +1,25 @@
+var structPureInfo =
+[
+    [ "BIT", "structPureInfo.html#ab66eed830c8ed4e5c1887ab56b56cf7b", null ],
+    [ "certs", "structPureInfo.html#ac6f8f861d5230a02719d1be34614c051", null ],
+    [ "conn_local_ip", "structPureInfo.html#a3a794f84858062e5523ec92611f575a4", null ],
+    [ "conn_local_port", "structPureInfo.html#ae957261333acde4078de8477bf1cae62", null ],
+    [ "conn_primary_ip", "structPureInfo.html#af56f4ff8e248728ed7cc4ea5a8265b09", null ],
+    [ "conn_primary_port", "structPureInfo.html#abe8e6b7e61709468741d8af4e2ef8415", null ],
+    [ "conn_protocol", "structPureInfo.html#ac657173a46a81ef7b01564d8ecede41e", null ],
+    [ "conn_remote_port", "structPureInfo.html#aaddd6f99fdcbb7b7d6527f35ee6de4bc", null ],
+    [ "conn_scheme", "structPureInfo.html#aad03150f96d6ce5e9ed0f8d28ee259ba", null ],
+    [ "contenttype", "structPureInfo.html#a91a0f0ee34b0064b034ddf160c7288d6", null ],
+    [ "filetime", "structPureInfo.html#a98ed8911b920c8caa386d085e92382fe", null ],
+    [ "header_size", "structPureInfo.html#a08789b4e27e95e931a37af3355987c3e", null ],
+    [ "httpauthavail", "structPureInfo.html#ab8c3e583f93c260f7b2c6292366477dc", null ],
+    [ "httpcode", "structPureInfo.html#a8ba49efd860e739cd1ecf2b82830084f", null ],
+    [ "httpproxycode", "structPureInfo.html#a4e5914a99867d7b914a7b10df2e8cbe3", null ],
+    [ "httpversion", "structPureInfo.html#ac614cfa983db54cb3dd3fb506e30e184", null ],
+    [ "numconnects", "structPureInfo.html#a53557c89a8f2b688f1dbeb7b85ffb108", null ],
+    [ "proxyauthavail", "structPureInfo.html#af58d8bcda2ed9aa815ceecaf7b8568ff", null ],
+    [ "pxcode", "structPureInfo.html#a2ea7e9c93f8337d311ec6e083c3eb5d0", null ],
+    [ "request_size", "structPureInfo.html#ab54b9ca48949cfc9e56a65dc082bb0f1", null ],
+    [ "retry_after", "structPureInfo.html#a5481e813e26c0b84a87a0e8d01376da9", null ],
+    [ "wouldredirect", "structPureInfo.html#acef2cc3d3a4afa9ae76a489405aa0db7", null ]
+];

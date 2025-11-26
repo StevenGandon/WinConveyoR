@@ -1,0 +1,52 @@
+\chapter{curl internals }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS}\index{curl internals@{curl internals}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1764}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1764}%
+
+
+The canonical libcurl internals documentation is now in the \href{https://everything.curl.dev/internals}{\texttt{everything curl}} book. This file lists supported versions of libs, tools and operating systems.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1765}{}\doxysection{\texorpdfstring{Portability}{Portability}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1765}
+We write curl and libcurl to compile with C89 compilers. On 32-\/bit and up machines. Most of libcurl assumes more or less POSIX compliance but that is not a requirement.
+
+We write libcurl to build and work with lots of third party tools, and we want it to remain functional and buildable with these and later versions (older versions may still work but is not what we work hard to maintain)\+:\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1766}{}\doxysection{\texorpdfstring{Dependencies}{Dependencies}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1766}
+We aim to support these or later versions.
+
+
+\begin{DoxyItemize}
+\item Open\+SSL 0.\+9.\+7
+\item Gnu\+TLS 3.\+1.\+10
+\item zlib 1.\+1.\+4
+\item libssh2 1.\+0
+\item c-\/ares 1.\+16.\+0
+\item libidn2 2.\+0.\+0
+\item wolf\+SSL 2.\+0.\+0
+\item Open\+LDAP 2.\+0
+\item MIT Kerberos 1.\+2.\+4
+\item GSKit V5\+R3\+M0
+\item NSS 3.\+14.\+x
+\item Heimdal ?
+\item nghttp2 1.\+12.\+0
+\item Win\+Sock 2.\+2 (on Windows 95+ and Windows CE .NET 4.\+1+)
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1767}{}\doxysection{\texorpdfstring{Operating Systems}{Operating Systems}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1767}
+On systems where configure runs, we aim at working on them all -\/ if they have a suitable C compiler. On systems that do not run configure, we strive to keep curl running correctly on\+:
+
+
+\begin{DoxyItemize}
+\item Windows 98
+\item AS/400 V5\+R3\+M0
+\item Symbian 9.\+1
+\item Windows CE ?
+\item TPF ?
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1768}{}\doxysection{\texorpdfstring{Build tools}{Build tools}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1768}
+When writing code (mostly for generating stuff included in release tarballs) we use a few "{}build tools"{} and we make sure that we remain functional with these versions\+:
+
+
+\begin{DoxyItemize}
+\item GNU Libtool 1.\+4.\+2
+\item GNU Autoconf 2.\+57
+\item GNU Automake 1.\+7
+\item GNU M4 1.\+4
+\item perl 5.\+004
+\item roffit 0.\+5
+\item groff ? (any version that supports {\ttfamily groff -\/Tps -\/man \mbox{[}\doxylink{output_8d_ae89f0d52148b2fb2f78b73afdf17c7c2}{in}\mbox{]} \mbox{[}out\mbox{]}})
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1769}{}\doxysection{\texorpdfstring{Library Symbols}{Library Symbols}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INTERNALS_autotoc_md1769}
+All symbols used internally in libcurl must use a {\ttfamily Curl\+\_\+} prefix if they are used in more than a single file. Single-\/file symbols must be made static. Public ("{}exported"{}) symbols must use a {\ttfamily curl\+\_\+} prefix. Public API functions are marked with {\ttfamily \doxylink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\+\_\+\+EXTERN}} in the public header files so that all others can be hidden on platforms where this is possible. 

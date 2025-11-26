@@ -1,0 +1,177 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/curl\+\_\+sasl.c File Reference}
+\hypertarget{curl__sasl_8c}{}\label{curl__sasl_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_sasl.c@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_sasl.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+base64.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+md5.\+h"{}}\newline
+{\ttfamily \#include "{}vauth/vauth.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+hmac.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sasl.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}strtok.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{curl__sasl_8c_a23920fe73368fd982c70ca56465a901e}{Curl\+\_\+sasl\+\_\+cleanup}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, unsigned short authused)
+\item 
+unsigned short \mbox{\hyperlink{curl__sasl_8c_aa32be41a8a43dc8f1e2bbb513080add6}{Curl\+\_\+sasl\+\_\+decode\+\_\+mech}} (const char \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t maxlen, size\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{curl__sasl_8c_af3a36e703adbfc9eb39cd3ff314f8a3d}{Curl\+\_\+sasl\+\_\+parse\+\_\+url\+\_\+auth\+\_\+option}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, const char \texorpdfstring{$\ast$}{*}value, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+void \mbox{\hyperlink{curl__sasl_8c_a09ee68cf948da4baf26b2a4454ce631f}{Curl\+\_\+sasl\+\_\+init}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} \texorpdfstring{$\ast$}{*}params)
+\item 
+static void \mbox{\hyperlink{curl__sasl_8c_a61d391fae8d104dc271e53cd4466dbe9}{state}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864e}{saslstate}} newstate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{curl__sasl_8c_ac420db90064cc211dcce02a8d39ab110}{get\+\_\+server\+\_\+message}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}out)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{curl__sasl_8c_a8e8c3c37b74135742fd15cc687b07db3}{build\+\_\+message}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{curl__sasl_8c_a81a516e21b8a2e2a01bb4a2811b208dd}{Curl\+\_\+sasl\+\_\+can\+\_\+authenticate}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{curl__sasl_8c_af797525c79471dfb6b0dd69fe18a3555}{Curl\+\_\+sasl\+\_\+start}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} force\+\_\+ir, \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}} \texorpdfstring{$\ast$}{*}progress)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{curl__sasl_8c_af5b2980c9f89730c510e6460d6a5cade}{Curl\+\_\+sasl\+\_\+continue}} (struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}sasl, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int code, \mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}} \texorpdfstring{$\ast$}{*}progress)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{curl__sasl_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}}\\
+\>size\_t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}\\
+\>unsigned short \mbox{\hyperlink{curl__sasl_8c_a0b7a730ee84b04c978b15b0500a30bab}{bit}}\\
+\} \mbox{\hyperlink{curl__sasl_8c_afbd8c580aaa41655a54ecb0d6fd73669}{mechtable}} \mbox{[}$\,$\mbox{]}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{curl__sasl_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{curl__sasl_8c_a8e8c3c37b74135742fd15cc687b07db3}\index{curl\_sasl.c@{curl\_sasl.c}!build\_message@{build\_message}}
+\index{build\_message@{build\_message}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{build\_message()}{build\_message()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a8e8c3c37b74135742fd15cc687b07db3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} build\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{curl__sasl_8c_a81a516e21b8a2e2a01bb4a2811b208dd}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_can\_authenticate@{Curl\_sasl\_can\_authenticate}}
+\index{Curl\_sasl\_can\_authenticate@{Curl\_sasl\_can\_authenticate}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_can\_authenticate()}{Curl\_sasl\_can\_authenticate()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a81a516e21b8a2e2a01bb4a2811b208dd} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+sasl\+\_\+can\+\_\+authenticate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_a23920fe73368fd982c70ca56465a901e}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_cleanup@{Curl\_sasl\_cleanup}}
+\index{Curl\_sasl\_cleanup@{Curl\_sasl\_cleanup}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_cleanup()}{Curl\_sasl\_cleanup()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a23920fe73368fd982c70ca56465a901e} 
+void Curl\+\_\+sasl\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{unsigned short}]{authused}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_af5b2980c9f89730c510e6460d6a5cade}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_continue@{Curl\_sasl\_continue}}
+\index{Curl\_sasl\_continue@{Curl\_sasl\_continue}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_continue()}{Curl\_sasl\_continue()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_af5b2980c9f89730c510e6460d6a5cade} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+sasl\+\_\+continue (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{code}{, }\item[{\mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}} \texorpdfstring{$\ast$}{*}}]{progress}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_aa32be41a8a43dc8f1e2bbb513080add6}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_decode\_mech@{Curl\_sasl\_decode\_mech}}
+\index{Curl\_sasl\_decode\_mech@{Curl\_sasl\_decode\_mech}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_decode\_mech()}{Curl\_sasl\_decode\_mech()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_aa32be41a8a43dc8f1e2bbb513080add6} 
+unsigned short Curl\+\_\+sasl\+\_\+decode\+\_\+mech (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{maxlen}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{len}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_a09ee68cf948da4baf26b2a4454ce631f}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_init@{Curl\_sasl\_init}}
+\index{Curl\_sasl\_init@{Curl\_sasl\_init}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_init()}{Curl\_sasl\_init()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a09ee68cf948da4baf26b2a4454ce631f} 
+void Curl\+\_\+sasl\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_af3a36e703adbfc9eb39cd3ff314f8a3d}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_parse\_url\_auth\_option@{Curl\_sasl\_parse\_url\_auth\_option}}
+\index{Curl\_sasl\_parse\_url\_auth\_option@{Curl\_sasl\_parse\_url\_auth\_option}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_parse\_url\_auth\_option()}{Curl\_sasl\_parse\_url\_auth\_option()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_af3a36e703adbfc9eb39cd3ff314f8a3d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+sasl\+\_\+parse\+\_\+url\+\_\+auth\+\_\+option (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_af797525c79471dfb6b0dd69fe18a3555}\index{curl\_sasl.c@{curl\_sasl.c}!Curl\_sasl\_start@{Curl\_sasl\_start}}
+\index{Curl\_sasl\_start@{Curl\_sasl\_start}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sasl\_start()}{Curl\_sasl\_start()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_af797525c79471dfb6b0dd69fe18a3555} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+sasl\+\_\+start (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{force\+\_\+ir}{, }\item[{\mbox{\hyperlink{curl__sasl_8h_a6b1048327042c3ed90ad8c5e1cf5ef6e}{saslprogress}} \texorpdfstring{$\ast$}{*}}]{progress}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__sasl_8c_ac420db90064cc211dcce02a8d39ab110}\index{curl\_sasl.c@{curl\_sasl.c}!get\_server\_message@{get\_server\_message}}
+\index{get\_server\_message@{get\_server\_message}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{get\_server\_message()}{get\_server\_message()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_ac420db90064cc211dcce02a8d39ab110} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} get\+\_\+server\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{curl__sasl_8c_a61d391fae8d104dc271e53cd4466dbe9}\index{curl\_sasl.c@{curl\_sasl.c}!state@{state}}
+\index{state@{state}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{state()}{state()}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a61d391fae8d104dc271e53cd4466dbe9} 
+void state (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structSASL}{SASL}} \texorpdfstring{$\ast$}{*}}]{sasl}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl__sasl_8h_aa00c999b36c3863718838bd827e8864e}{saslstate}}}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{curl__sasl_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{curl__sasl_8c_a0b7a730ee84b04c978b15b0500a30bab}\index{curl\_sasl.c@{curl\_sasl.c}!bit@{bit}}
+\index{bit@{bit}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{bit}{bit}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a0b7a730ee84b04c978b15b0500a30bab} 
+unsigned short \mbox{\hyperlink{curl__setup__once_8h_a187157a8f8d068c47c3024bd662496bc}{bit}}}
+
+\Hypertarget{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}\index{curl\_sasl.c@{curl\_sasl.c}!len@{len}}
+\index{len@{len}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a} 
+size\+\_\+t len}
+
+\Hypertarget{curl__sasl_8c_afbd8c580aaa41655a54ecb0d6fd73669}\index{curl\_sasl.c@{curl\_sasl.c}!mechtable@{mechtable}}
+\index{mechtable@{mechtable}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_afbd8c580aaa41655a54ecb0d6fd73669} 
+const struct  \{ ... \}  mechtable\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}LOGIN"{}},\ \ \ \ \ \ \ \ 5,\ \ \mbox{\hyperlink{curl__sasl_8h_a57c9b5701abfde17f3b626f5b814434f}{SASL\_MECH\_LOGIN}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}PLAIN"{}},\ \ \ \ \ \ \ \ 5,\ \ \mbox{\hyperlink{curl__sasl_8h_a62b9c7eee32ac96db6c57f8a6ef2377c}{SASL\_MECH\_PLAIN}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}CRAM-\/MD5"{}},\ \ \ \ \ 8,\ \ \mbox{\hyperlink{curl__sasl_8h_a485f41491d389de6885b64012a385802}{SASL\_MECH\_CRAM\_MD5}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}DIGEST-\/MD5"{}},\ \ \ 10,\ \mbox{\hyperlink{curl__sasl_8h_ac943fcaaa83e6326f6d4e6bca8a0c708}{SASL\_MECH\_DIGEST\_MD5}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}GSSAPI"{}},\ \ \ \ \ \ \ 6,\ \ \mbox{\hyperlink{curl__sasl_8h_a80f2ef0bd0978e9bbff45d2cc2acaf6b}{SASL\_MECH\_GSSAPI}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}EXTERNAL"{}},\ \ \ \ \ 8,\ \ \mbox{\hyperlink{curl__sasl_8h_ad7578a97e8a4c49f5972981a490308ae}{SASL\_MECH\_EXTERNAL}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}NTLM"{}},\ \ \ \ \ \ \ \ \ 4,\ \ \mbox{\hyperlink{curl__sasl_8h_a8ffc23c1cc016100804648822d2d5827}{SASL\_MECH\_NTLM}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}XOAUTH2"{}},\ \ \ \ \ \ 7,\ \ \mbox{\hyperlink{curl__sasl_8h_ac9a7d3f141842a12ba29dec0b72f2656}{SASL\_MECH\_XOAUTH2}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}OAUTHBEARER"{}},\ \ 11,\ \mbox{\hyperlink{curl__sasl_8h_a7d46efc51bf868f31d377c2d42234194}{SASL\_MECH\_OAUTHBEARER}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}SCRAM-\/SHA-\/1"{}},\ \ 11,\ \mbox{\hyperlink{curl__sasl_8h_a1dbc5d85c445a174fbf4ff4a404550f3}{SASL\_MECH\_SCRAM\_SHA\_1}}\ \},}
+\DoxyCodeLine{\ \ \{\ \textcolor{stringliteral}{"{}SCRAM-\/SHA-\/256"{}},13,\ \mbox{\hyperlink{curl__sasl_8h_af833bd15618af487152573045b8ade03}{SASL\_MECH\_SCRAM\_SHA\_256}}\ \},}
+\DoxyCodeLine{\ \ \{\ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ 0,\ \ 0\ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2012 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+RFC2195 CRAM-\/\+MD5 authentication RFC2617 Basic and Digest Access Authentication RFC2831 DIGEST-\/\+MD5 authentication RFC4422 Simple Authentication and Security Layer (\doxylink{structSASL}{SASL}) RFC4616 PLAIN authentication RFC5802 SCRAM-\/\+SHA-\/1 authentication RFC7677 SCRAM-\/\+SHA-\/256 authentication RFC6749 OAuth 2.\+0 Authorization Framework RFC7628 A Set of \doxylink{structSASL}{SASL} Mechanisms for OAuth Draft LOGIN \doxylink{structSASL}{SASL} Mechanism \texorpdfstring{$<$}{<}draft-\/murchison-\/sasl-\/login-\/00.\+txt\texorpdfstring{$>$}{>} \Hypertarget{curl__sasl_8c_a8f8f80d37794cde9472343e4487ba3eb}\index{curl\_sasl.c@{curl\_sasl.c}!name@{name}}
+\index{name@{name}!curl\_sasl.c@{curl\_sasl.c}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{curl__sasl_8c_a8f8f80d37794cde9472343e4487ba3eb} 
+const char\texorpdfstring{$\ast$}{*} name}
+

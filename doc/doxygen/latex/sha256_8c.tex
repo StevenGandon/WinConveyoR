@@ -1,0 +1,368 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/sha256.c File Reference}
+\hypertarget{sha256_8c}{}\label{sha256_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/sha256.c@{lib/libwconr/build/\_deps/curl-\/src/lib/sha256.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sha256.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+hmac.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{sha256_8c_afbbd2a7ace0c161a0f0b65938762c05a}{WPA\+\_\+\+GET\+\_\+\+BE32}}(a)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_ae9d5a359df26e8d86750f8b6f99a4a1b}{WPA\+\_\+\+PUT\+\_\+\+BE32}}(a,  val)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_aa2c80799a75bddae682013edc1c07739}{WPA\+\_\+\+PUT\+\_\+\+BE64}}(a,  val)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_adb04fb3f7c1736d29125ad0f179b1068}{RORc}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_ab0a0d1ad13c7e4d3cb38c89f7127c85a}{Ch}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a447cd1d7fb703b62666400976be24bf3}{Maj}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y,  z)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}})
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a8fb1dfc3ad6dd07bc99c1962e6583087}{R}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}})
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a613f88ad88919b6ed21ff223070f9a21}{Sigma0}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a6d34508d6d962274083fcd992fb4e340}{Sigma1}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{sha256_8c_aab39e163b484c43a39b10beda3f6b35f}{Gamma0}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{sha256_8c_acd7a8e9e37c472f0a570c8c3e7d553ca}{Gamma1}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a14b75d9ce98c82d21041eba16021cba7}{RND}}(a,  b,  c,  d,  e,  f,  g,  \mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},  i)
+\item 
+\#define \mbox{\hyperlink{sha256_8c_a9766f5ceca5e25981858ec7384456072}{block\+\_\+size}}~64
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \mbox{\hyperlink{sha256_8c_a99580f7327f9cb274630fb4a6ad83c3b}{my\+\_\+sha256\+\_\+ctx}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{sha256_8c_acbd2b3c13cc2d0f5141340d9f75bc86f}{sha256\+\_\+compress}} (struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}md, unsigned char \texorpdfstring{$\ast$}{*}buf)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{sha256_8c_afe982bc9a8a3eb5559e02c1ffdd9ca3b}{my\+\_\+sha256\+\_\+init}} (struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}md)
+\item 
+static int \mbox{\hyperlink{sha256_8c_afd95572093e592a68c17dc8aba32696e}{my\+\_\+sha256\+\_\+update}} (struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}md, const unsigned char \texorpdfstring{$\ast$}{*}in, unsigned long inlen)
+\item 
+static int \mbox{\hyperlink{sha256_8c_ab63a857930c51d27a3d65644a1624153}{my\+\_\+sha256\+\_\+final}} (unsigned char \texorpdfstring{$\ast$}{*}out, struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}md)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{sha256_8c_ab41c24db8bd812e452335aecea1102f8}{Curl\+\_\+sha256it}} (unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}}, const unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structinput}{input}}, const size\+\_\+t length)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const unsigned long \mbox{\hyperlink{sha256_8c_abb2cc8d3454ac3b0a2c264a1c7ed6db8}{K}} \mbox{[}64\mbox{]}
+\item 
+const struct \mbox{\hyperlink{structHMAC__params}{HMAC\+\_\+params}} \mbox{\hyperlink{sha256_8c_a6f314f250bec45fa01869d0ee84cc599}{Curl\+\_\+\+HMAC\+\_\+\+SHA256}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{sha256_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{sha256_8c_a9766f5ceca5e25981858ec7384456072}\index{sha256.c@{sha256.c}!block\_size@{block\_size}}
+\index{block\_size@{block\_size}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{block\_size}{block\_size}}
+{\footnotesize\ttfamily \label{sha256_8c_a9766f5ceca5e25981858ec7384456072} 
+\#define block\+\_\+size~64}
+
+\Hypertarget{sha256_8c_ab0a0d1ad13c7e4d3cb38c89f7127c85a}\index{sha256.c@{sha256.c}!Ch@{Ch}}
+\index{Ch@{Ch}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Ch}{Ch}}
+{\footnotesize\ttfamily \label{sha256_8c_ab0a0d1ad13c7e4d3cb38c89f7127c85a} 
+\#define Ch(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(z\ \string^\ (\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}\ \&\ (y\ \string^\ z)))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_aab39e163b484c43a39b10beda3f6b35f}\index{sha256.c@{sha256.c}!Gamma0@{Gamma0}}
+\index{Gamma0@{Gamma0}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Gamma0}{Gamma0}}
+{\footnotesize\ttfamily \label{sha256_8c_aab39e163b484c43a39b10beda3f6b35f} 
+\#define Gamma0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 7)\ \string^\ \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 18)\ \string^\ \mbox{\hyperlink{sha256_8c_a8fb1dfc3ad6dd07bc99c1962e6583087}{R}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 3))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_acd7a8e9e37c472f0a570c8c3e7d553ca}\index{sha256.c@{sha256.c}!Gamma1@{Gamma1}}
+\index{Gamma1@{Gamma1}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Gamma1}{Gamma1}}
+{\footnotesize\ttfamily \label{sha256_8c_acd7a8e9e37c472f0a570c8c3e7d553ca} 
+\#define Gamma1(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 17)\ \string^\ \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 19)\ \string^\ \mbox{\hyperlink{sha256_8c_a8fb1dfc3ad6dd07bc99c1962e6583087}{R}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 10))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_a447cd1d7fb703b62666400976be24bf3}\index{sha256.c@{sha256.c}!Maj@{Maj}}
+\index{Maj@{Maj}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Maj}{Maj}}
+{\footnotesize\ttfamily \label{sha256_8c_a447cd1d7fb703b62666400976be24bf3} 
+\#define Maj(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}\ |\ y)\ \&\ z)\ |\ (\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}\ \&\ y))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_a8fb1dfc3ad6dd07bc99c1962e6583087}\index{sha256.c@{sha256.c}!R@{R}}
+\index{R@{R}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{R}{R}}
+{\footnotesize\ttfamily \label{sha256_8c_a8fb1dfc3ad6dd07bc99c1962e6583087} 
+\#define R(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\&0xFFFFFFFFUL)>>(\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}}))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_a14b75d9ce98c82d21041eba16021cba7}\index{sha256.c@{sha256.c}!RND@{RND}}
+\index{RND@{RND}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{RND}{RND}}
+{\footnotesize\ttfamily \label{sha256_8c_a14b75d9ce98c82d21041eba16021cba7} 
+\#define RND(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{c}{, }\item[{}]{d}{, }\item[{}]{e}{, }\item[{}]{f}{, }\item[{}]{g}{, }\item[{}]{\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}}{, }\item[{}]{i}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ t0\ =\ \mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}\ +\ \mbox{\hyperlink{sha256_8c_a6d34508d6d962274083fcd992fb4e340}{Sigma1}}(e)\ +\ \mbox{\hyperlink{sha256_8c_ab0a0d1ad13c7e4d3cb38c89f7127c85a}{Ch}}(e,\ f,\ g)\ +\ \mbox{\hyperlink{sha256_8c_abb2cc8d3454ac3b0a2c264a1c7ed6db8}{K}}[i]\ +\ W[i];\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ t1\ =\ \mbox{\hyperlink{sha256_8c_a613f88ad88919b6ed21ff223070f9a21}{Sigma0}}(a)\ +\ \mbox{\hyperlink{sha256_8c_a447cd1d7fb703b62666400976be24bf3}{Maj}}(a,\ b,\ c);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ d\ +=\ t0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}\ =\ t0\ +\ t1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_adb04fb3f7c1736d29125ad0f179b1068}\index{sha256.c@{sha256.c}!RORc@{RORc}}
+\index{RORc@{RORc}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{RORc}{RORc}}
+{\footnotesize\ttfamily \label{sha256_8c_adb04fb3f7c1736d29125ad0f179b1068} 
+\#define RORc(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((((\textcolor{keywordtype}{unsigned}\ long)(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ \&\ 0xFFFFFFFFUL)\ >>\ (\textcolor{keywordtype}{unsigned}\ long)((y)\ \&\ 31))\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ ((\textcolor{keywordtype}{unsigned}\ long)(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ <<\ (\textcolor{keywordtype}{unsigned}\ long)(32\ -\/\ ((y)\ \&\ 31))))\ \&\ 0xFFFFFFFFUL)}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}\index{sha256.c@{sha256.c}!S@{S}}
+\index{S@{S}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{S}{S}}
+{\footnotesize\ttfamily \label{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93} 
+\#define S(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{sha256_8c_adb04fb3f7c1736d29125ad0f179b1068}{RORc}}((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}),\ (\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}}))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_a613f88ad88919b6ed21ff223070f9a21}\index{sha256.c@{sha256.c}!Sigma0@{Sigma0}}
+\index{Sigma0@{Sigma0}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Sigma0}{Sigma0}}
+{\footnotesize\ttfamily \label{sha256_8c_a613f88ad88919b6ed21ff223070f9a21} 
+\#define Sigma0(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 2)\ \string^\ \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 13)\ \string^\ \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 22))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_a6d34508d6d962274083fcd992fb4e340}\index{sha256.c@{sha256.c}!Sigma1@{Sigma1}}
+\index{Sigma1@{Sigma1}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Sigma1}{Sigma1}}
+{\footnotesize\ttfamily \label{sha256_8c_a6d34508d6d962274083fcd992fb4e340} 
+\#define Sigma1(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 6)\ \string^\ \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 11)\ \string^\ \mbox{\hyperlink{sha256_8c_a5a9675d71aad8449f8e4112ce611fd93}{S}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},\ 25))}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_afbbd2a7ace0c161a0f0b65938762c05a}\index{sha256.c@{sha256.c}!WPA\_GET\_BE32@{WPA\_GET\_BE32}}
+\index{WPA\_GET\_BE32@{WPA\_GET\_BE32}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{WPA\_GET\_BE32}{WPA\_GET\_BE32}}
+{\footnotesize\ttfamily \label{sha256_8c_afbbd2a7ace0c161a0f0b65938762c05a} 
+\#define WPA\+\_\+\+GET\+\_\+\+BE32(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((((\textcolor{keywordtype}{unsigned}\ long)(a)[0])\ <<\ 24)\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((\textcolor{keywordtype}{unsigned}\ long)(a)[1])\ <<\ 16)\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((\textcolor{keywordtype}{unsigned}\ long)(a)[2])\ <<\ \ 8)\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ long)(a)[3]))}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2017, Florin Petriuc, \href{mailto:petriuc.florin@gmail.com}{\texttt{petriuc.\+florin@gmail.\+com}} Copyright (C) 2018 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{sha256_8c_ae9d5a359df26e8d86750f8b6f99a4a1b}\index{sha256.c@{sha256.c}!WPA\_PUT\_BE32@{WPA\_PUT\_BE32}}
+\index{WPA\_PUT\_BE32@{WPA\_PUT\_BE32}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{WPA\_PUT\_BE32}{WPA\_PUT\_BE32}}
+{\footnotesize\ttfamily \label{sha256_8c_ae9d5a359df26e8d86750f8b6f99a4a1b} 
+\#define WPA\+\_\+\+PUT\+\_\+\+BE32(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{val}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[0]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})((((\textcolor{keywordtype}{unsigned}\ long)\ (val))\ >>\ 24)\ \&\ 0xff);\ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[1]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})((((\textcolor{keywordtype}{unsigned}\ long)\ (val))\ >>\ 16)\ \&\ 0xff);\ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[2]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})((((\textcolor{keywordtype}{unsigned}\ long)\ (val))\ >>\ 8)\ \&\ 0xff);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[3]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ long)\ (val))\ \&\ 0xff);\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{sha256_8c_aa2c80799a75bddae682013edc1c07739}\index{sha256.c@{sha256.c}!WPA\_PUT\_BE64@{WPA\_PUT\_BE64}}
+\index{WPA\_PUT\_BE64@{WPA\_PUT\_BE64}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{WPA\_PUT\_BE64}{WPA\_PUT\_BE64}}
+{\footnotesize\ttfamily \label{sha256_8c_aa2c80799a75bddae682013edc1c07739} 
+\#define WPA\+\_\+\+PUT\+\_\+\+BE64(\begin{DoxyParamCaption}\item[{}]{a}{, }\item[{}]{val}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[0]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 56);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[1]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 48);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[2]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 40);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[3]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 32);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[4]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 24);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[5]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 16);\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[6]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ >>\ 8);\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (a)[7]\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})(((\textcolor{keywordtype}{unsigned}\ \_\_int64)(val))\ \&\ 0xff);\ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+\label{doc-typedef-members}
+\Hypertarget{sha256_8c_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{sha256_8c_a99580f7327f9cb274630fb4a6ad83c3b}\index{sha256.c@{sha256.c}!my\_sha256\_ctx@{my\_sha256\_ctx}}
+\index{my\_sha256\_ctx@{my\_sha256\_ctx}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{my\_sha256\_ctx}{my\_sha256\_ctx}}
+{\footnotesize\ttfamily \label{sha256_8c_a99580f7327f9cb274630fb4a6ad83c3b} 
+typedef struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \mbox{\hyperlink{sha256_8c_a99580f7327f9cb274630fb4a6ad83c3b}{my\+\_\+sha256\+\_\+ctx}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{sha256_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{sha256_8c_ab41c24db8bd812e452335aecea1102f8}\index{sha256.c@{sha256.c}!Curl\_sha256it@{Curl\_sha256it}}
+\index{Curl\_sha256it@{Curl\_sha256it}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_sha256it()}{Curl\_sha256it()}}
+{\footnotesize\ttfamily \label{sha256_8c_ab41c24db8bd812e452335aecea1102f8} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+sha256it (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{output}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{input}{, }\item[{const size\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{sha256_8c_ab63a857930c51d27a3d65644a1624153}\index{sha256.c@{sha256.c}!my\_sha256\_final@{my\_sha256\_final}}
+\index{my\_sha256\_final@{my\_sha256\_final}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{my\_sha256\_final()}{my\_sha256\_final()}}
+{\footnotesize\ttfamily \label{sha256_8c_ab63a857930c51d27a3d65644a1624153} 
+int my\+\_\+sha256\+\_\+final (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{out}{, }\item[{struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{md}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sha256_8c_afe982bc9a8a3eb5559e02c1ffdd9ca3b}\index{sha256.c@{sha256.c}!my\_sha256\_init@{my\_sha256\_init}}
+\index{my\_sha256\_init@{my\_sha256\_init}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{my\_sha256\_init()}{my\_sha256\_init()}}
+{\footnotesize\ttfamily \label{sha256_8c_afe982bc9a8a3eb5559e02c1ffdd9ca3b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} my\+\_\+sha256\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{md}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sha256_8c_afd95572093e592a68c17dc8aba32696e}\index{sha256.c@{sha256.c}!my\_sha256\_update@{my\_sha256\_update}}
+\index{my\_sha256\_update@{my\_sha256\_update}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{my\_sha256\_update()}{my\_sha256\_update()}}
+{\footnotesize\ttfamily \label{sha256_8c_afd95572093e592a68c17dc8aba32696e} 
+int my\+\_\+sha256\+\_\+update (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{md}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{in}{, }\item[{unsigned long}]{inlen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sha256_8c_acbd2b3c13cc2d0f5141340d9f75bc86f}\index{sha256.c@{sha256.c}!sha256\_compress@{sha256\_compress}}
+\index{sha256\_compress@{sha256\_compress}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{sha256\_compress()}{sha256\_compress()}}
+{\footnotesize\ttfamily \label{sha256_8c_acbd2b3c13cc2d0f5141340d9f75bc86f} 
+int sha256\+\_\+compress (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structsha256__state}{sha256\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{md}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buf}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{sha256_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{sha256_8c_a6f314f250bec45fa01869d0ee84cc599}\index{sha256.c@{sha256.c}!Curl\_HMAC\_SHA256@{Curl\_HMAC\_SHA256}}
+\index{Curl\_HMAC\_SHA256@{Curl\_HMAC\_SHA256}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_HMAC\_SHA256}{Curl\_HMAC\_SHA256}}
+{\footnotesize\ttfamily \label{sha256_8c_a6f314f250bec45fa01869d0ee84cc599} 
+const struct \mbox{\hyperlink{structHMAC__params}{HMAC\+\_\+params}} Curl\+\_\+\+HMAC\+\_\+\+SHA256\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{warnless_8h_a4c7691aa0abf9311c5f54ebf7b2fc1e2}{CURLX\_FUNCTION\_CAST}}(\mbox{\hyperlink{curl__hmac_8h_a442ffb00191ca08f02ab569965dcf381}{HMAC\_hinit\_func}},\ \mbox{\hyperlink{sha256_8c_afe982bc9a8a3eb5559e02c1ffdd9ca3b}{my\_sha256\_init}}),}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{warnless_8h_a4c7691aa0abf9311c5f54ebf7b2fc1e2}{CURLX\_FUNCTION\_CAST}}(\mbox{\hyperlink{curl__hmac_8h_ad3b46e7edcae05cf9735a72e2c9c6807}{HMAC\_hupdate\_func}},\ \mbox{\hyperlink{sha256_8c_afd95572093e592a68c17dc8aba32696e}{my\_sha256\_update}}),}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{warnless_8h_a4c7691aa0abf9311c5f54ebf7b2fc1e2}{CURLX\_FUNCTION\_CAST}}(\mbox{\hyperlink{curl__hmac_8h_aee43f5f0d23d90b7ccb3426cb925385e}{HMAC\_hfinal\_func}},\ \mbox{\hyperlink{sha256_8c_ab63a857930c51d27a3d65644a1624153}{my\_sha256\_final}}),}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{sha256_8c_a99580f7327f9cb274630fb4a6ad83c3b}{my\_sha256\_ctx}}),}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ 64,}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ 32}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2017, Florin Petriuc, \href{mailto:petriuc.florin@gmail.com}{\texttt{petriuc.\+florin@gmail.\+com}} Copyright (C) 2018 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{sha256_8c_abb2cc8d3454ac3b0a2c264a1c7ed6db8}\index{sha256.c@{sha256.c}!K@{K}}
+\index{K@{K}!sha256.c@{sha256.c}}
+\doxysubsubsection{\texorpdfstring{K}{K}}
+{\footnotesize\ttfamily \label{sha256_8c_abb2cc8d3454ac3b0a2c264a1c7ed6db8} 
+const unsigned long K\mbox{[}64\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ 0x428a2f98UL,\ 0x71374491UL,\ 0xb5c0fbcfUL,\ 0xe9b5dba5UL,\ 0x3956c25bUL,}
+\DoxyCodeLine{\ \ 0x59f111f1UL,\ 0x923f82a4UL,\ 0xab1c5ed5UL,\ 0xd807aa98UL,\ 0x12835b01UL,}
+\DoxyCodeLine{\ \ 0x243185beUL,\ 0x550c7dc3UL,\ 0x72be5d74UL,\ 0x80deb1feUL,\ 0x9bdc06a7UL,}
+\DoxyCodeLine{\ \ 0xc19bf174UL,\ 0xe49b69c1UL,\ 0xefbe4786UL,\ 0x0fc19dc6UL,\ 0x240ca1ccUL,}
+\DoxyCodeLine{\ \ 0x2de92c6fUL,\ 0x4a7484aaUL,\ 0x5cb0a9dcUL,\ 0x76f988daUL,\ 0x983e5152UL,}
+\DoxyCodeLine{\ \ 0xa831c66dUL,\ 0xb00327c8UL,\ 0xbf597fc7UL,\ 0xc6e00bf3UL,\ 0xd5a79147UL,}
+\DoxyCodeLine{\ \ 0x06ca6351UL,\ 0x14292967UL,\ 0x27b70a85UL,\ 0x2e1b2138UL,\ 0x4d2c6dfcUL,}
+\DoxyCodeLine{\ \ 0x53380d13UL,\ 0x650a7354UL,\ 0x766a0abbUL,\ 0x81c2c92eUL,\ 0x92722c85UL,}
+\DoxyCodeLine{\ \ 0xa2bfe8a1UL,\ 0xa81a664bUL,\ 0xc24b8b70UL,\ 0xc76c51a3UL,\ 0xd192e819UL,}
+\DoxyCodeLine{\ \ 0xd6990624UL,\ 0xf40e3585UL,\ 0x106aa070UL,\ 0x19a4c116UL,\ 0x1e376c08UL,}
+\DoxyCodeLine{\ \ 0x2748774cUL,\ 0x34b0bcb5UL,\ 0x391c0cb3UL,\ 0x4ed8aa4aUL,\ 0x5b9cca4fUL,}
+\DoxyCodeLine{\ \ 0x682e6ff3UL,\ 0x748f82eeUL,\ 0x78a5636fUL,\ 0x84c87814UL,\ 0x8cc70208UL,}
+\DoxyCodeLine{\ \ 0x90befffaUL,\ 0xa4506cebUL,\ 0xbef9a3f7UL,\ 0xc67178f2UL}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

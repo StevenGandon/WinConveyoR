@@ -1,0 +1,118 @@
+\doxysection{Compilation }
+\hypertarget{Compilation}{}\label{Compilation}\index{Compilation@{Compilation}}
+To compile the project you will need to do the installation step if not already done\+: \doxylink{Installation}{Installation Steps}
+
+\DoxyHorRuler{0}
+
+
+\doxysubsubsubsection*{Compiling the documentation}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Install (if not done) doxygen.}}~\newline
+ Via the command line ({\bfseries{powershell.\+exe}}, {\bfseries{cmd.\+exe}}, {\bfseries{...}})\+:~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Windows:}
+\DoxyCodeLine{\ \ winget\ install\ -\/e\ -\/-\/id\ DimitriVanHeesch.Doxygen}
+\DoxyCodeLine{Debian\ based:}
+\DoxyCodeLine{\ \ sudo\ apt-\/get\ install\ doxygen\ texlive\ -\/y}
+\DoxyCodeLine{Arch\ based:}
+\DoxyCodeLine{\ \ sudo\ pacman\ -\/S\ doxygen\ texlive}
+\DoxyCodeLine{Fedora\ based:}
+\DoxyCodeLine{\ \ sudo\ dnf\ install\ doxygen\ texlive}
+
+\end{DoxyCode}
+ Via the GUI installer\+:~\newline
+ Windows\+: \href{https://www.doxygen.nl/files/doxygen-1.13.2-setup.exe}{\texttt{Download link}}~\newline
+~\newline
+  
+\item {\bfseries{Open the terminal emulator of your choice with the shell of your choice.}}  
+\item {\bfseries{Locate the project and get the full path.}}  
+\item {\bfseries{Enter in the terminal\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Windows:}
+\DoxyCodeLine{\ \ cd\ /d\ the\(\backslash\)full\(\backslash\)path\(\backslash\)you\(\backslash\)got}
+\DoxyCodeLine{GNU/Unix\ like:}
+\DoxyCodeLine{\ \ cd\ the/full/path/you/got}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Windows:}
+\DoxyCodeLine{\ \ doxygen\ .\(\backslash\)doc\(\backslash\)doxygen\(\backslash\)doxydoc}
+\DoxyCodeLine{GNU/Unix\ like:}
+\DoxyCodeLine{\ \ doxygen\ ./doc/doxygen/doxydoc}
+
+\end{DoxyCode}
+  
+\item {\bfseries{The documentation is now compile as HTML at ./doc/doxygen/html/}}~\newline
+ You can now view it on your webbrowser directly, host it locally or even host it on a dedicated server.~\newline
+ To view it directly just go to ./doc/doxygen/html/ and click on any html file (preferably index.\+html) and the documentation should open on your default webbrowser.~\newline
+ To run it on a dedicated/local server there are a lot of opensource http webserver out here that you can use like for exemple \href{https://httpd.apache.org}{\texttt{Apache}} or \href{https://nginx.org}{\texttt{NGinx}}, after running the http server you just need to copy everything in the ./doc/doxygen/html/ to the webserver serving directory (usually someting like /var/www/html/), but like said before it\textquotesingle{}s not a mandatory step, it\textquotesingle{}s an option.  
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysubsubsubsection*{Compiling the libraries}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Locate the repository installation path on your machine (to install the repository go to the \doxylink{Installation}{Installation guide})}}  
+\item {\bfseries{Pull the latest version of the repository \+:}}~\newline
+ Via the command line\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ checkout\ BRANCH\_NAME\ \#\ <-\/\ is\ this\ case\ likely\ \`{}develop`\ or\ \`{}master`}
+\DoxyCodeLine{git\ pull}
+
+\end{DoxyCode}
+ Via the GUI\+: {\bfseries{Select the repository and fetch/pull the branch you\textquotesingle{}re working on.}}  
+\item {\bfseries{Start the project in visual studio}}~\newline
+ Via the command line\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{start\ devenv\ .\(\backslash\)Beamage.sln}
+
+\end{DoxyCode}
+ Via the file explorer\+: In your file explorer double click the {\ttfamily Beamage.\+sln} file.  
+\item {\bfseries{Now in the Solution Explorer (likely the tab on the right, ressembling a file tree) right click the library you want to compile (for exemple {\ttfamily Beamage\+Stream} or {\ttfamily Beamage\+Graphic}) and click {\ttfamily Project Only \texorpdfstring{$>$}{>} Build only LIBRARY\+\_\+\+NAME} to build it as a standalone library and {\ttfamily Build} to link it to the whole solution.}}  
+\item {\bfseries{The libraries should now be compiled to .\textbackslash{}x64\textbackslash{}... .}}  
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysubsubsubsection*{Compiling the executable}
+
+\DoxyHorRuler{0}
+ 
+\begin{DoxyItemize}
+\item {\bfseries{Locate the repository installation path on your machine (to install the repository go to the \doxylink{Installation}{Installation guide})}}  
+\item {\bfseries{Pull the latest version of the repository \+:}}~\newline
+ Via the command line\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ checkout\ BRANCH\_NAME\ \#\ <-\/\ is\ this\ case\ likely\ \`{}develop`\ or\ \`{}master`}
+\DoxyCodeLine{git\ pull}
+
+\end{DoxyCode}
+ Via the GUI\+:~\newline
+ {\bfseries{Select the repository and fetch/pull the branch you\textquotesingle{}re working on.}}  
+\item {\bfseries{Start the project in visual studio}}~\newline
+ Via the command line\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{start\ devenv\ .\(\backslash\)Beamage.sln}
+
+\end{DoxyCode}
+ Via the file explorer\+:~\newline
+ In your file explorer double click the {\ttfamily Beamage.\+sln} file.  
+\item {\bfseries{On the top menu bar click {\ttfamily Build \texorpdfstring{$>$}{>} Build Solution}.}}  
+\item {\bfseries{The executable should now be compiled to .\textbackslash{}x64\textbackslash{}... .}}  
+\end{DoxyItemize}\input{Installation}

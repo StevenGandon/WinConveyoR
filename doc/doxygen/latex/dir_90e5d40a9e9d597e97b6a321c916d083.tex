@@ -1,0 +1,802 @@
+\doxysection{gui/node\+\_\+modules/@yuuang/ffi-\/rs-\/linux-\/x64-\/musl Directory Reference}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083}{}\label{dir_90e5d40a9e9d597e97b6a321c916d083}\index{gui/node\_modules/"@yuuang/ffi-\/rs-\/linux-\/x64-\/musl Directory Reference@{gui/node\_modules/"@yuuang/ffi-\/rs-\/linux-\/x64-\/musl Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md201}{}\doxysubsection{\texorpdfstring{ffi-\/rs}{ffi-\/rs}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md201}
+ \href{https://github.com/zhangyuang/node-ffi-rs/blob/master/README.md}{\texttt{English}} \texorpdfstring{$\vert$}{|} \href{https://github.com/zhangyuang/node-ffi-rs/blob/master/README_Zh.md}{\texttt{简体中文}} 
+
+A module written in Rust and N-\/\+API provides interface (FFI) features for Node.\+js
+
+ \href{https://github.com/zhangyuang/node-ffi-rs/actions}{\texttt{}} \hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md202}{}\doxysubsection{\texorpdfstring{Description}{Description}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md202}
+\href{https://github.com/zhangyuang/node-ffi-rs}{\texttt{ffi-\/rs}} is a high-\/performance module written in Rust and N-\/\+API that provides FFI (Foreign Function Interface) features for Node.\+js. It allows developers to call functions written in other languages such as C++, C, and Rust directly from Java\+Script without writing any C++ code.
+
+This module aims to provide similar functionality to the node-\/ffi module but with a completely rewritten underlying codebase. The node-\/ffi module has been unmaintained for several years and is no longer usable, so ffi-\/rs was developed to fill that void.\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md203}{}\doxysubsection{\texorpdfstring{Features}{Features}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md203}
+
+\begin{DoxyItemize}
+\item High performance ✨
+\item Better type hints 🧐
+\item Simpler data description and API interface 💗
+\item Support more different data types between {\ttfamily Node.\+js} and {\ttfamily C} 😊
+\item Support modifying data in place 🥸
+\item Provide many ways to handle pointer type directly 🐮
+\item Support running ffi task in a new thread 🤩️
+\item Support output errno info 🤔️
+\item No need to use \href{https://www.npmjs.com/package/ref}{\texttt{ref}} to handle pointer 🤫
+\end{DoxyItemize}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md204}{}\doxysubsection{\texorpdfstring{Benchmark}{Benchmark}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md204}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ node\ bench/bench.js}
+\DoxyCodeLine{Running\ "{}ffi"{}\ suite...}
+\DoxyCodeLine{Progress:\ 100\%}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ffi-\/napi:}
+\DoxyCodeLine{\ \ \ \ 2\ 028\ ops/s,\ ±4.87\%\ \ \ \ \ |\ slowest,\ 99.24\%\ slower}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ffi-\/rs:}
+\DoxyCodeLine{\ \ \ \ 318\ 467\ ops/s,\ ±0.17\%\ \ \ |\ fastest}
+\DoxyCodeLine{}
+\DoxyCodeLine{Finished\ 2\ cases!}
+\DoxyCodeLine{\ \ Fastest:\ ffi-\/rs}
+\DoxyCodeLine{\ \ Slowest:\ ffi-\/napi}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md205}{}\doxysubsubsection{\texorpdfstring{How to sponsor me}{How to sponsor me}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md205}
+There are two ways to sponsor me both Alipay and We\+Chat
+
+Eth address\+: 0x87a2575a5d4db\+D5f965e3e3a3d20641\+BC9a5d192
+
+   \hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md206}{}\doxysubsection{\texorpdfstring{Changelog}{Changelog}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md206}
+See \doxylink{progress_2CHANGELOG_8md}{CHANGELOG.md}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md207}{}\doxysubsection{\texorpdfstring{Ecosystem}{Ecosystem}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md207}
+\href{https://github.com/zhangyuang/abstract-socket-rs}{\texttt{abstract-\/socket-\/rs}}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md208}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md208}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ i\ ffi-\/rs}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md209}{}\doxysubsection{\texorpdfstring{Supported Types}{Supported Types}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md209}
+Currently, ffi-\/rs only supports these types of parameters and return values. However, support for more types may be added in the future based on actual usage scenarios.\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md210}{}\doxysubsubsection{\texorpdfstring{Basic Types}{Basic Types}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md210}
+
+\begin{DoxyItemize}
+\item string
+\item wide\+String\texorpdfstring{$\vert$}{|}wstring
+\item u8
+\item i16
+\item i32
+\item i64
+\item big\+Int
+\item u64
+\item void (like js undefined)
+\item float (can only be used as params\+Type instead of ret\+Type)
+\item double
+\item boolean
+\end{DoxyItemize}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md211}{}\doxysubsubsection{\texorpdfstring{Reference Types}{Reference Types}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md211}
+
+\begin{DoxyItemize}
+\item pointer
+\item \doxylink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{u8\+Array} (buffer)
+\item i16\+Array
+\item i32\+Array
+\item string\+Array
+\item double\+Array
+\item float\+Array (can only be used as params\+Type instead of ret\+Type)
+\item struct\+Array
+\item object (Nested object is also supported in the latest version)
+\item function
+\end{DoxyItemize}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md212}{}\doxysubsubsection{\texorpdfstring{C++ Class}{C++ Class}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md212}
+If you want to call a C++ function whose argument type is a class, you can use the {\ttfamily pointer} type. See tutorial\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md213}{}\doxysubsection{\texorpdfstring{Supported Platforms}{Supported Platforms}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md213}
+Note\+: You need to make sure that the compilation environment of the dynamic library is the same as the installation and runtime environment of the {\ttfamily ffi-\/rs} call.
+
+
+\begin{DoxyItemize}
+\item darwin-\/x64
+\item darwin-\/arm64
+\item linux-\/x64-\/gnu
+\item linux-\/x64-\/musl
+\item win32-\/x64-\/msvc
+\item win32-\/ia32-\/msvc
+\item win32-\/arm64-\/msvc
+\item linux-\/arm64-\/gnu
+\item linux-\/arm64-\/musl
+\item linux-\/arm-\/gnueabihf
+\item android-\/arm64
+\end{DoxyItemize}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md214}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md214}
+View \href{./tests/index.ts}{\texttt{tests/index.\+ts}} for the latest usage
+
+Here is an example of how to use ffi-\/rs\+:
+
+For the following C++ code, we compile this file into a dynamic library\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md215}{}\doxysubsubsection{\texorpdfstring{Write Foreign Function Code}{Write Foreign Function Code}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md215}
+Note\+: The return value type of a function must be of type C
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{int}\ sum(\textcolor{keywordtype}{int}\ a,\ \textcolor{keywordtype}{int}\ b)\ \{\ \textcolor{keywordflow}{return}\ a\ +\ b;\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{double}\ doubleSum(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)\ \{\ \textcolor{keywordflow}{return}\ a\ +\ b;\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *concatenateStrings(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str2)\ \{}
+\DoxyCodeLine{\ \ std::string\ result\ =\ std::string(str1)\ +\ std::string(str2);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{char}\ *cstr\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[result.length()\ +\ 1];}
+\DoxyCodeLine{\ \ strcpy(cstr,\ result.c\_str());}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ cstr;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ noRet()\ \{\ \mbox{\hyperlink{curl__printf_8h_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}}(\textcolor{stringliteral}{"{}\%s"{}},\ \textcolor{stringliteral}{"{}hello\ world"{}});\ \}}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{bool}\ return\_opposite(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structinput}{input}})\ \{\ \textcolor{keywordflow}{return}\ !\mbox{\hyperlink{structinput}{input}};\ \}}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md216}{}\doxysubsubsection{\texorpdfstring{Compile C Code into a Dynamic Library}{Compile C Code into a Dynamic Library}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md216}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ g++\ -\/dynamiclib\ -\/o\ libsum.so\ cpp/sum.cpp\ \#\ macOS}
+\DoxyCodeLine{\$\ g++\ -\/shared\ -\/o\ libsum.so\ cpp/sum.cpp\ \#\ Linux}
+\DoxyCodeLine{\$\ g++\ -\/shared\ -\/o\ sum.dll\ cpp/sum.cpp\ \#\ Windows}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md217}{}\doxysubsubsection{\texorpdfstring{Call Dynamic Library Using ffi-\/rs}{Call Dynamic Library Using ffi-\/rs}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md217}
+Then you can use {\ttfamily ffi-\/rs} to invoke the dynamic library file that contains functions.\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md218}{}\doxysubsubsection{\texorpdfstring{Initialization}{Initialization}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md218}
+It\textquotesingle{}s suggested to develop with Type\+Script to get type hints
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{}
+\DoxyCodeLine{\ \ \ \ equal}
+\DoxyCodeLine{\}\ =\ require('assert')}
+\DoxyCodeLine{const\ \{}
+\DoxyCodeLine{\ \ \ \ load,}
+\DoxyCodeLine{\ \ \ \ DataType,}
+\DoxyCodeLine{\ \ \ \ open,}
+\DoxyCodeLine{\ \ \ \ close,}
+\DoxyCodeLine{\ \ \ \ arrayConstructor,}
+\DoxyCodeLine{\ \ \ \ define}
+\DoxyCodeLine{\}\ =\ require('ffi-\/rs')}
+\DoxyCodeLine{const\ a\ =\ 1}
+\DoxyCodeLine{const\ b\ =\ 100}
+\DoxyCodeLine{const\ dynamicLib\ =\ platform\ ===\ 'win32'\ ?\ './sum.dll'\ :\ "{}./libsum.so"{}}
+\DoxyCodeLine{//\ First\ open\ dynamic\ library\ with\ key\ for\ close}
+\DoxyCodeLine{//\ It\ only\ needs\ to\ be\ opened\ once.}
+\DoxyCodeLine{open(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',\ //\ key}
+\DoxyCodeLine{\ \ \ \ path:\ dynamicLib\ //\ path}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{const\ r\ =\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},\ //\ path\ to\ the\ dynamic\ library\ file}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'sum',\ //\ the\ name\ of\ the\ function\ to\ call}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.I32,\ //\ the\ return\ value\ type}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.I32,\ DataType.I32],\ //\ the\ parameter\ types}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [a,\ b]\ //\ the\ actual\ parameter\ values}
+\DoxyCodeLine{\ \ \ \ //\ freeResultMemory:\ true,\ //\ whether\ or\ not\ need\ to\ free\ the\ result\ of\ return\ value\ memory\ automatically,\ default\ is\ false}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{equal(r,\ a\ +\ b)}
+\DoxyCodeLine{//\ Release\ library\ memory\ when\ you're\ not\ using\ it.}
+\DoxyCodeLine{close('libsum')}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Use\ define\ function\ to\ define\ a\ function\ signature}
+\DoxyCodeLine{const\ res\ =\ define(\{}
+\DoxyCodeLine{\ \ \ \ sum:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retType:\ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [DataType.I32,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ atoi:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ library:\ "{}libnative"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retType:\ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [DataType.String],}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{equal(res.sum([1,\ 2]),\ 3)}
+\DoxyCodeLine{equal(res.atoi(["{}1000"{}]),\ 1000)}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md219}{}\doxysubsubsection{\texorpdfstring{Load Main Program Handle}{Load Main Program Handle}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md219}
+You can also pass an empty path string in the {\ttfamily open} function like \href{https://github.com/node-ffi-napi/node-ffi-napi?tab=readme-ov-file\#example}{\texttt{ffi-\/napi}} to get the main program handle. Refer to \href{https://man7.org/linux/man-pages/man3/dlopen.3.html}{\texttt{dlopen}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{open(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libnative"{},}
+\DoxyCodeLine{\ \ \ \ path:\ "{}"{},}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//\ In\ Darwin/Linux,\ you\ can\ call\ the\ atoi\ function\ which\ is\ included\ in\ the\ basic\ C\ library}
+\DoxyCodeLine{equal(}
+\DoxyCodeLine{\ \ \ \ load(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ library:\ "{}libnative"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ funcName:\ "{}atoi"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retType:\ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [DataType.String],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsValue:\ ["{}1000"{}],}
+\DoxyCodeLine{\ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ 1000,}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md220}{}\doxysubsubsection{\texorpdfstring{Basic Types}{Basic Types}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md220}
+{\ttfamily number\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}boolean\texorpdfstring{$\vert$}{|}double\texorpdfstring{$\vert$}{|}void} are basic types
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ c\ =\ "{}foo"{}}
+\DoxyCodeLine{const\ d\ =\ c.repeat(200)}
+\DoxyCodeLine{}
+\DoxyCodeLine{equal(c\ +\ d,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'concatenateStrings',}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.String,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.String,\ DataType.String],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [c,\ d]}
+\DoxyCodeLine{\}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{equal(undefined,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'noRet',}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.Void,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ []}
+\DoxyCodeLine{\}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{equal(1.1\ +\ 2.2,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'doubleSum',}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.Double,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.Double,\ DataType.Double],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [1.1,\ 2.2]}
+\DoxyCodeLine{\}))}
+\DoxyCodeLine{const\ bool\_val\ =\ true}
+\DoxyCodeLine{equal(!bool\_val,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'return\_opposite',}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.Boolean,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.Boolean],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [bool\_val],}
+\DoxyCodeLine{\}))}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md221}{}\doxysubsubsection{\texorpdfstring{Buffer}{Buffer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md221}
+In the latest version, {\ttfamily ffi-\/rs} supports modifying data in place.
+
+The sample code is as follows
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ modifyData(\textcolor{keywordtype}{char}*\ \mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}})\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ modify\ buffer\ data\ in\ place}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ arr\ =\ Buffer.alloc(200)\ //\ create\ buffer}
+\DoxyCodeLine{const\ res\ =\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}modifyData"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DataType.U8Array}
+\DoxyCodeLine{\ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [arr]}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{console.log(arr)\ //\ buffer\ data\ can\ be\ updated}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md222}{}\doxysubsubsection{\texorpdfstring{Array}{Array}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md222}
+When using {\ttfamily array} as {\ttfamily ret\+Type} , you should use {\ttfamily array\+Constructor} to specify the array type with a legal length which is important.
+
+If the length is incorrect, the program may exit abnormally
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{int}\ *createArrayi32(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *arr,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ *vec\ =\ (\textcolor{keywordtype}{int}\ *)\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}((\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}};\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ vec[i]\ =\ arr[i];}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{double}\ *createArrayDouble(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *arr,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ *vec\ =\ (\textcolor{keywordtype}{double}\ *)\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}((\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}};\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ vec[i]\ =\ arr[i];}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{char}\ **createArrayString(\textcolor{keywordtype}{char}\ **arr,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{char}\ **vec\ =\ (\textcolor{keywordtype}{char}\ **)\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}((\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}\ *));}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}};\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ vec[i]\ =\ arr[i];}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{let\ bigArr\ =\ new\ Array(100).fill(100)}
+\DoxyCodeLine{deepStrictEqual(bigArr,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'createArrayi32',}
+\DoxyCodeLine{\ \ \ \ retType:\ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ type:\ DataType.I32Array,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ length:\ bigArr.length}
+\DoxyCodeLine{\ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.I32Array,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [bigArr,\ bigArr.length],}
+\DoxyCodeLine{\}))}
+\DoxyCodeLine{}
+\DoxyCodeLine{let\ bigDoubleArr\ =\ new\ Array(5).fill(1.1)}
+\DoxyCodeLine{deepStrictEqual(bigDoubleArr,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'createArrayDouble',}
+\DoxyCodeLine{\ \ \ \ retType:\ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ type:\ DataType.DoubleArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ length:\ bigDoubleArr.length}
+\DoxyCodeLine{\ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.DoubleArray,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [bigDoubleArr,\ bigDoubleArr.length],}
+\DoxyCodeLine{\}))}
+\DoxyCodeLine{let\ stringArr\ =\ [c,\ c.repeat(20)]}
+\DoxyCodeLine{}
+\DoxyCodeLine{deepStrictEqual(stringArr,\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libsum',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'createArrayString',}
+\DoxyCodeLine{\ \ \ \ retType:\ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ type:\ DataType.StringArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ length:\ stringArr.length}
+\DoxyCodeLine{\ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.StringArray,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [stringArr,\ stringArr.length],}
+\DoxyCodeLine{\}))}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md223}{}\doxysubsubsection{\texorpdfstring{Pointer}{Pointer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md223}
+In {\ttfamily ffi-\/rs} , we use \href{https://nodejs.org/api/n-api.html\#napi_create_external}{\texttt{Data\+Type. External}} for wrapping the {\ttfamily pointer} which enables it to be passed between {\ttfamily Node.\+js} and {\ttfamily C} .
+
+{\ttfamily Pointer} is complicated and underlying, {\ttfamily ffi-\/rs} provides four functions to handle this pointer including {\ttfamily create\+Pointer} , {\ttfamily restore\+Pointer} , {\ttfamily unwrap\+Pointer} , {\ttfamily wrap\+Pointer} , {\ttfamily free\+Pointer} , {\ttfamily is\+Null\+Pointer} for different scenes.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *concatenateStrings(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str2)\ \{}
+\DoxyCodeLine{\ \ std::string\ result\ =\ std::string(str1)\ +\ std::string(str2);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{char}\ *cstr\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[result.length()\ +\ 1];}
+\DoxyCodeLine{\ \ strcpy(cstr,\ result.c\_str());}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ cstr;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{char}\ *getStringFromPtr(\textcolor{keywordtype}{void}\ *ptr)\ \{\ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{char}\ *)ptr;\ \};}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ get\ pointer}
+\DoxyCodeLine{const\ ptr\ =\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}concatenateStrings"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.External,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.String,\ DataType.String],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [c,\ d],}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ send\ pointer}
+\DoxyCodeLine{const\ string\ =\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}getStringFromPtr"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.String,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.External],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [ptr],}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md224}{}\doxysubsubsubsection{\texorpdfstring{create\+Pointer}{create\+Pointer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md224}
+{\ttfamily create\+Pointer} function is used for creating a pointer pointing to a specified type. In order to avoid mistakes, developers have to understand what type this pointer is.
+
+For numeric types like {\ttfamily i32\texorpdfstring{$\vert$}{|}u8\texorpdfstring{$\vert$}{|}i64\texorpdfstring{$\vert$}{|}f64} , create\+Pointer will create a pointer like {\ttfamily \texorpdfstring{$\ast$}{*}mut i32} pointing to these numbers.
+
+For types that are originally pointer types like {\ttfamily char \texorpdfstring{$\ast$}{*}} representing {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} type in {\ttfamily C} , create\+Pointer will create a dual pointer like {\ttfamily \texorpdfstring{$\ast$}{*}mut \texorpdfstring{$\ast$}{*}mut c\+\_\+char} pointing to {\ttfamily \texorpdfstring{$\ast$}{*}mut c\+\_\+char} . Developers can use {\ttfamily unwrap\+Pointer} to get the internal pointer {\ttfamily \texorpdfstring{$\ast$}{*}mut c\+\_\+char} .
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{let\ bigDoubleArr\ =\ new\ Array(5).fill(1.1);}
+\DoxyCodeLine{deepStrictEqual(}
+\DoxyCodeLine{\ \ \ \ bigDoubleArr,}
+\DoxyCodeLine{\ \ \ \ load(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ funcName:\ "{}createArrayDouble"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retType:\ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ type:\ DataType.DoubleArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ length:\ bigDoubleArr.length,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [DataType.DoubleArray,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsValue:\ [bigDoubleArr,\ bigDoubleArr.length],}
+\DoxyCodeLine{\ \ \ \ \}),}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+
+
+For the code above, we can use {\ttfamily create\+Pointer} function to wrap a pointer data and send it as params\+Value
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ ptrArr:\ unknown[]\ =\ createPointer(\{}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.DoubleArray],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ [1.1,\ 2.2]}
+\DoxyCodeLine{\ \ \ \ ]}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}createArrayDouble"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ type:\ DataType.DoubleArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ length:\ bigDoubleArr.length,}
+\DoxyCodeLine{\ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.External,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [unwrapPointer(ptrArr)[0],\ bigDoubleArr.length],}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+
+
+The two pieces of code above are equivalent\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md225}{}\doxysubsubsubsection{\texorpdfstring{restore\+Pointer}{restore\+Pointer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md225}
+Similarly, you can use {\ttfamily restore\+Pointer} to restore data from a {\ttfamily pointer} which is wrapped by {\ttfamily create\+Pointer} or as a return value of a foreign function
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ pointerArr\ =\ createPointer(\{}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.DoubleArray],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ [1.1,\ 2.2]}
+\DoxyCodeLine{\ \ \ \ ]}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{const\ restoreData\ =\ restorePointer(\{}
+\DoxyCodeLine{\ \ \ \ retType:\ [arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ type:\ DataType.DoubleArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ length:\ 2}
+\DoxyCodeLine{\ \ \ \ \})],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ pointerArr}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{deepStrictEqual(restoreData,\ [}
+\DoxyCodeLine{\ \ \ \ [1.1,\ 2.2]}
+\DoxyCodeLine{])}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md226}{}\doxysubsubsubsection{\texorpdfstring{free\+Pointer}{free\+Pointer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md226}
+{\ttfamily free\+Pointer} is used to free memory which is not freed automatically.
+
+By default, {\ttfamily ffi-\/rs} will free data memory for ffi call args and return result to prevent memory leaks. Except in the following cases\+:
+
+
+\begin{DoxyItemize}
+\item set {\ttfamily free\+Result\+Memory\+: false} when calling {\ttfamily load} method
+\end{DoxyItemize}
+
+If you set free\+Result\+Memory to false, {\ttfamily ffi-\/rs} will not release the return result memory which was allocated in the C environment
+
+
+\begin{DoxyItemize}
+\item Use {\ttfamily Data\+Type.\+External} as params\+Type or ret\+Type
+\end{DoxyItemize}
+
+If developers use {\ttfamily Data\+Type.\+External} as params\+Type or ret\+Type, please use {\ttfamily free\+Pointer} to release the memory of the pointer. ref \href{./test.ts\#170}{\texttt{test.\+ts}}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md227}{}\doxysubsubsubsection{\texorpdfstring{wrap\+Pointer}{wrap\+Pointer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md227}
+{\ttfamily wrap\+Pointer} is used to create multiple pointers.
+
+For example, developers can use {\ttfamily wrap\+Pointer} to create a pointer pointing to other existing pointers.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{}
+\DoxyCodeLine{\ \ \ \ wrapPointer}
+\DoxyCodeLine{\}\ =\ require('ffi-\/rs')}
+\DoxyCodeLine{//\ ptr\ type\ is\ *mut\ c\_char}
+\DoxyCodeLine{const\ ptr\ =\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}concatenateStrings"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.External,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.String,\ DataType.String],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [c,\ d],}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ wrapPtr\ type\ is\ *mut\ *mut\ c\_char}
+\DoxyCodeLine{const\ wrapPtr\ =\ wrapPointer([ptr])[0]}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md228}{}\doxysubsubsubsection{\texorpdfstring{unwrap\+Pointer}{unwrap\+Pointer}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md228}
+{\ttfamily unwrap\+Pointer} is opposite to {\ttfamily wrap\+Pointer} which is used to get the internal pointer for multiple pointers
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{}
+\DoxyCodeLine{\ \ \ \ unwrapPointer,}
+\DoxyCodeLine{\ \ \ \ createPointer}
+\DoxyCodeLine{\}\ =\ require('ffi-\/rs')}
+\DoxyCodeLine{//\ ptr\ type\ is\ *mut\ *mut\ c\_char}
+\DoxyCodeLine{let\ ptr\ =\ createPointer(\{}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.String],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ ["{}foo"{}]}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ unwrapPtr\ type\ is\ *mut\ c\_char}
+\DoxyCodeLine{const\ unwrapPtr\ =\ unwrapPointer([ptr])[0]}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md229}{}\doxysubsubsection{\texorpdfstring{Struct}{Struct}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md229}
+To create a C struct or get a C struct as a return type, you need to define the types of the parameters strictly in the order in which the fields of the C structure are defined.
+
+{\ttfamily ffi-\/rs} provides a C struct named {\ttfamily Person} with many types of fields in \href{https://github.com/zhangyuang/node-ffi-rs/blob/master/cpp/sum.cpp\#L48}{\texttt{sum.\+cpp}}
+
+The example call method about how to call a foreign function to create a {\ttfamily Person} struct or use {\ttfamily Person} struct as a return value is \href{https://github.com/zhangyuang/node-ffi-rs/blob/master/test.ts\#L289}{\texttt{here}}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md230}{}\doxysubsubsubsection{\texorpdfstring{Use array in struct}{Use array in struct}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md230}
+There are two types of arrays in C language like {\ttfamily int\texorpdfstring{$\ast$}{*} array} and {\ttfamily int array\mbox{[}100\mbox{]}} that have some different usages.
+
+The first type {\ttfamily int\texorpdfstring{$\ast$}{*} array} is a pointer type storing the first address of the array.
+
+The second type {\ttfamily int array\mbox{[}100\mbox{]}} is a fixed-\/length array and each element in the array has a continuous address.
+
+If you use an array as a function parameter, this usually passes an array pointer regardless of which type you define. But if the array type is defined in a struct, the two types of array definitions will cause different sizes and alignments of the struct.
+
+So, {\ttfamily ffi-\/rs} needs to distinguish between the two types.
+
+By default, {\ttfamily ffi-\/rs} uses pointer arrays to calculate struct. If you confirm there should be a static array, you can define it in this way\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }Person\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//...}}
+\DoxyCodeLine{\ \ uint8\_t\ staticBytes[16];}
+\DoxyCodeLine{\ \ \textcolor{comment}{//...}}
+\DoxyCodeLine{\}\ Person;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ use\ arrayConstructor\ and\ set\ ffiTypeTag\ field\ to\ DataType.StackArray}}
+\DoxyCodeLine{staticBytes:\ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}}:\ DataType.U8Array,}
+\DoxyCodeLine{\ \ length:\ parent.staticBytes.length,}
+\DoxyCodeLine{\ \ ffiTypeTag:\ FFITypeTag.StackArray}
+\DoxyCodeLine{\}),}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md231}{}\doxysubsection{\texorpdfstring{Function}{Function}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md231}
+{\ttfamily ffi-\/rs} supports passing JS function pointers to C functions, like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ void\ (*FunctionPointer)(\textcolor{keywordtype}{int}\ a,\ \textcolor{keywordtype}{bool}\ b,\ \textcolor{keywordtype}{char}\ *c,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ **e,\ \textcolor{keywordtype}{int}\ *f,\ Person\ *g);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ callFunction(FunctionPointer\ func)\ \{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__printf_8h_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}}(\textcolor{stringliteral}{"{}callFunction\(\backslash\)n"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 2;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ a\ =\ 100;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{bool}\ b\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ d\ =\ 100.11;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{char}\ *c\ =\ (\textcolor{keywordtype}{char}\ *)\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}(14\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));}
+\DoxyCodeLine{\ \ \ \ strcpy(c,\ \textcolor{stringliteral}{"{}Hello,\ World!"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{char}\ **stringArray\ =\ (\textcolor{keywordtype}{char}\ **)\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}\ *)\ *\ 2);}
+\DoxyCodeLine{\ \ \ \ stringArray[0]\ =\ \mbox{\hyperlink{curl__memory_8h_aa3f578f8f1eaebf25b2e2313db31cb40}{strdup}}(\textcolor{stringliteral}{"{}Hello"{}});}
+\DoxyCodeLine{\ \ \ \ stringArray[1]\ =\ \mbox{\hyperlink{curl__memory_8h_aa3f578f8f1eaebf25b2e2313db31cb40}{strdup}}(\textcolor{stringliteral}{"{}world"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ *i32Array\ =\ (\textcolor{keywordtype}{int}\ *)\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})\ *\ 3);}
+\DoxyCodeLine{\ \ \ \ i32Array[0]\ =\ 101;}
+\DoxyCodeLine{\ \ \ \ i32Array[1]\ =\ 202;}
+\DoxyCodeLine{\ \ \ \ i32Array[2]\ =\ 303;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ Person\ *p\ =\ createPerson();}
+\DoxyCodeLine{\ \ \ \ func(a,\ b,\ c,\ d,\ stringArray,\ i32Array,\ p);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Corresponding to the code above, you can use {\ttfamily ffi-\/rs} like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ testFunction\ =\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ const\ func\ =\ (a,\ b,\ c,\ d,\ e,\ f,\ g)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ equal(a,\ 100);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ equal(b,\ false);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ equal(c,\ "{}Hello,\ World!"{});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ equal(d,\ "{}100.11"{});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ deepStrictEqual(e,\ ["{}Hello"{},\ "{}world"{}]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ deepStrictEqual(f,\ [101,\ 202,\ 303]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ deepStrictEqual(g,\ person);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ logGreen("{}test\ function\ succeed"{});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ free\ function\ memory\ when\ it\ is\ not\ in\ use}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ freePointer(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ paramsType:\ [funcConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paramsType:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.Boolean,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.String,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.Double,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type:\ DataType.StringArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ length:\ 2}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type:\ DataType.I32Array,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ length:\ 3}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ personType,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retType:\ DataType.Void,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ paramsValue:\ funcExternal}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (!process.env.MEMORY)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ close("{}libsum"{});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{\ \ \ \ //\ suggest\ using\ createPointer\ to\ create\ a\ function\ pointer\ for\ manual\ memory\ management}
+\DoxyCodeLine{\ \ \ \ const\ funcExternal\ =\ createPointer(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [funcConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ paramsType:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.Boolean,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.String,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataType.Double,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type:\ DataType.StringArray,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ length:\ 2}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayConstructor(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type:\ DataType.I32Array,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ length:\ 3}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ personType,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ retType:\ DataType.Void,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsValue:\ [func]}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ load(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ funcName:\ "{}callFunction"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retType:\ DataType.Void,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ DataType.External,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsValue:\ unwrapPointer(funcExternal),}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The function parameters support all types in the example above.
+
+Attention\+: since the vast majority of scenarios developers pass JS functions to C as callbacks, {\ttfamily ffi-\/rs} will create \href{https://nodejs.org/api/n-api.html\#napi_threadsafe_function}{\texttt{threadsafe\+\_\+function}} from JS functions which means the JS function will be called asynchronously, and the Node.\+js process will not exit automatically.\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md232}{}\doxysubsection{\texorpdfstring{C++}{C++}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md232}
+We\textquotesingle{}ll provide more examples from real-\/world scenarios. If you have any ideas, please submit an issue.\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md233}{}\doxysubsubsection{\texorpdfstring{Class type}{Class type}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md233}
+In C++ scenarios, we can use {\ttfamily Data\+Type.\+External} to get a class type pointer.
+
+In the code below, we use C types to wrap C++ types such as converting {\ttfamily char \texorpdfstring{$\ast$}{*}} to {\ttfamily std\+::string} and returning a class pointer\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MyClass\ *createMyClass(std::string\ \mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}},\ \textcolor{keywordtype}{int}\ age)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ MyClass(\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}},\ age);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ MyClass\ *createMyClassFromC(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}},\ \textcolor{keywordtype}{int}\ age)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ createMyClass(std::string(\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}),\ age);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ printMyClass(MyClass\ *instance)\ \{\ instance-\/>print();\ \}}
+
+\end{DoxyCode}
+
+
+And then, it can be called by the following code\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ classPointer\ =\ load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}createMyClassFromC"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.External,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DataType.String,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DataType.I32}
+\DoxyCodeLine{\ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ ["{}classString"{},\ 26],}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ funcName:\ "{}printMyClass"{},}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.External,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ DataType.External,}
+\DoxyCodeLine{\ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [classPointer],}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{freePointer(\{}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.External],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [classPointer],}
+\DoxyCodeLine{\ \ \ \ pointerType:\ PointerType.CPointer}
+\DoxyCodeLine{\})}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md234}{}\doxysubsection{\texorpdfstring{errno}{errno}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md234}
+By default, {\ttfamily ffi-\/rs} will not output \href{https://man7.org/linux/man-pages/man3/errno.3.html}{\texttt{errno}} info. Developers can get it by passing {\ttfamily errno\+: true} when calling the open method like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{load(\{}
+\DoxyCodeLine{\ \ \ \ library:\ 'libnative',}
+\DoxyCodeLine{\ \ \ \ funcName:\ 'setsockopt',}
+\DoxyCodeLine{\ \ \ \ retType:\ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ paramsType:\ [DataType.I32,\ DataType.I32,\ DataType.I32,\ DataType.External,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ paramsValue:\ [socket.\_handle.fd,\ level,\ option,\ pointer[0],\ 4],}
+\DoxyCodeLine{\ \ \ \ errno:\ true\ //\ set\ errno\ as\ true}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ The\ above\ code\ will\ return\ an\ object\ including\ three\ fields:\ errnoCode,\ errnoMessage,\ and\ the\ foreign\ function\ return\ value}
+\DoxyCodeLine{//\ \{\ errnoCode:\ 22,\ errnoMessage:\ 'Invalid\ argument\ (os\ error\ 22)',\ value:\ -\/1\ \}}
+
+\end{DoxyCode}
+\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md235}{}\doxysubsection{\texorpdfstring{Memory Management}{Memory Management}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md235}
+It\textquotesingle{}s important to free the memory allocations during a single ffi call to prevent memory leaks.
+
+What kinds of data memory are allocated in this?
+
+
+\begin{DoxyItemize}
+\item Call parameters in the Rust environment which are allocated in the heap like {\ttfamily String}
+\item Return value which in the C environment which are allocated in the heap like {\ttfamily char\texorpdfstring{$\ast$}{*}}
+\end{DoxyItemize}
+
+By default, {\ttfamily ffi-\/rs} will free call parameters memory which are allocated in Rust.
+
+But it will not free the return value from the C side since some C dynamic libraries will manage their memory automatically (when ffi-\/rs \texorpdfstring{$>$}{>}= 1.\+0.\+79)
+
+There are two ways to prevent {\ttfamily ffi-\/rs} from releasing memory\+:
+
+
+\begin{DoxyItemize}
+\item Set {\ttfamily free\+Result\+Memory\+: false} when calling {\ttfamily load} method, the default value is false
+\end{DoxyItemize}
+
+If you set free\+Result\+Memory to false, {\ttfamily ffi-\/rs} will not release the return result memory which was allocated in the C environment
+
+
+\begin{DoxyItemize}
+\item Use {\ttfamily Data\+Type.\+External} as params\+Type or ret\+Type
+\end{DoxyItemize}
+
+If developers use {\ttfamily Data\+Type.\+External} as params\+Type or ret\+Type, please use {\ttfamily free\+Pointer} to release the memory of the pointer when this memory is no longer in use. ref \href{./test.ts\#170}{\texttt{test.\+ts}}\hypertarget{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md236}{}\doxysubsection{\texorpdfstring{run\+In\+New\+Thread}{run\+In\+New\+Thread}}\label{dir_90e5d40a9e9d597e97b6a321c916d083_autotoc_md236}
+{\ttfamily ffi-\/rs} supports running ffi tasks in a new thread without blocking the main thread, which is useful for CPU-\/intensive tasks.
+
+To use this feature, you can pass the {\ttfamily run\+In\+New\+Thread} option to the load method\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ testRunInNewThread\ =\ async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ //\ will\ return\ a\ promise\ but\ the\ task\ will\ run\ in\ a\ new\ thread}
+\DoxyCodeLine{\ \ \ \ load(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ library:\ "{}libsum"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ funcName:\ "{}sum"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ retType:\ DataType.I32,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsType:\ [DataType.I32,\ DataType.I32],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ paramsValue:\ [1,\ 2],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ runInNewThread:\ true,}
+\DoxyCodeLine{\ \ \ \ \}).then(res\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ equal(res,\ 3)}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 

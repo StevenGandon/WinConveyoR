@@ -1,0 +1,42 @@
+\doxysection{strcase.\+h}
+\hypertarget{strcase_8h_source}{}\label{strcase_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/strcase.h@{lib/libwconr/build/\_deps/curl-\/src/lib/strcase.h}}
+\mbox{\hyperlink{strcase_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_STRCASE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_STRCASE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ Only\ "{}raw"{}\ case\ insensitive\ strings.\ This\ is\ meant\ to\ be\ locale\ independent}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ and\ only\ compare\ strings\ we\ know\ are\ safe\ for\ this.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ The\ function\ is\ capable\ of\ comparing\ a-\/z\ case\ insensitively.}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ Result\ is\ 1\ if\ text\ matches\ and\ 0\ if\ not.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ strcasecompare(a,b)\ Curl\_strcasecompare(a,b)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ strncasecompare(a,b,c)\ Curl\_strncasecompare(a,b,c)}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{strcase_8h_a9104c25131643c120c9edb8952bfcb87}{Curl\_strcasecompare}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *first,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{rate_8d_a44332defefeb907a5be150af2be96640}{second}});}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{strcase_8h_a241521c84255d0726fa6fa2614ec710c}{Curl\_safe\_strcasecompare}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *first,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{rate_8d_a44332defefeb907a5be150af2be96640}{second}});}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{strcase_8h_ad505d7a3a49613121f89ef4053d4d991}{Curl\_strncasecompare}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *first,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{rate_8d_a44332defefeb907a5be150af2be96640}{second}},\ \textcolor{keywordtype}{size\_t}\ max);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{strcase_8h_a555bbf5fd8dc146336474a2bb7959524}{Curl\_raw\_toupper}}(\textcolor{keywordtype}{char}\ in);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{strcase_8h_a4724d7f673b05bf071a131b90c21023b}{Curl\_raw\_tolower}}(\textcolor{keywordtype}{char}\ in);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ checkprefix()\ is\ a\ shorter\ version\ of\ the\ above,\ used\ when\ the\ first}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ argument\ is\ the\ string\ literal\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ checkprefix(a,b)\ \ \ \ curl\_strnequal(b,\ STRCONST(a))}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{strcase_8h_af365bf4de48b867b59fce8d1e777af92}{Curl\_strntoupper}}(\textcolor{keywordtype}{char}\ *dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{namespacesrc}{src}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}});}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{strcase_8h_aa008e9c4b2ee0d9b93d57ac083a44abb}{Curl\_strntolower}}(\textcolor{keywordtype}{char}\ *dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{namespacesrc}{src}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}});}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{strcase_8h_a14fd5e4a40a44d5c38a5164b2e86a62e}{Curl\_safecmp}}(\textcolor{keywordtype}{char}\ *a,\ \textcolor{keywordtype}{char}\ *b);}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{strcase_8h_a86ef5447eae9246d84336593c5047f33}{Curl\_timestrcmp}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *first,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{rate_8d_a44332defefeb907a5be150af2be96640}{second}});}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_STRCASE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,65 @@
+\doxysection{altsvc.\+h}
+\hypertarget{altsvc_8h_source}{}\label{altsvc_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/altsvc.h@{lib/libwconr/build/\_deps/curl-\/src/lib/altsvc.h}}
+\mbox{\hyperlink{altsvc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_ALTSVC\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_ALTSVC\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_HTTP)\ \&\&\ !defined(CURL\_DISABLE\_ALTSVC)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{llist_8h}{llist.h}}"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}\ \{}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2a55ee7041f9436baee8b0c66819d4f189}{ALPN\_none}}\ =\ 0,}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2a83cf6eeaad724fb4d55a764767dc1eb9}{ALPN\_h1}}\ =\ \mbox{\hyperlink{curl_8h_a7383fdafc842dfa76e19b795cdf1e72f}{CURLALTSVC\_H1}},}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2afcca7dac534c92672eb661df7fdc0e84}{ALPN\_h2}}\ =\ \mbox{\hyperlink{curl_8h_a47f26760331272ef354c4484165dbd09}{CURLALTSVC\_H2}},}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2a9f04d86d5b038433e8ca53aaffe8fe8d}{ALPN\_h3}}\ =\ \mbox{\hyperlink{curl_8h_ab527dbd93856891675afc5cf434ad416}{CURLALTSVC\_H3}}}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structalthost}{althost}}\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structalthost_acfbebcd14b123022cc5f4181e2f22096}{host}};}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structalthost_abe9cbb5725e5f50e4432c7cc47f21e63}{port}};}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{structalthost_a2c8e430e634479e49c213dbb54b02825}{alpnid}}\ \mbox{\hyperlink{structalthost_a2c8e430e634479e49c213dbb54b02825}{alpnid}};}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structaltsvc}{altsvc}}\ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structalthost}{althost}}\ \mbox{\hyperlink{namespacesrc}{src}};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structalthost}{althost}}\ \mbox{\hyperlink{structaltsvc_a25b4c53845a8b421d2a512937007a01d}{dst}};}
+\DoxyCodeLine{00048\ \ \ time\_t\ \mbox{\hyperlink{structaltsvc_ac5c903487153b980086323c1c6833cb9}{expires}};}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structaltsvc_a806843fd10384e30f74c27488a996f0d}{persist}};}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structaltsvc_af4fbf09e3dfb631b90f32702e4c5fe98}{prio}};}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist__element}{Curl\_llist\_element}}\ \mbox{\hyperlink{structaltsvc_abb97bd5f93fe92b3e61678fd3569cf59}{node}};}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ \{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structaltsvcinfo_a4306a09d65c11967a7826dc4983b762f}{filename}};}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist}{Curl\_llist}}\ \mbox{\hyperlink{structaltsvcinfo_a102d366580aae3c6f79c8712049f4a82}{list}};\ \textcolor{comment}{/*\ list\ of\ entries\ */}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structaltsvcinfo_a7b45d920817cb4f704f5e19724ede196}{flags}};\ \textcolor{comment}{/*\ the\ publicly\ set\ bitmask\ */}}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{altsvc_8h_a9e86a69a3bcebadc23579328a35d62f8}{Curl\_alpnid2str}}(\textcolor{keyword}{enum}\ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ *\mbox{\hyperlink{altsvc_8h_a4183657677c64ec6c5984f2b5992895b}{Curl\_altsvc\_init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00062\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{altsvc_8h_abf637dd05b393772517b4abf70bf703b}{Curl\_altsvc\_load}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ *asi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}});}
+\DoxyCodeLine{00063\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{altsvc_8h_af2d2870badf3a705d72814097ee38e9a}{Curl\_altsvc\_save}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ *asi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}});}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{altsvc_8h_aff12ccbb1e46ad253876ce31451b76fc}{Curl\_altsvc\_ctrl}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ *asi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ ctrl);}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{altsvc_8h_a6085be3a10b146c7c73a44cd15de2caa}{Curl\_altsvc\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ **\mbox{\hyperlink{structaltsvc}{altsvc}});}
+\DoxyCodeLine{00067\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{altsvc_8h_a6bc6afd0f186b9d14938fa03b32b5c2c}{Curl\_altsvc\_parse}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ *\mbox{\hyperlink{structaltsvc}{altsvc}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}\ srcalpn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *srchost,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ srcport);}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{altsvc_8h_ae848f4291bd78a9829c4a3bf58dfd9c8}{Curl\_altsvc\_lookup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvcinfo}{altsvcinfo}}\ *asi,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{altsvc_8h_ace38294afe00ab006da470e955525ad2}{alpnid}}\ srcalpnid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *srchost,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ srcport,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structaltsvc}{altsvc}}\ **dstentry,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ versions);\ \textcolor{comment}{/*\ CURLALTSVC\_H*\ bits\ */}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ disabled\ */}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ Curl\_altsvc\_save(a,b,c)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ Curl\_altsvc\_cleanup(x)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !CURL\_DISABLE\_HTTP\ \&\&\ !CURL\_DISABLE\_ALTSVC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_ALTSVC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

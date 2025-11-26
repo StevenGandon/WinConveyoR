@@ -1,0 +1,54 @@
+\doxysection{wildcard.\+h}
+\hypertarget{wildcard_8h_source}{}\label{wildcard_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/wildcard.h@{lib/libwconr/build/\_deps/curl-\/src/lib/wildcard.h}}
+\mbox{\hyperlink{wildcard_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_WILDCARD\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_WILDCARD\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_FTP}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{llist_8h}{llist.h}}"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*\ list\ of\ wildcard\ process\ states\ */}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452a883c5854c27480107ee93c9dbf1f9e81}{CURLWC\_CLEAR}}\ =\ 0,}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452afac8d563d66d0af0fceb27bca71fc3ac}{CURLWC\_INIT}}\ =\ 1,}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452af53e9618bd2fcb940dfa77b2707950bd}{CURLWC\_MATCHING}},\ \textcolor{comment}{/*\ library\ is\ trying\ to\ get\ list\ of\ addresses\ for}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ downloading\ */}}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452a265c50a923f1ba7979a1f4f64adf71e9}{CURLWC\_DOWNLOADING}},}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452a1594fce26a7a9f56cb2295b8eb819f63}{CURLWC\_CLEAN}},\ \textcolor{comment}{/*\ deallocate\ resources\ and\ reset\ settings\ */}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452a3b20ef4cea470a653b7d611a040b1354}{CURLWC\_SKIP}},\ \ \textcolor{comment}{/*\ skip\ over\ concrete\ file\ */}}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452a008ebf373c80fec111653fefacd75b50}{CURLWC\_ERROR}},\ \textcolor{comment}{/*\ error\ cases\ */}}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452af7b19e6541139da47849ca1761694d28}{CURLWC\_DONE}}\ \ \ \textcolor{comment}{/*\ if\ is\ wildcard-\/>state\ ==\ CURLWC\_DONE\ wildcard\ loop}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ will\ end\ */}}
+\DoxyCodeLine{00045\ \}\ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452}{wildcard\_states}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{wildcard_8h_a25fc6771d5a2efcb2b78203574b824ea}{wildcard\_dtor}})(\textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ struct\ keeping\ information\ about\ wildcard\ download\ process\ */}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structWildcardData}{WildcardData}}\ \{}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{wildcard_8h_a9188cfa03f934b9399d3b0f4b7b46452}{wildcard\_states}}\ \mbox{\hyperlink{structWildcardData_ad8114d790ee8792ee1d80ac151c39322}{state}};}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structWildcardData_a696af622f22c72aa29f0af99e9833ed7}{path}};\ \textcolor{comment}{/*\ path\ to\ the\ directory,\ where\ we\ trying\ wildcard-\/match\ */}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structWildcardData_a8f5a54a191464a085db2d5e586aeefed}{pattern}};\ \textcolor{comment}{/*\ wildcard\ pattern\ */}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist}{Curl\_llist}}\ \mbox{\hyperlink{structWildcardData_a42df25c977666b5647f3a7145313d78c}{filelist}};\ \textcolor{comment}{/*\ llist\ with\ struct\ Curl\_fileinfo\ */}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structWildcardData_ad393bb8e082a9ff4a4d5a30ef1812c82}{protdata}};\ \textcolor{comment}{/*\ pointer\ to\ protocol\ specific\ temporary\ data\ */}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{wildcard_8h_a25fc6771d5a2efcb2b78203574b824ea}{wildcard\_dtor}}\ \mbox{\hyperlink{structWildcardData_a6debfef95d9d0c80490d1d853b654f3d}{dtor}};}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structWildcardData_a2bf8eb435d74b316148901988744f1e0}{customptr}};\ \ \textcolor{comment}{/*\ for\ CURLOPT\_CHUNK\_DATA\ pointer\ */}}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{wildcard_8h_accb01e4546f67b5392ef1f647f265ab2}{Curl\_wildcard\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structWildcardData}{WildcardData}}\ *wc);}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wildcard_8h_a32768c48565988ec546842a3c4c9c433}{Curl\_wildcard\_dtor}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structWildcardData}{WildcardData}}\ *wc);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ FTP\ is\ disabled\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ Curl\_wildcard\_dtor(x)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_WILDCARD\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

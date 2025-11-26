@@ -1,0 +1,107 @@
+\chapter{dynbuf }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF}\index{dynbuf@{dynbuf}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1589}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1589}%
+
+
+This is the internal module for creating and handling "{}dynamic buffers"{}. This means buffers that can be appended to, dynamically and grow to adapt.
+
+There will always be a terminating zero put at the end of the dynamic buffer.
+
+The {\ttfamily struct \doxylink{structdynbuf}{dynbuf}} is used to hold data for each instance of a dynamic buffer. The members of that struct {\bfseries{MUST NOT}} be accessed or modified without using the dedicated dynbuf API.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1590}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+init}}{{\ttfamily Curl\+\_\+dyn\+\_\+init}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1590}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{dynbuf_8h_a5f1fecbc9cdc3d8dff66caec576fea8a}{Curl\_dyn\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{size\_t}\ toobig);}
+
+\end{DoxyCode}
+
+
+This initializes a struct to use for dynbuf and it cannot fail. The {\ttfamily toobig} value {\bfseries{must}} be set to the maximum size we allow this buffer instance to grow to. The functions below will return {\ttfamily \doxylink{curl_8h_af0691941698240652e0a391394217951aba5a22c9f705ed27933344be221fe937}{CURLE\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY}} when hitting this limit.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1591}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+free}}{{\ttfamily Curl\+\_\+dyn\+\_\+free}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1591}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{dynbuf_8h_a75cb18f9a6ccb9e84e36b73999b1b3ea}{Curl\_dyn\_free}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+
+\end{DoxyCode}
+
+
+Free the associated memory and clean up. After a free, the {\ttfamily \doxylink{structdynbuf}{dynbuf}} struct can be re-\/used to start appending new data to.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1592}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+addn}}{{\ttfamily Curl\+\_\+dyn\+\_\+addn}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1592}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_aeeafd052e2d37de41d9227be65603b42}{Curl\_dyn\_addn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mem,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+
+\end{DoxyCode}
+
+
+Append arbitrary data of a given length to the end of the buffer.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1593}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+add}}{{\ttfamily Curl\+\_\+dyn\+\_\+add}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1593}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_a7bf54dd0827665992275bca34d3ce4b0}{Curl\_dyn\_add}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str);}
+
+\end{DoxyCode}
+
+
+Append a C string to the end of the buffer.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1594}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+addf}}{{\ttfamily Curl\+\_\+dyn\+\_\+addf}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1594}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_ae8a609dd61bb3768bda61a77fb667a0c}{Curl\_dyn\_addf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+
+\end{DoxyCode}
+
+
+Append a {\ttfamily \doxylink{curl__printf_8h_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf()}}-\/style string to the end of the buffer.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1595}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+vaddf}}{{\ttfamily Curl\+\_\+dyn\+\_\+vaddf}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1595}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_ad6d8354e55590d1aeaf6af76826876ee}{Curl\_dyn\_vaddf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ va\_list\ ap);}
+
+\end{DoxyCode}
+
+
+Append a {\ttfamily \doxylink{curl__printf_8h_a275497dfccfba8ca97e73865fd2b083b}{vprintf()}}-\/style string to the end of the buffer.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1596}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+reset}}{{\ttfamily Curl\+\_\+dyn\+\_\+reset}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1596}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ \mbox{\hyperlink{dynbuf_8h_af4a7fa3b9f53070b8176ead3ff56f363}{Curl\_dyn\_reset}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+
+\end{DoxyCode}
+
+
+Reset the buffer length, but leave the allocation.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1597}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+tail}}{{\ttfamily Curl\+\_\+dyn\+\_\+tail}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1597}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_a57e596c68c05b14fd1c981fb9f456626}{Curl\_dyn\_tail}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{size\_t}\ length);}
+
+\end{DoxyCode}
+
+
+Keep {\ttfamily length} bytes of the buffer tail (the last {\ttfamily length} bytes of the buffer). The rest of the buffer is dropped. The specified {\ttfamily length} must not be larger than the buffer length. To instead keep the leading part, see {\ttfamily \doxylink{dynbuf_8h_a9fff178a9c1a150de28a40899ab801b3}{Curl\+\_\+dyn\+\_\+setlen()}}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1598}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+ptr}}{{\ttfamily Curl\+\_\+dyn\+\_\+ptr}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1598}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{dynbuf_8h_a27957b96d5408d9b3ba785dcac4f2dc4}{Curl\_dyn\_ptr}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+
+\end{DoxyCode}
+
+
+Returns a {\ttfamily char \texorpdfstring{$\ast$}{*}} to the buffer if it has a length, otherwise may return NULL. Since the buffer may be reallocated, this pointer should not be trusted or used anymore after the next buffer manipulation call.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1599}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+uptr}}{{\ttfamily Curl\+\_\+dyn\+\_\+uptr}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1599}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{dynbuf_8h_ada4c6cd33311245a01ba0a783da45025}{Curl\_dyn\_uptr}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+
+\end{DoxyCode}
+
+
+Returns an {\ttfamily unsigned char \texorpdfstring{$\ast$}{*}} to the buffer if it has a length, otherwise may return NULL. Since the buffer may be reallocated, this pointer should not be trusted or used anymore after the next buffer manipulation call.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1600}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+len}}{{\ttfamily Curl\+\_\+dyn\+\_\+len}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1600}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dynbuf_8h_add23ceccd52ffd40530b4bd2062c5332}{Curl\_dyn\_len}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+
+\end{DoxyCode}
+
+
+Returns the length of the buffer in bytes. Does not include the terminating zero byte.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1601}{}\doxysection{\texorpdfstring{{\ttfamily Curl\+\_\+dyn\+\_\+setlen}}{{\ttfamily Curl\+\_\+dyn\+\_\+setlen}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2DYNBUF_autotoc_md1601}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_a9fff178a9c1a150de28a40899ab801b3}{Curl\_dyn\_setlen}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}});}
+
+\end{DoxyCode}
+
+
+Sets the new shorter length of the buffer in number of bytes. Keeps the leftmost set number of bytes, discards the rest. To instead keep the tail part of the buffer, see {\ttfamily \doxylink{dynbuf_8h_a57e596c68c05b14fd1c981fb9f456626}{Curl\+\_\+dyn\+\_\+tail()}}. 

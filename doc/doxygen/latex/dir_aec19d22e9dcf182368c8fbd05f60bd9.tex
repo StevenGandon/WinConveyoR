@@ -1,0 +1,52 @@
+\doxysection{gui/node\+\_\+modules/resolve-\/alpn Directory Reference}
+\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9}{}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9}\index{gui/node\_modules/resolve-\/alpn Directory Reference@{gui/node\_modules/resolve-\/alpn Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1205}{}\doxysubsection{\texorpdfstring{\`{}resolve-\/alpn\`{}}{\`{}resolve-\/alpn\`{}}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1205}
+\href{https://github.com/szmarczak/resolve-alpn/actions}{\texttt{}} \href{https://codecov.io/gh/szmarczak/resolve-alpn}{\texttt{}}\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1206}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1206}
+\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1207}{}\doxysubsubsection{\texorpdfstring{resolve\+ALPN(options, connect = tls.\+connect)}{resolve\+ALPN(options, connect = tls.\+connect)}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1207}
+Returns an object with an {\ttfamily alpn\+Protocol} property. The {\ttfamily \doxylink{socks4_8d_a19298f028a5f0f599ce5d74b26912032}{socket}} property may be also present.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ result\ =\ await\ resolveALPN(\{}
+\DoxyCodeLine{\ \ \ \ host:\ 'nghttp2.org',}
+\DoxyCodeLine{\ \ \ \ port:\ 443,}
+\DoxyCodeLine{\ \ \ \ ALPNProtocols:\ ['h2',\ 'http/1.1'],}
+\DoxyCodeLine{\ \ \ \ servername:\ 'nghttp2.org'}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(result);\ //\ \{alpnProtocol:\ 'h2'\}}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} While the {\ttfamily servername} option is not required in this case, many other servers do. It\textquotesingle{}s best practice to set it anyway.
+
+{\bfseries{Note\+:}} If the socket times out, the promise will resolve and {\ttfamily result.\+timeout} will be set to {\ttfamily true}.\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1208}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1208}
+Same as \href{https://nodejs.org/api/tls.html\#tls_tls_connect_options_callback}{\texttt{TLS options}}.\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1209}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+resolve\+Socket}{options.\+resolve\+Socket}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1209}
+By default, the socket gets destroyed and the promise resolves.~\newline
+ If you set this to true, it will return the socket in a {\ttfamily \doxylink{socks4_8d_a19298f028a5f0f599ce5d74b26912032}{socket}} property.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ result\ =\ await\ resolveALPN(\{}
+\DoxyCodeLine{\ \ \ \ host:\ 'nghttp2.org',}
+\DoxyCodeLine{\ \ \ \ port:\ 443,}
+\DoxyCodeLine{\ \ \ \ ALPNProtocols:\ ['h2',\ 'http/1.1'],}
+\DoxyCodeLine{\ \ \ \ servername:\ 'nghttp2.org',}
+\DoxyCodeLine{\ \ \ \ resolveSocket:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(result);\ //\ \{alpnProtocol:\ 'h2',\ socket:\ tls.TLSSocket\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Remember\ to\ destroy\ the\ socket\ if\ you\ don't\ use\ it!}
+\DoxyCodeLine{result.socket.destroy();}
+
+\end{DoxyCode}
+\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1210}{}\doxysubsubsubsection{\texorpdfstring{connect}{connect}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1210}
+Type\+: {\ttfamily Function\texorpdfstring{$<$}{<}TLSSocket\texorpdfstring{$>$}{>} \texorpdfstring{$\vert$}{|} Async\+Function\texorpdfstring{$<$}{<}TLSSocket\texorpdfstring{$>$}{>}}\textbackslash{} Default\+: \href{https://nodejs.org/dist/latest-v16.x/docs/api/tls.html\#tls_tls_connect_options_callback}{\texttt{{\ttfamily tls.\+connect}}}
+
+{\bfseries{Note\+:}} No matter which function is used (synchronous or asynchronous), it {\bfseries{must}} accept a {\ttfamily callback} function as a second argument. The {\ttfamily callback} function gets executed when the socket has successfully connected.\hypertarget{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1211}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_aec19d22e9dcf182368c8fbd05f60bd9_autotoc_md1211}
+MIT 

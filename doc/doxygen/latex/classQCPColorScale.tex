@@ -1,0 +1,43 @@
+\doxysection{QCPColor\+Scale Class Reference}
+\hypertarget{classQCPColorScale}{}\label{classQCPColorScale}\index{QCPColorScale@{QCPColorScale}}
+
+
+A color scale for use with color coding data such as \doxylink{classQCPColorMap}{QCPColor\+Map}.  
+
+
+
+
+\doxysubsection{Detailed Description}
+A color scale for use with color coding data such as \doxylink{classQCPColorMap}{QCPColor\+Map}. 
+
+This layout element can be placed on the plot to correlate a color gradient with data values. It is usually used in combination with one or multiple \doxylink{classQCPColorMap}{QCPColor\+Maps}.
+
+
+
+The color scale can be either horizontal or vertical, as shown in the image above. The orientation and the side where the numbers appear is controlled with set\+Type.
+
+Use QCPColor\+Map\+::set\+Color\+Scale to connect a color map with a color scale. Once they are connected, they share their gradient, data range and data scale type (set\+Gradient, set\+Data\+Range, set\+Data\+Scale\+Type). Multiple color maps may be associated with a single color scale, to make them all synchronize these properties.
+
+To have finer control over the number display and axis behaviour, you can directly access the axis. See the documentation of \doxylink{classQCPAxis}{QCPAxis} for details about configuring axes. For example, if you want to change the number of automatically generated ticks, call 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+Placing a color scale next to the main axis rect works like with any other layout element\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ In this case we have placed it to the right of the default axis rect, so it wasn\textquotesingle{}t necessary to call set\+Type, since QCPAxis\+::at\+Right is already the default. The text next to the color scale can be set with set\+Label.
+
+For optimum appearance (like in the image above), it may be desirable to line up the axis rect and the borders of the color scale. Use a \doxylink{classQCPMarginGroup}{QCPMargin\+Group} to achieve this\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+Color scales are initialized with a non-\/zero minimum top and bottom margin (set\+Minimum\+Margins), because vertical color scales are most common and the minimum top/bottom margin makes sure it keeps some distance to the top/bottom widget border. So if you change to a horizontal color scale by setting set\+Type to QCPAxis\+::at\+Bottom or QCPAxis\+::at\+Top, you might want to also change the minimum margins accordingly, e.\+g. {\ttfamily set\+Minimum\+Margins(\+QMargins(6, 0, 6, 0))}. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

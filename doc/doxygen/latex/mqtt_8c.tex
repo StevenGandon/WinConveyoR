@@ -1,0 +1,348 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/mqtt.c File Reference}
+\hypertarget{mqtt_8c}{}\label{mqtt_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/mqtt.c@{lib/libwconr/build/\_deps/curl-\/src/lib/mqtt.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}mqtt.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}rand.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_ab55201ad5fbabbdf7c06d794614aa7dd}{MQTT\+\_\+\+MSG\+\_\+\+CONNECT}}~0x10
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a400fd6b47716df2d9bb94452415e5238}{MQTT\+\_\+\+MSG\+\_\+\+CONNACK}}~0x20
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a3f1bb60c1c9fe9db84360816c9012aa9}{MQTT\+\_\+\+MSG\+\_\+\+PUBLISH}}~0x30
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_adb4c71fad5ba4b31e5318ca58d7ee3b6}{MQTT\+\_\+\+MSG\+\_\+\+SUBSCRIBE}}~0x82
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a458caface29011bdb75f87f38c8edf83}{MQTT\+\_\+\+MSG\+\_\+\+SUBACK}}~0x90
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a310ef186abbec012f614f7145620bd97}{MQTT\+\_\+\+MSG\+\_\+\+DISCONNECT}}~0xe0
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a8202a016d5efa6a9394c49a2211dda8c}{MQTT\+\_\+\+CONNACK\+\_\+\+LEN}}~2
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a8af61e8012affd96fd7bd583f19b1890}{MQTT\+\_\+\+SUBACK\+\_\+\+LEN}}~3
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a2074e4c352342505cc726f20c07ae962}{MQTT\+\_\+\+CLIENTID\+\_\+\+LEN}}~12 /\texorpdfstring{$\ast$}{*} "{}curl0123abcd"{} \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{mqtt_8c_a60544a29df43e9caf79d2903e0c15f11}{MQTT\+\_\+\+HEADER\+\_\+\+LEN}}~5    /\texorpdfstring{$\ast$}{*} max 5 bytes \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_abd83ccde2ab5d913e0fec303a7d67164}{mqtt\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_af0bce72746884cb115a8aa6cc6afb6dc}{mqtt\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} status, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} premature)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_ab467466e2ba3d30b095b6eae1ac4f417}{mqtt\+\_\+doing}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static int \mbox{\hyperlink{mqtt_8c_a3964f330412f12398cd68e1ca8d27f3c}{mqtt\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}sock)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a6beadbaccf670ad629f97ae32ab0a34d}{mqtt\+\_\+setup\+\_\+conn}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a08f72d041671f53f196a5a6230af1c57}{mqtt\+\_\+send}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+static int \mbox{\hyperlink{mqtt_8c_ad41605ae6bd108b51808092c2ffcef7b}{mqtt\+\_\+encode\+\_\+len}} (char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+static int \mbox{\hyperlink{mqtt_8c_af659a5c41d0f675b0d95753c61a801d6}{add\+\_\+passwd}} (const char \texorpdfstring{$\ast$}{*}passwd, const size\+\_\+t plen, char \texorpdfstring{$\ast$}{*}pkt, const size\+\_\+t start, int remain\+\_\+pos)
+\item 
+static int \mbox{\hyperlink{mqtt_8c_a360845a95bad01983c9bacfad9f81d92}{add\+\_\+user}} (const char \texorpdfstring{$\ast$}{*}username, const size\+\_\+t ulen, unsigned char \texorpdfstring{$\ast$}{*}pkt, const size\+\_\+t start, int remain\+\_\+pos)
+\item 
+static int \mbox{\hyperlink{mqtt_8c_a4f4f998e6ec78b8806eda458912506ae}{add\+\_\+client\+\_\+id}} (const char \texorpdfstring{$\ast$}{*}client\+\_\+id, const size\+\_\+t client\+\_\+id\+\_\+len, char \texorpdfstring{$\ast$}{*}pkt, const size\+\_\+t start)
+\item 
+static int \mbox{\hyperlink{mqtt_8c_ad1ba564d7cf08ca022535ff40453ff7a}{init\+\_\+connpack}} (char \texorpdfstring{$\ast$}{*}packet, char \texorpdfstring{$\ast$}{*}remain, int remain\+\_\+pos)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_ac0bfc29e43bd010b03aa0fa6dbbb70cb}{mqtt\+\_\+connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a4ae495bfc69091c8e5289098108edd3a}{mqtt\+\_\+disconnect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a89bbe8fb611cbb3659d672efb768b7f4}{mqtt\+\_\+verify\+\_\+connack}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a8b5000228634d5b93f1fbd3404e39dc8}{mqtt\+\_\+get\+\_\+topic}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}topic, size\+\_\+t \texorpdfstring{$\ast$}{*}topiclen)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a5a3109b2c28c57b70f2f6d371784010d}{mqtt\+\_\+subscribe}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a29df02a7a1aa0cef00f613831beb5952}{mqtt\+\_\+verify\+\_\+suback}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a42eb6bf4cd2bcc640df555f3890da2d2}{mqtt\+\_\+publish}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static size\+\_\+t \mbox{\hyperlink{mqtt_8c_abfa4f79be219eb102c3634222b468c77}{mqtt\+\_\+decode\+\_\+len}} (unsigned char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buflen, size\+\_\+t \texorpdfstring{$\ast$}{*}lenbytes)
+\item 
+static void \mbox{\hyperlink{mqtt_8c_a8b508142734b4261c2d4899335721134}{mqstate}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, enum \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}} \mbox{\hyperlink{ftp_8c_a77812d4945cd21094debbd06962f0f01}{state}}, enum \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}} nextstate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{mqtt_8c_a8aef943e56b1c083a12ae382d76ccc40}{mqtt\+\_\+read\+\_\+publish}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{mqtt_8c_aa36acdf5761468c1c52f3b6d39a9ac22}{Curl\+\_\+handler\+\_\+mqtt}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{mqtt_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{mqtt_8c_a2074e4c352342505cc726f20c07ae962}\index{mqtt.c@{mqtt.c}!MQTT\_CLIENTID\_LEN@{MQTT\_CLIENTID\_LEN}}
+\index{MQTT\_CLIENTID\_LEN@{MQTT\_CLIENTID\_LEN}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_CLIENTID\_LEN}{MQTT\_CLIENTID\_LEN}}
+{\footnotesize\ttfamily \label{mqtt_8c_a2074e4c352342505cc726f20c07ae962} 
+\#define MQTT\+\_\+\+CLIENTID\+\_\+\+LEN~12 /\texorpdfstring{$\ast$}{*} "{}curl0123abcd"{} \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{mqtt_8c_a8202a016d5efa6a9394c49a2211dda8c}\index{mqtt.c@{mqtt.c}!MQTT\_CONNACK\_LEN@{MQTT\_CONNACK\_LEN}}
+\index{MQTT\_CONNACK\_LEN@{MQTT\_CONNACK\_LEN}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_CONNACK\_LEN}{MQTT\_CONNACK\_LEN}}
+{\footnotesize\ttfamily \label{mqtt_8c_a8202a016d5efa6a9394c49a2211dda8c} 
+\#define MQTT\+\_\+\+CONNACK\+\_\+\+LEN~2}
+
+\Hypertarget{mqtt_8c_a60544a29df43e9caf79d2903e0c15f11}\index{mqtt.c@{mqtt.c}!MQTT\_HEADER\_LEN@{MQTT\_HEADER\_LEN}}
+\index{MQTT\_HEADER\_LEN@{MQTT\_HEADER\_LEN}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_HEADER\_LEN}{MQTT\_HEADER\_LEN}}
+{\footnotesize\ttfamily \label{mqtt_8c_a60544a29df43e9caf79d2903e0c15f11} 
+\#define MQTT\+\_\+\+HEADER\+\_\+\+LEN~5    /\texorpdfstring{$\ast$}{*} max 5 bytes \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{mqtt_8c_a400fd6b47716df2d9bb94452415e5238}\index{mqtt.c@{mqtt.c}!MQTT\_MSG\_CONNACK@{MQTT\_MSG\_CONNACK}}
+\index{MQTT\_MSG\_CONNACK@{MQTT\_MSG\_CONNACK}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_MSG\_CONNACK}{MQTT\_MSG\_CONNACK}}
+{\footnotesize\ttfamily \label{mqtt_8c_a400fd6b47716df2d9bb94452415e5238} 
+\#define MQTT\+\_\+\+MSG\+\_\+\+CONNACK~0x20}
+
+\Hypertarget{mqtt_8c_ab55201ad5fbabbdf7c06d794614aa7dd}\index{mqtt.c@{mqtt.c}!MQTT\_MSG\_CONNECT@{MQTT\_MSG\_CONNECT}}
+\index{MQTT\_MSG\_CONNECT@{MQTT\_MSG\_CONNECT}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_MSG\_CONNECT}{MQTT\_MSG\_CONNECT}}
+{\footnotesize\ttfamily \label{mqtt_8c_ab55201ad5fbabbdf7c06d794614aa7dd} 
+\#define MQTT\+\_\+\+MSG\+\_\+\+CONNECT~0x10}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2020 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al. Copyright (C) 2019, Björn Stenberg, \href{mailto:bjorn@haxx.se}{\texttt{bjorn@haxx.\+se}}
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{mqtt_8c_a310ef186abbec012f614f7145620bd97}\index{mqtt.c@{mqtt.c}!MQTT\_MSG\_DISCONNECT@{MQTT\_MSG\_DISCONNECT}}
+\index{MQTT\_MSG\_DISCONNECT@{MQTT\_MSG\_DISCONNECT}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_MSG\_DISCONNECT}{MQTT\_MSG\_DISCONNECT}}
+{\footnotesize\ttfamily \label{mqtt_8c_a310ef186abbec012f614f7145620bd97} 
+\#define MQTT\+\_\+\+MSG\+\_\+\+DISCONNECT~0xe0}
+
+\Hypertarget{mqtt_8c_a3f1bb60c1c9fe9db84360816c9012aa9}\index{mqtt.c@{mqtt.c}!MQTT\_MSG\_PUBLISH@{MQTT\_MSG\_PUBLISH}}
+\index{MQTT\_MSG\_PUBLISH@{MQTT\_MSG\_PUBLISH}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_MSG\_PUBLISH}{MQTT\_MSG\_PUBLISH}}
+{\footnotesize\ttfamily \label{mqtt_8c_a3f1bb60c1c9fe9db84360816c9012aa9} 
+\#define MQTT\+\_\+\+MSG\+\_\+\+PUBLISH~0x30}
+
+\Hypertarget{mqtt_8c_a458caface29011bdb75f87f38c8edf83}\index{mqtt.c@{mqtt.c}!MQTT\_MSG\_SUBACK@{MQTT\_MSG\_SUBACK}}
+\index{MQTT\_MSG\_SUBACK@{MQTT\_MSG\_SUBACK}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_MSG\_SUBACK}{MQTT\_MSG\_SUBACK}}
+{\footnotesize\ttfamily \label{mqtt_8c_a458caface29011bdb75f87f38c8edf83} 
+\#define MQTT\+\_\+\+MSG\+\_\+\+SUBACK~0x90}
+
+\Hypertarget{mqtt_8c_adb4c71fad5ba4b31e5318ca58d7ee3b6}\index{mqtt.c@{mqtt.c}!MQTT\_MSG\_SUBSCRIBE@{MQTT\_MSG\_SUBSCRIBE}}
+\index{MQTT\_MSG\_SUBSCRIBE@{MQTT\_MSG\_SUBSCRIBE}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_MSG\_SUBSCRIBE}{MQTT\_MSG\_SUBSCRIBE}}
+{\footnotesize\ttfamily \label{mqtt_8c_adb4c71fad5ba4b31e5318ca58d7ee3b6} 
+\#define MQTT\+\_\+\+MSG\+\_\+\+SUBSCRIBE~0x82}
+
+\Hypertarget{mqtt_8c_a8af61e8012affd96fd7bd583f19b1890}\index{mqtt.c@{mqtt.c}!MQTT\_SUBACK\_LEN@{MQTT\_SUBACK\_LEN}}
+\index{MQTT\_SUBACK\_LEN@{MQTT\_SUBACK\_LEN}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{MQTT\_SUBACK\_LEN}{MQTT\_SUBACK\_LEN}}
+{\footnotesize\ttfamily \label{mqtt_8c_a8af61e8012affd96fd7bd583f19b1890} 
+\#define MQTT\+\_\+\+SUBACK\+\_\+\+LEN~3}
+
+
+
+\label{doc-func-members}
+\Hypertarget{mqtt_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{mqtt_8c_a4f4f998e6ec78b8806eda458912506ae}\index{mqtt.c@{mqtt.c}!add\_client\_id@{add\_client\_id}}
+\index{add\_client\_id@{add\_client\_id}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{add\_client\_id()}{add\_client\_id()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a4f4f998e6ec78b8806eda458912506ae} 
+int add\+\_\+client\+\_\+id (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{client\+\_\+id}{, }\item[{const size\+\_\+t}]{client\+\_\+id\+\_\+len}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pkt}{, }\item[{const size\+\_\+t}]{start}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_af659a5c41d0f675b0d95753c61a801d6}\index{mqtt.c@{mqtt.c}!add\_passwd@{add\_passwd}}
+\index{add\_passwd@{add\_passwd}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{add\_passwd()}{add\_passwd()}}
+{\footnotesize\ttfamily \label{mqtt_8c_af659a5c41d0f675b0d95753c61a801d6} 
+int add\+\_\+passwd (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{passwd}{, }\item[{const size\+\_\+t}]{plen}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pkt}{, }\item[{const size\+\_\+t}]{start}{, }\item[{int}]{remain\+\_\+pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a360845a95bad01983c9bacfad9f81d92}\index{mqtt.c@{mqtt.c}!add\_user@{add\_user}}
+\index{add\_user@{add\_user}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{add\_user()}{add\_user()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a360845a95bad01983c9bacfad9f81d92} 
+int add\+\_\+user (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{username}{, }\item[{const size\+\_\+t}]{ulen}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{pkt}{, }\item[{const size\+\_\+t}]{start}{, }\item[{int}]{remain\+\_\+pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_ad1ba564d7cf08ca022535ff40453ff7a}\index{mqtt.c@{mqtt.c}!init\_connpack@{init\_connpack}}
+\index{init\_connpack@{init\_connpack}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{init\_connpack()}{init\_connpack()}}
+{\footnotesize\ttfamily \label{mqtt_8c_ad1ba564d7cf08ca022535ff40453ff7a} 
+int init\+\_\+connpack (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{packet}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{remain}{, }\item[{int}]{remain\+\_\+pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a8b508142734b4261c2d4899335721134}\index{mqtt.c@{mqtt.c}!mqstate@{mqstate}}
+\index{mqstate@{mqstate}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqstate()}{mqstate()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a8b508142734b4261c2d4899335721134} 
+void mqstate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{enum \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}}}]{state}{, }\item[{enum \mbox{\hyperlink{mqtt_8h_a037a8cbc4e8baca73a6ed8bd5bd40034}{mqttstate}}}]{nextstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_ac0bfc29e43bd010b03aa0fa6dbbb70cb}\index{mqtt.c@{mqtt.c}!mqtt\_connect@{mqtt\_connect}}
+\index{mqtt\_connect@{mqtt\_connect}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_connect()}{mqtt\_connect()}}
+{\footnotesize\ttfamily \label{mqtt_8c_ac0bfc29e43bd010b03aa0fa6dbbb70cb} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_abfa4f79be219eb102c3634222b468c77}\index{mqtt.c@{mqtt.c}!mqtt\_decode\_len@{mqtt\_decode\_len}}
+\index{mqtt\_decode\_len@{mqtt\_decode\_len}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_decode\_len()}{mqtt\_decode\_len()}}
+{\footnotesize\ttfamily \label{mqtt_8c_abfa4f79be219eb102c3634222b468c77} 
+size\+\_\+t mqtt\+\_\+decode\+\_\+len (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{buflen}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{lenbytes}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a4ae495bfc69091c8e5289098108edd3a}\index{mqtt.c@{mqtt.c}!mqtt\_disconnect@{mqtt\_disconnect}}
+\index{mqtt\_disconnect@{mqtt\_disconnect}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_disconnect()}{mqtt\_disconnect()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a4ae495bfc69091c8e5289098108edd3a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+disconnect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_abd83ccde2ab5d913e0fec303a7d67164}\index{mqtt.c@{mqtt.c}!mqtt\_do@{mqtt\_do}}
+\index{mqtt\_do@{mqtt\_do}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_do()}{mqtt\_do()}}
+{\footnotesize\ttfamily \label{mqtt_8c_abd83ccde2ab5d913e0fec303a7d67164} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_ab467466e2ba3d30b095b6eae1ac4f417}\index{mqtt.c@{mqtt.c}!mqtt\_doing@{mqtt\_doing}}
+\index{mqtt\_doing@{mqtt\_doing}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_doing()}{mqtt\_doing()}}
+{\footnotesize\ttfamily \label{mqtt_8c_ab467466e2ba3d30b095b6eae1ac4f417} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+doing (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_af0bce72746884cb115a8aa6cc6afb6dc}\index{mqtt.c@{mqtt.c}!mqtt\_done@{mqtt\_done}}
+\index{mqtt\_done@{mqtt\_done}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_done()}{mqtt\_done()}}
+{\footnotesize\ttfamily \label{mqtt_8c_af0bce72746884cb115a8aa6cc6afb6dc} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{status}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{premature}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_ad41605ae6bd108b51808092c2ffcef7b}\index{mqtt.c@{mqtt.c}!mqtt\_encode\_len@{mqtt\_encode\_len}}
+\index{mqtt\_encode\_len@{mqtt\_encode\_len}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_encode\_len()}{mqtt\_encode\_len()}}
+{\footnotesize\ttfamily \label{mqtt_8c_ad41605ae6bd108b51808092c2ffcef7b} 
+int mqtt\+\_\+encode\+\_\+len (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a8b5000228634d5b93f1fbd3404e39dc8}\index{mqtt.c@{mqtt.c}!mqtt\_get\_topic@{mqtt\_get\_topic}}
+\index{mqtt\_get\_topic@{mqtt\_get\_topic}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_get\_topic()}{mqtt\_get\_topic()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a8b5000228634d5b93f1fbd3404e39dc8} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+get\+\_\+topic (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{topic}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{topiclen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a3964f330412f12398cd68e1ca8d27f3c}\index{mqtt.c@{mqtt.c}!mqtt\_getsock@{mqtt\_getsock}}
+\index{mqtt\_getsock@{mqtt\_getsock}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_getsock()}{mqtt\_getsock()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a3964f330412f12398cd68e1ca8d27f3c} 
+int mqtt\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{sock}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a42eb6bf4cd2bcc640df555f3890da2d2}\index{mqtt.c@{mqtt.c}!mqtt\_publish@{mqtt\_publish}}
+\index{mqtt\_publish@{mqtt\_publish}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_publish()}{mqtt\_publish()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a42eb6bf4cd2bcc640df555f3890da2d2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+publish (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a8aef943e56b1c083a12ae382d76ccc40}\index{mqtt.c@{mqtt.c}!mqtt\_read\_publish@{mqtt\_read\_publish}}
+\index{mqtt\_read\_publish@{mqtt\_read\_publish}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_read\_publish()}{mqtt\_read\_publish()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a8aef943e56b1c083a12ae382d76ccc40} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+read\+\_\+publish (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a08f72d041671f53f196a5a6230af1c57}\index{mqtt.c@{mqtt.c}!mqtt\_send@{mqtt\_send}}
+\index{mqtt\_send@{mqtt\_send}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_send()}{mqtt\_send()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a08f72d041671f53f196a5a6230af1c57} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+send (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a6beadbaccf670ad629f97ae32ab0a34d}\index{mqtt.c@{mqtt.c}!mqtt\_setup\_conn@{mqtt\_setup\_conn}}
+\index{mqtt\_setup\_conn@{mqtt\_setup\_conn}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_setup\_conn()}{mqtt\_setup\_conn()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a6beadbaccf670ad629f97ae32ab0a34d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+setup\+\_\+conn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a5a3109b2c28c57b70f2f6d371784010d}\index{mqtt.c@{mqtt.c}!mqtt\_subscribe@{mqtt\_subscribe}}
+\index{mqtt\_subscribe@{mqtt\_subscribe}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_subscribe()}{mqtt\_subscribe()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a5a3109b2c28c57b70f2f6d371784010d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+subscribe (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a89bbe8fb611cbb3659d672efb768b7f4}\index{mqtt.c@{mqtt.c}!mqtt\_verify\_connack@{mqtt\_verify\_connack}}
+\index{mqtt\_verify\_connack@{mqtt\_verify\_connack}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_verify\_connack()}{mqtt\_verify\_connack()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a89bbe8fb611cbb3659d672efb768b7f4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+verify\+\_\+connack (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{mqtt_8c_a29df02a7a1aa0cef00f613831beb5952}\index{mqtt.c@{mqtt.c}!mqtt\_verify\_suback@{mqtt\_verify\_suback}}
+\index{mqtt\_verify\_suback@{mqtt\_verify\_suback}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{mqtt\_verify\_suback()}{mqtt\_verify\_suback()}}
+{\footnotesize\ttfamily \label{mqtt_8c_a29df02a7a1aa0cef00f613831beb5952} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} mqtt\+\_\+verify\+\_\+suback (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{mqtt_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{mqtt_8c_aa36acdf5761468c1c52f3b6d39a9ac22}\index{mqtt.c@{mqtt.c}!Curl\_handler\_mqtt@{Curl\_handler\_mqtt}}
+\index{Curl\_handler\_mqtt@{Curl\_handler\_mqtt}!mqtt.c@{mqtt.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_mqtt}{Curl\_handler\_mqtt}}
+{\footnotesize\ttfamily \label{mqtt_8c_aa36acdf5761468c1c52f3b6d39a9ac22} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+mqtt}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}MQTT"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mqtt_8c_a6beadbaccf670ad629f97ae32ab0a34d}{mqtt\_setup\_conn}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mqtt_8c_abd83ccde2ab5d913e0fec303a7d67164}{mqtt\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mqtt_8c_af0bce72746884cb115a8aa6cc6afb6dc}{mqtt\_done}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mqtt_8c_ab467466e2ba3d30b095b6eae1ac4f417}{mqtt\_doing}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{mqtt_8c_a3964f330412f12398cd68e1ca8d27f3c}{mqtt\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a0a288eadc6b9162351be27686a5e7007}{PORT\_MQTT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_aee6b6fb7aec783b46ba60b14e29b019e}{CURLPROTO\_MQTT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_aee6b6fb7aec783b46ba60b14e29b019e}{CURLPROTO\_MQTT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a06e40f8f1e2219fb5b519c74715c3537}{PROTOPT\_NONE}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2019 -\/ 2022, Björn Stenberg, \href{mailto:bjorn@haxx.se}{\texttt{bjorn@haxx.\+se}}
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
