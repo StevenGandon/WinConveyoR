@@ -1,8 +1,8 @@
 var searchData=
 [
   ['sessionlocal_0',['SessionLocal',['../namespacesession.html#a17f8bdfeb5aba531e4544d9cfa64d10d',1,'session']]],
-  ['settings_1',['settings',['../classsrc_1_1arghandler_1_1ArgumentParser.html#a657ebcbf59ffaa3907ffd298f327fba1',1,'src.arghandler.ArgumentParser.settings'],['../namespacecore_1_1rate__limiter.html#ae88633dcea51ddae30544ad4ecaf3fb6',1,'core.rate_limiter.settings'],['../namespacesession.html#a6e92074488e87ea7494d7d8f943c92c0',1,'session.settings'],['../namespacemain.html#a792e82cbdbbb2b63e18f52c376a41046',1,'main.settings']]],
-  ['size_2',['size',['../classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a83bf5fb4b7ff9d0387ae5bc2076cdf48',1,'src::graphic::graphic::Graphic']]],
+  ['settings_1',['settings',['../namespacecore_1_1rate__limiter.html#ae88633dcea51ddae30544ad4ecaf3fb6',1,'core.rate_limiter.settings'],['../namespacesession.html#a6e92074488e87ea7494d7d8f943c92c0',1,'session.settings'],['../namespacemain.html#a792e82cbdbbb2b63e18f52c376a41046',1,'main.settings']]],
+  ['size_2',['size',['../classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a94a3f27ea4eba85db1e1c9d3389e89a4',1,'src::graphic::graphic::Graphic']]],
   ['standard_5fpriority_3',['STANDARD_PRIORITY',['../namespacesrc_1_1graphic_1_1pattern_1_1loader.html#aab86d19e257c1bda7a4388be79f5103f',1,'src::graphic::pattern::loader']]],
   ['started_5fat_4',['started_at',['../classsrc_1_1thread_1_1job_1_1Job.html#ab1882d966998ec6a1e48f3db4ba680f7',1,'src::thread::job::Job']]],
   ['status_5',['status',['../classsrc_1_1thread_1_1job_1_1Job.html#a3914f88655c75014b92fdb9af41636de',1,'src::thread::job::Job']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['darwin_5fpltf_0',['DARWIN_PLTF',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html#ac2d0629cef1f28bd89834b8b31c3c300',1,'src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS.DARWIN_PLTF'],['../libwconr_8h.html#abbdf98254bbf4981a8bf233c6d0d2a20a619aa767a9b48853525b9869689cb174',1,'DARWIN_PLTF:&#160;libwconr.h']]],
+  ['darwin_5fpltf_0',['darwin_pltf',['../libwconr_8h.html#abbdf98254bbf4981a8bf233c6d0d2a20a619aa767a9b48853525b9869689cb174',1,'DARWIN_PLTF:&#160;libwconr.h'],['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html#ac2d0629cef1f28bd89834b8b31c3c300',1,'src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS.DARWIN_PLTF']]],
   ['database_5furl_1',['DATABASE_URL',['../classcore_1_1config_1_1Settings.html#a9b3bbdad8d4185c4f35d9025c91b6f6f',1,'core::config::Settings']]],
   ['db_2',['db',['../classrepository_1_1Repository.html#a38ef35e0cc5c2fc7f16a0c6bbca30561',1,'repository::Repository']]],
   ['define_5fargument_3',['define_argument',['../classsrc_1_1arghandler_1_1ArgumentParserSettings.html#a9effd2bb4121ee5e4bc9373e04977045',1,'src::arghandler::ArgumentParserSettings']]],

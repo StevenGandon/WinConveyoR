@@ -7,9 +7,8 @@ var classsrc_1_1graphic_1_1graphic_1_1Graphic =
     [ "remove_ansi", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#abcff05c4dee45af9ba4dd349e6673ed5", null ],
     [ "remove_color", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a507d1e90091652ab33f52b6712603d76", null ],
     [ "update", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#ae3de1cbd9b4f650a97fc455a4e6ee163", null ],
-    [ "_display", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a079a54ff30ecede32fd0037515d8d921", null ],
+    [ "_display", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#afbdd16ac30a9889f801c90d3916a1ca3", null ],
     [ "_elements", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a91639826291f6f6997ffdb62ee194dfd", null ],
     [ "_prev_sz", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a20f2aba3248b69260c721c6375c68e00", null ],
-    [ "_settings", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a95bba41c72345f6f2780cf638dcd6789", null ],
-    [ "size", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a83bf5fb4b7ff9d0387ae5bc2076cdf48", null ]
+    [ "size", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a94a3f27ea4eba85db1e1c9d3389e89a4", null ]
 ];

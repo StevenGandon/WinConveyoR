@@ -22,16 +22,16 @@ var annotated_dup =
     ] ],
     [ "src", "namespacesrc.html", [
       [ "arghandler", "namespacesrc_1_1arghandler.html", [
-        [ "ArgumentHandlerException", "classsrc_1_1arghandler_1_1ArgumentHandlerException.html", null ],
-        [ "TooMuchArguments", "classsrc_1_1arghandler_1_1TooMuchArguments.html", null ],
-        [ "TooFewArguments", "classsrc_1_1arghandler_1_1TooFewArguments.html", null ],
-        [ "InvalidArgumentType", "classsrc_1_1arghandler_1_1InvalidArgumentType.html", null ],
         [ "ArgumentExclusionMatch", "classsrc_1_1arghandler_1_1ArgumentExclusionMatch.html", null ],
+        [ "ArgumentHandlerException", "classsrc_1_1arghandler_1_1ArgumentHandlerException.html", null ],
         [ "ArgumentInclusionMissing", "classsrc_1_1arghandler_1_1ArgumentInclusionMissing.html", null ],
         [ "ArgumentNecessaryMissing", "classsrc_1_1arghandler_1_1ArgumentNecessaryMissing.html", null ],
-        [ "GenericArgument", "classsrc_1_1arghandler_1_1GenericArgument.html", "classsrc_1_1arghandler_1_1GenericArgument" ],
+        [ "ArgumentParser", "classsrc_1_1arghandler_1_1ArgumentParser.html", "classsrc_1_1arghandler_1_1ArgumentParser" ],
         [ "ArgumentParserSettings", "classsrc_1_1arghandler_1_1ArgumentParserSettings.html", "classsrc_1_1arghandler_1_1ArgumentParserSettings" ],
-        [ "ArgumentParser", "classsrc_1_1arghandler_1_1ArgumentParser.html", "classsrc_1_1arghandler_1_1ArgumentParser" ]
+        [ "GenericArgument", "classsrc_1_1arghandler_1_1GenericArgument.html", "classsrc_1_1arghandler_1_1GenericArgument" ],
+        [ "InvalidArgumentType", "classsrc_1_1arghandler_1_1InvalidArgumentType.html", null ],
+        [ "TooFewArguments", "classsrc_1_1arghandler_1_1TooFewArguments.html", null ],
+        [ "TooMuchArguments", "classsrc_1_1arghandler_1_1TooMuchArguments.html", null ]
       ] ],
       [ "cli", "namespacesrc_1_1cli.html", [
         [ "cli", "namespacesrc_1_1cli_1_1cli.html", [
@@ -48,9 +48,9 @@ var annotated_dup =
           ] ]
         ] ],
         [ "graphic", "namespacesrc_1_1graphic_1_1graphic.html", [
+          [ "Graphic", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html", "classsrc_1_1graphic_1_1graphic_1_1Graphic" ],
           [ "GraphicElement", "classsrc_1_1graphic_1_1graphic_1_1GraphicElement.html", "classsrc_1_1graphic_1_1graphic_1_1GraphicElement" ],
-          [ "GraphicSettings", "classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html", "classsrc_1_1graphic_1_1graphic_1_1GraphicSettings" ],
-          [ "Graphic", "classsrc_1_1graphic_1_1graphic_1_1Graphic.html", "classsrc_1_1graphic_1_1graphic_1_1Graphic" ]
+          [ "GraphicSettings", "classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html", "classsrc_1_1graphic_1_1graphic_1_1GraphicSettings" ]
         ] ],
         [ "pattern", "namespacesrc_1_1graphic_1_1pattern.html", [
           [ "builder", "namespacesrc_1_1graphic_1_1pattern_1_1builder.html", [
@@ -61,9 +61,9 @@ var annotated_dup =
             [ "PatternCompiler", "classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html", "classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler" ]
           ] ],
           [ "exceptions", "namespacesrc_1_1graphic_1_1pattern_1_1exceptions.html", [
+            [ "PatternInvalidXMLStructure", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternInvalidXMLStructure.html", null ],
             [ "PatternLoaderException", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternLoaderException.html", null ],
-            [ "PatternXMLParseError", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html", null ],
-            [ "PatternInvalidXMLStructure", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternInvalidXMLStructure.html", null ]
+            [ "PatternXMLParseError", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html", null ]
           ] ],
           [ "loader", "namespacesrc_1_1graphic_1_1pattern_1_1loader.html", [
             [ "PatternLoader", "classsrc_1_1graphic_1_1pattern_1_1loader_1_1PatternLoader.html", "classsrc_1_1graphic_1_1pattern_1_1loader_1_1PatternLoader" ]
@@ -72,8 +72,8 @@ var annotated_dup =
       ] ],
       [ "thread", "namespacesrc_1_1thread.html", [
         [ "job", "namespacesrc_1_1thread_1_1job.html", [
-          [ "JobResult", "classsrc_1_1thread_1_1job_1_1JobResult.html", "classsrc_1_1thread_1_1job_1_1JobResult" ],
-          [ "Job", "classsrc_1_1thread_1_1job_1_1Job.html", "classsrc_1_1thread_1_1job_1_1Job" ]
+          [ "Job", "classsrc_1_1thread_1_1job_1_1Job.html", "classsrc_1_1thread_1_1job_1_1Job" ],
+          [ "JobResult", "classsrc_1_1thread_1_1job_1_1JobResult.html", "classsrc_1_1thread_1_1job_1_1JobResult" ]
         ] ],
         [ "pool", "namespacesrc_1_1thread_1_1pool.html", [
           [ "Pool", "classsrc_1_1thread_1_1pool_1_1Pool.html", "classsrc_1_1thread_1_1pool_1_1Pool" ]
@@ -86,11 +86,11 @@ var annotated_dup =
         ] ],
         [ "libwconr", "namespacesrc_1_1wrappers_1_1libwconr.html", [
           [ "_libwconr", "namespacesrc_1_1wrappers_1_1libwconr_1_1__libwconr.html", [
+            [ "Mapper", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper" ],
             [ "SUPPORTED_ARCHITECTURES", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES" ],
             [ "SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS" ],
-            [ "wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s" ],
             [ "wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s" ],
-            [ "Mapper", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper" ]
+            [ "wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s" ]
           ] ],
           [ "libwconr", "namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html", [
             [ "WCRState", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState" ]

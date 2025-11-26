@@ -4,24 +4,8 @@ var hierarchy =
     [ "_http_header_s", "struct__http__header__s.html", null ],
     [ "_http_request_parser_s", "struct__http__request__parser__s.html", null ],
     [ "_http_response_parser_s", "struct__http__response__parser__s.html", null ],
-    [ "Base", null, [
-      [ "models.user.User", "classmodels_1_1user_1_1User.html", null ]
-    ] ],
-    [ "BaseModel", null, [
-      [ "schemas.user.UserBase", "classschemas_1_1user_1_1UserBase.html", [
-        [ "schemas.user.UserIn", "classschemas_1_1user_1_1UserIn.html", null ],
-        [ "schemas.user.UserOut", "classschemas_1_1user_1_1UserOut.html", null ]
-      ] ]
-    ] ],
-    [ "BaseSettings", null, [
-      [ "core.config.Settings", "classcore_1_1config_1_1Settings.html", null ]
-    ] ],
     [ "core.config.Settings.Config", "classcore_1_1config_1_1Settings_1_1Config.html", null ],
     [ "schemas.user.UserOut.Config", "classschemas_1_1user_1_1UserOut_1_1Config.html", null ],
-    [ "Enum", null, [
-      [ "src.wrappers.libwconr._libwconr.SUPPORTED_ARCHITECTURES", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html", null ],
-      [ "src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", null ]
-    ] ],
     [ "Exception", null, [
       [ "src.arghandler.ArgumentHandlerException", "classsrc_1_1arghandler_1_1ArgumentHandlerException.html", [
         [ "src.arghandler.ArgumentExclusionMatch", "classsrc_1_1arghandler_1_1ArgumentExclusionMatch.html", null ],
@@ -35,9 +19,6 @@ var hierarchy =
         [ "src.graphic.pattern.exceptions.PatternInvalidXMLStructure", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternInvalidXMLStructure.html", null ],
         [ "src.graphic.pattern.exceptions.PatternXMLParseError", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html", null ]
       ] ]
-    ] ],
-    [ "Generic", null, [
-      [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],
     [ "object", null, [
       [ "src.arghandler.ArgumentParser", "classsrc_1_1arghandler_1_1ArgumentParser.html", null ],
@@ -62,13 +43,32 @@ var hierarchy =
       [ "src.wrappers.libwconr._libwconr.Mapper", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper.html", null ],
       [ "src.wrappers.libwconr.libwconr.WCRState", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html", null ]
     ] ],
-    [ "Structure", null, [
-      [ "src.wrappers.libwconr._libwconr.wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", null ],
-      [ "src.wrappers.libwconr._libwconr.wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", null ]
-    ] ],
     [ "T", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],
     [ "wcr_state_s", "structwcr__state__s.html", null ],
-    [ "wcr_system_s", "structwcr__system__s.html", null ]
+    [ "wcr_system_s", "structwcr__system__s.html", null ],
+    [ "Base", null, [
+      [ "models.user.User", "classmodels_1_1user_1_1User.html", null ]
+    ] ],
+    [ "BaseModel", null, [
+      [ "schemas.user.UserBase", "classschemas_1_1user_1_1UserBase.html", [
+        [ "schemas.user.UserIn", "classschemas_1_1user_1_1UserIn.html", null ],
+        [ "schemas.user.UserOut", "classschemas_1_1user_1_1UserOut.html", null ]
+      ] ]
+    ] ],
+    [ "BaseSettings", null, [
+      [ "core.config.Settings", "classcore_1_1config_1_1Settings.html", null ]
+    ] ],
+    [ "Enum", null, [
+      [ "src.wrappers.libwconr._libwconr.SUPPORTED_ARCHITECTURES", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html", null ],
+      [ "src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", null ]
+    ] ],
+    [ "Generic", null, [
+      [ "repository.Repository", "classrepository_1_1Repository.html", null ]
+    ] ],
+    [ "Structure", null, [
+      [ "src.wrappers.libwconr._libwconr.wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", null ],
+      [ "src.wrappers.libwconr._libwconr.wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", null ]
+    ] ]
 ];
