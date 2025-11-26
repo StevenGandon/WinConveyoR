@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['1 · start_20the_20server_0',['1 · Start the server',['../md_README.html#autotoc_md21',1,'']]]
+  ['cli_0',['CLI',['../CLI.html',1,'index']]],
+  ['contributing_20md_1',['CONTRIBUTING.md',['../md_CONTRIBUTING.html',1,'']]],
+  ['core_2',['Core',['../Core.html',1,'index']]]
 ];

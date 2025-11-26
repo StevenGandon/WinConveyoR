@@ -19,7 +19,6 @@ var classsrc_1_1cli_1_1cli_1_1CLI =
     [ "argsettings", "classsrc_1_1cli_1_1cli_1_1CLI.html#aeb2f49e0d4e0dd889c4df7a8fdd90a36", null ],
     [ "OPTION_TABLE", "classsrc_1_1cli_1_1cli_1_1CLI.html#aee7b2f34360fe31e3e95652c8e39632f", null ],
     [ "PARAMETER_TABLE", "classsrc_1_1cli_1_1cli_1_1CLI.html#abca622fc181815e4d0a5b992791e368a", null ],
-    [ "patterns", "classsrc_1_1cli_1_1cli_1_1CLI.html#ac205a8ea8b363e544d02c122b13ff173", null ],
-    [ "running", "classsrc_1_1cli_1_1cli_1_1CLI.html#a73dbfe951f40d40ebde198c374643475", null ],
+    [ "patterns", "classsrc_1_1cli_1_1cli_1_1CLI.html#ad7c4cd3cd0d9130f572efdc7ba664dc2", null ],
     [ "wcr", "classsrc_1_1cli_1_1cli_1_1CLI.html#a52f4a603595f8a2109818cdc0b1da7fc", null ]
 ];

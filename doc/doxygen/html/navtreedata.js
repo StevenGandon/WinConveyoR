@@ -41,7 +41,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
+        [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
@@ -65,10 +65,9 @@ var NAVTREEINDEX =
 [
 "CLI.html",
 "classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a20f2aba3248b69260c721c6375c68e00",
-"cli_2src_2____init_____8py.html",
-"struct__http__header__s.html#a754deaae2bb9cc42ca581bd108da846c"
+"dir_6be4c07e098dacc91071118ce4f28ca8.html",
+"win_2http_8c.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+var SYNCONMSG = 'click to disable panel synchronisation';
+var SYNCOFFMSG = 'click to enable panel synchronisation';
