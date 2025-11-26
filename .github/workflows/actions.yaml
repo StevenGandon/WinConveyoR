@@ -43,6 +43,7 @@ jobs:
         if [ "$GIT_STATUS" != "" ]; then git push; fi
 
     - name: Update pages artifact
+      id: deployment
       uses: actions/upload-pages-artifact@v3
       with:
         path: doc/doxygen/html
@@ -55,12 +56,13 @@ jobs:
     permissions:
       pages: write
       id-token: write
+
+    runs-on: ubuntu-latest
   
     environment:
       name: github-pages
-      url: ${\{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
   
-    runs-on: ubuntu-latest
   
     steps:
     - name: Deploy to GitHub Pages
