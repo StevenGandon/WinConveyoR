@@ -18,7 +18,7 @@ env:
 
 jobs:
   build-documentation:
-    if: ${{ github.event_name == 'push' && github.base_ref == 'dev' }}
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -48,7 +48,7 @@ jobs:
         path: doc/doxygen/html
 
   deploy-documentation:
-    if: ${{ github.event_name == 'push' && github.base_ref == 'dev' }}
+    if: ${{ github.event_name == 'push' && github.ref_name == 'dev' }}
 
     needs: build-documentation
 
