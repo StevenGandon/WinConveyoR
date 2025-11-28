@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>WinConveyoR: CONTRIBUTING.md</title>
+<title>WinConveyoR: Contributing to WinConveyoR</title>
 <!--BEGIN PROJECT_ICON-->
 <link rel="icon" href="$projecticon" type="image/x-icon" />
 <!--END PROJECT_ICON-->
@@ -103,64 +103,471 @@ $(document).ready(function(){initNavTree('md_CONTRIBUTING.html',''); initResizab
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">CONTRIBUTING.md</div></div>
+  <div class="headertitle"><div class="title">Contributing to WinConveyoR</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> </p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> Thank you for your interest in contributing to WinConveyoR! We welcome contributions from the community and appreciate your effort to make this project better.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Issues</h1>
-<p>To work on the project you must create issues that describe what you are going<br  />
- to be be working on, and what you are planning to do on the project<br  />
- segmented in different tasks (one issue per task).<br  />
- You must follow this format to create issues :</p><ul>
-<li>brief</li>
-</ul>
-<p>You should also add tags to easly know what part of the project is concerned by the changes (core, cli, lib, etc.).<br  />
- You must add the issue to the Github project.<br  />
- And you should also update the state of the issue after commiting changes to track the advancement.</p>
-<hr  />
-<h1><a class="anchor" id="autotoc_md3"></a>
-Branch</h1>
-<p>To work on the project you must work on a branch seperated of the Master/Main branch, if you are doing a lot of modification/addition/refactoring you must create a specific branch (if the modification are minors you may work on the <code>dev</code> branch) and follow the following branch name format :</p><ul>
-<li>name-of-the-branch</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Name</h2>
-<p>In your name you should describe as simple as possible what you're adding to the project in your branch and what you will be working on, written in <a href="https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case">kebab-case</a>.<br  />
- ex: add-project-contributor-documentation</p>
-<hr  />
-<h1><a class="anchor" id="autotoc_md6"></a>
-Commit</h1>
-<p>To contribute on the project you must use this commit format to in your commit messages :</p><ul>
-<li>{PREFIX} brief</li>
-<li>{EXTRA_DESCRIPTION}...</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md7"></a>
-Prefix</h2>
+Table of Contents</h1>
 <ul>
-<li><code>[ADD]</code> : addition to the project (a new feature for exemple)<br  />
-</li>
-<li><code>[EDIT]</code> : edition/refactoring of an existing part of the code<br  />
-</li>
-<li><code>[DELETE]</code> : deletion of something in the project<br  />
-</li>
-<li><code>[FIX]</code> : bug/issue fix</li>
+<li>Code of Conduct</li>
+<li>Getting Started</li>
+<li>Development Workflow</li>
+<li>Issues</li>
+<li>Branches</li>
+<li>Commits</li>
+<li>Pull Requests</li>
+<li>Code Standards</li>
+<li>Testing</li>
+<li>Documentation</li>
+<li>Community</li>
 </ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Code of Conduct</h1>
+<p>By participating in this project, you agree to maintain a respectful and inclusive environment for everyone. Please:</p>
+<ul>
+<li>Be respectful and considerate in your communication</li>
+<li>Welcome newcomers and help them get started</li>
+<li>Accept constructive criticism gracefully</li>
+<li>Focus on what is best for the project and community</li>
+<li>Show empathy towards other community members</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Getting Started</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Prerequisites</h2>
+<p>Before you start contributing, make sure you have:</p>
+<ul>
+<li>Git installed on your system</li>
+<li>A GitHub account</li>
+<li>Familiarity with the project by reading the <a class="el" href="README_8md.html">README.md</a></li>
+<li>Development environment set up (see <a class="el" href="README_8md.html">README.md</a> for installation instructions)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Setting Up Your Development Environment</h2>
+<ol type="1">
+<li><b>Fork the repository</b> on GitHub</li>
+<li><b>Clone your fork</b> locally: <div class="fragment"><div class="line">git clone https://github.com/YOUR_USERNAME/WinConveyoR.git</div>
+<div class="line">cd WinConveyoR</div>
+</div><!-- fragment --></li>
+<li><b>Add the upstream remote</b>: <div class="fragment"><div class="line">git remote add upstream https://github.com/StevenGandon/WinConveyoR.git</div>
+</div><!-- fragment --></li>
+<li><b>Install dependencies</b> (if applicable): <div class="fragment"><div class="line"># For Python/API development</div>
+<div class="line">pip install -r requirements.txt</div>
+</div><!-- fragment --></li>
+<li><b>Verify your setup</b> by building the project: <div class="fragment"><div class="line">./compile_linux.sh  # On Linux</div>
+</div><!-- fragment --></li>
+</ol>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Development Workflow</h1>
+<p>The typical workflow for contributing is:</p>
+<ol type="1">
+<li>Create or find an issue to work on</li>
+<li>Create a new branch from <code>dev</code></li>
+<li>Make your changes following our code standards</li>
+<li>Write/update tests for your changes</li>
+<li>Commit your changes with proper commit messages</li>
+<li>Push your branch and create a pull request</li>
+<li>Address review feedback</li>
+<li>Celebrate when your PR is merged!</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md7"></a>
+Issues</h1>
 <h2><a class="anchor" id="autotoc_md8"></a>
-Brief</h2>
-<p>In your brief you should describe shortly what your prefixed actions have done.<br  />
- ex: [ADD] <a class="el" href="CONTRIBUTING_8md.html">CONTRIBUTING.md</a> to the project</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Description</h2>
-<p>You can also add a description to your commit messages by adding a new line to your commit message (in the terminal using the cli it can be done by writing git commit -m "PREFIX brief and leaving the quotes open so when you hit enter it let you write after the line break your extra description.).<br  />
- ex: [ADD] <a class="el" href="CONTRIBUTING_8md.html">CONTRIBUTING.md</a> to the project<br  />
- Made the addition of a contributor documentation to let people know how to properly contribute to the project and follow the commit guidelines!</p>
+Creating Issues</h2>
+<p>To work on the project, you must create issues that describe what you are going to be working on and what you are planning to do, segmented into different tasks (one issue per task).</p>
+<h3><a class="anchor" id="autotoc_md9"></a>
+Issue Format</h3>
+<p>Your issue should include:</p>
+<p><b>Title</b>: Clear and concise description</p>
+<p><b>Description</b>:</p><ul>
+<li><b>Brief</b>: Short summary of the issue</li>
+<li><b>Context</b>: Why is this needed?</li>
+<li><b>Proposed Solution</b>: How do you plan to address it?</li>
+<li><b>Tasks</b>: Breakdown of work into checkboxes<ul>
+<li>[ ] Task 1</li>
+<li>[ ] Task 2</li>
+<li>[ ] Task 3</li>
+</ul>
+</li>
+</ul>
+<p><b>Example Issue</b>: </p><div class="fragment"><div class="line">Title: Add user authentication to API</div>
+<div class="line"> </div>
+<div class="line">Brief: Implement JWT-based authentication for API endpoints</div>
+<div class="line"> </div>
+<div class="line">Context: Currently, the API has no authentication mechanism, making it </div>
+<div class="line">vulnerable to unauthorized access.</div>
+<div class="line"> </div>
+<div class="line">Proposed Solution: Add JWT token authentication using FastAPI security utilities</div>
+<div class="line"> </div>
+<div class="line">Tasks:</div>
+<div class="line">- [ ] Create authentication middleware</div>
+<div class="line">- [ ] Add login endpoint</div>
+<div class="line">- [ ] Implement token validation</div>
+<div class="line">- [ ] Update API documentation</div>
+<div class="line">- [ ] Write unit tests</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
+Issue Labels</h2>
+<p>Use appropriate tags to categorize your issue:</p>
+<ul>
+<li><code>core</code> - Core functionality changes</li>
+<li><code>cli</code> - Command-line interface</li>
+<li><code>lib</code> - Library (libwconr) changes</li>
+<li><code>api</code> - REST API changes</li>
+<li><code>bug</code> - Bug fixes</li>
+<li><code>enhancement</code> - New features</li>
+<li><code>documentation</code> - Documentation updates</li>
+<li><code>good first issue</code> - Suitable for newcomers</li>
+<li><code>help wanted</code> - Need assistance</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Issue Tracking</h2>
+<ul>
+<li><b>Add the issue to the GitHub project board</b></li>
+<li><b>Assign yourself</b> to the issue when you start working on it</li>
+<li><b>Update the issue status</b> regularly (To Do → In Progress → Done)</li>
+<li><b>Reference the issue</b> in your commits and pull requests using <code>#issue-number</code></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md12"></a>
+Branches</h1>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Branch Strategy</h2>
+<p>We use a Git Flow-inspired branching strategy:</p>
+<ul>
+<li><code>main</code> - Production-ready code, stable releases</li>
+<li><code>dev</code> - Development branch, integration of features</li>
+<li><code>feature/*</code> - Individual feature branches</li>
+<li><code>bugfix/*</code> - Bug fix branches</li>
+<li><code>hotfix/*</code> - Urgent production fixes</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Creating Branches</h2>
+<p>Always create your branch from <code>dev</code> (unless it's a hotfix):</p>
+<div class="fragment"><div class="line">git checkout dev</div>
+<div class="line">git pull upstream dev</div>
+<div class="line">git checkout -b your-branch-name</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
+Branch Naming Convention</h2>
+<p>Follow this format for branch names: </p><div class="fragment"><div class="line">{type}/{brief-description}</div>
+</div><!-- fragment --><p><b>Types</b>:</p><ul>
+<li><code>feature/</code> - New features or enhancements</li>
+<li><code>bugfix/</code> - Bug fixes</li>
+<li><code>hotfix/</code> - Urgent production fixes</li>
+<li><code>docs/</code> - Documentation changes</li>
+<li><code>refactor/</code> - Code refactoring</li>
+<li><code>test/</code> - Test additions or modifications</li>
+</ul>
+<p><b>Branch Name Format</b>: Use <a href="https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case">kebab-case</a></p>
+<p><b>Examples</b>:</p><ul>
+<li><code>feature/add-user-authentication</code></li>
+<li><code>bugfix/fix-memory-leak-in-conveyor</code></li>
+<li><code>docs/update-api-documentation</code></li>
+<li><code>refactor/improve-database-queries</code></li>
+<li><code>test/add-integration-tests</code></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Working on Your Branch</h2>
+<div class="fragment"><div class="line"># Keep your branch updated with dev</div>
+<div class="line">git checkout dev</div>
+<div class="line">git pull upstream dev</div>
+<div class="line">git checkout your-branch-name</div>
+<div class="line">git rebase dev</div>
+<div class="line"> </div>
+<div class="line"># Or merge if you prefer</div>
+<div class="line">git merge dev</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md17"></a>
+Commits</h1>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Commit Message Format</h2>
+<p>Use this format for all commit messages:</p>
+<div class="fragment"><div class="line">{PREFIX} brief description</div>
+<div class="line"> </div>
+<div class="line">{OPTIONAL_DETAILED_DESCRIPTION}</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+Commit Prefixes</h2>
+<ul>
+<li><code>[ADD]</code> - Addition to the project (new feature, file, functionality)</li>
+<li><code>[EDIT]</code> - Modification or refactoring of existing code</li>
+<li><code>[DELETE]</code> - Removal of code, files, or features</li>
+<li><code>[FIX]</code> - Bug or issue fixes</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md20"></a>
+Writing Good Commit Messages</h2>
+<p><b>Brief Description</b>:</p><ul>
+<li>Start with a prefix in square brackets</li>
+<li>Keep it concise (50 characters or less)</li>
+<li>Use imperative mood ("add feature" not "added feature")</li>
+<li>Don't end with a period</li>
+</ul>
+<p><b>Detailed Description</b> (optional but recommended):</p><ul>
+<li>Add a blank line after the brief</li>
+<li>Explain the "what" and "why", not the "how"</li>
+<li>Wrap lines at 72 characters</li>
+<li>Reference issues using <code>#issue-number</code></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md21"></a>
+Commit Examples</h2>
+<p><b>Simple commit</b>: </p><div class="fragment"><div class="line">git commit -m &quot;[ADD] user authentication endpoint&quot;</div>
+</div><!-- fragment --><p><b>Commit with description</b>: </p><div class="fragment"><div class="line">git commit -m &quot;[FIX] memory leak in conveyor monitoring</div>
+<div class="line"> </div>
+<div class="line">Fixed a memory leak that occurred when monitoring multiple conveyors </div>
+<div class="line">simultaneously. The issue was caused by event listeners not being </div>
+<div class="line">properly cleaned up.</div>
+<div class="line"> </div>
+<div class="line">Closes #42&quot;</div>
+</div><!-- fragment --><p><b>More examples</b>: </p><div class="fragment"><div class="line">[ADD] rate limiting middleware to API</div>
+<div class="line">[EDIT] refactor database connection handling</div>
+<div class="line">[DELETE] deprecated configuration options</div>
+<div class="line">[FIX] null pointer exception in CLI startup</div>
+<div class="line">[ADD] integration tests for user endpoints</div>
+<div class="line">[EDIT] improve error messages in API responses</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
+Atomic Commits</h2>
+<ul>
+<li>Make small, focused commits that do one thing</li>
+<li>Each commit should be a logical unit of change</li>
+<li>Don't mix unrelated changes in a single commit</li>
+<li>Commit often to make code review easier</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md23"></a>
+Pull Requests</h1>
+<h2><a class="anchor" id="autotoc_md24"></a>
+Creating a Pull Request</h2>
+<p>When your feature is complete:</p>
+<ol type="1">
+<li><b>Push your branch</b> to your fork: <div class="fragment"><div class="line">git push origin your-branch-name</div>
+</div><!-- fragment --></li>
+<li><b>Create a pull request</b> on GitHub from your branch to <code>dev</code></li>
+<li><b>Fill out the PR template</b> with:<ul>
+<li>Clear title describing the change</li>
+<li>Reference to related issue(s)</li>
+<li>Description of changes made</li>
+<li>Testing performed</li>
+<li>Screenshots (if UI changes)</li>
+<li>Breaking changes (if any)</li>
+</ul>
+</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md25"></a>
+Pull Request Template</h2>
+<div class="fragment"><div class="line">## Description</div>
+<div class="line">Brief description of what this PR does</div>
+<div class="line"> </div>
+<div class="line">Fixes #(issue number)</div>
+<div class="line"> </div>
+<div class="line">## Type of Change</div>
+<div class="line">- [ ] Bug fix (non-breaking change which fixes an issue)</div>
+<div class="line">- [ ] New feature (non-breaking change which adds functionality)</div>
+<div class="line">- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)</div>
+<div class="line">- [ ] Documentation update</div>
+<div class="line"> </div>
+<div class="line">## Changes Made</div>
+<div class="line">- Change 1</div>
+<div class="line">- Change 2</div>
+<div class="line">- Change 3</div>
+<div class="line"> </div>
+<div class="line">## Testing</div>
+<div class="line">Describe the tests you ran and how to reproduce them:</div>
+<div class="line">- Test 1</div>
+<div class="line">- Test 2</div>
+<div class="line"> </div>
+<div class="line">## Checklist</div>
+<div class="line">- [ ] My code follows the project&#39;s code style</div>
+<div class="line">- [ ] I have performed a self-review of my code</div>
+<div class="line">- [ ] I have commented my code where necessary</div>
+<div class="line">- [ ] I have updated the documentation accordingly</div>
+<div class="line">- [ ] My changes generate no new warnings</div>
+<div class="line">- [ ] I have added tests that prove my fix/feature works</div>
+<div class="line">- [ ] New and existing unit tests pass locally</div>
+<div class="line">- [ ] I have updated CHANGELOG.md (if applicable)</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
+Pull Request Review Process</h2>
+<ol type="1">
+<li><b>Add reviewers</b>: Tag at least one maintainer</li>
+<li><b>Wait for review</b>: Be patient, reviews may take time</li>
+<li><b>Address feedback</b>:<ul>
+<li>Make requested changes</li>
+<li>Push new commits to your branch</li>
+<li>Re-request review when ready</li>
+</ul>
+</li>
+<li><b>CI/CD checks</b>: Ensure all automated checks pass</li>
+<li><b>Approval</b>: Once approved, a maintainer will merge your PR</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md27"></a>
+After Your PR is Merged</h2>
+<ul>
+<li>Delete your feature branch (both locally and remotely)</li>
+<li>Pull the latest <code>dev</code> branch</li>
+<li>Thank the reviewers!</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md28"></a>
+Code Standards</h1>
+<h2><a class="anchor" id="autotoc_md29"></a>
+General Guidelines</h2>
+<ul>
+<li>Write clean, readable, and maintainable code</li>
+<li>Follow the existing code style and conventions</li>
+<li>Use meaningful variable and function names</li>
+<li>Add comments for complex logic</li>
+<li>Keep functions small and focused on a single task</li>
+<li>Avoid code duplication (DRY principle)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md30"></a>
+Language-Specific Standards</h2>
+<p><b>Python</b> (for API):</p><ul>
+<li>Follow PEP 8 style guide</li>
+<li>Use type hints where appropriate</li>
+<li>Maximum line length: 100 characters</li>
+<li>Use docstrings for functions and classes</li>
+</ul>
+<p><b>C/C++</b> (for library):</p><ul>
+<li>Follow project-specific style guide</li>
+<li>Use consistent indentation (spaces, not tabs)</li>
+<li>Document public APIs thoroughly</li>
+</ul>
+<p><b>Shell Scripts</b>:</p><ul>
+<li>Use shellcheck to validate scripts</li>
+<li>Add error handling</li>
+<li>Use meaningful variable names</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md31"></a>
+Code Formatting</h2>
+<div class="fragment"><div class="line"># Python</div>
+<div class="line">black api/ app/</div>
+<div class="line">flake8 api/ app/</div>
+<div class="line"> </div>
+<div class="line"># C/C++ (if using clang-format)</div>
+<div class="line">clang-format -i lib/**/*.cpp</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md32"></a>
+Testing</h1>
+<h2><a class="anchor" id="autotoc_md33"></a>
+Writing Tests</h2>
+<ul>
+<li>Write tests for all new features</li>
+<li>Maintain or improve code coverage</li>
+<li>Test both success and failure cases</li>
+<li>Use descriptive test names</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md34"></a>
+Running Tests</h2>
+<div class="fragment"><div class="line"># Run all tests</div>
+<div class="line">pytest</div>
+<div class="line"> </div>
+<div class="line"># Run with coverage</div>
+<div class="line">pytest --cov=api --cov=app --cov-report=html</div>
+<div class="line"> </div>
+<div class="line"># Run specific test file</div>
+<div class="line">pytest tests/test_api.py</div>
+<div class="line"> </div>
+<div class="line"># Run tests matching a pattern</div>
+<div class="line">pytest -k &quot;test_authentication&quot;</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md35"></a>
+Test Organization</h2>
+<div class="fragment"><div class="line">tests/</div>
+<div class="line">├── unit/           # Unit tests</div>
+<div class="line">├── integration/    # Integration tests</div>
+<div class="line">├── fixtures/       # Test fixtures and data</div>
+<div class="line">└── conftest.py     # Pytest configuration</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md36"></a>
+Documentation</h1>
+<h2><a class="anchor" id="autotoc_md37"></a>
+Updating Documentation</h2>
+<p>When making changes, update relevant documentation:</p>
+<ul>
+<li><b>Code comments</b>: For complex logic</li>
+<li><b>Docstrings</b>: For functions, classes, and modules</li>
+<li><b><a class="el" href="README_8md.html">README.md</a></b>: For user-facing features</li>
+<li><b>API documentation</b>: For API changes</li>
+<li><b>CHANGELOG.md</b>: For notable changes</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md38"></a>
+Documentation Style</h2>
+<ul>
+<li>Use clear and concise language</li>
+<li>Provide examples where helpful</li>
+<li>Keep documentation up to date with code changes</li>
+<li>Use proper Markdown formatting</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md39"></a>
+Community</h1>
+<h2><a class="anchor" id="autotoc_md40"></a>
+Getting Help</h2>
+<ul>
+<li><b>Discord</b>: Join our Discord server for real-time chat, questions, and discussions with the team and community</li>
+<li><b>GitHub Issues</b>: Check existing issues before creating new ones for bugs or feature requests</li>
+<li><b>GitHub Discussions</b>: For longer-form discussions and ideas</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md41"></a>
+Join Our Discord</h2>
+<p>Our Discord server is the primary place for community interaction:</p>
+<ul>
+<li>Ask questions and get help from maintainers and contributors</li>
+<li>Discuss ideas and features before implementing them</li>
+<li>Report bugs and get quick feedback</li>
+<li>Connect with other contributors</li>
+<li>Stay updated on project news and announcements</li>
+</ul>
+<p><b>Discord Invite</b>: "" "Join WinConveyoR Discord"</p>
+<h2><a class="anchor" id="autotoc_md42"></a>
+Discord Channels</h2>
+<ul>
+<li><code>#general</code> - General discussions about the project</li>
+<li><code>#help</code> - Get help with setup, development, or usage</li>
+<li><code>#contributions</code> - Discuss PRs, issues, and contributions</li>
+<li><code>#announcements</code> - Project updates and releases</li>
+<li><code>#off-topic</code> - Casual conversations</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md43"></a>
+Recognition</h2>
+<p>All contributors will be:</p><ul>
+<li>Listed in the AUTHORS section of <a class="el" href="README_8md.html">README.md</a></li>
+<li>Credited in release notes for their contributions</li>
+<li>Recognized in our Discord community with a contributor role</li>
+<li>Appreciated by the entire community!</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md44"></a>
+Staying Updated</h2>
+<ul>
+<li>Watch the repository for updates</li>
+<li>Join our Discord server for real-time announcements</li>
+<li>Participate in code reviews and discussions</li>
+</ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md11"></a>
-Merging</h1>
-<p>When you're done programming your features on your branch you must then create a pull request on <code>dev</code> to merge your branch over the <code>dev</code> branch.<br  />
- The <code>dev</code> branch on release of multiple major changes should then be merge on the <code>main</code> branch also by doing a pull request to merge <code>dev</code> on <code>main</code>.<br  />
- In your pull request you should detail what changes you added, add reviewers and if needed apply changes according to reviews and ask the reviewers to review your pull request again. </p>
+<h1><a class="anchor" id="autotoc_md46"></a>
+Quick Reference</h1>
+<h2><a class="anchor" id="autotoc_md47"></a>
+Essential Commands</h2>
+<div class="fragment"><div class="line"># Setup</div>
+<div class="line">git clone https://github.com/YOUR_USERNAME/WinConveyoR.git</div>
+<div class="line">git remote add upstream https://github.com/StevenGandon/WinConveyoR.git</div>
+<div class="line"> </div>
+<div class="line"># Development cycle</div>
+<div class="line">git checkout dev</div>
+<div class="line">git pull upstream dev</div>
+<div class="line">git checkout -b feature/your-feature</div>
+<div class="line"># ... make changes ...</div>
+<div class="line">git add .</div>
+<div class="line">git commit -m &quot;[ADD] your feature&quot;</div>
+<div class="line">git push origin feature/your-feature</div>
+<div class="line"># ... create PR on GitHub ...</div>
+<div class="line"> </div>
+<div class="line"># Stay updated</div>
+<div class="line">git checkout dev</div>
+<div class="line">git pull upstream dev</div>
+<div class="line">git checkout feature/your-feature</div>
+<div class="line">git rebase dev</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md48"></a>
+Commit Prefix Quick Guide</h2>
+<ul>
+<li><code>[ADD]</code> - New stuff</li>
+<li><code>[EDIT]</code> - Changed stuff</li>
+<li><code>[DELETE]</code> - Removed stuff</li>
+<li><code>[FIX]</code> - Fixed stuff</li>
+</ul>
+<hr  />
+<p><b>Thank you for contributing to WinConveyoR!</b></p>
+<p>Your contributions help make this project better for everyone. If you have any questions or need help, don't hesitate to reach out to the maintainers or open a discussion. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -1,54 +1,526 @@
-\chapter{CONTRIBUTING.\+md}
-\hypertarget{md_CONTRIBUTING}{}\label{md_CONTRIBUTING}\index{CONTRIBUTING.md@{CONTRIBUTING.md}}
+\chapter{Contributing to Win\+ConveyoR}
+\hypertarget{md_CONTRIBUTING}{}\label{md_CONTRIBUTING}\index{Contributing to WinConveyoR@{Contributing to WinConveyoR}}
 \label{md_CONTRIBUTING_autotoc_md0}%
 \Hypertarget{md_CONTRIBUTING_autotoc_md0}%
- \hypertarget{md_CONTRIBUTING_autotoc_md1}{}\doxysection{\texorpdfstring{Issues}{Issues}}\label{md_CONTRIBUTING_autotoc_md1}
-To work on the project you must create issues that describe what you are going~\newline
- to be be working on, and what you are planning to do on the project~\newline
- segmented in different tasks (one issue per task).~\newline
- You must follow this format to create issues \+:
+ Thank you for your interest in contributing to Win\+Conveyo\+R! We welcome contributions from the community and appreciate your effort to make this project better.\hypertarget{md_CONTRIBUTING_autotoc_md1}{}\doxysection{\texorpdfstring{Table of Contents}{Table of Contents}}\label{md_CONTRIBUTING_autotoc_md1}
+
 \begin{DoxyItemize}
-\item brief
+\item Code of Conduct
+\item Getting Started
+\item Development Workflow
+\item Issues
+\item Branches
+\item Commits
+\item Pull Requests
+\item Code Standards
+\item Testing
+\item Documentation
+\item Community
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md2}{}\doxysection{\texorpdfstring{Code of Conduct}{Code of Conduct}}\label{md_CONTRIBUTING_autotoc_md2}
+By participating in this project, you agree to maintain a respectful and inclusive environment for everyone. Please\+:
+
+
+\begin{DoxyItemize}
+\item Be respectful and considerate in your communication
+\item Welcome newcomers and help them get started
+\item Accept constructive criticism gracefully
+\item Focus on what is best for the project and community
+\item Show empathy towards other community members
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md3}{}\doxysection{\texorpdfstring{Getting Started}{Getting Started}}\label{md_CONTRIBUTING_autotoc_md3}
+\hypertarget{md_CONTRIBUTING_autotoc_md4}{}\doxysubsection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_CONTRIBUTING_autotoc_md4}
+Before you start contributing, make sure you have\+:
+
+
+\begin{DoxyItemize}
+\item Git installed on your system
+\item A Git\+Hub account
+\item Familiarity with the project by reading the \doxylink{README_8md}{README.\+md}
+\item Development environment set up (see \doxylink{README_8md}{README.\+md} for installation instructions)
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md5}{}\doxysubsection{\texorpdfstring{Setting Up Your Development Environment}{Setting Up Your Development Environment}}\label{md_CONTRIBUTING_autotoc_md5}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Fork the repository}} on Git\+Hub
+\item {\bfseries{Clone your fork}} locally\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ https://github.com/YOUR\_USERNAME/WinConveyoR.git}
+\DoxyCodeLine{cd\ WinConveyoR}
+
+\end{DoxyCode}
+
+\item {\bfseries{Add the upstream remote}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ remote\ add\ upstream\ https://github.com/StevenGandon/WinConveyoR.git}
+
+\end{DoxyCode}
+
+\item {\bfseries{Install dependencies}} (if applicable)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ For\ Python/API\ development}
+\DoxyCodeLine{pip\ install\ -\/r\ requirements.txt}
+
+\end{DoxyCode}
+
+\item {\bfseries{Verify your setup}} by building the project\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./compile\_linux.sh\ \ \#\ On\ Linux}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_CONTRIBUTING_autotoc_md6}{}\doxysection{\texorpdfstring{Development Workflow}{Development Workflow}}\label{md_CONTRIBUTING_autotoc_md6}
+The typical workflow for contributing is\+:
+
+
+\begin{DoxyEnumerate}
+\item Create or find an issue to work on
+\item Create a new branch from {\ttfamily dev}
+\item Make your changes following our code standards
+\item Write/update tests for your changes
+\item Commit your changes with proper commit messages
+\item Push your branch and create a pull request
+\item Address review feedback
+\item Celebrate when your PR is merged!
+\end{DoxyEnumerate}\hypertarget{md_CONTRIBUTING_autotoc_md7}{}\doxysection{\texorpdfstring{Issues}{Issues}}\label{md_CONTRIBUTING_autotoc_md7}
+\hypertarget{md_CONTRIBUTING_autotoc_md8}{}\doxysubsection{\texorpdfstring{Creating Issues}{Creating Issues}}\label{md_CONTRIBUTING_autotoc_md8}
+To work on the project, you must create issues that describe what you are going to be working on and what you are planning to do, segmented into different tasks (one issue per task).\hypertarget{md_CONTRIBUTING_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Issue Format}{Issue Format}}\label{md_CONTRIBUTING_autotoc_md9}
+Your issue should include\+:
+
+{\bfseries{Title}}\+: Clear and concise description
+
+{\bfseries{Description}}\+:
+\begin{DoxyItemize}
+\item {\bfseries{Brief}}\+: Short summary of the issue
+\item {\bfseries{Context}}\+: Why is this needed?
+\item {\bfseries{Proposed Solution}}\+: How do you plan to address it?
+\item {\bfseries{Tasks}}\+: Breakdown of work into checkboxes
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} Task 1
+\item \mbox{[} \mbox{]} Task 2
+\item \mbox{[} \mbox{]} Task 3
+\end{DoxyItemize}
 \end{DoxyItemize}
 
-You should also add tags to easly know what part of the project is concerned by the changes (core, cli, lib, etc.).~\newline
- You must add the issue to the Github project.~\newline
- And you should also update the state of the issue after commiting changes to track the advancement.
+{\bfseries{Example Issue}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Title:\ Add\ user\ authentication\ to\ API}
+\DoxyCodeLine{}
+\DoxyCodeLine{Brief:\ Implement\ JWT-\/based\ authentication\ for\ API\ endpoints}
+\DoxyCodeLine{}
+\DoxyCodeLine{Context:\ Currently,\ the\ API\ has\ no\ authentication\ mechanism,\ making\ it\ }
+\DoxyCodeLine{vulnerable\ to\ unauthorized\ access.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Proposed\ Solution:\ Add\ JWT\ token\ authentication\ using\ FastAPI\ security\ utilities}
+\DoxyCodeLine{}
+\DoxyCodeLine{Tasks:}
+\DoxyCodeLine{-\/\ [\ ]\ Create\ authentication\ middleware}
+\DoxyCodeLine{-\/\ [\ ]\ Add\ login\ endpoint}
+\DoxyCodeLine{-\/\ [\ ]\ Implement\ token\ validation}
+\DoxyCodeLine{-\/\ [\ ]\ Update\ API\ documentation}
+\DoxyCodeLine{-\/\ [\ ]\ Write\ unit\ tests}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md10}{}\doxysubsection{\texorpdfstring{Issue Labels}{Issue Labels}}\label{md_CONTRIBUTING_autotoc_md10}
+Use appropriate tags to categorize your issue\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily core} -\/ Core functionality changes
+\item {\ttfamily cli} -\/ Command-\/line interface
+\item {\ttfamily lib} -\/ Library (libwconr) changes
+\item {\ttfamily api} -\/ REST API changes
+\item {\ttfamily bug} -\/ Bug fixes
+\item {\ttfamily enhancement} -\/ New features
+\item {\ttfamily documentation} -\/ Documentation updates
+\item {\ttfamily good first issue} -\/ Suitable for newcomers
+\item {\ttfamily help wanted} -\/ Need assistance
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md11}{}\doxysubsection{\texorpdfstring{Issue Tracking}{Issue Tracking}}\label{md_CONTRIBUTING_autotoc_md11}
+
+\begin{DoxyItemize}
+\item {\bfseries{Add the issue to the Git\+Hub project board}}
+\item {\bfseries{Assign yourself}} to the issue when you start working on it
+\item {\bfseries{Update the issue status}} regularly (To Do → In Progress → Done)
+\item {\bfseries{Reference the issue}} in your commits and pull requests using {\ttfamily \#issue-\/number}
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md12}{}\doxysection{\texorpdfstring{Branches}{Branches}}\label{md_CONTRIBUTING_autotoc_md12}
+\hypertarget{md_CONTRIBUTING_autotoc_md13}{}\doxysubsection{\texorpdfstring{Branch Strategy}{Branch Strategy}}\label{md_CONTRIBUTING_autotoc_md13}
+We use a Git Flow-\/inspired branching strategy\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily main} -\/ Production-\/ready code, stable releases
+\item {\ttfamily dev} -\/ Development branch, integration of features
+\item {\ttfamily feature/\texorpdfstring{$\ast$}{*}} -\/ Individual feature branches
+\item {\ttfamily bugfix/\texorpdfstring{$\ast$}{*}} -\/ Bug fix branches
+\item {\ttfamily hotfix/\texorpdfstring{$\ast$}{*}} -\/ Urgent production fixes
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md14}{}\doxysubsection{\texorpdfstring{Creating Branches}{Creating Branches}}\label{md_CONTRIBUTING_autotoc_md14}
+Always create your branch from {\ttfamily dev} (unless it\textquotesingle{}s a hotfix)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ checkout\ dev}
+\DoxyCodeLine{git\ pull\ upstream\ dev}
+\DoxyCodeLine{git\ checkout\ -\/b\ your-\/branch-\/name}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md15}{}\doxysubsection{\texorpdfstring{Branch Naming Convention}{Branch Naming Convention}}\label{md_CONTRIBUTING_autotoc_md15}
+Follow this format for branch names\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{type\}/\{brief-\/description\}}
+
+\end{DoxyCode}
+
+
+{\bfseries{Types}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily feature/} -\/ New features or enhancements
+\item {\ttfamily bugfix/} -\/ Bug fixes
+\item {\ttfamily hotfix/} -\/ Urgent production fixes
+\item {\ttfamily docs/} -\/ Documentation changes
+\item {\ttfamily refactor/} -\/ Code refactoring
+\item {\ttfamily test/} -\/ Test additions or modifications
+\end{DoxyItemize}
+
+{\bfseries{Branch Name Format}}\+: Use \href{https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case}{\texttt{ kebab-\/case}}
+
+{\bfseries{Examples}}\+:
+\begin{DoxyItemize}
+\item {\ttfamily feature/add-\/user-\/authentication}
+\item {\ttfamily bugfix/fix-\/memory-\/leak-\/in-\/conveyor}
+\item {\ttfamily docs/update-\/api-\/documentation}
+\item {\ttfamily refactor/improve-\/database-\/queries}
+\item {\ttfamily test/add-\/integration-\/tests}
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md16}{}\doxysubsection{\texorpdfstring{Working on Your Branch}{Working on Your Branch}}\label{md_CONTRIBUTING_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Keep\ your\ branch\ updated\ with\ dev}
+\DoxyCodeLine{git\ checkout\ dev}
+\DoxyCodeLine{git\ pull\ upstream\ dev}
+\DoxyCodeLine{git\ checkout\ your-\/branch-\/name}
+\DoxyCodeLine{git\ rebase\ dev}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Or\ merge\ if\ you\ prefer}
+\DoxyCodeLine{git\ merge\ dev}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md17}{}\doxysection{\texorpdfstring{Commits}{Commits}}\label{md_CONTRIBUTING_autotoc_md17}
+\hypertarget{md_CONTRIBUTING_autotoc_md18}{}\doxysubsection{\texorpdfstring{Commit Message Format}{Commit Message Format}}\label{md_CONTRIBUTING_autotoc_md18}
+Use this format for all commit messages\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{PREFIX\}\ brief\ description}
+\DoxyCodeLine{}
+\DoxyCodeLine{\{OPTIONAL\_DETAILED\_DESCRIPTION\}}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md19}{}\doxysubsection{\texorpdfstring{Commit Prefixes}{Commit Prefixes}}\label{md_CONTRIBUTING_autotoc_md19}
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{[}ADD\mbox{]}} -\/ Addition to the project (new feature, file, functionality)
+\item {\ttfamily \mbox{[}EDIT\mbox{]}} -\/ Modification or refactoring of existing code
+\item {\ttfamily \mbox{[}DELETE\mbox{]}} -\/ Removal of code, files, or features
+\item {\ttfamily \mbox{[}FIX\mbox{]}} -\/ Bug or issue fixes
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md20}{}\doxysubsection{\texorpdfstring{Writing Good Commit Messages}{Writing Good Commit Messages}}\label{md_CONTRIBUTING_autotoc_md20}
+{\bfseries{Brief Description}}\+:
+\begin{DoxyItemize}
+\item Start with a prefix in square brackets
+\item Keep it concise (50 characters or less)
+\item Use imperative mood ("{}add feature"{} not "{}added feature"{})
+\item Don\textquotesingle{}t end with a period
+\end{DoxyItemize}
+
+{\bfseries{Detailed Description}} (optional but recommended)\+:
+\begin{DoxyItemize}
+\item Add a blank line after the brief
+\item Explain the "{}what"{} and "{}why"{}, not the "{}how"{}
+\item Wrap lines at 72 characters
+\item Reference issues using {\ttfamily \#issue-\/number}
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md21}{}\doxysubsection{\texorpdfstring{Commit Examples}{Commit Examples}}\label{md_CONTRIBUTING_autotoc_md21}
+{\bfseries{Simple commit}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}[ADD]\ user\ authentication\ endpoint"{}}
+
+\end{DoxyCode}
+
+
+{\bfseries{Commit with description}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}[FIX]\ memory\ leak\ in\ conveyor\ monitoring}
+\DoxyCodeLine{}
+\DoxyCodeLine{Fixed\ a\ memory\ leak\ that\ occurred\ when\ monitoring\ multiple\ conveyors\ }
+\DoxyCodeLine{simultaneously.\ The\ issue\ was\ caused\ by\ event\ listeners\ not\ being\ }
+\DoxyCodeLine{properly\ cleaned\ up.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Closes\ \#42"{}}
+
+\end{DoxyCode}
+
+
+{\bfseries{More examples}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[ADD]\ rate\ limiting\ middleware\ to\ API}
+\DoxyCodeLine{[EDIT]\ refactor\ database\ connection\ handling}
+\DoxyCodeLine{[DELETE]\ deprecated\ configuration\ options}
+\DoxyCodeLine{[FIX]\ null\ pointer\ exception\ in\ CLI\ startup}
+\DoxyCodeLine{[ADD]\ integration\ tests\ for\ user\ endpoints}
+\DoxyCodeLine{[EDIT]\ improve\ error\ messages\ in\ API\ responses}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md22}{}\doxysubsection{\texorpdfstring{Atomic Commits}{Atomic Commits}}\label{md_CONTRIBUTING_autotoc_md22}
+
+\begin{DoxyItemize}
+\item Make small, focused commits that do one thing
+\item Each commit should be a logical unit of change
+\item Don\textquotesingle{}t mix unrelated changes in a single commit
+\item Commit often to make code review easier
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md23}{}\doxysection{\texorpdfstring{Pull Requests}{Pull Requests}}\label{md_CONTRIBUTING_autotoc_md23}
+\hypertarget{md_CONTRIBUTING_autotoc_md24}{}\doxysubsection{\texorpdfstring{Creating a Pull Request}{Creating a Pull Request}}\label{md_CONTRIBUTING_autotoc_md24}
+When your feature is complete\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Push your branch}} to your fork\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ push\ origin\ your-\/branch-\/name}
+
+\end{DoxyCode}
+
+\item {\bfseries{Create a pull request}} on Git\+Hub from your branch to {\ttfamily dev}
+\item {\bfseries{Fill out the PR template}} with\+:
+\begin{DoxyItemize}
+\item Clear title describing the change
+\item Reference to related issue(s)
+\item Description of changes made
+\item Testing performed
+\item Screenshots (if UI changes)
+\item Breaking changes (if any)
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{md_CONTRIBUTING_autotoc_md25}{}\doxysubsection{\texorpdfstring{Pull Request Template}{Pull Request Template}}\label{md_CONTRIBUTING_autotoc_md25}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ Description}
+\DoxyCodeLine{Brief\ description\ of\ what\ this\ PR\ does}
+\DoxyCodeLine{}
+\DoxyCodeLine{Fixes\ \#(issue\ number)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Type\ of\ Change}
+\DoxyCodeLine{-\/\ [\ ]\ Bug\ fix\ (non-\/breaking\ change\ which\ fixes\ an\ issue)}
+\DoxyCodeLine{-\/\ [\ ]\ New\ feature\ (non-\/breaking\ change\ which\ adds\ functionality)}
+\DoxyCodeLine{-\/\ [\ ]\ Breaking\ change\ (fix\ or\ feature\ that\ would\ cause\ existing\ functionality\ to\ not\ work\ as\ expected)}
+\DoxyCodeLine{-\/\ [\ ]\ Documentation\ update}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Changes\ Made}
+\DoxyCodeLine{-\/\ Change\ 1}
+\DoxyCodeLine{-\/\ Change\ 2}
+\DoxyCodeLine{-\/\ Change\ 3}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Testing}
+\DoxyCodeLine{Describe\ the\ tests\ you\ ran\ and\ how\ to\ reproduce\ them:}
+\DoxyCodeLine{-\/\ Test\ 1}
+\DoxyCodeLine{-\/\ Test\ 2}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Checklist}
+\DoxyCodeLine{-\/\ [\ ]\ My\ code\ follows\ the\ project's\ code\ style}
+\DoxyCodeLine{-\/\ [\ ]\ I\ have\ performed\ a\ self-\/review\ of\ my\ code}
+\DoxyCodeLine{-\/\ [\ ]\ I\ have\ commented\ my\ code\ where\ necessary}
+\DoxyCodeLine{-\/\ [\ ]\ I\ have\ updated\ the\ documentation\ accordingly}
+\DoxyCodeLine{-\/\ [\ ]\ My\ changes\ generate\ no\ new\ warnings}
+\DoxyCodeLine{-\/\ [\ ]\ I\ have\ added\ tests\ that\ prove\ my\ fix/feature\ works}
+\DoxyCodeLine{-\/\ [\ ]\ New\ and\ existing\ unit\ tests\ pass\ locally}
+\DoxyCodeLine{-\/\ [\ ]\ I\ have\ updated\ CHANGELOG.md\ (if\ applicable)}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md26}{}\doxysubsection{\texorpdfstring{Pull Request Review Process}{Pull Request Review Process}}\label{md_CONTRIBUTING_autotoc_md26}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Add reviewers}}\+: Tag at least one maintainer
+\item {\bfseries{Wait for review}}\+: Be patient, reviews may take time
+\item {\bfseries{Address feedback}}\+:
+\begin{DoxyItemize}
+\item Make requested changes
+\item Push new commits to your branch
+\item Re-\/request review when ready
+\end{DoxyItemize}
+\item {\bfseries{CI/\+CD checks}}\+: Ensure all automated checks pass
+\item {\bfseries{Approval}}\+: Once approved, a maintainer will merge your PR
+\end{DoxyEnumerate}\hypertarget{md_CONTRIBUTING_autotoc_md27}{}\doxysubsection{\texorpdfstring{After Your PR is Merged}{After Your PR is Merged}}\label{md_CONTRIBUTING_autotoc_md27}
+
+\begin{DoxyItemize}
+\item Delete your feature branch (both locally and remotely)
+\item Pull the latest {\ttfamily dev} branch
+\item Thank the reviewers!
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md28}{}\doxysection{\texorpdfstring{Code Standards}{Code Standards}}\label{md_CONTRIBUTING_autotoc_md28}
+\hypertarget{md_CONTRIBUTING_autotoc_md29}{}\doxysubsection{\texorpdfstring{General Guidelines}{General Guidelines}}\label{md_CONTRIBUTING_autotoc_md29}
+
+\begin{DoxyItemize}
+\item Write clean, readable, and maintainable code
+\item Follow the existing code style and conventions
+\item Use meaningful variable and function names
+\item Add comments for complex logic
+\item Keep functions small and focused on a single task
+\item Avoid code duplication (DRY principle)
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md30}{}\doxysubsection{\texorpdfstring{Language-\/\+Specific Standards}{Language-Specific Standards}}\label{md_CONTRIBUTING_autotoc_md30}
+{\bfseries{Python}} (for API)\+:
+\begin{DoxyItemize}
+\item Follow PEP 8 style guide
+\item Use type hints where appropriate
+\item Maximum line length\+: 100 characters
+\item Use docstrings for functions and classes
+\end{DoxyItemize}
+
+{\bfseries{C/\+C++}} (for library)\+:
+\begin{DoxyItemize}
+\item Follow project-\/specific style guide
+\item Use consistent indentation (spaces, not tabs)
+\item Document public APIs thoroughly
+\end{DoxyItemize}
+
+{\bfseries{Shell Scripts}}\+:
+\begin{DoxyItemize}
+\item Use shellcheck to validate scripts
+\item Add error handling
+\item Use meaningful variable names
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md31}{}\doxysubsection{\texorpdfstring{Code Formatting}{Code Formatting}}\label{md_CONTRIBUTING_autotoc_md31}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Python}
+\DoxyCodeLine{black\ api/\ app/}
+\DoxyCodeLine{flake8\ api/\ app/}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ C/C++\ (if\ using\ clang-\/format)}
+\DoxyCodeLine{clang-\/format\ -\/i\ lib/**/*.cpp}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md32}{}\doxysection{\texorpdfstring{Testing}{Testing}}\label{md_CONTRIBUTING_autotoc_md32}
+\hypertarget{md_CONTRIBUTING_autotoc_md33}{}\doxysubsection{\texorpdfstring{Writing Tests}{Writing Tests}}\label{md_CONTRIBUTING_autotoc_md33}
+
+\begin{DoxyItemize}
+\item Write tests for all new features
+\item Maintain or improve code coverage
+\item Test both success and failure cases
+\item Use descriptive test names
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md34}{}\doxysubsection{\texorpdfstring{Running Tests}{Running Tests}}\label{md_CONTRIBUTING_autotoc_md34}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Run\ all\ tests}
+\DoxyCodeLine{pytest}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Run\ with\ coverage}
+\DoxyCodeLine{pytest\ -\/-\/cov=api\ -\/-\/cov=app\ -\/-\/cov-\/report=html}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Run\ specific\ test\ file}
+\DoxyCodeLine{pytest\ tests/test\_api.py}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Run\ tests\ matching\ a\ pattern}
+\DoxyCodeLine{pytest\ -\/k\ "{}test\_authentication"{}}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md35}{}\doxysubsection{\texorpdfstring{Test Organization}{Test Organization}}\label{md_CONTRIBUTING_autotoc_md35}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{tests/}
+\DoxyCodeLine{├──\ unit/\ \ \ \ \ \ \ \ \ \ \ \#\ Unit\ tests}
+\DoxyCodeLine{├──\ integration/\ \ \ \ \#\ Integration\ tests}
+\DoxyCodeLine{├──\ fixtures/\ \ \ \ \ \ \ \#\ Test\ fixtures\ and\ data}
+\DoxyCodeLine{└──\ conftest.py\ \ \ \ \ \#\ Pytest\ configuration}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md36}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{md_CONTRIBUTING_autotoc_md36}
+\hypertarget{md_CONTRIBUTING_autotoc_md37}{}\doxysubsection{\texorpdfstring{Updating Documentation}{Updating Documentation}}\label{md_CONTRIBUTING_autotoc_md37}
+When making changes, update relevant documentation\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Code comments}}\+: For complex logic
+\item {\bfseries{Docstrings}}\+: For functions, classes, and modules
+\item {\bfseries{\doxylink{README_8md}{README.\+md}}}\+: For user-\/facing features
+\item {\bfseries{API documentation}}\+: For API changes
+\item {\bfseries{CHANGELOG.\+md}}\+: For notable changes
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md38}{}\doxysubsection{\texorpdfstring{Documentation Style}{Documentation Style}}\label{md_CONTRIBUTING_autotoc_md38}
+
+\begin{DoxyItemize}
+\item Use clear and concise language
+\item Provide examples where helpful
+\item Keep documentation up to date with code changes
+\item Use proper Markdown formatting
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md39}{}\doxysection{\texorpdfstring{Community}{Community}}\label{md_CONTRIBUTING_autotoc_md39}
+\hypertarget{md_CONTRIBUTING_autotoc_md40}{}\doxysubsection{\texorpdfstring{Getting Help}{Getting Help}}\label{md_CONTRIBUTING_autotoc_md40}
+
+\begin{DoxyItemize}
+\item {\bfseries{Discord}}\+: Join our Discord server for real-\/time chat, questions, and discussions with the team and community
+\item {\bfseries{Git\+Hub Issues}}\+: Check existing issues before creating new ones for bugs or feature requests
+\item {\bfseries{Git\+Hub Discussions}}\+: For longer-\/form discussions and ideas
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md41}{}\doxysubsection{\texorpdfstring{Join Our Discord}{Join Our Discord}}\label{md_CONTRIBUTING_autotoc_md41}
+Our Discord server is the primary place for community interaction\+:
+
+
+\begin{DoxyItemize}
+\item Ask questions and get help from maintainers and contributors
+\item Discuss ideas and features before implementing them
+\item Report bugs and get quick feedback
+\item Connect with other contributors
+\item Stay updated on project news and announcements
+\end{DoxyItemize}
+
+{\bfseries{Discord Invite}}\+: "{}"{} "{}\+Join Win\+Conveyo\+R Discord"{}\hypertarget{md_CONTRIBUTING_autotoc_md42}{}\doxysubsection{\texorpdfstring{Discord Channels}{Discord Channels}}\label{md_CONTRIBUTING_autotoc_md42}
+
+\begin{DoxyItemize}
+\item {\ttfamily \#general} -\/ General discussions about the project
+\item {\ttfamily \#help} -\/ Get help with setup, development, or usage
+\item {\ttfamily \#contributions} -\/ Discuss PRs, issues, and contributions
+\item {\ttfamily \#announcements} -\/ Project updates and releases
+\item {\ttfamily \#off-\/topic} -\/ Casual conversations
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md43}{}\doxysubsection{\texorpdfstring{Recognition}{Recognition}}\label{md_CONTRIBUTING_autotoc_md43}
+All contributors will be\+:
+\begin{DoxyItemize}
+\item Listed in the AUTHORS section of \doxylink{README_8md}{README.\+md}
+\item Credited in release notes for their contributions
+\item Recognized in our Discord community with a contributor role
+\item Appreciated by the entire community!
+\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md44}{}\doxysubsection{\texorpdfstring{Staying Updated}{Staying Updated}}\label{md_CONTRIBUTING_autotoc_md44}
+
+\begin{DoxyItemize}
+\item Watch the repository for updates
+\item Join our Discord server for real-\/time announcements
+\item Participate in code reviews and discussions
+\end{DoxyItemize}
 
 \DoxyHorRuler{0}
-\hypertarget{md_CONTRIBUTING_autotoc_md3}{}\doxysection{\texorpdfstring{Branch}{Branch}}\label{md_CONTRIBUTING_autotoc_md3}
-To work on the project you must work on a branch seperated of the Master/\+Main branch, if you are doing a lot of modification/addition/refactoring you must create a specific branch (if the modification are minors you may work on the {\ttfamily dev} branch) and follow the following branch name format \+:
+\hypertarget{md_CONTRIBUTING_autotoc_md46}{}\doxysection{\texorpdfstring{Quick Reference}{Quick Reference}}\label{md_CONTRIBUTING_autotoc_md46}
+\hypertarget{md_CONTRIBUTING_autotoc_md47}{}\doxysubsection{\texorpdfstring{Essential Commands}{Essential Commands}}\label{md_CONTRIBUTING_autotoc_md47}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Setup}
+\DoxyCodeLine{git\ clone\ https://github.com/YOUR\_USERNAME/WinConveyoR.git}
+\DoxyCodeLine{git\ remote\ add\ upstream\ https://github.com/StevenGandon/WinConveyoR.git}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Development\ cycle}
+\DoxyCodeLine{git\ checkout\ dev}
+\DoxyCodeLine{git\ pull\ upstream\ dev}
+\DoxyCodeLine{git\ checkout\ -\/b\ feature/your-\/feature}
+\DoxyCodeLine{\#\ ...\ make\ changes\ ...}
+\DoxyCodeLine{git\ add\ .}
+\DoxyCodeLine{git\ commit\ -\/m\ "{}[ADD]\ your\ feature"{}}
+\DoxyCodeLine{git\ push\ origin\ feature/your-\/feature}
+\DoxyCodeLine{\#\ ...\ create\ PR\ on\ GitHub\ ...}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Stay\ updated}
+\DoxyCodeLine{git\ checkout\ dev}
+\DoxyCodeLine{git\ pull\ upstream\ dev}
+\DoxyCodeLine{git\ checkout\ feature/your-\/feature}
+\DoxyCodeLine{git\ rebase\ dev}
+
+\end{DoxyCode}
+\hypertarget{md_CONTRIBUTING_autotoc_md48}{}\doxysubsection{\texorpdfstring{Commit Prefix Quick Guide}{Commit Prefix Quick Guide}}\label{md_CONTRIBUTING_autotoc_md48}
+
 \begin{DoxyItemize}
-\item name-\/of-\/the-\/branch
-\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md4}{}\doxysubsection{\texorpdfstring{Name}{Name}}\label{md_CONTRIBUTING_autotoc_md4}
-In your name you should describe as simple as possible what you\textquotesingle{}re adding to the project in your branch and what you will be working on, written in \href{https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case}{\texttt{ kebab-\/case}}.~\newline
- ex\+: add-\/project-\/contributor-\/documentation
+\item {\ttfamily \mbox{[}ADD\mbox{]}} -\/ New stuff
+\item {\ttfamily \mbox{[}EDIT\mbox{]}} -\/ Changed stuff
+\item {\ttfamily \mbox{[}DELETE\mbox{]}} -\/ Removed stuff
+\item {\ttfamily \mbox{[}FIX\mbox{]}} -\/ Fixed stuff
+\end{DoxyItemize}
 
 \DoxyHorRuler{0}
-\hypertarget{md_CONTRIBUTING_autotoc_md6}{}\doxysection{\texorpdfstring{Commit}{Commit}}\label{md_CONTRIBUTING_autotoc_md6}
-To contribute on the project you must use this commit format to in your commit messages \+:
-\begin{DoxyItemize}
-\item \{PREFIX\} brief
-\item \{EXTRA\+\_\+\+DESCRIPTION\}...
-\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md7}{}\doxysubsection{\texorpdfstring{Prefix}{Prefix}}\label{md_CONTRIBUTING_autotoc_md7}
 
-\begin{DoxyItemize}
-\item {\ttfamily \mbox{[}ADD\mbox{]}} \+: addition to the project (a new feature for exemple)~\newline
 
-\item {\ttfamily \mbox{[}EDIT\mbox{]}} \+: edition/refactoring of an existing part of the code~\newline
+{\bfseries{Thank you for contributing to Win\+Conveyo\+R!}}
 
-\item {\ttfamily \mbox{[}DELETE\mbox{]}} \+: deletion of something in the project~\newline
-
-\item {\ttfamily \mbox{[}FIX\mbox{]}} \+: bug/issue fix
-\end{DoxyItemize}\hypertarget{md_CONTRIBUTING_autotoc_md8}{}\doxysubsection{\texorpdfstring{Brief}{Brief}}\label{md_CONTRIBUTING_autotoc_md8}
-In your brief you should describe shortly what your prefixed actions have done.~\newline
- ex\+: \mbox{[}ADD\mbox{]} \doxylink{CONTRIBUTING_8md}{CONTRIBUTING.\+md} to the project\hypertarget{md_CONTRIBUTING_autotoc_md9}{}\doxysubsection{\texorpdfstring{Description}{Description}}\label{md_CONTRIBUTING_autotoc_md9}
-You can also add a description to your commit messages by adding a new line to your commit message (in the terminal using the cli it can be done by writing git commit -\/m "{}PREFIX brief and leaving the quotes open so when you hit enter it let you write after the line break your extra description.).~\newline
- ex\+: \mbox{[}ADD\mbox{]} \doxylink{CONTRIBUTING_8md}{CONTRIBUTING.\+md} to the project~\newline
- Made the addition of a contributor documentation to let people know how to properly contribute to the project and follow the commit guidelines!
-
-\DoxyHorRuler{0}
-\hypertarget{md_CONTRIBUTING_autotoc_md11}{}\doxysection{\texorpdfstring{Merging}{Merging}}\label{md_CONTRIBUTING_autotoc_md11}
-When you\textquotesingle{}re done programming your features on your branch you must then create a pull request on {\ttfamily dev} to merge your branch over the {\ttfamily dev} branch.~\newline
- The {\ttfamily dev} branch on release of multiple major changes should then be merge on the {\ttfamily main} branch also by doing a pull request to merge {\ttfamily dev} on {\ttfamily main}.~\newline
- In your pull request you should detail what changes you added, add reviewers and if needed apply changes according to reviews and ask the reviewers to review your pull request again. 
+Your contributions help make this project better for everyone. If you have any questions or need help, don\textquotesingle{}t hesitate to reach out to the maintainers or open a discussion. 

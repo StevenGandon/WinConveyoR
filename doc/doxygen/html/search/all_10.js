@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['name_0',['name',['../classsrc_1_1arghandler_1_1GenericArgument.html#a36c7911d24720db6c4c40f7aa3c2f0f2',1,'src.arghandler.GenericArgument.name'],['../classsrc_1_1thread_1_1job_1_1JobResult.html#a0be2c7f9dca5fde2f2b516587a61bf51',1,'src.thread.job.JobResult.name'],['../classsrc_1_1thread_1_1job_1_1Job.html#afda0472b28f197954738484aced70c7c',1,'src.thread.job.Job.name'],['../md_CONTRIBUTING.html#autotoc_md4',1,'Name']]],
-  ['necessary_1',['necessary',['../classsrc_1_1arghandler_1_1GenericArgument.html#a685a043eb8f82d464b75ff2529857c04',1,'src::arghandler::GenericArgument']]],
-  ['new_5fhttp_5fconnection_2',['new_http_connection',['../libwconr__private_8h.html#a3a9c10a45637e08ccd570a8945ff24eb',1,'new_http_connection(const char *__s, unsigned short __p):&#160;http.c'],['../posix_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9',1,'new_http_connection(const char *ip, unsigned short port):&#160;http.c'],['../win_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9',1,'new_http_connection(const char *ip, unsigned short port):&#160;http.c']]],
-  ['new_5fhttp_5frequest_5fparser_3',['new_http_request_parser',['../libwconr__private_8h.html#aab2f0f73f5bee8021a06a4908508df06',1,'new_http_request_parser(struct _http_connection_s *):&#160;http_parsing.c'],['../http__parsing_8c.html#ac7ebea9fdf20149a44d0e057cc3e6313',1,'new_http_request_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c']]],
-  ['new_5fhttp_5fresponse_5fparser_4',['new_http_response_parser',['../libwconr__private_8h.html#ab3abea3a52fd660d838c3d4affdbbcc1',1,'new_http_response_parser(struct _http_connection_s *):&#160;http_parsing.c'],['../http__parsing_8c.html#ad6b88be93dbe0fd5ba658681e47c16a6',1,'new_http_response_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c']]],
-  ['new_5fstate_5',['new_state',['../libwconr_8h.html#a1815617a622e3776dc61ecf67def9157',1,'new_state(void):&#160;wcr_state.c'],['../wcr__state_8c.html#adb5329b2d274868037a90bd27c1143b7',1,'new_state(void):&#160;wcr_state.c']]],
-  ['nt_5fpltf_6',['nt_pltf',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html#af31a8e44b08291010c5f6b67cb285f0a',1,'src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS.NT_PLTF'],['../libwconr_8h.html#abbdf98254bbf4981a8bf233c6d0d2a20a09444a9096859f1abf7f55681c94dc71',1,'NT_PLTF:&#160;libwconr.h']]]
+  ['of_20conduct_0',['Code of Conduct',['../md_CONTRIBUTING.html#autotoc_md2',1,'']]],
+  ['of_20contents_1',['of contents',['../md_CONTRIBUTING.html#autotoc_md1',1,'Table of Contents'],['../md_README.html#autotoc_md52',1,'Table of Contents']]],
+  ['on_20your_20branch_2',['Working on Your Branch',['../md_CONTRIBUTING.html#autotoc_md16',1,'']]],
+  ['on_5fend_3',['on_end',['../classsrc_1_1thread_1_1job_1_1Job.html#a6285de0498e73824dd71a66e809d4bbd',1,'src::thread::job::Job']]],
+  ['option_5ftable_4',['OPTION_TABLE',['../classsrc_1_1cli_1_1cli_1_1CLI.html#aee7b2f34360fe31e3e95652c8e39632f',1,'src::cli::cli::CLI']]],
+  ['options_5',['options',['../classsrc_1_1arghandler_1_1ArgumentParser.html#aeda6e853561024c930ca22749e8ba6c5',1,'src::arghandler::ArgumentParser']]],
+  ['organization_6',['Test Organization',['../md_CONTRIBUTING.html#autotoc_md35',1,'']]],
+  ['orm_5fmode_7',['orm_mode',['../classschemas_1_1user_1_1UserOut_1_1Config.html#a4af5f4d26778f32c4ec862d78484e57f',1,'schemas::user::UserOut::Config']]],
+  ['our_20discord_8',['Join Our Discord',['../md_CONTRIBUTING.html#autotoc_md41',1,'']]]
 ];

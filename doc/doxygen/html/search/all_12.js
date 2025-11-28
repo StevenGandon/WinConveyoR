@@ -1,28 +1,5 @@
 var searchData=
 [
-  ['parameter_5ftable_0',['PARAMETER_TABLE',['../classsrc_1_1cli_1_1cli_1_1CLI.html#abca622fc181815e4d0a5b992791e368a',1,'src::cli::cli::CLI']]],
-  ['parameters_1',['parameters',['../classsrc_1_1arghandler_1_1ArgumentParser.html#a30b6e091bb93e81e8c22596c3e7f1278',1,'src::arghandler::ArgumentParser']]],
-  ['parse_2',['parse',['../classsrc_1_1arghandler_1_1ArgumentParser.html#af5206a74166d3ed43840891e7e7caac3',1,'src::arghandler::ArgumentParser']]],
-  ['parse_5fheaders_3',['parse_headers',['../libwconr__private_8h.html#ad5341a6ffaf0849262bbd03af02c54f8',1,'parse_headers(struct _http_response_parser_s *parser, unsigned char *buffer, size_t total_size):&#160;http_parsing.c'],['../http__parsing_8c.html#ad5341a6ffaf0849262bbd03af02c54f8',1,'parse_headers(struct _http_response_parser_s *parser, unsigned char *buffer, size_t total_size):&#160;http_parsing.c']]],
-  ['parse_5fstatus_5fline_4',['parse_status_line',['../libwconr__private_8h.html#aef92122913d5fac352af325bec64f251',1,'parse_status_line(struct _http_response_parser_s *parser, unsigned char *buffer):&#160;http_parsing.c'],['../http__parsing_8c.html#aef92122913d5fac352af325bec64f251',1,'parse_status_line(struct _http_response_parser_s *parser, unsigned char *buffer):&#160;http_parsing.c']]],
-  ['pattern_5',['pattern',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#a62902b24e3c10c0fcc599c51dc432f47',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
-  ['patternbuilder_6',['PatternBuilder',['../classsrc_1_1graphic_1_1pattern_1_1builder_1_1PatternBuilder.html',1,'src::graphic::pattern::builder']]],
-  ['patterncompiled_7',['PatternCompiled',['../classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiled.html',1,'src::graphic::pattern::compiler']]],
-  ['patterncompiler_8',['PatternCompiler',['../classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html',1,'src::graphic::pattern::compiler']]],
-  ['patterninvalidxmlstructure_9',['PatternInvalidXMLStructure',['../classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternInvalidXMLStructure.html',1,'src::graphic::pattern::exceptions']]],
-  ['patternloader_10',['PatternLoader',['../classsrc_1_1graphic_1_1pattern_1_1loader_1_1PatternLoader.html',1,'src::graphic::pattern::loader']]],
-  ['patternloaderexception_11',['PatternLoaderException',['../classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternLoaderException.html',1,'src::graphic::pattern::exceptions']]],
-  ['patterns_12',['patterns',['../classsrc_1_1cli_1_1cli_1_1CLI.html#ad7c4cd3cd0d9130f572efdc7ba664dc2',1,'src::cli::cli::CLI']]],
-  ['patternxmlparseerror_13',['PatternXMLParseError',['../classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html',1,'src::graphic::pattern::exceptions']]],
-  ['platform_14',['platform',['../structwcr__system__s.html#a21fdfd872e85f93d62b30dfd973affaa',1,'wcr_system_s']]],
-  ['platform_5ftypes_2eh_15',['platform_types.h',['../platform__types_8h.html',1,'']]],
-  ['pool_16',['Pool',['../classsrc_1_1thread_1_1pool_1_1Pool.html',1,'src::thread::pool']]],
-  ['pool_2epy_17',['pool.py',['../pool_8py.html',1,'']]],
-  ['port_18',['port',['../struct__http__connection__s.html#af4b2f698014e2044ca66b5742ef8226e',1,'_http_connection_s']]],
-  ['port_3a_19',['or choose a port:',['../md_README.html#autotoc_md23',1,'']]],
-  ['position_20',['position',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#ac3befb8f034d8f1a3427b07b30f7fdc4',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
-  ['prefix_21',['prefix',['../namespacemain.html#a7221161d0128781b144c684790040251',1,'main.prefix'],['../namespacesrc.html#a8465542176e20146d784c2bec8084203',1,'src.prefix'],['../namespacesrc_1_1v1.html#a648bea9c7c73e77080ecce807b25fdd2',1,'src.v1.prefix'],['../md_CONTRIBUTING.html#autotoc_md7',1,'Prefix']]],
-  ['project_5fname_22',['PROJECT_NAME',['../classcore_1_1config_1_1Settings.html#a01301db4d2151f1e4a640d3dad9eee18',1,'core::config::Settings']]],
-  ['protocol_23',['protocol',['../struct__http__request__parser__s.html#a2f217425f38096fc7b608b2fc1ed69bd',1,'_http_request_parser_s::protocol'],['../struct__http__response__parser__s.html#ada241aaff20ae5f1eb654c543dc001c6',1,'_http_response_parser_s::protocol']]],
-  ['push_24',['push',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#ad9823c5fd029fac5e01f6aaa35401451',1,'src::graphic::builtin::loading_bar::LoadingBar']]]
+  ['quick_20guide_0',['Commit Prefix Quick Guide',['../md_CONTRIBUTING.html#autotoc_md48',1,'']]],
+  ['quick_20reference_1',['Quick Reference',['../md_CONTRIBUTING.html#autotoc_md46',1,'']]]
 ];

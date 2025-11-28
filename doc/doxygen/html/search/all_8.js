@@ -1,9 +1,25 @@
 var searchData=
 [
-  ['fetch_5fresponse_0',['fetch_response',['../libwconr__private_8h.html#a9b128de1da2c85ee0a7a7d15b448b5de',1,'fetch_response(struct _http_response_parser_s *__r):&#160;http_response.c'],['../http__response_8c.html#a44c7a9712eaa9f2dcc3315ff6c8bb992',1,'fetch_response(struct _http_response_parser_s *response_parser):&#160;http_response.c']]],
-  ['find_5fdll_1',['find_dll',['../namespacesrc_1_1wrappers_1_1dllloader.html#a3aae4c12fa516fd7da82e711b108944b',1,'src::wrappers::dllloader']]],
-  ['first_5ftime_2',['first_time',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#a4712e5b76e257fe6bcd84cc969fa80b9',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
-  ['for_20linux_20_3a_3',['For linux :',['../md_README.html#autotoc_md18',1,'']]],
-  ['for_20windows_20_3a_4',['For windows :',['../md_README.html#autotoc_md19',1,'']]],
-  ['full_5fname_5',['full_name',['../classmodels_1_1user_1_1User.html#a0ab2f3e0baa0c4e69507e206e23c95b7',1,'models.user.User.full_name'],['../classschemas_1_1user_1_1UserBase.html#a14288100470ea906bdc2dd487847e99b',1,'schemas.user.UserBase.full_name']]]
+  ['gen_5flinux_5fpltf_0',['gen_linux_pltf',['../libwconr_8h.html#abbdf98254bbf4981a8bf233c6d0d2a20aa8288df48951f058a829ac9f1c8d8853',1,'GEN_LINUX_PLTF:&#160;libwconr.h'],['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html#a9404a7c8b60ba3987e59ea7ab56bd168',1,'src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS.GEN_LINUX_PLTF']]],
+  ['general_20guidelines_1',['General Guidelines',['../md_CONTRIBUTING.html#autotoc_md29',1,'']]],
+  ['genericargument_2',['GenericArgument',['../classsrc_1_1arghandler_1_1GenericArgument.html',1,'src::arghandler']]],
+  ['get_3',['get',['../classrepository_1_1Repository.html#abdf33949f84d39ba80ea82a6ae046d44',1,'repository::Repository']]],
+  ['get_5farg_4',['get_arg',['../classsrc_1_1cli_1_1cli_1_1CLI.html#a1e7647eb1d4da1b20420d5709b454224',1,'src::cli::cli::CLI']]],
+  ['get_5fchunk_5',['get_chunk',['../libwconr__private_8h.html#a3aa4f5a06e5318844cb5d16e8a573cb6',1,'get_chunk(struct _http_connection_s *__c, size_t __s, unsigned char *__d):&#160;http.c'],['../posix_2http_8c.html#a0cd1cbdab12555a26b17c307b7b55a66',1,'get_chunk(struct _http_connection_s *connection, size_t size, unsigned char *buffer):&#160;http.c'],['../win_2http_8c.html#a0cd1cbdab12555a26b17c307b7b55a66',1,'get_chunk(struct _http_connection_s *connection, size_t size, unsigned char *buffer):&#160;http.c']]],
+  ['get_5fdb_6',['get_db',['../namespacesrc_1_1v1_1_1deps.html#aba26960161309119335900554b51a41f',1,'src::v1::deps']]],
+  ['get_5fheader_7',['get_header',['../libwconr__private_8h.html#a56a0ea46a4e49690d525dfbd8a80e1ff',1,'get_header(const struct _http_header_s *const *__h, const unsigned char *__k):&#160;http_headers.c'],['../http__headers_8c.html#a6a021b36fe7ca799344b68605065ea7c',1,'get_header(const struct _http_header_s *const *headers, const unsigned char *key):&#160;http_headers.c']]],
+  ['get_5fpattern_8',['get_pattern',['../classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html#ae1687618cac6bbeb14fde05758e01912',1,'src::graphic::pattern::compiler::PatternCompiler']]],
+  ['get_5fsettings_9',['get_settings',['../namespacecore_1_1config.html#a9baf1ec57b7084f232f235e6a30f18c4',1,'core::config']]],
+  ['getting_20help_10',['Getting Help',['../md_CONTRIBUTING.html#autotoc_md40',1,'']]],
+  ['getting_20started_11',['Getting Started',['../md_CONTRIBUTING.html#autotoc_md3',1,'']]],
+  ['good_20commit_20messages_12',['Writing Good Commit Messages',['../md_CONTRIBUTING.html#autotoc_md20',1,'']]],
+  ['graphic_13',['Graphic',['../classsrc_1_1graphic_1_1graphic_1_1Graphic.html',1,'src::graphic::graphic']]],
+  ['graphic_2epy_14',['graphic.py',['../graphic_8py.html',1,'']]],
+  ['graphic_5fobject_2epy_15',['graphic_object.py',['../graphic__object_8py.html',1,'']]],
+  ['graphicelement_16',['GraphicElement',['../classsrc_1_1graphic_1_1graphic_1_1GraphicElement.html',1,'src::graphic::graphic']]],
+  ['graphicobject_17',['GraphicObject',['../classsrc_1_1graphic_1_1builtin_1_1graphic__object_1_1GraphicObject.html',1,'src::graphic::builtin::graphic_object']]],
+  ['graphicsettings_18',['GraphicSettings',['../classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html',1,'src::graphic::graphic']]],
+  ['gui_19',['GUI',['../GUI.html',1,'index']]],
+  ['guide_20',['Commit Prefix Quick Guide',['../md_CONTRIBUTING.html#autotoc_md48',1,'']]],
+  ['guidelines_21',['General Guidelines',['../md_CONTRIBUTING.html#autotoc_md29',1,'']]]
 ];
