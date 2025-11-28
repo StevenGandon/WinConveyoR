@@ -1,7 +1,17 @@
-
 # WinConveyoR
 
-WinConveyoR project
+WinConveyoR is an advanced package manager for Windows, designed to modernise the software ecosystem and offer an experience similar to Linux managers (apt, pacman, dnf, etc.).
+
+The project aims to fill the gap for a comprehensive, powerful and extensible tool that enables:
+
+- Consistent dependency management,
+- The creation, compilation and distribution of packages,
+- Strong integration with Windows internal mechanisms,
+- Extension via a public API, a low-level library and a community marketplace.
+
+This project is being developed as part of the Technical track of the Epitech Innovative Project and is designed to be highly configurable, secure, modular and scalable for both users and third-party developers.
+
+
 ## Badges
 
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/StevenGandon/WinConveyoR/blob/main/LICENSE/)
@@ -9,25 +19,45 @@ WinConveyoR project
 ![Issues](https://img.shields.io/github/issues/StevenGandon/WinConveyoR)
 
 
-## License
+## Table of Contents
 
-[GPL v3](https://github.com/StevenGandon/WinConveyoR/blob/main/LICENSE)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API](#api)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [Support](#support)
+- [License](#license)
+- [Authors](#authors)
 
 
-## Authors
+## Features
 
-- [@Steven GANDON](https://www.github.com/StevenGandon)
-- [@Erwann TANGUY](https://www.github.com/Erwann9875)
-- [@Thomas Vidal Savelli](https://www.github.com/thomasvsl)
+- No Telemetry
+- Cross Platform
+- GUI Interface
+- Community HUB
+- Offline Mode
+- Auto Update
 
 
-## Contributing
+## Requirements
 
-Contributions are always welcome!
+#### To Build:
+- CMake
+- Python 3.12
+- Make
+- GCC
+- PyInstaller
+- Node.js
+- npm
 
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
+#### To Run:
+- Sudo/Admin Privileges (recommended)
+- libcurl
+- libc
 
 
 ## Installation
@@ -59,16 +89,40 @@ Please adhere to this project's `code of conduct`.
   Download https://github.com/StevenGandon/WinConveyoR/releases/download/main/release_windows.zip
   ```
 
-## Using the REST API
+## Usage
 
-> The API is a FastAPI service that comes with WinConveyoR.  
-> It exposes CRUD operations on each database table (starting with **Users**) and
-> is protected by a built‑in rate‑limiter.
 
-### 1 · Start the server
+## API
 
-```bash
-# <repo‑root>  (same level as the `api/` or `app/` package)
-python -m uvicorn api.main:app --reload       # dev‑mode, auto‑reload
-# or choose a port:
-python -m uvicorn api.main:app --reload --port 8080
+
+## Configuration
+
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
+
+## Support
+
+If you encounter any issues or have questions, join our Discord server where you will find:
+- Community support and discussions
+- Bug reports and issue tracking
+- Feature requests and suggestions
+- Documentation and tutorials
+
+**Discord Invite**: [Join WinConveyoR Discord](#)
+
+## License
+
+[GPL v3](https://github.com/StevenGandon/WinConveyoR/blob/main/LICENSE)
+
+
+## Authors
+
+- [@Steven GANDON](https://www.github.com/StevenGandon)
+- [@Thomas VIDAL SAVELLI](https://www.github.com/thomasvsl)
