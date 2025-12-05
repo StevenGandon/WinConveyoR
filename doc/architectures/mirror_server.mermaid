@@ -1,0 +1,56 @@
+graph TB
+    subgraph "Infrastructure Docker"
+        DC[docker-compose.yaml<br/>Port: 80]
+        VOL[(mirror-data volume<br/>./mirror-server)]
+    end
+    
+    subgraph "Container Apache"
+        DF[Dockerfile<br/>debian:bookworm-slim]
+        AP[Apache2 Server<br/>Port 80]
+        CONF[apache2.conf<br/>Configuration]
+    end
+    
+    subgraph "Système de Fichiers /mnt/mirror"
+        PL[pkgs.list<br/>Liste principale]
+        CHK[checksum.hsh<br/>Hash du système]
+        PY[__main__.py<br/>Gestionnaire Python]
+        
+        subgraph "Register"
+            REG[*.list<br/>Métadonnées package]
+        end
+        
+        subgraph "Packages"
+            PKG[*.json<br/>Détails package]
+            TAR[*.tar.gz<br/>Archive binaire]
+        end
+    end
+    
+    subgraph "Classes Python"
+        MS[MirrorServer<br/>- checksum<br/>- packages]
+        PKG_CLS[Package<br/>- name<br/>- latest<br/>- listing]
+        PL_CLS[PackageListing<br/>- architecture<br/>- version<br/>- machine<br/>- package_data]
+    end
+    
+    USER[Client HTTP] -->|Port 80| DC
+    DC --> VOL
+    VOL --> AP
+    DF --> AP
+    CONF --> AP
+    AP -->|Sert fichiers| PL
+    AP -->|Sert fichiers| REG
+    AP -->|Sert fichiers| PKG
+    AP -->|Sert fichiers| TAR
+    
+    PY --> MS
+    MS -->|1:N| PKG_CLS
+    PKG_CLS -->|1:N| PL_CLS
+    
+    PL -.->|Référence| REG
+    REG -.->|Référence| PKG
+    PKG -.->|Référence| TAR
+    
+    style USER fill:#e1f5ff
+    style AP fill:#ffecb3
+    style MS fill:#c8e6c9
+    style PKG_CLS fill:#c8e6c9
+    style PL_CLS fill:#c8e6c9
