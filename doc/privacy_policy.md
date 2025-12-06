@@ -480,7 +480,7 @@ Your continued use of WinConveyoR after changes take effect constitutes acceptan
 ### Review Previous Versions
 
 Previous versions of this Privacy Policy are available in our GitHub repository:  
-https://github.com/StevenGandon/WinConveyoR/blob/main/PRIVACY_POLICY.md
+https://github.com/StevenGandon/WinConveyoR/blob/dev/doc/PRIVACY_POLICY.md
 
 
 ## Contact Us
