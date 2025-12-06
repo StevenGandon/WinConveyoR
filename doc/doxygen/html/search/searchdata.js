@@ -10,7 +10,7 @@ var indexSectionsWithContent =
   7: "s",
   8: "adginux",
   9: "his",
-  10: "cgtw"
+  10: "cgptw"
 };
 
 var indexSectionNames =

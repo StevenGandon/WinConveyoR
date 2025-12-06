@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['to_20winconveyor_0',['Contributing to WinConveyoR',['../md_CONTRIBUTING.html',1,'']]]
+  ['policy_0',['WinConveyoR Privacy Policy',['../md_doc_2privacy__policy.html',1,'']]],
+  ['privacy_20policy_1',['WinConveyoR Privacy Policy',['../md_doc_2privacy__policy.html',1,'']]]
 ];
