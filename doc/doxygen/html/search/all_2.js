@@ -45,7 +45,7 @@ var searchData=
   ['arm64_5farch_42',['arm64_arch',['../libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baac2eee78710183dbe133b31cb29f19f3f',1,'ARM64_ARCH:&#160;libwconr.h'],['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html#af596effb25a89bb32dd7c4b14c9940fe',1,'src.wrappers.libwconr._libwconr.SUPPORTED_ARCHITECTURES.ARM64_ARCH']]],
   ['atomic_20commits_43',['Atomic Commits',['../md_CONTRIBUTING.html#autotoc_md22',1,'']]],
   ['audit_20our_20practices_44',['Audit Our Practices',['../md_doc_2privacy__policy.html#autotoc_md140',1,'']]],
-  ['authors_45',['Authors',['../md_README.html#autotoc_md162',1,'']]],
+  ['authors_45',['Authors',['../md_README.html#autotoc_md163',1,'']]],
   ['automatic_20deletion_46',['Automatic Deletion',['../md_doc_2privacy__policy.html#autotoc_md113',1,'']]],
   ['automatically_20collected_47',['Information Automatically Collected',['../md_doc_2privacy__policy.html#autotoc_md56',1,'']]]
 ];
