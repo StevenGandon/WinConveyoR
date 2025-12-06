@@ -30,6 +30,7 @@ This project is being developed as part of the Technical track of the Epitech In
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
+- [Privacy Policy](#privacy-policy)
 - [Authors](#authors)
 
 
@@ -120,6 +121,10 @@ If you encounter any issues or have questions, join our Discord server where you
 ## License
 
 [GPL v3](https://github.com/StevenGandon/WinConveyoR/blob/main/LICENSE)
+
+## Privacy Policy
+
+See our complete [Privacy Policy](https://github.com/StevenGandon/WinConveyoR/blob/dev/doc/privacy_policy.md) for full details on data collection and your rights.
 
 
 ## Authors
