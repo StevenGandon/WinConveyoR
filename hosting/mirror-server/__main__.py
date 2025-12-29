@@ -2,7 +2,7 @@ from sys import exit
 from hashlib import sha256, md5
 from json import load, dump
 from shutil import copyfile
-from os import mkdir, stat
+from os import mkdir, stat, remove
 from os.path import join, abspath, isfile, isdir, basename, dirname
 from datetime import datetime
 from warnings import warn
@@ -198,7 +198,7 @@ class Package(object):
         self.hash = hsh.hexdigest()
 
 class MirrorServer(object):
-    def __init__(self, location: str = None, /, load: bool = False):
+    def __init__(self, location: str = None, backup_path: str = None, /, load: bool = False):
         if (location):
             location = abspath(location)
             self.checksum: str = hash_file(join(location, "pkgs.list"))
@@ -209,6 +209,8 @@ class MirrorServer(object):
         self.location = location.replace('\\', '/')
         self.loaded = False
 
+        self.backup_path = (backup_path if backup_path else join(self.location, "backups"))
+
         if (load):
             self.load()
 
@@ -218,19 +220,16 @@ class MirrorServer(object):
     def __repr__(self):
         return self.__str__()
 
-    def write(self, backup_path = None):
+    def write(self):
         hsh = sha256()
 
         if (not self.location or not self.loaded):
             return
-        
-        if (not backup_path):
-            backup_path = join(self.location, "backups")
 
-        if (not isdir(backup_path)):
-            mkdir(backup_path)
+        if (not isdir(self.backup_path)):
+            mkdir(self.backup_path)
         
-        backups_location = join(backup_path, datetime.now().strftime("%Y%m%d-%H%M%S"))
+        backups_location = join(self.backup_path, datetime.now().strftime("%Y%m%d-%H%M%S"))
 
         if (not isdir(join(self.location, backups_location))):
             mkdir(join(self.location, backups_location))
@@ -248,7 +247,7 @@ class MirrorServer(object):
             last = len(self.packages)
 
             for i, item in enumerate(self.packages.values()):
-                computed_string = f"{item.name},{item.latest},{item.location},{item.hash}{'\n' if last - 1 != i else ''}".encode()
+                computed_string = f"{item.name},{item.latest if item.latest else "nul"},{item.location},{item.hash}{'\n' if last - 1 != i else ''}".encode()
                 fp.write(computed_string)
                 hsh.update(computed_string)
 
@@ -273,12 +272,32 @@ class MirrorServer(object):
 
         self.loaded = True
 
-    # {"name": "gcc", "description": "...", "version": "2.0.0",}
-    def add_package(self, metadata, package_file) -> str:
-        pass
+    def add_package_register(self, name) -> str:
+        if (not self.loaded):
+            self.load()
 
-    def update_package(self):
-        pass
+        if (name not in self.packages):
+            self.packages[name] = Package(name, join("/register", name + ".list"), base_path=self.location)
+            self.packages[name].loaded = True
+
+    def remove_package_register(self, name, *, hard_delete = False):
+        if (not self.loaded):
+            self.load()
+
+        if (not self.location):
+            return
+
+        pkg_location = join(self.location, self.packages[name].location.lstrip('/'))
+
+        if (hard_delete and isfile(pkg_location)):
+            if (not isdir(self.backup_path)):
+                mkdir(self.backup_path)
+            if (not isdir(join(self.backup_path, "deleted"))):
+                mkdir(join(self.backup_path, "deleted"))
+            copyfile(pkg_location, join(self.backup_path, "deleted", basename(pkg_location)))
+            remove(pkg_location)
+        
+        del self.packages[name]
 
 def main() -> int:
     ms = MirrorServer(".")
