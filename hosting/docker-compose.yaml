@@ -9,11 +9,11 @@ volumes:
         device: ./mirror-server
 
 services:
-  mirror:
+  http-server:
     volumes:
       - mirror-data:/mnt/mirror
     build:
-      context: mirror-server
+      context: http
     ports:
       - "${MIRROR_PORT}:80"
     restart: on-failure
