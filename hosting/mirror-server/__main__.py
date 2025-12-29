@@ -1,7 +1,10 @@
 from sys import exit
 from hashlib import sha256, md5
 from json import load
-from os.path import join, abspath
+from shutil import copyfile
+from os import mkdir
+from os.path import join, abspath, isfile, isdir
+from datetime import datetime
 
 def hash_file(file, algorithm = sha256, /, buffer_size = 65536):
     base_hash = algorithm()
@@ -118,18 +121,50 @@ class MirrorServer(object):
     def __repr__(self):
         return self.__str__()
 
+    def write(self):
+        hsh = sha256()
+
+        if (not self.location):
+            return
+        
+        if (not isdir(join(self.location, "backups"))):
+            mkdir(join(self.location, "backups"))
+        
+        backups_location = join("backups", datetime.now().strftime("%Y%m%d-%H%M%S"))
+
+        if (not isdir(join(self.location, backups_location))):
+            mkdir(join(self.location, backups_location))
+
+        if (isfile(join(self.location, "pkgs.list"))):
+            copyfile(join(self.location, "pkgs.list"), join(self.location, backups_location, "pkgs.list"))
+        if (isfile(join(self.location, "checksum.hsh"))):
+            copyfile(join(self.location, "pkgs.list"), join(self.location, backups_location, "pkgs.list"))
+            
+    
+        with open(join(self.location, "pkgs.list"), 'wb+') as fp:
+            for item in self.packages.values():
+                computed_string = f"{item.name},{item.listing[item.latest].version},{item.location},{item.latest}".encode()
+                fp.write(computed_string)
+                hsh.update(computed_string)
+
+        self.checksum = hsh.hexdigest()
+
+        with open(join(self.location, "checksum.hsh"), 'wb+') as fp:
+            fp.write(str(self.checksum).encode())
+
     def load(self):
         if (not self.location):
             return
 
-        with open(join(self.location, "pkgs.list"), 'r') as fp:
-            line = fp.readline()
-            while line:
-                line = line.replace('\r\n', '\n').strip()
-                name, version, location, sha256 = tuple(filter(lambda x: len(x), map(lambda x: x.strip(), line.split(','))))
-                self.packages[name] = Package(name, location, sha256, load=True, base_path=self.location)
-
+        if (isfile(join(self.location, "pkgs.list"))):
+            with open(join(self.location, "pkgs.list"), 'r') as fp:
                 line = fp.readline()
+                while line:
+                    line = line.replace('\r\n', '\n').strip()
+                    name, version, location, sha256 = tuple(filter(lambda x: len(x), map(lambda x: x.strip(), line.split(','))))
+                    self.packages[name] = Package(name, location, sha256, load=True, base_path=self.location)
+
+                    line = fp.readline()
 
         self.loaded = True
 
@@ -147,6 +182,7 @@ def main() -> int:
     ms.load()
 
     print(ms)
+    ms.write()
     return (0)
 
 if (__name__== "__main__"):
