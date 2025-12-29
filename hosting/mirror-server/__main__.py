@@ -121,16 +121,18 @@ class PackageListing(object):
             dump(self.package_data, fp, indent=4)
 
 class Package(object):
-    def __init__(self, name="", location=None, latest = None, hsh = 0, /, load: bool=False, base_path = None):
+    def __init__(self, name="", location=None, latest = None, hsh = 0, backup_path: str = None, /, load: bool=False, base_path = None):
         self.name = name
         self.latest = latest
         self.location = location.replace('\\', '/')
         self.hash = hsh
         self.listing = {}
 
+
         if (not base_path):
             base_path = "."
 
+        self.backup_path = backup_path if backup_path else join(base_path, "backups")
         self.base_path = base_path
 
         self.loaded = False
@@ -197,14 +199,38 @@ class Package(object):
 
         self.hash = hsh.hexdigest()
 
+    def add_package_listing(self):
+        pass
+
+    def remove_package_listing(self, hsh, *, hard_delete = False):
+        if (not self.loaded):
+            self.load()
+        
+        listing_location = join(self.base_path, self.listing[hsh].location.lstrip('/'))
+
+        if (hard_delete and isfile(listing_location)):
+            if (not isdir(self.backup_path)):
+                mkdir(self.backup_path)
+            if (not isdir(join(self.backup_path, "deleted"))):
+                mkdir(join(self.backup_path, "deleted"))
+            filename, *extension = basename(listing_location).split('.')
+            copyfile(listing_location, join(self.backup_path, "deleted", filename + '-' + hash_file(listing_location, md5) + '.' + '.'.join(extension)))
+            remove(listing_location)
+
+        del self.listing[hsh]
+
 class MirrorServer(object):
-    def __init__(self, location: str = None, backup_path: str = None, /, load: bool = False):
+    def __init__(self, location: str = None, backup_path: str = None, /, load: bool = False, register_path = "register", packages_path = "pkgs", metadata_path = "pkgs"):
         if (location):
             location = abspath(location)
             self.checksum: str = hash_file(join(location, "pkgs.list"))
         else:
             self.checksum = 0
         self.packages: dict = {}
+
+        self.register_path = register_path.replace('\\', '/')
+        self.package_path = packages_path.replace('\\', '/')
+        self.metadata_path = metadata_path.replace('\\', '/')
 
         self.location = location.replace('\\', '/')
         self.loaded = False
@@ -272,15 +298,23 @@ class MirrorServer(object):
 
         self.loaded = True
 
-    def add_package_register(self, name) -> str:
+    def add_package_register(self, name) -> Package:
         if (not self.loaded):
             self.load()
 
         if (name not in self.packages):
-            self.packages[name] = Package(name, join("/register", name + ".list"), base_path=self.location)
+            self.packages[name] = Package(name, join(f"/{self.register_path}", name + ".list"), base_path=self.location)
             self.packages[name].loaded = True
 
-    def remove_package_register(self, name, *, hard_delete = False):
+        return (self.packages[name])
+
+    def get_package_register(self, name) -> Package:
+        if (not self.loaded):
+            self.load()
+
+        return (self.packages[name])
+
+    def remove_package_register(self, name, *, hard_delete = False) -> None:
         if (not self.loaded):
             self.load()
 
@@ -294,14 +328,21 @@ class MirrorServer(object):
                 mkdir(self.backup_path)
             if (not isdir(join(self.backup_path, "deleted"))):
                 mkdir(join(self.backup_path, "deleted"))
-            copyfile(pkg_location, join(self.backup_path, "deleted", basename(pkg_location)))
+            filename, *extension = basename(pkg_location).split('.')
+            copyfile(pkg_location, join(self.backup_path, "deleted", filename + '-' + hash_file(pkg_location, md5) + '.' + '.'.join(extension)))
             remove(pkg_location)
-        
+
         del self.packages[name]
 
 def main() -> int:
     ms = MirrorServer(".")
     ms.load()
+
+    new_package = ms.add_package_register("test")
+
+
+    ms.write()
+    ms.remove_package_register("test", hard_delete=True)
 
     print(ms)
     ms.write()
