@@ -3,7 +3,7 @@ from hashlib import sha256, md5
 from json import load, dump
 from shutil import copyfile
 from os import mkdir, stat, remove
-from os.path import join, abspath, isfile, isdir, basename, dirname
+from os.path import join, abspath, isfile, isdir, basename, dirname, splitext, relpath
 from datetime import datetime
 from warnings import warn
 
@@ -108,6 +108,8 @@ class PackageListing(object):
                 self.package_data["SHA256"] = hash_file(pkg_location, sha256)
                 self.package_data["MD5sum"] = hash_file(pkg_location, md5)
                 self.package_data["size"] = stat(pkg_location).st_size
+            else:
+                print(f"warning: package {pkg_location} not found, remember, remote package is not implemented.")
 
         backup_dir = join(backup_parent, dirname(self.location.lstrip('/')))
 
@@ -149,8 +151,6 @@ class Package(object):
     def load(self):
         if (not self.location):
             return
-        
-        self.listing.clear()
 
         with open(join(self.base_path, self.location.lstrip('/')), 'r') as fp:
             data = {}
@@ -199,8 +199,54 @@ class Package(object):
 
         self.hash = hsh.hexdigest()
 
-    def add_package_listing(self):
-        pass
+    def add_package_listing(self, package_metadata, package_location, *, package_files_dir = None) -> PackageListing:
+        if (not self.loaded):
+            self.load()
+
+        if (package_files_dir is None):
+            package_files_dir = join(self.base_path, "pkgs")
+
+        if (not isfile(package_location)):
+            print("file not found, remember, remote package is not implemented.")
+            return
+        
+        arch = package_metadata.get("arch", "x64")
+        version = package_metadata.get("version", "1.0.0")
+        machine = package_metadata.get("machine", "Gen-Linux")
+        description = package_metadata.get("description", f"{self.name} package.")
+        deps = package_metadata.get("deps", [])
+        name = f"{self.name}_{arch}_{machine.lower()}_{version.replace('.', '-')}"
+        path = copyfile(package_location, join(package_files_dir, name + splitext(package_location)[1]))
+        json_path = join(package_files_dir, name + ".json")
+        package_hash = hash_file(path)
+
+        self.listing[package_hash] = PackageListing(
+            arch,
+            version,
+            machine,
+            '/' + relpath(json_path, self.base_path).replace('\\', '/').lstrip('/')
+        )
+        self.listing[package_hash].package_data = {
+            "package": self.name,
+            "version": version,
+            "architecture": arch,
+            "machine": machine,
+            "depends": deps,
+            "description": description,
+            "address": '/' + relpath(path, self.base_path).replace('\\', '/').lstrip('/'),
+            "added_at": round(datetime.now().timestamp()),
+            "SHA256": package_hash,
+            "MD5sum": hash_file(path, md5)
+        }
+
+        self.listing[package_hash].loaded = True
+
+        if (self.latest):
+            self.latest = version if int(version.replace('.', '')) > int(self.latest.replace('.', '')) else self.latest
+        else:
+            self.latest = version
+
+        return (self.listing[package_hash])
 
     def remove_package_listing(self, hsh, *, hard_delete = False):
         if (not self.loaded):
@@ -339,9 +385,13 @@ def main() -> int:
     ms.load()
 
     new_package = ms.add_package_register("test")
+    listing = new_package.add_package_listing({
 
+    }, "./test1-0-0.tar.gz")
 
     ms.write()
+
+    new_package.remove_package_listing(listing.package_data["SHA256"], hard_delete=True)
     ms.remove_package_register("test", hard_delete=True)
 
     print(ms)
