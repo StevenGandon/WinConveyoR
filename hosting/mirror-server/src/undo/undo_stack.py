@@ -12,15 +12,17 @@ class UndoStack(object):
     def start_regisering_undo(self, name = "generic_action"):
         self.redo_stack.clear()
 
-        self.registering_action = name
+        self.registering_action = UndoAction(name)
 
-    def register_action(self):
+    def register_action(self, step):
         if (self.registering_action is None):
             raise RuntimeError("Can't register action when undo action has not started.")
+        
+        self.registering_action.add_step(step)
 
     def end_regisering_undo(self):
-        self.undo_stack.append(self.register_action)
-        self.register_action = None
+        self.undo_stack.append(self.registering_action)
+        self.registering_action = None
 
     def undo(self):
         if (self.registering_action is not None):
@@ -28,6 +30,8 @@ class UndoStack(object):
             return
 
         action = self.undo_stack.pop()
+
+        action.undo()
 
         self.redo_stack.append(action)
 
@@ -37,5 +41,7 @@ class UndoStack(object):
             return
 
         action = self.redo_stack.pop()
+
+        action.redo()
 
         self.undo_stack.append(action)
