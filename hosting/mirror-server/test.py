@@ -1,4 +1,5 @@
 import socket
+import json
 
 class Message(object):
     MAGIC = 0xffc407ec
@@ -24,5 +25,7 @@ class Message(object):
 
 clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 clientsocket.connect(('localhost', 1674))
-clientsocket.send(Message(Message.MAGIC, 0, "hello").to_bytes())
-print(clientsocket.recv(14))
+clientsocket.send(Message(Message.MAGIC, 0, json.dumps({
+    "action": "hello", "data": {}
+})).to_bytes())
+print(clientsocket.recv(1400))
