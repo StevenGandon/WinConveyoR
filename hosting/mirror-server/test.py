@@ -29,3 +29,11 @@ clientsocket.send(Message(Message.MAGIC, 0, json.dumps({
     "action": "hello", "data": {}
 })).to_bytes())
 print(clientsocket.recv(1400))
+clientsocket.send(Message(Message.MAGIC, 0, json.dumps({
+    "action": "connect", "data": {}
+})).to_bytes())
+print(clientsocket.recv(1400))
+clientsocket.send(Message(Message.MAGIC, 0, json.dumps({
+    "action": "goodbye", "data": {}
+})).to_bytes())
+print(clientsocket.recv(1400))

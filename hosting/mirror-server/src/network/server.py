@@ -128,8 +128,10 @@ class Server(object):
     def close(self):
         for item in self.clients.values():
             item.close()
+
         for item in self.sessions.values():
             item.close()
+
         self.clients.clear()
         self.sessions.clear()
 

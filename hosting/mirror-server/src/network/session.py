@@ -3,8 +3,8 @@ from uuid import uuid4
 from .client import Client
 
 class Session(object):
-    def __init__(self, client = Client(None)):
-        self._id = uuid4().int
+    def __init__(self, client = Client(None), *, session_id = None):
+        self._id = uuid4().int if session_id is None else session_id
 
         self.opened = True
         self.client = client

@@ -80,11 +80,63 @@ def route_hello(client: Client, server: Server, message: JSONMessage):
         "code": 0
     }))
 
+def route_goodbye(client: Client, server: Server, message: JSONMessage):
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "goodbye"
+        },
+        "code": 0
+    }))
+
+    server.clients[client.get_id()].close()
+
+def route_connect(client: Client, server: Server, message: JSONMessage):
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
+    S = Session(client)
+
+    server.sessions[S.get_id()] = S
+
+def route_disconnect(client: Client, server: Server, message: JSONMessage):
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
+    if ("session_id" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
 def main():
-    S = Server()
+    try:
+        S = Server()
+    except ConnectionError as e:
+        print(f"failed to create server. ({e})")
+        return (1)
     R = Router()
 
     R.add_route("hello", route_hello)
+    R.add_route("connect", route_connect)
+    R.add_route("disconnect", route_disconnect)
+    R.add_route("goodbye", route_goodbye)
+
     S.set_handler(WCRHandler(R))
     S.run()
 
