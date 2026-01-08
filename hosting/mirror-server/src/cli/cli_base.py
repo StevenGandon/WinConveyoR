@@ -24,6 +24,11 @@ class HandlerClient(object):
     def message(self, client, server, message: Message):
         self.cli.display(f"message from server: {message.content}")
 
+class NetworkCLICommand(object):
+    def __init__(self, command: CLICommand, /, need_login: bool = False):
+        self.command: CLICommand = command
+        self.need_login: bool = need_login
+
 class NetworkCLI(object):
     def __init__(self):
         self._old_attrs = init_terminal()
@@ -44,32 +49,28 @@ class NetworkCLI(object):
         self.cursor = 0
         self.history_cursor = 0
 
+        self.commands = {}
+
+    def add_command(self, command: CLICommand, need_login: bool = False):
+        self.commands[command.name] = NetworkCLICommand(command, need_login=need_login)
+
     def handle_input(self, inputs):
         if (not inputs):
             return
 
         command, *args = inputs.split(" ")
 
-        if (command == "connect"):
-            CLICommand("connect", connect_command, [CLICommandArg("password", CLICommandArg.ARG_MANDATORY)]).run_command(self, args)
+        if (command not in self.commands):
+            print(f"command not found '{command}'.")
             return
-
-        if (command == "disconnect"):
-            return CLICommand("disconnect", disconnect_command, [CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())]).run_command(self, [str(self.active_session)] + args)
         
-        if (command == "list_sessions"):
-            return CLICommand("list_sessions", list_sessions_command, []).run_command(self, args)
-        
-        if (command == "switch_session"):
-            return CLICommand("switch_session", switch_session_command, [CLICommandArg("session_id", CLICommandArg.ARG_OPTIONAL, argument_parser=lambda x: int(x, 16), argument_checker=lambda x: all(c in hexdigits for c in x))]).run_command(self, args)
-        
-        if (command == "list_packages"):
-            return CLICommand("list_packages", list_packages_command, [CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())]).run_command(self, [str(self.active_session)] + args)
+        if (self.commands[command].need_login):
+            if (not self.active_session):
+                print(f"command need to be executed in a session.")
+                return
+            args = [str(self.active_session)] + args
 
-        if (command == "quit"):
-            return CLICommand("quit", quit_command, []).run_command(self, args)
-
-        print(f"command not found '{command}'.")
+        return (self.commands[command].command.run_command(self, args))
 
     def user_input(self):
         val = non_blocking_read()
