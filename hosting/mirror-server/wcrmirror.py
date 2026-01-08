@@ -71,6 +71,50 @@ def route_goodbye(client: Client, server: Server, message: JSONMessage):
 
     server.clients[client.get_id()].close()
 
+def route_list_packages(client: Client, server: Server, message: JSONMessage):
+    if ("session_id" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    session_id = message.content["data"]["session_id"]
+
+    if (session_id not in server.sessions):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "invalid_session_id"
+            },
+            "code": 1
+        }))
+
+        return
+
+    if (server.sessions[session_id].client != client):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "unauthorized_session"
+            },
+            "code": 1
+        }))
+
+        return
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "packages": list(server.sessions[session_id].session_instance.packages.keys())
+        },
+        "code": 0
+    }))
+
 def route_connect(client: Client, server: Server, message: JSONMessage):
     if ("password" not in message.content["data"]):
         client.write(JSONMessage({
@@ -94,17 +138,18 @@ def route_connect(client: Client, server: Server, message: JSONMessage):
 
         return
 
+    S = Session(client, session_instance=MirrorServer(".", load=True))
+
+    server.sessions[S.get_id()] = S
+
     client.write(JSONMessage({
         "action": message.content["action"],
         "data": {
-            "msg": "ok"
+            "msg": "ok",
+            "session_id": S.get_id()
         },
         "code": 0
     }))
-
-    S = Session(client)
-
-    server.sessions[S.get_id()] = S
 
 def route_disconnect(client: Client, server: Server, message: JSONMessage):
     if ("session_id" not in message.content["data"]):
@@ -129,6 +174,8 @@ def route_disconnect(client: Client, server: Server, message: JSONMessage):
             "code": 1
         }))
 
+        return
+
     if (server.sessions[session_id].client != client):
         client.write(JSONMessage({
             "action": message.content["action"],
@@ -137,6 +184,8 @@ def route_disconnect(client: Client, server: Server, message: JSONMessage):
             },
             "code": 1
         }))
+
+        return
 
     server.sessions[session_id].close()
     del server.sessions[session_id]
@@ -167,6 +216,7 @@ def main():
     R.add_route("hello", route_hello)
     R.add_route("connect", route_connect)
     R.add_route("disconnect", route_disconnect)
+    R.add_route("list_packages", route_list_packages)
     R.add_route("goodbye", route_goodbye)
 
     S.set_handler(WCRHandler(R))

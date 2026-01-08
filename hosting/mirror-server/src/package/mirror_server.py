@@ -9,7 +9,7 @@ from ..common import hash_file
 from .package import Package
 
 class MirrorServer(object):
-    def __init__(self, location: str = None, backup_path: str = None, /, load: bool = False, register_path = "register", packages_path = "pkgs", metadata_path = "pkgs"):
+    def __init__(self, location: str = None, backup_path: str = None, /, load: bool = False, recursive_load: bool = False, register_path = "register", packages_path = "pkgs", metadata_path = "pkgs"):
         if (location):
             location = abspath(location)
             self.checksum: str = hash_file(join(location, "pkgs.list"))
@@ -23,6 +23,7 @@ class MirrorServer(object):
 
         self.location = location.replace('\\', '/')
         self.loaded = False
+        self.recursive_load = recursive_load
 
         self.backup_path = (backup_path if backup_path else join(self.location, "backups"))
 
@@ -81,7 +82,7 @@ class MirrorServer(object):
                 while line:
                     line = line.replace('\r\n', '\n').strip()
                     name, version, location, sha256 = tuple(filter(lambda x: len(x), map(lambda x: x.strip(), line.split(','))))
-                    self.packages[name] = Package(name, location, version, sha256, load=True, base_path=self.location)
+                    self.packages[name] = Package(name, location, version, sha256, load=self.recursive_load, recursive_load=self.recursive_load, base_path=self.location)
 
                     line = fp.readline()
 

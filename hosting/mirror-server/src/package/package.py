@@ -9,7 +9,7 @@ from ..common import hash_file
 from .package_listing import PackageListing
 
 class Package(object):
-    def __init__(self, name="", location=None, latest = None, hsh = 0, backup_path: str = None, /, load: bool=False, base_path = None):
+    def __init__(self, name="", location=None, latest = None, hsh = 0, backup_path: str = None, /, load: bool=False, recursive_load: bool = False, base_path = None):
         self.name = name
         self.latest = latest
         self.location = location.replace('\\', '/')
@@ -24,6 +24,7 @@ class Package(object):
         self.base_path = base_path
 
         self.loaded = False
+        self.recursive_load = recursive_load
 
         if (load):
             self.load()
@@ -43,7 +44,7 @@ class Package(object):
 
             for item in fp.readlines():
                 if not item.strip():
-                    temp = PackageListing(data.get("Architecture", "ukn"), data.get("Version", "0.0.0"), data.get("Machine", "ukn"), data.get("Location", "???"), load=True, base_path=self.base_path)
+                    temp = PackageListing(data.get("Architecture", "ukn"), data.get("Version", "0.0.0"), data.get("Machine", "ukn"), data.get("Location", "???"), load=self.recursive_load, base_path=self.base_path)
                     self.listing[temp.package_data.get("SHA256", f"???-{data.get('Version', '???')}")] = temp
                     data.clear()
                     continue
@@ -51,7 +52,7 @@ class Package(object):
                 data[item.split(':')[0].strip()] = ':'.join(item.split(':')[1:]).strip()
 
             if (data):
-                temp = PackageListing(data.get("Architecture", "ukn"), data.get("Version", "0.0.0"), data.get("Machine", "ukn"), data.get("Location", "???"), load=True, base_path=self.base_path)
+                temp = PackageListing(data.get("Architecture", "ukn"), data.get("Version", "0.0.0"), data.get("Machine", "ukn"), data.get("Location", "???"), load=self.recursive_load, base_path=self.base_path)
                 self.listing[temp.package_data.get("SHA256", f"???-{data.get('Version', '???')}")] = temp
                 data.clear()
 

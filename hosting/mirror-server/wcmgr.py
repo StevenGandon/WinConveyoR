@@ -20,18 +20,103 @@ class NetworkCLI(object):
         self.client: ClientSocket = ClientSocket()
         self.client.set_handler(HandlerClient(self))
 
+        self.active_session = None
+
         self.running = False
         self.buffer = bytearray()
 
         self.history = [""]
 
-        self.prompt = ">>> "
+        self.prompt_base = ">>> "
+        self.prompt_session = "[$session_id]>>> "
+        self.prompt = self.prompt_base
         self.cursor = 0
         self.history_cursor = 0
 
-
     def handle_input(self, inputs):
-        print(f"command not found '{inputs}'.")
+        command, *args = inputs.split(" ")
+
+        if (command == "connect"):
+            self.client.write(JSONMessage({"action": "connect", "data": {"password": args[0] if args else ""}}))
+            message = JSONMessage.from_message(self.client.read())
+
+            if (not "code" in message.content or message.content["code"] != 0):
+                print(f"connection failed: {message.content['data'].get('msg')}")
+                return
+
+            if ("session_id" not in message.content["data"]):
+                print("missing session_id in response.")
+                return
+
+            session = message.content["data"]["session_id"]
+            self.client.sessions[session] = Session(self.client, session_id=session)
+            self.active_session = session
+            self.prompt = self.prompt_session.replace("$session_id", hex(self.active_session).split('0x')[-1])
+            return
+        
+        if (command == "disconnect"):
+            if (len(args) < 1):
+                if (self.active_session is None):
+                    print("missing session_id.")
+                    return
+                else:
+                    args.append(hex(self.active_session).split("0x")[-1])
+            session_as_int = int(args[0], 16)
+            if (session_as_int not in self.client.sessions):
+                print("invalid session.")
+                return
+
+            self.client.write(JSONMessage({"action": "disconnect", "data": {"session_id": session_as_int}}))
+            message = JSONMessage.from_message(self.client.read())
+
+            if (not "code" in message.content or message.content["code"] != 0):
+                print(f"disconnection failed: {message.content['data'].get('msg')}")
+                return
+
+            del self.client.sessions[session_as_int]
+
+            if (self.active_session == session_as_int):
+                self.active_session = None
+                self.prompt = self.prompt_base
+            return
+        
+        if (command == "list_sessions"):
+            print('\n'.join(map(lambda x: hex(x).split('0x')[-1], self.client.sessions.keys())))
+            return
+        
+        if (command == "switch_session"):
+            if (len(args) < 1):
+                self.active_session = None
+                self.prompt = self.prompt_base
+                return
+            session_as_int = int(args[0], 16)
+            if (session_as_int not in self.client.sessions):
+                print("invalid session.")
+                return
+            self.active_session = session_as_int
+            self.prompt = self.prompt_session.replace("$session_id", hex(self.active_session).split('0x')[-1])
+            return
+        
+        if (command == "list_packages"):
+            if (self.active_session is None):
+                print("not in a session.")
+                return
+            self.client.write(JSONMessage({"action": "list_packages", "data": {"session_id": self.active_session}}))
+            message = JSONMessage.from_message(self.client.read())
+
+            if (not "code" in message.content or message.content["code"] != 0):
+                print(f"list_packages failed: {message.content['data'].get('msg')}")
+                return
+            
+            print(message.content["data"]["packages"])
+            return
+
+        if (command == "quit"):
+            self.client.write(JSONMessage({"action": "goodbye", "data": {}}))
+            self.running = False
+            return
+
+        print(f"command not found '{command}'.")
 
     def user_input(self):
         val = non_blocking_read()
@@ -44,6 +129,7 @@ class NetworkCLI(object):
             self.cursor = 0
             value = self.buffer.decode(errors="replace")
             self.buffer.clear()
+            self.history_cursor = 0
             self.history[-1] = value
             self.history.append("")
             self.handle_input(value.strip())
