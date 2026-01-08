@@ -49,6 +49,15 @@ def main():
             CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
         ]
     ), True)
+
+    nc.add_command(CLICommand(
+        "write",
+        write_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
     nc.add_command(CLICommand(
         "quit",
         quit_command,
