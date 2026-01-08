@@ -4,18 +4,7 @@ from signal import signal, SIGINT, SIGTERM
 
 from .message import Message
 from .client import Client
-
-class Handler(object):
-    def __init__(self):
-        pass
-
-    def error(self, client: Client, server, e):
-        print(f"error with client {client.get_id()}: {e}")
-        client.write(Message(Message.MAGIC, 0, e))
-
-    def message(self, client: Client, server, message: Message):
-        print(f"message from client {client.get_id()}: {message.content}")
-        client.write(Message(Message.MAGIC, 0, message.content))
+from .handler import Handler
 
 class Server(object):
     def __init__(self, host = "0.0.0.0", port = 1674, *, socket_builder = lambda: socket(AF_INET, SOCK_STREAM)):
