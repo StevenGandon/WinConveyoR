@@ -1,6 +1,4 @@
 from sys import exit
-from socket import socket, AF_INET, SOCK_STREAM
-from select import select
 from signal import signal, SIGINT, SIGTERM
 
 from src import *
@@ -17,6 +15,8 @@ class HandlerClient(object):
 
 class NetworkCLI(object):
     def __init__(self):
+        self._old_attrs = init_terminal()
+        
         self.client: ClientSocket = ClientSocket()
         self.client.set_handler(HandlerClient(self))
 
@@ -29,7 +29,6 @@ class NetworkCLI(object):
         self.cursor = 0
         self.history_cursor = 0
 
-        self._old_attrs = init_terminal()
 
     def handle_input(self, inputs):
         print(f"command not found '{inputs}'.")

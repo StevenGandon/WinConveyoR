@@ -1,7 +1,9 @@
 from sys import exit
+from os import environ
 from src import *
+from dotenv import load_dotenv, find_dotenv
 
-from json import dumps, loads
+load_dotenv(find_dotenv())
 
 class Router(object):
     def __init__(self):
@@ -70,6 +72,28 @@ def route_goodbye(client: Client, server: Server, message: JSONMessage):
     server.clients[client.get_id()].close()
 
 def route_connect(client: Client, server: Server, message: JSONMessage):
+    if ("password" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    if ("WCR_PASSWORD" in environ and message.content["data"]["password"] != environ["WCR_PASSWORD"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "invalid_password"
+            },
+            "code": 1
+        }))
+
+        return
+
     client.write(JSONMessage({
         "action": message.content["action"],
         "data": {
@@ -83,14 +107,6 @@ def route_connect(client: Client, server: Server, message: JSONMessage):
     server.sessions[S.get_id()] = S
 
 def route_disconnect(client: Client, server: Server, message: JSONMessage):
-    client.write(JSONMessage({
-        "action": message.content["action"],
-        "data": {
-            "msg": "ok"
-        },
-        "code": 0
-    }))
-
     if ("session_id" not in message.content["data"]):
         client.write(JSONMessage({
             "action": message.content["action"],
@@ -101,8 +117,46 @@ def route_disconnect(client: Client, server: Server, message: JSONMessage):
         }))
 
         return
+    
+    session_id = message.content["data"]["session_id"]
+
+    if (session_id not in server.sessions):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "invalid_session_id"
+            },
+            "code": 1
+        }))
+
+    if (server.sessions[session_id].client != client):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "unauthorized_session"
+            },
+            "code": 1
+        }))
+
+    server.sessions[session_id].close()
+    del server.sessions[session_id]
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
 
 def main():
+    if ("WCR_PASSWORD" not in environ):
+        print("warning: no password set anyone can edit.")
+    if ("WCR_ACCESS" not in environ):
+        print("warning: no access key set anyone can download packages.")
+    if ("WCR_RSA" not in environ):
+        print("warning: no rsa encryption, requests are plain text.")
+
     try:
         S = Server()
     except ConnectionError as e:
