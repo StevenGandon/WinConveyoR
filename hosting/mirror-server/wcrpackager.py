@@ -1,5 +1,6 @@
 from sys import exit
 from sys import argv
+from json import dump
 
 from genericpath import isdir
 
@@ -11,6 +12,17 @@ class PackageInfo(object):
         self.depends = depends
         self.machine = machine
         self.architecture = architecture
+
+    def generate_json(self, file_path: str):
+        with open(file_path, 'w+') as fp:
+            dump({
+                "package": self.name,
+                "version": self.version,
+                "description": self.description,
+                "architecture": self.architecture,
+                "depends": self.depends,
+                "machine": self.machine
+            }, fp, indent=4)
 
 def ask_until_given(text):
     content = ""
@@ -26,7 +38,8 @@ def ask_until_empty(text):
 
     while (content):
         content = input(text).strip()
-        items.append(content)
+        if (content):
+            items.append(content)
 
     return (items)
 
@@ -59,6 +72,8 @@ def interactive_mode():
     package_architecture = ask_with_default(f"package architecture (default: x64): ", "x64")
 
     pkg_info = PackageInfo(package_name, package_version, package_description, package_deps, package_machine, package_architecture)
+
+    pkg_info.generate_json(f"./infos_{package_name}_{package_architecture}_{package_machine}_{package_version.replace('.', '-')}")
 
     print("-===========[ Content ]===========-")
 
