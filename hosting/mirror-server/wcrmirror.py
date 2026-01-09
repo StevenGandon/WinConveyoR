@@ -145,7 +145,7 @@ def route_connect(client: Client, server: Server, message: JSONMessage):
 
         return
 
-    S = Session(client, session_instance=MirrorServer("." if "WCR_DIR" not in environ else environ["WCR_DIR"], load=True, recursive_load=True))
+    S = Session(client, session_instance=MirrorServer("." if "WCR_DIR" not in environ else environ["WCR_DIR"], load=True))
 
     server.sessions[S.get_id()] = S
 
