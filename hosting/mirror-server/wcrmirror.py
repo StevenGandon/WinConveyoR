@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from sys import exit
 from sys import argv
 from os import environ
@@ -30,9 +32,9 @@ class WCRHandler(Handler):
             self._router.add_route("default", self.default_router_not_found)
 
     def default_router_not_found(self, client: Client, server: Server, message: Message):
-        self.error(client, server, f"action not found: '{message.content["action"]}'.")
+        self.error(client, server, f"action not found: '{message.content['action']}'.")
 
-    def error(self, client, server, e, *, action = "uknown"):
+    def error(self, client, server, e, *, action = "unknown"):
         client.write(JSONMessage({
             "action": action,
             "data": {

@@ -17,3 +17,14 @@ services:
     ports:
       - "${HTTP_MIRROR_PORT}:80"
     restart: on-failure
+
+  custom-server:
+    volumes:
+      - mirror-data:/mnt/mirror
+    build:
+      context: mirror-server
+    ports:
+      - "${CUSTOM_MIRROR_PORT}:1674"
+    environment:
+      WCR_DIR: "/mnt/mirror"
+    restart: on-failure

@@ -33,7 +33,13 @@ def network_command(payload, payload_filler, middlewares = []):
         def wrapper(cli, **kwargs):
             payload_filled = payload_filler(deepcopy(payload), kwargs)
             cli.client.write(payload_filled)
-            response = cli.client.read()
+
+            try:
+                response = cli.client.read()
+            except ConnectionError:
+                print("server connection close without giving a response.")
+                cli.close()
+                return
             
             for middleware in middlewares:
                 status, response = middleware(cli, kwargs, response)

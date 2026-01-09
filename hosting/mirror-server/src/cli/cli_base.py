@@ -193,7 +193,15 @@ class NetworkCLI(object):
         self.running = True
 
         self.client.write(JSONMessage({"action": "hello", "data": {}}))
-        message = JSONMessage.from_message(self.client.read())
+
+        try:
+            message = JSONMessage.from_message(self.client.read())
+        except ConnectionError as e:
+            print(f"lost connection to server during handcheck. ({e})")
+            return
+        except Exception as e:
+            print(f"failed to get and parse server handcheck response. ({e})")
+            return
 
         if ("code" not in message.content or "action" not in message.content or "data" not in message.content or message.content["code"] != 0 or message.content["action"] != "hello"):
             raise ConnectionError("handcheck with server failed")

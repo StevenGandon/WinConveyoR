@@ -38,6 +38,7 @@ class MirrorServer(object):
 
     def write(self):
         hsh = sha256()
+        _linebreak: str = '\n'
 
         if (not self.location or not self.loaded):
             return
@@ -63,7 +64,7 @@ class MirrorServer(object):
             last = len(self.packages)
 
             for i, item in enumerate(self.packages.values()):
-                computed_string = f"{item.name},{item.latest if item.latest else "nul"},{item.location},{item.hash}{'\n' if last - 1 != i else ''}".encode()
+                computed_string = f"{item.name},{item.latest if item.latest else 'null'},{item.location},{item.hash}{_linebreak if last - 1 != i else ''}".encode()
                 fp.write(computed_string)
                 hsh.update(computed_string)
 

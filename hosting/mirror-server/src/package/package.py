@@ -60,6 +60,7 @@ class Package(object):
 
     def write(self, backup_parent):
         hsh = sha256()
+        _linebreak: str = "\n" 
 
         if (not self.loaded or not self.location):
             return
@@ -80,7 +81,7 @@ class Package(object):
             last = len(self.listing)
 
             for i, item in enumerate(self.listing.values()):
-                content = f"Architecture: {item.architecture}\nVersion: {item.version}\nMachine: {item.machine}\nLocation: {item.location}\n{'\n' if last - 1 != i else ''}".encode()
+                content = f"Architecture: {item.architecture}\nVersion: {item.version}\nMachine: {item.machine}\nLocation: {item.location}\n{_linebreak if last - 1 != i else ''}".encode()
                 fp.write(content)
                 hsh.update(content)
 

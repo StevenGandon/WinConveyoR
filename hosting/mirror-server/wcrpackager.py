@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from sys import exit
 from sys import argv
 from json import dump
