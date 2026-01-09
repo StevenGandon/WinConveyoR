@@ -190,10 +190,10 @@ def route_disconnect(client: Client, server: Server, message: JSONMessage, /, se
 def main():
     if ("WCR_PASSWORD" not in environ):
         print("warning: no password set anyone can edit.")
-    if ("WCR_ACCESS" not in environ):
-        print("warning: no access key set anyone can download packages.")
-    if ("WCR_RSA" not in environ):
-        print("warning: no rsa encryption, requests are plain text.")
+    # if ("WCR_ACCESS" not in environ):
+    #     print("warning: no access key set anyone can download packages.")
+    # if ("WCR_RSA" not in environ):
+    #     print("warning: no rsa encryption, requests are plain text.")
     if ("WCR_DIR" not in environ):
         print("warning: no directory path given for source server data using '.'.")
 

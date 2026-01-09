@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 
-from sys import exit
-from sys import argv
-from json import dump
+from sys import exit, argv
+from json import dump, load
+from os.path import join, basename
+from os import mkdir, walk
+from glob import glob
+from tarfile import open as open_tar
+from src.common import hash_file
+from hashlib import md5, sha256
 
 from genericpath import isdir
 
@@ -26,66 +31,158 @@ class PackageInfo(object):
                 "machine": self.machine
             }, fp, indent=4)
 
-def ask_until_given(text):
-    content = ""
+class PackageBuilder(object):
+    def __init__(self, asset_path, pkg_info, temp_dir = "./temp"):
+        self.asset_path = asset_path
+        self.pkg_info: PackageInfo = pkg_info
+        self.temp_dir = temp_dir
+        self.hashs = {}
+        self.hash = ""
 
-    while (not content):
+        if (not isdir(self.temp_dir)):
+            mkdir(self.temp_dir)
+
+        self._generate_hashs()
+        self._generate_global_hash()
+
+        if (not isdir(join(self.temp_dir, self.hash))):
+            mkdir(join(self.temp_dir, self.hash))
+
+    def _generate_global_hash(self):
+        computed = sha256()
+
+        for item in sorted(self.hashs.keys()):
+            computed.update(self.hashs[item]["sha256"].encode())
+        self.hash = computed.hexdigest()
+
+    def _generate_hashs(self):
+        for parent, dirs, files in walk(self.asset_path):
+            for item in files:
+                full_path = join(parent, item)
+                self.hashs[full_path.replace('\\', '/').replace(self.asset_path.replace('\\', '/'), '').lstrip('/')] = {"sha256": hash_file(full_path), "md5": hash_file(full_path, md5)}
+
+    def pack_assets(self, output_path: str):
+        tar = open_tar(output_path, "w:gz")
+
+        for file_name in glob(join(self.asset_path, "*")):
+            tar.add(file_name, basename(file_name))
+
+        tar.close()
+
+    def generate_package(self):
+        self.pkg_info.generate_json(join(
+            self.temp_dir,
+            f"infos_{self.pkg_info.name}_{self.pkg_info.architecture}_{self.pkg_info.machine}_{self.pkg_info.version.replace('.', '-')}"
+        ))
+
+        self.pack_assets(join(self.temp_dir, self.hash , "package.tar.gz"))
+
+        with open(join(self.temp_dir, self.hash, ".PKG_INFO"), "wb+") as fp:
+            pass
+
+        with open(join(self.temp_dir, self.hash, ".INSTALL"), "wb+") as fp:
+            pass
+
+        with open(join(self.temp_dir, self.hash, ".BUILD"), "wb+") as fp:
+            pass
+
+        with open(join(self.temp_dir, self.hash, ".PACK"), "wb+") as fp:
+            content = bytearray()
+            byte_order = "big"
+
+            content.extend(b"\xff\x45\x87\x90")
+            content.extend(len(self.hashs).to_bytes(8, byte_order))
+
+            for item in self.hashs:
+                encoded = item.encode()
+
+                content.extend(len(encoded).to_bytes(8, byte_order))
+                content.extend(encoded)
+                content.extend(int(self.hashs[item]["sha256"], 16).to_bytes(32, byte_order))
+                content.extend(int(self.hashs[item]["md5"], 16).to_bytes(16, byte_order))
+
+            fp.write(bytes(content))
+
+class Dialog(object):
+    @staticmethod
+    def ask_until_given(text):
+        content = ""
+
+        while (not content):
+            content = input(text).strip()
+
+        return (content)
+
+    @staticmethod
+    def ask_until_empty(text):
+        content = "empty"
+        items = []
+
+        while (content):
+            content = input(text).strip()
+            if (content):
+                items.append(content)
+
+        return (items)
+
+    @staticmethod
+    def ask_enum(text, possibilities):
+        content = ""
+
+        while (content not in possibilities):
+            content = input(text).strip()
+
+            if (content not in possibilities):
+                print(f"invalid value, should be within these ones: ({', '.join(possibilities)})")
+
+        return (content)
+
+    @staticmethod
+    def ask_with_default(text, default):
         content = input(text).strip()
 
-    return (content)
-
-def ask_until_empty(text):
-    content = "empty"
-    items = []
-
-    while (content):
-        content = input(text).strip()
-        if (content):
-            items.append(content)
-
-    return (items)
-
-def ask_enum(text, possibilities):
-    content = ""
-
-    while (content not in possibilities):
-        content = input(text).strip()
-
-        if (content not in possibilities):
-            print(f"invalid value, should be within these ones: ({', '.join(possibilities)})")
-
-    return (content)
-
-def ask_with_default(text, default):
-    content = input(text).strip()
-
-    if (not content):
-        return (default)
-    return (content)
+        if (not content):
+            return (default)
+        return (content)
 
 def interactive_mode():
     print("-===========[ Informations ]===========-")
     
-    package_name = ask_until_given("package name (nodefault): ")
-    package_description = ask_with_default(f"package description (default: '{package_name} package.'): ", package_name)
-    package_version = ask_with_default(f"package version (default: 1.0.0): ", "1.0.0")
-    package_deps = ask_until_empty(f"package dependencies (leave empty to stop defining dependencies): ")
-    package_machine = ask_with_default(f"package machine (default: windows): ", "windows")
-    package_architecture = ask_with_default(f"package architecture (default: x64): ", "x64")
+    package_name = Dialog.ask_until_given("package name (nodefault): ")
+    package_description = Dialog.ask_with_default(f"package description (default: '{package_name} package.'): ", package_name)
+    package_version = Dialog.ask_with_default(f"package version (default: 1.0.0): ", "1.0.0")
+    package_deps = Dialog.ask_until_empty(f"package dependencies (leave empty to stop defining dependencies): ")
+    package_machine = Dialog.ask_with_default(f"package machine (default: windows): ", "windows")
+    package_architecture = Dialog.ask_with_default(f"package architecture (default: x64): ", "x64")
 
     pkg_info = PackageInfo(package_name, package_version, package_description, package_deps, package_machine, package_architecture)
 
-    pkg_info.generate_json(f"./infos_{package_name}_{package_architecture}_{package_machine}_{package_version.replace('.', '-')}")
+    print("-===========[ Installation ]===========-")
+
+    package_type = Dialog.ask_enum("package installation type (nodefault) (static, compile, custom): ", ["static", "compile", "custom"])
 
     print("-===========[ Content ]===========-")
 
-    package_type = ask_enum("package installation type (nodefault) (static, compile): ", ["static", "compile"])
-
-
+    P = PackageBuilder(argv[1], pkg_info)
+    P.generate_package()
 
     return (0)
 
 def config_file_mode():
+    with open(argv[2], "r") as fp:
+        config = load(fp)
+
+    P = PackageBuilder(argv[1], PackageInfo(
+        config["name"],
+        config["version"],
+        config["description"],
+        config["deps"],
+        config["machine"],
+        config["architecture"]
+    ))
+
+    P.generate_package()
+
     return (0)
 
 def main() -> int:
