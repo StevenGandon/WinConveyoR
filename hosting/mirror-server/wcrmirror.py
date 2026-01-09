@@ -1,4 +1,5 @@
 from sys import exit
+from sys import argv
 from os import environ
 from src import *
 from dotenv import load_dotenv, find_dotenv
@@ -144,7 +145,7 @@ def route_connect(client: Client, server: Server, message: JSONMessage):
 
         return
 
-    S = Session(client, session_instance=MirrorServer(".", load=True))
+    S = Session(client, session_instance=MirrorServer("." if "WCR_DIR" not in environ else environ["WCR_DIR"], load=True, recursive_load=True))
 
     server.sessions[S.get_id()] = S
 
@@ -166,7 +167,7 @@ def route_write(client: Client, server: Server, message: JSONMessage, /, session
         "data": {
             "msg": "ok",
             "edited_package_count": len(tuple(filter(lambda x: x.loaded, session.session_instance.packages.values()))),
-            "edited_instance_count": len(tuple(filter(lambda x: x.loaded, sum([item.listing.values() for item in session.session_instance.packages.values() if item.loaded], []))))
+            "edited_instance_count": len(tuple(filter(lambda x: x.loaded, sum([list(item.listing.values()) for item in session.session_instance.packages.values() if item.loaded], []))))
         },
         "code": 0
     }))
@@ -191,6 +192,8 @@ def main():
         print("warning: no access key set anyone can download packages.")
     if ("WCR_RSA" not in environ):
         print("warning: no rsa encryption, requests are plain text.")
+    if ("WCR_DIR" not in environ):
+        print("warning: no directory path given for source server data using '.'.")
 
     try:
         S = Server()
