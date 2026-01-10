@@ -64,8 +64,16 @@ class PackageBuilder(object):
     def pack_assets(self, output_path: str):
         tar = open_tar(output_path, "w:gz")
 
-        for file_name in glob(join(self.asset_path, "*")):
+        for file_name in glob(join(self.asset_path, "*"), include_hidden=True):
             tar.add(file_name, basename(file_name))
+
+        tar.close()
+
+    def pack_package(self, output_path: str):
+        tar = open_tar(output_path, "w:gz")
+
+        for file in glob(join(self.temp_dir, self.hash, "*"), include_hidden=True):
+            tar.add(file, basename(file))
 
         tar.close()
 
@@ -102,6 +110,11 @@ class PackageBuilder(object):
                 content.extend(int(self.hashs[item]["md5"], 16).to_bytes(16, byte_order))
 
             fp.write(bytes(content))
+
+        self.pack_package(join(
+            self.temp_dir,
+            f"{self.pkg_info.name}_{self.pkg_info.architecture}_{self.pkg_info.machine}_{self.pkg_info.version.replace('.', '-')}.tar.gz"
+        ))
 
 class Dialog(object):
     @staticmethod
