@@ -1,0 +1,32 @@
+\doxysection{QCPData\+Selection Class Reference}
+\hypertarget{classQCPDataSelection}{}\label{classQCPDataSelection}\index{QCPDataSelection@{QCPDataSelection}}
+
+
+Describes a data set by holding multiple \doxylink{classQCPDataRange}{QCPData\+Range} instances.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Describes a data set by holding multiple \doxylink{classQCPDataRange}{QCPData\+Range} instances. 
+
+\doxylink{classQCPDataSelection}{QCPData\+Selection} manages multiple instances of \doxylink{classQCPDataRange}{QCPData\+Range} in order to represent any (possibly disjoint) set of data selection.
+
+The data selection can be modified with addition and subtraction operators which take \doxylink{classQCPDataSelection}{QCPData\+Selection} and \doxylink{classQCPDataRange}{QCPData\+Range} instances, as well as methods such as add\+Data\+Range and clear. Read access is provided by data\+Range, data\+Ranges, data\+Range\+Count, etc.
+
+The method simplify is used to join directly adjacent or even overlapping \doxylink{classQCPDataRange}{QCPData\+Range} instances. \doxylink{classQCPDataSelection}{QCPData\+Selection} automatically simplifies when using the addition/subtraction operators. The only case when simplify is left to the user, is when calling add\+Data\+Range, with the parameter {\itshape simplify} explicitly set to false. This is useful if many data ranges will be added to the selection successively and the overhead for simplifying after each iteration shall be avoided. In this case, you should make sure to call simplify after completing the operation.
+
+Use enforce\+Type to bring the data selection into a state complying with the constraints for selections defined in QCP\+::\+Selection\+Type.
+
+QCustom\+Plot\textquotesingle{}s data selection mechanism is based on \doxylink{classQCPDataSelection}{QCPData\+Selection} and \doxylink{classQCPDataRange}{QCPData\+Range}.\hypertarget{classQCPDataSelection_qcpdataselection-iterating}{}\doxysubsection{\texorpdfstring{Iterating over a data selection}{Iterating over a data selection}}\label{classQCPDataSelection_qcpdataselection-iterating}
+As an example, the following code snippet calculates the average value of a graph\textquotesingle{}s data selection\+:
+
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

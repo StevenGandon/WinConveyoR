@@ -1,0 +1,156 @@
+\doxysection{dafheader.\+h}
+\hypertarget{dafheader_8h_source}{}\label{dafheader_8h_source}\index{Beamage/dafheader.h@{Beamage/dafheader.h}}
+\mbox{\hyperlink{dafheader_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <qiodevice.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ pack(push,1)}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfileHeaderInfo__v0}{fileHeaderInfo\_v0}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a58873ead09f1fe415463159e0ed4e1d1}{fileHeaderSize}};\ \textcolor{comment}{//2616}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_ad48fae97fade56832e730d2470e0fa8b}{ImageMinX}};}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a8eeb9217b4af165395391d878a048054}{ImageMinY}};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a6572eae5abb8f52745de892aebc83f0f}{ImageMaxX}};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_aaf38ec518ad39307596f8dea77e6660f}{ImageMaxY}};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_ad2b17d88ec7ed1eea24e5ebc88ac24db}{AcquisitionWidth}};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a2ba76314ba9f15d22b13d99e1f9d3977}{AcquisitionHeight}};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a79f27d18ea82950e0f6d575c314843eb}{NbEvent}};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfileHeaderInfo__v0_ad55ad993a0b49b1338b82525fe0856d3}{AcquisitionTime}};\ \textcolor{comment}{//\ in\ s}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a3b5148355893c882e1827fc1ecc9f50e}{SampleName}}[1020];\ \textcolor{comment}{//\ Modification\ 1024\ -\/>\ 1020\ \ \ avec\ un\ int\ en\ plus\ pour\ la\ version\ event}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a8dbd5dd214940e30bf45f7ce9791f6c5}{EventVersion}};\ \textcolor{comment}{//\ -\/2\ mean\ acq\ file}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a523c974efe17029d1de8e888c6ef1ba2}{OperatorName}}[512];}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a4622fc6e87673064cc6136ecf1b159e0}{BatchName}}[512];}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a303a55f07b9f3e21d2a9d2bebe6257ee}{ChosenMarker}}[512];}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a0a34a2f2b26b84e160af3a096f2c5d2e}{Year}};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v0_ae9905a06b2db38c0ad8a79b3b494b57c}{Month}};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v0_afe7eedd9776c3c2eac2e5c8d60e2d5d5}{Day}};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a1b0ac4770c05316c32e0d330f70ae5d2}{Hour}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a988b2b5aba4a01c9b43aefb57167df0d}{Minute}};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v0_a25f069ff806777df3809f1e3637e9a98}{Second}};}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfileHeaderInfo__v1}{fileHeaderInfo\_v1}}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_ac16c282c49a0a4aeebff767130b4b149}{fileHeaderSize}};\ \textcolor{comment}{//\ 1500}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a11284c6a01500f8f79f51ba4945db51c}{ImageMinX}};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a0f15dab616a1b38e603fbf7fde675b3c}{ImageMinY}};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a5d3ceb99d843a92df87f184ba5daddc6}{ImageMaxX}};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_aed2420fa4824802c5e93676d917925bb}{ImageMaxY}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a3c13a54c2548a6247e9e7cddcb46cbdc}{AcquisitionWidth}};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_ab7bb3d142898810c04e6ebdb0872bd5e}{AcquisitionHeight}};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a89aefc7d39d4f7be51df928923bd6994}{NbEvent}};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a9c3cb1d5f22f68551cbf70a424f02d57}{AcquisitionTime}};\ \textcolor{comment}{//\ in\ s}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_ab9898fcfa73e7452432db8c3ba7e5845}{SampleName}}[1020];\ \textcolor{comment}{//\ Modification\ 1024\ -\/>\ 1020\ \ \ avec\ un\ int\ en\ plus\ pour\ la\ version\ event}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a6a1c5f4b0ff48409e5e48051c858bc6d}{EventVersion}};\ \textcolor{comment}{//\ -\/2\ mean\ acq\ file}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a622461423d141a1f4a330fc2add0e92f}{OperatorName}}[128];}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_ab0e6cabb158e11340fd3ac67f4f85752}{BatchName}}[128];}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a6e836f79b09461991cb1aab7d69c667f}{ChosenMarker}}[18];}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v1_ac8744fd4ad1dbc1b5817e460817d9709}{Year}};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a8674253b4998161d4a7fb38c823fcae9}{Month}};}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a1f563f1d39906a5df67bb7cb6ecacdf8}{Day}};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a4a90bb58582af2e1647ab513f493d701}{Hour}};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v1_afbe85fedd1b206228d3b34c44127afdb}{Minute}};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a9e28742fe15718a27ca26413529c1a52}{Second}};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a30f545da84227991ad32949cdbe80fb5}{IntrumentType}}[64];}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a32ebee3e19ec9f3b865e5c40a05ce8fb}{SerialNumber}}[18];}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v1_a8c666b4f50f61d0798b3a5dbc9313625}{SampleHolderType}}[64];}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfileHeaderInfo__v2}{fileHeaderInfo\_v2}}\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_ad7d6c79664a8079e0e0a678559c5089a}{fileHeaderSize}};\ \ \ \textcolor{comment}{//\ 2032}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_ae5668c142bd230b3f2bd6706fcbd3c3e}{MagicCookie}};\ \ \ \textcolor{comment}{//\ 0x37}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a4e3ac74065a0ba437419bdd7c163338a}{EventVersion}};\ \ \ \textcolor{comment}{//\ -\/2\ mean\ acq\ file}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a6acc82301d0784167cf59e7c2aa0d493}{HeaderVersion}};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a3eeefa0c4867a144d46ced506e8b716f}{ImageMinX}};}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a59bf802e786e21fce9e1741c4ff36cf7}{ImageMinY}};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a27b0f56c66e6624a9a7b8644459e5a32}{ImageMaxX}};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_ae5036b545c7ea2559290a9fb69891c0c}{ImageMaxY}};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_aa3ee6b037c262507a7dfe3a280226861}{AcquisitionWidth}};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a0eceff297e35537fab5bad862f52ebe3}{AcquisitionHeight}};}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_acebd741f68c48a3b14d10a6ec6d2fb7d}{NbEvent}};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a3cd6679780646cb9e0be1d38c9a43824}{AcquisitionTime}};\ \textcolor{comment}{//\ in\ s}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a5a3f7cf7c67ee938e478aeb757268f87}{SampleName}}[1024];}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_aa67afd737268adcc21487ab6155adea4}{OperatorName}}[128];}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a526aedd73b05e591de2c91a2a76c8db2}{BatchName}}[128];}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_acb877601524f28a9db2a27f82feadf7d}{Comments}}[512];}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a8a9c4ce137f57a45dbc4a092834cee89}{ChosenMarker}}[18];}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a41800f201ec0eaa4fcc6540b9401739b}{DecayTime}};\ \textcolor{comment}{//\ in\ ms}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a329b403f181b0742940426783c966811}{Year}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a694bc71b35cba5e569c7a39c9e1333ce}{Month}};}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a1e02bcbed3960b0f2a0505ee0d62ba0a}{Day}};}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a188a20bef368c70fc6eac7bd58bcaf29}{Hour}};}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a04b633ad06fd15a4419553c71ef68183}{Minute}};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a6bd0f78214261bdb352206c9e3b36d98}{Second}};}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_a265aab61d646254d6c26ad0649319adf}{IntrumentType}}[64];}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_ab7673779c6df9573f2aa26fadc83d028}{SerialNumber}}[18];}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_acf3320b5ec8306b05cce156467c92d0f}{SampleHolderType}}[64];}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structfileHeaderInfo__v2_ac8251aed963f8868bcd233cf05182144}{Reserved}}[3];}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#pragma\ pack(pop)}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\ :\ \textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}(QObject\ *parent\ =\ 0);}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\ \&head);}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classdafHeader_a858a24c6fcdc6afdb617b28261c67613}{\string~dafHeader}}()\ \{\};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_acd6cb910ea99d7878b7ee35f5975d099}{FindfileHeaderVersion}}(std::ifstream\ \&in);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_af3bb6dde2a192495a633479185eee989}{Write}}(std::ofstream\ \&out);}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_a2985222951c72c7695619951cd98bf4c}{WriteO}}(std::fstream\ \&out);}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_aa708b4dbc1d7c68bdc6fd9ee0b4acd0a}{Read}}(std::ifstream\ \&in);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_af138f80b2c99433745718ca85ebf36a0}{v0tov1}}();}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_acf1dc495f5a7d37c7d57d93a2a9858f1}{v0tov2}}();}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a23b81f37ac2cae4f9b1e3b43585d1d94}{v1tov0}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a6d382cb31c3132330e883679adc92c91}{v1tov2}}();}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_aa2f587aedab03b648f258eb891434920}{v2tov0}}();}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_aa51c581bc44880a857241c7a9f306686}{v2tov1}}();}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ QString\ \mbox{\hyperlink{classdafHeader_ac5c5709f02ac3aef6a6b60b25d6dd187}{toString}}();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{structfileHeaderInfo__v0}{fileHeaderInfo\_v0}}\ \mbox{\hyperlink{classdafHeader_ae937596d5fdde5a5dd7af26fac49684b}{info\_v0}};}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{structfileHeaderInfo__v1}{fileHeaderInfo\_v1}}\ \mbox{\hyperlink{classdafHeader_a66103213e8e4055b9c7a40396108a232}{info\_v1}};}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{structfileHeaderInfo__v2}{fileHeaderInfo\_v2}}\ \mbox{\hyperlink{classdafHeader_a6601335eea984fb147afc3e34bdc2263}{info\_v2}};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_a900f93d165e589c89a5755498341c1e6}{version}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classdafHeader_a49dca1b1df00259bb740b1128bcb78b5}{exposureTime}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a5f7572b190384e56680c08d282e67830}{setExposureTime}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ sec);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\&\ \mbox{\hyperlink{classdafHeader_af9bcee7b10c2629f0b1fe90cd264ae66}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\ \&head);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classdafHeader_a1c5f0464356a947fb4a7b2027e0b3724}{getNbEvent}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a407995fff88b0ecc6fdba9520dc36e04}{setNbEvent}}(\textcolor{keywordtype}{double}\ nEvent);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_a9c9534c285f6bff87de3d2edacc70b50}{getImageMinX}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a02c5d0b94432892f2c8de03a34690aba}{setImageMinX}}(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_aa9eaf21b7f23d8b6ff273ceb365f1bd2}{getImageMinY}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a10ebf43b5f47b6fb8d36363a499c9a07}{setImageMinY}}(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_a5ab1f2879f5ff44ed44d13ac367056b3}{getImageMaxX}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a35b69f65d9354aa4afc85168106544b1}{setImageMaxX}}(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_a864701a5b2afbddeebd5067d840205b1}{getImageMaxY}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_ad1a81a6e5fa06763cf8134b8ca07b09f}{setImageMaxY}}(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_aa5db29ab404860ca833cbb6721b4472f}{getAcquisitionWidth}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classdafHeader_a66c34a71bcf7398550b60da14673cee2}{getAcquisitionHeight}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_ab9b0f8e54b7e1127c4c194ef7261f99d}{initV0fromDataStream}}(QDataStream\&\ in,\ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\&\ myObj,\ \textcolor{keywordtype}{bool}\ needEndianConversion);}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a3eafc7a62aefd5c207c4fee2d0b398e8}{initV1fromDataStream}}(QDataStream\&\ in,\ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\&\ myObj,\ \textcolor{keywordtype}{bool}\ needEndianConversion);}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classdafHeader_a84c295dfd591856bf674ee27ea86f02d}{initV2fromDataStream}}(QDataStream\&\ in,\ \mbox{\hyperlink{classdafHeader_a1e9dbd798cc8d152ce01fa75378f1dc0}{dafHeader}}\&\ myObj,\ \textcolor{keywordtype}{bool}\ needEndianConversion);}
+\DoxyCodeLine{00147\ \};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ QDataStream\ \&\mbox{\hyperlink{dafheader_8h_a750e3fe85789ac4350fd3f96bab5ed6d}{operator<<}}(QDataStream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdafHeader}{dafHeader}}\ \&myObj);}
+\DoxyCodeLine{00150\ QDataStream\ \&\mbox{\hyperlink{dafheader_8h_a2d1b25a34581626ef81944f2e65480b2}{operator>>}}(QDataStream\ \&in,\ \mbox{\hyperlink{classdafHeader}{dafHeader}}\ \&myObj);}
+
+\end{DoxyCode}

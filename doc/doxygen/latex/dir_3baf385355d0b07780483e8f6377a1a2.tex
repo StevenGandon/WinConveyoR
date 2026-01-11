@@ -1,0 +1,53 @@
+\doxysection{gui/node\+\_\+modules/es6-\/error Directory Reference}
+\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2}{}\label{dir_3baf385355d0b07780483e8f6377a1a2}\index{gui/node\_modules/es6-\/error Directory Reference@{gui/node\_modules/es6-\/error Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md479}{}\doxysubsection{\texorpdfstring{es6-\/error}{es6-\/error}}\label{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md479}
+\href{https://www.npmjs.com/package/es6-error}{\texttt{}} \href{https://travis-ci.org/bjyoungblood/es6-error}{\texttt{}}
+
+An easily-\/extendable error class for use with ES6 classes (or ES5, if you so choose).
+
+Tested in Node 4.\+0, Chrome, and Firefox.\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md480}{}\doxysubsection{\texorpdfstring{Why?}{Why?}}\label{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md480}
+I made this because I wanted to be able to extend Error for inheritance and type checking, but can never remember to add {\ttfamily Error.\+capture\+Stack\+Trace(\doxylink{list-only_8d_afdb3566ea38628daf69436d4a21a0c5c}{this}, this.\+constructor.\+name)} to the constructor or how to get the proper name to print from {\ttfamily console.\+log}.\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md481}{}\doxysubsection{\texorpdfstring{ES6 Usage}{ES6 Usage}}\label{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md481}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ ExtendableError\ from\ 'es6-\/error';}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ MyError\ extends\ ExtendableError\ \{}
+\DoxyCodeLine{\ \ //\ constructor\ is\ optional;\ you\ should\ omit\ it\ if\ you\ just\ want\ a\ custom\ error}
+\DoxyCodeLine{\ \ //\ type\ for\ inheritance\ and\ type\ checking}
+\DoxyCodeLine{\ \ constructor(message\ =\ 'Default\ message')\ \{}
+\DoxyCodeLine{\ \ \ \ super(message);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{export\ default\ MyError;}
+
+\end{DoxyCode}
+\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md482}{}\doxysubsection{\texorpdfstring{ES5 Usage}{ES5 Usage}}\label{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md482}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ util\ =\ require('util');}
+\DoxyCodeLine{var\ ExtendableError\ =\ require('es6-\/error');}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ MyError(message)\ \{}
+\DoxyCodeLine{\ \ message\ =\ message\ ||\ 'Default\ message';}
+\DoxyCodeLine{\ \ ExtendableError.call(this,\ message);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{util.inherits(MyError,\ ExtendableError);}
+\DoxyCodeLine{}
+\DoxyCodeLine{module.exports\ =\ MyError;}
+
+\end{DoxyCode}
+\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md483}{}\doxysubsubsection{\texorpdfstring{Known Issues}{Known Issues}}\label{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md483}
+
+\begin{DoxyItemize}
+\item Uglification can obscure error class names (\href{https://github.com/bjyoungblood/es6-error/issues/31\#issuecomment-301128220}{\texttt{\#31}})
+\end{DoxyItemize}\hypertarget{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md484}{}\doxysubsubsubsection{\texorpdfstring{Todo}{Todo}}\label{dir_3baf385355d0b07780483e8f6377a1a2_autotoc_md484}
+
+\begin{DoxyItemize}
+\item Better browser compatibility
+\item Browser tests 
+\end{DoxyItemize}

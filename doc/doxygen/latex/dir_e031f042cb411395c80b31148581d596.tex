@@ -1,0 +1,800 @@
+\doxysection{gui/node\+\_\+modules/roarr Directory Reference}
+\hypertarget{dir_e031f042cb411395c80b31148581d596}{}\label{dir_e031f042cb411395c80b31148581d596}\index{gui/node\_modules/roarr Directory Reference@{gui/node\_modules/roarr Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\label{dir_e031f042cb411395c80b31148581d596_roarr}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1222}{}\doxysubsection{\texorpdfstring{Roarr}{Roarr}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1222}
+\href{https://gitspo.com/mentions/gajus/roarr}{\texttt{}} \href{https://travis-ci.org/gajus/roarr}{\texttt{}} \href{https://coveralls.io/github/gajus/roarr}{\texttt{}} \href{https://www.npmjs.org/package/roarr}{\texttt{}} \href{https://github.com/gajus/canonical}{\texttt{}} \href{https://twitter.com/kuizinas}{\texttt{}}
+
+JSON logger for Node.\+js and browser.
+
+
+\begin{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr}{Roarr}
+\begin{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-motivation}{Motivation}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-usage}{Usage}
+\begin{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-usage-producing-logs}{Producing logs}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs}{Consuming logs}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs}{Filtering logs}
+\end{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-log-message-format}{Log message format}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api}{API}
+\begin{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-adopt}{\`{}adopt\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-child}{\`{}child\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-getcontext}{\`{}get\+Context\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-trace}{\`{}trace\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-debug}{\`{}debug\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-info}{\`{}info\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-warn}{\`{}warn\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-error}{\`{}error\`{}}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-api-fatal}{\`{}fatal\`{}}
+\end{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-middlewares}{Middlewares}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-cli-program}{CLI program}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-transports}{Transports}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-node-js-environment-variables}{Node.js environment variables}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-conventions}{Conventions}
+\begin{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-conventions-context-property-names}{Context property names}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-conventions-using-roarr-in-an-application}{Using Roarr in an application}
+\end{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-recipes}{Recipes}
+\begin{DoxyItemize}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-recipes-logging-errors}{Logging errors}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-recipes-using-with-elasticsearch}{Using with Elasticsearch}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-recipes-using-with-scalyr}{Using with Scalyr}
+\item \doxylink{dir_e031f042cb411395c80b31148581d596_roarr-recipes-documenting-use-of-roarr}{Documenting use of Roarr}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-motivation}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-motivation}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1223}{}\doxysubsubsection{\texorpdfstring{Motivation}{Motivation}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1223}
+For a long time I have been a big fan of using \href{https://github.com/visionmedia/debug}{\texttt{{\ttfamily debug}}}. {\ttfamily debug} is simple to use, works in Node.\+js and browser, does not require configuration and it is fast. However, problems arise when you need to parse logs. Anything but one-\/line text messages cannot be parsed in a safe way.
+
+To log structured data, I have been using \href{https://github.com/winstonjs/winston}{\texttt{Winston}} and \href{https://github.com/trentm/node-bunyan}{\texttt{Bunyan}}. These packages are great for application-\/level logging. I have preferred Bunyan because of the \href{https://github.com/trentm/node-bunyan\#cli-usage}{\texttt{Bunyan CLI program}} used to pretty-\/print logs. However, these packages require program-\/level configuration – when constructing an instance of a logger, you need to define the transport and the log-\/level. This makes them unsuitable for use in code designed to be consumed by other applications.
+
+Then there is \href{https://github.com/pinojs/pino}{\texttt{pino}}. pino is fast JSON logger, it has CLI program equivalent to Bunyan, it decouples transports, and it has sane default configuration. Unfortunately, you still need to instantiate logger instance at the application-\/level. This makes it more suitable for application-\/level logging just like Winston and Bunyan.
+
+I needed a logger that\+:
+
+
+\begin{DoxyItemize}
+\item Does not block the event cycle (=fast).
+\item Does not require initialisation.
+\item Produces structured data.
+\item Decouples transports.
+\item Has a CLI program.
+\item Works in Node.\+js and browser.
+\item Configurable using environment variables.
+\end{DoxyItemize}
+
+In other words,
+
+
+\begin{DoxyItemize}
+\item a logger that I can use in an application code and in dependencies.
+\item a logger that allows to correlate logs between the main application code and the dependency code.
+\item a logger that works well with transports in external processes.
+\end{DoxyItemize}
+
+Roarr is this logger.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1224}{}\doxysubsubsection{\texorpdfstring{Usage}{Usage}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1224}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-producing-logs}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-producing-logs}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1225}{}\doxysubsubsubsection{\texorpdfstring{Producing logs}{Producing logs}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1225}
+Roarr logger API for producing logs is the same in Node.\+js and browser.
+
+
+\begin{DoxyEnumerate}
+\item Import {\ttfamily roarr}
+\item Use any of the \doxylink{dir_0188a3e6da905bc60aceb35bf790b8c9}{API} methods to log messages.
+\end{DoxyEnumerate}
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{log('foo');}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1226}{}\doxysubsubsubsection{\texorpdfstring{Consuming logs}{Consuming logs}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1226}
+Roarr logs are consumed differently in Node.\+js and browser.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs-node-js}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs-node-js}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1227}{}\doxysubsubsubsubsection{\texorpdfstring{Node.\+js}{Node.\+js}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1227}
+In Node.\+js, Roarr logging is disabled by default. To enable logging, you must start program with an environment variable {\ttfamily ROARR\+\_\+\+LOG} set to {\ttfamily true}, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ROARR\_LOG=true\ node\ ./index.js}
+
+\end{DoxyCode}
+
+
+All logs will be written to stdout.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs-browser}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-consuming-logs-browser}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1228}{}\doxysubsubsubsubsection{\texorpdfstring{Browser}{Browser}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1228}
+In a browser, you must implement {\ttfamily ROARR.\+write} method to read logs, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{}
+\DoxyCodeLine{\ \ ROARR,}
+\DoxyCodeLine{\}\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{ROARR.write\ =\ ()\ =>\ \{\};}
+
+\end{DoxyCode}
+
+
+The API of the {\ttfamily ROARR.\+write} is\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(message:\ string)\ =>\ void;}
+
+\end{DoxyCode}
+
+
+Example implementation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{}
+\DoxyCodeLine{\ \ ROARR,}
+\DoxyCodeLine{\}\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{ROARR.write\ =\ (message)\ =>\ \{}
+\DoxyCodeLine{\ \ console.log(JSON.parse(message));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+or if you are initializing {\ttfamily ROARR.\+write} {\itshape before} {\ttfamily roarr} is loaded\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ Ensure\ that\ \`{}globalThis.ROARR`\ is\ configured.}
+\DoxyCodeLine{const\ ROARR\ =\ globalThis.ROARR\ =\ globalThis.ROARR\ ||\ \{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{ROARR.write\ =\ (message)\ =>\ \{}
+\DoxyCodeLine{\ \ console.log(JSON.parse(message));}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+If your platform does not support \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis}{\texttt{{\ttfamily global\+This}}}, use \href{https://www.npmjs.com/package/globalthis}{\texttt{{\ttfamily globalthis} polyfill}}.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1229}{}\doxysubsubsubsection{\texorpdfstring{Filtering logs}{Filtering logs}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1229}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs-node-js-1}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs-node-js-1}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1230}{}\doxysubsubsubsubsection{\texorpdfstring{Node.\+js}{Node.\+js}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1230}
+In Node.\+js, Roarr prints all or none logs (refer to the \`{}\+ROARR\+\_\+\+LOG\`{} environment variable documentation).
+
+Use \`{}roarr filter\`{} CLI program to filter the logs that are written to stdout by the program, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ROARR\_LOG=true\ node\ ./index.js\ |\ roarr\ filter\ '\{"{}context.logLevel"{}:\{gt:30\}\}'}
+
+\end{DoxyCode}
+
+
+Alternatively, use a JSON processor such as \href{https://stedolan.github.io/jq/}{\texttt{jq}}
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs-browser-1}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-usage-filtering-logs-browser-1}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1231}{}\doxysubsubsubsubsection{\texorpdfstring{Browser}{Browser}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1231}
+In a browser, Roarr calls {\ttfamily global\+This.\+ROARR.\+write} for every log message. Implement your own custom logic to filter logs, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{globalThis.ROARR.write\ =\ (message)\ =>\ \{}
+\DoxyCodeLine{\ \ const\ payload\ =\ JSON.parse(message);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ if\ (payload.context.logLevel\ >\ 30)\ \{}
+\DoxyCodeLine{\ \ \ \ console.log(payload);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-log-message-format}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-log-message-format}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1232}{}\doxysubsubsection{\texorpdfstring{Log message format}{Log message format}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1232}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Property name  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Contents  \\
+{\ttfamily context}  &Arbitrary, user-\/provided structured data. See context property names.  \\
+{\ttfamily message}  &User-\/provided message formatted using \href{https://en.wikipedia.org/wiki/Printf_format_string}{\texttt{printf}}.  \\
+{\ttfamily sequence}  &An incremental ID.  \\
+{\ttfamily \doxylink{create-file-mode_8d_a4406466446dfe3fdea593d9b71d3bdcc}{time}}  &Unix timestamp in milliseconds.  \\
+{\ttfamily version}  &Roarr log message format version.  \\
+\end{DoxyTable}
+
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ "{}context"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ "{}application"{}:\ "{}task-\/runner"{},}
+\DoxyCodeLine{\ \ \ \ "{}hostname"{}:\ "{}curiosity.local"{},}
+\DoxyCodeLine{\ \ \ \ "{}instanceId"{}:\ "{}01BVBK4ZJQ182ZWF6FK4EC8FEY"{},}
+\DoxyCodeLine{\ \ \ \ "{}taskId"{}:\ 1}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{\ \ "{}message"{}:\ "{}starting\ task\ ID\ 1"{},}
+\DoxyCodeLine{\ \ "{}sequence"{}:\ 0,}
+\DoxyCodeLine{\ \ "{}time"{}:\ 1506776210000,}
+\DoxyCodeLine{\ \ "{}version"{}:\ "{}1.0.0"{}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1233}{}\doxysubsubsection{\texorpdfstring{API}{API}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1233}
+{\ttfamily roarr} package exports a function with the following API\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ type\ LoggerType\ =}
+\DoxyCodeLine{\ \ (}
+\DoxyCodeLine{\ \ \ \ context:\ MessageContextType,}
+\DoxyCodeLine{\ \ \ \ message:\ string,}
+\DoxyCodeLine{\ \ \ \ c?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ d?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ e?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ f?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ g?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ h?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ i?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ k?:\ SprintfArgumentType}
+\DoxyCodeLine{\ \ )\ =>\ void\ |}
+\DoxyCodeLine{\ \ (}
+\DoxyCodeLine{\ \ \ \ message:\ string,}
+\DoxyCodeLine{\ \ \ \ b?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ c?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ d?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ e?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ f?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ g?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ h?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ i?:\ SprintfArgumentType,}
+\DoxyCodeLine{\ \ \ \ k?:\ SprintfArgumentType}
+\DoxyCodeLine{\ \ )\ =>\ void;}
+
+\end{DoxyCode}
+
+
+To put it into words\+:
+
+
+\begin{DoxyItemize}
+\item First parameter can be either a string (message) or an object.
+\begin{DoxyItemize}
+\item If first parameter is an object (context), the second parameter must be a string (message).
+\end{DoxyItemize}
+\item Arguments after the message parameter are used to enable \href{https://en.wikipedia.org/wiki/Printf_format_string}{\texttt{printf message formatting}}.
+\begin{DoxyItemize}
+\item Printf arguments must be of a primitive type ({\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string} \texorpdfstring{$\vert$}{|} number \texorpdfstring{$\vert$}{|} boolean \texorpdfstring{$\vert$}{|} null}).
+\item There can be up to 9 printf arguments (or 8 if the first parameter is the context object).
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Refer to the Usage documentation for common usage examples.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-adopt}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-adopt}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1234}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily adopt}}{{\ttfamily adopt}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1234}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<T>(routine:\ ()\ =>\ Promise<T>,\ context:\ MessageContextType)\ =>\ Promise<T>,}
+
+\end{DoxyCode}
+
+
+{\ttfamily adopt} function uses Node.\+js \href{https://nodejs.org/api/domain.html}{\texttt{{\ttfamily domain}}} to pass-\/down context properties.
+
+When using {\ttfamily adopt}, context properties will be added to all {\itshape all} Roarr messages within the same asynchronous context, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{await\ log.adopt(}
+\DoxyCodeLine{\ \ async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ log('foo\ 0');}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ await\ log.adopt(}
+\DoxyCodeLine{\ \ \ \ \ \ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ log('foo\ 1');}
+\DoxyCodeLine{\ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ baz:\ 'baz\ 1',}
+\DoxyCodeLine{\ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ bar:\ 'bar\ 0',}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}bar"{}:"{}bar\ 0"{}\},"{}message"{}:"{}foo\ 0"{},"{}sequence"{}:0,"{}time"{}:1531914656076,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}bar"{}:"{}bar\ 0"{},"{}baz"{}:"{}baz\ 1"{}\},"{}message"{}:"{}foo\ 1"{},"{}sequence"{}:1,"{}time"{}:1531914656077,"{}version"{}:"{}1.0.0"{}\}]}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-adopt-requirements}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-adopt-requirements}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1235}{}\doxysubsubsubsubsection{\texorpdfstring{Requirements}{Requirements}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1235}
+
+\begin{DoxyItemize}
+\item {\ttfamily adopt} method only works in Node.\+js.
+\item You must shim Node.\+js using \href{https://github.com/gajus/domain-parent}{\texttt{{\ttfamily domain-\/parent}}}.
+\end{DoxyItemize}
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-child}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-child}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1236}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily child}}{{\ttfamily child}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1236}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(context:\ TranslateMessageFunctionType\ |\ MessageContextType)\ =>\ LoggerType,}
+
+\end{DoxyCode}
+
+
+The {\ttfamily child} function has two signatures\+:
+
+
+\begin{DoxyEnumerate}
+\item Accepts an object.
+\item Accepts a function.
+\end{DoxyEnumerate}
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-child-object-parameter}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-child-object-parameter}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1237}{}\doxysubsubsubsubsection{\texorpdfstring{Object parameter}{Object parameter}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1237}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(context:\ MessageContextType)\ =>\ LoggerType;}
+
+\end{DoxyCode}
+
+
+Creates a child logger appending the provided {\ttfamily context} object to the previous logger context.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ childLog\ =\ log.child(\{}
+\DoxyCodeLine{\ \ foo:\ 'bar'}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{log.debug('foo\ 1');}
+\DoxyCodeLine{childLog.debug('foo\ 2');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}logLevel"{}:20\},"{}message"{}:"{}foo\ 1"{},"{}sequence"{}:0,"{}time"{}:1531914529921,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}foo"{}:"{}bar"{},"{}logLevel"{}:20\},"{}message"{}:"{}foo\ 2"{},"{}sequence"{}:1,"{}time"{}:1531914529922,"{}version"{}:"{}1.0.0"{}\}}
+
+\end{DoxyCode}
+
+
+Refer to middlewares documentation for use case examples.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-child-function-parameter}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-child-function-parameter}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1238}{}\doxysubsubsubsubsection{\texorpdfstring{Function parameter}{Function parameter}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1238}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(translateMessage:\ TranslateMessageFunctionType)\ =>\ LoggerType;}
+
+\end{DoxyCode}
+
+
+Creates a child logger where every message is intercepted.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ childLog\ =\ log.child((message)\ =>\ \{}
+\DoxyCodeLine{\ \ return\ \{}
+\DoxyCodeLine{\ \ \ \ ...message,}
+\DoxyCodeLine{\ \ \ \ message:\ message.message.replace('foo',\ 'bar'),}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{log.debug('foo\ 1');}
+\DoxyCodeLine{childLog.debug('foo\ 2');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}logLevel"{}:20\},"{}message"{}:"{}foo\ 1"{},"{}sequence"{}:0,"{}time"{}:1531914656076,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}logLevel"{}:20\},"{}message"{}:"{}bar\ 2"{},"{}sequence"{}:1,"{}time"{}:1531914656077,"{}version"{}:"{}1.0.0"{}\}}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-getcontext}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-getcontext}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1239}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily get\+Context}}{{\ttfamily get\+Context}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1239}
+Returns the current context.
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ childLogger\ =\ log.child(\{}
+\DoxyCodeLine{\ \ foo:\ 'bar'}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{childLogger.getContext();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \{foo:\ 'bar'\}}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-trace}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-trace}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1240}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily trace}}{{\ttfamily trace}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1240}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-debug}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-debug}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1241}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily debug}}{{\ttfamily debug}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1241}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-info}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-info}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1242}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily info}}{{\ttfamily info}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1242}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-warn}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-warn}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1243}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily warn}}{{\ttfamily warn}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1243}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-error}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-error}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1244}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily error}}{{\ttfamily error}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1244}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-api-fatal}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-api-fatal}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1245}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily fatal}}{{\ttfamily fatal}}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1245}
+Convenience methods for logging a message with {\ttfamily log\+Level} context property value set to a numeric value representing the log level, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{log.trace('foo');}
+\DoxyCodeLine{log.debug('foo');}
+\DoxyCodeLine{log.info('foo');}
+\DoxyCodeLine{log.warn('foo');}
+\DoxyCodeLine{log.error('foo');}
+\DoxyCodeLine{log.fatal('foo');}
+
+\end{DoxyCode}
+
+
+Produces output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{"{}context"{}:\{"{}logLevel"{}:10\},"{}message"{}:"{}foo"{},"{}sequence"{}:0,"{}time"{}:1506776210000,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{\{"{}context"{}:\{"{}logLevel"{}:20\},"{}message"{}:"{}foo"{},"{}sequence"{}:1,"{}time"{}:1506776210000,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{\{"{}context"{}:\{"{}logLevel"{}:30\},"{}message"{}:"{}foo"{},"{}sequence"{}:2,"{}time"{}:1506776210000,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{\{"{}context"{}:\{"{}logLevel"{}:40\},"{}message"{}:"{}foo"{},"{}sequence"{}:3,"{}time"{}:1506776210000,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{\{"{}context"{}:\{"{}logLevel"{}:50\},"{}message"{}:"{}foo"{},"{}sequence"{}:4,"{}time"{}:1506776210000,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{\{"{}context"{}:\{"{}logLevel"{}:60\},"{}message"{}:"{}foo"{},"{}sequence"{}:5,"{}time"{}:1506776210000,"{}version"{}:"{}1.0.0"{}\}}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-middlewares}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-middlewares}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1246}{}\doxysubsubsection{\texorpdfstring{Middlewares}{Middlewares}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1246}
+Roarr logger supports middlewares implemented as \`{}child\`{} message translate functions, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{import\ createSerializeErrorMiddleware\ from\ '@roarr/middleware-\/serialize-\/error';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ childLog\ =\ log.child(createSerializeErrorMiddleware());}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ error\ =\ new\ Error('foo');}
+\DoxyCodeLine{}
+\DoxyCodeLine{log.debug(\{error\},\ 'bar');}
+\DoxyCodeLine{childLog.debug(\{error\},\ 'bar');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}logLevel"{}:20,"{}error"{}:\{\}\},"{}message"{}:"{}bar"{},"{}sequence"{}:0,"{}time"{}:1531918373676,"{}version"{}:"{}1.0.0"{}\}}
+\DoxyCodeLine{//\ \{"{}context"{}:\{"{}logLevel"{}:20,"{}error"{}:\{"{}name"{}:"{}Error"{},"{}message"{}:"{}foo"{},"{}stack"{}:"{}[REDACTED]"{}\}\},"{}message"{}:"{}bar"{},"{}sequence"{}:1,"{}time"{}:1531918373678,"{}version"{}:"{}1.0.0"{}\}}
+
+\end{DoxyCode}
+
+
+Roarr middlwares enable translation of every bit of information that is used to construct a log message.
+
+The following are the official middlewares\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/gajus/roarr-middleware-serialize-error}{\texttt{{\ttfamily @roarr/middleware-\/serialize-\/error}}}
+\end{DoxyItemize}
+
+Raise an issue to add your middleware of your own creation.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-cli-program}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-cli-program}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1247}{}\doxysubsubsection{\texorpdfstring{CLI program}{CLI program}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1247}
+Roarr CLI program provides ability to filter and pretty-\/print Roarr logs.
+
+
+
+CLI program has been moved to a separate package \href{https://github.com/gajus/roarr-cli}{\texttt{{\ttfamily @roarr/cli}}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ @roarr/cli\ -\/g}
+
+\end{DoxyCode}
+
+
+Explore all CLI commands and options using {\ttfamily roarr -\/-\/help} or refer to \href{https://github.com/gajus/roarr-cli}{\texttt{{\ttfamily @roarr/cli}}} documentation.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-transports}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-transports}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1248}{}\doxysubsubsection{\texorpdfstring{Transports}{Transports}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1248}
+A transport in most logging libraries is something that runs in-\/process to perform some operation with the finalised log line. For example, a transport might send the log line to a standard syslog server after processing the log line and reformatting it.
+
+Roarr does not support in-\/process transports.
+
+Roarr does not support in-\/process transports because Node processes are single threaded processes (ignoring some technical details). Given this restriction, Roarr purposefully offloads handling of the logs to external processes so that the threading capabilities of the OS can be used (or other CPUs).
+
+Depending on your configuration, consider one of the following log transports\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://www.elastic.co/products/beats}{\texttt{Beats}} for aggregating at a process level (written in Go).
+\item \href{https://github.com/sematext/logagent-js}{\texttt{logagent}} for aggregating at a process level (written in Java\+Script).
+\item \href{https://www.fluentd.org/}{\texttt{Fluentd}} for aggregating logs at a container orchestration level (e.\+g. Kubernetes) (written in Ruby).
+\end{DoxyItemize}
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-node-js-environment-variables}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-node-js-environment-variables}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1249}{}\doxysubsubsection{\texorpdfstring{Node.\+js environment variables}{Node.\+js environment variables}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1249}
+Use environment variables to control {\ttfamily roarr} behaviour.
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Name  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Function  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Default  \\
+{\ttfamily ROARR\+\_\+\+LOG}  &Boolean  &Enables/ disables logging.  &{\ttfamily false}  \\
+{\ttfamily ROARR\+\_\+\+STREAM}  &{\ttfamily STDOUT}, {\ttfamily STDERR}  &Name of the stream where the logs will be written.  &{\ttfamily STDOUT}  \\
+\end{DoxyTable}
+
+
+When using {\ttfamily ROARR\+\_\+\+STREAM=STDERR}, use \href{https://stackoverflow.com/a/2381643/368691}{\texttt{{\ttfamily 3\texorpdfstring{$>$}{>}\&1 1\texorpdfstring{$>$}{>}\&2 2\texorpdfstring{$>$}{>}\&3 3\texorpdfstring{$>$}{>}\&-\/}}} to pipe stderr output.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-conventions}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-conventions}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1250}{}\doxysubsubsection{\texorpdfstring{Conventions}{Conventions}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1250}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-conventions-context-property-names}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-conventions-context-property-names}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1251}{}\doxysubsubsubsection{\texorpdfstring{Context property names}{Context property names}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1251}
+Roarr does not have reserved context property names. However, I encourage use of the following conventions\+:
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}\doxylink{structContext}{Context} property name  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Use case  \\
+{\ttfamily application}  &Name of the application (do not use in code intended for distribution; see {\ttfamily package} property instead).  \\
+{\ttfamily log\+Level}  &A numeric value indicating the log level. See \doxylink{dir_0188a3e6da905bc60aceb35bf790b8c9}{API} for the build-\/in loggers with a pre-\/set log-\/level.  \\
+{\ttfamily namespace}  &Namespace within a package, e.\+g. function name. Treat the same way that you would construct namespaces when using the \href{https://github.com/visionmedia/debug}{\texttt{{\ttfamily debug}}} package.  \\
+{\ttfamily package}  &Name of the NPM package.  \\
+\end{DoxyTable}
+
+
+The {\ttfamily roarr pretty-\/print} CLI program is using the context property names suggested in the conventions to pretty-\/print the logs for the developer inspection purposes.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-conventions-context-property-names-log-levels}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-conventions-context-property-names-log-levels}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1252}{}\doxysubsubsubsubsection{\texorpdfstring{Log levels}{Log levels}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1252}
+The {\ttfamily roarr pretty-\/print} CLI program translates {\ttfamily log\+Level} values to the following human-\/readable names\+:
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}{\ttfamily log\+Level}  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Human-\/readable name  \\
+10  &TRACE  \\
+20  &DEBUG  \\
+30  &INFO  \\
+40  &WARN  \\
+50  &ERROR  \\
+60  &FATAL  \\
+\end{DoxyTable}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-conventions-using-roarr-in-an-application}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-conventions-using-roarr-in-an-application}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1253}{}\doxysubsubsubsection{\texorpdfstring{Using Roarr in an application}{Using Roarr in an application}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1253}
+To avoid code duplication, you can use a singleton pattern to export a logger instance with predefined context properties (e.\+g. describing the application).
+
+I recommend to create a file {\ttfamily Logger.\+js} in the project directory. Inside this file create and export a child instance of Roarr with context parameters describing the project and the script instance, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/**}
+\DoxyCodeLine{\ *\ @file\ Example\ contents\ of\ a\ Logger.js\ file.}
+\DoxyCodeLine{\ */}
+\DoxyCodeLine{}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ Logger\ =\ log.child(\{}
+\DoxyCodeLine{\ \ //\ .foo\ property\ is\ going\ to\ appear\ only\ in\ the\ logs\ that\ are\ created\ using}
+\DoxyCodeLine{\ \ //\ the\ current\ instance\ of\ a\ Roarr\ logger.}
+\DoxyCodeLine{\ \ foo:\ 'bar'}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{export\ default\ Logger;}
+
+\end{DoxyCode}
+
+
+Roarr does not have reserved context property names. However, I encourage use of the conventions.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-recipes}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-recipes}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1254}{}\doxysubsubsection{\texorpdfstring{Recipes}{Recipes}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1254}
+\label{dir_e031f042cb411395c80b31148581d596_roarr-recipes-logging-errors}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-recipes-logging-errors}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1255}{}\doxysubsubsubsection{\texorpdfstring{Logging errors}{Logging errors}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1255}
+This is not specific to Roarr – this suggestion applies to any kind of logging.
+
+If you want to include an instance of \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error}{\texttt{{\ttfamily Error}}} in the context, you must serialize the error.
+
+The least-\/error prone way to do this is to use an existing library, e.\+g. \href{https://www.npmjs.com/package/serialize-error}{\texttt{{\ttfamily serialize-\/error}}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ log\ from\ 'roarr';}
+\DoxyCodeLine{import\ serializeError\ from\ 'serialize-\/error';}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ [..]}
+\DoxyCodeLine{}
+\DoxyCodeLine{send((error,\ result)\ =>\ \{}
+\DoxyCodeLine{\ \ if\ (error)\ \{}
+\DoxyCodeLine{\ \ \ \ log.error(\{}
+\DoxyCodeLine{\ \ \ \ \ \ error:\ serializeError(error)}
+\DoxyCodeLine{\ \ \ \ \},\ 'message\ not\ sent\ due\ to\ a\ remote\ error');}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ return;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ //\ [..]}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+Without using serialisation, your errors will be logged without the error name and stack trace.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-recipes-using-with-elasticsearch}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-recipes-using-with-elasticsearch}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1256}{}\doxysubsubsubsection{\texorpdfstring{Using with Elasticsearch}{Using with Elasticsearch}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1256}
+If you are using \href{https://www.elastic.co/products/elasticsearch}{\texttt{Elasticsearch}}, you will want to create an \href{https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html}{\texttt{index template}}.
+
+The following serves as the ground work for the index template. It includes the main Roarr log message properties (context, message, time) and the context properties suggested in the conventions.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ "{}mappings"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ "{}log\_message"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ "{}\_source"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}enabled"{}:\ true}
+\DoxyCodeLine{\ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ "{}dynamic"{}:\ "{}strict"{},}
+\DoxyCodeLine{\ \ \ \ \ \ "{}properties"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}context"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}dynamic"{}:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}properties"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}application"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}keyword"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}hostname"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}keyword"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}instanceId"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}keyword"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}logLevel"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}integer"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}namespace"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}text"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}package"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}text"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}message"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}text"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}time"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}format"{}:\ "{}epoch\_millis"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}date"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{\ \ "{}template"{}:\ "{}logstash-\/*"{}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-recipes-using-with-scalyr}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-recipes-using-with-scalyr}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1257}{}\doxysubsubsubsection{\texorpdfstring{Using with Scalyr}{Using with Scalyr}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1257}
+If you are using \href{https://www.scalyr.com/}{\texttt{Scalyr}}, you will want to create a custom parser {\ttfamily Roarr\+Logger}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ patterns:\ \{}
+\DoxyCodeLine{\ \ \ \ tsPattern:\ "{}\(\backslash\)\(\backslash\)w\{3\},\(\backslash\)\(\backslash\)s\(\backslash\)\(\backslash\)d\{2\}\(\backslash\)\(\backslash\)s\(\backslash\)\(\backslash\)w\{3\}\(\backslash\)\(\backslash\)s\(\backslash\)\(\backslash\)d\{4\}\(\backslash\)\(\backslash\)s[\(\backslash\)\(\backslash\)d:]+"{},}
+\DoxyCodeLine{\ \ \ \ tsPattern\_8601:\ "{}\(\backslash\)\(\backslash\)d\{4\}-\/\(\backslash\)\(\backslash\)d\{2\}-\/\(\backslash\)\(\backslash\)d\{2\}T[\(\backslash\)\(\backslash\)d:.]+Z"{}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ formats:\ [}
+\DoxyCodeLine{\ \ \ \ \{format:\ "{}\$\{parse=json\}\$"{}\},}
+\DoxyCodeLine{\ \ \ \ \{format:\ "{}.*\(\backslash\)"{}time\(\backslash\)"{}:\$timestamp=number\$,.*"{}\},}
+\DoxyCodeLine{\ \ \ \ \{format:\ "{}\$timestamp=tsPattern\$\ GMT\ \$detail\$"{}\},}
+\DoxyCodeLine{\ \ \ \ \{format:\ "{}\$timestamp=tsPattern\_8601\$\ \$detail\$"{}\}}
+\DoxyCodeLine{\ \ ]}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+and configure the individual programs to use {\ttfamily Roarr\+Logger}. In case of Kubernetes, this means adding a {\ttfamily log.\+config.\+scalyr.\+com/attributes.parser\+: Roarr\+Logger} annotation to the associated deployment, pod or container.
+
+\label{dir_e031f042cb411395c80b31148581d596_roarr-recipes-documenting-use-of-roarr}%
+\Hypertarget{dir_e031f042cb411395c80b31148581d596_roarr-recipes-documenting-use-of-roarr}%
+ \hypertarget{dir_e031f042cb411395c80b31148581d596_autotoc_md1258}{}\doxysubsubsubsection{\texorpdfstring{Documenting use of Roarr}{Documenting use of Roarr}}\label{dir_e031f042cb411395c80b31148581d596_autotoc_md1258}
+If your package is using Roarr, include instructions in {\ttfamily README.\+md} describing how to enable logging, e.\+g.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ Logging}
+\DoxyCodeLine{}
+\DoxyCodeLine{This\ package\ is\ using\ [`roarr`](https://www.npmjs.com/package/roarr)\ logger\ to\ log\ the\ program's\ state.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Export\ \`{}ROARR\_LOG=true`\ environment\ variable\ to\ enable\ log\ printing\ to\ stdout.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Use\ [`roarr-\/cli`](https://github.com/gajus/roarr-\/cli)\ program\ to\ pretty-\/print\ the\ logs.}
+
+\end{DoxyCode}
+ 

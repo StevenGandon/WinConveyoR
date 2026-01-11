@@ -1,0 +1,54 @@
+\doxysection{Launcher }
+\hypertarget{Launcher}{}\label{Launcher}\index{Launcher@{Launcher}}
+\doxysubsubsection*{Tool -\/ Launcher}
+
+"{}launcher"{}, the intermediary program used in both \doxylink{namespaceBeamage}{Beamage} and Beavacq to setup environnement before launching both programs allowing to define custom installation of libs like ROOT. 
+
+\doxysubsubsubsection*{How to build "{}launcher"{} ?}
+
+{\bfseries{Requierments}} 
+\begin{DoxyItemize}
+\item CMake  
+\item MSVC tools (including a C compiler, the default windows LIBC bindings)  
+\end{DoxyItemize}
+
+{\bfseries{Compilation (optionnal if you already have a build)}} 
+\begin{DoxyItemize}
+\item cmake -\/B build -\/DENABLE\+\_\+\+WARNINGS=ON  
+\item cmake --build build --config Release  
+\item cp ./build/\+Release/bealauncher.exe ./bealauncher.exe  
+\end{DoxyItemize}
+
+{\bfseries{Configuration}}
+
+
+\begin{DoxyItemize}
+\item Create a file named config.\+cfg  
+\item add inside config.\+cfg a line containing\+:
+
+path\+\_\+expand = ... (a string that is going to be added to \$env\+:PATH)
+
+example\+: path\+\_\+expand = .\textbackslash{}my\+\_\+custom\+\_\+root\+\_\+path\textbackslash{}root\+\_\+v6.36.\+02\textbackslash{}bin  
+\item add inside config.\+cfg on a new line\+:
+
+env\+\_\+expand = ... (a list that will be added at \$env\+:key=value)
+
+example\+: env\+\_\+expand = \mbox{[}ROOTSYS=.\textbackslash{}my\+\_\+custom\+\_\+root\+\_\+path\textbackslash{}root\+\_\+v6.36.\+02, ROOTETC=.\textbackslash{}my\+\_\+custom\+\_\+root\+\_\+path\textbackslash{}root\+\_\+v6.36.\+02\textbackslash{}etc\mbox{]}  
+\item add inside config.\+cfg on a new line\+:
+
+binary\+\_\+path = ... (a string corresponding to the path to the binary that will be executed)
+
+example\+: binary\+\_\+path = ..\textbackslash{}x64\textbackslash{}\+Release\textbackslash{}\+Beamage.exe  
+\item Full example \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\string~\$\ cat\ config.cfg}
+\DoxyCodeLine{path\_expand\ =\ .\(\backslash\)my\_custom\_root\_path\(\backslash\)root\_v6.36.02\(\backslash\)bin}
+\DoxyCodeLine{env\_expand\ =\ [ROOTSYS=.\(\backslash\)my\_custom\_root\_path\(\backslash\)root\_v6.36.02,\ ROOTETC=.\(\backslash\)my\_custom\_root\_path\(\backslash\)root\_v6.36.02\(\backslash\)etc]}
+\DoxyCodeLine{binary\_path\ =\ ..\(\backslash\)x64\(\backslash\)Release\(\backslash\)Beamage.exe}
+
+\end{DoxyCode}
+  
+\end{DoxyItemize}
+
+Directory \doxylink{dir_77e266768808d4607c75338d3aaf6d92}{/launcher}~\newline
+ 

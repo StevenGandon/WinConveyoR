@@ -1,0 +1,30 @@
+\doxysection{QCPItem\+Tracer Class Reference}
+\hypertarget{classQCPItemTracer}{}\label{classQCPItemTracer}\index{QCPItemTracer@{QCPItemTracer}}
+
+
+Item that sticks to \doxylink{classQCPGraph}{QCPGraph} data points.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Item that sticks to \doxylink{classQCPGraph}{QCPGraph} data points. 
+
+
+
+The tracer can be connected with a \doxylink{classQCPGraph}{QCPGraph} via set\+Graph. Then it will automatically adopt the coordinate axes of the graph and update its {\itshape position} to be on the graph\textquotesingle{}s data. This means the key stays controllable via set\+Graph\+Key, but the value will follow the graph data. If a \doxylink{classQCPGraph}{QCPGraph} is connected, note that setting the coordinates of the tracer item directly via {\itshape position} will have no effect because they will be overriden in the next redraw (this is when the coordinate update happens).
+
+If the specified key in set\+Graph\+Key is outside the key bounds of the graph, the tracer will stay at the corresponding end of the graph.
+
+With set\+Interpolating you may specify whether the tracer may only stay exactly on data points or whether it interpolates data points linearly, if given a key that lies between two data points of the graph.
+
+The tracer has different visual styles, see set\+Style. It is also possible to make the tracer have no own visual appearance (set the style to ts\+None), and just connect other item positions to the tracer {\itshape position} (used as an anchor) via QCPItem\+Position\+::set\+Parent\+Anchor.
+
+\begin{DoxyNote}{Note}
+The tracer position is only automatically updated upon redraws. So when the data of the graph changes and immediately afterwards (without a redraw) the position coordinates of the tracer are retrieved, they will not reflect the updated data of the graph. In this case update\+Position must be called manually, prior to reading the tracer coordinates. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

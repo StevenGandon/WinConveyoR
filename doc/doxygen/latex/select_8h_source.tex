@@ -1,0 +1,98 @@
+\doxysection{select.\+h}
+\hypertarget{select_8h_source}{}\label{select_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/select.h@{lib/libwconr/build/\_deps/curl-\/src/lib/select.h}}
+\mbox{\hyperlink{select_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SELECT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SELECT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ HAVE\_POLL\_H}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <poll.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#elif\ defined(HAVE\_SYS\_POLL\_H)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <sys/poll.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ Definition\ of\ pollfd\ struct\ and\ constants\ for\ platforms\ lacking\ them.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#if\ !defined(HAVE\_SYS\_POLL\_H)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ !defined(HAVE\_POLL\_H)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ !defined(POLLIN)}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ POLLIN\ \ \ \ \ \ 0x01}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ POLLPRI\ \ \ \ \ 0x02}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ POLLOUT\ \ \ \ \ 0x04}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ POLLERR\ \ \ \ \ 0x08}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ POLLHUP\ \ \ \ \ 0x10}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ POLLNVAL\ \ \ \ 0x20}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpollfd}{pollfd}}}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ \mbox{\hyperlink{structpollfd_aafd0192880c9fdbcdc559b47c9fbb9b4}{fd}};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{short}\ \ \ \mbox{\hyperlink{structpollfd_ac9b2f2c5b1f9a7487eb57e67cd4960ef}{events}};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{short}\ \ \ \mbox{\hyperlink{structpollfd_aafb457d11cac415faf0e1e2b825118c2}{revents}};}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifndef\ POLLRDNORM}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ POLLRDNORM\ POLLIN}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifndef\ POLLWRNORM}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ POLLWRNORM\ POLLOUT}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#ifndef\ POLLRDBAND}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ POLLRDBAND\ POLLPRI}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ there\ are\ three\ CSELECT\ defines\ that\ are\ defined\ in\ the\ public\ header\ that}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ are\ exposed\ to\ users,\ but\ this\ *IN2\ bit\ is\ only\ ever\ used\ internally\ and}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ therefore\ defined\ here\ */}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ CURL\_CSELECT\_IN2\ (CURL\_CSELECT\_ERR\ <<\ 1)}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{select_8h_a3ed17b99179e40d44805c3eebe01f77b}{Curl\_socket\_check}}(\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ readfd,\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ readfd2,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ writefd,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ timeout\_ms);}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ SOCKET\_READABLE(x,z)\ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ Curl\_socket\_check(x,\ CURL\_SOCKET\_BAD,\ CURL\_SOCKET\_BAD,\ z)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ SOCKET\_WRITABLE(x,z)\ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ Curl\_socket\_check(CURL\_SOCKET\_BAD,\ CURL\_SOCKET\_BAD,\ x,\ z)}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{select_8h_ae6157875b5e55e04393be9858c74a7d0}{Curl\_poll}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structpollfd}{pollfd}}\ ufds[],\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nfds,\ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ timeout\_ms);}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{select_8h_ae2d832c727eb0358096d69ef73e4fef2}{Curl\_wait\_ms}}(\mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ timeout\_ms);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ With\ Winsock\ the\ valid\ range\ is\ [0..INVALID\_SOCKET-\/1]\ according\ to}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ https://docs.microsoft.com/en-\/us/windows/win32/winsock/socket-\/data-\/type-\/2}}
+\DoxyCodeLine{00090\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifdef\ USE\_WINSOCK}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ VALID\_SOCK(s)\ ((s)\ <\ INVALID\_SOCKET)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ FDSET\_SOCK(x)\ 1}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ VERIFY\_SOCK(x)\ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ if(!VALID\_SOCK(x))\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ SET\_SOCKERRNO(WSAEINVAL);\ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ return\ -\/1;\ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\}\ while(0)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ VALID\_SOCK(s)\ ((s)\ >=\ 0)}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{/*\ If\ the\ socket\ is\ small\ enough\ to\ get\ set\ or\ read\ from\ an\ fdset\ */}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ FDSET\_SOCK(s)\ ((s)\ <\ FD\_SETSIZE)}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ VERIFY\_SOCK(x)\ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ if(!VALID\_SOCK(x)\ ||\ !FDSET\_SOCK(x))\ \{\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ \ \ SET\_SOCKERRNO(EINVAL);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ return\ -\/1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SELECT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

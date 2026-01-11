@@ -1,0 +1,113 @@
+\doxysection{dafstream.\+h}
+\hypertarget{dafstream_8h_source}{}\label{dafstream_8h_source}\index{BeamageStream/dafstream.h@{BeamageStream/dafstream.h}}
+\mbox{\hyperlink{dafstream_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{BeamageStream_8h}{BeamageStream.h}}"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ MAGIC\_DAF\ 0x37}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage}{Beamage}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }IO\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage_1_1IO_1_1DAFStream}{DAFStream}}\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceBeamage_1_1IO_1_1DAFStream_acb9972a3837ea535b61a2e3a4b460ea2}{DAF\_VERSION}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_1_1DAFStream_acb9972a3837ea535b61a2e3a4b460ea2a304054d97d1deb67c38c17ff4f100e68}{DAFV\_0}}\ =\ 2616,}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_1_1DAFStream_acb9972a3837ea535b61a2e3a4b460ea2ad71091f4a057a88825cfbba75a8109c0}{DAFV\_1}}\ =\ 1500,}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_1_1DAFStream_acb9972a3837ea535b61a2e3a4b460ea2a806e9a1b02d793cc6dd7a04548118eab}{DAFV\_2}}\ =\ 2032,}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceBeamage_1_1IO_1_1DAFStream_acb9972a3837ea535b61a2e3a4b460ea2a718065064a32780fc7692b2f5484b5df}{DAFV\_3}}\ =\ 3}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a72d5d1e521c90cdade8e2c65eb0bdb5f}{DAFHeader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a72d5d1e521c90cdade8e2c65eb0bdb5f}{DAFHeader}}(QDataStream*\ stream\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a72d5d1e521c90cdade8e2c65eb0bdb5f}{DAFHeader}}(std::shared\_ptr<QDataStream>\ \&\&);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_ae5d64a54af88f6cf09e74da1ca2501f8}{\string~DAFHeader}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a72d5d1e521c90cdade8e2c65eb0bdb5f}{DAFHeader}}\&\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a6bc5f6ad7056fa5780393c6900d80861}{operator=}}(\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a72d5d1e521c90cdade8e2c65eb0bdb5f}{DAFHeader}}\&\&\ other);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a8a3a4f232060e2c3aa7ea1ccfbec3b58}{isValid}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a2e900202c3e8533d06b9d9ba99bfd9da}{parseHeader}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{setFactory}}\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a372006b834a0394196134eeaaee54612}{write}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a3d8ee6c6d3e9daa5e7b24113cd09f50e}{magic}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a3c2fb9bc07f021bbabd3557d573db11f}{eventVersion}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a11d225fbcf4ca79670b241a95d889f86}{headerVersion}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a12ecae0b15f099f84b2d060abdcaa437}{imageRect}}[4];}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a453393859f70622c021783bc3e831cbe}{acquisitionSize}}[2];}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a431901f021e5b890403e742075ac93e2}{eventCount}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a1f891697f1cadd54f945b83bc00a9327}{acquisitionTime}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_aa6f5a794a715204bb52019d71f9b3280}{sampleName}};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a7ca823be42adde333bdad46224146315}{operatorName}};}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_ac9943b83e1791c585e32b108dce68800}{batchName}};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a9014d66ff0c872e52578994e621c96c0}{comments}};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a89e49c158559577daa359fbf6cb15b6d}{choosenMarker}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a9c0b7e78ae78650f471cce06dce9e5c5}{decayTime}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_ad16a81136747979bbb20651f2394585e}{timestamp}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a13ade982c20c09f649f147b68ab842b8}{instrumentType}};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a52563ebfec2395dd352eb90b10c419db}{serialNumber}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_ad526b84e5b57987221a4729f08c622b7}{sampleHolderType}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a00a24d10a037650def3a119cf0f52528}{reserved}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a460e9ed350e59c0a9be3f24e8f7ac3f4}{DafBeaStream}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a460e9ed350e59c0a9be3f24e8f7ac3f4}{DafBeaStream}}(QDataStream*\ stream\ =\ \textcolor{keyword}{nullptr})\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(stream),\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ac39145cbf4aa9d43e3db94164761f63c}{header}}(std::move(\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\_QStream}}))\ \{\}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a638e9863b40250315a947ad46a44a704}{DafBeaStream}}(std::shared\_ptr<QDataStream>\&\&\ stream)\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(std::move(stream)),\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ac39145cbf4aa9d43e3db94164761f63c}{header}}(std::move(\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\_QStream}}))\ \{\};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a77abcab710925d9e9e8dbac103d964f3}{DafBeaStream}}(QFile*\ file)\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(file),\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ac39145cbf4aa9d43e3db94164761f63c}{header}}(std::move(\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\_QStream}}))\ \{\};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a8de28d5c9b0dd99f03af19fd0f2091e0}{DafBeaStream}}(\textcolor{keyword}{const}\ std::string\&\ path,\ uint64\_t\ flags\ =\ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\_INIT\_FLAGS::FILE\_INIT\_R}})\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(path,\ flags),\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ac39145cbf4aa9d43e3db94164761f63c}{header}}(std::move(\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\_QStream}}))\ \{\};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a3bae403fe6a260a00f1d45aba6931e2b}{parseHeader}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{setFactory}}\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ad3f17d85c914bccbcbba30e08d6c9800}{write}}(\textcolor{keywordtype}{void})\textcolor{keyword}{\ override\ }\{\};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader}{DAFHeader}}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ac39145cbf4aa9d43e3db94164761f63c}{header}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV0_a21733b09025f8f744ce8a759c60b2c0e}{DafHeaderStreamFactoryV0}}\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{BeamageStream_8h_acabcbd6d5a0d720e00063a8068b82461}{IMPL\_FACTORY}}()}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV0_a21733b09025f8f744ce8a759c60b2c0e}{DafHeaderStreamFactoryV0}}()\ \{\};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV1_a12063453a1c3f00dde79debd734402d2}{DafHeaderStreamFactoryV1}}\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{BeamageStream_8h_acabcbd6d5a0d720e00063a8068b82461}{IMPL\_FACTORY}}()}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV1_a12063453a1c3f00dde79debd734402d2}{DafHeaderStreamFactoryV1}}()\ \{\};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV2_a65833960f496f5db9e56da44a32ec4a5}{DafHeaderStreamFactoryV2}}\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{BeamageStream_8h_acabcbd6d5a0d720e00063a8068b82461}{IMPL\_FACTORY}}()}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV2_a65833960f496f5db9e56da44a32ec4a5}{DafHeaderStreamFactoryV2}}()\ \{\};}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV3_a36ade0e827459060e169478d257cefcf}{DafHeaderStreamFactoryV3}}\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory_af9f4b58731c5d254773db44a5b2dc439}{IStreamFactory}}\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{BeamageStream_8h_acabcbd6d5a0d720e00063a8068b82461}{IMPL\_FACTORY}}()}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafHeaderStreamFactoryV3_a36ade0e827459060e169478d257cefcf}{DafHeaderStreamFactoryV3}}()\ \{\};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ QDataStream\&\ \mbox{\hyperlink{dafstream_8h_a984b8cbc2d24d41fa20e6d709fe7a26c}{operator<<}}(QDataStream\&\ out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader}{Beamage::IO::DAFStream::DAFHeader}}\&\ myObj);}
+\DoxyCodeLine{00133\ QDataStream\&\ \mbox{\hyperlink{dafstream_8h_ad3658cb6255bb6d9d8c52a461d093c51}{operator>>}}(QDataStream\&\ in,\ \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader}{Beamage::IO::DAFStream::DAFHeader}}\&\ myObj);}
+
+\end{DoxyCode}

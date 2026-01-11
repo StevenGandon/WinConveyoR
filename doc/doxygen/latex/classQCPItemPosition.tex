@@ -1,0 +1,25 @@
+\doxysection{QCPItem\+Position Class Reference}
+\hypertarget{classQCPItemPosition}{}\label{classQCPItemPosition}\index{QCPItemPosition@{QCPItemPosition}}
+
+
+Manages the position of an item.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Manages the position of an item. 
+
+Every item has at least one public \doxylink{classQCPItemPosition}{QCPItem\+Position} member pointer which provides ways to position the item on the \doxylink{classQCustomPlot}{QCustom\+Plot} surface. Some items have multiple positions, for example \doxylink{classQCPItemRect}{QCPItem\+Rect} has two\+: {\itshape top\+Left} and {\itshape bottom\+Right}.
+
+\doxylink{classQCPItemPosition}{QCPItem\+Position} has a type (Position\+Type) that can be set with set\+Type. This type defines how coordinates passed to set\+Coords are to be interpreted, e.\+g. as absolute pixel coordinates, as plot coordinates of certain axes, etc. For more advanced plots it is also possible to assign different types per X/Y coordinate of the position (see set\+TypeX, set\+TypeY). This way an item could be positioned at a fixed pixel distance from the top in the Y direction, while following a plot coordinate in the X direction.
+
+A \doxylink{classQCPItemPosition}{QCPItem\+Position} may have a parent \doxylink{classQCPItemAnchor}{QCPItem\+Anchor}, see set\+Parent\+Anchor. This way you can tie multiple items together. If the \doxylink{classQCPItemPosition}{QCPItem\+Position} has a parent, its coordinates (set\+Coords) are considered to be absolute pixels in the reference frame of the parent anchor, where (0, 0) means directly ontop of the parent anchor. For example, You could attach the {\itshape start} position of a \doxylink{classQCPItemLine}{QCPItem\+Line} to the {\itshape bottom} anchor of a \doxylink{classQCPItemText}{QCPItem\+Text} to make the starting point of the line always be centered under the text label, no matter where the text is moved to. For more advanced plots, it is possible to assign different parent anchors per X/Y coordinate of the position, see set\+Parent\+AnchorX, set\+Parent\+AnchorY. This way an item could follow another item in the X direction but stay at a fixed position in the Y direction. Or even follow item A in X, and item B in Y.
+
+Note that every \doxylink{classQCPItemPosition}{QCPItem\+Position} inherits from \doxylink{classQCPItemAnchor}{QCPItem\+Anchor} and thus can itself be used as parent anchor for other positions.
+
+To set the apparent pixel position on the \doxylink{classQCustomPlot}{QCustom\+Plot} surface directly, use set\+Pixel\+Position. This works no matter what type this \doxylink{classQCPItemPosition}{QCPItem\+Position} is or what parent-\/child situation it is in, as set\+Pixel\+Position transforms the coordinates appropriately, to make the position appear at the specified pixel values. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

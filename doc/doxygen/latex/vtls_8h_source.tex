@@ -1,0 +1,328 @@
+\doxysection{vtls.\+h}
+\hypertarget{vtls_8h_source}{}\label{vtls_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/vtls.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/vtls.h}}
+\mbox{\hyperlink{vtls_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_VTLS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_VTLS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}};}
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structssl__connect__data}{ssl\_connect\_data}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SSLSUPP\_CA\_PATH\ \ \ \ \ \ (1<<0)\ }\textcolor{comment}{/*\ supports\ CAPATH\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ SSLSUPP\_CERTINFO\ \ \ \ \ (1<<1)\ }\textcolor{comment}{/*\ supports\ CURLOPT\_CERTINFO\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ SSLSUPP\_PINNEDPUBKEY\ (1<<2)\ }\textcolor{comment}{/*\ supports\ CURLOPT\_PINNEDPUBLICKEY\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SSLSUPP\_SSL\_CTX\ \ \ \ \ \ (1<<3)\ }\textcolor{comment}{/*\ supports\ CURLOPT\_SSL\_CTX\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ SSLSUPP\_HTTPS\_PROXY\ \ (1<<4)\ }\textcolor{comment}{/*\ supports\ access\ via\ HTTPS\ proxies\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ SSLSUPP\_TLS13\_CIPHERSUITES\ (1<<5)\ }\textcolor{comment}{/*\ supports\ TLS\ 1.3\ ciphersuites\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ SSLSUPP\_CAINFO\_BLOB\ \ (1<<6)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ALPN\_ACCEPTED\ "{}ALPN:\ server\ accepted\ "{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ VTLS\_INFOF\_NO\_ALPN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ "{}ALPN:\ server\ did\ not\ agree\ on\ a\ protocol.\ Uses\ default."{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ VTLS\_INFOF\_ALPN\_OFFER\_1STR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ "{}ALPN:\ offers\ \%s"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ VTLS\_INFOF\_ALPN\_ACCEPTED\_1STR\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ ALPN\_ACCEPTED\ "{}\%s"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ VTLS\_INFOF\_ALPN\_ACCEPTED\_LEN\_1STR\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ ALPN\_ACCEPTED\ "{}\%.*s"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__ssl}{Curl\_ssl}}\ \{}
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ *\ This\ *must*\ be\ the\ first\ entry\ to\ allow\ returning\ the\ list\ of\ available}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ *\ backends\ in\ curl\_global\_sslset().}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{structcurl__ssl__backend}{curl\_ssl\_backend}}\ \mbox{\hyperlink{structCurl__ssl_a834b93d0dc2d501e5730edb273dddba9}{info}};}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__ssl_ad8aeedd93171e98d8db0049085d40f31}{supports}};\ \textcolor{comment}{/*\ bitfield,\ see\ above\ */}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structCurl__ssl_a67125f10866c619561ae6a7d38c4cd6f}{sizeof\_ssl\_backend\_data}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ int\ (*\mbox{\hyperlink{namespaceinit}{init}})(void);}
+\DoxyCodeLine{00060\ \ \ void\ (*\mbox{\hyperlink{structCurl__ssl_a75bdb71feb2246298a5730d61bfed6a6}{cleanup}})(void);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ size\_t\ (*\mbox{\hyperlink{structCurl__ssl_adc662f96d977f669d06805db2a9093c0}{version}})(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}});}
+\DoxyCodeLine{00063\ \ \ int\ (*\mbox{\hyperlink{structCurl__ssl_a7bcabc334ae96ab166d50fdf9d65242d}{check\_cxn}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *cxn);}
+\DoxyCodeLine{00064\ \ \ int\ (*\mbox{\hyperlink{structCurl__ssl_ac6a5fe2ffb9fb8464c558c94f7db42c1}{shut\_down}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}\ (*\mbox{\hyperlink{structCurl__ssl_a3f9f9d75e3ee6b746a525dde365f7563}{data\_pending}})(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ connindex);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{/*\ return\ 0\ if\ a\ find\ random\ is\ filled\ in\ */}}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structCurl__ssl_aba654e0cf223146bd58cd9bf6dc35834}{random}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *entropy,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}\ (*\mbox{\hyperlink{structCurl__ssl_acbf00c2f926253c7e3ff442213ab00e8}{cert\_status\_request}})(void);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structCurl__ssl_a771c2471cb00a33668fcf97a23978e2b}{connect\_blocking}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structCurl__ssl_a6c545387c98c16a635612e7c5a50d795}{connect\_nonblocking}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{int}\ sockindex,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *done);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{/*\ If\ the\ SSL\ backend\ wants\ to\ read\ or\ write\ on\ this\ connection\ during\ a}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ \ handshake,\ set\ socks[0]\ to\ the\ connection's\ FIRSTSOCKET,\ and\ return}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ \ \ a\ bitmap\ indicating\ read\ or\ write\ with\ GETSOCK\_WRITESOCK(0)\ or}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ \ \ GETSOCK\_READSOCK(0).\ Otherwise\ return\ GETSOCK\_BLANK.}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ \ \ Mandatory.\ */}}
+\DoxyCodeLine{00085\ \ \ int\ (*\mbox{\hyperlink{structCurl__ssl_a4830d30e428cca74bde3a768311b86ce}{getsock}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *socks);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ *(*get\_internals)(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structssl__connect__data}{ssl\_connect\_data}}\ *connssl,\ \mbox{\hyperlink{curl_8h_aabc03ec968a2fdccde5c6709f712dd7b}{CURLINFO}}\ \mbox{\hyperlink{structCurl__ssl_a834b93d0dc2d501e5730edb273dddba9}{info}});}
+\DoxyCodeLine{00088\ \ \ void\ (*\mbox{\hyperlink{structCurl__ssl_a7cea5039796d8c852bc8b7c77d0749f0}{close\_one}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00090\ \ \ void\ (*\mbox{\hyperlink{structCurl__ssl_a68084094b73391e157c71d993b34582a}{close\_all}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00091\ \ \ void\ (*\mbox{\hyperlink{structCurl__ssl_a160d83129b03dc642e91d4b4761b0731}{session\_free}})(\textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structCurl__ssl_a749287dc9e4d4f4f57bb232bf5e211c4}{set\_engine}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *engine);}
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structCurl__ssl_a7e1330877662aaf6c91de7c74dbc6b68}{set\_engine\_default}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *(*engines\_list)(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}\ (*\mbox{\hyperlink{structCurl__ssl_a64462bcb53b267e8b31f3a7f397f13b1}{false\_start}})(void);}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ (*\mbox{\hyperlink{structCurl__ssl_a612fcbf1ed7cd81a4638219327511f1e}{sha256sum}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structinput}{input}},\ \textcolor{keywordtype}{size\_t}\ inputlen,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structCurl__ssl_a612fcbf1ed7cd81a4638219327511f1e}{sha256sum}},\ \textcolor{keywordtype}{size\_t}\ sha256sumlen);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}\ (*\mbox{\hyperlink{structCurl__ssl_a1d6e67dd3ce340de5a78584b44334c9b}{associate\_connection}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00104\ \ \ void\ (*\mbox{\hyperlink{structCurl__ssl_a7a582e2386fd9a1d2e08e993829571a4}{disassociate\_connection}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00105\ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifdef\ USE\_SSL}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__ssl}{Curl\_ssl}}\ *\mbox{\hyperlink{structCurl__ssl}{Curl\_ssl}};}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vtls_8h_a9fe9fd14fbe2d9fc29d582a6c4ed0f83}{Curl\_none\_init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_ab751ac92e09399d2e4edae147629770a}{Curl\_none\_cleanup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vtls_8h_a1928a9d4cd569820951422daae0f0975}{Curl\_none\_shutdown}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vtls_8h_a9076c5bbae2cb8510d32eb97d8bce277}{Curl\_none\_check\_cxn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00116\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a04e21d561123bc29f2e018c260ede891}{Curl\_none\_random}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *entropy,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a054a6a646a0108d8f91a503d31a21671}{Curl\_none\_close\_all}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_abd2be2ec8895660c6eb7e124cfac438e}{Curl\_none\_session\_free}}(\textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_aba5f776941608a9d5c44fd0b422b1862}{Curl\_none\_data\_pending}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{int}\ connindex);}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_afd63787510a375221ab2aba491ef2073}{Curl\_none\_cert\_status\_request}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00122\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a7ccc438dc80065afa61534a12f49716b}{Curl\_none\_set\_engine}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *engine);}
+\DoxyCodeLine{00123\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a06f0fb1d7887e2395f579c430c55e9da}{Curl\_none\_set\_engine\_default}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00124\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{vtls_8h_aa91dd78c15bfba88e2b56fe5bd1ded0a}{Curl\_none\_engines\_list}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_a0a1d6e1d64672ae38b75216a44d08641}{Curl\_none\_false\_start}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00126\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_a02ca5f1341dc43cd1ce5c8531fffea07}{Curl\_ssl\_tls13\_ciphersuites}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}}\ \mbox{\hyperlink{vtls_8h_a9c423b871a6919651bb6952babedd112}{Curl\_init\_sslset\_nolock}}(\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\_sslbackend}}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}},}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structcurl__ssl__backend}{curl\_ssl\_backend}}\ ***avail);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{openssl_8h}{openssl.h}}"{}}\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ OpenSSL\ versions\ */}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gtls_8h}{gtls.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GnuTLS\ versions\ */}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nssg_8h}{nssg.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ NSS\ versions\ */}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gskit_8h}{gskit.h}}"{}}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Global\ Secure\ ToolKit\ versions\ */}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{wolfssl_8h}{wolfssl.h}}"{}}\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ wolfSSL\ versions\ */}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{schannel_8h}{schannel.h}}"{}}\ \ \ \ \ \ \ \textcolor{comment}{/*\ Schannel\ SSPI\ version\ */}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sectransp_8h}{sectransp.h}}"{}}\ \ \ \ \ \ \textcolor{comment}{/*\ SecureTransport\ (Darwin)\ version\ */}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mbedtls_8h}{mbedtls.h}}"{}}\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ mbedTLS\ versions\ */}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl_8h}{bearssl.h}}"{}}\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ BearSSL\ versions\ */}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{rustls_8h}{rustls.h}}"{}}\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ rustls\ versions\ */}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#ifndef\ MAX\_PINNED\_PUBKEY\_SIZE}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ MAX\_PINNED\_PUBKEY\_SIZE\ 1048576\ }\textcolor{comment}{/*\ 1MB\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#ifndef\ CURL\_SHA256\_DIGEST\_LENGTH}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ CURL\_SHA256\_DIGEST\_LENGTH\ 32\ }\textcolor{comment}{/*\ fixed\ size\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*\ see\ https://www.iana.org/assignments/tls-\/extensiontype-\/values/\ */}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ ALPN\_HTTP\_1\_1\_LENGTH\ 8}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ ALPN\_HTTP\_1\_1\ "{}http/1.1"{}}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ ALPN\_H2\_LENGTH\ 2}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ ALPN\_H2\ "{}h2"{}}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{/*\ set\ of\ helper\ macros\ for\ the\ backends\ to\ access\ the\ correct\ fields.\ For\ the}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ proxy\ or\ for\ the\ remote\ host\ -\/\ to\ properly\ support\ HTTPS\ proxy\ */}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_PROXY}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ SSL\_IS\_PROXY()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ (CURLPROXY\_HTTPS\ ==\ conn-\/>http\_proxy.proxytype\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ \ ssl\_connection\_complete\ !=\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ conn-\/>proxy\_ssl[conn-\/>sock[SECONDARYSOCKET]\ ==\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CURL\_SOCKET\_BAD\ ?\ FIRSTSOCKET\ :\ SECONDARYSOCKET].state)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ SSL\_SET\_OPTION(var)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ (SSL\_IS\_PROXY()\ ?\ data-\/>set.proxy\_ssl.var\ :\ data-\/>set.ssl.var)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ SSL\_SET\_OPTION\_LVALUE(var)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ (*(SSL\_IS\_PROXY()\ ?\ \&data-\/>set.proxy\_ssl.var\ :\ \&data-\/>set.ssl.var))}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ SSL\_CONN\_CONFIG(var)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ (SSL\_IS\_PROXY()\ ?\ conn-\/>proxy\_ssl\_config.var\ :\ conn-\/>ssl\_config.var)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ SSL\_HOST\_NAME()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ (SSL\_IS\_PROXY()\ ?\ conn-\/>http\_proxy.host.name\ :\ conn-\/>host.name)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ SSL\_HOST\_DISPNAME()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ (SSL\_IS\_PROXY()\ ?\ conn-\/>http\_proxy.host.dispname\ :\ conn-\/>host.dispname)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ SSL\_HOST\_PORT()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ (SSL\_IS\_PROXY()\ ?\ conn-\/>port\ :\ conn-\/>remote\_port)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ SSL\_PINNED\_PUB\_KEY()\ (SSL\_IS\_PROXY()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ ?\ data-\/>set.str[STRING\_SSL\_PINNEDPUBLICKEY\_PROXY]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ :\ data-\/>set.str[STRING\_SSL\_PINNEDPUBLICKEY])}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ SSL\_IS\_PROXY()\ FALSE}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ SSL\_SET\_OPTION(var)\ data-\/>set.ssl.var}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ SSL\_SET\_OPTION\_LVALUE(var)\ data-\/>set.ssl.var}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ SSL\_CONN\_CONFIG(var)\ conn-\/>ssl\_config.var}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ SSL\_HOST\_NAME()\ conn-\/>host.name}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ SSL\_HOST\_DISPNAME()\ conn-\/>host.dispname}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ SSL\_HOST\_PORT()\ conn-\/>remote\_port}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ SSL\_PINNED\_PUB\_KEY()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ data-\/>set.str[STRING\_SSL\_PINNEDPUBLICKEY]}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{vtls_8h_a87190b2b318de6675161240578bab855}{Curl\_ssl\_snihost}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}},\ \textcolor{keywordtype}{size\_t}\ *olen);}
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_a20030f6c13c9de65950bb8cac1bfb0f9}{Curl\_ssl\_config\_matches}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structssl__primary__config}{ssl\_primary\_config}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structssl__primary__config}{ssl\_primary\_config}}\ *needle);}
+\DoxyCodeLine{00194\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_a9468007b0049e63d8dac0a8096beb0c4}{Curl\_clone\_primary\_ssl\_config}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structssl__primary__config}{ssl\_primary\_config}}\ *source,}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structssl__primary__config}{ssl\_primary\_config}}\ *dest);}
+\DoxyCodeLine{00196\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a5f50ad085ea4993229348232d4719407}{Curl\_free\_primary\_ssl\_config}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structssl__primary__config}{ssl\_primary\_config}}\ *sslc);}
+\DoxyCodeLine{00197\ \textcolor{comment}{/*\ An\ implementation\ of\ the\ getsock\ field\ of\ Curl\_ssl\ that\ relies}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ \ \ on\ the\ ssl\_connect\_state\ enum.\ Asks\ for\ read\ or\ write\ depending}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ \ \ on\ whether\ conn-\/>state\ is\ ssl\_connect\_2\_reading\ or}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ ssl\_connect\_2\_writing.\ */}}
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vtls_8h_a699212e837a91a0d657e7a674256cf12}{Curl\_ssl\_getsock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *socks);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\_sslbackend}}\ \mbox{\hyperlink{vtls_8h_a3c94a4a4ab36486ee22e5a03c1677b9a}{Curl\_ssl\_backend}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#ifdef\ USE\_SSL}}
+\DoxyCodeLine{00206\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vtls_8h_abbbadc98add94562999814ac8d7298a8}{Curl\_ssl\_init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a8b77e1da26e4c27161d4701d268d2056}{Curl\_ssl\_cleanup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00208\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a173cb9e2114026fbd5cf503b60516271}{Curl\_ssl\_connect}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00210\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_ab2ba5d2b7b120fd43fc2de1a6caac026}{Curl\_ssl\_connect\_nonblocking}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isproxy,}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *done);}
+\DoxyCodeLine{00215\ \textcolor{comment}{/*\ tell\ the\ SSL\ stuff\ to\ close\ down\ all\ open\ information\ regarding}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ connections\ (and\ thus\ session\ ID\ caching\ etc)\ */}}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a396bfd7b7888300739b9c3b323ab0907}{Curl\_ssl\_close\_all}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00218\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a23dabd80c10affeb83e10dc98d22518d}{Curl\_ssl\_close}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00220\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a8ee7c84c0eac50156d94d57dbc9d15ac}{Curl\_ssl\_shutdown}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00222\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a392119b7e5b7e3cc074654c88c102025}{Curl\_ssl\_set\_engine}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *engine);}
+\DoxyCodeLine{00223\ \textcolor{comment}{/*\ Sets\ engine\ as\ default\ for\ all\ SSL\ operations\ */}}
+\DoxyCodeLine{00224\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a87cb30101b924de437acfb2520a35f70}{Curl\_ssl\_set\_engine\_default}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00225\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{vtls_8h_aa49025b2e48d587fb3852f2abd2e4be6}{Curl\_ssl\_engines\_list}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{comment}{/*\ init\ the\ SSL\ session\ ID\ cache\ */}}
+\DoxyCodeLine{00228\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_a646fd2a8d6796d8ff481bffc36b371d5}{Curl\_ssl\_initsessions}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *,\ \textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00229\ \textcolor{keywordtype}{void}\ Curl\_ssl\_version(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}});}
+\DoxyCodeLine{00230\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_ac50ee79a0869be9ea58bda0388abde58}{Curl\_ssl\_data\_pending}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ connindex);}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vtls_8h_a82bbffffb6866ede7a554960f09690ea}{Curl\_ssl\_check\_cxn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{comment}{/*\ Certificate\ information\ list\ handling.\ */}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_aa4cc853c97440333b00f76f160b3af50}{Curl\_ssl\_free\_certinfo}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00237\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ssl\_init\_certinfo(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00238\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ssl\_push\_certinfo\_len(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ certnum,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ valuelen);}
+\DoxyCodeLine{00241\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ssl\_push\_certinfo(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{int}\ certnum,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{comment}{/*\ Functions\ to\ be\ used\ by\ SSL\ library\ adaptation\ functions\ */}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{comment}{/*\ Lock\ session\ cache\ mutex.}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ *\ Call\ this\ before\ calling\ other\ Curl\_ssl\_*session*\ functions}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ *\ Caller\ should\ unlock\ this\ mutex\ as\ soon\ as\ possible,\ as\ it\ may\ block}}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ *\ other\ SSL\ connection\ from\ making\ progress.}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ *\ The\ purpose\ of\ explicitly\ locking\ SSL\ session\ cache\ data\ is\ to\ allow}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ *\ individual\ SSL\ engines\ to\ manage\ session\ lifetime\ in\ their\ specific\ way.}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00253\ \textcolor{keywordtype}{void}\ Curl\_ssl\_sessionid\_lock(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{comment}{/*\ Unlock\ session\ cache\ mutex\ */}}
+\DoxyCodeLine{00256\ \textcolor{keywordtype}{void}\ Curl\_ssl\_sessionid\_unlock(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{comment}{/*\ extract\ a\ session\ ID}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ *\ Sessionid\ mutex\ must\ be\ locked\ (see\ Curl\_ssl\_sessionid\_lock).}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ *\ Caller\ must\ make\ sure\ that\ the\ ownership\ of\ returned\ sessionid\ object}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ *\ is\ properly\ taken\ (e.g.\ its\ refcount\ is\ incremented}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ *\ under\ sessionid\ mutex).}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00264\ \textcolor{keywordtype}{bool}\ Curl\_ssl\_getsessionid(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isProxy,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **ssl\_sessionid,}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *idsize,\ \textcolor{comment}{/*\ set\ 0\ if\ unknown\ */}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00270\ \textcolor{comment}{/*\ add\ a\ new\ session\ ID}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ Sessionid\ mutex\ must\ be\ locked\ (see\ Curl\_ssl\_sessionid\_lock).}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ *\ Caller\ must\ ensure\ that\ it\ has\ properly\ shared\ ownership\ of\ this\ sessionid}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ *\ object\ with\ cache\ (e.g.\ incrementing\ refcount\ on\ success)}}
+\DoxyCodeLine{00274\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00275\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ssl\_addsessionid(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isProxy,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *ssl\_sessionid,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idsize,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *added);}
+\DoxyCodeLine{00282\ \textcolor{comment}{/*\ Kill\ a\ single\ session\ ID\ entry\ in\ the\ cache}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ *\ Sessionid\ mutex\ must\ be\ locked\ (see\ Curl\_ssl\_sessionid\_lock).}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ *\ This\ will\ call\ engine-\/specific\ curlssl\_session\_free\ function,\ which\ must}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ take\ sessionid\ object\ ownership\ from\ sessionid\ cache}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ *\ (e.g.\ decrement\ refcount).}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00288\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a93fc7815a67581a10af46e077c24cb79}{Curl\_ssl\_kill\_session}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__ssl__session}{Curl\_ssl\_session}}\ *\mbox{\hyperlink{namespacesession}{session}});}
+\DoxyCodeLine{00289\ \textcolor{comment}{/*\ delete\ a\ session\ from\ the\ cache}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ *\ Sessionid\ mutex\ must\ be\ locked\ (see\ Curl\_ssl\_sessionid\_lock).}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ *\ This\ will\ call\ engine-\/specific\ curlssl\_session\_free\ function,\ which\ must}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ *\ take\ sessionid\ object\ ownership\ from\ sessionid\ cache}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ *\ (e.g.\ decrement\ refcount).}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00295\ \textcolor{keywordtype}{void}\ Curl\_ssl\_delsessionid(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{void}\ *ssl\_sessionid);}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{comment}{/*\ get\ N\ random\ bytes\ into\ the\ buffer\ */}}
+\DoxyCodeLine{00298\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{vtls_8h_aeec761b6ce10b474ec609a3336177da7}{Curl\_ssl\_random}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00300\ \textcolor{comment}{/*\ Check\ pinned\ public\ key.\ */}}
+\DoxyCodeLine{00301\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_pin\_peer\_pubkey(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pinnedpubkey,}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pubkey,\ \textcolor{keywordtype}{size\_t}\ pubkeylen);}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_af7010b022a42f4fd9f6fc7d568fc3a03}{Curl\_ssl\_cert\_status\_request}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{vtls_8h_ad3a3e43e2c5ff47cf4ea6592a70feaf0}{Curl\_ssl\_false\_start}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_a5378a6ef203d23c813d5e98ee9f642d9}{Curl\_ssl\_associate\_conn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00311\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vtls_8h_af674d8628f6ae0fddefe9cc123646dd0}{Curl\_ssl\_detach\_conn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ SSL\_SHUTDOWN\_TIMEOUT\ 10000\ }\textcolor{comment}{/*\ ms\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ if\ not\ USE\_SSL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{comment}{/*\ When\ SSL\ support\ is\ not\ present,\ just\ define\ away\ these\ function\ calls\ */}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_init()\ 1}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_cleanup()\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_connect(x,y,z)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_close\_all(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_close(x,y,z)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_shutdown(x,y,z)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_set\_engine(x,y)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_set\_engine\_default(x)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_engines\_list(x)\ NULL}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_send(a,b,c,d,e)\ -\/1}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_recv(a,b,c,d,e)\ -\/1}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_initsessions(x,y)\ CURLE\_OK}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_data\_pending(x,y)\ 0}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_check\_cxn(x)\ 0}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_free\_certinfo(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_connect\_nonblocking(x,y,z,w,a)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_kill\_session(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_random(x,y,z)\ ((void)x,\ CURLE\_NOT\_BUILT\_IN)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_cert\_status\_request()\ FALSE}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_false\_start()\ FALSE}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_tls13\_ciphersuites()\ FALSE}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_associate\_conn(a,b)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#define\ Curl\_ssl\_detach\_conn(a,b)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_VTLS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

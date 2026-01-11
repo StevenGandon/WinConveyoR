@@ -1,0 +1,838 @@
+\doxysection{curl\+\_\+setup.\+h}
+\hypertarget{curl__setup_8h_source}{}\label{curl__setup_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_setup.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_setup.h}}
+\mbox{\hyperlink{curl__setup_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SETUP\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SETUP\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#if\ defined(BUILDING\_LIBCURL)\ \&\&\ !defined(CURL\_NO\_OLDIES)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ CURL\_NO\_OLDIES}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ define\ mingw\ version\ macros,\ eg\ \_\_MINGW\{32,64\}\_\{MINOR,MAJOR\}\_VERSION\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <\_mingw.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ Disable\ Visual\ Studio\ warnings:}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ 4127\ "{}conditional\ expression\ is\ constant"{}}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#pragma\ warning(disable:4127)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ Define\ WIN32\ when\ build\ target\ is\ Win32\ API}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#if\ (defined(\_WIN32)\ ||\ defined(\_\_WIN32\_\_))\ \&\&\ !defined(WIN32)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ WIN32}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00053\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ Don't\ include\ unneeded\ stuff\ in\ Windows\ headers\ to\ avoid\ compiler}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ warnings\ and\ macro\ clashes.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ Make\ sure\ to\ define\ this\ macro\ before\ including\ any\ Windows\ headers.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ \ ifndef\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#\ \ ifndef\ NOGDI}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ \ \ \ define\ NOGDI}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ Detect\ Windows\ App\ environment\ which\ has\ a\ restricted\ access}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ to\ the\ Win32\ APIs.\ */}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ if\ (defined(\_WIN32\_WINNT)\ \&\&\ (\_WIN32\_WINNT\ >=\ 0x0602))\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ defined(WINAPI\_FAMILY)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ \ include\ <winapifamily.h>}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ \ if\ WINAPI\_FAMILY\_PARTITION(WINAPI\_PARTITION\_APP)\ \&\&\ \ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ !WINAPI\_FAMILY\_PARTITION(WINAPI\_PARTITION\_DESKTOP)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_WINDOWS\_APP}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ Include\ configuration\ script\ results\ or\ hand-\/crafted}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ configuration\ file\ for\ platforms\ which\ lack\ config\ tool.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#ifdef\ HAVE\_CONFIG\_H}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__config_8h}{curl\_config.h}}"{}}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#ifdef\ \_WIN32\_WCE}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{config-win32ce_8h}{config-\/win32ce.h}}"{}}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#\ \ ifdef\ WIN32}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ \ \ \ include\ "{}\mbox{\hyperlink{config-win32_8h}{config-\/win32.h}}"{}}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ defined(macintosh)\ \&\&\ defined(\_\_MRC\_\_)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{config-mac_8h}{config-\/mac.h}}"{}}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifdef\ \_\_riscos\_\_}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{config-riscos_8h}{config-\/riscos.h}}"{}}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifdef\ \_\_AMIGA\_\_}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{config-amigaos_8h}{config-\/amigaos.h}}"{}}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifdef\ \_\_OS400\_\_}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{config-os400_8h}{config-\/os400.h}}"{}}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#ifdef\ \_\_PLAN9\_\_}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{config-plan9_8h}{config-\/plan9.h}}"{}}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_CONFIG\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ Definition\ of\ preprocessor\ macros/symbols\ which\ modify\ compiler\ \ */}}
+\DoxyCodeLine{00119\ \textcolor{comment}{/*\ behavior\ or\ generated\ code\ characteristics\ must\ be\ done\ here,\ \ \ */}}
+\DoxyCodeLine{00120\ \textcolor{comment}{/*\ as\ appropriate,\ before\ any\ system\ header\ file\ is\ included.\ It\ is\ */}}
+\DoxyCodeLine{00121\ \textcolor{comment}{/*\ also\ possible\ to\ have\ them\ defined\ in\ the\ config\ file\ included\ \ \ */}}
+\DoxyCodeLine{00122\ \textcolor{comment}{/*\ before\ this\ point.\ As\ a\ result\ of\ all\ this\ we\ frown\ inclusion\ of\ */}}
+\DoxyCodeLine{00123\ \textcolor{comment}{/*\ system\ header\ files\ in\ our\ config\ files,\ avoid\ this\ at\ any\ cost.\ */}}
+\DoxyCodeLine{00124\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ AIX\ 4.3\ and\ newer\ needs\ \_THREAD\_SAFE\ defined\ to\ build}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ proper\ reentrant\ code.\ Others\ may\ also\ need\ it.}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#ifdef\ NEED\_THREAD\_SAFE}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#\ \ ifndef\ \_THREAD\_SAFE}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_THREAD\_SAFE}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ Tru64\ needs\ \_REENTRANT\ set\ for\ a\ few\ function\ prototypes\ and}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ things\ to\ appear\ in\ the\ system\ header\ files.\ Unixware\ needs\ it}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *\ to\ build\ proper\ reentrant\ code.\ Others\ may\ also\ need\ it.}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#ifdef\ NEED\_REENTRANT}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#\ \ ifndef\ \_REENTRANT}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_REENTRANT}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{comment}{/*\ Solaris\ needs\ this\ to\ get\ a\ POSIX-\/conformant\ getpwuid\_r\ */}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#if\ defined(sun)\ ||\ defined(\_\_sun)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#\ \ ifndef\ \_POSIX\_PTHREAD\_SEMANTICS}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_POSIX\_PTHREAD\_SEMANTICS\ 1}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ \ If\ you\ need\ to\ include\ a\ system\ header\ file\ for\ your\ platform,\ \ */}}
+\DoxyCodeLine{00158\ \textcolor{comment}{/*\ \ please,\ do\ it\ beyond\ the\ point\ further\ indicated\ in\ this\ file.\ \ */}}
+\DoxyCodeLine{00159\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ Disable\ other\ protocols\ when\ http\ is\ the\ only\ one\ desired.}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#ifdef\ HTTP\_ONLY}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_DICT}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_DICT}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_FILE}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_FILE}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_FTP}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_FTP}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_GOPHER}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_GOPHER}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_IMAP}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_IMAP}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_LDAP}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_LDAP}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_LDAPS}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_LDAPS}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_MQTT}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_MQTT}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_POP3}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_POP3}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_RTSP}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_RTSP}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_SMB}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_SMB}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_SMTP}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_SMTP}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_TELNET}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_TELNET}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#\ \ ifndef\ CURL\_DISABLE\_TFTP}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_DISABLE\_TFTP}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *\ When\ http\ is\ disabled\ rtsp\ is\ not\ supported.}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#if\ defined(CURL\_DISABLE\_HTTP)\ \&\&\ !defined(CURL\_DISABLE\_RTSP)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#\ \ define\ CURL\_DISABLE\_RTSP}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00219\ \textcolor{comment}{/*\ No\ system\ header\ file\ shall\ be\ included\ in\ this\ file\ before\ this\ */}}
+\DoxyCodeLine{00220\ \textcolor{comment}{/*\ point.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00221\ \textcolor{comment}{/*\ ================================================================\ */}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ *\ OS/400\ setup\ file\ includes\ some\ system\ headers.}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#ifdef\ \_\_OS400\_\_}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{setup-os400_8h}{setup-\/os400.h}}"{}}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ *\ VMS\ setup\ file\ includes\ some\ system\ headers.}}
+\DoxyCodeLine{00233\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#ifdef\ \_\_VMS}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{setup-vms_8h}{setup-\/vms.h}}"{}}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ *\ Windows\ setup\ file\ includes\ some\ system\ headers.}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#ifdef\ HAVE\_WINDOWS\_H}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{setup-win32_8h}{setup-\/win32.h}}"{}}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{system_8h}{curl/system.h}}>}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ *\ Use\ getaddrinfo\ to\ resolve\ the\ IPv4\ address\ literal.\ If\ the\ current\ network}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ *\ interface\ doesn't\ support\ IPv4,\ but\ supports\ IPv6,\ NAT64,\ and\ DNS64,}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ *\ performing\ this\ task\ will\ result\ in\ a\ synthesized\ IPv6\ address.}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#if\ defined(\_\_APPLE\_\_)\ \&\&\ !defined(USE\_ARES)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#include\ <TargetConditionals.h>}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ USE\_RESOLVE\_ON\_IPS\ 1}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#\ \ if\ defined(TARGET\_OS\_OSX)\ \&\&\ TARGET\_OS\_OSX}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_OSX\_CALL\_COPYPROXIES\ 1}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#ifdef\ USE\_LWIPSOCK}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#\ \ include\ <lwip/init.h>}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#\ \ include\ <lwip/sockets.h>}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#\ \ include\ <lwip/netdb.h>}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#ifdef\ HAVE\_EXTRA\_STRICMP\_H}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#\ \ include\ <extra/stricmp.h>}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#ifdef\ HAVE\_EXTRA\_STRDUP\_H}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#\ \ include\ <extra/strdup.h>}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#ifdef\ \_\_AMIGA\_\_}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#\ \ ifdef\ \_\_amigaos4\_\_}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_\_USE\_INLINE\_\_}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \textcolor{comment}{/*\ use\ our\ own\ resolver\ which\ uses\ runtime\ feature\ detection\ */}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURLRES\_AMIGA}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \textcolor{comment}{/*\ getaddrinfo()\ currently\ crashes\ bsdsocket.library,\ so\ disable\ */}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#\ \ \ \ if\ !(defined(\_\_NEWLIB\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ (defined(\_\_CLIB2\_\_)\ \&\&\ defined(\_\_THREAD\_SAFE)))}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ disable\ threaded\ resolver\ with\ clib2\ -\/\ requires\ newlib\ or\ clib-\/ts\ */}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#\ \ \ \ \ \ undef\ USE\_THREADS\_POSIX}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#\ \ include\ <exec/types.h>}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#\ \ include\ <exec/execbase.h>}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#\ \ include\ <proto/exec.h>}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#\ \ include\ <proto/dos.h>}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#\ \ include\ <unistd.h>}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#\ \ if\ defined(HAVE\_PROTO\_BSDSOCKET\_H)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \ \ (!defined(\_\_amigaos4\_\_)\ ||\ defined(USE\_AMISSL))}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \textcolor{comment}{/*\ use\ bsdsocket.library\ directly,\ instead\ of\ libc\ networking\ functions\ */}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#\ \ \ \ include\ <proto/bsdsocket.h>}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#\ \ \ \ ifdef\ \_\_amigaos4\_\_}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ Curl\_amiga\_select(\textcolor{keywordtype}{int}\ nfds,\ fd\_set\ *readfds,\ fd\_set\ *writefds,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fd\_set\ *errorfds,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structtimeval}{timeval}}\ *\mbox{\hyperlink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout}});}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ select(a,b,c,d,e)\ Curl\_amiga\_select(a,b,c,d,e)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#\ \ \ \ else}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ select(a,b,c,d,e)\ WaitSelect(a,b,c,d,e,0)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \textcolor{comment}{/*\ must\ not\ use\ libc's\ fcntl()\ on\ bsdsocket.library\ sockfds!\ */}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_FCNTL}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_FCNTL\_O\_NONBLOCK}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \textcolor{comment}{/*\ use\ libc\ networking\ and\ hence\ close()\ and\ fnctl()\ */}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_CLOSESOCKET\_CAMEL}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_IOCTLSOCKET\_CAMEL}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00313\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ *\ In\ clib2\ arpa/inet.h\ warns\ that\ some\ prototypes\ may\ clash}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ *\ with\ bsdsocket.library.\ This\ avoids\ the\ definition\ of\ those.}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#\ \ define\ \_\_NO\_NET\_API}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#ifdef\ HAVE\_ASSERT\_H}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#ifdef\ \_\_TANDEM\ }\textcolor{comment}{/*\ for\ ns*-\/tandem-\/nsk\ systems\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#\ if\ !\ defined\ \_\_LP64}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#\ \ include\ <floss.h>}\ \textcolor{comment}{/*\ FLOSS\ is\ only\ used\ for\ 32-\/bit\ builds.\ */}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#ifndef\ STDC\_HEADERS\ }\textcolor{comment}{/*\ no\ standard\ C\ headers!\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{stdcheaders_8h}{curl/stdcheaders.h}}>}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#ifdef\ \_\_POCC\_\_}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#\ \ include\ <sys/types.h>}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#\ \ include\ <unistd.h>}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#\ \ define\ sys\_nerr\ EILSEQ}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ *\ Salford-\/C\ kludge\ section\ (mostly\ borrowed\ from\ wxWidgets).}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#ifdef\ \_\_SALFORDC\_\_}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\ \ \#pragma\ suppress\ 353\ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Possible\ nested\ comments\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\ \ \#pragma\ suppress\ 593\ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Define\ not\ used\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\ \ \#pragma\ suppress\ 61\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ enum\ has\ no\ name\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\ \ \#pragma\ suppress\ 106\ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ unnamed,\ unused\ parameter\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\ \ \#include\ <clib.h>}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00353\ \textcolor{comment}{\ *\ Large\ file\ (>2Gb)\ support\ using\ WIN32\ functions.}}
+\DoxyCodeLine{00354\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#ifdef\ USE\_WIN32\_LARGE\_FILES}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#\ \ include\ <io.h>}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#\ \ include\ <sys/types.h>}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#\ \ include\ <sys/stat.h>}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#\ \ undef\ \ lseek}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#\ \ define\ lseek(fdes,offset,whence)\ \ \_lseeki64(fdes,\ offset,\ whence)}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#\ \ undef\ \ fstat}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#\ \ define\ fstat(fdes,stp)\ \ \ \ \ \ \ \ \ \ \ \ \_fstati64(fdes,\ stp)}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#\ \ undef\ \ stat}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#\ \ define\ stat(fname,stp)\ \ \ \ \ \ \ \ \ \ \ \ curlx\_win32\_stat(fname,\ stp)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#\ \ define\ struct\_stat\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ struct\ \_stati64}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#\ \ define\ LSEEK\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\_\_int64)-\/1}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#\ \ define\ open\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ curlx\_win32\_open}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#\ \ define\ fopen(fname,mode)\ \ \ \ \ \ \ \ \ \ curlx\_win32\_fopen(fname,\ mode)}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#\ \ define\ access(fname,mode)\ \ \ \ \ \ \ \ \ curlx\_win32\_access(fname,\ mode)}}
+\DoxyCodeLine{00371\ \ \ \ \textcolor{keywordtype}{int}\ curlx\_win32\_open(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},\ \textcolor{keywordtype}{int}\ oflag,\ ...);}
+\DoxyCodeLine{00372\ \ \ \ \textcolor{keywordtype}{int}\ curlx\_win32\_stat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \mbox{\hyperlink{curl__setup_8h_a1c6e64692c9b7c6e7dc70adb398b3115}{struct\_stat}}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}});}
+\DoxyCodeLine{00373\ \ \ \ FILE\ *curlx\_win32\_fopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode);}
+\DoxyCodeLine{00374\ \ \ \ \textcolor{keywordtype}{int}\ curlx\_win32\_access(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00378\ \textcolor{comment}{\ *\ Small\ file\ (<2Gb)\ support\ using\ WIN32\ functions.}}
+\DoxyCodeLine{00379\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#ifdef\ USE\_WIN32\_SMALL\_FILES}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#\ \ include\ <io.h>}}
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#\ \ include\ <sys/types.h>}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#\ \ include\ <sys/stat.h>}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\#\ \ ifndef\ \_WIN32\_WCE}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#\ \ \ \ undef\ \ lseek}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#\ \ \ \ define\ lseek(fdes,offset,whence)\ \ \_lseek(fdes,\ (long)offset,\ whence)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#\ \ \ \ define\ fstat(fdes,stp)\ \ \ \ \ \ \ \ \ \ \ \ \_fstat(fdes,\ stp)}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#\ \ \ \ define\ stat(fname,stp)\ \ \ \ \ \ \ \ \ \ \ \ curlx\_win32\_stat(fname,\ stp)}}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#\ \ \ \ define\ struct\_stat\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ struct\ \_stat}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#\ \ \ \ define\ open\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ curlx\_win32\_open}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\#\ \ \ \ define\ fopen(fname,mode)\ \ \ \ \ \ \ \ \ \ curlx\_win32\_fopen(fname,\ mode)}}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#\ \ \ \ define\ access(fname,mode)\ \ \ \ \ \ \ \ \ curlx\_win32\_access(fname,\ mode)}}
+\DoxyCodeLine{00394\ \ \ \ \ \ \textcolor{keywordtype}{int}\ curlx\_win32\_stat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \mbox{\hyperlink{curl__setup_8h_a1c6e64692c9b7c6e7dc70adb398b3115}{struct\_stat}}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}});}
+\DoxyCodeLine{00395\ \ \ \ \ \ \textcolor{keywordtype}{int}\ curlx\_win32\_open(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},\ \textcolor{keywordtype}{int}\ oflag,\ ...);}
+\DoxyCodeLine{00396\ \ \ \ \ \ FILE\ *curlx\_win32\_fopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode);}
+\DoxyCodeLine{00397\ \ \ \ \ \ \textcolor{keywordtype}{int}\ curlx\_win32\_access(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#\ \ define\ LSEEK\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (long)-\/1}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#ifndef\ struct\_stat}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#\ \ define\ struct\_stat\ struct\ stat}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\#ifndef\ LSEEK\_ERROR}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#\ \ define\ LSEEK\_ERROR\ (off\_t)-\/1}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#ifndef\ SIZEOF\_TIME\_T}}
+\DoxyCodeLine{00411\ \textcolor{comment}{/*\ assume\ default\ size\ of\ time\_t\ to\ be\ 32\ bit\ */}}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#define\ SIZEOF\_TIME\_T\ 4}}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00416\ \textcolor{comment}{\ *\ Default\ sizeof(off\_t)\ in\ case\ it\ hasn't\ been\ defined\ in\ config\ file.}}
+\DoxyCodeLine{00417\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#ifndef\ SIZEOF\_OFF\_T}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\#\ \ if\ defined(\_\_VMS)\ \&\&\ !defined(\_\_VAX)}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#\ \ \ \ if\ defined(\_LARGEFILE)}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ SIZEOF\_OFF\_T\ 8}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#\ \ elif\ defined(\_\_OS400\_\_)\ \&\&\ defined(\_\_ILEC400\_\_)}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#\ \ \ \ if\ defined(\_LARGE\_FILES)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ SIZEOF\_OFF\_T\ 8}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#\ \ elif\ defined(\_\_MVS\_\_)\ \&\&\ defined(\_\_IBMC\_\_)}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#\ \ \ \ if\ defined(\_LP64)\ ||\ defined(\_LARGE\_FILES)}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ SIZEOF\_OFF\_T\ 8}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\#\ \ elif\ defined(\_\_370\_\_)\ \&\&\ defined(\_\_IBMC\_\_)}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\#\ \ \ \ if\ defined(\_LP64)\ ||\ defined(\_LARGE\_FILES)}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ SIZEOF\_OFF\_T\ 8}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#\ \ ifndef\ SIZEOF\_OFF\_T}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#\ \ \ \ define\ SIZEOF\_OFF\_T\ 4}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#if\ (SIZEOF\_CURL\_OFF\_T\ ==\ 4)}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#\ \ define\ CURL\_OFF\_T\_MAX\ CURL\_OFF\_T\_C(0x7FFFFFFF)}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00445\ \ \ \ \textcolor{comment}{/*\ assume\ SIZEOF\_CURL\_OFF\_T\ ==\ 8\ */}}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#\ \ define\ CURL\_OFF\_T\_MAX\ CURL\_OFF\_T\_C(0x7FFFFFFFFFFFFFFF)}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#define\ CURL\_OFF\_T\_MIN\ (-\/CURL\_OFF\_T\_MAX\ -\/\ CURL\_OFF\_T\_C(1))}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\#if\ (SIZEOF\_TIME\_T\ ==\ 4)}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#\ \ ifdef\ HAVE\_TIME\_T\_UNSIGNED}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MAX\ UINT\_MAX}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MIN\ 0}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MAX\ INT\_MAX}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MIN\ INT\_MIN}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#\ \ ifdef\ HAVE\_TIME\_T\_UNSIGNED}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MAX\ 0xFFFFFFFFFFFFFFFF}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MIN\ 0}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MAX\ 0x7FFFFFFFFFFFFFFF}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\#\ \ define\ TIME\_T\_MIN\ (-\/TIME\_T\_MAX\ -\/\ 1)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#ifndef\ SIZE\_T\_MAX}}
+\DoxyCodeLine{00469\ \textcolor{comment}{/*\ some\ limits.h\ headers\ have\ this\ defined,\ some\ don't\ */}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\#if\ defined(SIZEOF\_SIZE\_T)\ \&\&\ (SIZEOF\_SIZE\_T\ >\ 4)}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#define\ SIZE\_T\_MAX\ 18446744073709551615U}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#define\ SIZE\_T\_MAX\ 4294967295U}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\#ifndef\ SSIZE\_T\_MAX}}
+\DoxyCodeLine{00478\ \textcolor{comment}{/*\ some\ limits.h\ headers\ have\ this\ defined,\ some\ don't\ */}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\#if\ defined(SIZEOF\_SIZE\_T)\ \&\&\ (SIZEOF\_SIZE\_T\ >\ 4)}}
+\DoxyCodeLine{00480\ \textcolor{preprocessor}{\#define\ SSIZE\_T\_MAX\ 9223372036854775807}}
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\#define\ SSIZE\_T\_MAX\ 2147483647}}
+\DoxyCodeLine{00483\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ *\ Arg\ 2\ type\ for\ gethostname\ in\ case\ it\ hasn't\ been\ defined\ in\ config\ file.}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\#ifndef\ GETHOSTNAME\_TYPE\_ARG2}}
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#\ \ ifdef\ USE\_WINSOCK}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\#\ \ \ \ define\ GETHOSTNAME\_TYPE\_ARG2\ int}}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#\ \ \ \ define\ GETHOSTNAME\_TYPE\_ARG2\ size\_t}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \textcolor{comment}{/*\ Below\ we\ define\ some\ functions.\ They\ should}}
+\DoxyCodeLine{00499\ \textcolor{comment}{}}
+\DoxyCodeLine{00500\ \textcolor{comment}{\ \ \ 4.\ set\ the\ SIGALRM\ signal\ timeout}}
+\DoxyCodeLine{00501\ \textcolor{comment}{\ \ \ 5.\ set\ dir/file\ naming\ defines}}
+\DoxyCodeLine{00502\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#\ \ define\ DIR\_CHAR\ \ \ \ \ \ "{}\(\backslash\)\(\backslash\)"{}}}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#\ \ ifdef\ MSDOS\ \ }\textcolor{comment}{/*\ Watt-\/32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \textcolor{preprocessor}{\#\ \ \ \ include\ <sys/ioctl.h>}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\#\ \ \ \ define\ select(n,r,w,x,t)\ select\_s(n,r,w,x,t)}}
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\#\ \ \ \ define\ ioctl(x,y,z)\ ioctlsocket(x,y,(char\ *)(z))}}
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\#\ \ \ \ include\ <tcp.h>}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#\ \ \ \ ifdef\ word}}
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\#\ \ \ \ \ \ undef\ word}}
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\#\ \ \ \ ifdef\ byte}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#\ \ \ \ \ \ undef\ byte}}
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\#\ \ endif\ }\textcolor{comment}{/*\ MSDOS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#\ \ ifdef\ \_\_minix}}
+\DoxyCodeLine{00526\ \ \ \ \ \ \textcolor{comment}{/*\ Minix\ 3\ versions\ up\ to\ at\ least\ 3.1.3\ are\ missing\ these\ prototypes\ */}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{strtok_8h_abff4e21c5a2026f9982e88f1e686e63a}{strtok\_r}}(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *delim,\ \textcolor{keywordtype}{char}\ **last);}
+\DoxyCodeLine{00528\ \ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }tm\ *gmtime\_r(\textcolor{keyword}{const}\ time\_t\ *\ \textcolor{keyword}{const}\ timep,\ \textcolor{keyword}{struct}\ tm\ *tmp);}
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#\ \ define\ DIR\_CHAR\ \ \ \ \ \ "{}/"{}}}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\#\ \ ifndef\ fileno\ }\textcolor{comment}{/*\ sunos\ 4\ have\ this\ as\ a\ macro!\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00534\ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{curl__setup_8h_af86fa14728c9bad5418a6d29cad9f9ff}{fileno}}(FILE\ *\mbox{\hyperlink{data-binary_8d_a73d1d2257c0428f3cbe588f0ac996fad}{stream}});}
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00539\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ *\ msvc\ 6.0\ requires\ PSDK\ in\ order\ to\ have\ INET6\_ADDRSTRLEN}}
+\DoxyCodeLine{00541\ \textcolor{comment}{\ *\ defined\ in\ ws2tcpip.h\ as\ well\ as\ to\ provide\ IPv6\ support.}}
+\DoxyCodeLine{00542\ \textcolor{comment}{\ *\ Does\ not\ apply\ if\ lwIP\ is\ used.}}
+\DoxyCodeLine{00543\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ !defined(\_\_POCC\_\_)\ \&\&\ !defined(USE\_LWIPSOCK)}}
+\DoxyCodeLine{00546\ \textcolor{preprocessor}{\#\ \ if\ !defined(HAVE\_WS2TCPIP\_H)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\ \ \ \ \ ((\_MSC\_VER\ <\ 1300)\ \&\&\ !defined(INET6\_ADDRSTRLEN))}}
+\DoxyCodeLine{00548\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_GETADDRINFO\_THREADSAFE}}
+\DoxyCodeLine{00549\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_FREEADDRINFO}}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00551\ \textcolor{preprocessor}{\#\ \ \ \ undef\ ENABLE\_IPV6}}
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00556\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ resolver\ specialty\ compile-\/time\ defines\ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00557\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ CURLRES\_*\ defines\ to\ use\ in\ the\ host*.c\ sources\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00558\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00561\ \textcolor{comment}{\ *\ lcc-\/win32\ doesn't\ have\ \_beginthreadex(),\ lacks\ threads\ support.}}
+\DoxyCodeLine{00562\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#if\ defined(\_\_LCC\_\_)\ \&\&\ defined(WIN32)}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\#\ \ undef\ USE\_THREADS\_POSIX}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\#\ \ undef\ USE\_THREADS\_WIN32}}
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00570\ \textcolor{comment}{\ *\ MSVC\ threads\ support\ requires\ a\ multi-\/threaded\ runtime\ library.}}
+\DoxyCodeLine{00571\ \textcolor{comment}{\ *\ \_beginthreadex()\ is\ not\ available\ in\ single-\/threaded\ ones.}}
+\DoxyCodeLine{00572\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ !defined(\_\_POCC\_\_)\ \&\&\ !defined(\_MT)}}
+\DoxyCodeLine{00575\ \textcolor{preprocessor}{\#\ \ undef\ USE\_THREADS\_POSIX}}
+\DoxyCodeLine{00576\ \textcolor{preprocessor}{\#\ \ undef\ USE\_THREADS\_WIN32}}
+\DoxyCodeLine{00577\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00580\ \textcolor{comment}{\ *\ Mutually\ exclusive\ CURLRES\_*\ definitions.}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_IPV6)\ \&\&\ defined(HAVE\_GETADDRINFO)}}
+\DoxyCodeLine{00584\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_IPV6}}
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00586\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_IPV4}}
+\DoxyCodeLine{00587\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\#ifdef\ USE\_ARES}}
+\DoxyCodeLine{00590\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_ASYNCH}}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_ARES}}
+\DoxyCodeLine{00592\ \textcolor{comment}{/*\ now\ undef\ the\ stock\ libc\ functions\ just\ to\ avoid\ them\ being\ used\ */}}
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#\ \ undef\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00594\ \textcolor{preprocessor}{\#\ \ undef\ HAVE\_FREEADDRINFO}}
+\DoxyCodeLine{00595\ \textcolor{preprocessor}{\#elif\ defined(USE\_THREADS\_POSIX)\ ||\ defined(USE\_THREADS\_WIN32)}}
+\DoxyCodeLine{00596\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_ASYNCH}}
+\DoxyCodeLine{00597\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_THREADED}}
+\DoxyCodeLine{00598\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00599\ \textcolor{preprocessor}{\#\ \ define\ CURLRES\_SYNCH}}
+\DoxyCodeLine{00600\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00605\ \textcolor{comment}{\ *\ msvc\ 6.0\ does\ not\ have\ struct\ sockaddr\_storage\ and}}
+\DoxyCodeLine{00606\ \textcolor{comment}{\ *\ does\ not\ define\ IPPROTO\_ESP\ in\ winsock2.h.\ But\ both}}
+\DoxyCodeLine{00607\ \textcolor{comment}{\ *\ are\ available\ if\ PSDK\ is\ properly\ installed.}}
+\DoxyCodeLine{00608\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ !defined(\_\_POCC\_\_)}}
+\DoxyCodeLine{00611\ \textcolor{preprocessor}{\#\ \ if\ !defined(HAVE\_WINSOCK2\_H)\ ||\ ((\_MSC\_VER\ <\ 1300)\ \&\&\ !defined(IPPROTO\_ESP))}}
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\#\ \ \ \ undef\ HAVE\_STRUCT\_SOCKADDR\_STORAGE}}
+\DoxyCodeLine{00613\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00614\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00616\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00617\ \textcolor{comment}{\ *\ Intentionally\ fail\ to\ build\ when\ using\ msvc\ 6.0\ without\ PSDK\ installed.}}
+\DoxyCodeLine{00618\ \textcolor{comment}{\ *\ The\ brave\ of\ heart\ can\ circumvent\ this,\ defining\ ALLOW\_MSVC6\_WITHOUT\_PSDK}}
+\DoxyCodeLine{00619\ \textcolor{comment}{\ *\ in\ lib/config-\/win32.h\ although\ absolutely\ discouraged\ and\ unsupported.}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ !defined(\_\_POCC\_\_)}}
+\DoxyCodeLine{00623\ \textcolor{preprocessor}{\#\ \ if\ !defined(HAVE\_WINDOWS\_H)\ ||\ ((\_MSC\_VER\ <\ 1300)\ \&\&\ !defined(\_FILETIME\_))}}
+\DoxyCodeLine{00624\ \textcolor{preprocessor}{\#\ \ \ \ if\ !defined(ALLOW\_MSVC6\_WITHOUT\_PSDK)}}
+\DoxyCodeLine{00625\ \textcolor{preprocessor}{\#\ \ \ \ \ \ error\ MSVC\ 6.0\ requires\ "{}February\ 2003\ Platform\ SDK"{}\ a.k.a.\ \(\backslash\)}}
+\DoxyCodeLine{00626\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}Windows\ Server\ 2003\ PSDK"{}}}
+\DoxyCodeLine{00627\ \textcolor{preprocessor}{\#\ \ \ \ else}}
+\DoxyCodeLine{00628\ \textcolor{preprocessor}{\#\ \ \ \ \ \ define\ CURL\_DISABLE\_LDAP\ 1}}
+\DoxyCodeLine{00629\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00630\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00631\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \textcolor{preprocessor}{\#if\ defined(HAVE\_LIBIDN2)\ \&\&\ defined(HAVE\_IDN2\_H)\ \&\&\ !defined(USE\_WIN32\_IDN)}}
+\DoxyCodeLine{00634\ \textcolor{comment}{/*\ The\ lib\ and\ header\ are\ present\ */}}
+\DoxyCodeLine{00635\ \textcolor{preprocessor}{\#define\ USE\_LIBIDN2}}
+\DoxyCodeLine{00636\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\#if\ defined(USE\_LIBIDN2)\ \&\&\ defined(USE\_WIN32\_IDN)}}
+\DoxyCodeLine{00639\ \textcolor{preprocessor}{\#error\ "{}Both\ libidn2\ and\ WinIDN\ are\ enabled,\ choose\ one."{}}}
+\DoxyCodeLine{00640\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \textcolor{preprocessor}{\#define\ LIBIDN\_REQUIRED\_VERSION\ "{}0.4.1"{}}}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \textcolor{preprocessor}{\#if\ defined(USE\_GNUTLS)\ ||\ defined(USE\_OPENSSL)\ ||\ defined(USE\_NSS)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00645\ \textcolor{preprocessor}{\ \ \ \ defined(USE\_MBEDTLS)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00646\ \textcolor{preprocessor}{\ \ \ \ defined(USE\_WOLFSSL)\ ||\ defined(USE\_SCHANNEL)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00647\ \textcolor{preprocessor}{\ \ \ \ defined(USE\_SECTRANSP)\ ||\ defined(USE\_GSKIT)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00648\ \textcolor{preprocessor}{\ \ \ \ defined(USE\_BEARSSL)\ ||\ defined(USE\_RUSTLS)}}
+\DoxyCodeLine{00649\ \textcolor{preprocessor}{\#define\ USE\_SSL\ \ \ \ }\textcolor{comment}{/*\ SSL\ support\ has\ been\ enabled\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00650\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00652\ \textcolor{comment}{/*\ Single\ point\ where\ USE\_SPNEGO\ definition\ might\ be\ defined\ */}}
+\DoxyCodeLine{00653\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_CRYPTO\_AUTH)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\ \ \ \ (defined(HAVE\_GSSAPI)\ ||\ defined(USE\_WINDOWS\_SSPI))}}
+\DoxyCodeLine{00655\ \textcolor{preprocessor}{\#define\ USE\_SPNEGO}}
+\DoxyCodeLine{00656\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \textcolor{comment}{/*\ Single\ point\ where\ USE\_KERBEROS5\ definition\ might\ be\ defined\ */}}
+\DoxyCodeLine{00659\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_CRYPTO\_AUTH)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00660\ \textcolor{preprocessor}{\ \ \ \ (defined(HAVE\_GSSAPI)\ ||\ defined(USE\_WINDOWS\_SSPI))}}
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\#define\ USE\_KERBEROS5}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00663\ }
+\DoxyCodeLine{00664\ \textcolor{comment}{/*\ Single\ point\ where\ USE\_NTLM\ definition\ might\ be\ defined\ */}}
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_CRYPTO\_AUTH)\ \&\&\ !defined(CURL\_DISABLE\_NTLM)}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\#\ \ if\ defined(USE\_OPENSSL)\ ||\ defined(USE\_MBEDTLS)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00667\ \textcolor{preprocessor}{\ \ \ \ \ \ defined(USE\_GNUTLS)\ ||\ defined(USE\_NSS)\ ||\ defined(USE\_SECTRANSP)\ ||\ \ \(\backslash\)}}
+\DoxyCodeLine{00668\ \textcolor{preprocessor}{\ \ \ \ \ \ defined(USE\_OS400CRYPTO)\ ||\ defined(USE\_WIN32\_CRYPTO)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\ \ \ \ \ \ (defined(USE\_WOLFSSL)\ \&\&\ defined(HAVE\_WOLFSSL\_DES\_ECB\_ENCRYPT))}}
+\DoxyCodeLine{00670\ \textcolor{preprocessor}{\#\ \ \ \ define\ USE\_CURL\_NTLM\_CORE}}
+\DoxyCodeLine{00671\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00672\ \textcolor{preprocessor}{\#\ \ if\ defined(USE\_CURL\_NTLM\_CORE)\ ||\ defined(USE\_WINDOWS\_SSPI)}}
+\DoxyCodeLine{00673\ \textcolor{preprocessor}{\#\ \ \ \ define\ USE\_NTLM}}
+\DoxyCodeLine{00674\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\#ifdef\ CURL\_WANTS\_CA\_BUNDLE\_ENV}}
+\DoxyCodeLine{00678\ \textcolor{preprocessor}{\#error\ "{}No\ longer\ supported.\ Set\ CURLOPT\_CAINFO\ at\ runtime\ instead."{}}}
+\DoxyCodeLine{00679\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \textcolor{preprocessor}{\#if\ defined(USE\_LIBSSH2)\ ||\ defined(USE\_LIBSSH)\ ||\ defined(USE\_WOLFSSH)}}
+\DoxyCodeLine{00682\ \textcolor{preprocessor}{\#define\ USE\_SSH}}
+\DoxyCodeLine{00683\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00685\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00686\ \textcolor{comment}{\ *\ Provide\ a\ mechanism\ to\ silence\ picky\ compilers,\ such\ as\ gcc\ 4.6+.}}
+\DoxyCodeLine{00687\ \textcolor{comment}{\ *\ Parameters\ should\ of\ course\ normally\ not\ be\ unused,\ but\ for\ example\ when}}
+\DoxyCodeLine{00688\ \textcolor{comment}{\ *\ we\ have\ multiple\ implementations\ of\ the\ same\ interface\ it\ may\ happen.}}
+\DoxyCodeLine{00689\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\#if\ defined(\_\_GNUC\_\_)\ \&\&\ ((\_\_GNUC\_\_\ >=\ 3)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00692\ \textcolor{preprocessor}{\ \ ((\_\_GNUC\_\_\ ==\ 2)\ \&\&\ defined(\_\_GNUC\_MINOR\_\_)\ \&\&\ (\_\_GNUC\_MINOR\_\_\ >=\ 7)))}}
+\DoxyCodeLine{00693\ \textcolor{preprocessor}{\#\ \ define\ UNUSED\_PARAM\ \_\_attribute\_\_((\_\_unused\_\_))}}
+\DoxyCodeLine{00694\ \textcolor{preprocessor}{\#\ \ define\ WARN\_UNUSED\_RESULT\ \_\_attribute\_\_((warn\_unused\_result))}}
+\DoxyCodeLine{00695\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\#\ \ define\ UNUSED\_PARAM\ }\textcolor{comment}{/*NOTHING*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00697\ \textcolor{preprocessor}{\#\ \ define\ WARN\_UNUSED\_RESULT}}
+\DoxyCodeLine{00698\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ *\ Include\ macros\ and\ defines\ that\ should\ only\ be\ processed\ once.}}
+\DoxyCodeLine{00702\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SETUP\_ONCE\_H}}
+\DoxyCodeLine{00705\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup__once_8h}{curl\_setup\_once.h}}"{}}}
+\DoxyCodeLine{00706\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00709\ \textcolor{comment}{\ *\ Definition\ of\ our\ NOP\ statement\ Object-\/like\ macro}}
+\DoxyCodeLine{00710\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \textcolor{preprocessor}{\#ifndef\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00713\ \textcolor{preprocessor}{\#\ \ define\ Curl\_nop\_stmt\ do\ \{\ \}\ while(0)}}
+\DoxyCodeLine{00714\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00716\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00717\ \textcolor{comment}{\ *\ Ensure\ that\ Winsock\ and\ lwIP\ TCP/IP\ stacks\ are\ not\ mixed.}}
+\DoxyCodeLine{00718\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \textcolor{preprocessor}{\#if\ defined(\_\_LWIP\_OPT\_H\_\_)\ ||\ defined(LWIP\_HDR\_OPT\_H)}}
+\DoxyCodeLine{00721\ \textcolor{preprocessor}{\#\ \ if\ defined(SOCKET)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00722\ \textcolor{preprocessor}{\ \ \ \ \ defined(USE\_WINSOCK)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00723\ \textcolor{preprocessor}{\ \ \ \ \ defined(HAVE\_WINSOCK2\_H)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00724\ \textcolor{preprocessor}{\ \ \ \ \ defined(HAVE\_WS2TCPIP\_H)}}
+\DoxyCodeLine{00725\ \textcolor{preprocessor}{\#\ \ \ \ error\ "{}WinSock\ and\ lwIP\ TCP/IP\ stack\ definitions\ shall\ not\ coexist!"{}}}
+\DoxyCodeLine{00726\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00729\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00730\ \textcolor{comment}{\ *\ shutdown()\ flags\ for\ systems\ that\ don't\ define\ them}}
+\DoxyCodeLine{00731\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \textcolor{preprocessor}{\#ifndef\ SHUT\_RD}}
+\DoxyCodeLine{00734\ \textcolor{preprocessor}{\#define\ SHUT\_RD\ 0x00}}
+\DoxyCodeLine{00735\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00736\ }
+\DoxyCodeLine{00737\ \textcolor{preprocessor}{\#ifndef\ SHUT\_WR}}
+\DoxyCodeLine{00738\ \textcolor{preprocessor}{\#define\ SHUT\_WR\ 0x01}}
+\DoxyCodeLine{00739\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \textcolor{preprocessor}{\#ifndef\ SHUT\_RDWR}}
+\DoxyCodeLine{00742\ \textcolor{preprocessor}{\#define\ SHUT\_RDWR\ 0x02}}
+\DoxyCodeLine{00743\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \textcolor{comment}{/*\ Define\ S\_ISREG\ if\ not\ defined\ by\ system\ headers,\ e.g.\ MSVC\ */}}
+\DoxyCodeLine{00746\ \textcolor{preprocessor}{\#if\ !defined(S\_ISREG)\ \&\&\ defined(S\_IFMT)\ \&\&\ defined(S\_IFREG)}}
+\DoxyCodeLine{00747\ \textcolor{preprocessor}{\#define\ S\_ISREG(m)\ (((m)\ \&\ S\_IFMT)\ ==\ S\_IFREG)}}
+\DoxyCodeLine{00748\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \textcolor{comment}{/*\ Define\ S\_ISDIR\ if\ not\ defined\ by\ system\ headers,\ e.g.\ MSVC\ */}}
+\DoxyCodeLine{00751\ \textcolor{preprocessor}{\#if\ !defined(S\_ISDIR)\ \&\&\ defined(S\_IFMT)\ \&\&\ defined(S\_IFDIR)}}
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\#define\ S\_ISDIR(m)\ (((m)\ \&\ S\_IFMT)\ ==\ S\_IFDIR)}}
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \textcolor{comment}{/*\ In\ Windows\ the\ default\ file\ mode\ is\ text\ but\ an\ application\ can\ override\ it.}}
+\DoxyCodeLine{00756\ \textcolor{comment}{Therefore\ we\ specify\ it\ explicitly.\ https://github.com/curl/curl/pull/258}}
+\DoxyCodeLine{00757\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00758\ \textcolor{preprocessor}{\#if\ defined(WIN32)\ ||\ defined(MSDOS)}}
+\DoxyCodeLine{00759\ \textcolor{preprocessor}{\#define\ FOPEN\_READTEXT\ "{}rt"{}}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\#define\ FOPEN\_WRITETEXT\ "{}wt"{}}}
+\DoxyCodeLine{00761\ \textcolor{preprocessor}{\#define\ FOPEN\_APPENDTEXT\ "{}at"{}}}
+\DoxyCodeLine{00762\ \textcolor{preprocessor}{\#elif\ defined(\_\_CYGWIN\_\_)}}
+\DoxyCodeLine{00763\ \textcolor{comment}{/*\ Cygwin\ has\ specific\ behavior\ we\ need\ to\ address\ when\ WIN32\ is\ not\ defined.}}
+\DoxyCodeLine{00764\ \textcolor{comment}{https://cygwin.com/cygwin-\/ug-\/net/using-\/textbinary.html}}
+\DoxyCodeLine{00765\ \textcolor{comment}{For\ write\ we\ want\ our\ output\ to\ have\ line\ endings\ of\ LF\ and\ be\ compatible\ with}}
+\DoxyCodeLine{00766\ \textcolor{comment}{other\ Cygwin\ utilities.\ For\ read\ we\ want\ to\ handle\ input\ that\ may\ have\ line}}
+\DoxyCodeLine{00767\ \textcolor{comment}{endings\ either\ CRLF\ or\ LF\ so\ 't'\ is\ appropriate.}}
+\DoxyCodeLine{00768\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00769\ \textcolor{preprocessor}{\#define\ FOPEN\_READTEXT\ "{}rt"{}}}
+\DoxyCodeLine{00770\ \textcolor{preprocessor}{\#define\ FOPEN\_WRITETEXT\ "{}w"{}}}
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\#define\ FOPEN\_APPENDTEXT\ "{}a"{}}}
+\DoxyCodeLine{00772\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00773\ \textcolor{preprocessor}{\#define\ FOPEN\_READTEXT\ "{}r"{}}}
+\DoxyCodeLine{00774\ \textcolor{preprocessor}{\#define\ FOPEN\_WRITETEXT\ "{}w"{}}}
+\DoxyCodeLine{00775\ \textcolor{preprocessor}{\#define\ FOPEN\_APPENDTEXT\ "{}a"{}}}
+\DoxyCodeLine{00776\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00778\ \textcolor{comment}{/*\ WinSock\ destroys\ recv()\ buffer\ when\ send()\ failed.}}
+\DoxyCodeLine{00779\ \textcolor{comment}{\ *\ Enabled\ automatically\ for\ Windows\ and\ for\ Cygwin\ as\ Cygwin\ sockets\ are}}
+\DoxyCodeLine{00780\ \textcolor{comment}{\ *\ wrappers\ for\ WinSock\ sockets.\ https://github.com/curl/curl/issues/657}}
+\DoxyCodeLine{00781\ \textcolor{comment}{\ *\ Define\ DONT\_USE\_RECV\_BEFORE\_SEND\_WORKAROUND\ to\ force\ disable\ workaround.}}
+\DoxyCodeLine{00782\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00783\ \textcolor{preprocessor}{\#if\ !defined(DONT\_USE\_RECV\_BEFORE\_SEND\_WORKAROUND)}}
+\DoxyCodeLine{00784\ \textcolor{preprocessor}{\#\ \ if\ defined(WIN32)\ ||\ defined(\_\_CYGWIN\_\_)}}
+\DoxyCodeLine{00785\ \textcolor{preprocessor}{\#\ \ \ \ define\ USE\_RECV\_BEFORE\_SEND\_WORKAROUND}}
+\DoxyCodeLine{00786\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00787\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ DONT\_USE\_RECV\_BEFORE\_SEND\_WORKAROUND\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00788\ \textcolor{preprocessor}{\#\ \ ifdef\ USE\_RECV\_BEFORE\_SEND\_WORKAROUND}}
+\DoxyCodeLine{00789\ \textcolor{preprocessor}{\#\ \ \ \ undef\ USE\_RECV\_BEFORE\_SEND\_WORKAROUND}}
+\DoxyCodeLine{00790\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00791\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ DONT\_USE\_RECV\_BEFORE\_SEND\_WORKAROUND\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00793\ \textcolor{comment}{/*\ for\ systems\ that\ don't\ detect\ this\ in\ configure\ */}}
+\DoxyCodeLine{00794\ \textcolor{preprocessor}{\#ifndef\ CURL\_SA\_FAMILY\_T}}
+\DoxyCodeLine{00795\ \textcolor{preprocessor}{\#\ \ if\ defined(HAVE\_SA\_FAMILY\_T)}}
+\DoxyCodeLine{00796\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_SA\_FAMILY\_T\ sa\_family\_t}}
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\#\ \ elif\ defined(HAVE\_ADDRESS\_FAMILY)}}
+\DoxyCodeLine{00798\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_SA\_FAMILY\_T\ ADDRESS\_FAMILY}}
+\DoxyCodeLine{00799\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00800\ \textcolor{comment}{/*\ use\ a\ sensible\ default\ */}}
+\DoxyCodeLine{00801\ \textcolor{preprocessor}{\#\ \ \ \ define\ CURL\_SA\_FAMILY\_T\ unsigned\ short}}
+\DoxyCodeLine{00802\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00803\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00805\ \textcolor{comment}{/*\ Some\ convenience\ macros\ to\ get\ the\ larger/smaller\ value\ out\ of\ two\ given.}}
+\DoxyCodeLine{00806\ \textcolor{comment}{\ \ \ We\ prefix\ with\ CURL\ to\ prevent\ name\ collisions.\ */}}
+\DoxyCodeLine{00807\ \textcolor{preprocessor}{\#define\ CURLMAX(x,y)\ ((x)>(y)?(x):(y))}}
+\DoxyCodeLine{00808\ \textcolor{preprocessor}{\#define\ CURLMIN(x,y)\ ((x)<(y)?(x):(y))}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \textcolor{comment}{/*\ A\ convenience\ macro\ to\ provide\ both\ the\ string\ literal\ and\ the\ length\ of}}
+\DoxyCodeLine{00811\ \textcolor{comment}{\ \ \ the\ string\ literal\ in\ one\ go,\ useful\ for\ functions\ that\ take\ "{}string,len"{}}}
+\DoxyCodeLine{00812\ \textcolor{comment}{\ \ \ as\ their\ argument\ */}}
+\DoxyCodeLine{00813\ \textcolor{preprocessor}{\#define\ STRCONST(x)\ x,sizeof(x)-\/1}}
+\DoxyCodeLine{00814\ }
+\DoxyCodeLine{00815\ \textcolor{comment}{/*\ Some\ versions\ of\ the\ Android\ SDK\ is\ missing\ the\ declaration\ */}}
+\DoxyCodeLine{00816\ \textcolor{preprocessor}{\#if\ defined(HAVE\_GETPWUID\_R)\ \&\&\ defined(HAVE\_DECL\_GETPWUID\_R\_MISSING)}}
+\DoxyCodeLine{00817\ \textcolor{keyword}{struct\ }passwd;}
+\DoxyCodeLine{00818\ \textcolor{keywordtype}{int}\ getpwuid\_r(uid\_t\ uid,\ \textcolor{keyword}{struct}\ passwd\ *pwd,\ \textcolor{keywordtype}{char}\ *buf,}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buflen,\ \textcolor{keyword}{struct}\ passwd\ **result);}
+\DoxyCodeLine{00820\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00821\ }
+\DoxyCodeLine{00822\ \textcolor{preprocessor}{\#ifdef\ DEBUGBUILD}}
+\DoxyCodeLine{00823\ \textcolor{preprocessor}{\#define\ UNITTEST}}
+\DoxyCodeLine{00824\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\#define\ UNITTEST\ static}}
+\DoxyCodeLine{00826\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \textcolor{preprocessor}{\#if\ defined(USE\_NGHTTP2)\ ||\ defined(USE\_HYPER)}}
+\DoxyCodeLine{00829\ \textcolor{preprocessor}{\#define\ USE\_HTTP2}}
+\DoxyCodeLine{00830\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ \textcolor{preprocessor}{\#if\ defined(USE\_NGTCP2)\ ||\ defined(USE\_QUICHE)\ ||\ defined(USE\_MSH3)}}
+\DoxyCodeLine{00833\ \textcolor{preprocessor}{\#define\ ENABLE\_QUIC}}
+\DoxyCodeLine{00834\ \textcolor{preprocessor}{\#define\ USE\_HTTP3}}
+\DoxyCodeLine{00835\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \textcolor{preprocessor}{\#if\ defined(USE\_UNIX\_SOCKETS)\ \&\&\ defined(WIN32)}}
+\DoxyCodeLine{00838\ \textcolor{preprocessor}{\#\ \ if\ defined(\_\_MINGW32\_\_)\ \&\&\ !defined(LUP\_SECURE)}}
+\DoxyCodeLine{00839\ \ \ \ \ \ \textcolor{keyword}{typedef}\ u\_short\ ADDRESS\_FAMILY;\ \textcolor{comment}{/*\ Classic\ mingw,\ 11y+\ old\ mingw-\/w64\ */}}
+\DoxyCodeLine{00840\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00841\ \textcolor{preprocessor}{\#\ \ if\ !defined(UNIX\_PATH\_MAX)}}
+\DoxyCodeLine{00842\ \ \ \ \ \ \textcolor{comment}{/*\ Replicating\ logic\ present\ in\ afunix.h}}
+\DoxyCodeLine{00843\ \textcolor{comment}{\ \ \ \ \ \ \ \ (distributed\ with\ newer\ Windows\ 10\ SDK\ versions\ only)\ */}}
+\DoxyCodeLine{00844\ \textcolor{preprocessor}{\#\ \ \ \ define\ UNIX\_PATH\_MAX\ 108}}
+\DoxyCodeLine{00845\ \ \ \ \ \ \textcolor{comment}{/*\ !checksrc!\ disable\ TYPEDEFSTRUCT\ 1\ */}}
+\DoxyCodeLine{00846\ \ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }sockaddr\_un\ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ ADDRESS\_FAMILY\ sun\_family;}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ sun\_path[UNIX\_PATH\_MAX];}
+\DoxyCodeLine{00849\ \ \ \ \ \ \}\ SOCKADDR\_UN,\ *PSOCKADDR\_UN;}
+\DoxyCodeLine{00850\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIN32\_SOCKADDR\_UN}}
+\DoxyCodeLine{00851\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00852\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00853\ }
+\DoxyCodeLine{00854\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SETUP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

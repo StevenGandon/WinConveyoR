@@ -1,0 +1,561 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/smtp.c File Reference}
+\hypertarget{smtp_8c}{}\label{smtp_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/smtp.c@{lib/libwconr/build/\_deps/curl-\/src/lib/smtp.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}hostip.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}mime.\+h"{}}\newline
+{\ttfamily \#include "{}socks.\+h"{}}\newline
+{\ttfamily \#include "{}smtp.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+gethostname.\+h"{}}\newline
+{\ttfamily \#include "{}bufref.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sasl.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{smtp_8c_adef2a0159a43836d1d497701c2ef49c9}{smtp\+\_\+to\+\_\+smtps}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a0570ff90bf325f18ec54b3c9098c0681}{smtp\+\_\+regular\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a63cb5fbf7b18dbaff81db8fbbe22baa7}{smtp\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a5efccaed0a74b20270d9a84d2e2739b2}{smtp\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} status, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} premature)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_afbc1dfbe0e0ab6e109652f96327fde90}{smtp\+\_\+connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a9e95f0ddb2c762e0c22078f5edaf4fbe}{smtp\+\_\+disconnect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} dead)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_ae3dcc25dad2d6a2db369278e0cf9bf8e}{smtp\+\_\+multi\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static int \mbox{\hyperlink{smtp_8c_a60d7cdc1dac9686026aa872687d087b5}{smtp\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a24d61da7516697625b0a2e6219b353a5}{smtp\+\_\+doing}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a99aab493b3959e24633ce887412953df}{smtp\+\_\+setup\+\_\+connection}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_abc51c0a66aaca7d9607ae36906a9dd56}{smtp\+\_\+parse\+\_\+url\+\_\+options}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a108b66ac0b24b7309bf841913114af3b}{smtp\+\_\+parse\+\_\+url\+\_\+path}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_abbc9ad1ac770c5bba049fb1dc0ab14af}{smtp\+\_\+parse\+\_\+custom\+\_\+request}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_ab1d9be0cd2999a5a6eb3e131f5cd1b52}{smtp\+\_\+parse\+\_\+address}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}fqma, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}address, struct \mbox{\hyperlink{structhostname}{hostname}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a2e100e4fff37c42079428336a7da4d5d}{smtp\+\_\+perform\+\_\+auth}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}initresp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a6afc114ddfb5931bf987dbe9c22f7688}{smtp\+\_\+continue\+\_\+auth}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}resp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a64ceb5efc1dfe1f6ab3b61acfd23bd79}{smtp\+\_\+cancel\+\_\+auth}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a907dfd710c2564698596e62123d6578f}{smtp\+\_\+get\+\_\+message}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}out)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{smtp_8c_a7695b05b9ba3032262eaff4667a758ff}{smtp\+\_\+endofresp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}, int \texorpdfstring{$\ast$}{*}resp)
+\item 
+static void \mbox{\hyperlink{smtp_8c_a0979df2458ae1eab6f675fd169d54315}{state}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} newstate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_adb2b1400923d0cd038e3c58655171353}{smtp\+\_\+perform\+\_\+ehlo}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a34c1b5da792ccb27e1d10351a0fc6ede}{smtp\+\_\+perform\+\_\+helo}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a6b2c31e39dfae0822cc958256332c9c4}{smtp\+\_\+perform\+\_\+starttls}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_adc52d313a9fbcdc9d65f23147edf18a9}{smtp\+\_\+perform\+\_\+upgrade\+\_\+tls}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a8f5e7437281895b135a5815377f8292d}{smtp\+\_\+perform\+\_\+authentication}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a79aff32ec9febb6b2ae419fe5c86ebf1}{smtp\+\_\+perform\+\_\+command}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_af5cbc4632f09be3121e99d02e6c5bc08}{smtp\+\_\+perform\+\_\+mail}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a6799a383e032b5eaed9af44ce296269d}{smtp\+\_\+perform\+\_\+rcpt\+\_\+to}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a0614369e879a0ebe24778137f55eb5d6}{smtp\+\_\+perform\+\_\+quit}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a49f0b6cb728fc0756f694903a950132a}{smtp\+\_\+state\+\_\+servergreet\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_aefc2592cc96b94f8626a527a66402cae}{smtp\+\_\+state\+\_\+starttls\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a27f5adab8432a65684855723efef2ee9}{smtp\+\_\+state\+\_\+ehlo\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_ac0303c143dccd1be0e831f12c8162421}{smtp\+\_\+state\+\_\+helo\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_aa47704315793285b6719c0eeaad0b6c5}{smtp\+\_\+state\+\_\+auth\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_ae61edcdffbd1cad3372967df873a91ef}{smtp\+\_\+state\+\_\+command\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a3f6fed0f8796c5228022066df3de811d}{smtp\+\_\+state\+\_\+mail\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_ae610316a6767ec608d00450b0c02378b}{smtp\+\_\+state\+\_\+rcpt\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_adb58a072fe6891828e85dfae69bc70ca}{smtp\+\_\+state\+\_\+data\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_abafd7ef8d3e528f3f9df1bdd0f18cece}{smtp\+\_\+state\+\_\+postdata\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int smtpcode, \mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a83c24b3af89c0740b0e14dc7fb04f76d}{smtp\+\_\+statemachine}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a09563809fce383f57e00eded762fe73a}{smtp\+\_\+block\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} disconnecting)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a10a8f4da1c03f993c8e9a9a842ca9ca3}{smtp\+\_\+init}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_ae13a425d9c349913dfef6f5c92902d2e}{smtp\+\_\+perform}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}connected, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a6d71ab2cab114fbe42622c7bd7b458bd}{smtp\+\_\+dophase\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} connected)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{smtp_8c_a81ec58f36535bf8aad35a020fe9ae29b}{Curl\+\_\+smtp\+\_\+escape\+\_\+eob}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} nread, const \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} offset)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{smtp_8c_a9063ebddfe08299e6248dfe21d94dbea}{Curl\+\_\+handler\+\_\+smtp}}
+\item 
+static const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} \mbox{\hyperlink{smtp_8c_ab8a199dcd2d64a0bc7b4c01c08c7e704}{saslsmtp}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{smtp_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{smtp_8c_adef2a0159a43836d1d497701c2ef49c9}\index{smtp.c@{smtp.c}!smtp\_to\_smtps@{smtp\_to\_smtps}}
+\index{smtp\_to\_smtps@{smtp\_to\_smtps}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_to\_smtps}{smtp\_to\_smtps}}
+{\footnotesize\ttfamily \label{smtp_8c_adef2a0159a43836d1d497701c2ef49c9} 
+\#define smtp\+\_\+to\+\_\+smtps(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{smtp_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{smtp_8c_a81ec58f36535bf8aad35a020fe9ae29b}\index{smtp.c@{smtp.c}!Curl\_smtp\_escape\_eob@{Curl\_smtp\_escape\_eob}}
+\index{Curl\_smtp\_escape\_eob@{Curl\_smtp\_escape\_eob}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_smtp\_escape\_eob()}{Curl\_smtp\_escape\_eob()}}
+{\footnotesize\ttfamily \label{smtp_8c_a81ec58f36535bf8aad35a020fe9ae29b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+smtp\+\_\+escape\+\_\+eob (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}}}]{nread}{, }\item[{const \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}}}]{offset}{}\end{DoxyParamCaption})}
+
+\Hypertarget{smtp_8c_a09563809fce383f57e00eded762fe73a}\index{smtp.c@{smtp.c}!smtp\_block\_statemach@{smtp\_block\_statemach}}
+\index{smtp\_block\_statemach@{smtp\_block\_statemach}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_block\_statemach()}{smtp\_block\_statemach()}}
+{\footnotesize\ttfamily \label{smtp_8c_a09563809fce383f57e00eded762fe73a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+block\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{disconnecting}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a64ceb5efc1dfe1f6ab3b61acfd23bd79}\index{smtp.c@{smtp.c}!smtp\_cancel\_auth@{smtp\_cancel\_auth}}
+\index{smtp\_cancel\_auth@{smtp\_cancel\_auth}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_cancel\_auth()}{smtp\_cancel\_auth()}}
+{\footnotesize\ttfamily \label{smtp_8c_a64ceb5efc1dfe1f6ab3b61acfd23bd79} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+cancel\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a64ceb5efc1dfe1f6ab3b61acfd23bd79}{smtp\+\_\+cancel\+\_\+auth()}
+
+Sends \doxylink{structSASL}{SASL} cancellation. \Hypertarget{smtp_8c_afbc1dfbe0e0ab6e109652f96327fde90}\index{smtp.c@{smtp.c}!smtp\_connect@{smtp\_connect}}
+\index{smtp\_connect@{smtp\_connect}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_connect()}{smtp\_connect()}}
+{\footnotesize\ttfamily \label{smtp_8c_afbc1dfbe0e0ab6e109652f96327fde90} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_afbc1dfbe0e0ab6e109652f96327fde90}{smtp\+\_\+connect()}
+
+This function should do everything that is to be considered a part of the connection phase.
+
+The variable pointed to by \textquotesingle{}done\textquotesingle{} will be TRUE if the protocol-\/layer connect phase is done when this function returns, or FALSE if not. \Hypertarget{smtp_8c_a6afc114ddfb5931bf987dbe9c22f7688}\index{smtp.c@{smtp.c}!smtp\_continue\_auth@{smtp\_continue\_auth}}
+\index{smtp\_continue\_auth@{smtp\_continue\_auth}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_continue\_auth()}{smtp\_continue\_auth()}}
+{\footnotesize\ttfamily \label{smtp_8c_a6afc114ddfb5931bf987dbe9c22f7688} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+continue\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{resp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a6afc114ddfb5931bf987dbe9c22f7688}{smtp\+\_\+continue\+\_\+auth()}
+
+Sends \doxylink{structSASL}{SASL} continuation data. \Hypertarget{smtp_8c_a9e95f0ddb2c762e0c22078f5edaf4fbe}\index{smtp.c@{smtp.c}!smtp\_disconnect@{smtp\_disconnect}}
+\index{smtp\_disconnect@{smtp\_disconnect}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_disconnect()}{smtp\_disconnect()}}
+{\footnotesize\ttfamily \label{smtp_8c_a9e95f0ddb2c762e0c22078f5edaf4fbe} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+disconnect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{dead\+\_\+connection}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a9e95f0ddb2c762e0c22078f5edaf4fbe}{smtp\+\_\+disconnect()}
+
+Disconnect from an \doxylink{structSMTP}{SMTP} server. Cleanup protocol-\/specific per-\/connection resources. BLOCKING. \Hypertarget{smtp_8c_a63cb5fbf7b18dbaff81db8fbbe22baa7}\index{smtp.c@{smtp.c}!smtp\_do@{smtp\_do}}
+\index{smtp\_do@{smtp\_do}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_do()}{smtp\_do()}}
+{\footnotesize\ttfamily \label{smtp_8c_a63cb5fbf7b18dbaff81db8fbbe22baa7} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a63cb5fbf7b18dbaff81db8fbbe22baa7}{smtp\+\_\+do()}
+
+This function is registered as \textquotesingle{}curl\+\_\+do\textquotesingle{} function. It decodes the path parts etc as a wrapper to the actual DO function (smtp\+\_\+perform).
+
+The input argument is already checked for validity. \Hypertarget{smtp_8c_a24d61da7516697625b0a2e6219b353a5}\index{smtp.c@{smtp.c}!smtp\_doing@{smtp\_doing}}
+\index{smtp\_doing@{smtp\_doing}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_doing()}{smtp\_doing()}}
+{\footnotesize\ttfamily \label{smtp_8c_a24d61da7516697625b0a2e6219b353a5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+doing (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a5efccaed0a74b20270d9a84d2e2739b2}\index{smtp.c@{smtp.c}!smtp\_done@{smtp\_done}}
+\index{smtp\_done@{smtp\_done}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_done()}{smtp\_done()}}
+{\footnotesize\ttfamily \label{smtp_8c_a5efccaed0a74b20270d9a84d2e2739b2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{status}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{premature}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a5efccaed0a74b20270d9a84d2e2739b2}{smtp\+\_\+done()}
+
+The DONE function. This does what needs to be done after a single DO has performed.
+
+Input argument is already checked for validity. \Hypertarget{smtp_8c_a6d71ab2cab114fbe42622c7bd7b458bd}\index{smtp.c@{smtp.c}!smtp\_dophase\_done@{smtp\_dophase\_done}}
+\index{smtp\_dophase\_done@{smtp\_dophase\_done}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_dophase\_done()}{smtp\_dophase\_done()}}
+{\footnotesize\ttfamily \label{smtp_8c_a6d71ab2cab114fbe42622c7bd7b458bd} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+dophase\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{connected}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a7695b05b9ba3032262eaff4667a758ff}\index{smtp.c@{smtp.c}!smtp\_endofresp@{smtp\_endofresp}}
+\index{smtp\_endofresp@{smtp\_endofresp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_endofresp()}{smtp\_endofresp()}}
+{\footnotesize\ttfamily \label{smtp_8c_a7695b05b9ba3032262eaff4667a758ff} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} smtp\+\_\+endofresp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{size\+\_\+t}]{len}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{resp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a7695b05b9ba3032262eaff4667a758ff}{smtp\+\_\+endofresp()}
+
+Checks for an ending \doxylink{structSMTP}{SMTP} status code at the start of the given string, but also detects various capabilities from the EHLO response including the supported authentication mechanisms. \Hypertarget{smtp_8c_a907dfd710c2564698596e62123d6578f}\index{smtp.c@{smtp.c}!smtp\_get\_message@{smtp\_get\_message}}
+\index{smtp\_get\_message@{smtp\_get\_message}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_get\_message()}{smtp\_get\_message()}}
+{\footnotesize\ttfamily \label{smtp_8c_a907dfd710c2564698596e62123d6578f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+get\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a907dfd710c2564698596e62123d6578f}{smtp\+\_\+get\+\_\+message()}
+
+Gets the authentication message from the response buffer. \Hypertarget{smtp_8c_a60d7cdc1dac9686026aa872687d087b5}\index{smtp.c@{smtp.c}!smtp\_getsock@{smtp\_getsock}}
+\index{smtp\_getsock@{smtp\_getsock}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_getsock()}{smtp\_getsock()}}
+{\footnotesize\ttfamily \label{smtp_8c_a60d7cdc1dac9686026aa872687d087b5} 
+int smtp\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a10a8f4da1c03f993c8e9a9a842ca9ca3}\index{smtp.c@{smtp.c}!smtp\_init@{smtp\_init}}
+\index{smtp\_init@{smtp\_init}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_init()}{smtp\_init()}}
+{\footnotesize\ttfamily \label{smtp_8c_a10a8f4da1c03f993c8e9a9a842ca9ca3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_ae3dcc25dad2d6a2db369278e0cf9bf8e}\index{smtp.c@{smtp.c}!smtp\_multi\_statemach@{smtp\_multi\_statemach}}
+\index{smtp\_multi\_statemach@{smtp\_multi\_statemach}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_multi\_statemach()}{smtp\_multi\_statemach()}}
+{\footnotesize\ttfamily \label{smtp_8c_ae3dcc25dad2d6a2db369278e0cf9bf8e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+multi\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_ab1d9be0cd2999a5a6eb3e131f5cd1b52}\index{smtp.c@{smtp.c}!smtp\_parse\_address@{smtp\_parse\_address}}
+\index{smtp\_parse\_address@{smtp\_parse\_address}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_parse\_address()}{smtp\_parse\_address()}}
+{\footnotesize\ttfamily \label{smtp_8c_ab1d9be0cd2999a5a6eb3e131f5cd1b52} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+parse\+\_\+address (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fqma}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{address}{, }\item[{struct \mbox{\hyperlink{structhostname}{hostname}} \texorpdfstring{$\ast$}{*}}]{host}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_ab1d9be0cd2999a5a6eb3e131f5cd1b52}{smtp\+\_\+parse\+\_\+address()}
+
+Parse the fully qualified mailbox address into a local address part and the host name, converting the host name to an IDN A-\/label, as per RFC-\/5890, if necessary.
+
+Parameters\+:
+
+conn \mbox{[}in\mbox{]} -\/ The connection handle. fqma \mbox{[}in\mbox{]} -\/ The fully qualified mailbox address (which may or may not contain UTF-\/8 characters). address \mbox{[}in/out\mbox{]} -\/ A new allocated buffer which holds the local address part of the mailbox. This buffer must be free\textquotesingle{}ed by the caller. host \mbox{[}in/out\mbox{]} -\/ The host name structure that holds the original, and optionally encoded, host name. \doxylink{url_8c_a6896df03e3c71bee5d0798776df2911b}{Curl\+\_\+free\+\_\+idnconverted\+\_\+hostname()} must be called once the caller has finished with the structure.
+
+Returns CURLE\+\_\+\+OK on success.
+
+Notes\+:
+
+Should a UTF-\/8 host name require conversion to IDN ACE and we cannot honor that conversion then we shall return success. This allow the caller to send the data to the server as a U-\/label (as per RFC-\/6531 sect. 3.\+2).
+
+If an mailbox \textquotesingle{}@\textquotesingle{} separator cannot be located then the mailbox is considered to be either a local mailbox or an invalid mailbox (depending on what the calling function deems it to be) then the input will simply be returned in the address part with the host name being NULL. \Hypertarget{smtp_8c_abbc9ad1ac770c5bba049fb1dc0ab14af}\index{smtp.c@{smtp.c}!smtp\_parse\_custom\_request@{smtp\_parse\_custom\_request}}
+\index{smtp\_parse\_custom\_request@{smtp\_parse\_custom\_request}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_parse\_custom\_request()}{smtp\_parse\_custom\_request()}}
+{\footnotesize\ttfamily \label{smtp_8c_abbc9ad1ac770c5bba049fb1dc0ab14af} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+parse\+\_\+custom\+\_\+request (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_abbc9ad1ac770c5bba049fb1dc0ab14af}{smtp\+\_\+parse\+\_\+custom\+\_\+request()}
+
+Parse the custom request. \Hypertarget{smtp_8c_abc51c0a66aaca7d9607ae36906a9dd56}\index{smtp.c@{smtp.c}!smtp\_parse\_url\_options@{smtp\_parse\_url\_options}}
+\index{smtp\_parse\_url\_options@{smtp\_parse\_url\_options}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_parse\_url\_options()}{smtp\_parse\_url\_options()}}
+{\footnotesize\ttfamily \label{smtp_8c_abc51c0a66aaca7d9607ae36906a9dd56} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+parse\+\_\+url\+\_\+options (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_abc51c0a66aaca7d9607ae36906a9dd56}{smtp\+\_\+parse\+\_\+url\+\_\+options()}
+
+Parse the URL login options. \Hypertarget{smtp_8c_a108b66ac0b24b7309bf841913114af3b}\index{smtp.c@{smtp.c}!smtp\_parse\_url\_path@{smtp\_parse\_url\_path}}
+\index{smtp\_parse\_url\_path@{smtp\_parse\_url\_path}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_parse\_url\_path()}{smtp\_parse\_url\_path()}}
+{\footnotesize\ttfamily \label{smtp_8c_a108b66ac0b24b7309bf841913114af3b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+parse\+\_\+url\+\_\+path (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a108b66ac0b24b7309bf841913114af3b}{smtp\+\_\+parse\+\_\+url\+\_\+path()}
+
+Parse the URL path into separate path components. \Hypertarget{smtp_8c_ae13a425d9c349913dfef6f5c92902d2e}\index{smtp.c@{smtp.c}!smtp\_perform@{smtp\_perform}}
+\index{smtp\_perform@{smtp\_perform}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform()}{smtp\_perform()}}
+{\footnotesize\ttfamily \label{smtp_8c_ae13a425d9c349913dfef6f5c92902d2e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{connected}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_ae13a425d9c349913dfef6f5c92902d2e}{smtp\+\_\+perform()}
+
+This is the actual DO function for \doxylink{structSMTP}{SMTP}. Transfer a mail, send a command or get some data according to the options previously setup. \Hypertarget{smtp_8c_a2e100e4fff37c42079428336a7da4d5d}\index{smtp.c@{smtp.c}!smtp\_perform\_auth@{smtp\_perform\_auth}}
+\index{smtp\_perform\_auth@{smtp\_perform\_auth}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_auth()}{smtp\_perform\_auth()}}
+{\footnotesize\ttfamily \label{smtp_8c_a2e100e4fff37c42079428336a7da4d5d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{initresp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a2e100e4fff37c42079428336a7da4d5d}{smtp\+\_\+perform\+\_\+auth()}
+
+Sends an AUTH command allowing the client to login with the given \doxylink{structSASL}{SASL} authentication mechanism. \Hypertarget{smtp_8c_a8f5e7437281895b135a5815377f8292d}\index{smtp.c@{smtp.c}!smtp\_perform\_authentication@{smtp\_perform\_authentication}}
+\index{smtp\_perform\_authentication@{smtp\_perform\_authentication}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_authentication()}{smtp\_perform\_authentication()}}
+{\footnotesize\ttfamily \label{smtp_8c_a8f5e7437281895b135a5815377f8292d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+authentication (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a8f5e7437281895b135a5815377f8292d}{smtp\+\_\+perform\+\_\+authentication()}
+
+Initiates the authentication sequence, with the appropriate \doxylink{structSASL}{SASL} authentication mechanism. \Hypertarget{smtp_8c_a79aff32ec9febb6b2ae419fe5c86ebf1}\index{smtp.c@{smtp.c}!smtp\_perform\_command@{smtp\_perform\_command}}
+\index{smtp\_perform\_command@{smtp\_perform\_command}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_command()}{smtp\_perform\_command()}}
+{\footnotesize\ttfamily \label{smtp_8c_a79aff32ec9febb6b2ae419fe5c86ebf1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+command (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a79aff32ec9febb6b2ae419fe5c86ebf1}{smtp\+\_\+perform\+\_\+command()}
+
+Sends a \doxylink{structSMTP}{SMTP} based command. \Hypertarget{smtp_8c_adb2b1400923d0cd038e3c58655171353}\index{smtp.c@{smtp.c}!smtp\_perform\_ehlo@{smtp\_perform\_ehlo}}
+\index{smtp\_perform\_ehlo@{smtp\_perform\_ehlo}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_ehlo()}{smtp\_perform\_ehlo()}}
+{\footnotesize\ttfamily \label{smtp_8c_adb2b1400923d0cd038e3c58655171353} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+ehlo (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_adb2b1400923d0cd038e3c58655171353}{smtp\+\_\+perform\+\_\+ehlo()}
+
+Sends the EHLO command to not only initialise communication with the ESMTP server but to also obtain a list of server side supported capabilities. \Hypertarget{smtp_8c_a34c1b5da792ccb27e1d10351a0fc6ede}\index{smtp.c@{smtp.c}!smtp\_perform\_helo@{smtp\_perform\_helo}}
+\index{smtp\_perform\_helo@{smtp\_perform\_helo}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_helo()}{smtp\_perform\_helo()}}
+{\footnotesize\ttfamily \label{smtp_8c_a34c1b5da792ccb27e1d10351a0fc6ede} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+helo (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a34c1b5da792ccb27e1d10351a0fc6ede}{smtp\+\_\+perform\+\_\+helo()}
+
+Sends the HELO command to initialise communication with the \doxylink{structSMTP}{SMTP} server. \Hypertarget{smtp_8c_af5cbc4632f09be3121e99d02e6c5bc08}\index{smtp.c@{smtp.c}!smtp\_perform\_mail@{smtp\_perform\_mail}}
+\index{smtp\_perform\_mail@{smtp\_perform\_mail}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_mail()}{smtp\_perform\_mail()}}
+{\footnotesize\ttfamily \label{smtp_8c_af5cbc4632f09be3121e99d02e6c5bc08} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+mail (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_af5cbc4632f09be3121e99d02e6c5bc08}{smtp\+\_\+perform\+\_\+mail()}
+
+Sends an MAIL command to initiate the upload of a message. \Hypertarget{smtp_8c_a0614369e879a0ebe24778137f55eb5d6}\index{smtp.c@{smtp.c}!smtp\_perform\_quit@{smtp\_perform\_quit}}
+\index{smtp\_perform\_quit@{smtp\_perform\_quit}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_quit()}{smtp\_perform\_quit()}}
+{\footnotesize\ttfamily \label{smtp_8c_a0614369e879a0ebe24778137f55eb5d6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+quit (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a0614369e879a0ebe24778137f55eb5d6}{smtp\+\_\+perform\+\_\+quit()}
+
+Performs the quit action prior to \doxylink{curl__setup__once_8h_abc0fa768a42a766f444259b91e5c6c0f}{sclose()} being called. \Hypertarget{smtp_8c_a6799a383e032b5eaed9af44ce296269d}\index{smtp.c@{smtp.c}!smtp\_perform\_rcpt\_to@{smtp\_perform\_rcpt\_to}}
+\index{smtp\_perform\_rcpt\_to@{smtp\_perform\_rcpt\_to}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_rcpt\_to()}{smtp\_perform\_rcpt\_to()}}
+{\footnotesize\ttfamily \label{smtp_8c_a6799a383e032b5eaed9af44ce296269d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+rcpt\+\_\+to (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a6799a383e032b5eaed9af44ce296269d}{smtp\+\_\+perform\+\_\+rcpt\+\_\+to()}
+
+Sends a RCPT TO command for a given recipient as part of the message upload process. \Hypertarget{smtp_8c_a6b2c31e39dfae0822cc958256332c9c4}\index{smtp.c@{smtp.c}!smtp\_perform\_starttls@{smtp\_perform\_starttls}}
+\index{smtp\_perform\_starttls@{smtp\_perform\_starttls}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_starttls()}{smtp\_perform\_starttls()}}
+{\footnotesize\ttfamily \label{smtp_8c_a6b2c31e39dfae0822cc958256332c9c4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+starttls (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_a6b2c31e39dfae0822cc958256332c9c4}{smtp\+\_\+perform\+\_\+starttls()}
+
+Sends the STLS command to start the upgrade to TLS. \Hypertarget{smtp_8c_adc52d313a9fbcdc9d65f23147edf18a9}\index{smtp.c@{smtp.c}!smtp\_perform\_upgrade\_tls@{smtp\_perform\_upgrade\_tls}}
+\index{smtp\_perform\_upgrade\_tls@{smtp\_perform\_upgrade\_tls}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_perform\_upgrade\_tls()}{smtp\_perform\_upgrade\_tls()}}
+{\footnotesize\ttfamily \label{smtp_8c_adc52d313a9fbcdc9d65f23147edf18a9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+perform\+\_\+upgrade\+\_\+tls (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{smtp_8c_adc52d313a9fbcdc9d65f23147edf18a9}{smtp\+\_\+perform\+\_\+upgrade\+\_\+tls()}
+
+Performs the upgrade to TLS. \Hypertarget{smtp_8c_a0570ff90bf325f18ec54b3c9098c0681}\index{smtp.c@{smtp.c}!smtp\_regular\_transfer@{smtp\_regular\_transfer}}
+\index{smtp\_regular\_transfer@{smtp\_regular\_transfer}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_regular\_transfer()}{smtp\_regular\_transfer()}}
+{\footnotesize\ttfamily \label{smtp_8c_a0570ff90bf325f18ec54b3c9098c0681} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+regular\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+RFC1870 \doxylink{structSMTP}{SMTP} Service Extension for Message Size RFC2195 CRAM-\/\+MD5 authentication RFC2831 DIGEST-\/\+MD5 authentication RFC3207 \doxylink{structSMTP}{SMTP} over TLS RFC4422 Simple Authentication and Security Layer (\doxylink{structSASL}{SASL}) RFC4616 PLAIN authentication RFC4752 The Kerberos V5 ("{}\+GSSAPI"{}) \doxylink{structSASL}{SASL} Mechanism RFC4954 \doxylink{structSMTP}{SMTP} Authentication RFC5321 \doxylink{structSMTP}{SMTP} protocol RFC5890 Internationalized Domain \doxylink{structNames}{Names} for Applications (IDNA) RFC6531 \doxylink{structSMTP}{SMTP} Extension for Internationalized Email RFC6532 Internationalized Email Headers RFC6749 OAuth 2.\+0 Authorization Framework RFC8314 Use of TLS for Email Submission and Access Draft \doxylink{structSMTP}{SMTP} URL Interface \texorpdfstring{$<$}{<}draft-\/earhart-\/url-\/smtp-\/00.\+txt\texorpdfstring{$>$}{>} Draft LOGIN \doxylink{structSASL}{SASL} Mechanism \texorpdfstring{$<$}{<}draft-\/murchison-\/sasl-\/login-\/00.\+txt\texorpdfstring{$>$}{>}
+
+\doxylink{smtp_8c_a0570ff90bf325f18ec54b3c9098c0681}{smtp\+\_\+regular\+\_\+transfer()}
+
+The input argument is already checked for validity.
+
+Performs all commands done before a regular transfer between a local and a remote host. \Hypertarget{smtp_8c_a99aab493b3959e24633ce887412953df}\index{smtp.c@{smtp.c}!smtp\_setup\_connection@{smtp\_setup\_connection}}
+\index{smtp\_setup\_connection@{smtp\_setup\_connection}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_setup\_connection()}{smtp\_setup\_connection()}}
+{\footnotesize\ttfamily \label{smtp_8c_a99aab493b3959e24633ce887412953df} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+setup\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_aa47704315793285b6719c0eeaad0b6c5}\index{smtp.c@{smtp.c}!smtp\_state\_auth\_resp@{smtp\_state\_auth\_resp}}
+\index{smtp\_state\_auth\_resp@{smtp\_state\_auth\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_auth\_resp()}{smtp\_state\_auth\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_aa47704315793285b6719c0eeaad0b6c5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+auth\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_ae61edcdffbd1cad3372967df873a91ef}\index{smtp.c@{smtp.c}!smtp\_state\_command\_resp@{smtp\_state\_command\_resp}}
+\index{smtp\_state\_command\_resp@{smtp\_state\_command\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_command\_resp()}{smtp\_state\_command\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_ae61edcdffbd1cad3372967df873a91ef} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+command\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_adb58a072fe6891828e85dfae69bc70ca}\index{smtp.c@{smtp.c}!smtp\_state\_data\_resp@{smtp\_state\_data\_resp}}
+\index{smtp\_state\_data\_resp@{smtp\_state\_data\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_data\_resp()}{smtp\_state\_data\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_adb58a072fe6891828e85dfae69bc70ca} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+data\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a27f5adab8432a65684855723efef2ee9}\index{smtp.c@{smtp.c}!smtp\_state\_ehlo\_resp@{smtp\_state\_ehlo\_resp}}
+\index{smtp\_state\_ehlo\_resp@{smtp\_state\_ehlo\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_ehlo\_resp()}{smtp\_state\_ehlo\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_a27f5adab8432a65684855723efef2ee9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+ehlo\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_ac0303c143dccd1be0e831f12c8162421}\index{smtp.c@{smtp.c}!smtp\_state\_helo\_resp@{smtp\_state\_helo\_resp}}
+\index{smtp\_state\_helo\_resp@{smtp\_state\_helo\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_helo\_resp()}{smtp\_state\_helo\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_ac0303c143dccd1be0e831f12c8162421} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+helo\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a3f6fed0f8796c5228022066df3de811d}\index{smtp.c@{smtp.c}!smtp\_state\_mail\_resp@{smtp\_state\_mail\_resp}}
+\index{smtp\_state\_mail\_resp@{smtp\_state\_mail\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_mail\_resp()}{smtp\_state\_mail\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_a3f6fed0f8796c5228022066df3de811d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+mail\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_abafd7ef8d3e528f3f9df1bdd0f18cece}\index{smtp.c@{smtp.c}!smtp\_state\_postdata\_resp@{smtp\_state\_postdata\_resp}}
+\index{smtp\_state\_postdata\_resp@{smtp\_state\_postdata\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_postdata\_resp()}{smtp\_state\_postdata\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_abafd7ef8d3e528f3f9df1bdd0f18cece} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+postdata\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_ae610316a6767ec608d00450b0c02378b}\index{smtp.c@{smtp.c}!smtp\_state\_rcpt\_resp@{smtp\_state\_rcpt\_resp}}
+\index{smtp\_state\_rcpt\_resp@{smtp\_state\_rcpt\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_rcpt\_resp()}{smtp\_state\_rcpt\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_ae610316a6767ec608d00450b0c02378b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+rcpt\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a49f0b6cb728fc0756f694903a950132a}\index{smtp.c@{smtp.c}!smtp\_state\_servergreet\_resp@{smtp\_state\_servergreet\_resp}}
+\index{smtp\_state\_servergreet\_resp@{smtp\_state\_servergreet\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_servergreet\_resp()}{smtp\_state\_servergreet\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_a49f0b6cb728fc0756f694903a950132a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+servergreet\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_aefc2592cc96b94f8626a527a66402cae}\index{smtp.c@{smtp.c}!smtp\_state\_starttls\_resp@{smtp\_state\_starttls\_resp}}
+\index{smtp\_state\_starttls\_resp@{smtp\_state\_starttls\_resp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_state\_starttls\_resp()}{smtp\_state\_starttls\_resp()}}
+{\footnotesize\ttfamily \label{smtp_8c_aefc2592cc96b94f8626a527a66402cae} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+state\+\_\+starttls\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{smtpcode}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a83c24b3af89c0740b0e14dc7fb04f76d}\index{smtp.c@{smtp.c}!smtp\_statemachine@{smtp\_statemachine}}
+\index{smtp\_statemachine@{smtp\_statemachine}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{smtp\_statemachine()}{smtp\_statemachine()}}
+{\footnotesize\ttfamily \label{smtp_8c_a83c24b3af89c0740b0e14dc7fb04f76d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} smtp\+\_\+statemachine (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smtp_8c_a0979df2458ae1eab6f675fd169d54315}\index{smtp.c@{smtp.c}!state@{state}}
+\index{state@{state}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{state()}{state()}}
+{\footnotesize\ttfamily \label{smtp_8c_a0979df2458ae1eab6f675fd169d54315} 
+void state (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{smtp_8h_a3128958543cba44e0f0cb4f9ff8c6ab2}{smtpstate}}}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a77812d4945cd21094debbd06962f0f01}{state()}
+
+This is the ONLY way to change \doxylink{structSMTP}{SMTP} state! 
+
+\label{doc-var-members}
+\Hypertarget{smtp_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{smtp_8c_a9063ebddfe08299e6248dfe21d94dbea}\index{smtp.c@{smtp.c}!Curl\_handler\_smtp@{Curl\_handler\_smtp}}
+\index{Curl\_handler\_smtp@{Curl\_handler\_smtp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_smtp}{Curl\_handler\_smtp}}
+{\footnotesize\ttfamily \label{smtp_8c_a9063ebddfe08299e6248dfe21d94dbea} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+smtp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}SMTP"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a99aab493b3959e24633ce887412953df}{smtp\_setup\_connection}},\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a63cb5fbf7b18dbaff81db8fbbe22baa7}{smtp\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a5efccaed0a74b20270d9a84d2e2739b2}{smtp\_done}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_afbc1dfbe0e0ab6e109652f96327fde90}{smtp\_connect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_ae3dcc25dad2d6a2db369278e0cf9bf8e}{smtp\_multi\_statemach}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a24d61da7516697625b0a2e6219b353a5}{smtp\_doing}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a60d7cdc1dac9686026aa872687d087b5}{smtp\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a60d7cdc1dac9686026aa872687d087b5}{smtp\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a9e95f0ddb2c762e0c22078f5edaf4fbe}{smtp\_disconnect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a6e187293c9c443cd87a9b68803926a7b}{PORT\_SMTP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_ab0ce92d385bff5793aee465a73023072}{CURLPROTO\_SMTP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_ab0ce92d385bff5793aee465a73023072}{CURLPROTO\_SMTP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_ad1e824167a50a205dad75e1256dedfca}{PROTOPT\_CLOSEACTION}}\ |\ \mbox{\hyperlink{urldata_8h_a93a3791fdbb761285b636725fed39385}{PROTOPT\_NOURLQUERY}}\ |\ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a7dc3bffda7491b001e405e434493b896}{PROTOPT\_URLOPTIONS}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{smtp_8c_ab8a199dcd2d64a0bc7b4c01c08c7e704}\index{smtp.c@{smtp.c}!saslsmtp@{saslsmtp}}
+\index{saslsmtp@{saslsmtp}!smtp.c@{smtp.c}}
+\doxysubsubsection{\texorpdfstring{saslsmtp}{saslsmtp}}
+{\footnotesize\ttfamily \label{smtp_8c_ab8a199dcd2d64a0bc7b4c01c08c7e704} 
+const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} saslsmtp\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}smtp"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a2e100e4fff37c42079428336a7da4d5d}{smtp\_perform\_auth}},\ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a6afc114ddfb5931bf987dbe9c22f7688}{smtp\_continue\_auth}},\ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a64ceb5efc1dfe1f6ab3b61acfd23bd79}{smtp\_cancel\_auth}},\ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{smtp_8c_a907dfd710c2564698596e62123d6578f}{smtp\_get\_message}},\ \ \ \ \ }
+\DoxyCodeLine{\ \ 512\ -\/\ 8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ 334,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ 235,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__sasl_8h_aec5d6836cac4e54d575a669afdf0dea3}{SASL\_AUTH\_DEFAULT}},\ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__sasl_8h_a2fabe7138c0de17bf23d5fb51412be97}{SASL\_FLAG\_BASE64}}\ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

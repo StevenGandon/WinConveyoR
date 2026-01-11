@@ -1,0 +1,75 @@
+\doxysection{curl\+\_\+multibyte.\+h}
+\hypertarget{curl__multibyte_8h_source}{}\label{curl__multibyte_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_multibyte.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_multibyte.h}}
+\mbox{\hyperlink{curl__multibyte_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_MULTIBYTE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_MULTIBYTE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(WIN32)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ *\ MultiByte\ conversions\ using\ Windows\ kernel32\ library.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{wchar\_t}\ *curlx\_convert\_UTF8\_to\_wchar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str\_utf8);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{char}\ *curlx\_convert\_wchar\_to\_UTF8(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}\ *str\_w);}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ Macros\ curlx\_convert\_UTF8\_to\_tchar(),\ curlx\_convert\_tchar\_to\_UTF8()}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ and\ curlx\_unicodefree()\ main\ purpose\ is\ to\ minimize\ the\ number\ of}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ preprocessor\ conditional\ directives\ needed\ by\ code\ using\ these}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ to\ differentiate\ UNICODE\ from\ non-\/UNICODE\ builds.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ In\ the\ case\ of\ a\ non-\/UNICODE\ build\ the\ tchar\ strings\ are\ char\ strings\ that}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ are\ duplicated\ via\ strdup\ and\ remain\ in\ whatever\ the\ passed\ in\ encoding\ is,}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ which\ is\ assumed\ to\ be\ UTF-\/8\ but\ may\ be\ other\ encoding.\ Therefore\ the}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ significance\ of\ the\ conversion\ functions\ is\ primarily\ for\ UNICODE\ builds.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ Allocated\ memory\ should\ be\ free'd\ with\ curlx\_unicodefree().}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ Note:\ Because\ these\ are\ curlx\ functions\ their\ memory\ usage\ is\ not\ tracked}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ by\ the\ curl\ memory\ tracker\ memdebug.\ You'll\ notice\ that\ curlx\ function-\/like}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ macros\ call\ free\ and\ strdup\ in\ parentheses,\ eg\ (strdup)(ptr),\ and\ that's\ to}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ ensure\ that\ the\ curl\ memdebug\ override\ macros\ do\ not\ replace\ them.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#if\ defined(UNICODE)\ \&\&\ defined(WIN32)}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ curlx\_convert\_UTF8\_to\_tchar(ptr)\ curlx\_convert\_UTF8\_to\_wchar((ptr))}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ curlx\_convert\_tchar\_to\_UTF8(ptr)\ curlx\_convert\_wchar\_to\_UTF8((ptr))}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ *tchar\_ptr;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *const\_tchar\_ptr;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ *tbyte\_ptr;}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ *const\_tbyte\_ptr;}
+\DoxyCodeLine{00067\ \}\ \mbox{\hyperlink{unionxcharp__u}{xcharp\_u}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ curlx\_convert\_UTF8\_to\_tchar(ptr)\ (strdup)(ptr)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ curlx\_convert\_tchar\_to\_UTF8(ptr)\ (strdup)(ptr)}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{unionxcharp__u_a26f4c993a10d08934af55ec3454ea4bb}{tchar\_ptr}};}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{unionxcharp__u_a7e36e4fd62049bd570d92cf54b53d623}{const\_tchar\_ptr}};}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ *\mbox{\hyperlink{unionxcharp__u_a4fb2f4242e9c445376c236bbbde06152}{tbyte\_ptr}};}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{unionxcharp__u_a52933e595bfea91037df39657a93089b}{const\_tbyte\_ptr}};}
+\DoxyCodeLine{00079\ \}\ \mbox{\hyperlink{unionxcharp__u}{xcharp\_u}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ UNICODE\ \&\&\ WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ curlx\_unicodefree(ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ if(ptr)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ \ \ (free)(ptr);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ \ \ (ptr)\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_MULTIBYTE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

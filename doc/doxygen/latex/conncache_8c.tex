@@ -1,0 +1,220 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/conncache.c File Reference}
+\hypertarget{conncache_8c}{}\label{conncache_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/conncache.c@{lib/libwconr/build/\_deps/curl-\/src/lib/conncache.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}conncache.\+h"{}}\newline
+{\ttfamily \#include "{}share.\+h"{}}\newline
+{\ttfamily \#include "{}sigpipe.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{conncache_8c_af84d2619625d0ecf1fe26a3e42e93b55}{HASHKEY\+\_\+\+SIZE}}~128
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{conncache_8c_a01447244b05f5ff3957bce43fc27ee88}{conn\+\_\+llist\+\_\+dtor}} (void \texorpdfstring{$\ast$}{*}user, void \texorpdfstring{$\ast$}{*}element)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{conncache_8c_a092cae6a056e71027de5838dd766726d}{bundle\+\_\+create}} (struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}bundlep)
+\item 
+static void \mbox{\hyperlink{conncache_8c_ad9b241132acb32ec086d13adbfe064d9}{bundle\+\_\+destroy}} (struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}bundle)
+\item 
+static void \mbox{\hyperlink{conncache_8c_a77a851b0eacdd76f912cf48aed31804e}{bundle\+\_\+add\+\_\+conn}} (struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}bundle, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static int \mbox{\hyperlink{conncache_8c_aba67ef4d087f3f51239b00adf6276844}{bundle\+\_\+remove\+\_\+conn}} (struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}bundle, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static void \mbox{\hyperlink{conncache_8c_a45195638d3bcd8129d98f3a02b0b965e}{free\+\_\+bundle\+\_\+hash\+\_\+entry}} (void \texorpdfstring{$\ast$}{*}freethis)
+\item 
+int \mbox{\hyperlink{conncache_8c_ae8c2e055a5c5a9e187ebedfd95166ee2}{Curl\+\_\+conncache\+\_\+init}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc, int \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+void \mbox{\hyperlink{conncache_8c_a4b099b50e4232c69faa023dd25e96176}{Curl\+\_\+conncache\+\_\+destroy}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc)
+\item 
+static void \mbox{\hyperlink{conncache_8c_a75aa0e81a52ff1d4d4800d1218aaf1be}{hashkey}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+size\+\_\+t \mbox{\hyperlink{conncache_8c_a558b7525a147680dfe1216e2c157799a}{Curl\+\_\+conncache\+\_\+size}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{conncache_8c_ac418eea3245a3f836e7adeed802b9580}{Curl\+\_\+conncache\+\_\+find\+\_\+bundle}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc)
+\item 
+static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{conncache_8c_a18246406415cc6f31ff475417b96b5a1}{conncache\+\_\+add\+\_\+bundle}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc, char \texorpdfstring{$\ast$}{*}key, struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}bundle)
+\item 
+static void \mbox{\hyperlink{conncache_8c_a8eecbe9f8e1f8f549f3d9cec616f1744}{conncache\+\_\+remove\+\_\+bundle}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc, struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}bundle)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{conncache_8c_af7f9a93e232270e3086360a2986f7ee0}{Curl\+\_\+conncache\+\_\+add\+\_\+conn}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{conncache_8c_a90534b778a426e949dd3ebdb753119ed}{Curl\+\_\+conncache\+\_\+remove\+\_\+conn}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}})
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{conncache_8c_a67733b30eaf639829cda6cfedd672396}{Curl\+\_\+conncache\+\_\+foreach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc, void \texorpdfstring{$\ast$}{*}param, int(\texorpdfstring{$\ast$}{*}func)(struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, void \texorpdfstring{$\ast$}{*}param))
+\item 
+static struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{conncache_8c_aa50a8df2e1a4d9306a2f879084191195}{conncache\+\_\+find\+\_\+first\+\_\+connection}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{conncache_8c_a1c53e03310a5aa9def84428fbea3e885}{Curl\+\_\+conncache\+\_\+return\+\_\+conn}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{conncache_8c_afda88bd125cafd94121aedffb337ee00}{Curl\+\_\+conncache\+\_\+extract\+\_\+bundle}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}bundle)
+\item 
+struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{conncache_8c_a4f870227d1fc8c89a51e8c6df51dfd5d}{Curl\+\_\+conncache\+\_\+extract\+\_\+oldest}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{conncache_8c_a97f883ab6dbffc5418ca83a001dd0a90}{Curl\+\_\+conncache\+\_\+close\+\_\+all\+\_\+connections}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}connc)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{conncache_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{conncache_8c_af84d2619625d0ecf1fe26a3e42e93b55}\index{conncache.c@{conncache.c}!HASHKEY\_SIZE@{HASHKEY\_SIZE}}
+\index{HASHKEY\_SIZE@{HASHKEY\_SIZE}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{HASHKEY\_SIZE}{HASHKEY\_SIZE}}
+{\footnotesize\ttfamily \label{conncache_8c_af84d2619625d0ecf1fe26a3e42e93b55} 
+\#define HASHKEY\+\_\+\+SIZE~128}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2012 -\/ 2016, Linus Nielsen Feltzing, \href{mailto:linus@haxx.se}{\texttt{linus@haxx.\+se}} Copyright (C) 2012 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{conncache_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{conncache_8c_a77a851b0eacdd76f912cf48aed31804e}\index{conncache.c@{conncache.c}!bundle\_add\_conn@{bundle\_add\_conn}}
+\index{bundle\_add\_conn@{bundle\_add\_conn}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{bundle\_add\_conn()}{bundle\_add\_conn()}}
+{\footnotesize\ttfamily \label{conncache_8c_a77a851b0eacdd76f912cf48aed31804e} 
+void bundle\+\_\+add\+\_\+conn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}}]{bundle}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_a092cae6a056e71027de5838dd766726d}\index{conncache.c@{conncache.c}!bundle\_create@{bundle\_create}}
+\index{bundle\_create@{bundle\_create}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{bundle\_create()}{bundle\_create()}}
+{\footnotesize\ttfamily \label{conncache_8c_a092cae6a056e71027de5838dd766726d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} bundle\+\_\+create (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{bundlep}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_ad9b241132acb32ec086d13adbfe064d9}\index{conncache.c@{conncache.c}!bundle\_destroy@{bundle\_destroy}}
+\index{bundle\_destroy@{bundle\_destroy}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{bundle\_destroy()}{bundle\_destroy()}}
+{\footnotesize\ttfamily \label{conncache_8c_ad9b241132acb32ec086d13adbfe064d9} 
+void bundle\+\_\+destroy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}}]{bundle}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_aba67ef4d087f3f51239b00adf6276844}\index{conncache.c@{conncache.c}!bundle\_remove\_conn@{bundle\_remove\_conn}}
+\index{bundle\_remove\_conn@{bundle\_remove\_conn}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{bundle\_remove\_conn()}{bundle\_remove\_conn()}}
+{\footnotesize\ttfamily \label{conncache_8c_aba67ef4d087f3f51239b00adf6276844} 
+int bundle\+\_\+remove\+\_\+conn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}}]{bundle}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_a01447244b05f5ff3957bce43fc27ee88}\index{conncache.c@{conncache.c}!conn\_llist\_dtor@{conn\_llist\_dtor}}
+\index{conn\_llist\_dtor@{conn\_llist\_dtor}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{conn\_llist\_dtor()}{conn\_llist\_dtor()}}
+{\footnotesize\ttfamily \label{conncache_8c_a01447244b05f5ff3957bce43fc27ee88} 
+void conn\+\_\+llist\+\_\+dtor (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{user}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{element}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_a18246406415cc6f31ff475417b96b5a1}\index{conncache.c@{conncache.c}!conncache\_add\_bundle@{conncache\_add\_bundle}}
+\index{conncache\_add\_bundle@{conncache\_add\_bundle}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{conncache\_add\_bundle()}{conncache\_add\_bundle()}}
+{\footnotesize\ttfamily \label{conncache_8c_a18246406415cc6f31ff475417b96b5a1} 
+void \texorpdfstring{$\ast$}{*} conncache\+\_\+add\+\_\+bundle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}}]{bundle}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_aa50a8df2e1a4d9306a2f879084191195}\index{conncache.c@{conncache.c}!conncache\_find\_first\_connection@{conncache\_find\_first\_connection}}
+\index{conncache\_find\_first\_connection@{conncache\_find\_first\_connection}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{conncache\_find\_first\_connection()}{conncache\_find\_first\_connection()}}
+{\footnotesize\ttfamily \label{conncache_8c_aa50a8df2e1a4d9306a2f879084191195} 
+struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*} conncache\+\_\+find\+\_\+first\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_a8eecbe9f8e1f8f549f3d9cec616f1744}\index{conncache.c@{conncache.c}!conncache\_remove\_bundle@{conncache\_remove\_bundle}}
+\index{conncache\_remove\_bundle@{conncache\_remove\_bundle}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{conncache\_remove\_bundle()}{conncache\_remove\_bundle()}}
+{\footnotesize\ttfamily \label{conncache_8c_a8eecbe9f8e1f8f549f3d9cec616f1744} 
+void conncache\+\_\+remove\+\_\+bundle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{, }\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}}]{bundle}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_af7f9a93e232270e3086360a2986f7ee0}\index{conncache.c@{conncache.c}!Curl\_conncache\_add\_conn@{Curl\_conncache\_add\_conn}}
+\index{Curl\_conncache\_add\_conn@{Curl\_conncache\_add\_conn}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_add\_conn()}{Curl\_conncache\_add\_conn()}}
+{\footnotesize\ttfamily \label{conncache_8c_af7f9a93e232270e3086360a2986f7ee0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+conncache\+\_\+add\+\_\+conn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a97f883ab6dbffc5418ca83a001dd0a90}\index{conncache.c@{conncache.c}!Curl\_conncache\_close\_all\_connections@{Curl\_conncache\_close\_all\_connections}}
+\index{Curl\_conncache\_close\_all\_connections@{Curl\_conncache\_close\_all\_connections}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_close\_all\_connections()}{Curl\_conncache\_close\_all\_connections()}}
+{\footnotesize\ttfamily \label{conncache_8c_a97f883ab6dbffc5418ca83a001dd0a90} 
+void Curl\+\_\+conncache\+\_\+close\+\_\+all\+\_\+connections (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a4b099b50e4232c69faa023dd25e96176}\index{conncache.c@{conncache.c}!Curl\_conncache\_destroy@{Curl\_conncache\_destroy}}
+\index{Curl\_conncache\_destroy@{Curl\_conncache\_destroy}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_destroy()}{Curl\_conncache\_destroy()}}
+{\footnotesize\ttfamily \label{conncache_8c_a4b099b50e4232c69faa023dd25e96176} 
+void Curl\+\_\+conncache\+\_\+destroy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_afda88bd125cafd94121aedffb337ee00}\index{conncache.c@{conncache.c}!Curl\_conncache\_extract\_bundle@{Curl\_conncache\_extract\_bundle}}
+\index{Curl\_conncache\_extract\_bundle@{Curl\_conncache\_extract\_bundle}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_extract\_bundle()}{Curl\_conncache\_extract\_bundle()}}
+{\footnotesize\ttfamily \label{conncache_8c_afda88bd125cafd94121aedffb337ee00} 
+struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*} Curl\+\_\+conncache\+\_\+extract\+\_\+bundle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*}}]{bundle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a4f870227d1fc8c89a51e8c6df51dfd5d}\index{conncache.c@{conncache.c}!Curl\_conncache\_extract\_oldest@{Curl\_conncache\_extract\_oldest}}
+\index{Curl\_conncache\_extract\_oldest@{Curl\_conncache\_extract\_oldest}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_extract\_oldest()}{Curl\_conncache\_extract\_oldest()}}
+{\footnotesize\ttfamily \label{conncache_8c_a4f870227d1fc8c89a51e8c6df51dfd5d} 
+struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*} Curl\+\_\+conncache\+\_\+extract\+\_\+oldest (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_ac418eea3245a3f836e7adeed802b9580}\index{conncache.c@{conncache.c}!Curl\_conncache\_find\_bundle@{Curl\_conncache\_find\_bundle}}
+\index{Curl\_conncache\_find\_bundle@{Curl\_conncache\_find\_bundle}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_find\_bundle()}{Curl\_conncache\_find\_bundle()}}
+{\footnotesize\ttfamily \label{conncache_8c_ac418eea3245a3f836e7adeed802b9580} 
+struct \mbox{\hyperlink{structconnectbundle}{connectbundle}} \texorpdfstring{$\ast$}{*} Curl\+\_\+conncache\+\_\+find\+\_\+bundle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a67733b30eaf639829cda6cfedd672396}\index{conncache.c@{conncache.c}!Curl\_conncache\_foreach@{Curl\_conncache\_foreach}}
+\index{Curl\_conncache\_foreach@{Curl\_conncache\_foreach}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_foreach()}{Curl\_conncache\_foreach()}}
+{\footnotesize\ttfamily \label{conncache_8c_a67733b30eaf639829cda6cfedd672396} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+conncache\+\_\+foreach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{param}{, }\item[{int(\texorpdfstring{$\ast$}{*}}]{func~}{)(struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, void \texorpdfstring{$\ast$}{*}param)}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_ae8c2e055a5c5a9e187ebedfd95166ee2}\index{conncache.c@{conncache.c}!Curl\_conncache\_init@{Curl\_conncache\_init}}
+\index{Curl\_conncache\_init@{Curl\_conncache\_init}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_init()}{Curl\_conncache\_init()}}
+{\footnotesize\ttfamily \label{conncache_8c_ae8c2e055a5c5a9e187ebedfd95166ee2} 
+int Curl\+\_\+conncache\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{connc}{, }\item[{int}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a90534b778a426e949dd3ebdb753119ed}\index{conncache.c@{conncache.c}!Curl\_conncache\_remove\_conn@{Curl\_conncache\_remove\_conn}}
+\index{Curl\_conncache\_remove\_conn@{Curl\_conncache\_remove\_conn}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_remove\_conn()}{Curl\_conncache\_remove\_conn()}}
+{\footnotesize\ttfamily \label{conncache_8c_a90534b778a426e949dd3ebdb753119ed} 
+void Curl\+\_\+conncache\+\_\+remove\+\_\+conn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{lock}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a1c53e03310a5aa9def84428fbea3e885}\index{conncache.c@{conncache.c}!Curl\_conncache\_return\_conn@{Curl\_conncache\_return\_conn}}
+\index{Curl\_conncache\_return\_conn@{Curl\_conncache\_return\_conn}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_return\_conn()}{Curl\_conncache\_return\_conn()}}
+{\footnotesize\ttfamily \label{conncache_8c_a1c53e03310a5aa9def84428fbea3e885} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+conncache\+\_\+return\+\_\+conn (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a558b7525a147680dfe1216e2c157799a}\index{conncache.c@{conncache.c}!Curl\_conncache\_size@{Curl\_conncache\_size}}
+\index{Curl\_conncache\_size@{Curl\_conncache\_size}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_conncache\_size()}{Curl\_conncache\_size()}}
+{\footnotesize\ttfamily \label{conncache_8c_a558b7525a147680dfe1216e2c157799a} 
+size\+\_\+t Curl\+\_\+conncache\+\_\+size (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{conncache_8c_a45195638d3bcd8129d98f3a02b0b965e}\index{conncache.c@{conncache.c}!free\_bundle\_hash\_entry@{free\_bundle\_hash\_entry}}
+\index{free\_bundle\_hash\_entry@{free\_bundle\_hash\_entry}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{free\_bundle\_hash\_entry()}{free\_bundle\_hash\_entry()}}
+{\footnotesize\ttfamily \label{conncache_8c_a45195638d3bcd8129d98f3a02b0b965e} 
+void free\+\_\+bundle\+\_\+hash\+\_\+entry (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{freethis}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{conncache_8c_a75aa0e81a52ff1d4d4800d1218aaf1be}\index{conncache.c@{conncache.c}!hashkey@{hashkey}}
+\index{hashkey@{hashkey}!conncache.c@{conncache.c}}
+\doxysubsubsection{\texorpdfstring{hashkey()}{hashkey()}}
+{\footnotesize\ttfamily \label{conncache_8c_a75aa0e81a52ff1d4d4800d1218aaf1be} 
+void hashkey (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

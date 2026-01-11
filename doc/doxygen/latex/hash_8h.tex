@@ -1,0 +1,190 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/hash.h File Reference}
+\hypertarget{hash_8h}{}\label{hash_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/hash.h@{lib/libwconr/build/\_deps/curl-\/src/lib/hash.h}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include "{}llist.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}}
+\item 
+struct \mbox{\hyperlink{structCurl__hash__element}{Curl\+\_\+hash\+\_\+element}}
+\item 
+struct \mbox{\hyperlink{structCurl__hash__iterator}{Curl\+\_\+hash\+\_\+iterator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{hash_8h_a7bf37e248611a2d8a8fafce640297f4a}{Curl\+\_\+hash\+\_\+count}}(\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef size\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash_8h_a8fee071af259cc30552b2b66e1ab2775}{hash\+\_\+function}}) (void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+length, size\+\_\+t slots\+\_\+num)
+\item 
+typedef size\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}{comp\+\_\+function}}) (void \texorpdfstring{$\ast$}{*}key1, size\+\_\+t key1\+\_\+len, void \texorpdfstring{$\ast$}{*}key2, size\+\_\+t key2\+\_\+len)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash_8h_a299db325dd772cab4f31de553158b3f4}{Curl\+\_\+hash\+\_\+dtor}}) (void \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{hash_8h_a545ab1c8787eb47ddba5d855702d4a69}{Curl\+\_\+hash\+\_\+init}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, int slots, \mbox{\hyperlink{hash_8h_a8fee071af259cc30552b2b66e1ab2775}{hash\+\_\+function}} hfunc, \mbox{\hyperlink{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}{comp\+\_\+function}} comparator, \mbox{\hyperlink{hash_8h_a299db325dd772cab4f31de553158b3f4}{Curl\+\_\+hash\+\_\+dtor}} dtor)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash_8h_a296b1e32a88e2d58fffd185b26706096}{Curl\+\_\+hash\+\_\+add}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+len, void \texorpdfstring{$\ast$}{*}p)
+\item 
+int \mbox{\hyperlink{hash_8h_a53978a45b737418c5bfbf65eff82f80d}{Curl\+\_\+hash\+\_\+delete}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+len)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash_8h_a5f52c69f189a254cb0541206e055a4a3}{Curl\+\_\+hash\+\_\+pick}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+len)
+\item 
+void \mbox{\hyperlink{hash_8h_a70b2a90f6d6b36d98cb0e2def9cfd1c4}{Curl\+\_\+hash\+\_\+apply}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, void \texorpdfstring{$\ast$}{*}user, void(\texorpdfstring{$\ast$}{*}cb)(void \texorpdfstring{$\ast$}{*}user, void \texorpdfstring{$\ast$}{*}ptr))
+\item 
+void \mbox{\hyperlink{hash_8h_a07ad677141beb0399d091c5e1fc837ae}{Curl\+\_\+hash\+\_\+destroy}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}})
+\item 
+void \mbox{\hyperlink{hash_8h_a0bed31b2a06577ab2d76d133f428a52a}{Curl\+\_\+hash\+\_\+clean}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}})
+\item 
+void \mbox{\hyperlink{hash_8h_a67daba7a71eeb0aa082368bfb7f0f353}{Curl\+\_\+hash\+\_\+clean\+\_\+with\+\_\+criterium}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, void \texorpdfstring{$\ast$}{*}user, int(\texorpdfstring{$\ast$}{*}comp)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\item 
+size\+\_\+t \mbox{\hyperlink{hash_8h_ad03fbf647c1fe1cdd72ccc7a131ce680}{Curl\+\_\+hash\+\_\+str}} (void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+length, size\+\_\+t slots\+\_\+num)
+\item 
+size\+\_\+t \mbox{\hyperlink{hash_8h_ab260dae4821964f2ea9816ca48939ac8}{Curl\+\_\+str\+\_\+key\+\_\+compare}} (void \texorpdfstring{$\ast$}{*}k1, size\+\_\+t key1\+\_\+len, void \texorpdfstring{$\ast$}{*}k2, size\+\_\+t key2\+\_\+len)
+\item 
+void \mbox{\hyperlink{hash_8h_a3072783301855bbc063ef880bceda0b6}{Curl\+\_\+hash\+\_\+start\+\_\+iterate}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}hash, struct \mbox{\hyperlink{structCurl__hash__iterator}{Curl\+\_\+hash\+\_\+iterator}} \texorpdfstring{$\ast$}{*}iter)
+\item 
+struct \mbox{\hyperlink{structCurl__hash__element}{Curl\+\_\+hash\+\_\+element}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash_8h_acca036350d801a57d0c8299dcb14a8f3}{Curl\+\_\+hash\+\_\+next\+\_\+element}} (struct \mbox{\hyperlink{structCurl__hash__iterator}{Curl\+\_\+hash\+\_\+iterator}} \texorpdfstring{$\ast$}{*}iter)
+\item 
+void \mbox{\hyperlink{hash_8h_abbec77430063eea3e9b9a1d45eb9c5e6}{Curl\+\_\+hash\+\_\+print}} (struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}, void(\texorpdfstring{$\ast$}{*}func)(void \texorpdfstring{$\ast$}{*}))
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{hash_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hash_8h_a7bf37e248611a2d8a8fafce640297f4a}\index{hash.h@{hash.h}!Curl\_hash\_count@{Curl\_hash\_count}}
+\index{Curl\_hash\_count@{Curl\_hash\_count}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_count}{Curl\_hash\_count}}
+{\footnotesize\ttfamily \label{hash_8h_a7bf37e248611a2d8a8fafce640297f4a} 
+\#define Curl\+\_\+hash\+\_\+count(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}})-\/>size)}
+
+\end{DoxyCode}
+
+
+\label{doc-typedef-members}
+\Hypertarget{hash_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}\index{hash.h@{hash.h}!comp\_function@{comp\_function}}
+\index{comp\_function@{comp\_function}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{comp\_function}{comp\_function}}
+{\footnotesize\ttfamily \label{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4} 
+typedef size\+\_\+t(\texorpdfstring{$\ast$}{*} comp\+\_\+function) (void \texorpdfstring{$\ast$}{*}key1, size\+\_\+t key1\+\_\+len, void \texorpdfstring{$\ast$}{*}key2, size\+\_\+t key2\+\_\+len)}
+
+\Hypertarget{hash_8h_a299db325dd772cab4f31de553158b3f4}\index{hash.h@{hash.h}!Curl\_hash\_dtor@{Curl\_hash\_dtor}}
+\index{Curl\_hash\_dtor@{Curl\_hash\_dtor}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_dtor}{Curl\_hash\_dtor}}
+{\footnotesize\ttfamily \label{hash_8h_a299db325dd772cab4f31de553158b3f4} 
+typedef void(\texorpdfstring{$\ast$}{*} Curl\+\_\+hash\+\_\+dtor) (void \texorpdfstring{$\ast$}{*})}
+
+\Hypertarget{hash_8h_a8fee071af259cc30552b2b66e1ab2775}\index{hash.h@{hash.h}!hash\_function@{hash\_function}}
+\index{hash\_function@{hash\_function}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{hash\_function}{hash\_function}}
+{\footnotesize\ttfamily \label{hash_8h_a8fee071af259cc30552b2b66e1ab2775} 
+typedef size\+\_\+t(\texorpdfstring{$\ast$}{*} hash\+\_\+function) (void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+length, size\+\_\+t slots\+\_\+num)}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{hash_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{hash_8h_a296b1e32a88e2d58fffd185b26706096}\index{hash.h@{hash.h}!Curl\_hash\_add@{Curl\_hash\_add}}
+\index{Curl\_hash\_add@{Curl\_hash\_add}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_add()}{Curl\_hash\_add()}}
+{\footnotesize\ttfamily \label{hash_8h_a296b1e32a88e2d58fffd185b26706096} 
+void \texorpdfstring{$\ast$}{*} Curl\+\_\+hash\+\_\+add (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{size\+\_\+t}]{key\+\_\+len}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a70b2a90f6d6b36d98cb0e2def9cfd1c4}\index{hash.h@{hash.h}!Curl\_hash\_apply@{Curl\_hash\_apply}}
+\index{Curl\_hash\_apply@{Curl\_hash\_apply}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_apply()}{Curl\_hash\_apply()}}
+{\footnotesize\ttfamily \label{hash_8h_a70b2a90f6d6b36d98cb0e2def9cfd1c4} 
+void Curl\+\_\+hash\+\_\+apply (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{cb~}{)(void \texorpdfstring{$\ast$}{*}user, void \texorpdfstring{$\ast$}{*}ptr)}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a0bed31b2a06577ab2d76d133f428a52a}\index{hash.h@{hash.h}!Curl\_hash\_clean@{Curl\_hash\_clean}}
+\index{Curl\_hash\_clean@{Curl\_hash\_clean}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_clean()}{Curl\_hash\_clean()}}
+{\footnotesize\ttfamily \label{hash_8h_a0bed31b2a06577ab2d76d133f428a52a} 
+void Curl\+\_\+hash\+\_\+clean (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a67daba7a71eeb0aa082368bfb7f0f353}\index{hash.h@{hash.h}!Curl\_hash\_clean\_with\_criterium@{Curl\_hash\_clean\_with\_criterium}}
+\index{Curl\_hash\_clean\_with\_criterium@{Curl\_hash\_clean\_with\_criterium}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_clean\_with\_criterium()}{Curl\_hash\_clean\_with\_criterium()}}
+{\footnotesize\ttfamily \label{hash_8h_a67daba7a71eeb0aa082368bfb7f0f353} 
+void Curl\+\_\+hash\+\_\+clean\+\_\+with\+\_\+criterium (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{, }\item[{int(\texorpdfstring{$\ast$}{*}}]{comp~}{)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a53978a45b737418c5bfbf65eff82f80d}\index{hash.h@{hash.h}!Curl\_hash\_delete@{Curl\_hash\_delete}}
+\index{Curl\_hash\_delete@{Curl\_hash\_delete}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_delete()}{Curl\_hash\_delete()}}
+{\footnotesize\ttfamily \label{hash_8h_a53978a45b737418c5bfbf65eff82f80d} 
+int Curl\+\_\+hash\+\_\+delete (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{size\+\_\+t}]{key\+\_\+len}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a07ad677141beb0399d091c5e1fc837ae}\index{hash.h@{hash.h}!Curl\_hash\_destroy@{Curl\_hash\_destroy}}
+\index{Curl\_hash\_destroy@{Curl\_hash\_destroy}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_destroy()}{Curl\_hash\_destroy()}}
+{\footnotesize\ttfamily \label{hash_8h_a07ad677141beb0399d091c5e1fc837ae} 
+void Curl\+\_\+hash\+\_\+destroy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a545ab1c8787eb47ddba5d855702d4a69}\index{hash.h@{hash.h}!Curl\_hash\_init@{Curl\_hash\_init}}
+\index{Curl\_hash\_init@{Curl\_hash\_init}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_init()}{Curl\_hash\_init()}}
+{\footnotesize\ttfamily \label{hash_8h_a545ab1c8787eb47ddba5d855702d4a69} 
+void Curl\+\_\+hash\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{int}]{slots}{, }\item[{\mbox{\hyperlink{hash_8h_a8fee071af259cc30552b2b66e1ab2775}{hash\+\_\+function}}}]{hfunc}{, }\item[{\mbox{\hyperlink{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}{comp\+\_\+function}}}]{comparator}{, }\item[{\mbox{\hyperlink{hash_8h_a299db325dd772cab4f31de553158b3f4}{Curl\+\_\+hash\+\_\+dtor}}}]{dtor}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_acca036350d801a57d0c8299dcb14a8f3}\index{hash.h@{hash.h}!Curl\_hash\_next\_element@{Curl\_hash\_next\_element}}
+\index{Curl\_hash\_next\_element@{Curl\_hash\_next\_element}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_next\_element()}{Curl\_hash\_next\_element()}}
+{\footnotesize\ttfamily \label{hash_8h_acca036350d801a57d0c8299dcb14a8f3} 
+struct \mbox{\hyperlink{structCurl__hash__element}{Curl\+\_\+hash\+\_\+element}} \texorpdfstring{$\ast$}{*} Curl\+\_\+hash\+\_\+next\+\_\+element (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash__iterator}{Curl\+\_\+hash\+\_\+iterator}} \texorpdfstring{$\ast$}{*}}]{iter}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a5f52c69f189a254cb0541206e055a4a3}\index{hash.h@{hash.h}!Curl\_hash\_pick@{Curl\_hash\_pick}}
+\index{Curl\_hash\_pick@{Curl\_hash\_pick}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_pick()}{Curl\_hash\_pick()}}
+{\footnotesize\ttfamily \label{hash_8h_a5f52c69f189a254cb0541206e055a4a3} 
+void \texorpdfstring{$\ast$}{*} Curl\+\_\+hash\+\_\+pick (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{size\+\_\+t}]{key\+\_\+len}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_abbec77430063eea3e9b9a1d45eb9c5e6}\index{hash.h@{hash.h}!Curl\_hash\_print@{Curl\_hash\_print}}
+\index{Curl\_hash\_print@{Curl\_hash\_print}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_print()}{Curl\_hash\_print()}}
+{\footnotesize\ttfamily \label{hash_8h_abbec77430063eea3e9b9a1d45eb9c5e6} 
+void Curl\+\_\+hash\+\_\+print (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{h}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{func~}{)(void \texorpdfstring{$\ast$}{*})}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_a3072783301855bbc063ef880bceda0b6}\index{hash.h@{hash.h}!Curl\_hash\_start\_iterate@{Curl\_hash\_start\_iterate}}
+\index{Curl\_hash\_start\_iterate@{Curl\_hash\_start\_iterate}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_start\_iterate()}{Curl\_hash\_start\_iterate()}}
+{\footnotesize\ttfamily \label{hash_8h_a3072783301855bbc063ef880bceda0b6} 
+void Curl\+\_\+hash\+\_\+start\+\_\+iterate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__hash}{Curl\+\_\+hash}} \texorpdfstring{$\ast$}{*}}]{hash}{, }\item[{struct \mbox{\hyperlink{structCurl__hash__iterator}{Curl\+\_\+hash\+\_\+iterator}} \texorpdfstring{$\ast$}{*}}]{iter}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_ad03fbf647c1fe1cdd72ccc7a131ce680}\index{hash.h@{hash.h}!Curl\_hash\_str@{Curl\_hash\_str}}
+\index{Curl\_hash\_str@{Curl\_hash\_str}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_hash\_str()}{Curl\_hash\_str()}}
+{\footnotesize\ttfamily \label{hash_8h_ad03fbf647c1fe1cdd72ccc7a131ce680} 
+size\+\_\+t Curl\+\_\+hash\+\_\+str (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{size\+\_\+t}]{key\+\_\+length}{, }\item[{size\+\_\+t}]{slots\+\_\+num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{hash_8h_ab260dae4821964f2ea9816ca48939ac8}\index{hash.h@{hash.h}!Curl\_str\_key\_compare@{Curl\_str\_key\_compare}}
+\index{Curl\_str\_key\_compare@{Curl\_str\_key\_compare}!hash.h@{hash.h}}
+\doxysubsubsection{\texorpdfstring{Curl\_str\_key\_compare()}{Curl\_str\_key\_compare()}}
+{\footnotesize\ttfamily \label{hash_8h_ab260dae4821964f2ea9816ca48939ac8} 
+size\+\_\+t Curl\+\_\+str\+\_\+key\+\_\+compare (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{k1}{, }\item[{size\+\_\+t}]{key1\+\_\+len}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{k2}{, }\item[{size\+\_\+t}]{key2\+\_\+len}{}\end{DoxyParamCaption})}
+

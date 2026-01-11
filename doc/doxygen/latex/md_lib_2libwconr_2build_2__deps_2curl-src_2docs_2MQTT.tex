@@ -1,0 +1,22 @@
+\chapter{MQTT in curl }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT}\index{MQTT in curl@{MQTT in curl}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1776}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1776}%
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1777}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1777}
+A plain "{}\+GET"{} subscribes to the topic and prints all published messages. Doing a "{}\+POST"{} publishes the post data to the topic and exits.
+
+Example subscribe\+: \begin{DoxyVerb}curl mqtt://host/home/bedroom/temp
+\end{DoxyVerb}
+
+
+Example publish\+: \begin{DoxyVerb}curl -d 75 mqtt://host/home/bedroom/dimmer
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1778}{}\doxysection{\texorpdfstring{What does curl deliver as a response to a subscribe}{What does curl deliver as a response to a subscribe}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1778}
+It outputs two bytes topic length (MSB \texorpdfstring{$\vert$}{|} LSB), the topic followed by the payload.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1779}{}\doxysection{\texorpdfstring{Caveats}{Caveats}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2MQTT_autotoc_md1779}
+Remaining limitations\+:
+\begin{DoxyItemize}
+\item Only QoS level 0 is implemented for publish
+\item No way to set retain flag for publish
+\item No TLS (mqtts) support
+\item Naive EAGAIN handling will not handle split messages 
+\end{DoxyItemize}

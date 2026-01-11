@@ -1,0 +1,349 @@
+\doxysection{gui/node\+\_\+modules/keyv Directory Reference}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410}{}\label{dir_f7e1237b27623fb7d03657d082722410}\index{gui/node\_modules/keyv Directory Reference@{gui/node\_modules/keyv Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\doxysubsection*{ ~\newline
+ ~\newline
+ }
+
+\begin{quote}
+Simple key-\/value storage with support for multiple backends \end{quote}
+
+
+\href{https://github.com/jaredwray/keyv/actions/workflows/tests.yaml}{\texttt{}} \href{https://codecov.io/gh/jaredwray/keyv}{\texttt{}} \href{https://www.npmjs.com/package/keyv}{\texttt{}} \href{https://www.npmjs.com/package/keyv}{\texttt{}}
+
+Keyv provides a consistent interface for key-\/value storage across multiple backends via storage adapters. It supports TTL based expiry, making it suitable as a cache or a persistent key-\/value store.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1004}{}\doxysubsubsection{\texorpdfstring{Features}{Features}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1004}
+There are a few existing modules similar to Keyv, however Keyv is different because it\+:
+
+
+\begin{DoxyItemize}
+\item Isn\textquotesingle{}t bloated
+\item Has a simple Promise based API
+\item Suitable as a TTL based cache or persistent key-\/value store
+\item Easily embeddable inside another module
+\item Works with any storage that implements the \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map}{\texttt{{\ttfamily Map}}} API
+\item Handles all JSON types plus {\ttfamily Buffer}
+\item Supports namespaces
+\item Wide range of \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}efficient, well tested\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} storage adapters
+\item Connection errors are passed through (db failures won\textquotesingle{}t kill your app)
+\item Supports the current active LTS version of Node.\+js or higher
+\end{DoxyItemize}\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1005}{}\doxysubsubsection{\texorpdfstring{Usage}{Usage}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1005}
+Install Keyv.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ keyv}
+
+\end{DoxyCode}
+
+
+By default everything is stored in memory, you can optionally also install a storage adapter.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ @keyv/redis}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ @keyv/mongo}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ @keyv/sqlite}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ @keyv/postgres}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ @keyv/mysql}
+\DoxyCodeLine{npm\ install\ -\/-\/save\ @keyv/etcd}
+
+\end{DoxyCode}
+
+
+Create a new Keyv instance, passing your connection string if applicable. Keyv will automatically load the correct storage adapter.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ Keyv\ =\ require('keyv');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ One\ of\ the\ following}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv();}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv('redis://user:pass@localhost:6379');}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv('mongodb://user:pass@localhost:27017/dbname');}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv('sqlite://path/to/database.sqlite');}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv('postgresql://user:pass@localhost:5432/dbname');}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv('mysql://user:pass@localhost:3306/dbname');}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv('etcd://localhost:2379');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Handle\ DB\ connection\ errors}
+\DoxyCodeLine{keyv.on('error',\ err\ =>\ console.log('Connection\ Error',\ err));}
+\DoxyCodeLine{}
+\DoxyCodeLine{await\ keyv.set('foo',\ 'expires\ in\ 1\ second',\ 1000);\ //\ true}
+\DoxyCodeLine{await\ keyv.set('foo',\ 'never\ expires');\ //\ true}
+\DoxyCodeLine{await\ keyv.get('foo');\ //\ 'never\ expires'}
+\DoxyCodeLine{await\ keyv.delete('foo');\ //\ true}
+\DoxyCodeLine{await\ keyv.clear();\ //\ undefined}
+
+\end{DoxyCode}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1006}{}\doxysubsubsubsection{\texorpdfstring{Namespaces}{Namespaces}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1006}
+You can namespace your Keyv instance to avoid key collisions and allow you to clear only a certain namespace while using the same database.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ users\ =\ new\ Keyv('redis://user:pass@localhost:6379',\ \{\ namespace:\ 'users'\ \});}
+\DoxyCodeLine{const\ cache\ =\ new\ Keyv('redis://user:pass@localhost:6379',\ \{\ namespace:\ 'cache'\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{await\ users.set('foo',\ 'users');\ //\ true}
+\DoxyCodeLine{await\ cache.set('foo',\ 'cache');\ //\ true}
+\DoxyCodeLine{await\ users.get('foo');\ //\ 'users'}
+\DoxyCodeLine{await\ cache.get('foo');\ //\ 'cache'}
+\DoxyCodeLine{await\ users.clear();\ //\ undefined}
+\DoxyCodeLine{await\ users.get('foo');\ //\ undefined}
+\DoxyCodeLine{await\ cache.get('foo');\ //\ 'cache'}
+
+\end{DoxyCode}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1007}{}\doxysubsubsubsection{\texorpdfstring{Custom Serializers}{Custom Serializers}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1007}
+Keyv uses \href{https://github.com/dominictarr/json-buffer}{\texttt{{\ttfamily json-\/buffer}}} for data serialization to ensure consistency across different backends.
+
+You can optionally provide your own serialization functions to support extra data types or to serialize to something other than JSON.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv(\{\ serialize:\ JSON.stringify,\ deserialize:\ JSON.parse\ \});}
+
+\end{DoxyCode}
+
+
+{\bfseries{Warning\+:}} Using custom serializers means you lose any guarantee of data consistency. You should do extensive testing with your serialisation functions and chosen storage engine.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1008}{}\doxysubsubsection{\texorpdfstring{Official Storage Adapters}{Official Storage Adapters}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1008}
+The official storage adapters are covered by \href{https://github.com/jaredwray/keyv/actions/workflows/tests.yaml}{\texttt{over 150 integration tests}} to guarantee consistent behaviour. They are lightweight, efficient wrappers over the DB clients making use of indexes and native TTLs where available.
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Database  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Adapter  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Native TTL  \\
+Redis  &\href{https://github.com/jaredwray/keyv/tree/master/packages/redis}{\texttt{@keyv/redis}}  &Yes  \\
+Mongo\+DB  &\href{https://github.com/jaredwray/keyv/tree/master/packages/mongo}{\texttt{@keyv/mongo}}  &Yes  \\
+SQLite  &\href{https://github.com/jaredwray/keyv/tree/master/packages/sqlite}{\texttt{@keyv/sqlite}}  &No  \\
+Postgre\+SQL  &\href{https://github.com/jaredwray/keyv/tree/master/packages/postgres}{\texttt{@keyv/postgres}}  &No  \\
+My\+SQL  &\href{https://github.com/jaredwray/keyv/tree/master/packages/mysql}{\texttt{@keyv/mysql}}  &No  \\
+Etcd  &\href{https://github.com/jaredwray/keyv/tree/master/packages/etcd}{\texttt{@keyv/etcd}}  &Yes  \\
+Memcache  &\href{https://github.com/jaredwray/keyv/tree/master/packages/memcache}{\texttt{@keyv/memcache}}  &Yes  \\
+\end{DoxyTable}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1009}{}\doxysubsubsection{\texorpdfstring{Third-\/party Storage Adapters}{Third-\/party Storage Adapters}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1009}
+You can also use third-\/party storage adapters or build your own. Keyv will wrap these storage adapters in TTL functionality and handle complex types internally.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ Keyv\ =\ require('keyv');}
+\DoxyCodeLine{const\ myAdapter\ =\ require('./my-\/storage-\/adapter');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv(\{\ store:\ myAdapter\ \});}
+
+\end{DoxyCode}
+
+
+Any store that follows the \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map}{\texttt{{\ttfamily Map}}} api will work.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{new\ Keyv(\{\ store:\ new\ Map()\ \});}
+
+\end{DoxyCode}
+
+
+For example, \href{https://github.com/sindresorhus/quick-lru}{\texttt{{\ttfamily quick-\/lru}}} is a completely unrelated module that implements the Map API.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ Keyv\ =\ require('keyv');}
+\DoxyCodeLine{const\ QuickLRU\ =\ require('quick-\/lru');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ lru\ =\ new\ QuickLRU(\{\ maxSize:\ 1000\ \});}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv(\{\ store:\ lru\ \});}
+
+\end{DoxyCode}
+
+
+The following are third-\/party storage adapters compatible with Keyv\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/quick-lru}{\texttt{quick-\/lru}} -\/ Simple "{}\+Least Recently Used"{} (LRU) cache
+\item \href{https://github.com/zaaack/keyv-file}{\texttt{keyv-\/file}} -\/ File system storage adapter for Keyv
+\item \href{https://www.npmjs.com/package/keyv-dynamodb}{\texttt{keyv-\/dynamodb}} -\/ Dynamo\+DB storage adapter for Keyv
+\item \href{https://www.npmjs.com/package/keyv-lru}{\texttt{keyv-\/lru}} -\/ LRU storage adapter for Keyv
+\item \href{https://www.npmjs.com/package/keyv-null}{\texttt{keyv-\/null}} -\/ Null storage adapter for Keyv
+\item \href{https://github.com/goto-bus-stop/keyv-firestore}{\texttt{keyv-\/firestore}} – Firebase Cloud Firestore adapter for Keyv
+\item \href{https://github.com/pmorgan3/keyv-mssql}{\texttt{keyv-\/mssql}} -\/ Microsoft Sql Server adapter for Keyv
+\item \href{https://github.com/howlowck/keyv-azuretable}{\texttt{keyv-\/azuretable}} -\/ Azure Table Storage/\+API adapter for Keyv
+\item \href{https://github.com/TimMikeladze/keyv-arango}{\texttt{keyv-\/arango}} -\/ Arango\+DB storage adapter for Keyv
+\item \href{https://github.com/momentohq/node-keyv-adaptor/}{\texttt{keyv-\/momento}} -\/ Momento storage adapter for Keyv
+\end{DoxyItemize}\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1010}{}\doxysubsubsection{\texorpdfstring{Add Cache Support to your Module}{Add Cache Support to your Module}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1010}
+Keyv is designed to be easily embedded into other modules to add cache support. The recommended pattern is to expose a {\ttfamily cache} option in your modules options which is passed through to Keyv. Caching will work in memory by default and users have the option to also install a Keyv storage adapter and pass in a connection string, or any other storage that implements the {\ttfamily Map} API.
+
+You should also set a namespace for your module so you can safely call {\ttfamily .clear()} without clearing unrelated app data.
+
+Inside your module\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{class\ AwesomeModule\ \{}
+\DoxyCodeLine{\ \ \ \ constructor(opts)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.cache\ =\ new\ Keyv(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ uri:\ typeof\ opts.cache\ ===\ 'string'\ \&\&\ opts.cache,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ store:\ typeof\ opts.cache\ !==\ 'string'\ \&\&\ opts.cache,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ namespace:\ 'awesome-\/module'}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Now it can be consumed like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ AwesomeModule\ =\ require('awesome-\/module');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Caches\ stuff\ in\ memory\ by\ default}
+\DoxyCodeLine{const\ awesomeModule\ =\ new\ AwesomeModule();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ After\ npm\ install\ -\/-\/save\ keyv-\/redis}
+\DoxyCodeLine{const\ awesomeModule\ =\ new\ AwesomeModule(\{\ cache:\ 'redis://localhost'\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Some\ third-\/party\ module\ that\ implements\ the\ Map\ API}
+\DoxyCodeLine{const\ awesomeModule\ =\ new\ AwesomeModule(\{\ cache:\ some3rdPartyStore\ \});}
+
+\end{DoxyCode}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1011}{}\doxysubsubsection{\texorpdfstring{Compression}{Compression}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1011}
+Keyv supports {\ttfamily gzip} and {\ttfamily brotli} compression. To enable compression, pass the {\ttfamily compress} option to the constructor.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ KeyvGzip\ =\ require('@keyv/compress-\/gzip');}
+\DoxyCodeLine{const\ Keyv\ =\ require('keyv');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ keyvGzip\ =\ new\ KeyvGzip();}
+\DoxyCodeLine{const\ keyv\ =\ new\ Keyv(\{\ compression:\ KeyvGzip\ \});}
+
+\end{DoxyCode}
+
+
+You can also pass a custom compression function to the {\ttfamily compression} option. Following the pattern of the official compression adapters.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1012}{}\doxysubsubsubsection{\texorpdfstring{Want to build your own?}{Want to build your own?}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1012}
+Great! Keyv is designed to be easily extended. You can build your own compression adapter by following the pattern of the official compression adapters based on this interface\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{interface\ CompressionAdapter\ \{}
+\DoxyCodeLine{\ \ \ \ async\ compress(value:\ any,\ options?:\ any);}
+\DoxyCodeLine{\ \ \ \ async\ decompress(value:\ any,\ options?:\ any);}
+\DoxyCodeLine{\ \ \ \ async\ serialize(value:\ any);}
+\DoxyCodeLine{\ \ \ \ async\ deserialize(value:\ any);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+In addition to the interface, you can test it with our compression test suite using @keyv/test-\/suite\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{keyvCompresstionTests\}\ =\ require('@keyv/test-\/suite');}
+\DoxyCodeLine{const\ KeyvGzip\ =\ require('@keyv/compress-\/gzip');}
+\DoxyCodeLine{}
+\DoxyCodeLine{keyvCompresstionTests(test,\ new\ KeyvGzip());}
+
+\end{DoxyCode}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1013}{}\doxysubsubsection{\texorpdfstring{API}{API}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1013}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1014}{}\doxysubsubsubsection{\texorpdfstring{new Keyv(\mbox{[}uri\mbox{]}, \mbox{[}options\mbox{]})}{new Keyv(\mbox{[}uri\mbox{]}, \mbox{[}options\mbox{]})}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1014}
+Returns a new Keyv instance.
+
+The Keyv instance is also an {\ttfamily Event\+Emitter} that will emit an {\ttfamily \textquotesingle{}\doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}\textquotesingle{}} event if the storage adapter connection fails.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1015}{}\doxysubsubsubsection{\texorpdfstring{uri}{uri}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1015}
+Type\+: {\ttfamily String}~\newline
+ Default\+: {\ttfamily undefined}
+
+The connection string URI.
+
+Merged into the options object as options.\+uri.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1016}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1016}
+Type\+: {\ttfamily Object}
+
+The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1017}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+namespace}{options.\+namespace}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1017}
+Type\+: {\ttfamily String}~\newline
+ Default\+: {\ttfamily \textquotesingle{}keyv\textquotesingle{}}
+
+Namespace for the current instance.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1018}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+ttl}{options.\+ttl}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1018}
+Type\+: {\ttfamily Number}~\newline
+ Default\+: {\ttfamily undefined}
+
+Default TTL. Can be overridden by specififying a TTL on {\ttfamily .\doxylink{cacert_8d_adf642db66c5d3cc87685fcb1937ca95f}{set()}}.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1019}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+compression}{options.\+compression}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1019}
+Type\+: {\ttfamily @keyv/compress-\/\texorpdfstring{$<$}{<}compression\+\_\+package\+\_\+name\texorpdfstring{$>$}{>}}~\newline
+ Default\+: {\ttfamily undefined}
+
+Compression package to use. See Compression for more details.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1020}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+serialize}{options.\+serialize}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1020}
+Type\+: {\ttfamily Function}~\newline
+ Default\+: {\ttfamily JSONB.\+stringify}
+
+A custom serialization function.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1021}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+deserialize}{options.\+deserialize}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1021}
+Type\+: {\ttfamily Function}~\newline
+ Default\+: {\ttfamily JSONB.\+parse}
+
+A custom deserialization function.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1022}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+store}{options.\+store}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1022}
+Type\+: {\ttfamily Storage adapter instance}~\newline
+ Default\+: {\ttfamily new Map()}
+
+The storage adapter instance to be used by Keyv.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1023}{}\doxysubsubsubsubsection{\texorpdfstring{options.\+adapter}{options.\+adapter}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1023}
+Type\+: {\ttfamily String}~\newline
+ Default\+: {\ttfamily undefined}
+
+Specify an adapter to use. e.\+g {\ttfamily \textquotesingle{}redis\textquotesingle{}} or {\ttfamily \textquotesingle{}mongodb\textquotesingle{}}.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1024}{}\doxysubsubsubsection{\texorpdfstring{Instance}{Instance}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1024}
+Keys must always be strings. Values can be of any type.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1025}{}\doxysubsubsubsubsection{\texorpdfstring{.set(key, value, \mbox{[}ttl\mbox{]})}{.set(key, value, \mbox{[}ttl\mbox{]})}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1025}
+Set a value.
+
+By default keys are persistent. You can set an expiry TTL in milliseconds.
+
+Returns a promise which resolves to {\ttfamily true}.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1026}{}\doxysubsubsubsubsection{\texorpdfstring{.get(key, \mbox{[}options\mbox{]})}{.get(key, \mbox{[}options\mbox{]})}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1026}
+Returns a promise which resolves to the retrieved value.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1027}{}\doxysubsubsubsubsubsection{\texorpdfstring{options.\+raw}{options.\+raw}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1027}
+Type\+: {\ttfamily Boolean}~\newline
+ Default\+: {\ttfamily false}
+
+If set to true the raw DB object Keyv stores internally will be returned instead of just the value.
+
+This contains the TTL timestamp.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1028}{}\doxysubsubsubsubsection{\texorpdfstring{.delete(key)}{.delete(key)}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1028}
+Deletes an entry.
+
+Returns a promise which resolves to {\ttfamily true} if the key existed, {\ttfamily false} if not.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1029}{}\doxysubsubsubsubsection{\texorpdfstring{.clear()}{.clear()}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1029}
+Delete all entries in the current namespace.
+
+Returns a promise which is resolved when the entries have been cleared.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1030}{}\doxysubsubsubsubsection{\texorpdfstring{.iterator()}{.iterator()}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1030}
+Iterate over all entries of the current namespace.
+
+Returns a iterable that can be iterated by for-\/of loops. For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ please\ note\ that\ the\ "{}await"{}\ keyword\ should\ be\ used\ here}
+\DoxyCodeLine{for\ await\ (const\ [key,\ value]\ of\ this.keyv.iterator())\ \{}
+\DoxyCodeLine{\ \ console.log(key,\ value);}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1031}{}\doxysubsection{\texorpdfstring{How to Contribute}{How to Contribute}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1031}
+In this section of the documentation we will cover\+:
+
+1) How to set up this repository locally 2) How to get started with running commands 3) How to contribute changes using Pull Requests\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1032}{}\doxysubsubsection{\texorpdfstring{Dependencies}{Dependencies}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1032}
+This package requires the following dependencies to run\+:
+
+1) \href{https://yarnpkg.com/getting-started/install}{\texttt{Yarn V1}} 3) \href{https://docs.docker.com/get-docker/}{\texttt{Docker}}\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1033}{}\doxysubsubsection{\texorpdfstring{Setting up your workspace}{Setting up your workspace}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1033}
+To contribute to this repository, start by setting up this project locally\+:
+
+1) Fork this repository into your Git account 2) Clone the forked repository to your local directory using {\ttfamily git clone} 3) Install any of the above missing dependencies\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1034}{}\doxysubsubsection{\texorpdfstring{Launching the project}{Launching the project}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1034}
+Once the project is installed locally, you are ready to start up its services\+:
+
+1) Ensure that your Docker service is running. 2) From the root directory of your project, run the {\ttfamily yarn} command in the command prompt to install yarn. 3) Run the {\ttfamily yarn bootstrap} command to install any necessary dependencies. 4) Run {\ttfamily yarn test\+:services\+:start} to start up this project\textquotesingle{}s Docker container. The container will launch all services within your workspace.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1035}{}\doxysubsubsection{\texorpdfstring{Available Commands}{Available Commands}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1035}
+Once the project is running, you can execute a variety of commands. The root workspace and each subpackage contain a {\ttfamily package.\+json} file with a {\ttfamily scripts} field listing all the commands that can be executed from that directory. This project also supports native {\ttfamily yarn}, and {\ttfamily docker} commands.
+
+Here, we\textquotesingle{}ll cover the primary commands that can be executed from the root directory. Unless otherwise noted, these commands can also be executed from a subpackage. If executed from a subpackage, they will only affect that subpackage, rather than the entire workspace.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1036}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily yarn}}{{\ttfamily yarn}}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1036}
+The {\ttfamily yarn} command installs yarn in the workspace.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1037}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily yarn bootstrap}}{{\ttfamily yarn bootstrap}}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1037}
+The {\ttfamily yarn bootstrap} command installs all dependencies in the workspace.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1038}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily yarn test\+:services\+:start}}{{\ttfamily yarn test\+:services\+:start}}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1038}
+The {\ttfamily yarn test\+:services\+:start} command starts up the project\textquotesingle{}s Docker container, launching all services in the workspace. This command must be executed from the root directory.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1039}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily yarn test\+:services\+:stop}}{{\ttfamily yarn test\+:services\+:stop}}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1039}
+The {\ttfamily yarn test\+:services\+:stop} command brings down the project\textquotesingle{}s Docker container, halting all services. This command must be executed from the root directory.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1040}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily yarn test}}{{\ttfamily yarn test}}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1040}
+The {\ttfamily yarn test} command runs all tests in the workspace.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1041}{}\doxysubsubsubsection{\texorpdfstring{{\ttfamily yarn clean}}{{\ttfamily yarn clean}}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1041}
+The {\ttfamily yarn clean} command removes yarn and all dependencies installed by yarn. After executing this command, you must repeat the steps in {\itshape Setting up your workspace} to rebuild your workspace.\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1042}{}\doxysubsubsection{\texorpdfstring{Contributing Changes}{Contributing Changes}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1042}
+Now that you\textquotesingle{}ve set up your workspace, you\textquotesingle{}re ready to contribute changes to the {\ttfamily keyv} repository.
+
+1) Make any changes that you would like to contribute in your local workspace. 2) After making these changes, ensure that the project\textquotesingle{}s tests still pass by executing the {\ttfamily yarn test} command in the root directory. 3) Commit your changes and push them to your forked repository. 4) Navigate to the original {\ttfamily keyv} repository and go the {\itshape Pull Requests} tab. 5) Click the {\itshape New pull request} button, and open a pull request for the branch in your repository that contains your changes. 6) Once your pull request is created, ensure that all checks have passed and that your branch has no conflicts with the base branch. If there are any issues, resolve these changes in your local repository, and then commit and push them to git. 7) Similarly, respond to any reviewer comments or requests for changes by making edits to your local repository and pushing them to Git. 8) Once the pull request has been reviewed, those with write access to the branch will be able to merge your changes into the {\ttfamily keyv} repository.
+
+If you need more information on the steps to create a pull request, you can find a detailed walkthrough in the \href{https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork}{\texttt{Github documentation}}\hypertarget{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1043}{}\doxysubsubsection{\texorpdfstring{License}{License}}\label{dir_f7e1237b27623fb7d03657d082722410_autotoc_md1043}
+MIT © Jared Wray 

@@ -1,0 +1,29 @@
+\doxysection{tool\+\_\+xattr.\+h}
+\hypertarget{tool__xattr_8h_source}{}\label{tool__xattr_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_xattr.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_xattr.h}}
+\mbox{\hyperlink{tool__xattr_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_XATTR\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_XATTR\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ HAVE\_FSETXATTR}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ include\ <sys/xattr.h>}\ \textcolor{comment}{/*\ header\ from\ libc,\ not\ from\ libattr\ */}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#\ \ define\ USE\_XATTR}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#elif\ (defined(\_\_FreeBSD\_version)\ \&\&\ (\_\_FreeBSD\_version\ >\ 500000))\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ \ \ defined(\_\_MidnightBSD\_version)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ include\ <sys/types.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#\ \ include\ <sys/extattr.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ define\ USE\_XATTR}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifdef\ USE\_XATTR}}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tool__xattr_8h_ae02fa991e0d0d3211abbd992e0fb8c0d}{fwrite\_xattr}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url,\ \textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ fwrite\_xattr(a,b,c)\ 0}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_XATTR\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

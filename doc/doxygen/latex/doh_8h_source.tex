@@ -1,0 +1,112 @@
+\doxysection{doh.\+h}
+\hypertarget{doh_8h_source}{}\label{doh_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/doh.h@{lib/libwconr/build/\_deps/curl-\/src/lib/doh.h}}
+\mbox{\hyperlink{doh_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_DOH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_DOH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__addrinfo_8h}{curl\_addrinfo.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_DOH}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a1b38a50d7c5a22552a12393996e5910d}{DOH\_OK}},}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a046783ae41bdfd57074f4a062f9a88fd}{DOH\_DNS\_BAD\_LABEL}},\ \ \ \ \textcolor{comment}{/*\ 1\ */}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8f885272fb16762effeb24cb6b1529bd}{DOH\_DNS\_OUT\_OF\_RANGE}},\ \textcolor{comment}{/*\ 2\ */}}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae60ff2b80321443ae41a44c4196aff83}{DOH\_DNS\_LABEL\_LOOP}},\ \ \ \textcolor{comment}{/*\ 3\ */}}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ab1aead6268f590c14597e7533a483531}{DOH\_TOO\_SMALL\_BUFFER}},\ \textcolor{comment}{/*\ 4\ */}}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a575217c636dcceef11f3b811e172f862}{DOH\_OUT\_OF\_MEM}},\ \ \ \ \ \ \ \textcolor{comment}{/*\ 5\ */}}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a8d1cc35200409830f3455b1161dd83de}{DOH\_DNS\_RDATA\_LEN}},\ \ \ \ \textcolor{comment}{/*\ 6\ */}}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32ae362e8571a74c5faba9fb04cd6adcadb}{DOH\_DNS\_MALFORMAT}},\ \ \ \ \textcolor{comment}{/*\ 7\ */}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32afe120f642e615e1aba801b7e69fd80df}{DOH\_DNS\_BAD\_RCODE}},\ \ \ \ \textcolor{comment}{/*\ 8\ -\/\ no\ such\ name\ */}}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a32e0220d3d6b0195d01383166077e9ce}{DOH\_DNS\_UNEXPECTED\_TYPE}},\ \ \textcolor{comment}{/*\ 9\ */}}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a5d0cb303395b40249e83516b961a3545}{DOH\_DNS\_UNEXPECTED\_CLASS}},\ \textcolor{comment}{/*\ 10\ */}}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a46c757652941bc2847a41c3e45fd79d6}{DOH\_NO\_CONTENT}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 11\ */}}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a604d41c416646499acf73eaa82a997c2}{DOH\_DNS\_BAD\_ID}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 12\ */}}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32a3c901922a39f3742aaefdea7a1e9d257}{DOH\_DNS\_NAME\_TOO\_LONG}}\ \ \ \ \ \textcolor{comment}{/*\ 13\ */}}
+\DoxyCodeLine{00047\ \}\ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32}{DOHcode}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a265b27cca3b7baa93c46988f68ddeb29}{DNS\_TYPE\_A}}\ =\ 1,}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a4c089094c4e291f9b3e6a7fe1faf864c}{DNS\_TYPE\_NS}}\ =\ 2,}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad412bbe358a397a2512f9c395fd5c37e}{DNS\_TYPE\_CNAME}}\ =\ 5,}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76ad6f2a7e9311cfa3f2b9f4af3a0f19653}{DNS\_TYPE\_AAAA}}\ =\ 28,}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76a79f9cc7bc1f4121f27b25c9916c926ec}{DNS\_TYPE\_DNAME}}\ =\ 39\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ RFC6672\ */}}
+\DoxyCodeLine{00055\ \}\ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}{DNStype}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ one\ of\ these\ for\ each\ DoH\ request\ */}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdnsprobe}{dnsprobe}}\ \{}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{structdnsprobe_a36f481c9bded11dd689bd1611f923919}{easy}};}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}{DNStype}}\ \mbox{\hyperlink{structdnsprobe_a78ef21581222c81d5acdd83e184074cb}{dnstype}};}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structdnsprobe_a9ee569232c6c98374ba740c21f4032b3}{dohbuffer}}[512];}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structdnsprobe_a3f2f5a1f20e8dd1b4843b9fd88dbb29b}{dohlen}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \mbox{\hyperlink{structdnsprobe_ababe6705804ae47e853499f2869b3aa0}{serverdoh}};}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdohdata}{dohdata}}\ \{}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structdohdata_aa7ff4e962425c9cace22ae52efdc792e}{headers}};}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdnsprobe}{dnsprobe}}\ \mbox{\hyperlink{structdohdata_aabf58aae8b783ed124f753f45aaeb1f9}{probe}}[\mbox{\hyperlink{urldata_8h_afebb317700ff1bbf650f7bf9fcd01ad1ab9a641491a0a8341e91fa8d41a362166}{DOH\_PROBE\_SLOTS}}];}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdohdata_ae58fa281f45160b4de1b2e3e2b3fba85}{pending}};\ \textcolor{comment}{/*\ still\ outstanding\ requests\ */}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdohdata_a0424c093a7b69a32ec4428d03a61b888}{port}};}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdohdata_ac47770eba03380864efac4f5f3fc88ca}{host}};}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ Curl\_doh()\ resolve\ a\ name\ using\ DoH\ (DNS-\/over-\/HTTPS).\ It\ resolves\ a\ name}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ and\ returns\ a\ 'Curl\_addrinfo\ *'\ with\ the\ address\ information.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *\mbox{\hyperlink{doh_8h_a16f80b27769a327251b51903166966b8}{Curl\_doh}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ port,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *waitp);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{doh_8h_ace75a3ce2a8f8f2ba3d166157ca2722c}{Curl\_doh\_is\_resolved}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__dns__entry}{Curl\_dns\_entry}}\ **dns);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{doh_8h_ad7a8783f9ac45a6f927380fb51c970f7}{Curl\_doh\_getsock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *socks);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ DOH\_MAX\_ADDR\ 24}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ DOH\_MAX\_CNAME\ 4}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdohaddr}{dohaddr}}\ \{}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdohaddr_aa08307119b424410ce83c70876eede24}{type}};}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structdohaddr_ac7b66a4b139db5e3f94d29c5887f128b}{v4}}[4];\ \textcolor{comment}{/*\ network\ byte\ order\ */}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structdohaddr_ae6b3cc97655a4ef5f30abe5b8e762af8}{v6}}[16];}
+\DoxyCodeLine{00097\ \ \ \}\ \mbox{\hyperlink{structdohaddr_a57fb099534cbc36666f93c0e199857c1}{ip}};}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdohentry}{dohentry}}\ \{}
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \mbox{\hyperlink{structdohentry_ae21717deec71dba0e9c57b386a6aeaec}{cname}}[\mbox{\hyperlink{doh_8h_a641dafdadc7102f7031b9ebec58340f3}{DOH\_MAX\_CNAME}}];}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdohaddr}{dohaddr}}\ \mbox{\hyperlink{structdohentry_ab73e505732537d2d3b0389fb0a04d0f0}{addr}}[\mbox{\hyperlink{doh_8h_a272ac0e1ff303e2ee8e10e5149dc96d1}{DOH\_MAX\_ADDR}}];}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdohentry_a3cac8ba2181e7227beeee462cc0bc32d}{numaddr}};}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdohentry_a0296bc0b0d8cbf477e73cfd5b3dbace2}{ttl}};}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structdohentry_a5a3b7c343f9e0ce61f998067cce5b907}{numcname}};}
+\DoxyCodeLine{00106\ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#ifdef\ DEBUGBUILD}}
+\DoxyCodeLine{00110\ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32}{DOHcode}}\ \mbox{\hyperlink{doh_8c_aee2307e228bb2326a2aee64735937198}{doh\_encode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}{DNStype}}\ dnstype,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *dnsp,\ \textcolor{comment}{/*\ buffer\ */}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},\ \ \textcolor{comment}{/*\ buffer\ size\ */}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *olen);\ \textcolor{comment}{/*\ output\ length\ */}}
+\DoxyCodeLine{00115\ \mbox{\hyperlink{doh_8h_a972158dd2d2c43e4b68faf1dc2a71b32}{DOHcode}}\ \mbox{\hyperlink{doh_8c_ab1ad9dd1fa32c7ca4f378a380b81b15c}{doh\_decode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *doh,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dohlen,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{doh_8h_afd3ed70ffb4bc5ddf0eeedb30370bc76}{DNStype}}\ dnstype,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structdohentry}{dohentry}}\ *d);}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{doh_8c_a573d964357b66adcdc58d8f613b3b98f}{de\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdohentry}{dohentry}}\ *d);}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{doh_8c_a5b3a7f6ee8bc155560713174b3cf010c}{de\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdohentry}{dohentry}}\ *d);}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ if\ DoH\ is\ disabled\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ Curl\_doh(a,b,c,d)\ NULL}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ Curl\_doh\_is\_resolved(x,y)\ CURLE\_COULDNT\_RESOLVE\_HOST}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_DOH\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

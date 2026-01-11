@@ -1,0 +1,116 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/projects Directory Reference}
+\hypertarget{dir_75260ab13d312875df03506f15afdd01}{}\label{dir_75260ab13d312875df03506f15afdd01}\index{lib/libwconr/build/\_deps/curl-\/src/projects Directory Reference@{lib/libwconr/build/\_deps/curl-\/src/projects Directory Reference}}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{wolfssl__options_8h}{wolfssl\+\_\+options.\+h}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_75260ab13d312875df03506f15afdd01_autotoc_md1935}{}\doxysubsection{\texorpdfstring{Building via IDE Project Files}{Building via IDE Project Files}}\label{dir_75260ab13d312875df03506f15afdd01_autotoc_md1935}
+This document describes how to compile, build and install curl and libcurl from sources using an IDE based development tool such as Visual Studio.
+
+Project files are available for several different Visual C++ versions. The following directory structure has been used to cater for this\+: \begin{DoxyVerb}somedirectory\
+ |_curl
+   |_projects
+     |_<platform>
+       |_<ide>
+         |_lib
+         |_src
+\end{DoxyVerb}
+
+
+This structure allows for side-\/by-\/side compilation of curl on the same machine using different versions of a given compiler (for example VC10 and VC12) and allows for your own application or product to be compiled against those variants of libcurl for example.
+
+Note\+: Typically this side-\/by-\/side compilation is generally only required when a library is being compiled against dynamic runtime libraries.\hypertarget{dir_75260ab13d312875df03506f15afdd01_autotoc_md1936}{}\doxysubsubsection{\texorpdfstring{Dependencies}{Dependencies}}\label{dir_75260ab13d312875df03506f15afdd01_autotoc_md1936}
+The projects files also support build configurations that require third party dependencies such as Open\+SSL, wolf\+SSL and libssh2. If you wish to support these, you will also need to download and compile those libraries as well.
+
+To support compilation of these libraries using different versions of compilers, the following directory structure has been used for both the output of curl and libcurl as well as these dependencies. \begin{DoxyVerb}somedirectory\
+ |_curl
+ | |_ build
+ |    |_<architecture>
+ |      |_<ide>
+ |        |_<configuration>
+ |          |_lib
+ |          |_src
+ |
+ |_openssl
+ | |_ build
+ |    |_<architecture>
+ |      |_VC <version>
+ |        |_<configuration>
+ |
+ |_libssh2
+   |_ build
+      |_<architecture>
+        |_VC <version>
+          |_<configuration>
+\end{DoxyVerb}
+
+
+As Open\+SSL and wolf\+SSL don\textquotesingle{}t support side-\/by-\/side compilation when using different versions of Visual Studio, build helper batch files have been provided to assist with this. Please run {\ttfamily build-\/openssl -\/help} and/or {\ttfamily build-\/wolfssl -\/help} for usage details.\hypertarget{dir_75260ab13d312875df03506f15afdd01_autotoc_md1937}{}\doxysubsubsection{\texorpdfstring{Building with Visual C++}{Building with Visual C++}}\label{dir_75260ab13d312875df03506f15afdd01_autotoc_md1937}
+To build with VC++, you will of course have to first install VC++ which is part of Visual Studio.
+
+Once you have VC++ installed you should launch the application and open one of the solution or workspace files. The VC directory names are based on the version of Visual C++ that you will be using. Each version of Visual Studio has a default version of Visual C++. We offer these versions\+:
+
+
+\begin{DoxyItemize}
+\item VC10 (Visual Studio 2010 Version 10.\+0)
+\item VC11 (Visual Studio 2012 Version 11.\+0)
+\item VC12 (Visual Studio 2013 Version 12.\+0)
+\item VC14 (Visual Studio 2015 Version 14.\+0)
+\item VC14.\+10 (Visual Studio 2017 Version 15.\+0)
+\item VC14.\+30 (Visual Studio 2022 Version 17.\+0)
+\end{DoxyItemize}
+
+Separate solutions are provided for both libcurl and the curl command line tool as well as a solution that includes both projects. libcurl.\+sln, curl.\+sln and curl-\/all.\+sln, respectively. We recommend using curl-\/all.\+sln to build both projects.
+
+For example, if you are using Visual Studio 2022 then you should be able to use {\ttfamily VC14.\+30\textbackslash{}curl-\/all.\+sln} to build curl and libcurl.\hypertarget{dir_75260ab13d312875df03506f15afdd01_autotoc_md1938}{}\doxysubsubsection{\texorpdfstring{Running DLL based configurations}{Running DLL based configurations}}\label{dir_75260ab13d312875df03506f15afdd01_autotoc_md1938}
+If you are a developer and plan to run the curl tool from Visual Studio with any third-\/party libraries (such as Open\+SSL, wolf\+SSL or Lib\+SSH2) then you will need to add the search path of these DLLs to the configuration\textquotesingle{}s PATH environment. To do that\+:
+
+
+\begin{DoxyEnumerate}
+\item Open the \textquotesingle{}curl-\/all.\+sln\textquotesingle{} or \textquotesingle{}curl.\+sln\textquotesingle{} solutions
+\item Right-\/click on the \textquotesingle{}curl\textquotesingle{} project and select Properties
+\item Navigate to \textquotesingle{}Configuration Properties \texorpdfstring{$>$}{>} Debugging \texorpdfstring{$>$}{>} Environment\textquotesingle{}
+\item Add {\ttfamily PATH=\textquotesingle{}Path \doxylink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to} DLL\textquotesingle{};C\+:\textbackslash{}Windows\textbackslash{}system32;C\+:\textbackslash{}Windows;C\+:\textbackslash{}Windows\textbackslash{}System32\textbackslash{}Wbem}
+\end{DoxyEnumerate}
+
+... where \textquotesingle{}Path to DLL\`{} is the configuration specific path. For example the following configurations in Visual Studio 2010 might be\+:
+
+DLL Debug -\/ DLL Open\+SSL (Win32)\+: \begin{DoxyVerb}PATH=..\..\..\..\..\openssl\build\Win32\VC10\DLL Debug;C:\Windows\system32;
+C:\Windows;C:\Windows\System32\Wbem
+\end{DoxyVerb}
+
+
+DLL Debug -\/ DLL Open\+SSL (x64)\+: \begin{DoxyVerb}PATH=..\..\..\..\..\openssl\build\Win64\VC10\DLL Debug;C:\Windows\system32;
+C:\Windows;C:\Windows\System32\Wbem
+\end{DoxyVerb}
+
+
+DLL Debug -\/ DLL wolf\+SSL (Win32)\+: \begin{DoxyVerb}PATH=..\..\..\..\..\wolfssl\build\Win32\VC10\DLL Debug;C:\Windows\system32;
+C:\Windows;C:\Windows\System32\Wbem
+\end{DoxyVerb}
+
+
+DLL Debug -\/ DLL wolf\+SSL (x64)\+: \begin{DoxyVerb}PATH=..\..\..\..\..\wolfssl\build\Win64\VC10\DLL Debug;C:\Windows\system32;
+C:\Windows;C:\Windows\System32\Wbem
+\end{DoxyVerb}
+
+
+If you are using a configuration that uses multiple third-\/party library DLLs (such as DLL Debug -\/ DLL Open\+SSL -\/ DLL Lib\+SSH2) then \textquotesingle{}Path to DLL\textquotesingle{} will need to contain the path to both of these.\hypertarget{dir_75260ab13d312875df03506f15afdd01_autotoc_md1939}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{dir_75260ab13d312875df03506f15afdd01_autotoc_md1939}
+The following keywords have been used in the directory hierarchy\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \texorpdfstring{$<$}{<}platform\texorpdfstring{$>$}{>}} -\/ The platform (For example\+: Windows)
+\item {\ttfamily \texorpdfstring{$<$}{<}ide\texorpdfstring{$>$}{>}} -\/ The IDE (For example\+: VC10)
+\item {\ttfamily \texorpdfstring{$<$}{<}architecture\texorpdfstring{$>$}{>}} -\/ The platform architecture (For example\+: Win32, Win64)
+\item {\ttfamily \texorpdfstring{$<$}{<}configuration\texorpdfstring{$>$}{>}} -\/ The target configuration (For example\+: DLL Debug, LIB Release -\/ LIB Open\+SSL)
+\end{DoxyItemize}
+
+If you are using the source code from the git repository, rather than a release archive or nightly build, you will need to generate the project files. Please run "{}generate -\/help"{} for usage details.
+
+Should you wish to help out with some of the items on the TODO list, or find bugs in the project files that need correcting, and would like to submit updated files back then please note that, whilst the solution files can be edited directly, the templates for the project files (which are stored in the git repository) will need to be modified rather than the generated project files that Visual Studio uses.\hypertarget{dir_75260ab13d312875df03506f15afdd01_autotoc_md1940}{}\doxysubsubsection{\texorpdfstring{Legacy Windows and SSL}{Legacy Windows and SSL}}\label{dir_75260ab13d312875df03506f15afdd01_autotoc_md1940}
+Some of the project configurations allow the use of Schannel, the native SSL library in Windows which forms part of Windows SSPI. However, Schannel in Windows \texorpdfstring{$<$}{<}= XP is unable to connect to servers that no longer support the legacy handshakes and algorithms used by those versions. If you will be using curl in one of those earlier versions of Windows you should choose another SSL backend such as Open\+SSL. 

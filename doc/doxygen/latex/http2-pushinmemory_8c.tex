@@ -1,0 +1,101 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/http2-\/pushinmemory.c File Reference}
+\hypertarget{http2-pushinmemory_8c}{}\label{http2-pushinmemory_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/http2-\/pushinmemory.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/http2-\/pushinmemory.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMemory}{Memory}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{http2-pushinmemory_8c_a2c5eecb22513a88c24ae5831a3265e54}{MAX\+\_\+\+FILES}}~10
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static size\+\_\+t \mbox{\hyperlink{http2-pushinmemory_8c_ab901c12c41edb0b492683f2cf607fc07}{write\+\_\+cb}} (void \texorpdfstring{$\ast$}{*}contents, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}userp)
+\item 
+static void \mbox{\hyperlink{http2-pushinmemory_8c_ab682cdff9e62f93ef76432be3df50296}{init\+\_\+memory}} (struct \mbox{\hyperlink{structMemory}{Memory}} \texorpdfstring{$\ast$}{*}chunk)
+\item 
+static void \mbox{\hyperlink{http2-pushinmemory_8c_abd336cd6ab7ddce0e71b4fe10243d76e}{setup}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}hnd)
+\item 
+static int \mbox{\hyperlink{http2-pushinmemory_8c_aafe88da9ea64d054dbd2e9f1fde8dac3}{server\+\_\+push\+\_\+callback}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}parent, \mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}easy, size\+\_\+t num\+\_\+headers, struct curl\+\_\+pushheaders \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{anyauth_8d_aff4e2b09daa0a774d26a587239e80e15}{headers}}, void \texorpdfstring{$\ast$}{*}userp)
+\item 
+int \mbox{\hyperlink{http2-pushinmemory_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct \mbox{\hyperlink{structMemory}{Memory}} \mbox{\hyperlink{http2-pushinmemory_8c_acd8eb5d9a4280cc6da9f280830c3f018}{files}} \mbox{[}\mbox{\hyperlink{http2-pushinmemory_8c_a2c5eecb22513a88c24ae5831a3265e54}{MAX\+\_\+\+FILES}}\mbox{]}
+\item 
+static int \mbox{\hyperlink{http2-pushinmemory_8c_aad65ec4b117afb2d728f713f11c4afe1}{pushindex}} = 1
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{http2-pushinmemory_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{http2-pushinmemory_8c_a2c5eecb22513a88c24ae5831a3265e54}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!MAX\_FILES@{MAX\_FILES}}
+\index{MAX\_FILES@{MAX\_FILES}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_FILES}{MAX\_FILES}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_a2c5eecb22513a88c24ae5831a3265e54} 
+\#define MAX\+\_\+\+FILES~10}
+
+
+
+\label{doc-func-members}
+\Hypertarget{http2-pushinmemory_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{http2-pushinmemory_8c_ab682cdff9e62f93ef76432be3df50296}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!init\_memory@{init\_memory}}
+\index{init\_memory@{init\_memory}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{init\_memory()}{init\_memory()}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_ab682cdff9e62f93ef76432be3df50296} 
+void init\+\_\+memory (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structMemory}{Memory}} \texorpdfstring{$\ast$}{*}}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-pushinmemory_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!main@{main}}
+\index{main@{main}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{http2-pushinmemory_8c_aafe88da9ea64d054dbd2e9f1fde8dac3}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!server\_push\_callback@{server\_push\_callback}}
+\index{server\_push\_callback@{server\_push\_callback}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{server\_push\_callback()}{server\_push\_callback()}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_aafe88da9ea64d054dbd2e9f1fde8dac3} 
+int server\+\_\+push\+\_\+callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{parent}{, }\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{easy}{, }\item[{size\+\_\+t}]{num\+\_\+headers}{, }\item[{struct curl\+\_\+pushheaders \texorpdfstring{$\ast$}{*}}]{headers}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-pushinmemory_8c_abd336cd6ab7ddce0e71b4fe10243d76e}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!setup@{setup}}
+\index{setup@{setup}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_abd336cd6ab7ddce0e71b4fe10243d76e} 
+void setup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{hnd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-pushinmemory_8c_ab901c12c41edb0b492683f2cf607fc07}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!write\_cb@{write\_cb}}
+\index{write\_cb@{write\_cb}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{write\_cb()}{write\_cb()}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_ab901c12c41edb0b492683f2cf607fc07} 
+size\+\_\+t write\+\_\+cb (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{contents}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{http2-pushinmemory_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{http2-pushinmemory_8c_acd8eb5d9a4280cc6da9f280830c3f018}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!files@{files}}
+\index{files@{files}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{files}{files}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_acd8eb5d9a4280cc6da9f280830c3f018} 
+struct \mbox{\hyperlink{structMemory}{Memory}} files\mbox{[}\mbox{\hyperlink{http2-pushinmemory_8c_a2c5eecb22513a88c24ae5831a3265e54}{MAX\+\_\+\+FILES}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-pushinmemory_8c_aad65ec4b117afb2d728f713f11c4afe1}\index{http2-\/pushinmemory.c@{http2-\/pushinmemory.c}!pushindex@{pushindex}}
+\index{pushindex@{pushindex}!http2-\/pushinmemory.c@{http2-\/pushinmemory.c}}
+\doxysubsubsection{\texorpdfstring{pushindex}{pushindex}}
+{\footnotesize\ttfamily \label{http2-pushinmemory_8c_aad65ec4b117afb2d728f713f11c4afe1} 
+int pushindex = 1\hspace{0.3cm}{\ttfamily [static]}}
+

@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['new_5fhttp_5fconnection_0',['new_http_connection',['../libwconr__private_8h.html#a3a9c10a45637e08ccd570a8945ff24eb',1,'new_http_connection(const char *__s, unsigned short __p):&#160;http.c'],['../posix_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9',1,'new_http_connection(const char *ip, unsigned short port):&#160;http.c'],['../win_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9',1,'new_http_connection(const char *ip, unsigned short port):&#160;http.c']]],
+  ['new_5fhttp_5frequest_5fparser_1',['new_http_request_parser',['../libwconr__private_8h.html#aab2f0f73f5bee8021a06a4908508df06',1,'new_http_request_parser(struct _http_connection_s *):&#160;http_parsing.c'],['../http__parsing_8c.html#ac7ebea9fdf20149a44d0e057cc3e6313',1,'new_http_request_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c']]],
+  ['new_5fhttp_5fresponse_5fparser_2',['new_http_response_parser',['../libwconr__private_8h.html#ab3abea3a52fd660d838c3d4affdbbcc1',1,'new_http_response_parser(struct _http_connection_s *):&#160;http_parsing.c'],['../http__parsing_8c.html#ad6b88be93dbe0fd5ba658681e47c16a6',1,'new_http_response_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c']]],
+  ['new_5fstate_3',['new_state',['../libwconr_8h.html#a1815617a622e3776dc61ecf67def9157',1,'new_state(void):&#160;wcr_state.c'],['../wcr__state_8c.html#adb5329b2d274868037a90bd27c1143b7',1,'new_state(void):&#160;wcr_state.c']]]
+];

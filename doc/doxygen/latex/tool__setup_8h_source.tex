@@ -1,0 +1,51 @@
+\doxysection{tool\+\_\+setup.\+h}
+\hypertarget{tool__setup_8h_source}{}\label{tool__setup_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_setup.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_setup.h}}
+\mbox{\hyperlink{tool__setup_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_SETUP\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_SETUP\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ CURL\_NO\_OLDIES}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ curl\_setup.h\ may\ define\ preprocessor\ macros\ such\ as\ \_FILE\_OFFSET\_BITS\ and}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ \_LARGE\_FILES\ in\ order\ to\ support\ files\ larger\ than\ 2\ GB.\ On\ platforms}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ where\ this\ happens\ it\ is\ mandatory\ that\ these\ macros\ are\ defined\ before}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ any\ system\ header\ file\ is\ included,\ otherwise\ file\ handling\ function}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ prototypes\ will\ be\ misdeclared\ and\ curl\ tool\ may\ not\ build\ properly;}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ therefore\ we\ must\ include\ curl\_setup.h\ before\ curl.h\ when\ building\ curl.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}\ \textcolor{comment}{/*\ from\ the\ lib\ directory\ */}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ curl\ tool\ certainly\ uses\ libcurl's\ external\ interface.}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}\ \textcolor{comment}{/*\ external\ interface\ */}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ Platform\ specific\ stuff.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#if\ defined(macintosh)\ \&\&\ defined(\_\_MRC\_\_)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ define\ main(x,y)\ curl\_main(x,y)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifndef\ OS}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ \ define\ OS\ "{}unknown"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifndef\ UNPRINTABLE\_CHAR}}
+\DoxyCodeLine{00059\ \ \ \ \textcolor{comment}{/*\ define\ what\ to\ use\ for\ unprintable\ characters\ */}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#\ \ define\ UNPRINTABLE\_CHAR\ '.'}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifndef\ HAVE\_STRDUP}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ \ include\ "{}\mbox{\hyperlink{tool__strdup_8h}{tool\_strdup.h}}"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_SETUP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

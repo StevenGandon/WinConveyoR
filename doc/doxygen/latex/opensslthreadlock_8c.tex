@@ -1,0 +1,156 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/opensslthreadlock.c File Reference}
+\hypertarget{opensslthreadlock_8c}{}\label{opensslthreadlock_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/opensslthreadlock.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/opensslthreadlock.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/err.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{opensslthreadlock_8c_a94ada48918e73511c91e3e0e885fe763}{MUTEX\+\_\+\+TYPE}}~pthread\+\_\+mutex\+\_\+t
+\item 
+\#define \mbox{\hyperlink{opensslthreadlock_8c_a4c8c0786dbefcef7711a8bf23ef5a5e9}{MUTEX\+\_\+\+SETUP}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{opensslthreadlock_8c_a64ca321a1510fb750a1dbdc7990d056c}{MUTEX\+\_\+\+CLEANUP}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{opensslthreadlock_8c_a441b021fa23aeb332a6aa860cb1aee7c}{MUTEX\+\_\+\+LOCK}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{opensslthreadlock_8c_a04bad901d24418b1d7e307edb0d38662}{MUTEX\+\_\+\+UNLOCK}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{opensslthreadlock_8c_a9ab5a77b8cf2b98f7d6c1b48bb421f69}{THREAD\+\_\+\+ID}}~pthread\+\_\+self()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{opensslthreadlock_8c_aa9755d36bcd51b5c2b787c988c271db4}{handle\+\_\+error}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}}, int lineno, const char \texorpdfstring{$\ast$}{*}msg)
+\item 
+static void \mbox{\hyperlink{opensslthreadlock_8c_a91ab09a133ac3e1bd6e0ad51225d6134}{locking\+\_\+function}} (int mode, int \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}}, int \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})
+\item 
+static unsigned long \mbox{\hyperlink{opensslthreadlock_8c_abd6f1aa0afe9f6dd676285515b761997}{id\+\_\+function}} (void)
+\item 
+int \mbox{\hyperlink{opensslthreadlock_8c_a95c1dbbd4cfef232bead684cfebc458e}{thread\+\_\+setup}} (void)
+\item 
+int \mbox{\hyperlink{opensslthreadlock_8c_a24b6657ee6ad7fc2582049a880c40d22}{thread\+\_\+cleanup}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{opensslthreadlock_8c_a94ada48918e73511c91e3e0e885fe763}{MUTEX\+\_\+\+TYPE}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{opensslthreadlock_8c_a2cd3412ec3679b98b8d74cbee63a6832}{mutex\+\_\+buf}} = NULL
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{opensslthreadlock_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{opensslthreadlock_8c_a64ca321a1510fb750a1dbdc7990d056c}\index{opensslthreadlock.c@{opensslthreadlock.c}!MUTEX\_CLEANUP@{MUTEX\_CLEANUP}}
+\index{MUTEX\_CLEANUP@{MUTEX\_CLEANUP}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{MUTEX\_CLEANUP}{MUTEX\_CLEANUP}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a64ca321a1510fb750a1dbdc7990d056c} 
+\#define MUTEX\+\_\+\+CLEANUP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pthread\_mutex\_destroy(\&(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}))}
+
+\end{DoxyCode}
+\Hypertarget{opensslthreadlock_8c_a441b021fa23aeb332a6aa860cb1aee7c}\index{opensslthreadlock.c@{opensslthreadlock.c}!MUTEX\_LOCK@{MUTEX\_LOCK}}
+\index{MUTEX\_LOCK@{MUTEX\_LOCK}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{MUTEX\_LOCK}{MUTEX\_LOCK}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a441b021fa23aeb332a6aa860cb1aee7c} 
+\#define MUTEX\+\_\+\+LOCK(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pthread\_mutex\_lock(\&(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}))}
+
+\end{DoxyCode}
+\Hypertarget{opensslthreadlock_8c_a4c8c0786dbefcef7711a8bf23ef5a5e9}\index{opensslthreadlock.c@{opensslthreadlock.c}!MUTEX\_SETUP@{MUTEX\_SETUP}}
+\index{MUTEX\_SETUP@{MUTEX\_SETUP}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{MUTEX\_SETUP}{MUTEX\_SETUP}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a4c8c0786dbefcef7711a8bf23ef5a5e9} 
+\#define MUTEX\+\_\+\+SETUP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pthread\_mutex\_init(\&(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}),\ NULL)}
+
+\end{DoxyCode}
+\Hypertarget{opensslthreadlock_8c_a94ada48918e73511c91e3e0e885fe763}\index{opensslthreadlock.c@{opensslthreadlock.c}!MUTEX\_TYPE@{MUTEX\_TYPE}}
+\index{MUTEX\_TYPE@{MUTEX\_TYPE}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{MUTEX\_TYPE}{MUTEX\_TYPE}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a94ada48918e73511c91e3e0e885fe763} 
+\#define MUTEX\+\_\+\+TYPE~pthread\+\_\+mutex\+\_\+t}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{opensslthreadlock_8c_a04bad901d24418b1d7e307edb0d38662}\index{opensslthreadlock.c@{opensslthreadlock.c}!MUTEX\_UNLOCK@{MUTEX\_UNLOCK}}
+\index{MUTEX\_UNLOCK@{MUTEX\_UNLOCK}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{MUTEX\_UNLOCK}{MUTEX\_UNLOCK}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a04bad901d24418b1d7e307edb0d38662} 
+\#define MUTEX\+\_\+\+UNLOCK(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pthread\_mutex\_unlock(\&(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}))}
+
+\end{DoxyCode}
+\Hypertarget{opensslthreadlock_8c_a9ab5a77b8cf2b98f7d6c1b48bb421f69}\index{opensslthreadlock.c@{opensslthreadlock.c}!THREAD\_ID@{THREAD\_ID}}
+\index{THREAD\_ID@{THREAD\_ID}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{THREAD\_ID}{THREAD\_ID}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a9ab5a77b8cf2b98f7d6c1b48bb421f69} 
+\#define THREAD\+\_\+\+ID~pthread\+\_\+self()}
+
+
+
+\label{doc-func-members}
+\Hypertarget{opensslthreadlock_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{opensslthreadlock_8c_aa9755d36bcd51b5c2b787c988c271db4}\index{opensslthreadlock.c@{opensslthreadlock.c}!handle\_error@{handle\_error}}
+\index{handle\_error@{handle\_error}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{handle\_error()}{handle\_error()}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_aa9755d36bcd51b5c2b787c988c271db4} 
+void handle\+\_\+error (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{int}]{lineno}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{opensslthreadlock_8c_abd6f1aa0afe9f6dd676285515b761997}\index{opensslthreadlock.c@{opensslthreadlock.c}!id\_function@{id\_function}}
+\index{id\_function@{id\_function}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{id\_function()}{id\_function()}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_abd6f1aa0afe9f6dd676285515b761997} 
+unsigned long id\+\_\+function (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{opensslthreadlock_8c_a91ab09a133ac3e1bd6e0ad51225d6134}\index{opensslthreadlock.c@{opensslthreadlock.c}!locking\_function@{locking\_function}}
+\index{locking\_function@{locking\_function}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{locking\_function()}{locking\_function()}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a91ab09a133ac3e1bd6e0ad51225d6134} 
+void locking\+\_\+function (\begin{DoxyParamCaption}\item[{int}]{mode}{, }\item[{int}]{n}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{int}]{line}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{opensslthreadlock_8c_a24b6657ee6ad7fc2582049a880c40d22}\index{opensslthreadlock.c@{opensslthreadlock.c}!thread\_cleanup@{thread\_cleanup}}
+\index{thread\_cleanup@{thread\_cleanup}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{thread\_cleanup()}{thread\_cleanup()}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a24b6657ee6ad7fc2582049a880c40d22} 
+int thread\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{opensslthreadlock_8c_a95c1dbbd4cfef232bead684cfebc458e}\index{opensslthreadlock.c@{opensslthreadlock.c}!thread\_setup@{thread\_setup}}
+\index{thread\_setup@{thread\_setup}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{thread\_setup()}{thread\_setup()}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a95c1dbbd4cfef232bead684cfebc458e} 
+int thread\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{opensslthreadlock_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{opensslthreadlock_8c_a2cd3412ec3679b98b8d74cbee63a6832}\index{opensslthreadlock.c@{opensslthreadlock.c}!mutex\_buf@{mutex\_buf}}
+\index{mutex\_buf@{mutex\_buf}!opensslthreadlock.c@{opensslthreadlock.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_buf}{mutex\_buf}}
+{\footnotesize\ttfamily \label{opensslthreadlock_8c_a2cd3412ec3679b98b8d74cbee63a6832} 
+\mbox{\hyperlink{opensslthreadlock_8c_a94ada48918e73511c91e3e0e885fe763}{MUTEX\+\_\+\+TYPE}}\texorpdfstring{$\ast$}{*} mutex\+\_\+buf = NULL\hspace{0.3cm}{\ttfamily [static]}}
+

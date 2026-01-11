@@ -1,0 +1,68 @@
+\chapter{SSL Certificate Verification }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS}\index{SSL Certificate Verification@{SSL Certificate Verification}}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1836}{}\doxysection{\texorpdfstring{SSL is TLS}{SSL is TLS}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1836}
+SSL is the old name. It is called TLS these days.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1837}{}\doxysection{\texorpdfstring{Native SSL}{Native SSL}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1837}
+If libcurl was built with Schannel or Secure Transport support (the native SSL libraries included in Windows and Mac OS X), then this does not apply to you. Scroll down for details on how the OS-\/native engines handle SSL certificates. If you are not sure, then run "{}curl -\/\+V"{} and read the results. If the version string says {\ttfamily Schannel} in it, then it was built with Schannel support.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1838}{}\doxysection{\texorpdfstring{It is about trust}{It is about trust}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1838}
+This system is about trust. In your local CA certificate store you have certs from {\itshape trusted} Certificate Authorities that you then can use to verify that the server certificates you see are valid. They are signed by one of the certificate authorities you trust.
+
+Which certificate authorities do you trust? You can decide to trust the same set of companies your operating system trusts, or the set one of the known browsers trust. That is basically trust via someone else you trust. You should just be aware that modern operating systems and browsers are setup to trust {\itshape hundreds} of companies and in recent years several certificate authorities have been found untrustworthy.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1839}{}\doxysection{\texorpdfstring{Certificate Verification}{Certificate Verification}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1839}
+libcurl performs peer SSL certificate verification by default. This is done by using a CA certificate store that the SSL library can use to make sure the peer\textquotesingle{}s server certificate is valid.
+
+If you communicate with HTTPS, FTPS or other TLS-\/using servers using certificates in the CA store, you can be sure that the remote server really is the one it claims to be.
+
+If the remote server uses a self-\/signed certificate, if you do not install a CA cert store, if the server uses a certificate signed by a CA that is not included in the store you use or if the remote host is an impostor impersonating your favorite site, and you want to transfer files from this server, do one of the following\+:
+
+
+\begin{DoxyEnumerate}
+\item Tell libcurl to {\itshape not} verify the peer. With libcurl you disable this with {\ttfamily \doxylink{typecheck-gcc_8h_af8d527555aeac344caa3754445c6ecba}{curl\+\_\+easy\+\_\+setopt(curl, CURLOPT\+\_\+\+SSL\+\_\+\+VERIFYPEER, FALSE)};}
+
+With the curl command line tool, you disable this with {\ttfamily -\/k}/{\ttfamily -\/-\/insecure}.
+\item Get a CA certificate that can verify the remote server and use the proper option to point out this CA cert for verification when connecting. For libcurl hackers\+: {\ttfamily \doxylink{typecheck-gcc_8h_af8d527555aeac344caa3754445c6ecba}{curl\+\_\+easy\+\_\+setopt(curl, CURLOPT\+\_\+\+CAINFO, cacert)};}
+
+With the curl command line tool\+: {\ttfamily -\/-\/cacert \mbox{[}\doxylink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}\mbox{]}}
+\item Add the CA cert for your server to the existing default CA certificate store. The default CA certificate store can be changed at compile time with the following configure options\+:
+
+{\ttfamily -\/-\/with-\/ca-\/bundle=FILE}\+: use the specified file as the CA certificate store. CA certificates need to be concatenated in PEM format into this file.
+
+{\ttfamily -\/-\/with-\/ca-\/path=PATH}\+: use the specified path as CA certificate store. CA certificates need to be stored as individual PEM files in this directory. You may need to run c\+\_\+rehash after adding files there.
+
+If neither of the two options is specified, configure will try to auto-\/detect a setting. It\textquotesingle{}s also possible to explicitly not set any default store but rely on the built in default the crypto library may provide instead. You can achieve that by passing both {\ttfamily -\/-\/without-\/ca-\/bundle} and {\ttfamily -\/-\/without-\/ca-\/path} to the configure script.
+
+If you use Internet Explorer, this is one way to get extract the CA cert for a particular server\+:
+\begin{DoxyItemize}
+\item View the certificate by double-\/clicking the padlock
+\item Find out where the CA certificate is kept (Certificate\texorpdfstring{$>$}{>} Authority Information Access\texorpdfstring{$>$}{>}URL)
+\item Get a copy of the crt file using curl
+\item Convert it from crt to PEM using the Open\+SSL tool\+: {\ttfamily openssl x509 -\/inform DES -\/\doxylink{output_8d_ae89f0d52148b2fb2f78b73afdf17c7c2}{in} yourdownloaded.\+crt -\/out outcert.\+pem -\/text}
+\item Add the {\ttfamily outcert.\+pem} to the CA certificate store or use it stand-\/alone as described below.
+\end{DoxyItemize}
+
+If you use the {\ttfamily openssl} tool, this is one way to get extract the CA cert for a particular server\+:
+\begin{DoxyItemize}
+\item {\ttfamily openssl s\+\_\+client -\/showcerts -\/servername \doxylink{etag-save_8d_a75078f351235f219a18d40b0a1403845}{server} -\/\doxylink{setup-os400_8h_adfd4ee688142ebda1142c1b0c7577e91}{connect} \doxylink{etag-save_8d_a75078f351235f219a18d40b0a1403845}{server}\+:443 \texorpdfstring{$>$}{>} cacert.\+pem}
+\item type "{}quit"{}, followed by the "{}\+ENTER"{} key
+\item The certificate will have "{}\+BEGIN CERTIFICATE"{} and "{}\+END CERTIFICATE"{} markers.
+\item If you want to see the data in the certificate, you can do\+: {\ttfamily openssl x509 -\/inform \doxylink{cert-type_8d_a03c75a169f954ac1a7cd83b984989308}{PEM} -\/\doxylink{output_8d_ae89f0d52148b2fb2f78b73afdf17c7c2}{in} certfile -\/text -\/out certdata} where {\ttfamily certfile} is the cert you extracted from logfile. Look in {\ttfamily certdata}.
+\item If you want to trust the certificate, you can add it to your CA certificate store or use it stand-\/alone as described. Just remember that the security is no better than the way you obtained the certificate.
+\end{DoxyItemize}
+\item If you are using the curl command line tool, you can specify your own CA cert file by setting the environment variable {\ttfamily \doxylink{curl__config_8h_ae5eea99d1a0e2512a7854acb71038197}{CURL\+\_\+\+CA\+\_\+\+BUNDLE}} to the path of your choice.
+
+If you are using the curl command line tool on Windows, curl will search for a CA cert file named "{}curl-\/ca-\/bundle.\+crt"{} in these directories and in this order\+:
+\begin{DoxyEnumerate}
+\item application\textquotesingle{}s directory
+\item current working directory
+\item Windows System directory (e.\+g. C\+:\textbackslash{}windows\textbackslash{}system32)
+\item Windows Directory (e.\+g. C\+:\textbackslash{}windows)
+\item all directories along PATH\%
+\end{DoxyEnumerate}
+\item Get a better/different/newer CA cert bundle! One option is to extract the one a recent Firefox browser uses by running \textquotesingle{}make ca-\/bundle\textquotesingle{} in the curl build tree root, or possibly download a version that was generated this way for you\+: \href{https://curl.se/docs/caextract.html}{\texttt{CA Extract}}
+\end{DoxyEnumerate}
+
+Neglecting to use one of the above methods when dealing with a server using a certificate that is not signed by one of the certificates in the installed CA certificate store, will cause SSL to report an error ("{}certificate verify failed"{}) during the handshake and SSL will then refuse further communication with that server.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1840}{}\doxysection{\texorpdfstring{Certificate Verification with NSS}{Certificate Verification with NSS}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1840}
+If libcurl was built with NSS support, then depending on the OS distribution, it is probably required to take some additional steps to use the system-\/wide CA cert db. Red Hat ships with an additional module, libnsspem.\+so, which enables NSS to read the Open\+SSL PEM CA bundle. On open\+SUSE you can install p11-\/kit-\/nss-\/trust which makes NSS use the system wide CA certificate store. NSS also has a new \href{https://wiki.mozilla.org/NSS_Shared_DB}{\texttt{database format}}.
+
+Starting with version 7.\+19.\+7, libcurl automatically adds the {\ttfamily sql\+:} prefix to the certificate database directory (either the set default {\ttfamily /etc/pki/nssdb} or the directory configured with the {\ttfamily SSL\+\_\+\+DIR} environment variable). To check which certificate database format your distribution provides, examine the default certificate database location\+: {\ttfamily /etc/pki/nssdb}; the new certificate database format can be identified by the filenames {\ttfamily cert9.\+db}, {\ttfamily key4.\+db}, {\ttfamily pkcs11.\+txt}; filenames of older versions are {\ttfamily cert8.\+db}, {\ttfamily key3.\+db}, {\ttfamily secmod.\+db}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1841}{}\doxysection{\texorpdfstring{Certificate Verification with Schannel and Secure Transport}{Certificate Verification with Schannel and Secure Transport}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1841}
+If libcurl was built with Schannel (Microsoft\textquotesingle{}s native TLS engine) or Secure Transport (Apple\textquotesingle{}s native TLS engine) support, then libcurl will still perform peer certificate verification, but instead of using a CA cert bundle, it will use the certificates that are built into the OS. These are the same certificates that appear in the Internet Options control panel (under Windows) or Keychain Access application (under OS X). Any custom security rules for certificates will be honored.
+
+Schannel will run CRL checks on certificates unless peer verification is disabled. Secure Transport on i\+OS will run OCSP checks on certificates unless peer verification is disabled. Secure Transport on OS X will run either OCSP or CRL checks on certificates if those features are enabled, and this behavior can be adjusted in the preferences of Keychain Access.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1842}{}\doxysection{\texorpdfstring{HTTPS proxy}{HTTPS proxy}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2SSLCERTS_autotoc_md1842}
+Since version 7.\+52.\+0, curl can do HTTPS to the proxy separately from the connection to the server. This TLS connection is handled separately from the server connection so instead of {\ttfamily -\/-\/insecure} and {\ttfamily -\/-\/cacert} to control the certificate verification, you use {\ttfamily -\/-\/proxy-\/insecure} and {\ttfamily -\/-\/proxy-\/cacert}. With these options, you make sure that the TLS connection and the trust of the proxy can be kept totally separate from the TLS connection to the server. 

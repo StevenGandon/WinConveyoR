@@ -1,0 +1,47 @@
+\doxysection{curl\+\_\+gssapi.\+h}
+\hypertarget{curl__gssapi_8h_source}{}\label{curl__gssapi_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_gssapi.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_gssapi.h}}
+\mbox{\hyperlink{curl__gssapi_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_GSSAPI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_GSSAPI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ HAVE\_GSSAPI}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{extern}\ gss\_OID\_desc\ Curl\_spnego\_mech\_oid;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{extern}\ gss\_OID\_desc\ Curl\_krb5\_mech\_oid;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ Common\ method\ for\ using\ GSS-\/API\ */}}
+\DoxyCodeLine{00035\ OM\_uint32\ Curl\_gss\_init\_sec\_context(}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00037\ \ \ \ \ OM\_uint32\ *minor\_status,}
+\DoxyCodeLine{00038\ \ \ \ \ gss\_ctx\_id\_t\ *context,}
+\DoxyCodeLine{00039\ \ \ \ \ gss\_name\_t\ target\_name,}
+\DoxyCodeLine{00040\ \ \ \ \ gss\_OID\ mech\_type,}
+\DoxyCodeLine{00041\ \ \ \ \ gss\_channel\_bindings\_t\ input\_chan\_bindings,}
+\DoxyCodeLine{00042\ \ \ \ \ gss\_buffer\_t\ input\_token,}
+\DoxyCodeLine{00043\ \ \ \ \ gss\_buffer\_t\ output\_token,}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ mutual\_auth,}
+\DoxyCodeLine{00045\ \ \ \ \ OM\_uint32\ *ret\_flags);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ Helper\ to\ log\ a\ GSS-\/API\ error\ status\ */}}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ Curl\_gss\_log\_error(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prefix,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OM\_uint32\ major,\ OM\_uint32\ minor);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ Provide\ some\ definitions\ missing\ in\ old\ headers\ */}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ HAVE\_OLD\_GSSMIT}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ GSS\_C\_NT\_HOSTBASED\_SERVICE\ gss\_nt\_service\_name}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ NCOMPAT\ 1}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Define\ our\ privacy\ and\ integrity\ protection\ values\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ GSSAUTH\_P\_NONE\ \ \ \ \ \ 1}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ GSSAUTH\_P\_INTEGRITY\ 2}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ GSSAUTH\_P\_PRIVACY\ \ \ 4}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_GSSAPI\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_GSSAPI\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

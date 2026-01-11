@@ -1,0 +1,265 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/ephiperfifo.c File Reference}
+\hypertarget{ephiperfifo_8c}{}\label{ephiperfifo_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/ephiperfifo.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/ephiperfifo.c}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/epoll.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/timerfd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__GlobalInfo}{\+\_\+\+Global\+Info}}
+\item 
+struct \mbox{\hyperlink{struct__ConnInfo}{\+\_\+\+Conn\+Info}}
+\item 
+struct \mbox{\hyperlink{struct__SockInfo}{\+\_\+\+Sock\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ephiperfifo_8c_a04649c4a51b3ae64ea94115df20195da}{MSG\+\_\+\+OUT}}~stdout /\texorpdfstring{$\ast$}{*} Send info \mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}} stdout, change \mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}} stderr if you want \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{ephiperfifo_8c_a4add4ff3dd217487b8cd02afc09e5636}{mycase}}(code)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{struct__GlobalInfo}{\+\_\+\+Global\+Info}} \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}}
+\item 
+typedef struct \mbox{\hyperlink{struct__ConnInfo}{\+\_\+\+Conn\+Info}} \mbox{\hyperlink{ephiperfifo_8c_acf3d0f20b10d09cb8043103f6f0f96d3}{Conn\+Info}}
+\item 
+typedef struct \mbox{\hyperlink{struct__SockInfo}{\+\_\+\+Sock\+Info}} \mbox{\hyperlink{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}{Sock\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_ab5677b2a98dc2ac8558512f9d16c4b66}{mcode\+\_\+or\+\_\+die}} (const char \texorpdfstring{$\ast$}{*}where, \mbox{\hyperlink{multi_8h_a92acc8d3a23eaae72955b8a8b22c83e3}{CURLMcode}} code)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a3614393790ed0289d53a1ec812f57bc5}{timer\+\_\+cb}} (\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g, int revents)
+\item 
+static int \mbox{\hyperlink{ephiperfifo_8c_a74a80c146d18a0efc102551bae4d5fb6}{multi\+\_\+timer\+\_\+cb}} (\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}multi, long timeout\+\_\+ms, \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a7f0b2b5750e0480de401cb1616b31696}{check\+\_\+multi\+\_\+info}} (\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a112d07d131a255ae87359efb9cf9a636}{event\+\_\+cb}} (\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g, int fd, int revents)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a5034900ec7ea041124c64bd3207139a5}{remsock}} (\mbox{\hyperlink{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}{Sock\+Info}} \texorpdfstring{$\ast$}{*}f, \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a7f277b6072f3e0c8b674aecdec34c734}{setsock}} (\mbox{\hyperlink{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}{Sock\+Info}} \texorpdfstring{$\ast$}{*}f, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}, \mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}e, int act, \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_affca799b294c862dac9c495f8d18f595}{addsock}} (\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}, \mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}easy, int action, \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static int \mbox{\hyperlink{ephiperfifo_8c_ae487021be80f37c9e08a46cb7901d309}{sock\+\_\+cb}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}e, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}, int what, void \texorpdfstring{$\ast$}{*}cbp, void \texorpdfstring{$\ast$}{*}sockp)
+\item 
+static size\+\_\+t \mbox{\hyperlink{ephiperfifo_8c_a40e76c5820648c093d37472aa9d1dd69}{write\+\_\+cb}} (void \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static int \mbox{\hyperlink{ephiperfifo_8c_ab711b4ed8bfc4bd1e687628665da3cb6}{prog\+\_\+cb}} (void \texorpdfstring{$\ast$}{*}p, double dltotal, double dlnow, double ult, double uln)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a09c87751ed582c82be2912068c6e991c}{new\+\_\+conn}} (char \texorpdfstring{$\ast$}{*}url, \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a9640d90393bad6c1e723342d8274b679}{fifo\+\_\+cb}} (\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g, int revents)
+\item 
+static int \mbox{\hyperlink{ephiperfifo_8c_a16f3eb5b831da19079af5dc0d39900e8}{init\+\_\+fifo}} (\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+static void \mbox{\hyperlink{ephiperfifo_8c_a7102002141d7efc01a835e5827a446d4}{clean\+\_\+fifo}} (\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}g)
+\item 
+void \mbox{\hyperlink{ephiperfifo_8c_a4b515337891f74ebd79cb307db16bf33}{sigint\+\_\+handler}} (int signo)
+\item 
+int \mbox{\hyperlink{ephiperfifo_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ephiperfifo_8c_a49ec084430792117bb22ab5717a204f5}{fifo}} = "{}hiper.\+fifo"{}
+\item 
+int \mbox{\hyperlink{ephiperfifo_8c_acd9c6f5126a990e597e76363dd1be1f8}{g\+\_\+should\+\_\+exit\+\_\+}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ephiperfifo_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ephiperfifo_8c_a04649c4a51b3ae64ea94115df20195da}\index{ephiperfifo.c@{ephiperfifo.c}!MSG\_OUT@{MSG\_OUT}}
+\index{MSG\_OUT@{MSG\_OUT}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{MSG\_OUT}{MSG\_OUT}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a04649c4a51b3ae64ea94115df20195da} 
+\#define MSG\+\_\+\+OUT~stdout /\texorpdfstring{$\ast$}{*} Send info \mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}} stdout, change \mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}} stderr if you want \texorpdfstring{$\ast$}{*}/}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{ephiperfifo_8c_a4add4ff3dd217487b8cd02afc09e5636}\index{ephiperfifo.c@{ephiperfifo.c}!mycase@{mycase}}
+\index{mycase@{mycase}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{mycase}{mycase}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a4add4ff3dd217487b8cd02afc09e5636} 
+\#define mycase(\begin{DoxyParamCaption}\item[{}]{code}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{case}\ code:\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}\ =\ \_\_STRING(code)}
+
+\end{DoxyCode}
+
+
+\label{doc-typedef-members}
+\Hypertarget{ephiperfifo_8c_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{ephiperfifo_8c_acf3d0f20b10d09cb8043103f6f0f96d3}\index{ephiperfifo.c@{ephiperfifo.c}!ConnInfo@{ConnInfo}}
+\index{ConnInfo@{ConnInfo}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{ConnInfo}{ConnInfo}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_acf3d0f20b10d09cb8043103f6f0f96d3} 
+typedef struct \mbox{\hyperlink{struct__ConnInfo}{\+\_\+\+Conn\+Info}} \mbox{\hyperlink{ephiperfifo_8c_acf3d0f20b10d09cb8043103f6f0f96d3}{Conn\+Info}}}
+
+\Hypertarget{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}\index{ephiperfifo.c@{ephiperfifo.c}!GlobalInfo@{GlobalInfo}}
+\index{GlobalInfo@{GlobalInfo}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{GlobalInfo}{GlobalInfo}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27} 
+typedef struct \mbox{\hyperlink{struct__GlobalInfo}{\+\_\+\+Global\+Info}} \mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}}}
+
+\Hypertarget{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}\index{ephiperfifo.c@{ephiperfifo.c}!SockInfo@{SockInfo}}
+\index{SockInfo@{SockInfo}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{SockInfo}{SockInfo}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d} 
+typedef struct \mbox{\hyperlink{struct__SockInfo}{\+\_\+\+Sock\+Info}} \mbox{\hyperlink{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}{Sock\+Info}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{ephiperfifo_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ephiperfifo_8c_affca799b294c862dac9c495f8d18f595}\index{ephiperfifo.c@{ephiperfifo.c}!addsock@{addsock}}
+\index{addsock@{addsock}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{addsock()}{addsock()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_affca799b294c862dac9c495f8d18f595} 
+void addsock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}}}]{s}{, }\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{easy}{, }\item[{int}]{action}{, }\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a7f0b2b5750e0480de401cb1616b31696}\index{ephiperfifo.c@{ephiperfifo.c}!check\_multi\_info@{check\_multi\_info}}
+\index{check\_multi\_info@{check\_multi\_info}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{check\_multi\_info()}{check\_multi\_info()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a7f0b2b5750e0480de401cb1616b31696} 
+void check\+\_\+multi\+\_\+info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a7102002141d7efc01a835e5827a446d4}\index{ephiperfifo.c@{ephiperfifo.c}!clean\_fifo@{clean\_fifo}}
+\index{clean\_fifo@{clean\_fifo}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{clean\_fifo()}{clean\_fifo()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a7102002141d7efc01a835e5827a446d4} 
+void clean\+\_\+fifo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a112d07d131a255ae87359efb9cf9a636}\index{ephiperfifo.c@{ephiperfifo.c}!event\_cb@{event\_cb}}
+\index{event\_cb@{event\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{event\_cb()}{event\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a112d07d131a255ae87359efb9cf9a636} 
+void event\+\_\+cb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{int}]{fd}{, }\item[{int}]{revents}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a9640d90393bad6c1e723342d8274b679}\index{ephiperfifo.c@{ephiperfifo.c}!fifo\_cb@{fifo\_cb}}
+\index{fifo\_cb@{fifo\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{fifo\_cb()}{fifo\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a9640d90393bad6c1e723342d8274b679} 
+void fifo\+\_\+cb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{int}]{revents}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a16f3eb5b831da19079af5dc0d39900e8}\index{ephiperfifo.c@{ephiperfifo.c}!init\_fifo@{init\_fifo}}
+\index{init\_fifo@{init\_fifo}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{init\_fifo()}{init\_fifo()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a16f3eb5b831da19079af5dc0d39900e8} 
+int init\+\_\+fifo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a3c04138a5bfe5d72780bb7e82a18e627}\index{ephiperfifo.c@{ephiperfifo.c}!main@{main}}
+\index{main@{main}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ephiperfifo_8c_ab5677b2a98dc2ac8558512f9d16c4b66}\index{ephiperfifo.c@{ephiperfifo.c}!mcode\_or\_die@{mcode\_or\_die}}
+\index{mcode\_or\_die@{mcode\_or\_die}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{mcode\_or\_die()}{mcode\_or\_die()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_ab5677b2a98dc2ac8558512f9d16c4b66} 
+void mcode\+\_\+or\+\_\+die (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{where}{, }\item[{\mbox{\hyperlink{multi_8h_a92acc8d3a23eaae72955b8a8b22c83e3}{CURLMcode}}}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a74a80c146d18a0efc102551bae4d5fb6}\index{ephiperfifo.c@{ephiperfifo.c}!multi\_timer\_cb@{multi\_timer\_cb}}
+\index{multi\_timer\_cb@{multi\_timer\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{multi\_timer\_cb()}{multi\_timer\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a74a80c146d18a0efc102551bae4d5fb6} 
+int multi\+\_\+timer\+\_\+cb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}}]{multi}{, }\item[{long}]{timeout\+\_\+ms}{, }\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a09c87751ed582c82be2912068c6e991c}\index{ephiperfifo.c@{ephiperfifo.c}!new\_conn@{new\_conn}}
+\index{new\_conn@{new\_conn}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{new\_conn()}{new\_conn()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a09c87751ed582c82be2912068c6e991c} 
+void new\+\_\+conn (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_ab711b4ed8bfc4bd1e687628665da3cb6}\index{ephiperfifo.c@{ephiperfifo.c}!prog\_cb@{prog\_cb}}
+\index{prog\_cb@{prog\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{prog\_cb()}{prog\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_ab711b4ed8bfc4bd1e687628665da3cb6} 
+int prog\+\_\+cb (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{p}{, }\item[{double}]{dltotal}{, }\item[{double}]{dlnow}{, }\item[{double}]{ult}{, }\item[{double}]{uln}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a5034900ec7ea041124c64bd3207139a5}\index{ephiperfifo.c@{ephiperfifo.c}!remsock@{remsock}}
+\index{remsock@{remsock}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{remsock()}{remsock()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a5034900ec7ea041124c64bd3207139a5} 
+void remsock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}{Sock\+Info}} \texorpdfstring{$\ast$}{*}}]{f}{, }\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a7f277b6072f3e0c8b674aecdec34c734}\index{ephiperfifo.c@{ephiperfifo.c}!setsock@{setsock}}
+\index{setsock@{setsock}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{setsock()}{setsock()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a7f277b6072f3e0c8b674aecdec34c734} 
+void setsock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a74d643b67035ae50dd75e72734578c0d}{Sock\+Info}} \texorpdfstring{$\ast$}{*}}]{f}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}}}]{s}{, }\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{e}{, }\item[{int}]{act}{, }\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a4b515337891f74ebd79cb307db16bf33}\index{ephiperfifo.c@{ephiperfifo.c}!sigint\_handler@{sigint\_handler}}
+\index{sigint\_handler@{sigint\_handler}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{sigint\_handler()}{sigint\_handler()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a4b515337891f74ebd79cb307db16bf33} 
+void sigint\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{signo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ephiperfifo_8c_ae487021be80f37c9e08a46cb7901d309}\index{ephiperfifo.c@{ephiperfifo.c}!sock\_cb@{sock\_cb}}
+\index{sock\_cb@{sock\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{sock\_cb()}{sock\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_ae487021be80f37c9e08a46cb7901d309} 
+int sock\+\_\+cb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{e}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}}}]{s}{, }\item[{int}]{what}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{cbp}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{sockp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a3614393790ed0289d53a1ec812f57bc5}\index{ephiperfifo.c@{ephiperfifo.c}!timer\_cb@{timer\_cb}}
+\index{timer\_cb@{timer\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{timer\_cb()}{timer\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a3614393790ed0289d53a1ec812f57bc5} 
+void timer\+\_\+cb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ephiperfifo_8c_a80895db277a33545a1976d85954d2f27}{Global\+Info}} \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{int}]{revents}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_a40e76c5820648c093d37472aa9d1dd69}\index{ephiperfifo.c@{ephiperfifo.c}!write\_cb@{write\_cb}}
+\index{write\_cb@{write\_cb}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{write\_cb()}{write\_cb()}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a40e76c5820648c093d37472aa9d1dd69} 
+size\+\_\+t write\+\_\+cb (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{ephiperfifo_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{ephiperfifo_8c_a49ec084430792117bb22ab5717a204f5}\index{ephiperfifo.c@{ephiperfifo.c}!fifo@{fifo}}
+\index{fifo@{fifo}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{fifo}{fifo}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_a49ec084430792117bb22ab5717a204f5} 
+const char\texorpdfstring{$\ast$}{*} fifo = "{}hiper.\+fifo"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ephiperfifo_8c_acd9c6f5126a990e597e76363dd1be1f8}\index{ephiperfifo.c@{ephiperfifo.c}!g\_should\_exit\_@{g\_should\_exit\_}}
+\index{g\_should\_exit\_@{g\_should\_exit\_}!ephiperfifo.c@{ephiperfifo.c}}
+\doxysubsubsection{\texorpdfstring{g\_should\_exit\_}{g\_should\_exit\_}}
+{\footnotesize\ttfamily \label{ephiperfifo_8c_acd9c6f5126a990e597e76363dd1be1f8} 
+int g\+\_\+should\+\_\+exit\+\_\+ = 0}
+

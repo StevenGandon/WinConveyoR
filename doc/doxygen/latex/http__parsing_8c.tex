@@ -1,0 +1,98 @@
+\doxysection{lib/libwconr/src/http\+\_\+parsing.c File Reference}
+\hypertarget{http__parsing_8c}{}\label{http__parsing_8c}\index{lib/libwconr/src/http\_parsing.c@{lib/libwconr/src/http\_parsing.c}}
+{\ttfamily \#include "{}libwconr\+\_\+private.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{http__parsing_8c_a0a0de0a7fd18f12498baa360bd95b046}{HEADER\+\_\+\+END}}~"{}\textbackslash{}r\textbackslash{}n\textbackslash{}r\textbackslash{}n"{}
+\item 
+\#define \mbox{\hyperlink{http__parsing_8c_a80a9418bb8c99d8ea6efd25e628af2b3}{HEADER\+\_\+\+END\+\_\+\+LEN}}~4
+\item 
+\#define \mbox{\hyperlink{http__parsing_8c_a3cf242d5a273bc0119ad5b7d66a93a52}{INITIAL\+\_\+\+CHUNK\+\_\+\+SIZE}}~128
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{http__parsing_8c_a2ea84484b413a98f194fa1dd26f907b1}{end\+\_\+http\+\_\+response\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+parser)
+\item 
+void \mbox{\hyperlink{http__parsing_8c_a1695fea8e1269093de2618622ad7a4d8}{end\+\_\+http\+\_\+request\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+parser)
+\item 
+struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__parsing_8c_ac7ebea9fdf20149a44d0e057cc3e6313}{new\+\_\+http\+\_\+request\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+connection)
+\item 
+struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__parsing_8c_ad6b88be93dbe0fd5ba658681e47c16a6}{new\+\_\+http\+\_\+response\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+connection)
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__parsing_8c_a6bfadfd8ddd0dc3db6510db30bcc159b}{read\+\_\+http\+\_\+headers}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}client, size\+\_\+t \texorpdfstring{$\ast$}{*}total\+\_\+size)
+\item 
+int \mbox{\hyperlink{http__parsing_8c_aef92122913d5fac352af325bec64f251}{parse\+\_\+status\+\_\+line}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}parser, unsigned char \texorpdfstring{$\ast$}{*}buffer)
+\item 
+void \mbox{\hyperlink{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8}{parse\+\_\+headers}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}parser, unsigned char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t total\+\_\+size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{http__parsing_8c_a0a0de0a7fd18f12498baa360bd95b046}\label{http__parsing_8c_a0a0de0a7fd18f12498baa360bd95b046} 
+\index{http\_parsing.c@{http\_parsing.c}!HEADER\_END@{HEADER\_END}}
+\index{HEADER\_END@{HEADER\_END}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{HEADER\_END}{HEADER\_END}}
+{\footnotesize\ttfamily \#define HEADER\+\_\+\+END~"{}\textbackslash{}r\textbackslash{}n\textbackslash{}r\textbackslash{}n"{}}
+
+\Hypertarget{http__parsing_8c_a80a9418bb8c99d8ea6efd25e628af2b3}\label{http__parsing_8c_a80a9418bb8c99d8ea6efd25e628af2b3} 
+\index{http\_parsing.c@{http\_parsing.c}!HEADER\_END\_LEN@{HEADER\_END\_LEN}}
+\index{HEADER\_END\_LEN@{HEADER\_END\_LEN}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{HEADER\_END\_LEN}{HEADER\_END\_LEN}}
+{\footnotesize\ttfamily \#define HEADER\+\_\+\+END\+\_\+\+LEN~4}
+
+\Hypertarget{http__parsing_8c_a3cf242d5a273bc0119ad5b7d66a93a52}\label{http__parsing_8c_a3cf242d5a273bc0119ad5b7d66a93a52} 
+\index{http\_parsing.c@{http\_parsing.c}!INITIAL\_CHUNK\_SIZE@{INITIAL\_CHUNK\_SIZE}}
+\index{INITIAL\_CHUNK\_SIZE@{INITIAL\_CHUNK\_SIZE}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{INITIAL\_CHUNK\_SIZE}{INITIAL\_CHUNK\_SIZE}}
+{\footnotesize\ttfamily \#define INITIAL\+\_\+\+CHUNK\+\_\+\+SIZE~128}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{http__parsing_8c_a1695fea8e1269093de2618622ad7a4d8}\label{http__parsing_8c_a1695fea8e1269093de2618622ad7a4d8} 
+\index{http\_parsing.c@{http\_parsing.c}!end\_http\_request\_parser@{end\_http\_request\_parser}}
+\index{end\_http\_request\_parser@{end\_http\_request\_parser}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{end\_http\_request\_parser()}{end\_http\_request\_parser()}}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+parser }\end{DoxyParamCaption})}
+
+\Hypertarget{http__parsing_8c_a2ea84484b413a98f194fa1dd26f907b1}\label{http__parsing_8c_a2ea84484b413a98f194fa1dd26f907b1} 
+\index{http\_parsing.c@{http\_parsing.c}!end\_http\_response\_parser@{end\_http\_response\_parser}}
+\index{end\_http\_response\_parser@{end\_http\_response\_parser}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{end\_http\_response\_parser()}{end\_http\_response\_parser()}}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+parser }\end{DoxyParamCaption})}
+
+\Hypertarget{http__parsing_8c_ac7ebea9fdf20149a44d0e057cc3e6313}\label{http__parsing_8c_ac7ebea9fdf20149a44d0e057cc3e6313} 
+\index{http\_parsing.c@{http\_parsing.c}!new\_http\_request\_parser@{new\_http\_request\_parser}}
+\index{new\_http\_request\_parser@{new\_http\_request\_parser}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{new\_http\_request\_parser()}{new\_http\_request\_parser()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
+
+\Hypertarget{http__parsing_8c_ad6b88be93dbe0fd5ba658681e47c16a6}\label{http__parsing_8c_ad6b88be93dbe0fd5ba658681e47c16a6} 
+\index{http\_parsing.c@{http\_parsing.c}!new\_http\_response\_parser@{new\_http\_response\_parser}}
+\index{new\_http\_response\_parser@{new\_http\_response\_parser}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{new\_http\_response\_parser()}{new\_http\_response\_parser()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
+
+\Hypertarget{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8}\label{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8} 
+\index{http\_parsing.c@{http\_parsing.c}!parse\_headers@{parse\_headers}}
+\index{parse\_headers@{parse\_headers}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{parse\_headers()}{parse\_headers()}}
+{\footnotesize\ttfamily void parse\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{total\+\_\+size }\end{DoxyParamCaption})}
+
+\Hypertarget{http__parsing_8c_aef92122913d5fac352af325bec64f251}\label{http__parsing_8c_aef92122913d5fac352af325bec64f251} 
+\index{http\_parsing.c@{http\_parsing.c}!parse\_status\_line@{parse\_status\_line}}
+\index{parse\_status\_line@{parse\_status\_line}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{parse\_status\_line()}{parse\_status\_line()}}
+{\footnotesize\ttfamily int parse\+\_\+status\+\_\+line (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+\Hypertarget{http__parsing_8c_a6bfadfd8ddd0dc3db6510db30bcc159b}\label{http__parsing_8c_a6bfadfd8ddd0dc3db6510db30bcc159b} 
+\index{http\_parsing.c@{http\_parsing.c}!read\_http\_headers@{read\_http\_headers}}
+\index{read\_http\_headers@{read\_http\_headers}!http\_parsing.c@{http\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{read\_http\_headers()}{read\_http\_headers()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} read\+\_\+http\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{client,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{total\+\_\+size }\end{DoxyParamCaption})}
+

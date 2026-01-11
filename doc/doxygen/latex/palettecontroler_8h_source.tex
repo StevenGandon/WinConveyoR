@@ -1,0 +1,141 @@
+\doxysection{palettecontroler.\+h}
+\hypertarget{palettecontroler_8h_source}{}\label{palettecontroler_8h_source}\index{Beamage/palettecontroler.h@{Beamage/palettecontroler.h}}
+\mbox{\hyperlink{palettecontroler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}ui\_palettecontroler.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QStringList>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{paletteinfo_8h}{paletteinfo.h}}>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{paletteimage_8h}{paletteimage.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mydoublespinbox_8h}{mydoublespinbox.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}qlist.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}qundostack.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classpaletteControler_a6ab495c963a43a1c874cf77a8b5dab94}{paletteControler}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classpaletteControler_a6ab495c963a43a1c874cf77a8b5dab94}{paletteControler}}(QWidget\ *parent\ =\ 0);}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classpaletteControler_aaf7a4c6151bb9eca1c70b508fd97231b}{paletteControler}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classpaletteControler_a6ab495c963a43a1c874cf77a8b5dab94}{paletteControler}}\ \&cont)\ \{\}}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classpaletteControler_a2fa5b092b92b8dede548439b6d6e785b}{\string~paletteControler}}();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classpaletteImage}{paletteImage}}\ *\mbox{\hyperlink{classpaletteControler_aa338587f197e9a7e0c2331bcf30a621f}{palette\_display}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ QPixmap\ \mbox{\hyperlink{classpaletteControler_a51e582e82805eb8c7fd8ae1e43b905cf}{createPixmap}}(\textcolor{keyword}{const}\ QString\ \&colourName,\ \textcolor{keywordtype}{int}\ nbcolour);}
+\DoxyCodeLine{00024\ \ \ \ \ QPixmap\ \mbox{\hyperlink{classpaletteControler_a40c4db9f696abf4d968ca7ef0d792cc4}{createContinuousPixmap}}(\textcolor{keyword}{const}\ QString\ \&colourName,\ \textcolor{keywordtype}{int}\ nbcolour);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_abd326f339d2abf20ca1cf4b8e3e8270d}{createContinuousList}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classpaletteControler_a4aa4edf6f73fb414f1be9dc0470c0d9e}{extremeColorFixed}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.fixExtrema();\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ QRgb\ \mbox{\hyperlink{classpaletteControler_af361f248728508f57a990204c3960111}{getColor}}(\textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ QString\ \mbox{\hyperlink{classpaletteControler_a466ba0896fa7b5c0c8e96cf6dd75ddfe}{getCurrentPaletteName}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.name();\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ QString\ \mbox{\hyperlink{classpaletteControler_a8f183da727a953174cf493719c3a076f}{getCurrentPaletteNbColor}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.nbColor();\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ad40d53a5f15373d24db54c333766ddda}{setCurrentPaletteName}}(\textcolor{keyword}{const}\ QString\ \&name)\ \{\ fPaletteInfo.setName(name);\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ac63517ace4cd728c970acb0eaa2e6942}{setCurrentPaletteNbColor}}(\textcolor{keyword}{const}\ QString\ \&name)\ \{\ fPaletteInfo.setNbColor(name);\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classpaletteControler_ac73e31bc0bb1b663521e653072e9c887}{inverted}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.inverted();\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ad546c3a70988a7f91b7baf424be2ccfe}{setInverted}}(\textcolor{keywordtype}{bool}\ val)\ \{\ fPaletteInfo.setInverted(val);\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_add48d16df4acf3bd987a7fc67edac392}{setOrientation}}(Qt::Orientation\ \mbox{\hyperlink{classpaletteControler_a8d727a82ee9c7e605a1838eeba850c0d}{orientation}});}
+\DoxyCodeLine{00041\ \ \ \ \ Qt::Orientation\ \mbox{\hyperlink{classpaletteControler_a8d727a82ee9c7e605a1838eeba850c0d}{orientation}}()\ \{\ \textcolor{keywordflow}{return}\ fOrientation;\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a2b7938be3554360bda034a44a2673f1c}{setSelected}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classpaletteControler_a05d7305049d19d716cacfd1d00139c5e}{selected}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.selected();\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classpaletteInfo}{paletteInfo}}\ \mbox{\hyperlink{classpaletteControler_aba2f9b82a3043d081ac10158749acb99}{getPaletteInfo}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a42ff52be8d86d7e8e523a6b45e71152f}{setPaletteInfo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classpaletteInfo}{paletteInfo}}\ \&info);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a8cbb81af46cfb5f18bb976bbd212e05d}{doSetPaletteInfo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classpaletteInfo}{paletteInfo}}\ \&info);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classpaletteControler_ada929f686ed47d09081b14f0d65ed3c7}{maximum}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.maximum();\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classpaletteControler_aa5e05ce3e0153546d63972381e2ccf33}{minimum}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fPaletteInfo.minimum();\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a70d654c3c7b20326731448e95323f05c}{setAssociated}}(\textcolor{keywordtype}{bool}\ val\ =\ \textcolor{keyword}{true})\ \{\ fIsAssociated\ =\ val;\ emit\ \mbox{\hyperlink{classpaletteControler_a71f90aaf1e088679cdf750b9047cb5b1}{associated}}(val);\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classpaletteControler_a28c71ba061ee4b856ef18a4d5c9efe9c}{isAssociated}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fIsAssociated;\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ signals:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a417ad7a04ef5aa226cdd8780faa490c8}{paletteChanged}}();}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_afbc6791caaef87542486ad4831e53823}{newPalette}}(\textcolor{keyword}{const}\ QList<QRgb>\ \&colourListrgb);}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a8c20c5ae1109c150fd09cf0aa904b555}{newPalette}}(\textcolor{keyword}{const}\ QString\ \&paletteName,\ \textcolor{keyword}{const}\ QString\ \&nbColor);}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ac098b1be912a43f79fa8a821730e0eaa}{newPalette}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classpaletteInfo}{paletteInfo}}\ \&info);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a185330452fdcaee6c99b805082229cea}{minChanged}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a01f983ff2c682465cecd42c2034df860}{maxChanged}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_affb6868e9cc48236eca642a22c7ec0fc}{maximumAuto}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_adf1b7e8943275f22f79e0fba75d0c9da}{hideRequested}}();}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_afc1e39463d619b34b0b5ec3a776c1a6d}{numberOfIntervals}}(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a138530a889e7a40f371d8a3b8a4b1e84}{displayAll}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a71f90aaf1e088679cdf750b9047cb5b1}{associated}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_aa6b3b716e5cb4509ee661bd745de7e2e}{activate}}();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_aff9fb9b26206cc79012b6c7e1cf1e64a}{customMenuRequested}}(\textcolor{keyword}{const}\ QPoint\ \&pos);}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a6e2ffcdafaf060d348956182ac0da85f}{loadFile}}(\textcolor{keyword}{const}\ QString\ \&name);}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_afe4c526a13f4452e984380721da55489}{createPaletteMenu}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a511fcd24e5a41d63e99db7f2c1249c11}{createMenu}}();}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a45f740e7bc50497662854c7bdffbc208}{updateImagePalette}}();}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ac70c9333b3e8e9f6d2d55c874449e7df}{invertColors}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_aea88dca6c3dd57369e4c0bc029adfb6c}{changeMinimum}}();}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a7d5b992475137338f6b137fafed5dd4e}{changeMaximum}}();}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_aea88dca6c3dd57369e4c0bc029adfb6c}{changeMinimum}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a7d5b992475137338f6b137fafed5dd4e}{changeMaximum}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a99872b6e92aa22780350c1eda8230162}{changeGamma}}(\textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ab73c839d4857ea0f3d22451f6135b606}{setPaletteToDefault}}();}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a945341db2de1916b130d7b2b2a3e4dad}{setExternalMaxValue}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a88deeec1122c9145fa3df35d041ed3c6}{fixExtremeColors}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a223a115e48bd916abb755a3fa626ce4c}{changeDisplayAll}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a333e5d64826437cdc3e5f150b0658af9}{makeContinuous}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a1419d0000c12764c55d279826502346e}{reset}}();}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ad5ddeb2d9f19bac34a87cbbcdad10087}{set}}(\textcolor{keyword}{const}\ QString\ \&paletteName\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ QString\ \&paletteNbColor\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_aec9b74850dbcbf78f8123feb6e20e557}{actionTriggered}}(QAction*\ action);}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_abfb0a7bb340845a43a98635ce3f5bdc9}{actionPaletteTriggered}}(QAction*\ action);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a7b847faf429780f9b73e40d6891551d4}{findNbColours}}(\textcolor{keyword}{const}\ QString\ \&colourName);}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_abf82bee4013f9d0d2797299d89a6292e}{findColourList}}(\textcolor{keyword}{const}\ QString\ \&colourName\ ,\ \textcolor{keywordtype}{int}\ nbcolour);}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_a5c094b11da9697021e9c727a97259667}{selectNbColour}}(\textcolor{keyword}{const}\ QString\ \&colourName,\ QString\ nb);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpaletteControler_ac8ef59dd882eeae4d61fd30d14213291}{setGamma}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ createWidgets();}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ addToLayout(Qt::Orientation\ \mbox{\hyperlink{classpaletteControler_a8d727a82ee9c7e605a1838eeba850c0d}{orientation}});}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ fillPaletteColorsMap();}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ Ui::paletteControler\ ui;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{classmyDoubleSpinBox}{myDoubleSpinBox}}\ *LE\_Min;}
+\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{classmyDoubleSpinBox}{myDoubleSpinBox}}\ *LE\_Max;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ QStringList\ names;}
+\DoxyCodeLine{00112\ \ \ \ \ QStringList\ colours;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ QMenu\ *global\_menu;}
+\DoxyCodeLine{00115\ \ \ \ \ QMenu\ *palette\_menu;}
+\DoxyCodeLine{00116\ \ \ \ \ QAction\ *actionPalette;}
+\DoxyCodeLine{00117\ \ \ \ \ QList<QRgb>\ colourListrgb;}
+\DoxyCodeLine{00118\ \ \ \ \ QString\ paletteFilename;}
+\DoxyCodeLine{00119\ \ \ \ \ QString\ currentAction;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{classpaletteInfo}{paletteInfo}}\ fPaletteInfo;}
+\DoxyCodeLine{00122\ \ \ \ \ QList<QUndoCommand*>\ fUndoCommandList;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ QMap<QString,\ QList<QPair<QString,\ QString>>>\ paletteColorsMap;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ fIsAssociated;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{int}\ fSize;}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{int}\ fPaletteImageSize;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ Qt::Orientation\ fOrientation;}
+\DoxyCodeLine{00132\ \};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ QDataStream\ \&\mbox{\hyperlink{palettecontroler_8h_ae0b8f21c4fdacd9795f17e8eee5bbb67}{operator<<}}(QDataStream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classpaletteControler}{paletteControler}}\ \&myObj);}
+\DoxyCodeLine{00135\ QDataStream\ \&\mbox{\hyperlink{palettecontroler_8h_a2aa7289fcd6f7a941ad0312ba948f0db}{operator>>}}(QDataStream\ \&in,\ \mbox{\hyperlink{classpaletteControler}{paletteControler}}\ \&myObj);}
+
+\end{DoxyCode}

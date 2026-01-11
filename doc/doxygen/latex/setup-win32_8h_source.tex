@@ -1,0 +1,111 @@
+\doxysection{setup-\/win32.h}
+\hypertarget{setup-win32_8h_source}{}\label{setup-win32_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/setup-\/win32.h@{lib/libwconr/build/\_deps/curl-\/src/lib/setup-\/win32.h}}
+\mbox{\hyperlink{setup-win32_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SETUP\_WIN32\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SETUP\_WIN32\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ Include\ header\ files\ for\ windows\ builds\ before\ redefining\ anything.}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ Use\ this\ preprocessor\ block\ only\ to\ include\ or\ exclude\ windows.h,}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ winsock2.h\ or\ ws2tcpip.h.\ Any\ other\ windows\ thing\ belongs}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ to\ any\ other\ further\ and\ independent\ block.\ \ Under\ Cygwin\ things\ work}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ just\ as\ under\ linux\ (e.g.\ <sys/socket.h>)\ and\ the\ winsock\ headers\ should}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ never\ be\ included\ when\ \_\_CYGWIN\_\_\ is\ defined.\ \ configure\ script\ takes}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ care\ of\ this,\ not\ defining\ HAVE\_WINDOWS\_H,\ HAVE\_WINSOCK2\_H,}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ neither\ HAVE\_WS2TCPIP\_H\ when\ \_\_CYGWIN\_\_\ is\ defined.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifdef\ HAVE\_WINDOWS\_H}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ if\ defined(UNICODE)\ \&\&\ !defined(\_UNICODE)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ \ \ error\ "{}UNICODE\ is\ defined\ but\ \_UNICODE\ is\ not\ defined"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ if\ defined(\_UNICODE)\ \&\&\ !defined(UNICODE)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ \ \ \ error\ "{}\_UNICODE\ is\ defined\ but\ UNICODE\ is\ not\ defined"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00045\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ Don't\ include\ unneeded\ stuff\ in\ Windows\ headers\ to\ avoid\ compiler}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ warnings\ and\ macro\ clashes.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ Make\ sure\ to\ define\ this\ macro\ before\ including\ any\ Windows\ headers.}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#\ \ ifndef\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#\ \ ifndef\ NOGDI}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ \ \ \ define\ NOGDI}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#\ \ include\ <winerror.h>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ \ include\ <windows.h>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ \ ifdef\ HAVE\_WINSOCK2\_H}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ \ \ \ include\ <winsock2.h>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#\ \ \ \ ifdef\ HAVE\_WS2TCPIP\_H}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#\ \ \ \ \ \ include\ <ws2tcpip.h>}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#\ \ \ \ endif}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ \ include\ <tchar.h>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ \ ifdef\ UNICODE}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{wchar\_t}\ *(*curl\_wcsdup\_callback)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}\ *str);}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ Define\ USE\_WINSOCK\ to\ 2\ if\ we\ have\ and\ use\ WINSOCK2\ API,\ else}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ undefine\ USE\_WINSOCK.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#undef\ USE\_WINSOCK}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifdef\ HAVE\_WINSOCK2\_H}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#\ \ define\ USE\_WINSOCK\ 2}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ Define\ \_WIN32\_WINNT\_[OS]\ symbols\ because\ not\ all\ Windows\ build\ systems\ have}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ those\ symbols\ to\ compare\ against,\ and\ even\ those\ that\ do\ may\ be\ missing}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ newer\ symbols.}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_NT4}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_NT4\ \ \ \ \ \ \ \ \ \ \ \ 0x0400\ \ \ }\textcolor{comment}{/*\ Windows\ NT\ 4.0\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN2K}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN2K\ \ \ \ \ \ \ \ \ \ 0x0500\ \ \ }\textcolor{comment}{/*\ Windows\ 2000\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WINXP}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WINXP\ \ \ \ \ \ \ \ \ \ 0x0501\ \ \ }\textcolor{comment}{/*\ Windows\ XP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WS03}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WS03\ \ \ \ \ \ \ \ \ \ \ 0x0502\ \ \ }\textcolor{comment}{/*\ Windows\ Server\ 2003\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN6}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN6\ \ \ \ \ \ \ \ \ \ \ 0x0600\ \ \ }\textcolor{comment}{/*\ Windows\ Vista\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_VISTA}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_VISTA\ \ \ \ \ \ \ \ \ \ 0x0600\ \ \ }\textcolor{comment}{/*\ Windows\ Vista\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WS08}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WS08\ \ \ \ \ \ \ \ \ \ \ 0x0600\ \ \ }\textcolor{comment}{/*\ Windows\ Server\ 2008\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_LONGHORN}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_LONGHORN\ \ \ \ \ \ \ 0x0600\ \ \ }\textcolor{comment}{/*\ Windows\ Vista\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN7}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN7\ \ \ \ \ \ \ \ \ \ \ 0x0601\ \ \ }\textcolor{comment}{/*\ Windows\ 7\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN8}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN8\ \ \ \ \ \ \ \ \ \ \ 0x0602\ \ \ }\textcolor{comment}{/*\ Windows\ 8\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WINBLUE}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WINBLUE\ \ \ \ \ \ \ \ 0x0603\ \ \ }\textcolor{comment}{/*\ Windows\ 8.1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WINTHRESHOLD}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WINTHRESHOLD\ \ \ 0x0A00\ \ \ }\textcolor{comment}{/*\ Windows\ 10\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#ifndef\ \_WIN32\_WINNT\_WIN10}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ \_WIN32\_WINNT\_WIN10\ \ \ \ \ \ \ \ \ \ 0x0A00\ \ \ }\textcolor{comment}{/*\ Windows\ 10\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SETUP\_WIN32\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

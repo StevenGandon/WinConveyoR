@@ -1,0 +1,104 @@
+\doxysection{controlsettings.\+h}
+\hypertarget{controlsettings_8h_source}{}\label{controlsettings_8h_source}\index{Beamage/controlsettings.h@{Beamage/controlsettings.h}}
+\mbox{\hyperlink{controlsettings_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}ui\_controlsettings.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <qpair.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <qsettings.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }QStandardItemModel;}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }timePlotBinsSettings;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcontrolSettings_a8098e619b9df44e7a91234830444c38e}{controlSettings}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classcontrolSettings_a8098e619b9df44e7a91234830444c38e}{controlSettings}}\ *\mbox{\hyperlink{classcontrolSettings_a88c4d4513adc78292efa80d7dc61d2ac}{getInstance}}()\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ ==\ \_singleton)\ \_singleton\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classcontrolSettings_a8098e619b9df44e7a91234830444c38e}{controlSettings}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_singleton;}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_ab5568a97cdb5c31175461eaf951905ea}{kill}}()\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (NULL\ !=\ \_singleton)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \_singleton;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \_singleton\ =\ NULL;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a62bb6b94be3d701b229fe455bb06e1e2}{kUnit\_cp}},}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a1ba786ba8efc59b34eef94bc5e049262}{kUnit\_cps}},}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a38416f36a84d0dd46c221cd917c4aeb5}{kUnit\_cpm}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a3646b726e879ab6365b7c45fc71c468b}{kUnit\_cpsmm2}},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a431fb0a49f0aa53e9544fb96cba9e2bd}{kUnit\_cpmmm2}},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a51c8481bdeb28b422373f63568c56c21}{kUnit\_mm2}},}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3af2ad840f5feba76f776a15d4d52c36df}{kUnit\_cm2}},}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a12ec5a5455bb6c675da33fa2d8337123}{kUnit\_second}},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a8b2b4191cd9210ff575c0579b0c4523c}{kUnit\_minute}},}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a4d6731f87fabff66f58ad89e9d2ead8b}{kUnit\_hour}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a0d2520e1dccd01905c8f6f53c607b3c3a5acd258e00151ad2391d611fd94228b7}{kUnit\_customTime}}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \}\ \mbox{\hyperlink{classcontrolSettings_a01780568eb4fc887cc4fd0adedccb71f}{roiDisplayUnit}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_a8098e619b9df44e7a91234830444c38e}{controlSettings}}(QWidget\ *parent\ =\ 0);}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classcontrolSettings_aa534e9d5de27beac7c1e2e08ae8a304f}{\string~controlSettings}}();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcontrolSettings_a07912edf06f52ca3be9556fc45d35fef}{lengthUnit}}();}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcontrolSettings_aadf19614fe7987ab2dfb11408ea27a0d}{timeUnit}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ QList<QString>\ \mbox{\hyperlink{classcontrolSettings_a5bb1819c1b401bf90b9221318f4a62e0}{roiInfoKey}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ QList<QString>\ \mbox{\hyperlink{classcontrolSettings_abb85e3e23791a91b8f46d47f6de18fba}{roiInfoText}}();}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ QList<QString>\ \mbox{\hyperlink{classcontrolSettings_a41a35334c65569fec7ded4207d5d4ad1}{roiInfoToolTip}}();}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ QList<int>\ \mbox{\hyperlink{classcontrolSettings_ad9831f8ba574800e491987db7b104181}{roiInfoDefaultWidth}}();}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ QList<QVariant>\ \mbox{\hyperlink{classcontrolSettings_af03663c07165da133bedd24594521dc1}{roiDisplayedColumn}}();}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ QList<QVariant>\ \mbox{\hyperlink{classcontrolSettings_a98e8515f56f8d1e7af332e6cefd40fc8}{roiOrderedColumn}}();}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//static\ QString\ roiInfo(int\ id);}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ QList<int>\ \mbox{\hyperlink{classcontrolSettings_afbfeebc1c5988659cd553d945f441be5}{listLineStyle}}();}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ QList<QPair<QString,\ qreal>>\ \mbox{\hyperlink{classcontrolSettings_a49e204a09b1e28d8bb3c9dd305b524a2}{listLineSize}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ QList<QString>\ \mbox{\hyperlink{classcontrolSettings_a2eb082fe74afc9b22f28f2f1a64ff213}{graphAreaInfoKey}}();}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{static}\ QList<QString>\ \mbox{\hyperlink{classcontrolSettings_a9a6c8baa141a28abd96a2de1d051123d}{graphAreaInfoText}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ QList<QString>\ \mbox{\hyperlink{classcontrolSettings_a12a947d847b808b9f356df99c2fcfd02}{graphAreaToolTip}}();}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ QList<QVariant>\ \mbox{\hyperlink{classcontrolSettings_aef2b3a601adc5ab957652a06affbe022}{graphAreaOrderedColumn}}();}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ QList<QVariant>\ \mbox{\hyperlink{classcontrolSettings_a9e4d8ebfffbdeda4cbcb3ac00d353f29}{graphAreaDisplayedColumn}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ signals:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a438ffe4a6b906287ac27c5bbf8034871}{settingsChanged}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a8a62db08f283a1072372d9efc2c0deac}{shown}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a536907906dffe808d223ebec2e97da1b}{readSettings}}();}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a8e79a996318c28899bd13dd4190ee381}{writeSettings}}();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a64fcbc27064b50eaaaca0a51fafb05bf}{tableItemClicked}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a550be6928524f8bab87f9852e5868212}{graphInfoClicked}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_a593dee9ebd7f530b981eb13524d69c05}{closeEvent}}(QCloseEvent\ *event);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcontrolSettings_afdc4a75b84951376accd8077bf625ac2}{resetDefaultSettings}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ buildROItable();}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ buildGraphAreaTable();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ QButtonGroup\ *fGroupReportItem;}
+\DoxyCodeLine{00087\ \ \ \ \ QButtonGroup*\ fGroupGraph;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ timePlotBinsSettings*\ fDefaultBaseTimeSettings;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ QSettings\ settings;}
+\DoxyCodeLine{00092\ \ \ \ \ QStringList\ fHeaderList;}
+\DoxyCodeLine{00093\ \ \ \ \ QStandardItemModel\ *fROIModel;}
+\DoxyCodeLine{00094\ \ \ \ \ QStandardItemModel*\ fGraphModel;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ Ui::controlSettings\ ui;}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classcontrolSettings_a8098e619b9df44e7a91234830444c38e}{controlSettings}}\ *\_singleton;}
+\DoxyCodeLine{00098\ \};}
+
+\end{DoxyCode}

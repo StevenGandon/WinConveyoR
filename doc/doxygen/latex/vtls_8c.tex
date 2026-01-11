@@ -1,0 +1,155 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/vtls/vtls.c File Reference}
+\hypertarget{vtls_8c}{}\label{vtls_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/vtls.c@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/vtls.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}vtls.\+h"{}}\newline
+{\ttfamily \#include "{}slist.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}share.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}timeval.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+md5.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+base64.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{vtls_8c_aea85d2adf12392399220bffd93ce24bf}{SSLSESSION\+\_\+\+SHARED}}(\mbox{\hyperlink{structdata}{data}})
+\item 
+\#define \mbox{\hyperlink{vtls_8c_aff26917e08b2ad824afb880b776dd57c}{CLONE\+\_\+\+STRING}}(var)
+\item 
+\#define \mbox{\hyperlink{vtls_8c_a22118391f90db14f6965c9606984c470}{CLONE\+\_\+\+BLOB}}(var)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{vtls_8c_a8ffab7bdf4b412936bee7bbc85289639}{blobdup}} (struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dest, struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacesrc}{src}})
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8c_a0e5190a979288e400b0ffd93bc5427bb}{blobcmp}} (struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}first, struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_a44332defefeb907a5be150af2be96640}{second}})
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8c_a20030f6c13c9de65950bb8cac1bfb0f9}{Curl\+\_\+ssl\+\_\+config\+\_\+matches}} (struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}needle)
+\item 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{vtls_8c_a9468007b0049e63d8dac0a8096beb0c4}{Curl\+\_\+clone\+\_\+primary\+\_\+ssl\+\_\+config}} (struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}source, struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}dest)
+\item 
+void \mbox{\hyperlink{vtls_8c_a5f50ad085ea4993229348232d4719407}{Curl\+\_\+free\+\_\+primary\+\_\+ssl\+\_\+config}} (struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}sslc)
+\item 
+\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} \mbox{\hyperlink{vtls_8c_a3c94a4a4ab36486ee22e5a03c1677b9a}{Curl\+\_\+ssl\+\_\+backend}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}} \mbox{\hyperlink{vtls_8c_a9c423b871a6919651bb6952babedd112}{Curl\+\_\+init\+\_\+sslset\+\_\+nolock}} (\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} id, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, const \mbox{\hyperlink{structcurl__ssl__backend}{curl\+\_\+ssl\+\_\+backend}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}avail)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{vtls_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{vtls_8c_a22118391f90db14f6965c9606984c470}\index{vtls.c@{vtls.c}!CLONE\_BLOB@{CLONE\_BLOB}}
+\index{CLONE\_BLOB@{CLONE\_BLOB}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{CLONE\_BLOB}{CLONE\_BLOB}}
+{\footnotesize\ttfamily \label{vtls_8c_a22118391f90db14f6965c9606984c470} 
+\#define CLONE\+\_\+\+BLOB(\begin{DoxyParamCaption}\item[{}]{var}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(\mbox{\hyperlink{vtls_8c_a8ffab7bdf4b412936bee7bbc85289639}{blobdup}}(\&dest-\/>var,\ source-\/>var))\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ FALSE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8c_aff26917e08b2ad824afb880b776dd57c}\index{vtls.c@{vtls.c}!CLONE\_STRING@{CLONE\_STRING}}
+\index{CLONE\_STRING@{CLONE\_STRING}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{CLONE\_STRING}{CLONE\_STRING}}
+{\footnotesize\ttfamily \label{vtls_8c_aff26917e08b2ad824afb880b776dd57c} 
+\#define CLONE\+\_\+\+STRING(\begin{DoxyParamCaption}\item[{}]{var}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(source-\/>var)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ dest-\/>var\ =\ \mbox{\hyperlink{curl__memory_8h_aa3f578f8f1eaebf25b2e2313db31cb40}{strdup}}(source-\/>var);\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ if(!dest-\/>var)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FALSE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ dest-\/>var\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{vtls_8c_aea85d2adf12392399220bffd93ce24bf}\index{vtls.c@{vtls.c}!SSLSESSION\_SHARED@{SSLSESSION\_SHARED}}
+\index{SSLSESSION\_SHARED@{SSLSESSION\_SHARED}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{SSLSESSION\_SHARED}{SSLSESSION\_SHARED}}
+{\footnotesize\ttfamily \label{vtls_8c_aea85d2adf12392399220bffd93ce24bf} 
+\#define SSLSESSION\+\_\+\+SHARED(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{structdata}{data}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{structdata}{data}}-\/>share\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{structdata}{data}}-\/>share-\/>specifier\ \&\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1<<\mbox{\hyperlink{curl_8h_af898dd6eb71573ccb1668c3d2380549cae1d5692a2f2f61e7194c5c0eb7227ae1}{CURL\_LOCK\_DATA\_SSL\_SESSION}})))}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{vtls_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{vtls_8c_a0e5190a979288e400b0ffd93bc5427bb}\index{vtls.c@{vtls.c}!blobcmp@{blobcmp}}
+\index{blobcmp@{blobcmp}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{blobcmp()}{blobcmp()}}
+{\footnotesize\ttfamily \label{vtls_8c_a0e5190a979288e400b0ffd93bc5427bb} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} blobcmp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}}]{first}{, }\item[{struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}}]{second}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vtls_8c_a8ffab7bdf4b412936bee7bbc85289639}\index{vtls.c@{vtls.c}!blobdup@{blobdup}}
+\index{blobdup@{blobdup}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{blobdup()}{blobdup()}}
+{\footnotesize\ttfamily \label{vtls_8c_a8ffab7bdf4b412936bee7bbc85289639} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} blobdup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{struct \mbox{\hyperlink{structcurl__blob}{curl\+\_\+blob}} \texorpdfstring{$\ast$}{*}}]{src}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vtls_8c_a9468007b0049e63d8dac0a8096beb0c4}\index{vtls.c@{vtls.c}!Curl\_clone\_primary\_ssl\_config@{Curl\_clone\_primary\_ssl\_config}}
+\index{Curl\_clone\_primary\_ssl\_config@{Curl\_clone\_primary\_ssl\_config}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_clone\_primary\_ssl\_config()}{Curl\_clone\_primary\_ssl\_config()}}
+{\footnotesize\ttfamily \label{vtls_8c_a9468007b0049e63d8dac0a8096beb0c4} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+clone\+\_\+primary\+\_\+ssl\+\_\+config (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{source}{, }\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{dest}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8c_a5f50ad085ea4993229348232d4719407}\index{vtls.c@{vtls.c}!Curl\_free\_primary\_ssl\_config@{Curl\_free\_primary\_ssl\_config}}
+\index{Curl\_free\_primary\_ssl\_config@{Curl\_free\_primary\_ssl\_config}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_free\_primary\_ssl\_config()}{Curl\_free\_primary\_ssl\_config()}}
+{\footnotesize\ttfamily \label{vtls_8c_a5f50ad085ea4993229348232d4719407} 
+void Curl\+\_\+free\+\_\+primary\+\_\+ssl\+\_\+config (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{sslc}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8c_a9c423b871a6919651bb6952babedd112}\index{vtls.c@{vtls.c}!Curl\_init\_sslset\_nolock@{Curl\_init\_sslset\_nolock}}
+\index{Curl\_init\_sslset\_nolock@{Curl\_init\_sslset\_nolock}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_init\_sslset\_nolock()}{Curl\_init\_sslset\_nolock()}}
+{\footnotesize\ttfamily \label{vtls_8c_a9c423b871a6919651bb6952babedd112} 
+\mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}} Curl\+\_\+init\+\_\+sslset\+\_\+nolock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}}}]{id}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const \mbox{\hyperlink{structcurl__ssl__backend}{curl\+\_\+ssl\+\_\+backend}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{avail}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8c_a3c94a4a4ab36486ee22e5a03c1677b9a}\index{vtls.c@{vtls.c}!Curl\_ssl\_backend@{Curl\_ssl\_backend}}
+\index{Curl\_ssl\_backend@{Curl\_ssl\_backend}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_backend()}{Curl\_ssl\_backend()}}
+{\footnotesize\ttfamily \label{vtls_8c_a3c94a4a4ab36486ee22e5a03c1677b9a} 
+\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} Curl\+\_\+ssl\+\_\+backend (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{vtls_8c_a20030f6c13c9de65950bb8cac1bfb0f9}\index{vtls.c@{vtls.c}!Curl\_ssl\_config\_matches@{Curl\_ssl\_config\_matches}}
+\index{Curl\_ssl\_config\_matches@{Curl\_ssl\_config\_matches}!vtls.c@{vtls.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ssl\_config\_matches()}{Curl\_ssl\_config\_matches()}}
+{\footnotesize\ttfamily \label{vtls_8c_a20030f6c13c9de65950bb8cac1bfb0f9} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} Curl\+\_\+ssl\+\_\+config\+\_\+matches (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structssl__primary__config}{ssl\+\_\+primary\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{needle}{}\end{DoxyParamCaption})}
+

@@ -1,0 +1,340 @@
+\doxysection{myscene.\+h}
+\hypertarget{myscene_8h_source}{}\label{myscene_8h_source}\index{Beamage/myscene.h@{Beamage/myscene.h}}
+\mbox{\hyperlink{myscene_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QGraphicsScene>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <roiResultInfo.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <dafImageCut.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QProgressDialog>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <qcursor.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{itemproperty_8h}{itemproperty.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <qdatetime.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{isotope_8h}{isotope.h}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }QAction;}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }QMenu;}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }QDataStream;}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }QKeyEvent;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtextItem}{textItem}};}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgroupItem}{groupItem}};}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classladderItem}{ladderItem}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmyScene_a4f71a23ff4739009d9eb11577d28b9c6}{myScene}}\ :\ \textcolor{keyword}{public}\ QGraphicsScene}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51a}{Mode}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aaff9017c9089e5131cd28cad4480a1215}{None}},}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa2a7567841bdd7201905bfdc57bde64f0}{InsertRectangle}},}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aab336e71708413dbb811b63f8bc7e47dc}{InsertEllipse}},}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa3594ca8250fe5621303d2eed99af0b36}{InsertPolygon}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aaf1bc2890be05e7f978c68b02cc1fc27b}{InsertFreeHand}},}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa283c2f52f2e90823a0f1f185ddeb1caa}{InsertMagicWand}},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aadc0fd2930b9871c3aef60a9460a70833}{InsertText}},}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa7f2eb312525c565a4d76eccd7a47b25b}{Selecting}},}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa24858877df336e810957121b98996b73}{InsertLadder}},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aaf3584ac962f636db21665a128841d086}{InsertRectExclusion}},}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa8408399d68dbf4e923063943fb9fafc1}{InsertEllipseExclusion}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa8567524960ce89254e29f1994ce06082}{InsertPolygonExclusion}},}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa84aa40e904f3194ecd755df3daf93150}{InsertFreeHandExclusion}},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa90469e8f0241db5cfa28f8faf397509a}{AddToGroup}},}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa959f9354a452e64a10e62164b7c86f4a}{CropPolygon}},}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aaedd0e6df96609329a7acc19e056c5894}{MergePolygon}},}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmyScene_a33ab2cac116ebfb3bc390b694d73e51aa830f84049e7fe992bce835a8dd728151}{Unset}},}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classmyScene_a4f71a23ff4739009d9eb11577d28b9c6}{myScene}}(QObject\ *parent\ =\ 0);}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classmyScene_a101aebcb5315a062d9004209ab937a96}{myScene}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmyScene_a4f71a23ff4739009d9eb11577d28b9c6}{myScene}}\ \&scene)\ \{\}}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classmyScene_a55a3f292ee0b91e382c82dd2b43da125}{\string~myScene}}();}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a1f0a6892317a1c360c6a3bef59ef6c22}{createContextMenu}}();}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_af73f80d685c0765a39b680d861c81c04}{changeScale}}(\textcolor{keywordtype}{double}\ scale);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classmyScene_a83c05f8a834958c9ba860c601ae7c4fd}{getScale}}()\ \{\ \textcolor{keywordflow}{return}\ fScale;\ \}}
+\DoxyCodeLine{00055\ \ \ \ \ QString\ \mbox{\hyperlink{classmyScene_aafa3d941cb16a0ac4ddd31f55e40bd0f}{getSceneName}}()\ \{\ \textcolor{keywordflow}{return}\ fsceneName;\ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ab967cc7873b0a69fa24b6c2ee79df692}{setSceneName}}(\textcolor{keyword}{const}\ QString\ \&name)\ \{\ fsceneName\ =\ name;\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ QRectF\ \mbox{\hyperlink{classmyScene_ab252433f490e3ffa3ed087f79aaad0a8}{getVisibleArea}}();}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classmyScene_a793ba219ae641ba24af4a502acbf1f3a}{getImagePixelSize}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classdafImageCut}{dafImageCut}}*\ \mbox{\hyperlink{classmyScene_acfdbb37db04a34a2e541cddc5f95d732}{getImageCut}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//QColor\ roiLineColor()\ const\ \{\ return\ fROILineColor;\ \}}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//QColor\ textColor()\ const\ \{\ return\ fTextColor;\}}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//QColor\ backgroundColor()\ const\ \{\ return\ fBackgroundTextColor;\ \}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyScene_ab7f835dfb14e49867fb2c00630249c17}{needToBeSaved}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fNeedToBeSaved;\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_af1aa2b38fadd0188ac4c257877291c7a}{resetNeedToBeSaved}}();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ QString\ \mbox{\hyperlink{classmyScene_a95b17d4ba45636d4d9c0ae5ae3d69b9b}{getSavedName}}()\textcolor{keyword}{\ const\ }\{\ \ \textcolor{keywordflow}{return}\ fSavedName;\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a4cb1712efcbfae57c427b6e199a511d1}{setSavedName}}(\textcolor{keyword}{const}\ QString\ \&name)\ \{\ fSavedName\ =\ name;\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ QDataStream\ \&\mbox{\hyperlink{classmyScene_a26d092ce68082c58f7fa90009273b3bf}{writeToStream}}(QDataStream\ \&out,\ QGraphicsItem\ *obj)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ \ \ \ \ QGraphicsItem\ *\mbox{\hyperlink{classmyScene_acb5b0eb8e8cff4d99dc70d13095795fb}{readFromStream}}(QDataStream\ \&in);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ QDataStream\ \&\mbox{\hyperlink{classmyScene_af5e8856bfb99cf46b77db48da8172a46}{writeGroupToStream}}(QDataStream\ \&out,\ QGraphicsItem\ *obj)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{classgroupItem}{groupItem}}*\ \mbox{\hyperlink{classmyScene_ae6b0fcff12578d4cd098cc425825965b}{readGroupFromStream}}(QDataStream\ \&in,\ \mbox{\hyperlink{classgroupItem}{groupItem}}*\ group,\ \textcolor{keywordtype}{bool}\ autoNumber\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ac59d0f420b6e17a307b070afd42335fa}{addItem}}(QGraphicsItem\ *item,\ \textcolor{keywordtype}{bool}\ autoNumber\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a152edf096e6609dc117d992f30ebd9df}{removeItem}}(QGraphicsItem\ *\ item);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmyScene_a95a474df5cf17abc4d5d0d31e7b005c0}{itemToCount}}(\textcolor{keywordtype}{bool}\ force\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmyScene_abc653510c110b1f1f31f0c92f0150231}{maxItemId}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fMaxItemId;\ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a143015e8302ff02fbdf8cda7c1ec4ec9}{setMaxItemId}}(\textcolor{keywordtype}{int}\ val)\ \{\ fMaxItemId\ =\ val;\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmyScene_aa0c1a78badbd6c3823807e4fd7f4dda1}{ItemNumber}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fItemNumber;\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_af680ed672bd974f4a2fbda87f6579b8e}{setItemNumber}}(\textcolor{keywordtype}{int}\ val)\ \{\ fItemNumber\ =\ val;\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_afbbea15c5f385cb30f46d964994f0f98}{sendRoiInfo}}(\mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ info);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ QString\ \mbox{\hyperlink{classmyScene_a0bd6f5b9785eb146502bf66eb56722b3}{printInfo}}();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ std::ofstream\ \mbox{\hyperlink{classmyScene_a5035c752d992f3f3a75d4bc9d545b802}{fDebug}};}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//QString\ fDebugString;}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ QList<QGraphicsItem*>\ \mbox{\hyperlink{classmyScene_a070fc099b12838a12a60df919edacb73}{ungroupedSelectedItems}}();}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \mbox{\hyperlink{classmyScene_a1074fb382bfccc773f27ee2c7478c610}{getItemProperty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fItemProperty;\ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyScene_a880c0f36f593c2ed5d2116939ea66e52}{infoVisible}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fInfoVisible;\ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyScene_a1e3496f507b78dc533fb154357b8e203}{nameVisible}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fNameVisible;\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a5a23d6f5ac6c6824f32d70f24b351ec4}{cleanStateOnWindowChanged}}();}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a384905b5e9922a0e80c714ad3290d2f1}{prepareForFileWriting}}();}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a9aa64e86d87d54262fac9e97f7a4df5c}{restoreAfterFileWriting}}();}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_afee3df2bf3ba0ec8f1fb5828d9f7d1e0}{setIsotopeInfoAction}}(\textcolor{keyword}{const}\ QList<isotope>\&\ list);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a62ad4f08bf400c9da3624a9ba3fd1f80}{createSubImage}}();}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a8ee61475dd9c18de31de839856f22581}{createSubImageOption}}(\textcolor{keywordtype}{bool}\ fromROI\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ab6c7bddc286796e2eb7bef02ef9ea7fb}{setMode}}(\textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a73d4d9f35cb348a5a461ae18975fa201}{showRoiInfo}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a358e52f6a84d59b4ed6c1f8d2ac07739}{showRoiName}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_afdb690d3c85a0f7ee03ca6730e93ab67}{updateRoiInfo}}();}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ac28f56c96bfdbf49614ee2a92a77b78d}{updateRoiName}}();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ad89e7cccdab46e813ec571d72a242d66}{viewItemInfo}}();}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a2c838b03fd860848990d04bd3b4a90b6}{needSave}}();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_afd51541960f420b5b4b98358929afd38}{cut}}();}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a45e81bd520290fab078552282839fb23}{copy}}();}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_abdb893573265847ed02fe06988393979}{paste}}();}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a398a5f9ca143b7dd670d5b340727e59b}{anchorItems}}();}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a76e216abe28a30aabf6195ed802a16aa}{deleteItems}}();}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a01f4ed41de7e32d73c9e8241ebb0ebff}{hFlipItems}}();}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a0ac890e8e4f37c6f1f69f94f771fdaba}{vFlipItems}}();}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a44bffd4102b3a23610f7132a20147ac4}{biggerItems}}();}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a3d34dab2cc8550aa6aa3542f9dcca7fa}{smallerItems}}();}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a0d60e880a39a36411a85a086d810428e}{rotateClockwiseItems}}();}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a00fd696c84a522c982bf89f7337ac649}{rotateAnticlockWiseItems}}();}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a660ecbaeb6b79362132f576d06bcc4a6}{rotateCustomItems}}(\textcolor{keywordtype}{double}\ val,\ \textcolor{keywordtype}{bool}\ keepTrack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a5b1fb4923e350679c487347f20021cf7}{resizeItems}}(\textcolor{keywordtype}{double}\ factorX,\ \textcolor{keywordtype}{double}\ factorY,\ \textcolor{keywordtype}{int}\ mode\ =\ -\/1,\ \textcolor{keywordtype}{bool}\ keepTrack\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_acdd23ebb5731905c282098acde0d2d52}{groupItems}}();}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ab4dc733d1f5790f309910395357d752a}{ungroupItems}}();}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_aa47f8010e598bbc69a5af94c0f36a4ce}{addItemsToGroup}}();}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a419f160d2b51f45f2bab0cac39b329f9}{repeatItems}}(\textcolor{keywordtype}{int}\ nRow,\ \textcolor{keywordtype}{double}\ rowSpacing,\ \textcolor{keywordtype}{int}\ nCol,\ \textcolor{keywordtype}{double}\ colSpacing);}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a13f86d1b50782ff0d448b6a5d98361d9}{toggleExclusionItems}}();}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a62e3d5cd091fb0d31af07207d3b98450}{clipToItems}}();}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a64457ca121f84ad1f7e35f140e6d2ae2}{mergeItems}}();}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ad4a0983dbd9877a064d7eb92a126b682}{viewImageInfo}}();}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a3c548319d5a6d9f14a766645d5fcd89c}{countRoi}}(\textcolor{keywordtype}{bool}\ force\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00145\ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a21e0b6aff8acd67ec3f04f68bb6d724b}{selectAll}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a0092fef7e725513de7590603a5dbaf4a}{deselectAll}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ab5f008eb568d49b6138455568bea0b6e}{bringToFront}}();}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a78706bbafa5a82a294c5f10dd37ea4d7}{sendToBack}}();}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_aeece8d47d77ce42aa7ae83063813e1b3}{setItemProperty}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&itemProp);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ab50dd98c48f23d08529b2b024f5523f0}{editorLostFocus}}(\mbox{\hyperlink{classtextItem}{textItem}}\ *item);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a21821272d1438fe0914aa45deb4199fa}{rotateClockwiseImage}}();}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a6335367d75b08dc18ff754f1cd79a407}{rotateAntiClockwiseImage}}();}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a20fef188fd71ae313ddc95d9ba65844f}{HFlipImage}}();}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_aaa8b8c41a9a506cbf2f9f51992d568ac}{VFlipImage}}();}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a92e24b31f68f6e18e99973e1bbdda212}{applyImageGradient}}();}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a636c90b4368f933b6ddfdb308860fba9}{switchTo2x9}}();}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_aa09664bb5aab3d196ddd7cc6fd57c29f}{switchTo3x6}}();}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a4815782e12e0fcc3ef87a433984c3b31}{switchToNormal}}();}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a57529a5792aa88f42ebf6bb0a8b03038}{convertDisplayToCPM}}();}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a1b90281f056cef8aa433bb3bb60036cb}{changeDisplayUnit}}(QAction*\ action);}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_afba82caafbf617151bfa3c3b1590f576}{setDisplayMode}}(\textcolor{keywordtype}{int}\ displayMode);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_aab46812337d7e1a0cd34e6ff5b6d12c1}{showSlideLabel}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ae2254d4e3597cc207a0547d381e9692b}{toogleSlideLabels}}();}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a012f8e5fb926d6ad18c628418c145a0b}{crash}}();}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a8092bf83868fad4aee2c1c874dcd59bb}{emitRoiInfo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \&info,\ QGraphicsItem\ *it\ =\ 0)\ \{\ emit\ \mbox{\hyperlink{classmyScene_a6285fa5f0b866e721c721dd7820bfac6}{roiInfo}}(info,\ it);\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a2eac74e538f20d9a569d41bd6da9cc7a}{smoothImage}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a7cc9f96d3a4ae50786bae285fc011608}{blurImage}}(\textcolor{keywordtype}{double}\ val);}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a472d13912c7e2e0f2ffe2ed3c5f2c50c}{resetBlurImage}}();}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_aef304f23acc3f176689f81390182e116}{blurImageTest}}();}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ad59b43be48eaa41b4284592918fdf270}{doItemHasChangedFromScene}}();}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_acbf47edb1e535395ad46d01fe99324c4}{itemSelectionHasChanged}}(\textcolor{keyword}{const}\ QList<int>\ \&idSelected,\ \textcolor{keyword}{const}\ QList<int>\ \&idDeselected);}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_acbf47edb1e535395ad46d01fe99324c4}{itemSelectionHasChanged}}(\textcolor{keywordtype}{int}\ idSelected);}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a100146bd2267753653a90a919afcd61a}{changeItemName}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ QString\ \&name);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a8e1d2cbe71f62bfa59bcde3d37953f4a}{createSubImageFromItem}}();}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a8e1d2cbe71f62bfa59bcde3d37953f4a}{createSubImageFromItem}}(\textcolor{keyword}{const}\ QRectF\ \&exposed,\ \textcolor{keyword}{const}\ QPolygonF\ \&shape);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a97ab61bc6c802004cec714f4ba10c599}{showIsotopeSelector}}();}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ae5ebeb8c959d7300978bd7dbac11a3ed}{showROIIsotopeSelector}}(QString\ name);}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ae5ebeb8c959d7300978bd7dbac11a3ed}{showROIIsotopeSelector}}(\textcolor{keyword}{const}\ QList<isotope>\ \&isoList);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{comment}{//void\ showROIIsotopeSelector(QString\ name\ =\ "{}"{});}}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{comment}{//void\ changeIsotope(QString\ isotope,\ double\ halflife);}}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a2f5f72e39a68a726deef4f2c579344f1}{changeIsotope}}(\textcolor{keyword}{const}\ QList<isotope>\ \&iso);}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ae4db705ac80eb7eacc887d811fa084de}{showTimeReferenceSelector}}();}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a652d13c9612e4094612e5d0261ab4de9}{showROITimeReferenceSelector}}();}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a0f9f3025222baa536c2ba556d59d82db}{changeTimeReference}}(\textcolor{keyword}{const}\ QDateTime\&\ timeRef);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a7b3cb1f7ee1cc42a16bbf4d7eab390ee}{projectHorizontalAxis}}();}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_acee3b357049ad30e01ebc3af881bd528}{projectVerticalAxis}}();}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ signals:}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ae6a3cb4cde252998b6cef22bcd73b472}{visibleAera}}(\textcolor{keyword}{const}\ QRectF\ \&exposed);}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a7d01361a6a675e0b9584be5bf7fd31ea}{visibleAera}}(\textcolor{keyword}{const}\ QRectF\ \&exposed,\ \textcolor{keywordtype}{double}\ pixelSize,\ \textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a083122665ae08967adac10b9f1a77ff4}{visibleAera}}(\textcolor{keyword}{const}\ QRectF\ \&exposed,\ \textcolor{keywordtype}{double}\ pixelSize,\ \textcolor{keywordtype}{int}\ mode,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdafImageCut}{dafImageCut}}\ \&\mbox{\hyperlink{classmyScene_afd51541960f420b5b4b98358929afd38}{cut}},\ \textcolor{keywordtype}{int}\ dataMode);}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a6285fa5f0b866e721c721dd7820bfac6}{roiInfo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \&info,\ QGraphicsItem\ *it\ =\ 0);}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_abf47ad0e6dfc1c9e089d1788f531087d}{itemAboutToBeCounted}}(QGraphicsItem\ *it);}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_ad777b6a15f31d26500325c7bf0b4f8a5}{itemChanged}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{/*void\ itemNameChanged(int\ id)*/}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a409b3b8bda7c73f5f89cf3556acbc2d7}{itemHasChangedFromScene}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a1782b7d57880f4a0a246b6676a712079}{selectionCleared}}();}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_abd49ecb8fc40d95d43fb4c4a916dfd1e}{itemSelected}}(QGraphicsItem\ *,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a99de390ce7b61701b6ec97c53a797515}{selectingFinished}}();}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a8dd76acc38b09a3e5408c49b4850325a}{itemInformation}}(\textcolor{keyword}{const}\ QString\ \&str);}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a21066b759cc42e84a72ee632bc1ff912}{itemClosed}}(\textcolor{keyword}{const}\ QPolygonF\ \&ploygon);}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a37b44b026521fe618b63bd2b67dc9354}{itemDrawing}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a88c60fc01fd1d3075e7d83347827f081}{itemDeleted}}(QGraphicsItem\ *);}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a1d4580cc1aca5a4f0a3ba74f7edf09e8}{countingFinished}}();}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a81e9d10d129b45e11852b574b21e277f}{propertyItem}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&prop);}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a5b9f58c5d25460a21a3980cb0c831336}{blurImageMenuVisible}}();}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a56fbfea6478c2d20e59e54ca72641360}{itemSmallChanged}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_afdb7ade4cf6b43a64fde4cc1a9ccd7dc}{deleteSelectedItems}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a0ec86b4dea72602b7df7f448d0e6f2ae}{contextMenuEvent}}(QGraphicsSceneContextMenuEvent\ *\mbox{\hyperlink{classmyScene_a0ec86b4dea72602b7df7f448d0e6f2ae}{contextMenuEvent}});}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a307190ecc78a25b48ef305d0604611bc}{mouseDoubleClickEvent}}(QGraphicsSceneMouseEvent\ *mouseEvent);}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a1b57897511ce65131013a8eb636153a9}{mousePressEvent}}(QGraphicsSceneMouseEvent\ *mouseEvent);}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a519a10e9ad4e34186d02f7471348ef6b}{mouseReleaseEvent}}(QGraphicsSceneMouseEvent\ *mouseEvent);}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a0694e674cc101b57611e007065c74f05}{mouseMoveEvent}}(QGraphicsSceneMouseEvent\ *mouseEvent);}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classmyScene_a1d9195d4b7cf43e424c58d2b68c8f106}{keyPressEvent}}(QKeyEvent\ *keyEvent);}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmyScene_a5a3bacd5787ff6a72fd0db5db3de0ba4}{event}}(QEvent\ *\ \mbox{\hyperlink{classmyScene_a5a3bacd5787ff6a72fd0db5db3de0ba4}{event}});}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{void}\ checkSelection();}
+\DoxyCodeLine{00237\ \ \ \ \ QGraphicsItem\&\ adaptItemToScene(QGraphicsItem\&\ item);}
+\DoxyCodeLine{00238\ \ \ \ \ QGraphicsItem\&\ adaptItemPropertiesToScene(QGraphicsItem\&\ item);}
+\DoxyCodeLine{00239\ \ \ \ \ QGraphicsItem\&\ \mbox{\hyperlink{classmyScene_aeece8d47d77ce42aa7ae83063813e1b3}{setItemProperty}}(QGraphicsItem\&\ item,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ \&prop);}
+\DoxyCodeLine{00240\ \ \ \ \ QGraphicsItem\&\ \mbox{\hyperlink{classmyScene_a73d4d9f35cb348a5a461ae18975fa201}{showRoiInfo}}(QGraphicsItem\&\ item,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00241\ \ \ \ \ QGraphicsItem\&\ \mbox{\hyperlink{classmyScene_afdb690d3c85a0f7ee03ca6730e93ab67}{updateRoiInfo}}(QGraphicsItem\&\ item);}
+\DoxyCodeLine{00242\ \ \ \ \ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\&\ countRoiInfo(QGraphicsItem\&\ item,\ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \&result,\ \textcolor{keywordtype}{int}\ \&counter,\ \textcolor{keywordtype}{bool}\ force);}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{comment}{//roiResultInfo\ countRoiInfo(QGraphicsItem\&\ item);}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ QGraphicsItem\&\ appendUngroupedSelectedItem(QList<QGraphicsItem*>\&\ list,\ QGraphicsItem\&\ item);}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordtype}{void}\ pastePrivate();}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordtype}{void}\ sortItemsById(QList<QGraphicsItem*>\ \&list);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmyScene_a95a474df5cf17abc4d5d0d31e7b005c0}{itemToCount}}(QGraphicsItem\&\ item,\ \textcolor{keywordtype}{bool}\ force);}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordtype}{void}\ createConnection(QGraphicsItem*\ item);}
+\DoxyCodeLine{00252\ \ \ \ \ QList<QRectF>\ createSamplesRect();}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseMoveDuplicateOnControlClick(QGraphicsItem*\ item,\ Qt::KeyboardModifiers\ modifiers,\ Qt::MouseButtons\ buttons);}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{bool}\ mouseMoveDrawItem(\textcolor{keyword}{const}\ QPointF\&\ scenePos);}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseMoveSelecting(\textcolor{keyword}{const}\ QPointF\&\ scenePos,\ \textcolor{keyword}{const}\ QPointF\&\ buttonDownScenePos);}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseMoveAddToGroup(QGraphicsItem*\ item)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseMoveCropPolygon(QGraphicsItem*\ item)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseMoveMergePolygons(QGraphicsItem*\ item)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseSelecting(QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseAddToGroup(QGraphicsItem*\ item);}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseCrop(QGraphicsItem*\ item);}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseMergePolygon(QGraphicsItem*\ item);}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseMoveItem(QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseInsertText(QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseInsertPolyFreeHand(\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}*\&\ item,\ \textcolor{keywordtype}{bool}\ exclusion,\ QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseInsertMagicWand(QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseInsertRectangle(\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}*\&\ item,\ \textcolor{keywordtype}{bool}\ exclusion,\ QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseInsertEllipse(\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}*\&\ item,\ \textcolor{keywordtype}{bool}\ exclusion,\ QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseInsertLadder(QGraphicsSceneMouseEvent*\ mouseEvent);}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseMidButton();}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordtype}{void}\ closePolygonOrFreeHand(\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}*\ item,\ \textcolor{keywordtype}{bool}\ smoothing,\ \textcolor{keywordtype}{int}\ smoothingValue);}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ QPointF\ fLastDrag;}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{bool}\ fDrawing;}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{bool}\ fSelecting;}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordtype}{bool}\ fDragCopy;}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordtype}{int}\ myMode;}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{int}\ oldMode;}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordtype}{int}\ fNPaste;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\ *polyItem;}
+\DoxyCodeLine{00285\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\ *polyExcluItem;}
+\DoxyCodeLine{00286\ \ \ \ \ \mbox{\hyperlink{classtextItem}{textItem}}\ *txtItem;}
+\DoxyCodeLine{00287\ \ \ \ \ \mbox{\hyperlink{classladderItem}{ladderItem}}\ *ladder;}
+\DoxyCodeLine{00288\ \ \ \ \ QList<QGraphicsItem*>\ labelItems;}
+\DoxyCodeLine{00289\ \ \ \ \ QList<QGraphicsItem*>\ pasteItems;}
+\DoxyCodeLine{00290\ \ \ \ \ QList<QGraphicsItem*>\ itemsToAdd;}
+\DoxyCodeLine{00291\ \ \ \ \ QList<QGraphicsItem*>\ itemsToClip;}
+\DoxyCodeLine{00292\ \ \ \ \ QList<QGraphicsItem*>\ itemsToMerge;}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ QCursor\ cursorAddToGroup;}
+\DoxyCodeLine{00295\ \ \ \ \ QCursor\ cursorSubstract;}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \mbox{\hyperlink{classtextItem}{textItem}}*\ debug;}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ QPolygonF\ polygone;}
+\DoxyCodeLine{00300\ \ \ \ \ QRectF\ rectangle;}
+\DoxyCodeLine{00301\ \ \ \ \ QRectF\ ellipse;}
+\DoxyCodeLine{00302\ \ \ \ \ QLineF\ line;}
+\DoxyCodeLine{00303\ \ \ \ \ QMenu\ *fMenu;}
+\DoxyCodeLine{00304\ \ \ \ \ QAction*\ fIsotopeInfoAction;}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ QString\ fsceneName;}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{comment}{//QColor\ fROILineColor;}}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{comment}{//QColor\ fTextColor;}}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{comment}{//QColor\ fBackgroundTextColor;}}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{comment}{//int\ fLineSize;}}
+\DoxyCodeLine{00312\ \ \ \ \ \mbox{\hyperlink{classitemProperty}{itemProperty}}\ fItemProperty;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ QProgressDialog\ fCountingProgress;}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ QAction\ *showLabelAction;}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{double}\ fScale;}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordtype}{bool}\ fNeedToBeSaved;}
+\DoxyCodeLine{00320\ \ \ \ \ QString\ fSavedName;}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordtype}{int}\ fItemNumber;}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{int}\ fMaxItemId;}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordtype}{bool}\ fInfoVisible;}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordtype}{bool}\ fNameVisible;}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordtype}{bool}\ fIsRepeating;}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \};}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ QDataStream\ \&\mbox{\hyperlink{myscene_8h_aadaa459abbd28997af257a63239703ac}{operator<<}}(QDataStream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmyScene}{myScene}}\ \&myObj);}
+\DoxyCodeLine{00332\ QDataStream\ \&\mbox{\hyperlink{myscene_8h_a29c5a973c9ee1a85ee94519a8f5d3655}{operator>>}}(QDataStream\ \&in,\ \mbox{\hyperlink{classmyScene}{myScene}}\ \&myObj);}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ }
+
+\end{DoxyCode}

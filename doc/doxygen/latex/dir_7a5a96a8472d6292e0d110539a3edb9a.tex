@@ -1,0 +1,267 @@
+\doxysection{gui/node\+\_\+modules/normalize-\/url Directory Reference}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a}{}\label{dir_7a5a96a8472d6292e0d110539a3edb9a}\index{gui/node\_modules/normalize-\/url Directory Reference@{gui/node\_modules/normalize-\/url Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1079}{}\doxysubsection{\texorpdfstring{normalize-\/url \mbox{[}!\mbox{[}Coverage Status\mbox{]}(\href{https://codecov.io/gh/sindresorhus/normalize-url/branch/main/graph/badge.svg}{\texttt{https\+://codecov.\+io/gh/sindresorhus/normalize-\/url/branch/main/graph/badge.\+svg}})\mbox{]}(\href{https://codecov.io/gh/sindresorhus/normalize-url}{\texttt{https\+://codecov.\+io/gh/sindresorhus/normalize-\/url}})}{normalize-\/url \mbox{[}!\mbox{[}Coverage Status\mbox{]}(\href{https://codecov.io/gh/sindresorhus/normalize-url/branch/main/graph/badge.svg}{\texttt{https\+://codecov.\+io/gh/sindresorhus/normalize-\/url/branch/main/graph/badge.\+svg}})\mbox{]}(\href{https://codecov.io/gh/sindresorhus/normalize-url}{\texttt{https\+://codecov.\+io/gh/sindresorhus/normalize-\/url}})}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1079}
+\begin{quote}
+\href{https://en.wikipedia.org/wiki/URL_normalization}{\texttt{Normalize}} a URL \end{quote}
+
+
+Useful when you need to display, store, deduplicate, sort, compare, etc, URLs.\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1080}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1080}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ normalize-\/url}
+
+\end{DoxyCode}
+
+
+\texorpdfstring{$\ast$}{*}\+If you need to use this in the browser, use version 4\+: {\ttfamily npm i normalize-\/url@4}\texorpdfstring{$\ast$}{*}\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1081}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1081}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ normalizeUrl\ =\ require('normalize-\/url');}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('sindresorhus.com');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('//www.sindresorhus.com:80/../baz?b=bar\&a=foo');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/baz?a=foo\&b=bar'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1082}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1082}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1083}{}\doxysubsubsection{\texorpdfstring{normalize\+Url(url, options?)}{normalize\+Url(url, options?)}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1083}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1084}{}\doxysubsubsubsection{\texorpdfstring{url}{url}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1084}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+URL to normalize, including \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs}{\texttt{data URL}}.\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1085}{}\doxysubsubsubsection{\texorpdfstring{options}{options}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1085}
+Type\+: {\ttfamily object}\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1086}{}\doxysubsubsubsubsection{\texorpdfstring{default\+Protocol}{default\+Protocol}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1086}
+Type\+: {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}\textbackslash{} Default\+: {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}\+:}\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1087}{}\doxysubsubsubsubsection{\texorpdfstring{normalize\+Protocol}{normalize\+Protocol}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1087}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Prepend {\ttfamily default\+Protocol} to the URL if it\textquotesingle{}s protocol-\/relative.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('//sindresorhus.com:80/');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('//sindresorhus.com:80/',\ \{normalizeProtocol:\ false\});}
+\DoxyCodeLine{//=>\ '//sindresorhus.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1088}{}\doxysubsubsubsubsection{\texorpdfstring{force\+Http}{force\+Http}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1088}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Normalize {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}\+:} to {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}\+:}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com:80/');}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com:80/',\ \{forceHttp:\ true\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1089}{}\doxysubsubsubsubsection{\texorpdfstring{force\+Https}{force\+Https}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1089}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Normalize {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}\+:} to {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}\+:}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com:80/');}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com:80/',\ \{forceHttps:\ true\});}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com'}
+
+\end{DoxyCode}
+
+
+This option can\textquotesingle{}t be used with the {\ttfamily force\+Http} option at the same time.\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1090}{}\doxysubsubsubsubsection{\texorpdfstring{strip\+Authentication}{strip\+Authentication}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1090}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Strip the \href{https://en.wikipedia.org/wiki/Basic_access_authentication}{\texttt{authentication}} part of the URL.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('user:password@sindresorhus.com');}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('user:password@sindresorhus.com',\ \{stripAuthentication:\ false\});}
+\DoxyCodeLine{//=>\ 'https://user:password@sindresorhus.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1091}{}\doxysubsubsubsubsection{\texorpdfstring{strip\+Hash}{strip\+Hash}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1091}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Strip the hash part of the URL.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('sindresorhus.com/about.html\#contact');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/about.html\#contact'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('sindresorhus.com/about.html\#contact',\ \{stripHash:\ true\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/about.html'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1092}{}\doxysubsubsubsubsection{\texorpdfstring{strip\+Protocol}{strip\+Protocol}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1092}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily false}
+
+Remove \doxylink{http2_8d_a4ff068e053ca83462d01531f1567cd72}{HTTP(\+S)} protocol from the URL\+: {\ttfamily \href{http://sindresorhus.com}{\texttt{http\+://sindresorhus.\+com}}} → {\ttfamily sindresorhus.\+com}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com');}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com',\ \{stripProtocol:\ true\});}
+\DoxyCodeLine{//=>\ 'sindresorhus.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1093}{}\doxysubsubsubsubsection{\texorpdfstring{strip\+Text\+Fragment}{strip\+Text\+Fragment}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1093}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Strip the \href{https://web.dev/text-fragments/}{\texttt{text fragment}} part of the URL.
+
+{\bfseries{Note\+:}} The text fragment will always be removed if the {\ttfamily strip\+Hash} option is set to {\ttfamily true}, as the hash contains the text fragment.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/about.html\#:\string~:text=hello');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/about.html\#'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/about.html\#section:\string~:text=hello');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/about.html\#section'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/about.html\#:\string~:text=hello',\ \{stripTextFragment:\ false\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/about.html\#:\string~:text=hello'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/about.html\#section:\string~:text=hello',\ \{stripTextFragment:\ false\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/about.html\#section:\string~:text=hello'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1094}{}\doxysubsubsubsubsection{\texorpdfstring{strip\+WWW}{strip\+WWW}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1094}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Remove {\ttfamily www.} from the URL.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('http://www.sindresorhus.com');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://www.sindresorhus.com',\ \{stripWWW:\ false\});}
+\DoxyCodeLine{//=>\ 'http://www.sindresorhus.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1095}{}\doxysubsubsubsubsection{\texorpdfstring{remove\+Query\+Parameters}{remove\+Query\+Parameters}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1095}
+Type\+: {\ttfamily Array\texorpdfstring{$<$}{<}Reg\+Exp \texorpdfstring{$\vert$}{|} \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\texorpdfstring{$>$}{>} \texorpdfstring{$\vert$}{|} boolean}\textbackslash{} Default\+: {\ttfamily \mbox{[}/\texorpdfstring{$^\wedge$}{\string^}utm\+\_\+\textbackslash{}w+/i\mbox{]}}
+
+Remove query parameters that matches any of the provided strings or regexes.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('www.sindresorhus.com?foo=bar\&ref=test\_ref',\ \{}
+\DoxyCodeLine{\ \ \ \ removeQueryParameters:\ ['ref']}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/?foo=bar'}
+
+\end{DoxyCode}
+
+
+If a boolean is provided, {\ttfamily true} will remove all the query parameters.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('www.sindresorhus.com?foo=bar',\ \{}
+\DoxyCodeLine{\ \ \ \ removeQueryParameters:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com'}
+
+\end{DoxyCode}
+
+
+{\ttfamily false} will not remove any query parameter.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('www.sindresorhus.com?foo=bar\&utm\_medium=test\&ref=test\_ref',\ \{}
+\DoxyCodeLine{\ \ \ \ removeQueryParameters:\ false}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ 'http://www.sindresorhus.com/?foo=bar\&ref=test\_ref\&utm\_medium=test'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1096}{}\doxysubsubsubsubsection{\texorpdfstring{remove\+Trailing\+Slash}{remove\+Trailing\+Slash}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1096}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Remove trailing slash.
+
+{\bfseries{Note\+:}} Trailing slash is always removed if the URL doesn\textquotesingle{}t have a pathname unless the {\ttfamily remove\+Single\+Slash} option is set to {\ttfamily false}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/redirect/');}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/redirect'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/redirect/',\ \{removeTrailingSlash:\ false\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/redirect/'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('http://sindresorhus.com/',\ \{removeTrailingSlash:\ false\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1097}{}\doxysubsubsubsubsection{\texorpdfstring{remove\+Single\+Slash}{remove\+Single\+Slash}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1097}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Remove a sole {\ttfamily /} pathname in the output. This option is independant of {\ttfamily remove\+Trailing\+Slash}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com/');}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com'}
+\DoxyCodeLine{}
+\DoxyCodeLine{normalizeUrl('https://sindresorhus.com/',\ \{removeSingleSlash:\ false\});}
+\DoxyCodeLine{//=>\ 'https://sindresorhus.com/'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1098}{}\doxysubsubsubsubsection{\texorpdfstring{remove\+Directory\+Index}{remove\+Directory\+Index}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1098}
+Type\+: {\ttfamily boolean \texorpdfstring{$\vert$}{|} Array\texorpdfstring{$<$}{<}Reg\+Exp \texorpdfstring{$\vert$}{|} \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\texorpdfstring{$>$}{>}}\textbackslash{} Default\+: {\ttfamily false}
+
+Removes the default directory index file from path that matches any of the provided strings or regexes. When {\ttfamily true}, the regex {\ttfamily /\texorpdfstring{$^\wedge$}{\string^}index\textbackslash{}.\mbox{[}a-\/z\mbox{]}+\$/} is used.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('www.sindresorhus.com/foo/default.php',\ \{}
+\DoxyCodeLine{\ \ \ \ removeDirectoryIndex:\ [/\string^default\(\backslash\).[a-\/z]+\$/]}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/foo'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1099}{}\doxysubsubsubsubsection{\texorpdfstring{sort\+Query\+Parameters}{sort\+Query\+Parameters}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1099}
+Type\+: {\ttfamily boolean}\textbackslash{} Default\+: {\ttfamily true}
+
+Sorts the query parameters alphabetically by key.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{normalizeUrl('www.sindresorhus.com?b=two\&a=one\&c=three',\ \{}
+\DoxyCodeLine{\ \ \ \ sortQueryParameters:\ false}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ 'http://sindresorhus.com/?b=two\&a=one\&c=three'}
+
+\end{DoxyCode}
+\hypertarget{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1100}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_7a5a96a8472d6292e0d110539a3edb9a_autotoc_md1100}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/compare-urls}{\texttt{compare-\/urls}} -\/ Compare URLs by first normalizing them
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+ {\bfseries{ \href{https://tidelift.com/subscription/pkg/npm-normalize-url?utm_source=npm-normalize-url&utm_medium=referral&utm_campaign=readme}{\texttt{Get professional support for this package with a Tidelift subscription}} }} ~\newline
+ \textsubscript{ Tidelift helps make open source sustainable for maintainers while giving companies~\newline
+assurances about security, maintenance, and licensing for their dependencies. }  

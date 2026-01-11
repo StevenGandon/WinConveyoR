@@ -1,0 +1,128 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+cb\+\_\+prg.c File Reference}
+\hypertarget{tool__cb__prg_8c}{}\label{tool__cb__prg_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cb\_prg.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cb\_prg.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cb\+\_\+prg.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+util.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+operate.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__cb__prg_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__cb__prg_8c_a00a9dabea30817b2637ec74d2699f1a7}{MAX\+\_\+\+BARLENGTH}}~256
+\item 
+\#define \mbox{\hyperlink{tool__cb__prg_8c_a2e2dfd85567685413b23d71f2e545299}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+\+MAX}}~\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(0x7\+FFFFFFFFFFFFFFF)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{tool__cb__prg_8c_ad6aa148e083d3b63748420099e45aa93}{fly}} (struct \mbox{\hyperlink{structProgressData}{Progress\+Data}} \texorpdfstring{$\ast$}{*}bar, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} moved)
+\item 
+int \mbox{\hyperlink{tool__cb__prg_8c_ae825b9715b3bfd2988441d68ce74c553}{tool\+\_\+progress\+\_\+cb}} (void \texorpdfstring{$\ast$}{*}clientp, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} dltotal, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} dlnow, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} ultotal, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} ulnow)
+\item 
+void \mbox{\hyperlink{tool__cb__prg_8c_a51d95b3615b3193a91de5706a1226481}{progressbarinit}} (struct \mbox{\hyperlink{structProgressData}{Progress\+Data}} \texorpdfstring{$\ast$}{*}bar, struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const unsigned int \mbox{\hyperlink{tool__cb__prg_8c_a2821952afd41aad5ca76a9b01d255508}{sinus}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__cb__prg_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__cb__prg_8c_a2e2dfd85567685413b23d71f2e545299}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!CURL\_OFF\_T\_MAX@{CURL\_OFF\_T\_MAX}}
+\index{CURL\_OFF\_T\_MAX@{CURL\_OFF\_T\_MAX}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_OFF\_T\_MAX}{CURL\_OFF\_T\_MAX}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_a2e2dfd85567685413b23d71f2e545299} 
+\#define CURL\+\_\+\+OFF\+\_\+\+T\+\_\+\+MAX~\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(0x7\+FFFFFFFFFFFFFFF)}
+
+\Hypertarget{tool__cb__prg_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__cb__prg_8c_a00a9dabea30817b2637ec74d2699f1a7}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!MAX\_BARLENGTH@{MAX\_BARLENGTH}}
+\index{MAX\_BARLENGTH@{MAX\_BARLENGTH}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_BARLENGTH}{MAX\_BARLENGTH}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_a00a9dabea30817b2637ec74d2699f1a7} 
+\#define MAX\+\_\+\+BARLENGTH~256}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tool__cb__prg_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__cb__prg_8c_ad6aa148e083d3b63748420099e45aa93}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!fly@{fly}}
+\index{fly@{fly}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{fly()}{fly()}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_ad6aa148e083d3b63748420099e45aa93} 
+void fly (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structProgressData}{Progress\+Data}} \texorpdfstring{$\ast$}{*}}]{bar}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{moved}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__cb__prg_8c_a51d95b3615b3193a91de5706a1226481}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!progressbarinit@{progressbarinit}}
+\index{progressbarinit@{progressbarinit}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{progressbarinit()}{progressbarinit()}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_a51d95b3615b3193a91de5706a1226481} 
+void progressbarinit (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structProgressData}{Progress\+Data}} \texorpdfstring{$\ast$}{*}}]{bar}{, }\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__cb__prg_8c_ae825b9715b3bfd2988441d68ce74c553}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!tool\_progress\_cb@{tool\_progress\_cb}}
+\index{tool\_progress\_cb@{tool\_progress\_cb}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{tool\_progress\_cb()}{tool\_progress\_cb()}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_ae825b9715b3bfd2988441d68ce74c553} 
+int tool\+\_\+progress\+\_\+cb (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{clientp}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{dltotal}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{dlnow}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{ultotal}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{ulnow}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{tool__cb__prg_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tool__cb__prg_8c_a2821952afd41aad5ca76a9b01d255508}\index{tool\_cb\_prg.c@{tool\_cb\_prg.c}!sinus@{sinus}}
+\index{sinus@{sinus}!tool\_cb\_prg.c@{tool\_cb\_prg.c}}
+\doxysubsubsection{\texorpdfstring{sinus}{sinus}}
+{\footnotesize\ttfamily \label{tool__cb__prg_8c_a2821952afd41aad5ca76a9b01d255508} 
+const unsigned int sinus\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ 515704,\ 531394,\ 547052,\ 562664,\ 578214,\ 593687,\ 609068,\ 624341,\ 639491,}
+\DoxyCodeLine{\ \ 654504,\ 669364,\ 684057,\ 698568,\ 712883,\ 726989,\ 740870,\ 754513,\ 767906,}
+\DoxyCodeLine{\ \ 781034,\ 793885,\ 806445,\ 818704,\ 830647,\ 842265,\ 853545,\ 864476,\ 875047,}
+\DoxyCodeLine{\ \ 885248,\ 895069,\ 904500,\ 913532,\ 922156,\ 930363,\ 938145,\ 945495,\ 952406,}
+\DoxyCodeLine{\ \ 958870,\ 964881,\ 970434,\ 975522,\ 980141,\ 984286,\ 987954,\ 991139,\ 993840,}
+\DoxyCodeLine{\ \ 996054,\ 997778,\ 999011,\ 999752,\ 999999,\ 999754,\ 999014,\ 997783,\ 996060,}
+\DoxyCodeLine{\ \ 993848,\ 991148,\ 987964,\ 984298,\ 980154,\ 975536,\ 970449,\ 964898,\ 958888,}
+\DoxyCodeLine{\ \ 952426,\ 945516,\ 938168,\ 930386,\ 922180,\ 913558,\ 904527,\ 895097,\ 885277,}
+\DoxyCodeLine{\ \ 875077,\ 864507,\ 853577,\ 842299,\ 830682,\ 818739,\ 806482,\ 793922,\ 781072,}
+\DoxyCodeLine{\ \ 767945,\ 754553,\ 740910,\ 727030,\ 712925,\ 698610,\ 684100,\ 669407,\ 654548,}
+\DoxyCodeLine{\ \ 639536,\ 624386,\ 609113,\ 593733,\ 578260,\ 562710,\ 547098,\ 531440,\ 515751,}
+\DoxyCodeLine{\ \ 500046,\ 484341,\ 468651,\ 452993,\ 437381,\ 421830,\ 406357,\ 390976,\ 375703,}
+\DoxyCodeLine{\ \ 360552,\ 345539,\ 330679,\ 315985,\ 301474,\ 287158,\ 273052,\ 259170,\ 245525,}
+\DoxyCodeLine{\ \ 232132,\ 219003,\ 206152,\ 193590,\ 181331,\ 169386,\ 157768,\ 146487,\ 135555,}
+\DoxyCodeLine{\ \ 124983,\ 114781,\ 104959,\ 95526,\ 86493,\ 77868,\ 69660,\ 61876,\ 54525,\ 47613,}
+\DoxyCodeLine{\ \ 41147,\ 35135,\ 29581,\ 24491,\ 19871,\ 15724,\ 12056,\ 8868,\ 6166,\ 3951,\ 2225,}
+\DoxyCodeLine{\ \ 990,\ 248,\ 0,\ 244,\ 982,\ 2212,\ 3933,\ 6144,\ 8842,\ 12025,\ 15690,\ 19832,\ 24448,}
+\DoxyCodeLine{\ \ 29534,\ 35084,\ 41092,\ 47554,\ 54462,\ 61809,\ 69589,\ 77794,\ 86415,\ 95445,}
+\DoxyCodeLine{\ \ 104873,\ 114692,\ 124891,\ 135460,\ 146389,\ 157667,\ 169282,\ 181224,\ 193480,}
+\DoxyCodeLine{\ \ 206039,\ 218888,\ 232015,\ 245406,\ 259048,\ 272928,\ 287032,\ 301346,\ 315856,}
+\DoxyCodeLine{\ \ 330548,\ 345407,\ 360419,\ 375568,\ 390841,\ 406221,\ 421693,\ 437243,\ 452854,}
+\DoxyCodeLine{\ \ 468513,\ 484202,\ 499907}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

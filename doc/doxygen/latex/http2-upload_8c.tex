@@ -1,0 +1,100 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/http2-\/upload.c File Reference}
+\hypertarget{http2-upload_8c}{}\label{http2-upload_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/http2-\/upload.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/http2-\/upload.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include $<$curl/mprintf.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structinput}{input}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{http2-upload_8c_af29d172b038fadd90daf541df3b945c6}{CURLPIPE\+\_\+\+MULTIPLEX}}~0
+\item 
+\#define \mbox{\hyperlink{http2-upload_8c_a2e3fc5f84b659b2f8d4b47b744468ada}{NUM\+\_\+\+HANDLES}}~1000
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{http2-upload_8c_a2e9429da61d2bdd5eea08b82bd00aa1e}{dump}} (const char \texorpdfstring{$\ast$}{*}text, int num, unsigned char \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, char nohex)
+\item 
+static int \mbox{\hyperlink{http2-upload_8c_a16a363383b4a1c4f8b3d9c16bcaf66ca}{my\+\_\+trace}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}handle, \mbox{\hyperlink{curl_8h_a9704d2633927f77efaa3e3c6f1c23a14}{curl\+\_\+infotype}} \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}}, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, void \texorpdfstring{$\ast$}{*}userp)
+\item 
+static size\+\_\+t \mbox{\hyperlink{http2-upload_8c_a17b8a11fdea76762b3a91d6790bcc82f}{read\+\_\+callback}} (char \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}userp)
+\item 
+static void \mbox{\hyperlink{http2-upload_8c_a3e75ff33d76c59ef7165475d49864e82}{setup}} (struct \mbox{\hyperlink{structinput}{input}} \texorpdfstring{$\ast$}{*}i, int num, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{ftpuploadresume_8c_a01aee8d8856c2abbbd0f33f9be2dfc5f}{upload}})
+\item 
+int \mbox{\hyperlink{http2-upload_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{http2-upload_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{http2-upload_8c_af29d172b038fadd90daf541df3b945c6}\index{http2-\/upload.c@{http2-\/upload.c}!CURLPIPE\_MULTIPLEX@{CURLPIPE\_MULTIPLEX}}
+\index{CURLPIPE\_MULTIPLEX@{CURLPIPE\_MULTIPLEX}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{CURLPIPE\_MULTIPLEX}{CURLPIPE\_MULTIPLEX}}
+{\footnotesize\ttfamily \label{http2-upload_8c_af29d172b038fadd90daf541df3b945c6} 
+\#define CURLPIPE\+\_\+\+MULTIPLEX~0}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{http2-upload_8c_a2e3fc5f84b659b2f8d4b47b744468ada}\index{http2-\/upload.c@{http2-\/upload.c}!NUM\_HANDLES@{NUM\_HANDLES}}
+\index{NUM\_HANDLES@{NUM\_HANDLES}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{NUM\_HANDLES}{NUM\_HANDLES}}
+{\footnotesize\ttfamily \label{http2-upload_8c_a2e3fc5f84b659b2f8d4b47b744468ada} 
+\#define NUM\+\_\+\+HANDLES~1000}
+
+
+
+\label{doc-func-members}
+\Hypertarget{http2-upload_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{http2-upload_8c_a2e9429da61d2bdd5eea08b82bd00aa1e}\index{http2-\/upload.c@{http2-\/upload.c}!dump@{dump}}
+\index{dump@{dump}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily \label{http2-upload_8c_a2e9429da61d2bdd5eea08b82bd00aa1e} 
+void dump (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{text}{, }\item[{int}]{num}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{size}{, }\item[{char}]{nohex}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-upload_8c_a3c04138a5bfe5d72780bb7e82a18e627}\index{http2-\/upload.c@{http2-\/upload.c}!main@{main}}
+\index{main@{main}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{http2-upload_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+\Hypertarget{http2-upload_8c_a16a363383b4a1c4f8b3d9c16bcaf66ca}\index{http2-\/upload.c@{http2-\/upload.c}!my\_trace@{my\_trace}}
+\index{my\_trace@{my\_trace}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{my\_trace()}{my\_trace()}}
+{\footnotesize\ttfamily \label{http2-upload_8c_a16a363383b4a1c4f8b3d9c16bcaf66ca} 
+int my\+\_\+trace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{handle}{, }\item[{\mbox{\hyperlink{curl_8h_a9704d2633927f77efaa3e3c6f1c23a14}{curl\+\_\+infotype}}}]{type}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{size}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-upload_8c_a17b8a11fdea76762b3a91d6790bcc82f}\index{http2-\/upload.c@{http2-\/upload.c}!read\_callback@{read\_callback}}
+\index{read\_callback@{read\_callback}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{read\_callback()}{read\_callback()}}
+{\footnotesize\ttfamily \label{http2-upload_8c_a17b8a11fdea76762b3a91d6790bcc82f} 
+size\+\_\+t read\+\_\+callback (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{userp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http2-upload_8c_a3e75ff33d76c59ef7165475d49864e82}\index{http2-\/upload.c@{http2-\/upload.c}!setup@{setup}}
+\index{setup@{setup}!http2-\/upload.c@{http2-\/upload.c}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{http2-upload_8c_a3e75ff33d76c59ef7165475d49864e82} 
+void setup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structinput}{input}} \texorpdfstring{$\ast$}{*}}]{i}{, }\item[{int}]{num}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{upload}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

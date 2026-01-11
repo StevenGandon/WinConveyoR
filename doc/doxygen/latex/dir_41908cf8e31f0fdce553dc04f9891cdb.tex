@@ -1,0 +1,66 @@
+\doxysection{gui/node\+\_\+modules/define-\/properties Directory Reference}
+\hypertarget{dir_41908cf8e31f0fdce553dc04f9891cdb}{}\label{dir_41908cf8e31f0fdce553dc04f9891cdb}\index{gui/node\_modules/define-\/properties Directory Reference@{gui/node\_modules/define-\/properties Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_41908cf8e31f0fdce553dc04f9891cdb_autotoc_md409}{}\doxysubsection{\texorpdfstring{define-\/properties \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}package-\/url\mbox{]}}}{define-\/properties \textsuperscript{\mbox{[}!\mbox{[}Version Badge\mbox{]}\mbox{[}npm-\/version-\/svg\mbox{]}\mbox{]}\mbox{[}package-\/url\mbox{]}}}}\label{dir_41908cf8e31f0fdce553dc04f9891cdb_autotoc_md409}
+\href{https://github.com/ljharb/define-properties/actions}{\texttt{}} \href{https://app.codecov.io/gh/ljharb/define-properties/}{\texttt{}} \href{https://david-dm.org/ljharb/define-properties}{\texttt{}} \href{https://david-dm.org/ljharb/define-properties\#info=devDependencies}{\texttt{}} \mbox{[}\mbox{]}\mbox{[}license-\/url\mbox{]} \href{https://npm-stat.com/charts.html?package=define-properties}{\texttt{}}
+
+\href{https://npmjs.org/package/define-properties}{\texttt{}}
+
+Define multiple non-\/enumerable properties at once. Uses {\ttfamily Object.\+define\+Property} when available; falls back to standard assignment in older engines. Existing properties are not overridden. Accepts a map of property names to a predicate that, when true, force-\/overrides.\hypertarget{dir_41908cf8e31f0fdce553dc04f9891cdb_autotoc_md410}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{dir_41908cf8e31f0fdce553dc04f9891cdb_autotoc_md410}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ define\ =\ require('define-\/properties');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ obj\ =\ define(\{\ a:\ 1,\ b:\ 2\ \},\ \{}
+\DoxyCodeLine{\ \ \ \ a:\ 10,}
+\DoxyCodeLine{\ \ \ \ b:\ 20,}
+\DoxyCodeLine{\ \ \ \ c:\ 30}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{assert(obj.a\ ===\ 1);}
+\DoxyCodeLine{assert(obj.b\ ===\ 2);}
+\DoxyCodeLine{assert(obj.c\ ===\ 30);}
+\DoxyCodeLine{if\ (define.supportsDescriptors)\ \{}
+\DoxyCodeLine{\ \ \ \ assert.deepEqual(Object.keys(obj),\ ['a',\ 'b']);}
+\DoxyCodeLine{\ \ \ \ assert.deepEqual(Object.getOwnPropertyDescriptor(obj,\ 'c'),\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ configurable:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ enumerable:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ value:\ 30,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ writable:\ false}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Then, with predicates\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ define\ =\ require('define-\/properties');}
+\DoxyCodeLine{var\ assert\ =\ require('assert');}
+\DoxyCodeLine{}
+\DoxyCodeLine{var\ obj\ =\ define(\{\ a:\ 1,\ b:\ 2,\ c:\ 3\ \},\ \{}
+\DoxyCodeLine{\ \ \ \ a:\ 10,}
+\DoxyCodeLine{\ \ \ \ b:\ 20,}
+\DoxyCodeLine{\ \ \ \ c:\ 30}
+\DoxyCodeLine{\},\ \{}
+\DoxyCodeLine{\ \ \ \ a:\ function\ ()\ \{\ return\ false;\ \},}
+\DoxyCodeLine{\ \ \ \ b:\ function\ ()\ \{\ return\ true;\ \}}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{assert(obj.a\ ===\ 1);}
+\DoxyCodeLine{assert(obj.b\ ===\ 20);}
+\DoxyCodeLine{assert(obj.c\ ===\ 3);}
+\DoxyCodeLine{if\ (define.supportsDescriptors)\ \{}
+\DoxyCodeLine{\ \ \ \ assert.deepEqual(Object.keys(obj),\ ['a',\ 'c']);}
+\DoxyCodeLine{\ \ \ \ assert.deepEqual(Object.getOwnPropertyDescriptor(obj,\ 'b'),\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ configurable:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ enumerable:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ value:\ 20,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ writable:\ false}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_41908cf8e31f0fdce553dc04f9891cdb_autotoc_md411}{}\doxysubsection{\texorpdfstring{Tests}{Tests}}\label{dir_41908cf8e31f0fdce553dc04f9891cdb_autotoc_md411}
+Simply clone the repo, {\ttfamily npm install}, and run {\ttfamily npm test} 

@@ -1,0 +1,172 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/http\+\_\+aws\+\_\+sigv4.c File Reference}
+\hypertarget{http__aws__sigv4_8c}{}\label{http__aws__sigv4_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/http\_aws\_sigv4.c@{lib/libwconr/build/\_deps/curl-\/src/lib/http\_aws\_sigv4.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}http\+\_\+aws\+\_\+sigv4.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sha256.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}parsedate.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+{\ttfamily \#include "{}slist.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_ae2cd4aa29e3603b1959f6ef428627768}{HMAC\+\_\+\+SHA256}}(k,  kl,  d,  dl,  o)
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}}~17
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_aa881e342bebb63537f1ca1a7f82f0ae4}{MAX\+\_\+\+SIGV4\+\_\+\+LEN}}~64
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_ade791eeffb8381820a858b1c446a9c30}{MAX\+\_\+\+SIGV4\+\_\+\+LEN\+\_\+\+TXT}}~"{}64"{}
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_a8c044cd23b0c016f4499fecfd2bdbc18}{DATE\+\_\+\+HDR\+\_\+\+KEY\+\_\+\+LEN}}~(\mbox{\hyperlink{http__aws__sigv4_8c_aa881e342bebb63537f1ca1a7f82f0ae4}{MAX\+\_\+\+SIGV4\+\_\+\+LEN}} + sizeof("{}X-\/-\/Date"{}))
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_aa746ad89d7f59a152f37e3529057bd58}{MAX\+\_\+\+HOST\+\_\+\+LEN}}~255
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_a65077a5f02cfae72dabf136c827a7244}{FULL\+\_\+\+HOST\+\_\+\+LEN}}~(\mbox{\hyperlink{http__aws__sigv4_8c_aa746ad89d7f59a152f37e3529057bd58}{MAX\+\_\+\+HOST\+\_\+\+LEN}} + sizeof("{}host\+:"{}))
+\item 
+\#define \mbox{\hyperlink{http__aws__sigv4_8c_a6a96cf5966c85825410d081f8ec89780}{DATE\+\_\+\+FULL\+\_\+\+HDR\+\_\+\+LEN}}~(\mbox{\hyperlink{http__aws__sigv4_8c_a8c044cd23b0c016f4499fecfd2bdbc18}{DATE\+\_\+\+HDR\+\_\+\+KEY\+\_\+\+LEN}} + \mbox{\hyperlink{http__aws__sigv4_8c_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}} + 1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{http__aws__sigv4_8c_ae2562a9daf557b42d223b522258a66a9}{sha256\+\_\+to\+\_\+hex}} (char \texorpdfstring{$\ast$}{*}dst, unsigned char \texorpdfstring{$\ast$}{*}sha, size\+\_\+t dst\+\_\+l)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__aws__sigv4_8c_a91bae64fcafe4948a70ad78d3765a7fc}{find\+\_\+date\+\_\+hdr}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}sig\+\_\+hdr)
+\item 
+static void \mbox{\hyperlink{http__aws__sigv4_8c_a9f5376fdaa5dda5565d7d1fff7fcb749}{trim\+\_\+headers}} (struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{get_8d_aad827a2dad0c5f442868a9d3f8abf01a}{head}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{http__aws__sigv4_8c_aff82fb882fed94fc544fdcf90d0b5dab}{make\+\_\+headers}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, char \texorpdfstring{$\ast$}{*}timestamp, char \texorpdfstring{$\ast$}{*}provider1, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}date\+\_\+header, struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}canonical\+\_\+headers, struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}signed\+\_\+headers)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{http__aws__sigv4_8c_a61f8627b690bf9c86d5ceeda83bb9d68}{Curl\+\_\+output\+\_\+aws\+\_\+sigv4}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{proxy_8d_aa6d6aad9f4f93ecc7a7509dd4c4859d0}{proxy}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{http__aws__sigv4_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{http__aws__sigv4_8c_a6a96cf5966c85825410d081f8ec89780}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!DATE\_FULL\_HDR\_LEN@{DATE\_FULL\_HDR\_LEN}}
+\index{DATE\_FULL\_HDR\_LEN@{DATE\_FULL\_HDR\_LEN}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{DATE\_FULL\_HDR\_LEN}{DATE\_FULL\_HDR\_LEN}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a6a96cf5966c85825410d081f8ec89780} 
+\#define DATE\+\_\+\+FULL\+\_\+\+HDR\+\_\+\+LEN~(\mbox{\hyperlink{http__aws__sigv4_8c_a8c044cd23b0c016f4499fecfd2bdbc18}{DATE\+\_\+\+HDR\+\_\+\+KEY\+\_\+\+LEN}} + \mbox{\hyperlink{http__aws__sigv4_8c_a7b4282b06832a01cee279660fd4b829d}{TIMESTAMP\+\_\+\+SIZE}} + 1)}
+
+\Hypertarget{http__aws__sigv4_8c_a8c044cd23b0c016f4499fecfd2bdbc18}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!DATE\_HDR\_KEY\_LEN@{DATE\_HDR\_KEY\_LEN}}
+\index{DATE\_HDR\_KEY\_LEN@{DATE\_HDR\_KEY\_LEN}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{DATE\_HDR\_KEY\_LEN}{DATE\_HDR\_KEY\_LEN}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a8c044cd23b0c016f4499fecfd2bdbc18} 
+\#define DATE\+\_\+\+HDR\+\_\+\+KEY\+\_\+\+LEN~(\mbox{\hyperlink{http__aws__sigv4_8c_aa881e342bebb63537f1ca1a7f82f0ae4}{MAX\+\_\+\+SIGV4\+\_\+\+LEN}} + sizeof("{}X-\/-\/Date"{}))}
+
+\Hypertarget{http__aws__sigv4_8c_a65077a5f02cfae72dabf136c827a7244}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!FULL\_HOST\_LEN@{FULL\_HOST\_LEN}}
+\index{FULL\_HOST\_LEN@{FULL\_HOST\_LEN}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{FULL\_HOST\_LEN}{FULL\_HOST\_LEN}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a65077a5f02cfae72dabf136c827a7244} 
+\#define FULL\+\_\+\+HOST\+\_\+\+LEN~(\mbox{\hyperlink{http__aws__sigv4_8c_aa746ad89d7f59a152f37e3529057bd58}{MAX\+\_\+\+HOST\+\_\+\+LEN}} + sizeof("{}host\+:"{}))}
+
+\Hypertarget{http__aws__sigv4_8c_ae2cd4aa29e3603b1959f6ef428627768}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!HMAC\_SHA256@{HMAC\_SHA256}}
+\index{HMAC\_SHA256@{HMAC\_SHA256}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{HMAC\_SHA256}{HMAC\_SHA256}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_ae2cd4aa29e3603b1959f6ef428627768} 
+\#define HMAC\+\_\+\+SHA256(\begin{DoxyParamCaption}\item[{}]{k}{, }\item[{}]{kl}{, }\item[{}]{d}{, }\item[{}]{dl}{, }\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ret\ =\ \mbox{\hyperlink{curl__hmac_8h_adfce84704f99c4180eddbed042d1cd3e}{Curl\_hmacit}}(\mbox{\hyperlink{curl__sha256_8h_a3425b05b28a1fce22a727599f7e941e2}{Curl\_HMAC\_SHA256}},\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)k,\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})kl,\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)d,\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})dl,\ o);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(ret)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{goto}\ \mbox{\hyperlink{fail-early_8d_ab08f0b7515b254c676ac0dd8f2198448}{fail}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.haxx.se/docs/copyright.html}{\texttt{https\+://curl.\+haxx.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{http__aws__sigv4_8c_aa746ad89d7f59a152f37e3529057bd58}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!MAX\_HOST\_LEN@{MAX\_HOST\_LEN}}
+\index{MAX\_HOST\_LEN@{MAX\_HOST\_LEN}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_HOST\_LEN}{MAX\_HOST\_LEN}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_aa746ad89d7f59a152f37e3529057bd58} 
+\#define MAX\+\_\+\+HOST\+\_\+\+LEN~255}
+
+\Hypertarget{http__aws__sigv4_8c_aa881e342bebb63537f1ca1a7f82f0ae4}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!MAX\_SIGV4\_LEN@{MAX\_SIGV4\_LEN}}
+\index{MAX\_SIGV4\_LEN@{MAX\_SIGV4\_LEN}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_SIGV4\_LEN}{MAX\_SIGV4\_LEN}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_aa881e342bebb63537f1ca1a7f82f0ae4} 
+\#define MAX\+\_\+\+SIGV4\+\_\+\+LEN~64}
+
+\Hypertarget{http__aws__sigv4_8c_ade791eeffb8381820a858b1c446a9c30}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!MAX\_SIGV4\_LEN\_TXT@{MAX\_SIGV4\_LEN\_TXT}}
+\index{MAX\_SIGV4\_LEN\_TXT@{MAX\_SIGV4\_LEN\_TXT}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_SIGV4\_LEN\_TXT}{MAX\_SIGV4\_LEN\_TXT}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_ade791eeffb8381820a858b1c446a9c30} 
+\#define MAX\+\_\+\+SIGV4\+\_\+\+LEN\+\_\+\+TXT~"{}64"{}}
+
+\Hypertarget{http__aws__sigv4_8c_a7b4282b06832a01cee279660fd4b829d}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!TIMESTAMP\_SIZE@{TIMESTAMP\_SIZE}}
+\index{TIMESTAMP\_SIZE@{TIMESTAMP\_SIZE}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{TIMESTAMP\_SIZE}{TIMESTAMP\_SIZE}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a7b4282b06832a01cee279660fd4b829d} 
+\#define TIMESTAMP\+\_\+\+SIZE~17}
+
+
+
+\label{doc-func-members}
+\Hypertarget{http__aws__sigv4_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{http__aws__sigv4_8c_a61f8627b690bf9c86d5ceeda83bb9d68}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!Curl\_output\_aws\_sigv4@{Curl\_output\_aws\_sigv4}}
+\index{Curl\_output\_aws\_sigv4@{Curl\_output\_aws\_sigv4}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_output\_aws\_sigv4()}{Curl\_output\_aws\_sigv4()}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a61f8627b690bf9c86d5ceeda83bb9d68} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+output\+\_\+aws\+\_\+sigv4 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{proxy}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.haxx.se/docs/copyright.html}{\texttt{https\+://curl.\+haxx.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{http__aws__sigv4_8c_a91bae64fcafe4948a70ad78d3765a7fc}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!find\_date\_hdr@{find\_date\_hdr}}
+\index{find\_date\_hdr@{find\_date\_hdr}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{find\_date\_hdr()}{find\_date\_hdr()}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a91bae64fcafe4948a70ad78d3765a7fc} 
+char \texorpdfstring{$\ast$}{*} find\+\_\+date\+\_\+hdr (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{sig\+\_\+hdr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http__aws__sigv4_8c_aff82fb882fed94fc544fdcf90d0b5dab}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!make\_headers@{make\_headers}}
+\index{make\_headers@{make\_headers}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{make\_headers()}{make\_headers()}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_aff82fb882fed94fc544fdcf90d0b5dab} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} make\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{timestamp}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{provider1}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{date\+\_\+header}{, }\item[{struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}}]{canonical\+\_\+headers}{, }\item[{struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}}]{signed\+\_\+headers}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http__aws__sigv4_8c_ae2562a9daf557b42d223b522258a66a9}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!sha256\_to\_hex@{sha256\_to\_hex}}
+\index{sha256\_to\_hex@{sha256\_to\_hex}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{sha256\_to\_hex()}{sha256\_to\_hex()}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_ae2562a9daf557b42d223b522258a66a9} 
+void sha256\+\_\+to\+\_\+hex (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{sha}{, }\item[{size\+\_\+t}]{dst\+\_\+l}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{http__aws__sigv4_8c_a9f5376fdaa5dda5565d7d1fff7fcb749}\index{http\_aws\_sigv4.c@{http\_aws\_sigv4.c}!trim\_headers@{trim\_headers}}
+\index{trim\_headers@{trim\_headers}!http\_aws\_sigv4.c@{http\_aws\_sigv4.c}}
+\doxysubsubsection{\texorpdfstring{trim\_headers()}{trim\_headers()}}
+{\footnotesize\ttfamily \label{http__aws__sigv4_8c_a9f5376fdaa5dda5565d7d1fff7fcb749} 
+void trim\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{head}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

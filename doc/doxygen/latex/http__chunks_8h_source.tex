@@ -1,0 +1,84 @@
+\doxysection{http\+\_\+chunks.\+h}
+\hypertarget{http__chunks_8h_source}{}\label{http__chunks_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/http\_chunks.h@{lib/libwconr/build/\_deps/curl-\/src/lib/http\_chunks.h}}
+\mbox{\hyperlink{http__chunks_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HTTP\_CHUNKS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HTTP\_CHUNKS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ The\ longest\ possible\ hexadecimal\ number\ we\ support\ in\ a\ chunked\ transfer.}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ Neither\ RFC2616\ nor\ the\ later\ HTTP\ specs\ define\ a\ maximum\ chunk\ size.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ For\ 64\ bit\ curl\_off\_t\ we\ support\ 16\ digits.\ For\ 32\ bit,\ 8\ digits.}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ CHUNK\_MAXNUM\_LEN\ (SIZEOF\_CURL\_OFF\_T\ *\ 2)}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00037\ \ \ \textcolor{comment}{/*\ await\ and\ buffer\ all\ hexadecimal\ digits\ until\ we\ get\ one\ that\ isn't\ a}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \ hexadecimal\ digit.\ When\ done,\ we\ go\ CHUNK\_LF\ */}}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca8fce4d846b4285564d94ba1349516c6e}{CHUNK\_HEX}},}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{/*\ wait\ for\ LF,\ ignore\ all\ else\ */}}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cae4a184c512fc8b032301b70d2571c5c7}{CHUNK\_LF}},}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{/*\ We\ eat\ the\ amount\ of\ data\ specified.\ When\ done,\ we\ move\ on\ to\ the}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ POST\_CR\ state.\ */}}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca04a4a213523e9d25dd55fb6ffaa45e67}{CHUNK\_DATA}},}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{/*\ POSTLF\ should\ get\ a\ CR\ and\ then\ a\ LF\ and\ nothing\ else,\ then\ move\ back\ to}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ \ \ HEX\ as\ the\ CRLF\ combination\ marks\ the\ end\ of\ a\ chunk.\ A\ missing\ CR\ is\ no}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ \ \ big\ deal.\ */}}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca227c43200b7912a55591efd359ab8b0d}{CHUNK\_POSTLF}},}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{comment}{/*\ Used\ to\ mark\ that\ we're\ out\ of\ the\ game.\ \ NOTE:\ that\ there's\ a\ 'datasize'}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ \ \ field\ in\ the\ struct\ that\ will\ tell\ how\ many\ bytes\ that\ were\ not\ passed\ to}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ \ \ the\ client\ in\ the\ end\ of\ the\ last\ buffer!\ */}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cada1bd400ffe095d84a67c9cb84ee4368}{CHUNK\_STOP}},}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{comment}{/*\ At\ this\ point\ optional\ trailer\ headers\ can\ be\ found,\ unless\ the\ next\ line}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ \ is\ CRLF\ */}}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6cab4d8292bc24443689f7827d8351fad95}{CHUNK\_TRAILER}},}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{comment}{/*\ A\ trailer\ CR\ has\ been\ found\ -\/\ next\ state\ is\ CHUNK\_TRAILER\_POSTCR.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ \ Next\ char\ must\ be\ a\ LF\ */}}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca4f082a1c67ebe83c17a34b49ed6df5c9}{CHUNK\_TRAILER\_CR}},}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{/*\ A\ trailer\ LF\ must\ be\ found\ now,\ otherwise\ CHUNKE\_BAD\_CHUNK\ will\ be}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ signalled\ If\ this\ is\ an\ empty\ trailer\ CHUNKE\_STOP\ will\ be\ signalled.}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ \ \ Otherwise\ the\ trailer\ will\ be\ broadcasted\ via\ Curl\_client\_write()\ and\ the}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ next\ state\ will\ be\ CHUNK\_TRAILER\ */}}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6ca69e086007a7f0e2f337355c78135470f}{CHUNK\_TRAILER\_POSTCR}}}
+\DoxyCodeLine{00071\ \}\ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6c}{ChunkyState}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca189de71d73fd3b6c8fbc4b11fc16ad01}{CHUNKE\_STOP}}\ =\ -\/1,}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecae1530ccd260bd8f764651103e4b4cc93}{CHUNKE\_OK}}\ =\ 0,}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca6077b4b432f10e60ec8a596823b843ae}{CHUNKE\_TOO\_LONG\_HEX}}\ =\ 1,}
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca9d812ccfd018d3dc89199e8dff31795f}{CHUNKE\_ILLEGAL\_HEX}},}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecaf84c8e2afac397c911e6a84c48568d79}{CHUNKE\_BAD\_CHUNK}},}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca2c9ddacf1a80c8350155a67cec7423d0}{CHUNKE\_BAD\_ENCODING}},}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecabe67d38a0a23a824a7c3633f83217043}{CHUNKE\_OUT\_OF\_MEMORY}},}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33eca306aab0540155e1eb1d0377dde85ea5b}{CHUNKE\_PASSTHRU\_ERROR}},\ \textcolor{comment}{/*\ Curl\_httpchunk\_read()\ returns\ a\ CURLcode\ to\ use\ */}}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ecafcb375a9b542000730f395813515b7f7}{CHUNKE\_LAST}}}
+\DoxyCodeLine{00083\ \}\ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{http__chunks_8h_a5c9e04b68f8b1184732cff74134a3dde}{Curl\_chunked\_strerror}}(\mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}}\ code);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__chunker}{Curl\_chunker}}\ \{}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structCurl__chunker_a55d962e1b3e1af627732a217a82b0a7e}{datasize}};}
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{http__chunks_8h_a00a95e212e978d27dded822d1eb5ca6c}{ChunkyState}}\ \mbox{\hyperlink{structCurl__chunker_a537803528ee3bbc5a4928a2862f12b81}{state}};}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structCurl__chunker_ac84c4407b76c8db8778489aaad2eef11}{hexindex}};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structCurl__chunker_a9dac9c61c7a52d9e3c03c2eb94980724}{hexbuffer}}[\ \mbox{\hyperlink{http__chunks_8h_aa5e7af206bb875a5cf400f7accca144d}{CHUNK\_MAXNUM\_LEN}}\ +\ 1];\ \textcolor{comment}{/*\ +1\ for\ null-\/terminator\ */}}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ The\ following\ functions\ are\ defined\ in\ http\_chunks.c\ */}}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{http__chunks_8h_aa0844ca026f71fe294dc08d98288b4bf}{Curl\_httpchunk\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{http__chunks_8h_a5825bd9da56a09bfd4380b161b4e33ec}{CHUNKcode}}\ \mbox{\hyperlink{http__chunks_8h_ab3460e5657515c9d7f729279bbe30565}{Curl\_httpchunk\_read}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{char}\ *datap,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ length,\ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ *wrote,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ *passthru);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HTTP\_CHUNKS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

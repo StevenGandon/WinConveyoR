@@ -1,0 +1,297 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/urlapi.c File Reference}
+\hypertarget{lib_2urlapi_8c}{}\label{lib_2urlapi_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/urlapi.c@{lib/libwconr/build/\_deps/curl-\/src/lib/urlapi.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}urlapi-\/int.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+ctype.\+h"{}}\newline
+{\ttfamily \#include "{}inet\+\_\+pton.\+h"{}}\newline
+{\ttfamily \#include "{}inet\+\_\+ntop.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{lib_2urlapi_8c_a1d8ca5825ab9492349fd408756468b27}{STARTS\+\_\+\+WITH\+\_\+\+DRIVE\+\_\+\+PREFIX}}(str)
+\item 
+\#define \mbox{\hyperlink{lib_2urlapi_8c_a96ee760bf93e43fe45cb568b7c78b550}{STARTS\+\_\+\+WITH\+\_\+\+URL\+\_\+\+DRIVE\+\_\+\+PREFIX}}(str)
+\item 
+\#define \mbox{\hyperlink{lib_2urlapi_8c_ac1c52efdd487ad52d2eaebc4963c5616}{MAX\+\_\+\+SCHEME\+\_\+\+LEN}}~40
+\item 
+\#define \mbox{\hyperlink{lib_2urlapi_8c_af5442ca84b3ad9479b29da9433ad27bd}{DEFAULT\+\_\+\+SCHEME}}~"{}https"{}
+\item 
+\#define \mbox{\hyperlink{lib_2urlapi_8c_af282596cc4cf6cba46b59c07e9b007ab}{HOSTNAME\+\_\+\+END}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{lib_2urlapi_8c_a2e88ea8fe0df82943164d861abfb360d}{DUP}}(dest,  \mbox{\hyperlink{namespacesrc}{src}},  \mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{lib_2urlapi_8c_ae8ce25dbc6959972e23fc0296a080cc9}{free\+\_\+urlhandle}} (struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}})
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2urlapi_8c_a37d8128ea9ea0f57df7f01af5cc122f3}{find\+\_\+host\+\_\+sep}} (const char \texorpdfstring{$\ast$}{*}url)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{lib_2urlapi_8c_abf1d190978e6c02b61256b89fbb56c45}{urlchar\+\_\+needs\+\_\+escaping}} (int c)
+\item 
+static \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_a1bf6531657c53a91b8c8078f89891944}{urlencode\+\_\+str}} (struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}o, const char \texorpdfstring{$\ast$}{*}url, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} relative, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} query)
+\item 
+size\+\_\+t \mbox{\hyperlink{lib_2urlapi_8c_a4320173c8368bbcdd9196745964cb351}{Curl\+\_\+is\+\_\+absolute\+\_\+url}} (const char \texorpdfstring{$\ast$}{*}url, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buflen, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} guess\+\_\+scheme)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2urlapi_8c_a19633b361c4064e496a2974433bb215a}{concat\+\_\+url}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacebase}{base}}, const char \texorpdfstring{$\ast$}{*}relurl)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{lib_2urlapi_8c_ab521ceb4e90ec29cf889bc5c27dc2928}{junkscan}} (const char \texorpdfstring{$\ast$}{*}part, unsigned int flags)
+\item 
+static \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_afb3553aef6cf19f7b2c526da43fa928e}{parse\+\_\+hostname\+\_\+login}} (struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, unsigned int flags)
+\item 
+\mbox{\hyperlink{curl__setup_8h_aa7cd0f8f04816a88879b7e5a8594db57}{UNITTEST}} \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_ae320777a3513ce57192861557cb1676d}{Curl\+\_\+parse\+\_\+port}} (struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} has\+\_\+scheme)
+\item 
+static \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_a84f0ee30dc519763396121e6d9634f4c}{hostname\+\_\+check}} (struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, size\+\_\+t hlen)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{lib_2urlapi_8c_ada8cde1ca7648551185eaceb6c4ab452}{ipv4\+\_\+normalize}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}}, char \texorpdfstring{$\ast$}{*}outp, size\+\_\+t olen)
+\item 
+static \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_a6634ffdf7c8966af8d952705b5cf4f7d}{decode\+\_\+host}} (struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}})
+\item 
+\mbox{\hyperlink{curl__setup_8h_aa7cd0f8f04816a88879b7e5a8594db57}{UNITTEST}} char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2urlapi_8c_a5b2e9c703b6cc7d17030cf87dfef0dd8}{dedotdotify}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structinput}{input}}, size\+\_\+t clen)
+\item 
+static \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_a5bd46f0c8ec06a4009002d8cfe44117d}{parseurl}} (const char \texorpdfstring{$\ast$}{*}url, \mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, unsigned int flags)
+\item 
+static \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_a9ae2da396a68f760cdf9d9267177a96e}{parseurl\+\_\+and\+\_\+replace}} (const char \texorpdfstring{$\ast$}{*}url, \mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, unsigned int flags)
+\item 
+\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2urlapi_8c_a81f684b6ace4aebbf767f013dd3b86db}{curl\+\_\+url}} (void)
+\item 
+void \mbox{\hyperlink{lib_2urlapi_8c_aee1775135a0fca96725c93b6dac81a31}{curl\+\_\+url\+\_\+cleanup}} (\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}})
+\item 
+\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2urlapi_8c_a32de512cf8666fcf452fdfc05a4d74a2}{curl\+\_\+url\+\_\+dup}} (\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}in)
+\item 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_a48912262854fec981577f695464990be}{curl\+\_\+url\+\_\+get}} (\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, \mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}} what, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}part, unsigned int flags)
+\item 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} \mbox{\hyperlink{lib_2urlapi_8c_ac6fcd496aa8e5ed986ebc3abe5ad4d6a}{curl\+\_\+url\+\_\+set}} (\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{negotiate_8d_a8131145f58fd38d414eca3b6b91e1441}{u}}, \mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}} what, const char \texorpdfstring{$\ast$}{*}part, unsigned int flags)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{lib_2urlapi_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{lib_2urlapi_8c_af5442ca84b3ad9479b29da9433ad27bd}\index{urlapi.c@{urlapi.c}!DEFAULT\_SCHEME@{DEFAULT\_SCHEME}}
+\index{DEFAULT\_SCHEME@{DEFAULT\_SCHEME}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_SCHEME}{DEFAULT\_SCHEME}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_af5442ca84b3ad9479b29da9433ad27bd} 
+\#define DEFAULT\+\_\+\+SCHEME~"{}https"{}}
+
+\Hypertarget{lib_2urlapi_8c_a2e88ea8fe0df82943164d861abfb360d}\index{urlapi.c@{urlapi.c}!DUP@{DUP}}
+\index{DUP@{DUP}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{DUP}{DUP}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a2e88ea8fe0df82943164d861abfb360d} 
+\#define DUP(\begin{DoxyParamCaption}\item[{}]{dest}{, }\item[{}]{\mbox{\hyperlink{namespacesrc}{src}}}{, }\item[{}]{\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(\mbox{\hyperlink{namespacesrc}{src}}-\/>name)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ dest-\/>name\ =\ \mbox{\hyperlink{curl__memory_8h_aa3f578f8f1eaebf25b2e2313db31cb40}{strdup}}(\mbox{\hyperlink{namespacesrc}{src}}-\/>name);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ if(!dest-\/>name)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ \mbox{\hyperlink{fail-early_8d_ab08f0b7515b254c676ac0dd8f2198448}{fail}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{lib_2urlapi_8c_af282596cc4cf6cba46b59c07e9b007ab}\index{urlapi.c@{urlapi.c}!HOSTNAME\_END@{HOSTNAME\_END}}
+\index{HOSTNAME\_END@{HOSTNAME\_END}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{HOSTNAME\_END}{HOSTNAME\_END}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_af282596cc4cf6cba46b59c07e9b007ab} 
+\#define HOSTNAME\+\_\+\+END(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{'/'})\ ||\ ((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{'?'})\ ||\ ((\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})\ ==\ \textcolor{charliteral}{'\#'}))}
+
+\end{DoxyCode}
+\Hypertarget{lib_2urlapi_8c_ac1c52efdd487ad52d2eaebc4963c5616}\index{urlapi.c@{urlapi.c}!MAX\_SCHEME\_LEN@{MAX\_SCHEME\_LEN}}
+\index{MAX\_SCHEME\_LEN@{MAX\_SCHEME\_LEN}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_SCHEME\_LEN}{MAX\_SCHEME\_LEN}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_ac1c52efdd487ad52d2eaebc4963c5616} 
+\#define MAX\+\_\+\+SCHEME\+\_\+\+LEN~40}
+
+\Hypertarget{lib_2urlapi_8c_a1d8ca5825ab9492349fd408756468b27}\index{urlapi.c@{urlapi.c}!STARTS\_WITH\_DRIVE\_PREFIX@{STARTS\_WITH\_DRIVE\_PREFIX}}
+\index{STARTS\_WITH\_DRIVE\_PREFIX@{STARTS\_WITH\_DRIVE\_PREFIX}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{STARTS\_WITH\_DRIVE\_PREFIX}{STARTS\_WITH\_DRIVE\_PREFIX}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a1d8ca5825ab9492349fd408756468b27} 
+\#define STARTS\+\_\+\+WITH\+\_\+\+DRIVE\+\_\+\+PREFIX(\begin{DoxyParamCaption}\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (((\textcolor{charliteral}{'a'}\ <=\ str[0]\ \&\&\ str[0]\ <=\ \textcolor{charliteral}{'z'})\ ||\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\textcolor{charliteral}{'A'}\ <=\ str[0]\ \&\&\ str[0]\ <=\ \textcolor{charliteral}{'Z'}))\ \&\&\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ (str[1]\ ==\ \textcolor{charliteral}{':'}))}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{lib_2urlapi_8c_a96ee760bf93e43fe45cb568b7c78b550}\index{urlapi.c@{urlapi.c}!STARTS\_WITH\_URL\_DRIVE\_PREFIX@{STARTS\_WITH\_URL\_DRIVE\_PREFIX}}
+\index{STARTS\_WITH\_URL\_DRIVE\_PREFIX@{STARTS\_WITH\_URL\_DRIVE\_PREFIX}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{STARTS\_WITH\_URL\_DRIVE\_PREFIX}{STARTS\_WITH\_URL\_DRIVE\_PREFIX}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a96ee760bf93e43fe45cb568b7c78b550} 
+\#define STARTS\+\_\+\+WITH\+\_\+\+URL\+\_\+\+DRIVE\+\_\+\+PREFIX(\begin{DoxyParamCaption}\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (((\textcolor{charliteral}{'a'}\ <=\ (str)[0]\ \&\&\ (str)[0]\ <=\ \textcolor{charliteral}{'z'})\ ||\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\textcolor{charliteral}{'A'}\ <=\ (str)[0]\ \&\&\ (str)[0]\ <=\ \textcolor{charliteral}{'Z'}))\ \&\&\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ ((str)[1]\ ==\ \textcolor{charliteral}{':'}\ ||\ (str)[1]\ ==\ \textcolor{charliteral}{'|'})\ \&\&\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ ((str)[2]\ ==\ \textcolor{charliteral}{'/'}\ ||\ (str)[2]\ ==\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}\ ||\ (str)[2]\ ==\ 0))}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{lib_2urlapi_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{lib_2urlapi_8c_a19633b361c4064e496a2974433bb215a}\index{urlapi.c@{urlapi.c}!concat\_url@{concat\_url}}
+\index{concat\_url@{concat\_url}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{concat\_url()}{concat\_url()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a19633b361c4064e496a2974433bb215a} 
+char \texorpdfstring{$\ast$}{*} concat\+\_\+url (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{base}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{relurl}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+TRY to append this new path to the old URL to the right of the host part. Oh crap, this is doomed to cause problems in the future...\Hypertarget{lib_2urlapi_8c_a4320173c8368bbcdd9196745964cb351}\index{urlapi.c@{urlapi.c}!Curl\_is\_absolute\_url@{Curl\_is\_absolute\_url}}
+\index{Curl\_is\_absolute\_url@{Curl\_is\_absolute\_url}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_is\_absolute\_url()}{Curl\_is\_absolute\_url()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a4320173c8368bbcdd9196745964cb351} 
+size\+\_\+t Curl\+\_\+is\+\_\+absolute\+\_\+url (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{buflen}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{guess\+\_\+scheme}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{lib_2urlapi_8c_ae320777a3513ce57192861557cb1676d}\index{urlapi.c@{urlapi.c}!Curl\_parse\_port@{Curl\_parse\_port}}
+\index{Curl\_parse\_port@{Curl\_parse\_port}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_parse\_port()}{Curl\_parse\_port()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_ae320777a3513ce57192861557cb1676d} 
+\mbox{\hyperlink{curl__setup_8h_aa7cd0f8f04816a88879b7e5a8594db57}{UNITTEST}} \mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} Curl\+\_\+parse\+\_\+port (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{has\+\_\+scheme}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_a81f684b6ace4aebbf767f013dd3b86db}\index{urlapi.c@{urlapi.c}!curl\_url@{curl\_url}}
+\index{curl\_url@{curl\_url}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url()}{curl\_url()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a81f684b6ace4aebbf767f013dd3b86db} 
+\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*} curl\+\_\+url (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_aee1775135a0fca96725c93b6dac81a31}\index{urlapi.c@{urlapi.c}!curl\_url\_cleanup@{curl\_url\_cleanup}}
+\index{curl\_url\_cleanup@{curl\_url\_cleanup}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url\_cleanup()}{curl\_url\_cleanup()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_aee1775135a0fca96725c93b6dac81a31} 
+void curl\+\_\+url\+\_\+cleanup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{u}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_a32de512cf8666fcf452fdfc05a4d74a2}\index{urlapi.c@{urlapi.c}!curl\_url\_dup@{curl\_url\_dup}}
+\index{curl\_url\_dup@{curl\_url\_dup}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url\_dup()}{curl\_url\_dup()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a32de512cf8666fcf452fdfc05a4d74a2} 
+\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*} curl\+\_\+url\+\_\+dup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{in}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_a48912262854fec981577f695464990be}\index{urlapi.c@{urlapi.c}!curl\_url\_get@{curl\_url\_get}}
+\index{curl\_url\_get@{curl\_url\_get}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url\_get()}{curl\_url\_get()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a48912262854fec981577f695464990be} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} curl\+\_\+url\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{\mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}}}]{what}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{part}{, }\item[{unsigned int}]{flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_ac6fcd496aa8e5ed986ebc3abe5ad4d6a}\index{urlapi.c@{urlapi.c}!curl\_url\_set@{curl\_url\_set}}
+\index{curl\_url\_set@{curl\_url\_set}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{curl\_url\_set()}{curl\_url\_set()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_ac6fcd496aa8e5ed986ebc3abe5ad4d6a} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} curl\+\_\+url\+\_\+set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{\mbox{\hyperlink{urlapi_8h_aa61ba3e924e11f4a7f208aa051a5d2eb}{CURLUPart}}}]{what}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{unsigned int}]{flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_a6634ffdf7c8966af8d952705b5cf4f7d}\index{urlapi.c@{urlapi.c}!decode\_host@{decode\_host}}
+\index{decode\_host@{decode\_host}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{decode\_host()}{decode\_host()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a6634ffdf7c8966af8d952705b5cf4f7d} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} decode\+\_\+host (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}}]{host}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_a5b2e9c703b6cc7d17030cf87dfef0dd8}\index{urlapi.c@{urlapi.c}!dedotdotify@{dedotdotify}}
+\index{dedotdotify@{dedotdotify}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{dedotdotify()}{dedotdotify()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a5b2e9c703b6cc7d17030cf87dfef0dd8} 
+\mbox{\hyperlink{curl__setup_8h_aa7cd0f8f04816a88879b7e5a8594db57}{UNITTEST}} char \texorpdfstring{$\ast$}{*} dedotdotify (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input}{, }\item[{size\+\_\+t}]{clen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2urlapi_8c_a37d8128ea9ea0f57df7f01af5cc122f3}\index{urlapi.c@{urlapi.c}!find\_host\_sep@{find\_host\_sep}}
+\index{find\_host\_sep@{find\_host\_sep}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{find\_host\_sep()}{find\_host\_sep()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a37d8128ea9ea0f57df7f01af5cc122f3} 
+const char \texorpdfstring{$\ast$}{*} find\+\_\+host\+\_\+sep (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{url}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_ae8ce25dbc6959972e23fc0296a080cc9}\index{urlapi.c@{urlapi.c}!free\_urlhandle@{free\_urlhandle}}
+\index{free\_urlhandle@{free\_urlhandle}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{free\_urlhandle()}{free\_urlhandle()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_ae8ce25dbc6959972e23fc0296a080cc9} 
+void free\+\_\+urlhandle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}}]{u}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_a84f0ee30dc519763396121e6d9634f4c}\index{urlapi.c@{urlapi.c}!hostname\_check@{hostname\_check}}
+\index{hostname\_check@{hostname\_check}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{hostname\_check()}{hostname\_check()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a84f0ee30dc519763396121e6d9634f4c} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} hostname\+\_\+check (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{size\+\_\+t}]{hlen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_ada8cde1ca7648551185eaceb6c4ab452}\index{urlapi.c@{urlapi.c}!ipv4\_normalize@{ipv4\_normalize}}
+\index{ipv4\_normalize@{ipv4\_normalize}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{ipv4\_normalize()}{ipv4\_normalize()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_ada8cde1ca7648551185eaceb6c4ab452} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} ipv4\+\_\+normalize (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{outp}{, }\item[{size\+\_\+t}]{olen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_ab521ceb4e90ec29cf889bc5c27dc2928}\index{urlapi.c@{urlapi.c}!junkscan@{junkscan}}
+\index{junkscan@{junkscan}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{junkscan()}{junkscan()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_ab521ceb4e90ec29cf889bc5c27dc2928} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} junkscan (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{part}{, }\item[{unsigned int}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_afb3553aef6cf19f7b2c526da43fa928e}\index{urlapi.c@{urlapi.c}!parse\_hostname\_login@{parse\_hostname\_login}}
+\index{parse\_hostname\_login@{parse\_hostname\_login}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{parse\_hostname\_login()}{parse\_hostname\_login()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_afb3553aef6cf19f7b2c526da43fa928e} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} parse\+\_\+hostname\+\_\+login (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__URL}{Curl\+\_\+\+URL}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{unsigned int}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_a5bd46f0c8ec06a4009002d8cfe44117d}\index{urlapi.c@{urlapi.c}!parseurl@{parseurl}}
+\index{parseurl@{parseurl}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{parseurl()}{parseurl()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a5bd46f0c8ec06a4009002d8cfe44117d} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} parseurl (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{unsigned int}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Parse the URL.\Hypertarget{lib_2urlapi_8c_a9ae2da396a68f760cdf9d9267177a96e}\index{urlapi.c@{urlapi.c}!parseurl\_and\_replace@{parseurl\_and\_replace}}
+\index{parseurl\_and\_replace@{parseurl\_and\_replace}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{parseurl\_and\_replace()}{parseurl\_and\_replace()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a9ae2da396a68f760cdf9d9267177a96e} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} parseurl\+\_\+and\+\_\+replace (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{\mbox{\hyperlink{urlapi_8h_ae18ff120c834c77d2a448d1cbcd1b4ee}{CURLU}} \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{unsigned int}]{flags}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_abf1d190978e6c02b61256b89fbb56c45}\index{urlapi.c@{urlapi.c}!urlchar\_needs\_escaping@{urlchar\_needs\_escaping}}
+\index{urlchar\_needs\_escaping@{urlchar\_needs\_escaping}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{urlchar\_needs\_escaping()}{urlchar\_needs\_escaping()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_abf1d190978e6c02b61256b89fbb56c45} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} urlchar\+\_\+needs\+\_\+escaping (\begin{DoxyParamCaption}\item[{int}]{c}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{lib_2urlapi_8c_a1bf6531657c53a91b8c8078f89891944}\index{urlapi.c@{urlapi.c}!urlencode\_str@{urlencode\_str}}
+\index{urlencode\_str@{urlencode\_str}!urlapi.c@{urlapi.c}}
+\doxysubsubsection{\texorpdfstring{urlencode\_str()}{urlencode\_str()}}
+{\footnotesize\ttfamily \label{lib_2urlapi_8c_a1bf6531657c53a91b8c8078f89891944} 
+\mbox{\hyperlink{urlapi_8h_a6a5b8d5c719d5d893048d2410d74d1de}{CURLUcode}} urlencode\+\_\+str (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structdynbuf}{dynbuf}} \texorpdfstring{$\ast$}{*}}]{o}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{url}{, }\item[{size\+\_\+t}]{len}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{relative}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{query}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

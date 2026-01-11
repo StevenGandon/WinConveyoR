@@ -1,0 +1,36 @@
+\doxysection{QCPAxis\+Ticker\+Date\+Time Class Reference}
+\hypertarget{classQCPAxisTickerDateTime}{}\label{classQCPAxisTickerDateTime}\index{QCPAxisTickerDateTime@{QCPAxisTickerDateTime}}
+
+
+Specialized axis ticker for calendar dates and times as axis ticks.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Specialized axis ticker for calendar dates and times as axis ticks. 
+
+
+
+This \doxylink{classQCPAxisTicker}{QCPAxis\+Ticker} subclass generates ticks that correspond to real calendar dates and times. The plot axis coordinate is interpreted as Unix Time, so seconds since Epoch (January 1, 1970, 00\+:00 UTC). This is also used for example by QDate\+Time in the {\ttfamily to\+Time\+\_\+t()/set\+Time\+\_\+t()} methods with a precision of one second. Since Qt 4.\+7, millisecond accuracy can be obtained from QDate\+Time by using {\ttfamily QDate\+Time\+::from\+MSecs\+Since\+Epoch()/1000.0}. The static methods date\+Time\+To\+Key and key\+To\+Date\+Time conveniently perform this conversion achieving a precision of one millisecond on all Qt versions.
+
+The format of the date/time display in the tick labels is controlled with set\+Date\+Time\+Format. If a different time spec (time zone) shall be used, see set\+Date\+Time\+Spec.
+
+This ticker produces unequal tick spacing in order to provide intuitive date and time-\/of-\/day ticks. For example, if the axis range spans a few years such that there is one tick per year, ticks will be positioned on 1. January of every year. This is intuitive but, due to leap years, will result in slightly unequal tick intervals (visually unnoticeable). The same can be seen in the image above\+: even though the number of days varies month by month, this ticker generates ticks on the same day of each month.
+
+If you would like to change the date/time that is used as a (mathematical) starting date for the ticks, use the set\+Tick\+Origin(const QDate\+Time \&origin) method overload, which takes a QDate\+Time. If you pass 15. July, 9\+:45 to this method, the yearly ticks will end up on 15. July at 9\+:45 of every year.
+
+The ticker can be created and assigned to an axis like this\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxyNote}{Note}
+If you rather wish to display relative times in terms of days, hours, minutes, seconds and milliseconds, and are not interested in the intricacies of real calendar dates with months and (leap) years, have a look at \doxylink{classQCPAxisTickerTime}{QCPAxis\+Ticker\+Time} instead. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

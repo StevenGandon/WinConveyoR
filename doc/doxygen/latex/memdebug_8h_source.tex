@@ -1,0 +1,186 @@
+\doxysection{memdebug.\+h}
+\hypertarget{memdebug_8h_source}{}\label{memdebug_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/memdebug.h@{lib/libwconr/build/\_deps/curl-\/src/lib/memdebug.h}}
+\mbox{\hyperlink{memdebug_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_MEMDEBUG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_MEMDEBUG\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifdef\ CURLDEBUG}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ CAUTION:\ this\ header\ is\ designed\ to\ work\ when\ included\ by\ the\ app-\/side}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ as\ well\ as\ the\ library.\ Do\ not\ mix\ with\ library\ internals!}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{functypes_8h}{functypes.h}}"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#if\ defined(\_\_GNUC\_\_)\ \&\&\ \_\_GNUC\_\_\ >=\ 3}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_FUNC\ \_\_attribute\_\_((malloc))}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_SIZE(s)\ \_\_attribute\_\_((alloc\_size(s)))}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_SIZE2(n,\ s)\ \_\_attribute\_\_((alloc\_size(n,\ s)))}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#elif\ defined(\_MSC\_VER)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_FUNC\ \_\_declspec(restrict)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_SIZE(s)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_SIZE2(n,\ s)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_FUNC}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_SIZE(s)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#\ \ define\ ALLOC\_SIZE2(n,\ s)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ CURL\_MT\_LOGFNAME\_BUFSIZE\ 512}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{extern}\ FILE\ *curl\_dbg\_logfile;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ memory\ functions\ */}}
+\DoxyCodeLine{00055\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_FUNC\ ALLOC\_SIZE(1)\ void\ *curl\_dbg\_malloc(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_FUNC\ ALLOC\_SIZE2(1,\ 2)\ \textcolor{keywordtype}{void}\ *curl\_dbg\_calloc(\textcolor{keywordtype}{size\_t}\ elements,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ const\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00060\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_SIZE(2)\ \textcolor{keywordtype}{void}\ *curl\_dbg\_realloc(\textcolor{keywordtype}{void}\ *ptr,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00064\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{void}\ curl\_dbg\_free(\textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ const\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_FUNC\ \textcolor{keywordtype}{char}\ *curl\_dbg\_strdup(const\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{namespacesrc}{src}});}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ defined(WIN32)\ \&\&\ defined(UNICODE)}}
+\DoxyCodeLine{00068\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_FUNC\ \textcolor{keywordtype}{wchar\_t}\ *curl\_dbg\_wcsdup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}\ *str,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{void}\ curl\_dbg\_memdebug(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *logname);}
+\DoxyCodeLine{00074\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{void}\ curl\_dbg\_memlimit(\textcolor{keywordtype}{long}\ limit);}
+\DoxyCodeLine{00075\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{void}\ curl\_dbg\_log(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ file\ descriptor\ manipulators\ */}}
+\DoxyCodeLine{00078\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ curl\_dbg\_socket(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{url_8d_a57cb458ff8a1448993ecc2dd275880a1}{protocol}},}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00080\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{void}\ curl\_dbg\_mark\_sclose(\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00082\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{int}\ curl\_dbg\_sclose(\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ sockfd,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00084\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ curl\_dbg\_accept(\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{void}\ *a,\ \textcolor{keywordtype}{void}\ *alen,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SOCKETPAIR}}
+\DoxyCodeLine{00087\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{int}\ curl\_dbg\_socketpair(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{url_8d_a57cb458ff8a1448993ecc2dd275880a1}{protocol}},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ socket\_vector[2],}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*\ send/receive\ sockets\ */}}
+\DoxyCodeLine{00093\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{config-dos_8h_af60d8dc97cef9dd2209cbf9b0df9ae70}{SEND\_TYPE\_RETV}}\ curl\_dbg\_send(\mbox{\hyperlink{config-dos_8h_acbed26dfb97305cc99eeabb15ba18010}{SEND\_TYPE\_ARG1}}\ sockfd,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-dos_8h_adcddeb58236879811a4d4cd82f33976c}{SEND\_QUAL\_ARG2}}\ \mbox{\hyperlink{config-dos_8h_aa1028514082c2ef2e9a76ef56624b3f3}{SEND\_TYPE\_ARG2}}\ buf,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-dos_8h_a2f7848f2ee850565ebc938501109b4f7}{SEND\_TYPE\_ARG3}}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-dos_8h_a9e630fef776f0c71f34c6c949609adf4}{SEND\_TYPE\_ARG4}}\ flags,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00098\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{config-dos_8h_acf256cf126ca903ddb8da0e506cced80}{RECV\_TYPE\_RETV}}\ curl\_dbg\_recv(\mbox{\hyperlink{config-dos_8h_a6b79be6b722e2ba9009495691c233d77}{RECV\_TYPE\_ARG1}}\ sockfd,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-dos_8h_a873c61ebe62de63e8a199bc819424301}{RECV\_TYPE\_ARG2}}\ buf,}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-dos_8h_abb2068740d788b2a25b7d378bb803d5c}{RECV\_TYPE\_ARG3}}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{config-dos_8h_aa257e0c95ce1b33306381a8d7b9d5962}{RECV\_TYPE\_ARG4}}\ flags,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{/*\ FILE\ functions\ */}}
+\DoxyCodeLine{00105\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_FUNC\ FILE\ *curl\_dbg\_fopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00107\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ ALLOC\_FUNC\ FILE\ *curl\_dbg\_fdopen(\textcolor{keywordtype}{int}\ filedes,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keywordtype}{int}\ curl\_dbg\_fclose(FILE\ *\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#ifndef\ MEMDEBUG\_NODEFINES}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ Set\ this\ symbol\ on\ the\ command-\/line,\ recompile\ all\ lib-\/sources\ */}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#undef\ strdup}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ strdup(ptr)\ curl\_dbg\_strdup(ptr,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ malloc(size)\ curl\_dbg\_malloc(size,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ calloc(nbelem,size)\ curl\_dbg\_calloc(nbelem,\ size,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ realloc(ptr,size)\ curl\_dbg\_realloc(ptr,\ size,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ free(ptr)\ curl\_dbg\_free(ptr,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ send(a,b,c,d)\ curl\_dbg\_send(a,b,c,d,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ recv(a,b,c,d)\ curl\_dbg\_recv(a,b,c,d,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#\ \ ifdef\ UNICODE}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#\ \ \ \ undef\ wcsdup}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#\ \ \ \ define\ wcsdup(ptr)\ curl\_dbg\_wcsdup(ptr,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#\ \ \ \ undef\ \_wcsdup}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_wcsdup(ptr)\ curl\_dbg\_wcsdup(ptr,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#\ \ \ \ undef\ \_tcsdup}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_tcsdup(ptr)\ curl\_dbg\_wcsdup(ptr,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#\ \ else}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ \ \ \ undef\ \_tcsdup}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#\ \ \ \ define\ \_tcsdup(ptr)\ curl\_dbg\_strdup(ptr,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#undef\ socket}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ socket(domain,type,protocol)\(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ curl\_dbg\_socket(domain,\ type,\ protocol,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#undef\ accept\ }\textcolor{comment}{/*\ for\ those\ with\ accept\ as\ a\ macro\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ accept(sock,addr,len)\(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ curl\_dbg\_accept(sock,\ addr,\ len,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#ifdef\ HAVE\_SOCKETPAIR}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ socketpair(domain,type,protocol,socket\_vector)\(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ curl\_dbg\_socketpair(domain,\ type,\ protocol,\ socket\_vector,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#ifdef\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#if\ defined(getaddrinfo)\ \&\&\ defined(\_\_osf\_\_)}}
+\DoxyCodeLine{00151\ \textcolor{comment}{/*\ OSF/1\ and\ Tru64\ have\ getaddrinfo\ as\ a\ define\ already,\ so\ we\ cannot\ define}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ our\ macro\ as\ for\ other\ platforms.\ Instead,\ we\ redefine\ the\ new\ name\ they}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ define\ getaddrinfo\ to\ become!\ */}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ ogetaddrinfo(host,serv,hint,res)\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ curl\_dbg\_getaddrinfo(host,\ serv,\ hint,\ res,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#undef\ getaddrinfo}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ getaddrinfo(host,serv,hint,res)\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ curl\_dbg\_getaddrinfo(host,\ serv,\ hint,\ res,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_GETADDRINFO\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#ifdef\ HAVE\_FREEADDRINFO}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#undef\ freeaddrinfo}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ freeaddrinfo(data)\ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ curl\_dbg\_freeaddrinfo(data,\ \_\_LINE\_\_,\ \_\_FILE\_\_)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAVE\_FREEADDRINFO\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{comment}{/*\ sclose\ is\ probably\ already\ defined,\ redefine\ it!\ */}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#undef\ sclose}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ sclose(sockfd)\ curl\_dbg\_sclose(sockfd,\_\_LINE\_\_,\_\_FILE\_\_)}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ fake\_sclose(sockfd)\ curl\_dbg\_mark\_sclose(sockfd,\_\_LINE\_\_,\_\_FILE\_\_)}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#undef\ fopen}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ fopen(file,mode)\ curl\_dbg\_fopen(file,mode,\_\_LINE\_\_,\_\_FILE\_\_)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#undef\ fdopen}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ fdopen(file,mode)\ curl\_dbg\_fdopen(file,mode,\_\_LINE\_\_,\_\_FILE\_\_)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ fclose(file)\ curl\_dbg\_fclose(file,\_\_LINE\_\_,\_\_FILE\_\_)}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MEMDEBUG\_NODEFINES\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURLDEBUG\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00186\ \textcolor{comment}{**\ Following\ section\ applies\ even\ when\ CURLDEBUG\ is\ not\ defined.}}
+\DoxyCodeLine{00187\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#ifndef\ fake\_sclose}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ fake\_sclose(x)\ \ Curl\_nop\_stmt}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ *\ Curl\_safefree\ defined\ as\ a\ macro\ to\ allow\ MemoryTracking\ feature}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *\ to\ log\ free()\ calls\ at\ same\ location\ where\ Curl\_safefree\ is\ used.}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ *\ This\ macro\ also\ assigns\ NULL\ to\ given\ pointer\ when\ free'd.}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ Curl\_safefree(ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ do\ \{\ free((ptr));\ (ptr)\ =\ NULL;\}\ while(0)}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_MEMDEBUG\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

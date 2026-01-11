@@ -1,0 +1,240 @@
+\doxysection{smb.\+h}
+\hypertarget{smb_8h_source}{}\label{smb_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/smb.h@{lib/libwconr/build/\_deps/curl-\/src/lib/smb.h}}
+\mbox{\hyperlink{smb_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SMB\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SMB\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13}{smb\_conn\_state}}\ \{}
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13a49f4882fc041033485ea04bcddfde142}{SMB\_NOT\_CONNECTED}}\ =\ 0,}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13a3a66e896ca7de13cb9c32e86207165c7}{SMB\_CONNECTING}},}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13a4b1e212c5b0b41eb1b7b581506f61760}{SMB\_NEGOTIATE}},}
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13a68dab152b542584a755e424508231cf8}{SMB\_SETUP}},}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13aaa06acbdc0e91f2257132de794ff3704}{SMB\_CONNECTED}}}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsmb__conn}{smb\_conn}}\ \{}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{smb_8h_a17a40002f25e33a0a84619ad7eb93b13}{smb\_conn\_state}}\ \mbox{\hyperlink{structsmb__conn_a6c03ed6735fa0e9c61316da494a1e001}{state}};}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsmb__conn_a4500a1c54e5b49b0ce50b4c7232fcb77}{user}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsmb__conn_a190898c2350ca422292f6b5d72897a4d}{domain}};}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsmb__conn_a37f74a454dd276423c501e7d4378086d}{share}};}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structsmb__conn_aa06efdad2145bb9aaf6404caca99de13}{challenge}}[8];}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structsmb__conn_aecc24690956669797d014c9419e86e5f}{session\_key}};}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structsmb__conn_a1ae8f38720f6d418e10809b6b7961ce9}{uid}};}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsmb__conn_a46fa9d9b78e086ffe9730ff354796000}{recv\_buf}};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsmb__conn_a456d61d48d20d94d70e834bc1d615ae3}{upload\_size}};}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsmb__conn_a39f4abd9c723f5df0fb42e40823175ce}{send\_size}};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsmb__conn_a58b10395420625a1c2850213051a18d6}{sent}};}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsmb__conn_a45069c6ac67784fcb66eb6f68b66b698}{got}};}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ Definitions\ for\ SMB\ protocol\ data\ structures}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#ifdef\ BUILDING\_CURL\_SMB\_C}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ ||\ defined(\_\_ILEC400\_\_)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ \ define\ PACK}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ \ pragma\ pack(push)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#\ \ pragma\ pack(1)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#elif\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#\ \ define\ PACK\ \_\_attribute\_\_((packed))}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ define\ PACK}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ SMB\_COM\_CLOSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x04}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ SMB\_COM\_READ\_ANDX\ \ \ \ \ \ \ \ \ \ \ \ \ 0x2e}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ SMB\_COM\_WRITE\_ANDX\ \ \ \ \ \ \ \ \ \ \ \ 0x2f}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ SMB\_COM\_TREE\_DISCONNECT\ \ \ \ \ \ \ 0x71}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ SMB\_COM\_NEGOTIATE\ \ \ \ \ \ \ \ \ \ \ \ \ 0x72}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ SMB\_COM\_SETUP\_ANDX\ \ \ \ \ \ \ \ \ \ \ \ 0x73}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ SMB\_COM\_TREE\_CONNECT\_ANDX\ \ \ \ \ 0x75}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ SMB\_COM\_NT\_CREATE\_ANDX\ \ \ \ \ \ \ \ 0xa2}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ SMB\_COM\_NO\_ANDX\_COMMAND\ \ \ \ \ \ \ 0xff}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ SMB\_WC\_CLOSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x03}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ SMB\_WC\_READ\_ANDX\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0c}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ SMB\_WC\_WRITE\_ANDX\ \ \ \ \ \ \ \ \ \ \ \ \ 0x0e}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ SMB\_WC\_SETUP\_ANDX\ \ \ \ \ \ \ \ \ \ \ \ \ 0x0d}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ SMB\_WC\_TREE\_CONNECT\_ANDX\ \ \ \ \ \ 0x04}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ SMB\_WC\_NT\_CREATE\_ANDX\ \ \ \ \ \ \ \ \ 0x18}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ SMB\_FLAGS\_CANONICAL\_PATHNAMES\ 0x10}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ SMB\_FLAGS\_CASELESS\_PATHNAMES\ \ 0x08}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ SMB\_FLAGS2\_UNICODE\_STRINGS\ \ \ \ 0x8000}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ SMB\_FLAGS2\_IS\_LONG\_NAME\ \ \ \ \ \ \ 0x0040}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ SMB\_FLAGS2\_KNOWS\_LONG\_NAME\ \ \ \ 0x0001}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ SMB\_CAP\_LARGE\_FILES\ \ \ \ \ \ \ \ \ \ \ 0x08}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ SMB\_GENERIC\_WRITE\ \ \ \ \ \ \ \ \ \ \ \ \ 0x40000000}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ SMB\_GENERIC\_READ\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x80000000}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ SMB\_FILE\_SHARE\_ALL\ \ \ \ \ \ \ \ \ \ \ \ 0x07}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ SMB\_FILE\_OPEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ SMB\_FILE\_OVERWRITE\_IF\ \ \ \ \ \ \ \ \ 0x05}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ SMB\_ERR\_NOACCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00050001}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{struct\ }smb\_header\ \{}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ nbt\_type;}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ nbt\_flags;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ nbt\_length;}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ magic[4];}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{quote_8d_a490bc3267b6a409ff6a0a893264345fd}{command}};}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ status;}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flags;}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ flags2;}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ pid\_high;}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ signature[8];}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ pad;}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ tid;}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ pid;}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ uid;}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ mid;}
+\DoxyCodeLine{00114\ \}\ PACK;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{struct\ }smb\_negotiate\_response\ \{}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{struct\ }smb\_header\ \mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}};}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ dialect\_index;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ security\_mode;}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ max\_mpx\_count;}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ max\_number\_vcs;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_buffer\_size;}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_raw\_size;}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ session\_key;}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ capabilities;}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ system\_time\_low;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ system\_time\_high;}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ server\_time\_zone;}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ encryption\_key\_length;}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{char}\ bytes[1];}
+\DoxyCodeLine{00133\ \}\ PACK;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{struct\ }andx\ \{}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{quote_8d_a490bc3267b6a409ff6a0a893264345fd}{command}};}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pad;}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ offset;}
+\DoxyCodeLine{00139\ \}\ PACK;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{struct\ }smb\_setup\ \{}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00143\ \ \ \textcolor{keyword}{struct\ }andx\ andx;}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ max\_buffer\_size;}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ max\_mpx\_count;}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ vc\_number;}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ session\_key;}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ lengths[2];}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pad;}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ capabilities;}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{char}\ bytes[1024];}
+\DoxyCodeLine{00153\ \}\ PACK;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{struct\ }smb\_tree\_connect\ \{}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00157\ \ \ \textcolor{keyword}{struct\ }andx\ andx;}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ flags;}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ pw\_len;}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{char}\ bytes[1024];}
+\DoxyCodeLine{00162\ \}\ PACK;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{struct\ }smb\_nt\_create\ \{}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{struct\ }andx\ andx;}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pad;}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ name\_length;}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flags;}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ root\_fid;}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ access;}
+\DoxyCodeLine{00172\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ allocation\_size;}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ext\_file\_attributes;}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ share\_access;}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ create\_disposition;}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ create\_options;}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ impersonation\_level;}
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ security\_flags;}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{char}\ bytes[1024];}
+\DoxyCodeLine{00181\ \}\ PACK;}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{struct\ }smb\_nt\_create\_response\ \{}
+\DoxyCodeLine{00184\ \ \ \textcolor{keyword}{struct\ }smb\_header\ \mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}};}
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{struct\ }andx\ andx;}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ op\_lock\_level;}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ fid;}
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ create\_disposition;}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ create\_time;}
+\DoxyCodeLine{00192\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ last\_access\_time;}
+\DoxyCodeLine{00193\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ last\_write\_time;}
+\DoxyCodeLine{00194\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ last\_change\_time;}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ext\_file\_attributes;}
+\DoxyCodeLine{00196\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ allocation\_size;}
+\DoxyCodeLine{00197\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ end\_of\_file;}
+\DoxyCodeLine{00198\ \}\ PACK;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{struct\ }smb\_read\ \{}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{struct\ }andx\ andx;}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ fid;}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset;}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ max\_bytes;}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ min\_bytes;}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout}};}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ remaining;}
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset\_high;}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00211\ \}\ PACK;}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{struct\ }smb\_write\ \{}
+\DoxyCodeLine{00214\ \ \ \textcolor{keyword}{struct\ }smb\_header\ \mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}};}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00216\ \ \ \textcolor{keyword}{struct\ }andx\ andx;}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ fid;}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset;}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{multi-event_8c_aff534f9f2eb1dd6072ba6c707a0490c7}{timeout}};}
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ write\_mode;}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ remaining;}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ pad;}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ data\_length;}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ data\_offset;}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset\_high;}
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pad2;}
+\DoxyCodeLine{00228\ \}\ PACK;}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{struct\ }smb\_close\ \{}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ fid;}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ last\_mtime;}
+\DoxyCodeLine{00234\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00235\ \}\ PACK;}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{keyword}{struct\ }smb\_tree\_disconnect\ \{}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ word\_count;}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ byte\_count;}
+\DoxyCodeLine{00240\ \}\ PACK;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ ||\ defined(\_\_ILEC400\_\_)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#\ \ pragma\ pack(pop)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BUILDING\_CURL\_SMB\_C\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_SMB)\ \&\&\ defined(USE\_CURL\_NTLM\_CORE)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \ \ (SIZEOF\_CURL\_OFF\_T\ >\ 4)}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ Curl\_handler\_smb;}
+\DoxyCodeLine{00252\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ Curl\_handler\_smbs;}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURL\_DISABLE\_SMB\ \&\&\ USE\_CURL\_NTLM\_CORE\ \&\&}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ SIZEOF\_CURL\_OFF\_T\ >\ 4\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SMB\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

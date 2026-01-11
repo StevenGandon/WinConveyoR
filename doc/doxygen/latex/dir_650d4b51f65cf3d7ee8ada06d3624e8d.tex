@@ -1,0 +1,55 @@
+\doxysection{gui/node\+\_\+modules/json-\/stringify-\/safe Directory Reference}
+\hypertarget{dir_650d4b51f65cf3d7ee8ada06d3624e8d}{}\label{dir_650d4b51f65cf3d7ee8ada06d3624e8d}\index{gui/node\_modules/json-\/stringify-\/safe Directory Reference@{gui/node\_modules/json-\/stringify-\/safe Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_650d4b51f65cf3d7ee8ada06d3624e8d_autotoc_md972}{}\doxysubsection{\texorpdfstring{json-\/stringify-\/safe}{json-\/stringify-\/safe}}\label{dir_650d4b51f65cf3d7ee8ada06d3624e8d_autotoc_md972}
+Like JSON.\+stringify, but doesn\textquotesingle{}t throw on circular references.\hypertarget{dir_650d4b51f65cf3d7ee8ada06d3624e8d_autotoc_md973}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_650d4b51f65cf3d7ee8ada06d3624e8d_autotoc_md973}
+Takes the same arguments as {\ttfamily JSON.\+stringify}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ stringify\ =\ require('json-\/stringify-\/safe');}
+\DoxyCodeLine{var\ circularObj\ =\ \{\};}
+\DoxyCodeLine{circularObj.circularRef\ =\ circularObj;}
+\DoxyCodeLine{circularObj.list\ =\ [\ circularObj,\ circularObj\ ];}
+\DoxyCodeLine{console.log(stringify(circularObj,\ null,\ 2));}
+
+\end{DoxyCode}
+
+
+Output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ "{}circularRef"{}:\ "{}[Circular]"{},}
+\DoxyCodeLine{\ \ "{}list"{}:\ [}
+\DoxyCodeLine{\ \ \ \ "{}[Circular]"{},}
+\DoxyCodeLine{\ \ \ \ "{}[Circular]"{}}
+\DoxyCodeLine{\ \ ]}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_650d4b51f65cf3d7ee8ada06d3624e8d_autotoc_md974}{}\doxysubsection{\texorpdfstring{Details}{Details}}\label{dir_650d4b51f65cf3d7ee8ada06d3624e8d_autotoc_md974}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{stringify(obj,\ serializer,\ indent,\ decycler)}
+
+\end{DoxyCode}
+
+
+The first three arguments are the same as to JSON.\+stringify. The last is an argument that\textquotesingle{}s only used when the object has been seen already.
+
+The default {\ttfamily decycler} function returns the string {\ttfamily \textquotesingle{}\mbox{[}Circular\mbox{]}\textquotesingle{}}. If, for example, you pass in {\ttfamily function(k,v)\{\}} (return nothing) then it will prune cycles. If you pass in {\ttfamily function(k,v)\{ return \{foo\+: \textquotesingle{}bar\textquotesingle{}\}\}}, then cyclical objects will always be represented as {\ttfamily \{"{}foo"{}\+:"{}bar"{}\}} in the result.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{stringify.getSerialize(serializer,\ decycler)}
+
+\end{DoxyCode}
+
+
+Returns a serializer that can be used elsewhere. This is the actual function that\textquotesingle{}s passed to JSON.\+stringify.
+
+{\bfseries{Note}} that the function returned from {\ttfamily get\+Serialize} is stateful for now, so do {\bfseries{not}} use it more than once. 

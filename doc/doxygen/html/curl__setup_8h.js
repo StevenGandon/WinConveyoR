@@ -1,0 +1,28 @@
+var curl__setup_8h =
+[
+    [ "CURL_OFF_T_MAX", "curl__setup_8h.html#a2e2dfd85567685413b23d71f2e545299", null ],
+    [ "CURL_OFF_T_MIN", "curl__setup_8h.html#acffdf96c327f2a9170e0efaa4c00f349", null ],
+    [ "CURLMAX", "curl__setup_8h.html#a13581d0a607ddfc267cd384346e7f048", null ],
+    [ "CURLMIN", "curl__setup_8h.html#a5dd6efb91a5151f2bb4e4fff1b386582", null ],
+    [ "CURLRES_IPV4", "curl__setup_8h.html#a7b5127031b6b6ae915222369135f123b", null ],
+    [ "CURLRES_SYNCH", "curl__setup_8h.html#afc57815b26ed3c21a293cfec0b8e81be", null ],
+    [ "DIR_CHAR", "curl__setup_8h.html#a485855876266f06fff97ab53259af368", null ],
+    [ "FOPEN_APPENDTEXT", "curl__setup_8h.html#a83627b88ed8d3c99516bb8708bde66cc", null ],
+    [ "FOPEN_READTEXT", "curl__setup_8h.html#ac5301ec6857f338762bb9334473131ce", null ],
+    [ "FOPEN_WRITETEXT", "curl__setup_8h.html#af512fc3a3d43889eab9cfd3f6df3c952", null ],
+    [ "GETHOSTNAME_TYPE_ARG2", "curl__setup_8h.html#ab2fc3e7947d3eb0e798ea84a77e67b8a", null ],
+    [ "LIBIDN_REQUIRED_VERSION", "curl__setup_8h.html#acffee60c14f813c11326bf0c9c342060", null ],
+    [ "LSEEK_ERROR", "curl__setup_8h.html#a2ed6dbd71eec7d50182993960288028b", null ],
+    [ "SIZE_T_MAX", "curl__setup_8h.html#acfa3af56d5e0045c1d7a5682fd1d2853", null ],
+    [ "SIZEOF_OFF_T", "curl__setup_8h.html#a92a3775c9835089677d63cd605ec1a7a", null ],
+    [ "SIZEOF_TIME_T", "curl__setup_8h.html#aa5a0fea316e3f6331639070f5d16a055", null ],
+    [ "SSIZE_T_MAX", "curl__setup_8h.html#aab89eada8d273a7e1f1447c5c0dffa3d", null ],
+    [ "STRCONST", "curl__setup_8h.html#abac99ed2676fb87d95a7efb94f89badf", null ],
+    [ "struct_stat", "curl__setup_8h.html#a1c6e64692c9b7c6e7dc70adb398b3115", null ],
+    [ "TIME_T_MAX", "curl__setup_8h.html#a2952848347472d9fade4cde6ea2cb4a9", null ],
+    [ "TIME_T_MIN", "curl__setup_8h.html#acde7b0b4db45970eec83ef26b90e9e22", null ],
+    [ "UNITTEST", "curl__setup_8h.html#aa7cd0f8f04816a88879b7e5a8594db57", null ],
+    [ "UNUSED_PARAM", "curl__setup_8h.html#a32dce3380228f1a23cdc1f784263762b", null ],
+    [ "WARN_UNUSED_RESULT", "curl__setup_8h.html#a4e0e2d9e1ee0f401844b5b6ff8338f82", null ],
+    [ "fileno", "curl__setup_8h.html#af86fa14728c9bad5418a6d29cad9f9ff", null ]
+];

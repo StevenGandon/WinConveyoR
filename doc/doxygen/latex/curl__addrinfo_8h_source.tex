@@ -1,0 +1,92 @@
+\doxysection{curl\+\_\+addrinfo.\+h}
+\hypertarget{curl__addrinfo_8h_source}{}\label{curl__addrinfo_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_addrinfo.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_addrinfo.h}}
+\mbox{\hyperlink{curl__addrinfo_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_ADDRINFO\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_ADDRINFO\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETINET\_IN\_H}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#\ \ include\ <netinet/in.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ include\ <netdb.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ HAVE\_ARPA\_INET\_H}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ include\ <arpa/inet.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ \_\_VMS}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ include\ <in.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ include\ <inet.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ include\ <stdlib.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ Curl\_addrinfo\ is\ our\ internal\ struct\ definition\ that\ we\ use\ to\ allow}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ consistent\ internal\ handling\ of\ this\ data.\ We\ use\ this\ even\ when\ the}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ system\ provides\ an\ addrinfo\ structure\ definition.\ And\ we\ use\ this\ for}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ all\ sorts\ of\ IPv4\ and\ IPV6\ builds.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ \{}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCurl__addrinfo_aa55d16d53489b2fb8cf4b5879c941675}{ai\_flags}};}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCurl__addrinfo_abadfae881af6425a56ff823ef0bb1a70}{ai\_family}};}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCurl__addrinfo_a5cc95970e9ca4cebf88338c7f0ddd0a5}{ai\_socktype}};}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCurl__addrinfo_af4b332f0c547a53d6f975ecd43b89163}{ai\_protocol}};}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\_socklen\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structCurl__addrinfo_a0f3cc69725de08bee11e911e0cd52eb2}{ai\_addrlen}};\ \ \ \textcolor{comment}{/*\ Follow\ rfc3493\ struct\ addrinfo\ */}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structCurl__addrinfo_a55a07e701e9f89b3835712afbd382906}{ai\_canonname}};}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{struct\ }sockaddr\ \ \ \ \ \ *\mbox{\hyperlink{structCurl__addrinfo_ab72a36e22c2c7cb539df0351f59359ca}{ai\_addr}};}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *\mbox{\hyperlink{structCurl__addrinfo_a871199ad1750edcfa4c642c74cb8ccd8}{ai\_next}};}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00064\ \mbox{\hyperlink{curl__addrinfo_8h_a9c94acaf8d651b8cbdc34370dd317287}{Curl\_freeaddrinfo}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *cahead);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#ifdef\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00068\ Curl\_getaddrinfo\_ex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nodename,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *servname,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ addrinfo\ *hints,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ **result);}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *}
+\DoxyCodeLine{00075\ \mbox{\hyperlink{curl__addrinfo_8h_ab45c6cb5254765cca78117b99dbfad56}{Curl\_he2ai}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ hostent\ *he,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *}
+\DoxyCodeLine{00078\ \mbox{\hyperlink{curl__addrinfo_8h_a144b4fb4c52e6de6306503984913f839}{Curl\_ip2addr}}(\textcolor{keywordtype}{int}\ af,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *inaddr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *\mbox{\hyperlink{curl__addrinfo_8h_a677618b53fc3f4e2d828f2391476b991}{Curl\_str2addr}}(\textcolor{keywordtype}{char}\ *dotted,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#ifdef\ USE\_UNIX\_SOCKETS}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *Curl\_unix2addr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{bool}\ *longpath,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ abstract);}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#if\ defined(CURLDEBUG)\ \&\&\ defined(HAVE\_GETADDRINFO)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ defined(HAVE\_FREEADDRINFO)}}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00090\ curl\_dbg\_freeaddrinfo(\textcolor{keyword}{struct}\ addrinfo\ *freethis,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#if\ defined(CURLDEBUG)\ \&\&\ defined(HAVE\_GETADDRINFO)}}
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00095\ curl\_dbg\_getaddrinfo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *service,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ addrinfo\ *hints,\ \textcolor{keyword}{struct}\ addrinfo\ **result,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source);}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#ifdef\ HAVE\_GETADDRINFO}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#ifdef\ USE\_RESOLVE\_ON\_IPS}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ Curl\_addrinfo\_set\_port(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *addrinfo,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ Curl\_addrinfo\_set\_port(x,y)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_ADDRINFO\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

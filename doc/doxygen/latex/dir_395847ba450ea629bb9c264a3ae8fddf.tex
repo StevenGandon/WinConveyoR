@@ -1,0 +1,52 @@
+\doxysection{gui/node\+\_\+modules/end-\/of-\/stream Directory Reference}
+\hypertarget{dir_395847ba450ea629bb9c264a3ae8fddf}{}\label{dir_395847ba450ea629bb9c264a3ae8fddf}\index{gui/node\_modules/end-\/of-\/stream Directory Reference@{gui/node\_modules/end-\/of-\/stream Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md424}{}\doxysubsection{\texorpdfstring{end-\/of-\/stream}{end-\/of-\/stream}}\label{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md424}
+A node module that calls a callback when a readable/writable/duplex stream has completed or failed. \begin{DoxyVerb}npm install end-of-stream
+\end{DoxyVerb}
+
+
+\href{https://travis-ci.org/mafintosh/end-of-stream}{\texttt{}}\hypertarget{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md425}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md425}
+Simply pass a stream and a callback to the {\ttfamily eos}. Both legacy streams, streams2 and stream3 are supported.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ js}
+\DoxyCodeLine{var\ eos\ =\ require('end-\/of-\/stream');}
+\DoxyCodeLine{}
+\DoxyCodeLine{eos(readableStream,\ function(err)\ \{}
+\DoxyCodeLine{\ \ //\ this\ will\ be\ set\ to\ the\ stream\ instance}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ console.log('stream\ had\ an\ error\ or\ closed\ early');}
+\DoxyCodeLine{\ \ \ \ console.log('stream\ has\ ended',\ this\ ===\ readableStream);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{eos(writableStream,\ function(err)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ console.log('stream\ had\ an\ error\ or\ closed\ early');}
+\DoxyCodeLine{\ \ \ \ console.log('stream\ has\ finished',\ this\ ===\ writableStream);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{eos(duplexStream,\ function(err)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ console.log('stream\ had\ an\ error\ or\ closed\ early');}
+\DoxyCodeLine{\ \ \ \ console.log('stream\ has\ ended\ and\ finished',\ this\ ===\ duplexStream);}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{eos(duplexStream,\ \{readable:false\},\ function(err)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ console.log('stream\ had\ an\ error\ or\ closed\ early');}
+\DoxyCodeLine{\ \ \ \ console.log('stream\ has\ finished\ but\ might\ still\ be\ readable');}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{eos(duplexStream,\ \{writable:false\},\ function(err)\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err)\ return\ console.log('stream\ had\ an\ error\ or\ closed\ early');}
+\DoxyCodeLine{\ \ \ \ console.log('stream\ has\ ended\ but\ might\ still\ be\ writable');}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{eos(readableStream,\ \{error:false\},\ function(err)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ do\ not\ treat\ emit('error',\ err)\ as\ a\ end-\/of-\/stream}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+\hypertarget{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md426}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md426}
+MIT\hypertarget{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md427}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_395847ba450ea629bb9c264a3ae8fddf_autotoc_md427}
+{\ttfamily end-\/of-\/stream} is part of the \href{https://github.com/maxogden/mississippi}{\texttt{mississippi stream utility collection}} which includes more useful stream modules similar to this one. 

@@ -1,0 +1,284 @@
+\chapter{curl C code style }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE}\index{curl C code style@{curl C code style}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1512}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1512}%
+
+
+Source code that has a common style is easier to read than code that uses different styles in different places. It helps making the code feel like one single code base. Easy-\/to-\/read is an important property of code and helps making it easier to review when new things are added and it helps debugging code when developers are trying to figure out why things go wrong. A unified style is more important than individual contributors having their own personal tastes satisfied.
+
+Our C code has a few style rules. Most of them are verified and upheld by the {\ttfamily scripts/checksrc.\+pl} script. Invoked with {\ttfamily make checksrc} or even by default by the build system when built after {\ttfamily ./configure -\/-\/enable-\/debug} has been used.
+
+It is normally not a problem for anyone to follow the guidelines, as you just need to copy the style already used in the source code and there are no particularly unusual rules in our set of rules.
+
+We also work hard on writing code that are warning-\/free on all the major platforms and in general on as many platforms as possible. Code that obviously will cause warnings will not be accepted as-\/is.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1513}{}\doxysection{\texorpdfstring{Naming}{Naming}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1513}
+Try using a non-\/confusing naming scheme for your new functions and variable names. It does not necessarily have to mean that you should use the same as in other places of the code, just that the names should be logical, understandable and be named according to what they are used for. File-\/local functions should be made static. We like lower case names.
+
+See the \href{https://curl.se/dev/internals.html\#symbols}{\texttt{INTERNALS}} document on how we name non-\/exported library-\/global symbols.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1514}{}\doxysection{\texorpdfstring{Indenting}{Indenting}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1514}
+We use only spaces for indentation, never TABs. We use two spaces for each new open brace.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(something\_is\_true)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}(second\_statement\ ==\ fine)\ \{}
+\DoxyCodeLine{\ \ \ \ moo();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1515}{}\doxysection{\texorpdfstring{Comments}{Comments}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1515}
+Since we write C89 code, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}//\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} comments are not allowed. They were not introduced in the C standard until C99. We use only \+\_\+\+\_\+/\texorpdfstring{$\ast$}{*} comments \texorpdfstring{$\ast$}{*}/\+\_\+\+\_\+.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{/*\ this\ is\ a\ comment\ */}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1516}{}\doxysection{\texorpdfstring{Long lines}{Long lines}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1516}
+Source code in curl may never be wider than 79 columns and there are two reasons for maintaining this even in the modern era of large and high resolution screens\+:
+
+
+\begin{DoxyEnumerate}
+\item Narrower columns are easier to read than wide ones. There\textquotesingle{}s a reason newspapers have used columns for decades or centuries.
+\item Narrower columns allow developers to easier show multiple pieces of code next to each other in different windows. I often have two or three source code windows next to each other on the same screen -\/ as well as multiple terminal and debugging windows.
+\end{DoxyEnumerate}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1517}{}\doxysection{\texorpdfstring{Braces}{Braces}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1517}
+In if/while/do/for expressions, we write the open brace on the same line as the keyword and we then set the closing brace on the same indentation level as the initial keyword. Like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(age\ <\ 40)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ clearly\ a\ youngster\ */}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+You may omit the braces if they would contain only a one-\/line statement\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(!\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{continue};}
+
+\end{DoxyCode}
+
+
+For functions the opening brace should be on a separate line\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespacemain}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1518}{}\doxysection{\texorpdfstring{\textquotesingle{}else\textquotesingle{} on the following line}{\textquotesingle{}else\textquotesingle{} on the following line}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1518}
+When adding an {\bfseries{else}} clause to a conditional expression using braces, we add it on a new line after the closing brace. Like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(age\ <\ 40)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ clearly\ a\ youngster\ */}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ probably\ grumpy\ */}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1519}{}\doxysection{\texorpdfstring{No space before parentheses}{No space before parentheses}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1519}
+When writing expressions using if/while/do/for, there shall be no space between the keyword and the open parenthesis. Like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{while}(1)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ loop\ forever\ */}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1520}{}\doxysection{\texorpdfstring{Use boolean conditions}{Use boolean conditions}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1520}
+Rather than test a conditional value such as a bool against TRUE or FALSE, a pointer against NULL or != NULL and an int against zero or not zero in if/while conditions we prefer\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{result\ =\ do\_something();}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(!result)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ something\ went\ wrong\ */}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1521}{}\doxysection{\texorpdfstring{No assignments in conditions}{No assignments in conditions}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1521}
+To increase readability and reduce complexity of conditionals, we avoid assigning variables within if/while conditions. We frown upon this style\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}((ptr\ =\ \mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}(100))\ ==\ NULL)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ NULL;}
+
+\end{DoxyCode}
+
+
+and instead we encourage the above version to be spelled out more clearly\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ptr\ =\ \mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}(100);}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(!ptr)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ NULL;}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1522}{}\doxysection{\texorpdfstring{New block on a new line}{New block on a new line}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1522}
+We never write multiple statements on the same source line, even for short if() conditions.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(a)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}};}
+\DoxyCodeLine{\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(b)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ FALSE;}
+
+\end{DoxyCode}
+
+
+and NEVER\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(a)\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}};}
+\DoxyCodeLine{\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(b)\ \textcolor{keywordflow}{return}\ FALSE;}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1523}{}\doxysection{\texorpdfstring{Space around operators}{Space around operators}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1523}
+Please use spaces on both sides of operators in C expressions. Postfix {\bfseries{(), \mbox{[}\mbox{]}, -\/\texorpdfstring{$>$}{>}, ., ++, --}} and Unary {\bfseries{+, -\/, !, \texorpdfstring{$\sim$}{\string~}, \&}} operators excluded they should have no space.
+
+Examples\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bla\ =\ func();}
+\DoxyCodeLine{who\ =\ \mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}[0];}
+\DoxyCodeLine{age\ +=\ 1;}
+\DoxyCodeLine{\textcolor{keyword}{true}\ =\ !\textcolor{keyword}{false};}
+\DoxyCodeLine{\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}\ +=\ -\/2\ +\ 3\ *\ (a\ +\ b);}
+\DoxyCodeLine{ptr-\/>member\ =\ a++;}
+\DoxyCodeLine{\textcolor{keyword}{struct}.field\ =\ b-\/-\/;}
+\DoxyCodeLine{ptr\ =\ \&address;}
+\DoxyCodeLine{contents\ =\ *pointer;}
+\DoxyCodeLine{complement\ =\ \string~bits;}
+\DoxyCodeLine{empty\ =\ (!*\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}})\ ?\ \mbox{\hyperlink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}}\ :\ FALSE;}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1524}{}\doxysection{\texorpdfstring{No parentheses for return values}{No parentheses for return values}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1524}
+We use the \textquotesingle{}return\textquotesingle{} statement without extra parentheses around the value\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{user_8d_a1779b2b9c1b60b83ac2d6ab29f1089e3}{works}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1525}{}\doxysection{\texorpdfstring{Parentheses for sizeof arguments}{Parentheses for sizeof arguments}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1525}
+When using the sizeof operator in code, we prefer it to be written with parentheses around its argument\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}\ =\ \textcolor{keyword}{sizeof}(int);}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1526}{}\doxysection{\texorpdfstring{Column alignment}{Column alignment}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1526}
+Some statements cannot be completed on a single line because the line would be too long, the statement too hard to read, or due to other style guidelines above. In such a case the statement will span multiple lines.
+
+If a continuation line is part of an expression or sub-\/expression then you should align on the appropriate column so that it\textquotesingle{}s easy to tell what part of the statement it is. Operators should not start continuation lines. In other cases follow the 2-\/space indent guideline. Here are some examples from libcurl\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(Curl\_pipeline\_wanted(handle-\/>multi,\ \mbox{\hyperlink{multi_8h_a19006903930bc7552c4e74ed6b32990f}{CURLPIPE\_HTTP1}})\ \&\&}
+\DoxyCodeLine{\ \ \ (handle-\/>set.httpversion\ !=\ \mbox{\hyperlink{curl_8h_a7c416db649a9cbd5a27c692e8e4a7b7cabf20980d1f881523f95f620ddcce5667}{CURL\_HTTP\_VERSION\_1\_0}})\ \&\&}
+\DoxyCodeLine{\ \ \ (handle-\/>set.httpreq\ ==\ \mbox{\hyperlink{http_8h_ac67e77846b7b67d5808da8f1dfa2eab8ae4322de705c516b61756f9874183ef05}{HTTPREQ\_GET}}\ ||}
+\DoxyCodeLine{\ \ \ \ handle-\/>set.httpreq\ ==\ \mbox{\hyperlink{http_8h_ac67e77846b7b67d5808da8f1dfa2eab8aca19517adc74c705bb46cd5f505f3456}{HTTPREQ\_HEAD}}))}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ did\ not\ ask\ for\ HTTP/1.0\ and\ a\ GET\ or\ HEAD\ */}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}};}
+
+\end{DoxyCode}
+
+
+If no parenthesis, use the default indent\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structdata}{data}}-\/>set.http\_disable\_hostname\_check\_before\_authentication\ =}
+\DoxyCodeLine{\ \ (0\ !=\ va\_arg(param,\ \textcolor{keywordtype}{long}))\ ?\ \mbox{\hyperlink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}}\ :\ FALSE;}
+
+\end{DoxyCode}
+
+
+Function invoke with an open parenthesis\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(\mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})\ \{}
+\DoxyCodeLine{\ \ result\ =\ parse\_login\_details(\mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}},\ strlen(\mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (userp\ ?\ \&user\ :\ NULL),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (passwdp\ ?\ \&passwd\ :\ NULL),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NULL);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Align with the "{}current open"{} parenthesis\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl__setup__once_8h_a805079d1643f348afa725659b45b6f87}{DEBUGF}}(\mbox{\hyperlink{sendf_8h_a0056494e05c065643a400059b9318270}{infof}}(\mbox{\hyperlink{structdata}{data}},\ \textcolor{stringliteral}{"{}Curl\_pp\_readresp\_\ \%d\ bytes\ of\ trailing\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}server\ response\ left\(\backslash\)n"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{int})clipamount));}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1527}{}\doxysection{\texorpdfstring{Platform dependent code}{Platform dependent code}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1527}
+Use \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\#ifdef HAVE\+\_\+\+FEATURE\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} to do conditional code. We avoid checking for particular operating systems or hardware in the \#ifdef lines. The HAVE\+\_\+\+FEATURE shall be generated by the configure script for unix-\/like systems and they are hard-\/coded in the {\ttfamily config-\/\mbox{[}system\mbox{]}.\doxylink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}} files for the others.
+
+We also encourage use of macros/functions that possibly are empty or defined to constants when libcurl is built without that feature, to make the code seamless. Like this example where the {\bfseries{magic()}} function works differently depending on a build-\/time conditional\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifdef\ HAVE\_MAGIC}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ magic(\textcolor{keywordtype}{int}\ a)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ a\ +\ 2;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ magic(x)\ 1}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ \mbox{\hyperlink{header_8d_ada8d884df459ee2cd6885d1961f1c1bf}{content}}\ =\ magic(3);}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1528}{}\doxysection{\texorpdfstring{No typedefed structs}{No typedefed structs}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CODE__STYLE_autotoc_md1528}
+Use structs by all means, but do not typedef them. Use the {\ttfamily struct \doxylink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}} way of identifying them\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }something\ \{}
+\DoxyCodeLine{\ \ \ \textcolor{keywordtype}{void}\ *valid;}
+\DoxyCodeLine{\ \ \ \textcolor{keywordtype}{size\_t}\ way\_to\_write;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }something\ instance;}
+
+\end{DoxyCode}
+
+
+{\bfseries{Not okay}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \ \textcolor{keywordtype}{void}\ *wrong;}
+\DoxyCodeLine{\ \ \ \textcolor{keywordtype}{size\_t}\ way\_to\_write;}
+\DoxyCodeLine{\}\ something;}
+\DoxyCodeLine{something\ instance;}
+
+\end{DoxyCode}
+ 

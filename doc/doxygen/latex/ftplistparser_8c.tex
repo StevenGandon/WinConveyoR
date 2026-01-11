@@ -1,0 +1,228 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/ftplistparser.c File Reference}
+\hypertarget{ftplistparser_8c}{}\label{ftplistparser_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/ftplistparser.c@{lib/libwconr/build/\_deps/curl-\/src/lib/ftplistparser.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}fileinfo.\+h"{}}\newline
+{\ttfamily \#include "{}llist.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}ftp.\+h"{}}\newline
+{\ttfamily \#include "{}ftplistparser.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+fnmatch.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{unionpl__unix__substate}{pl\+\_\+unix\+\_\+substate}}
+\item 
+union \mbox{\hyperlink{unionpl__winNT__substate}{pl\+\_\+win\+NT\+\_\+substate}}
+\item 
+struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ftplistparser_8c_a3f94a0f31826e1e5a4ceae1c7a349209}{FTP\+\_\+\+BUFFER\+\_\+\+ALLOCSIZE}}~160
+\item 
+\#define \mbox{\hyperlink{ftplistparser_8c_a7ced9fb402560c8512ea2e1d6402cb38}{FTP\+\_\+\+LP\+\_\+\+MALFORMATED\+\_\+\+PERM}}~0x01000000
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3}{pl\+\_\+unix\+\_\+mainstate}} \{ \newline
+\mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a2ee63c46d480c61c1500a3eecabf1e24}{PL\+\_\+\+UNIX\+\_\+\+TOTALSIZE}} = 0
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ac493d56f656404c3840a8a4659a86268}{PL\+\_\+\+UNIX\+\_\+\+FILETYPE}}
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a48f1edf513ac358b3b3356c97851e0f5}{PL\+\_\+\+UNIX\+\_\+\+PERMISSION}}
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a84419908eef84c5dfd7c2fa98e470e96}{PL\+\_\+\+UNIX\+\_\+\+HLINKS}}
+, \newline
+\mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a6da28b0ec5fe92debce9f70a053b4f80}{PL\+\_\+\+UNIX\+\_\+\+USER}}
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ab5588c7ea6ef5afaeb6d3522fba073b5}{PL\+\_\+\+UNIX\+\_\+\+GROUP}}
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a79d43eecea7a98d0ff43488dd232dc31}{PL\+\_\+\+UNIX\+\_\+\+SIZE}}
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a501665bbf567747bb1c2ef099068a9a7}{PL\+\_\+\+UNIX\+\_\+\+TIME}}
+, \newline
+\mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ae3df0a93ee2fcd6a65fb1da60af16beb}{PL\+\_\+\+UNIX\+\_\+\+FILENAME}}
+, \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3aa2968a98c8c10e1b93ce33734dcd697a}{PL\+\_\+\+UNIX\+\_\+\+SYMLINK}}
+ \}
+\item 
+enum \mbox{\hyperlink{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8}{pl\+\_\+win\+NT\+\_\+mainstate}} \{ \mbox{\hyperlink{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8a56d3011ed4a0e92061a443566da4e4d6}{PL\+\_\+\+WINNT\+\_\+\+DATE}} = 0
+, \mbox{\hyperlink{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8ac61514c9c61eec72e4766a85ce997210}{PL\+\_\+\+WINNT\+\_\+\+TIME}}
+, \mbox{\hyperlink{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8a89a4cb1a265fbaf6f9bcaf956664eb55}{PL\+\_\+\+WINNT\+\_\+\+DIRORSIZE}}
+, \mbox{\hyperlink{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8ad8a246d34e48de9c02ca6eea849ca8e0}{PL\+\_\+\+WINNT\+\_\+\+FILENAME}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ftplistparser_8c_aa960fd4c7bea05e7e173ae1453467b26}{Curl\+\_\+ftp\+\_\+parselist\+\_\+data\+\_\+alloc}} (void)
+\item 
+void \mbox{\hyperlink{ftplistparser_8c_a822c4a0b890c2b7e9464514eb773b8d8}{Curl\+\_\+ftp\+\_\+parselist\+\_\+data\+\_\+free}} (struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}parserp)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftplistparser_8c_aaa44be04d49bc6bb4f26759980f346a6}{Curl\+\_\+ftp\+\_\+parselist\+\_\+geterror}} (struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}} \texorpdfstring{$\ast$}{*}pl\+\_\+data)
+\item 
+static int \mbox{\hyperlink{ftplistparser_8c_ac7e56c80c6532c7aa80ed99e48776b7b}{ftp\+\_\+pl\+\_\+get\+\_\+permission}} (const char \texorpdfstring{$\ast$}{*}str)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftplistparser_8c_ad022332c7dfbd7ece9fa0f7ddfedb646}{ftp\+\_\+pl\+\_\+insert\+\_\+finfo}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structfileinfo}{fileinfo}} \texorpdfstring{$\ast$}{*}infop)
+\item 
+size\+\_\+t \mbox{\hyperlink{ftplistparser_8c_ad72b3b4dd2ac9ddc6089b0638c2af67a}{Curl\+\_\+ftp\+\_\+parselist}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}connptr)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ftplistparser_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ftplistparser_8c_a3f94a0f31826e1e5a4ceae1c7a349209}\index{ftplistparser.c@{ftplistparser.c}!FTP\_BUFFER\_ALLOCSIZE@{FTP\_BUFFER\_ALLOCSIZE}}
+\index{FTP\_BUFFER\_ALLOCSIZE@{FTP\_BUFFER\_ALLOCSIZE}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{FTP\_BUFFER\_ALLOCSIZE}{FTP\_BUFFER\_ALLOCSIZE}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_a3f94a0f31826e1e5a4ceae1c7a349209} 
+\#define FTP\+\_\+\+BUFFER\+\_\+\+ALLOCSIZE~160}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl Now implemented\+:
+
+1) Unix version 1 drwxr-\/xr-\/x 1 user01 ftp 512 Jan 29 23\+:32 prog 2) Unix version 2 drwxr-\/xr-\/x 1 user01 ftp 512 Jan 29 1997 prog 3) Unix version 3 drwxr-\/xr-\/x 1 1 1 512 Jan 29 23\+:32 prog 4) Unix symlink lrwxr-\/xr-\/x 1 user01 ftp 512 Jan 29 23\+:32 prog -\/\texorpdfstring{$>$}{>} prog2000 5) DOS style 01-\/29-\/97 11\+:32PM $<$\+DIR$>$ prog \Hypertarget{ftplistparser_8c_a7ced9fb402560c8512ea2e1d6402cb38}\index{ftplistparser.c@{ftplistparser.c}!FTP\_LP\_MALFORMATED\_PERM@{FTP\_LP\_MALFORMATED\_PERM}}
+\index{FTP\_LP\_MALFORMATED\_PERM@{FTP\_LP\_MALFORMATED\_PERM}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{FTP\_LP\_MALFORMATED\_PERM}{FTP\_LP\_MALFORMATED\_PERM}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_a7ced9fb402560c8512ea2e1d6402cb38} 
+\#define FTP\+\_\+\+LP\+\_\+\+MALFORMATED\+\_\+\+PERM~0x01000000}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{ftplistparser_8c_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3}\index{ftplistparser.c@{ftplistparser.c}!pl\_unix\_mainstate@{pl\_unix\_mainstate}}
+\index{pl\_unix\_mainstate@{pl\_unix\_mainstate}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{pl\_unix\_mainstate}{pl\_unix\_mainstate}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3} 
+enum \mbox{\hyperlink{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3}{pl\+\_\+unix\+\_\+mainstate}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_TOTALSIZE@{PL\_UNIX\_TOTALSIZE}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_TOTALSIZE@{PL\_UNIX\_TOTALSIZE}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a2ee63c46d480c61c1500a3eecabf1e24}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a2ee63c46d480c61c1500a3eecabf1e24} 
+PL\+\_\+\+UNIX\+\_\+\+TOTALSIZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_FILETYPE@{PL\_UNIX\_FILETYPE}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_FILETYPE@{PL\_UNIX\_FILETYPE}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ac493d56f656404c3840a8a4659a86268}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ac493d56f656404c3840a8a4659a86268} 
+PL\+\_\+\+UNIX\+\_\+\+FILETYPE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_PERMISSION@{PL\_UNIX\_PERMISSION}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_PERMISSION@{PL\_UNIX\_PERMISSION}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a48f1edf513ac358b3b3356c97851e0f5}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a48f1edf513ac358b3b3356c97851e0f5} 
+PL\+\_\+\+UNIX\+\_\+\+PERMISSION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_HLINKS@{PL\_UNIX\_HLINKS}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_HLINKS@{PL\_UNIX\_HLINKS}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a84419908eef84c5dfd7c2fa98e470e96}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a84419908eef84c5dfd7c2fa98e470e96} 
+PL\+\_\+\+UNIX\+\_\+\+HLINKS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_USER@{PL\_UNIX\_USER}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_USER@{PL\_UNIX\_USER}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a6da28b0ec5fe92debce9f70a053b4f80}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a6da28b0ec5fe92debce9f70a053b4f80} 
+PL\+\_\+\+UNIX\+\_\+\+USER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_GROUP@{PL\_UNIX\_GROUP}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_GROUP@{PL\_UNIX\_GROUP}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ab5588c7ea6ef5afaeb6d3522fba073b5}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ab5588c7ea6ef5afaeb6d3522fba073b5} 
+PL\+\_\+\+UNIX\+\_\+\+GROUP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_SIZE@{PL\_UNIX\_SIZE}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_SIZE@{PL\_UNIX\_SIZE}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a79d43eecea7a98d0ff43488dd232dc31}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a79d43eecea7a98d0ff43488dd232dc31} 
+PL\+\_\+\+UNIX\+\_\+\+SIZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_TIME@{PL\_UNIX\_TIME}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_TIME@{PL\_UNIX\_TIME}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a501665bbf567747bb1c2ef099068a9a7}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3a501665bbf567747bb1c2ef099068a9a7} 
+PL\+\_\+\+UNIX\+\_\+\+TIME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_FILENAME@{PL\_UNIX\_FILENAME}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_FILENAME@{PL\_UNIX\_FILENAME}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ae3df0a93ee2fcd6a65fb1da60af16beb}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3ae3df0a93ee2fcd6a65fb1da60af16beb} 
+PL\+\_\+\+UNIX\+\_\+\+FILENAME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_UNIX\_SYMLINK@{PL\_UNIX\_SYMLINK}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_UNIX\_SYMLINK@{PL\_UNIX\_SYMLINK}}}\Hypertarget{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3aa2968a98c8c10e1b93ce33734dcd697a}\label{ftplistparser_8c_a2f2f8b77c133371445efb095c1a54ff3aa2968a98c8c10e1b93ce33734dcd697a} 
+PL\+\_\+\+UNIX\+\_\+\+SYMLINK&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8}\index{ftplistparser.c@{ftplistparser.c}!pl\_winNT\_mainstate@{pl\_winNT\_mainstate}}
+\index{pl\_winNT\_mainstate@{pl\_winNT\_mainstate}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{pl\_winNT\_mainstate}{pl\_winNT\_mainstate}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8} 
+enum \mbox{\hyperlink{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8}{pl\+\_\+win\+NT\+\_\+mainstate}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_WINNT\_DATE@{PL\_WINNT\_DATE}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_WINNT\_DATE@{PL\_WINNT\_DATE}}}\Hypertarget{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8a56d3011ed4a0e92061a443566da4e4d6}\label{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8a56d3011ed4a0e92061a443566da4e4d6} 
+PL\+\_\+\+WINNT\+\_\+\+DATE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_WINNT\_TIME@{PL\_WINNT\_TIME}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_WINNT\_TIME@{PL\_WINNT\_TIME}}}\Hypertarget{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8ac61514c9c61eec72e4766a85ce997210}\label{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8ac61514c9c61eec72e4766a85ce997210} 
+PL\+\_\+\+WINNT\+\_\+\+TIME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_WINNT\_DIRORSIZE@{PL\_WINNT\_DIRORSIZE}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_WINNT\_DIRORSIZE@{PL\_WINNT\_DIRORSIZE}}}\Hypertarget{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8a89a4cb1a265fbaf6f9bcaf956664eb55}\label{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8a89a4cb1a265fbaf6f9bcaf956664eb55} 
+PL\+\_\+\+WINNT\+\_\+\+DIRORSIZE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PL\_WINNT\_FILENAME@{PL\_WINNT\_FILENAME}!ftplistparser.c@{ftplistparser.c}}\index{ftplistparser.c@{ftplistparser.c}!PL\_WINNT\_FILENAME@{PL\_WINNT\_FILENAME}}}\Hypertarget{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8ad8a246d34e48de9c02ca6eea849ca8e0}\label{ftplistparser_8c_ac71a41d316b77dfc2ed5ab46544ea5a8ad8a246d34e48de9c02ca6eea849ca8e0} 
+PL\+\_\+\+WINNT\+\_\+\+FILENAME&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{ftplistparser_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ftplistparser_8c_ad72b3b4dd2ac9ddc6089b0638c2af67a}\index{ftplistparser.c@{ftplistparser.c}!Curl\_ftp\_parselist@{Curl\_ftp\_parselist}}
+\index{Curl\_ftp\_parselist@{Curl\_ftp\_parselist}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ftp\_parselist()}{Curl\_ftp\_parselist()}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_ad72b3b4dd2ac9ddc6089b0638c2af67a} 
+size\+\_\+t Curl\+\_\+ftp\+\_\+parselist (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{connptr}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{ftplistparser_8c_aa960fd4c7bea05e7e173ae1453467b26}\index{ftplistparser.c@{ftplistparser.c}!Curl\_ftp\_parselist\_data\_alloc@{Curl\_ftp\_parselist\_data\_alloc}}
+\index{Curl\_ftp\_parselist\_data\_alloc@{Curl\_ftp\_parselist\_data\_alloc}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ftp\_parselist\_data\_alloc()}{Curl\_ftp\_parselist\_data\_alloc()}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_aa960fd4c7bea05e7e173ae1453467b26} 
+struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}} \texorpdfstring{$\ast$}{*} Curl\+\_\+ftp\+\_\+parselist\+\_\+data\+\_\+alloc (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ftplistparser_8c_a822c4a0b890c2b7e9464514eb773b8d8}\index{ftplistparser.c@{ftplistparser.c}!Curl\_ftp\_parselist\_data\_free@{Curl\_ftp\_parselist\_data\_free}}
+\index{Curl\_ftp\_parselist\_data\_free@{Curl\_ftp\_parselist\_data\_free}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ftp\_parselist\_data\_free()}{Curl\_ftp\_parselist\_data\_free()}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_a822c4a0b890c2b7e9464514eb773b8d8} 
+void Curl\+\_\+ftp\+\_\+parselist\+\_\+data\+\_\+free (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{parserp}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ftplistparser_8c_aaa44be04d49bc6bb4f26759980f346a6}\index{ftplistparser.c@{ftplistparser.c}!Curl\_ftp\_parselist\_geterror@{Curl\_ftp\_parselist\_geterror}}
+\index{Curl\_ftp\_parselist\_geterror@{Curl\_ftp\_parselist\_geterror}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ftp\_parselist\_geterror()}{Curl\_ftp\_parselist\_geterror()}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_aaa44be04d49bc6bb4f26759980f346a6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+ftp\+\_\+parselist\+\_\+geterror (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structftp__parselist__data}{ftp\+\_\+parselist\+\_\+data}} \texorpdfstring{$\ast$}{*}}]{pl\+\_\+data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ftplistparser_8c_ac7e56c80c6532c7aa80ed99e48776b7b}\index{ftplistparser.c@{ftplistparser.c}!ftp\_pl\_get\_permission@{ftp\_pl\_get\_permission}}
+\index{ftp\_pl\_get\_permission@{ftp\_pl\_get\_permission}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_pl\_get\_permission()}{ftp\_pl\_get\_permission()}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_ac7e56c80c6532c7aa80ed99e48776b7b} 
+int ftp\+\_\+pl\+\_\+get\+\_\+permission (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftplistparser_8c_ad022332c7dfbd7ece9fa0f7ddfedb646}\index{ftplistparser.c@{ftplistparser.c}!ftp\_pl\_insert\_finfo@{ftp\_pl\_insert\_finfo}}
+\index{ftp\_pl\_insert\_finfo@{ftp\_pl\_insert\_finfo}!ftplistparser.c@{ftplistparser.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_pl\_insert\_finfo()}{ftp\_pl\_insert\_finfo()}}
+{\footnotesize\ttfamily \label{ftplistparser_8c_ad022332c7dfbd7ece9fa0f7ddfedb646} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+pl\+\_\+insert\+\_\+finfo (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structfileinfo}{fileinfo}} \texorpdfstring{$\ast$}{*}}]{infop}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

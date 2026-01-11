@@ -1,0 +1,41 @@
+\doxysection{QCPFinancial Class Reference}
+\hypertarget{classQCPFinancial}{}\label{classQCPFinancial}\index{QCPFinancial@{QCPFinancial}}
+
+
+A plottable representing a financial stock chart.  
+
+
+
+
+\doxysubsection{Detailed Description}
+A plottable representing a financial stock chart. 
+
+
+
+This plottable represents time series data binned to certain intervals, mainly used for stock charts. The two common representations OHLC (Open-\/\+High-\/\+Low-\/\+Close) bars and Candlesticks can be set via set\+Chart\+Style.
+
+The data is passed via set\+Data as a set of open/high/low/close values at certain keys (typically times). This means the data must be already binned appropriately. If data is only available as a series of values (e.\+g. {\itshape price} against {\itshape time}), you can use the static convenience function time\+Series\+To\+Ohlc to generate binned OHLC-\/data which can then be passed to set\+Data.
+
+The width of the OHLC bars/candlesticks can be controlled with set\+Width and set\+Width\+Type. A typical choice is to set the width type to wt\+Plot\+Coords (the default) and the width to (or slightly less than) one time bin interval width.\hypertarget{classQCPFinancial_qcpfinancial-appearance}{}\doxysubsection{\texorpdfstring{Changing the appearance}{Changing the appearance}}\label{classQCPFinancial_qcpfinancial-appearance}
+Charts can be either single-\/ or two-\/colored (set\+Two\+Colored). If set to be single-\/colored, lines are drawn with the plottable\textquotesingle{}s pen (set\+Pen) and fills with the brush (set\+Brush).
+
+If set to two-\/colored, positive changes of the value during an interval ({\itshape close} \texorpdfstring{$>$}{>}= {\itshape open}) are represented with a different pen and brush than negative changes ({\itshape close} \texorpdfstring{$<$}{<} {\itshape open}). These can be configured with set\+Pen\+Positive, set\+Pen\+Negative, set\+Brush\+Positive, and set\+Brush\+Negative. In two-\/colored mode, the normal plottable pen/brush is ignored. Upon selection however, the normal selected pen/brush (provided by the selection\+Decorator) is used, irrespective of whether the chart is single-\/ or two-\/colored.\hypertarget{classQCPFinancial_qcpfinancial-usage}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{classQCPFinancial_qcpfinancial-usage}
+Like all data representing objects in \doxylink{classQCustomPlot}{QCustom\+Plot}, the \doxylink{classQCPFinancial}{QCPFinancial} is a plottable (\doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable}). So the plottable-\/interface of \doxylink{classQCustomPlot}{QCustom\+Plot} applies (QCustom\+Plot\+::plottable, QCustom\+Plot\+::remove\+Plottable, etc.)
+
+Usually, you first create an instance\+:
+
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ which registers it with the \doxylink{classQCustomPlot}{QCustom\+Plot} instance of the passed axes. Note that this \doxylink{classQCustomPlot}{QCustom\+Plot} instance takes ownership of the plottable, so do not delete it manually but use QCustom\+Plot\+::remove\+Plottable() instead. The newly created plottable can be modified, e.\+g.\+:
+
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ Here we have used the static helper method time\+Series\+To\+Ohlc, to turn a time-\/price data series into a 24-\/hour binned open-\/high-\/low-\/close data series as \doxylink{classQCPFinancial}{QCPFinancial} uses. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

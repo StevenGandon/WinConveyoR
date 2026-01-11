@@ -1,0 +1,429 @@
+\doxysection{setup-\/vms.h}
+\hypertarget{setup-vms_8h_source}{}\label{setup-vms_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/setup-\/vms.h@{lib/libwconr/build/\_deps/curl-\/src/lib/setup-\/vms.h}}
+\mbox{\hyperlink{setup-vms_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SETUP\_VMS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SETUP\_VMS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ JEM,\ 12/30/12,\ VMS\ now\ generates\ config.h,\ so\ only\ define\ wrappers\ for\ \ */}}
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ getenv(),\ getpwuid()\ and\ provide\ is\_vms\_shell()\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Also\ need\ upper\ case\ symbols\ for\ system\ services,\ and\ \ \ \ */}}
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OpenSSL,\ and\ some\ Kerberos\ image\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#pragma\ message\ save}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#pragma\ message\ disable\ dollarid}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ Hide\ the\ stuff\ we\ are\ overriding\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ getenv\ decc\_getenv}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ \ if\ \_\_INITIAL\_POINTER\_SIZE\ !=\ 64}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ getpwuid\ decc\_getpwuid}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{setup-vms_8h_a2e5e01e7b9cf39829171b0ca733bddc5}{decc\$getenv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\_\_name);}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <pwd.h>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <unixlib.h>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#undef\ getenv}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#undef\ getpwuid}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ getenv\ vms\_getenv}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ getpwuid\ vms\_getpwuid}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ VAX\ needs\ these\ in\ upper\ case\ when\ compiling\ exact\ case\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ sys\$assign\ SYS\$ASSIGN}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ sys\$dassgn\ SYS\$DASSGN}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ sys\$qiow\ SYS\$QIOW}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#\ \ \ if\ \_\_INITIAL\_POINTER\_SIZE}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ pragma\ \_\_pointer\_size\ \_\_save}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#if\ \_\_USE\_LONG\_GID\_T}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ \ \ define\ decc\_getpwuid\ DECC\$\_\_LONG\_GID\_GETPWUID}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ \ \ if\ \_\_INITIAL\_POINTER\_SIZE}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ decc\_getpwuid\ decc\$\_\_32\_getpwuid}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ \ \ else}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ decc\_getpwuid\ decc\$getpwuid}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{struct\ }passwd\ *\mbox{\hyperlink{setup-vms_8h_ad181e66b3d182a6e02cee4e927896a38}{decc\_getpwuid}}(uid\_t\ uid);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ \ \ if\ \_\_INITIAL\_POINTER\_SIZE\ ==\ 32}}
+\DoxyCodeLine{00082\ \textcolor{comment}{/*\ Translate\ the\ path,\ but\ only\ if\ the\ path\ is\ a\ VMS\ file\ specification\ */}}
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ The\ translation\ is\ usually\ only\ needed\ for\ older\ versions\ of\ VMS\ */}}
+\DoxyCodeLine{00084\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ *vms\_translate\_path(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path)}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{char}\ *unix\_path;}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{char}\ *test\_str;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{/*\ See\ if\ the\ result\ is\ in\ VMS\ format,\ if\ not,\ we\ are\ done\ */}}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{/*\ Assume\ that\ this\ is\ a\ PATH,\ not\ just\ some\ data\ */}}
+\DoxyCodeLine{00091\ \ \ test\_str\ =\ strpbrk(path,\ \textcolor{stringliteral}{"{}:[<\string^"{}});}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordflow}{if}(!test\_str)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{char}\ *)path;}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ unix\_path\ =\ decc\$translate\_vms(path);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{int})unix\_path\ <=\ 0)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{/*\ We\ can\ not\ translate\ it,\ so\ return\ the\ original\ string\ */}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{char}\ *)path;}
+\DoxyCodeLine{00101\ \ \ \}}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#\ \ \ else}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{/*\ VMS\ translate\ path\ is\ actually\ not\ needed\ on\ the\ current\ 64\ bit\ */}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{/*\ VMS\ platforms,\ so\ instead\ of\ figuring\ out\ the\ pointer\ settings\ */}}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{/*\ Change\ it\ to\ a\ noop\ */}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#\ \ \ define\ vms\_translate\_path(\_\_path)\ \_\_path}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#\ \ \ if\ \_\_INITIAL\_POINTER\_SIZE}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ pragma\ \_\_pointer\_size\ \_\_restore}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{setup-vms_8h_a613410eae4594254709240bda695b42f}{vms\_getenv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *envvar)}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{char}\ *result;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{char}\ *vms\_path;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{/*\ first\ use\ the\ DECC\ getenv()\ function\ */}}
+\DoxyCodeLine{00123\ \ \ result\ =\ \mbox{\hyperlink{setup-vms_8h_a2e5e01e7b9cf39829171b0ca733bddc5}{decc\$getenv}}(envvar);}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordflow}{if}(!result)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ vms\_path\ =\ result;}
+\DoxyCodeLine{00129\ \ \ result\ =\ vms\_translate\_path(vms\_path);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{comment}{/*\ note\ that\ if\ you\ backport\ this\ to\ use\ VAX\ C\ RTL,\ that\ the\ VAX\ C\ RTL\ */}}
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{/*\ may\ do\ a\ malloc(2048)\ for\ each\ call\ to\ getenv(),\ so\ you\ will\ need\ \ \ */}}
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{/*\ to\ add\ a\ free(vms\_path)\ */}}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{/*\ Do\ not\ do\ a\ free()\ for\ DEC\ C\ RTL\ builds,\ which\ should\ be\ used\ for\ */}}
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{/*\ VMS\ 5.5-\/2\ and\ later,\ even\ if\ using\ GCC\ */}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00138\ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }passwd\ \mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }passwd\ *\mbox{\hyperlink{setup-vms_8h_a58c0129c5c71aef9f95650575ede7aea}{vms\_getpwuid}}(uid\_t\ uid)}
+\DoxyCodeLine{00144\ \{}
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{struct\ }passwd\ *my\_passwd;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{/*\ Hack\ needed\ to\ support\ 64\ bit\ builds,\ decc\_getpwnam\ is\ 32\ bit\ only\ */}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#\ \ \ if\ \_\_INITIAL\_POINTER\_SIZE}}
+\DoxyCodeLine{00150\ \ \ \_\_char\_ptr32\ unix\_path;}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#\ \ \ else}}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{char}\ *unix\_path;}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{char}\ *unix\_path;}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ my\_passwd\ =\ \mbox{\hyperlink{setup-vms_8h_ad181e66b3d182a6e02cee4e927896a38}{decc\_getpwuid}}(uid);}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{if}(!my\_passwd)\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ my\_passwd;}
+\DoxyCodeLine{00161\ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ unix\_path\ =\ vms\_translate\_path(my\_passwd-\/>pw\_dir);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{long})unix\_path\ <=\ 0)\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{comment}{/*\ We\ can\ not\ translate\ it,\ so\ return\ the\ original\ string\ */}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ my\_passwd;}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{comment}{/*\ If\ no\ changes\ needed\ just\ return\ it\ */}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordflow}{if}(unix\_path\ ==\ my\_passwd-\/>pw\_dir)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{return}\ my\_passwd;}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{comment}{/*\ Need\ to\ copy\ the\ structure\ returned\ */}}
+\DoxyCodeLine{00176\ \ \ \textcolor{comment}{/*\ Since\ curl\ is\ only\ using\ pw\_dir,\ no\ need\ to\ fix\ up\ */}}
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{/*\ the\ pw\_shell\ when\ running\ under\ Bash\ */}}
+\DoxyCodeLine{00178\ \ \ \mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}}.pw\_name\ =\ my\_passwd-\/>pw\_name;}
+\DoxyCodeLine{00179\ \ \ \mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}}.pw\_uid\ =\ my\_passwd-\/>pw\_uid;}
+\DoxyCodeLine{00180\ \ \ \mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}}.pw\_gid\ =\ my\_passwd-\/>pw\_uid;}
+\DoxyCodeLine{00181\ \ \ \mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}}.pw\_dir\ =\ unix\_path;}
+\DoxyCodeLine{00182\ \ \ \mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}}.pw\_shell\ =\ my\_passwd-\/>pw\_shell;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordflow}{return}\ \&\mbox{\hyperlink{setup-vms_8h_a4e9d16ca4d185595cb48c7ada14ebcc8}{vms\_passwd\_cache}};}
+\DoxyCodeLine{00185\ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#ifdef\ \_\_DECC}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#pragma\ message\ restore}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{/*\ Bug\ -\/\ VMS\ OpenSSL\ and\ Kerberos\ universal\ symbols\ are\ in\ uppercase\ only\ */}}
+\DoxyCodeLine{00192\ \textcolor{comment}{/*\ VMS\ libraries\ should\ have\ universal\ symbols\ in\ exact\ and\ uppercase\ */}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ ASN1\_INTEGER\_get\ ASN1\_INTEGER\_GET}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ ASN1\_STRING\_data\ ASN1\_STRING\_DATA}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ ASN1\_STRING\_length\ ASN1\_STRING\_LENGTH}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ ASN1\_STRING\_print\ ASN1\_STRING\_PRINT}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ ASN1\_STRING\_to\_UTF8\ ASN1\_STRING\_TO\_UTF8}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ ASN1\_STRING\_type\ ASN1\_STRING\_TYPE}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ BIO\_ctrl\ BIO\_CTRL}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ BIO\_free\ BIO\_FREE}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ BIO\_new\ BIO\_NEW}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ BIO\_s\_mem\ BIO\_S\_MEM}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ BN\_bn2bin\ BN\_BN2BIN}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ BN\_num\_bits\ BN\_NUM\_BITS}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ CRYPTO\_cleanup\_all\_ex\_data\ CRYPTO\_CLEANUP\_ALL\_EX\_DATA}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ CRYPTO\_free\ CRYPTO\_FREE}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ CRYPTO\_malloc\ CRYPTO\_MALLOC}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ CONF\_modules\_load\_file\ CONF\_MODULES\_LOAD\_FILE}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#ifdef\ \_\_VAX}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#\ \ ifdef\ VMS\_OLD\_SSL}}
+\DoxyCodeLine{00212\ \ \ \textcolor{comment}{/*\ Ancient\ OpenSSL\ on\ VAX/VMS\ missing\ this\ constant\ */}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#\ \ \ \ define\ CONF\_MFLAGS\_IGNORE\_MISSING\_FILE\ 0x10}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#\ \ \ \ undef\ CONF\_modules\_load\_file}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{setup-vms_8h_a8e83b9ac94b508d151adc74c69a72a27}{CONF\_modules\_load\_file}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *appname,}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ flags)\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#\ \ endif}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ DES\_ecb\_encrypt\ DES\_ECB\_ENCRYPT}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ DES\_set\_key\ DES\_SET\_KEY}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ DES\_set\_odd\_parity\ DES\_SET\_ODD\_PARITY}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ ENGINE\_ctrl\ ENGINE\_CTRL}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ ENGINE\_ctrl\_cmd\ ENGINE\_CTRL\_CMD}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ ENGINE\_finish\ ENGINE\_FINISH}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ ENGINE\_free\ ENGINE\_FREE}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ ENGINE\_get\_first\ ENGINE\_GET\_FIRST}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#define\ ENGINE\_get\_id\ ENGINE\_GET\_ID}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ ENGINE\_get\_next\ ENGINE\_GET\_NEXT}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ ENGINE\_init\ ENGINE\_INIT}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#define\ ENGINE\_load\_builtin\_engines\ ENGINE\_LOAD\_BUILTIN\_ENGINES}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ ENGINE\_load\_private\_key\ ENGINE\_LOAD\_PRIVATE\_KEY}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ ENGINE\_set\_default\ ENGINE\_SET\_DEFAULT}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ ERR\_clear\_error\ ERR\_CLEAR\_ERROR}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ ERR\_error\_string\ ERR\_ERROR\_STRING}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ ERR\_error\_string\_n\ ERR\_ERROR\_STRING\_N}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ ERR\_free\_strings\ ERR\_FREE\_STRINGS}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ ERR\_get\_error\ ERR\_GET\_ERROR}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ ERR\_peek\_error\ ERR\_PEEK\_ERROR}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#define\ ERR\_remove\_state\ ERR\_REMOVE\_STATE}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ EVP\_PKEY\_copy\_parameters\ EVP\_PKEY\_COPY\_PARAMETERS}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ EVP\_PKEY\_free\ EVP\_PKEY\_FREE}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ EVP\_cleanup\ EVP\_CLEANUP}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ GENERAL\_NAMES\_free\ GENERAL\_NAMES\_FREE}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ i2d\_X509\_PUBKEY\ I2D\_X509\_PUBKEY}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ MD4\_Final\ MD4\_FINAL}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ MD4\_Init\ MD4\_INIT}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ MD4\_Update\ MD4\_UPDATE}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ MD5\_Final\ MD5\_FINAL}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ MD5\_Init\ MD5\_INIT}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ MD5\_Update\ MD5\_UPDATE}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ OPENSSL\_add\_all\_algo\_noconf\ OPENSSL\_ADD\_ALL\_ALGO\_NOCONF}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#ifndef\ \_\_VAX}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ OPENSSL\_load\_builtin\_modules\ OPENSSL\_LOAD\_BUILTIN\_MODULES}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ PEM\_read\_X509\ PEM\_READ\_X509}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ PEM\_write\_bio\_X509\ PEM\_WRITE\_BIO\_X509}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#define\ PKCS12\_PBE\_add\ PKCS12\_PBE\_ADD}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ PKCS12\_free\ PKCS12\_FREE}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ PKCS12\_parse\ PKCS12\_PARSE}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ RAND\_add\ RAND\_ADD}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ RAND\_bytes\ RAND\_BYTES}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ RAND\_egd\ RAND\_EGD}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ RAND\_file\_name\ RAND\_FILE\_NAME}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ RAND\_load\_file\ RAND\_LOAD\_FILE}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ RAND\_status\ RAND\_STATUS}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ SSL\_CIPHER\_get\_name\ SSL\_CIPHER\_GET\_NAME}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_add\_client\_CA\ SSL\_CTX\_ADD\_CLIENT\_CA}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_callback\_ctrl\ SSL\_CTX\_CALLBACK\_CTRL}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_check\_private\_key\ SSL\_CTX\_CHECK\_PRIVATE\_KEY}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_ctrl\ SSL\_CTX\_CTRL}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_free\ SSL\_CTX\_FREE}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_get\_cert\_store\ SSL\_CTX\_GET\_CERT\_STORE}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_load\_verify\_locations\ SSL\_CTX\_LOAD\_VERIFY\_LOCATIONS}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_new\ SSL\_CTX\_NEW}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_set\_cipher\_list\ SSL\_CTX\_SET\_CIPHER\_LIST}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_set\_def\_passwd\_cb\_ud\ SSL\_CTX\_SET\_DEF\_PASSWD\_CB\_UD}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_set\_default\_passwd\_cb\ SSL\_CTX\_SET\_DEFAULT\_PASSWD\_CB}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_set\_msg\_callback\ SSL\_CTX\_SET\_MSG\_CALLBACK}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_set\_verify\ SSL\_CTX\_SET\_VERIFY}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_use\_PrivateKey\ SSL\_CTX\_USE\_PRIVATEKEY}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_use\_PrivateKey\_file\ SSL\_CTX\_USE\_PRIVATEKEY\_FILE}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_use\_cert\_chain\_file\ SSL\_CTX\_USE\_CERT\_CHAIN\_FILE}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_use\_certificate\ SSL\_CTX\_USE\_CERTIFICATE}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#define\ SSL\_CTX\_use\_certificate\_file\ SSL\_CTX\_USE\_CERTIFICATE\_FILE}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ SSL\_SESSION\_free\ SSL\_SESSION\_FREE}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ SSL\_connect\ SSL\_CONNECT}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ SSL\_free\ SSL\_FREE}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ SSL\_get1\_session\ SSL\_GET1\_SESSION}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ SSL\_get\_certificate\ SSL\_GET\_CERTIFICATE}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ SSL\_get\_current\_cipher\ SSL\_GET\_CURRENT\_CIPHER}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ SSL\_get\_error\ SSL\_GET\_ERROR}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ SSL\_get\_peer\_cert\_chain\ SSL\_GET\_PEER\_CERT\_CHAIN}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#define\ SSL\_get\_peer\_certificate\ SSL\_GET\_PEER\_CERTIFICATE}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#define\ SSL\_get\_privatekey\ SSL\_GET\_PRIVATEKEY}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ SSL\_get\_session\ SSL\_GET\_SESSION}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ SSL\_get\_shutdown\ SSL\_GET\_SHUTDOWN}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ SSL\_get\_verify\_result\ SSL\_GET\_VERIFY\_RESULT}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ SSL\_library\_init\ SSL\_LIBRARY\_INIT}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ SSL\_load\_error\_strings\ SSL\_LOAD\_ERROR\_STRINGS}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ SSL\_new\ SSL\_NEW}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ SSL\_peek\ SSL\_PEEK}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#define\ SSL\_pending\ SSL\_PENDING}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ SSL\_read\ SSL\_READ}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ SSL\_set\_connect\_state\ SSL\_SET\_CONNECT\_STATE}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#define\ SSL\_set\_fd\ SSL\_SET\_FD}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ SSL\_set\_session\ SSL\_SET\_SESSION}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ SSL\_shutdown\ SSL\_SHUTDOWN}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#define\ SSL\_version\ SSL\_VERSION}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#define\ SSL\_write\ SSL\_WRITE}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#define\ SSLeay\ SSLEAY}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ SSLv23\_client\_method\ SSLV23\_CLIENT\_METHOD}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#define\ SSLv3\_client\_method\ SSLV3\_CLIENT\_METHOD}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#define\ TLSv1\_client\_method\ TLSV1\_CLIENT\_METHOD}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#define\ UI\_create\_method\ UI\_CREATE\_METHOD}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#define\ UI\_destroy\_method\ UI\_DESTROY\_METHOD}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ UI\_get0\_user\_data\ UI\_GET0\_USER\_DATA}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#define\ UI\_get\_input\_flags\ UI\_GET\_INPUT\_FLAGS}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ UI\_get\_string\_type\ UI\_GET\_STRING\_TYPE}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ UI\_create\_method\ UI\_CREATE\_METHOD}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#define\ UI\_destroy\_method\ UI\_DESTROY\_METHOD}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#define\ UI\_method\_get\_closer\ UI\_METHOD\_GET\_CLOSER}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ UI\_method\_get\_opener\ UI\_METHOD\_GET\_OPENER}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#define\ UI\_method\_get\_reader\ UI\_METHOD\_GET\_READER}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#define\ UI\_method\_get\_writer\ UI\_METHOD\_GET\_WRITER}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#define\ UI\_method\_set\_closer\ UI\_METHOD\_SET\_CLOSER}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#define\ UI\_method\_set\_opener\ UI\_METHOD\_SET\_OPENER}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#define\ UI\_method\_set\_reader\ UI\_METHOD\_SET\_READER}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#define\ UI\_method\_set\_writer\ UI\_METHOD\_SET\_WRITER}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ UI\_OpenSSL\ UI\_OPENSSL}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ UI\_set\_result\ UI\_SET\_RESULT}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ X509V3\_EXT\_print\ X509V3\_EXT\_PRINT}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ X509\_EXTENSION\_get\_critical\ X509\_EXTENSION\_GET\_CRITICAL}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ X509\_EXTENSION\_get\_data\ X509\_EXTENSION\_GET\_DATA}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#define\ X509\_EXTENSION\_get\_object\ X509\_EXTENSION\_GET\_OBJECT}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#define\ X509\_LOOKUP\_file\ X509\_LOOKUP\_FILE}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#define\ X509\_NAME\_ENTRY\_get\_data\ X509\_NAME\_ENTRY\_GET\_DATA}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ X509\_NAME\_get\_entry\ X509\_NAME\_GET\_ENTRY}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#define\ X509\_NAME\_get\_index\_by\_NID\ X509\_NAME\_GET\_INDEX\_BY\_NID}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#define\ X509\_NAME\_print\_ex\ X509\_NAME\_PRINT\_EX}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ X509\_STORE\_CTX\_get\_current\_cert\ X509\_STORE\_CTX\_GET\_CURRENT\_CERT}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#define\ X509\_STORE\_add\_lookup\ X509\_STORE\_ADD\_LOOKUP}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ X509\_STORE\_set\_flags\ X509\_STORE\_SET\_FLAGS}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#define\ X509\_check\_issued\ X509\_CHECK\_ISSUED}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#define\ X509\_free\ X509\_FREE}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#define\ X509\_get\_ext\_d2i\ X509\_GET\_EXT\_D2I}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ X509\_get\_issuer\_name\ X509\_GET\_ISSUER\_NAME}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#define\ X509\_get\_pubkey\ X509\_GET\_PUBKEY}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#define\ X509\_get\_serialNumber\ X509\_GET\_SERIALNUMBER}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ X509\_get\_subject\_name\ X509\_GET\_SUBJECT\_NAME}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#define\ X509\_load\_crl\_file\ X509\_LOAD\_CRL\_FILE}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ X509\_verify\_cert\_error\_string\ X509\_VERIFY\_CERT\_ERROR\_STRING}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ d2i\_PKCS12\_fp\ D2I\_PKCS12\_FP}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#define\ i2t\_ASN1\_OBJECT\ I2T\_ASN1\_OBJECT}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ sk\_num\ SK\_NUM}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#define\ sk\_pop\ SK\_POP}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#define\ sk\_pop\_free\ SK\_POP\_FREE}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#define\ sk\_value\ SK\_VALUE}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#ifdef\ \_\_VAX}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ OPENSSL\_NO\_SHA256}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ SHA256\_Final\ SHA256\_FINAL}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ SHA256\_Init\ SHA256\_INIT}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ SHA256\_Update\ SHA256\_UPDATE}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ USE\_UPPERCASE\_GSSAPI\ 1}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ gss\_seal\ GSS\_SEAL}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ gss\_unseal\ GSS\_UNSEAL}}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ USE\_UPPERCASE\_KRBAPI\ 1}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \textcolor{comment}{/*\ AI\_NUMERICHOST\ needed\ for\ IP\ V6\ support\ in\ Curl\ */}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETDB\_H}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#include\ <netdb.h>}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#ifndef\ AI\_NUMERICHOST}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#ifdef\ ENABLE\_IPV6}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#undef\ ENABLE\_IPV6}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{comment}{/*\ VAX\ symbols\ are\ always\ in\ uppercase\ */}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\#ifdef\ \_\_VAX}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ inflate\ INFLATE}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ inflateEnd\ INFLATEEND}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#define\ inflateInit2\_\ INFLATEINIT2\_}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#define\ inflateInit\_\ INFLATEINIT\_}}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#define\ zlibVersion\ ZLIBVERSION}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{comment}{/*\ Older\ VAX\ OpenSSL\ port\ defines\ these\ as\ Macros\ */}}
+\DoxyCodeLine{00394\ \textcolor{comment}{/*\ Need\ to\ include\ the\ headers\ first\ and\ then\ redefine\ */}}
+\DoxyCodeLine{00395\ \textcolor{comment}{/*\ that\ way\ a\ newer\ port\ will\ also\ work\ if\ some\ one\ has\ one\ */}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#ifdef\ \_\_VAX}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#\ \ \ if\ (OPENSSL\_VERSION\_NUMBER\ <\ 0x00907001L)}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ des\_set\_odd\_parity\ DES\_SET\_ODD\_PARITY}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ des\_set\_key\ DES\_SET\_KEY}}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ des\_ecb\_encrypt\ DES\_ECB\_ENCRYPT}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#\ \ \ include\ <openssl/evp.h>}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#\ \ \ ifndef\ OpenSSL\_add\_all\_algorithms}}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ OpenSSL\_add\_all\_algorithms\ OPENSSL\_ADD\_ALL\_ALGORITHMS}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OPENSSL\_ADD\_ALL\_ALGORITHMS(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{comment}{/*\ Curl\ defines\ these\ to\ lower\ case\ and\ VAX\ needs\ them\ in\ upper\ case\ */}}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{comment}{/*\ So\ we\ need\ static\ routines\ */}}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#\ \ \ if\ (OPENSSL\_VERSION\_NUMBER\ <\ 0x00907001L)}}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ des\_set\_odd\_parity}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ DES\_set\_odd\_parity}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ des\_set\_key}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ DES\_set\_key}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ des\_ecb\_encrypt}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ DES\_ecb\_encrypt}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ des\_set\_odd\_parity(des\_cblock\ *key)\ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ DES\_SET\_ODD\_PARITY(key);}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ des\_set\_key(const\_des\_cblock\ *key,}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ des\_key\_schedule\ schedule)\ \{}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DES\_SET\_KEY(key,\ schedule);}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ des\_ecb\_encrypt(const\_des\_cblock\ *\mbox{\hyperlink{structinput}{input}},}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ des\_cblock\ *\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}},}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ des\_key\_schedule\ ks,\ \textcolor{keywordtype}{int}\ enc)\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ DES\_ECB\_ENCRYPT(\mbox{\hyperlink{structinput}{input}},\ \mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}},\ ks,\ enc);}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00436\ \textcolor{comment}{/*\ Need\ this\ to\ stop\ a\ macro\ redefinition\ error\ */}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#if\ OPENSSL\_VERSION\_NUMBER\ <\ 0x00907000L}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#\ \ \ ifdef\ X509\_STORE\_set\_flags}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ undef\ X509\_STORE\_set\_flags}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ X509\_STORE\_set\_flags(x,y)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SETUP\_VMS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

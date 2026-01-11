@@ -1,0 +1,69 @@
+\doxysection{workspace.\+h}
+\hypertarget{workspace_8h_source}{}\label{workspace_8h_source}\index{Beamage/workspace.h@{Beamage/workspace.h}}
+\mbox{\hyperlink{workspace_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{abstractimage_8h}{abstractimage.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{roiresultinfo_8h}{roiresultinfo.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }QGraphicsItem;}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }QProgressDialog;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classworkspace_acac5da846b1e95d8c0342bc32b0de694}{workspace}}\ :\ \textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classworkspace_acac5da846b1e95d8c0342bc32b0de694}{workspace}}(QObject\ *parent);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classworkspace_aa26db70281cd2b13a3785e606fff5f1e}{\string~workspace}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}*\ \mbox{\hyperlink{classworkspace_aaa7882ef063c64e4a73c3a0c646af80a}{boundary}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_ab0d918c8a03ae93627a529aff700e39a}{setBoundary}}(\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}*\ rect);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classworkspace_a138fbac1aa809a140dc6c4f26931a0ac}{getId}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classworkspace_a5de05a13a0829151e61d8db12762610d}{fId}};\ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a23ba501481257db71dccd56d2cb6da2f}{setId}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_aa7d83b8f97c6013ac71677675f98c0ea}{addItem}}(QGraphicsItem*\ roi);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a3a244d4b6ec773ef260ac1277cb78a0d}{removeItem}}(QGraphicsItem*\ roi);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{const}\ QList<QGraphicsItem*>\&\ \mbox{\hyperlink{classworkspace_a4456f5be401af1143ac394b8bf07b9cb}{items}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classworkspace_a63cd7160a6be3d6ced96f6964a173fd9}{fItemList}};\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a3239f34ab70e7c0de59d2a50e1652a62}{setWorkspaceFilename}}(\textcolor{keyword}{const}\ QString\ \&\mbox{\hyperlink{classworkspace_ae5b391c4d811e7e3888f743a6817e7ff}{name}})\ \{\ \mbox{\hyperlink{classworkspace_a75d6c809f5a572e4b47579d004a8dfc0}{fWorkspaceFilename}}\ =\ \mbox{\hyperlink{classworkspace_ae5b391c4d811e7e3888f743a6817e7ff}{name}};\ \}}
+\DoxyCodeLine{00030\ \ \ \ \ QString\ \mbox{\hyperlink{classworkspace_a072a3ad62ec39da127b6dbab0da73c4a}{getWorkspaceFilename}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classworkspace_a75d6c809f5a572e4b47579d004a8dfc0}{fWorkspaceFilename}};\ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a2cc6f536cb081263a3ba950e669873ad}{cleanWorkspaceFile}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a22c48cba136407a8be1f7633cb8bf470}{setName}}(\textcolor{keyword}{const}\ QString\ \&\mbox{\hyperlink{classworkspace_ae5b391c4d811e7e3888f743a6817e7ff}{name}})\ \{\ \mbox{\hyperlink{classworkspace_a3a865d0a29fc760315000de7c8de0892}{fWorkspaceName}}\ =\ \mbox{\hyperlink{classworkspace_ae5b391c4d811e7e3888f743a6817e7ff}{name}};\ \}}
+\DoxyCodeLine{00034\ \ \ \ \ QString\ \mbox{\hyperlink{classworkspace_ae5b391c4d811e7e3888f743a6817e7ff}{name}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classworkspace_a3a865d0a29fc760315000de7c8de0892}{fWorkspaceName}};\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a9bb54a0a32c190b5a94291f435ed9211}{associateImage}}(\mbox{\hyperlink{classAbstractImage}{AbstractImage}}\ *img)\ \{\ \mbox{\hyperlink{classworkspace_ac5f812fa11a80a4330269d7bfe86b979}{fAssociatedImage}}\ =\ img;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}\ *\mbox{\hyperlink{classworkspace_a25437106e6460102250fd773bc666270}{getAssociatedImage}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classworkspace_ac5f812fa11a80a4330269d7bfe86b979}{fAssociatedImage}};\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_ac453bc93d702816dfae662ae5b1d1258}{removeItemFromWorkspace}}();}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_ae5cc439fb9f42d9e4ce17f474bb77097}{createWorkspaceFile}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a8933073765f1896f7afa93d464728ddf}{itemChanged}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classroiResultInfo}{roiResultInfo}}\ \&info,\ QGraphicsItem*\ it\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a43d099385d1bd19581b2f2f23f843448}{itemPreparation}}(QGraphicsItem*\ it);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_a3892a24cf410e9f21dd7ef313f3ca93f}{modifyItemContextMenu}}(QGraphicsItem*\ roi);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classworkspace_aca5360e89b19b075e3f3acdbbb58f0d1}{createWorkspaceContextMenu}}()\ \{\}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classworkspace_a2377146eb5bcfb3007013bd510acf294}{checkWorkspaceFile}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classworkspace_a5de05a13a0829151e61d8db12762610d}{fId}};}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}\ *\mbox{\hyperlink{classworkspace_ac5f812fa11a80a4330269d7bfe86b979}{fAssociatedImage}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ QString\ \mbox{\hyperlink{classworkspace_a75d6c809f5a572e4b47579d004a8dfc0}{fWorkspaceFilename}};}
+\DoxyCodeLine{00056\ \ \ \ \ QString\ \mbox{\hyperlink{classworkspace_a3a865d0a29fc760315000de7c8de0892}{fWorkspaceName}};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\ *\mbox{\hyperlink{classworkspace_a32224cba8524cde3add2d953efa60eb9}{fBoundary}};}
+\DoxyCodeLine{00059\ \ \ \ \ QList<QGraphicsItem*>\ \mbox{\hyperlink{classworkspace_a63cd7160a6be3d6ced96f6964a173fd9}{fItemList}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ QAction\ *\mbox{\hyperlink{classworkspace_af4ef74e4c6c3f0bf5fe1329897754463}{fAddRoiMenuAction}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \};}
+
+\end{DoxyCode}

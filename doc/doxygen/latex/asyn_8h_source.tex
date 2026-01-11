@@ -1,0 +1,168 @@
+\doxysection{asyn.\+h}
+\hypertarget{asyn_8h_source}{}\label{asyn_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/asyn.h@{lib/libwconr/build/\_deps/curl-\/src/lib/asyn.h}}
+\mbox{\hyperlink{asyn_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_ASYN\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_ASYN\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__addrinfo_8h}{curl\_addrinfo.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }addrinfo;}
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }hostent;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}};}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}};}
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__dns__entry}{Curl\_dns\_entry}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ This\ header\ defines\ all\ functions\ in\ the\ internal\ asynch\ resolver\ interface.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ All\ asynch\ resolvers\ need\ to\ provide\ these\ functions.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ asyn-\/ares.c\ and\ asyn-\/thread.c\ are\ the\ current\ implementations\ of\ asynch}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ resolver\ backends.}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ Curl\_resolver\_global\_init()}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ Called\ from\ curl\_global\_init()\ to\ initialize\ global\ resolver\ environment.}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ Returning\ anything\ else\ than\ CURLE\_OK\ fails\ curl\_global\_init().}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{asyn_8h_aa78b47c52edb61b245bbb8b97770f956}{Curl\_resolver\_global\_init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ Curl\_resolver\_global\_cleanup()}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ Called\ from\ curl\_global\_cleanup()\ to\ destroy\ global\ resolver\ environment.}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{asyn_8h_a658a12f61f442f789df8f222ad2df6d1}{Curl\_resolver\_global\_cleanup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ Curl\_resolver\_init()}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ Called\ from\ curl\_easy\_init()\ -\/>\ Curl\_open()\ to\ initialize\ resolver}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ URL-\/state\ specific\ environment\ ('resolver'\ member\ of\ the\ UrlState}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ structure).\ \ Should\ fill\ the\ passed\ pointer\ by\ the\ initialized\ handler.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ Returning\ anything\ else\ than\ CURLE\_OK\ fails\ curl\_easy\_init()\ with\ the}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ correspondent\ code.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{asyn_8h_a59d6be350851ca737c49530d5d59aa6a}{Curl\_resolver\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *easy,\ \textcolor{keywordtype}{void}\ **resolver);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ Curl\_resolver\_cleanup()}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ Called\ from\ curl\_easy\_cleanup()\ -\/>\ Curl\_close()\ to\ cleanup\ resolver}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ URL-\/state\ specific\ environment\ ('resolver'\ member\ of\ the\ UrlState}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ structure).\ \ Should\ destroy\ the\ handler\ and\ free\ all\ resources\ connected\ to}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ it.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{asyn_8h_a45b8a158c56c77d6bf6aab24c6ca61d0}{Curl\_resolver\_cleanup}}(\textcolor{keywordtype}{void}\ *resolver);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ Curl\_resolver\_duphandle()}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ Called\ from\ curl\_easy\_duphandle()\ to\ duplicate\ resolver\ URL-\/state\ specific}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ environment\ ('resolver'\ member\ of\ the\ UrlState\ structure).\ \ Should}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ duplicate\ the\ 'from'\ handle\ and\ pass\ the\ resulting\ handle\ to\ the\ 'to'}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ pointer.\ \ Returning\ anything\ else\ than\ CURLE\_OK\ causes\ failed}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ curl\_easy\_duphandle()\ call.}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00084\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{asyn_8h_a6245c2f1187d386b6467589575059696}{Curl\_resolver\_duphandle}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *easy,\ \textcolor{keywordtype}{void}\ **\mbox{\hyperlink{form_8d_a06ae223630cb7ba6b34e8a572eb3cbe2}{to}},}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{json_8d_ac74282a503e155a3712a5bd3afb69639}{from}});}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ Curl\_resolver\_cancel().}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *\ It\ is\ called\ from\ inside\ other\ functions\ to\ cancel\ currently\ performing}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ resolver\ request.\ Should\ also\ free\ any\ temporary\ resources\ allocated\ to}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ perform\ a\ request.\ \ This\ never\ waits\ for\ resolver\ threads\ to\ complete.}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ It\ is\ safe\ to\ call\ this\ when\ conn\ is\ in\ any\ state.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{asyn_8h_a48ba35120efdc46b5b6c6525d5c2bb7d}{Curl\_resolver\_cancel}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ Curl\_resolver\_kill().}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ This\ acts\ like\ Curl\_resolver\_cancel()\ except\ it\ will\ block\ until\ any\ threads}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *\ associated\ with\ the\ resolver\ are\ complete.\ \ This\ never\ blocks\ for\ resolvers}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ that\ do\ not\ use\ threads.\ \ This\ is\ intended\ to\ be\ the\ "{}last\ chance"{}\ function}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *\ that\ cleans\ up\ an\ in-\/progress\ resolver\ completely\ (before\ its\ owner\ is\ about}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ to\ die).}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ It\ is\ safe\ to\ call\ this\ when\ conn\ is\ in\ any\ state.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{asyn_8h_a0df7623b8aa8ef2fad0e36f71d31b9ef}{Curl\_resolver\_kill}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*\ Curl\_resolver\_getsock()}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ This\ function\ is\ called\ from\ the\ multi\_getsock()\ function.\ \ 'sock'\ is\ a}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ pointer\ to\ an\ array\ to\ hold\ the\ file\ descriptors,\ with\ 'numsock'\ being\ the}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ size\ of\ that\ array\ (in\ number\ of\ entries).\ This\ function\ is\ supposed\ to}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ return\ bitmask\ indicating\ what\ file\ descriptors\ (referring\ to\ array\ indexes}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ in\ the\ 'sock'\ array)\ to\ wait\ for,\ read/write.}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{asyn_8h_a0dd50ea27cb671ff8f2a62c3c57440bd}{Curl\_resolver\_getsock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *sock);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ Curl\_resolver\_is\_resolved()}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ Called\ repeatedly\ to\ check\ if\ a\ previous\ name\ resolve\ request\ has}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ completed.\ It\ should\ also\ make\ sure\ to\ time-\/out\ if\ the\ operation\ seems\ to}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ take\ too\ long.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ Returns\ normal\ CURLcode\ errors.}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00130\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{asyn_8h_aa6744254afa742fa19d14cb1bcc19693}{Curl\_resolver\_is\_resolved}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__dns__entry}{Curl\_dns\_entry}}\ **dns);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ Curl\_resolver\_wait\_resolv()}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ Waits\ for\ a\ resolve\ to\ finish.\ This\ function\ should\ be\ avoided\ since\ using}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ this\ risk\ getting\ the\ multi\ interface\ to\ "{}hang"{}.}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ If\ 'entry'\ is\ non-\/NULL,\ make\ it\ point\ to\ the\ resolved\ dns\ entry}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ Returns\ CURLE\_COULDNT\_RESOLVE\_HOST\ if\ the\ host\ was\ not\ resolved,}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ CURLE\_OPERATION\_TIMEDOUT\ if\ a\ time-\/out\ occurred,\ or\ other\ errors.}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00144\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{asyn_8h_a273011e4c26561675420250e18684d49}{Curl\_resolver\_wait\_resolv}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__dns__entry}{Curl\_dns\_entry}}\ **dnsentry);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ *\ Curl\_resolver\_getaddrinfo()\ -\/\ when\ using\ this\ resolver}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ *\ Returns\ name\ information\ about\ the\ given\ hostname\ and\ port\ number.\ If}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *\ successful,\ the\ 'hostent'\ is\ returned\ and\ the\ fourth\ argument\ will\ point\ to}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ memory\ we\ need\ to\ free\ after\ use.\ That\ memory\ *MUST*\ be\ freed\ with}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ Curl\_freeaddrinfo(),\ nothing\ else.}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ Each\ resolver\ backend\ must\ of\ course\ make\ sure\ to\ return\ data\ in\ the}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *\ correct\ format\ to\ comply\ with\ this.}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__addrinfo}{Curl\_addrinfo}}\ *\mbox{\hyperlink{asyn_8h_a2b03b32f3d60aeeb9a8cd199995b57e7}{Curl\_resolver\_getaddrinfo}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structhostname}{hostname}},}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ port,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *waitp);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#ifndef\ CURLRES\_ASYNCH}}
+\DoxyCodeLine{00164\ \textcolor{comment}{/*\ convert\ these\ functions\ if\ an\ asynch\ resolver\ isn't\ used\ */}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_cancel(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_kill(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_is\_resolved(x,y)\ CURLE\_COULDNT\_RESOLVE\_HOST}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_wait\_resolv(x,y)\ CURLE\_COULDNT\_RESOLVE\_HOST}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_duphandle(x,y,z)\ CURLE\_OK}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_init(x,y)\ CURLE\_OK}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_global\_init()\ CURLE\_OK}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_global\_cleanup()\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_cleanup(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#ifdef\ CURLRES\_ASYNCH}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_asynch()\ 1}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ Curl\_resolver\_asynch()\ 0}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_ASYN\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

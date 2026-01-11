@@ -1,0 +1,43 @@
+\chapter{MANPAGE }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE}\index{MANPAGE@{MANPAGE}}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1481}{}\doxysection{\texorpdfstring{curl man page generator}{curl man page generator}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1481}
+This is the curl man page generator. It generates a single nroff man page output from the set of sources files in this directory.
+
+There is one source file for each supported command line option. The output gets {\ttfamily page-\/header} prepended and {\ttfamily page-\/footer} appended. The format is described below.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1482}{}\doxysubsection{\texorpdfstring{Option files}{Option files}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1482}
+Each command line option is described in a file named {\ttfamily \texorpdfstring{$<$}{<}long \doxylink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}\texorpdfstring{$>$}{>}.d}, where option name is written without any prefixing dashes. Like the file name for the -\/v, --verbose option is named {\ttfamily \doxylink{verbose_8d}{verbose.\+d}}.
+
+Each file has a set of meta-\/data and a body of text.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1483}{}\doxysubsubsection{\texorpdfstring{Meta-\/data}{Meta-\/data}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1483}
+\begin{DoxyVerb}Added: (version number in which this was added)
+Arg: (the argument the option takes)
+c: (copyright line)
+Example: (example command line, without "curl" and can use `$URL`)
+Experimental: yes (if so)
+Help: (short text for the --help output for this option)
+Long: (long form name, without dashes)
+Magic: (description of "magic" options)
+Multi: single/append/boolean/mutex (if used more than once)
+Mutexed: (space separated list of options this overrides, no dashes)
+Protocols: (space separated list for which protocols this option works)
+Requires: (space separated list of features this requires, no dashes)
+See-also: (space separated list of related options, no dashes)
+Short: (single letter, without dash)
+SPDX-License-Identifier: curl
+Tags: (space separated list)
+--- (end of meta-data)
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1484}{}\doxysubsubsection{\texorpdfstring{Body}{Body}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1484}
+The body of the description. Only refer to options with their long form option version, like {\ttfamily -\/-\/\doxylink{next_8d_a30d811b7c0b95913359c2e0af9e774d2}{verbose}}. The output generator will replace such with the correct markup that shows both short and long version.
+
+Text written within {\ttfamily \texorpdfstring{$\ast$}{*}asterisks\texorpdfstring{$\ast$}{*}} will get shown using italics. Text within two {\ttfamily \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}asterisks\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}} will get shown using bold.
+
+Text that is prefixed with a space will be treated like an "{}example"{} and will be output in monospace.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1485}{}\doxysubsection{\texorpdfstring{Header and footer}{Header and footer}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1485}
+{\ttfamily page-\/header} is the file that will be output before the generated options output for the master man page.
+
+{\ttfamily page-\/footer} is appended after all the individual options.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1486}{}\doxysubsection{\texorpdfstring{Generate}{Generate}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2cmdline-opts_2MANPAGE_autotoc_md1486}
+{\ttfamily ./gen.pl mainpage}
+
+This command outputs a single huge nroff file, meant to become {\ttfamily curl.\+1}. The full curl man page.
+
+{\ttfamily ./gen.pl listhelp}
+
+Generates a full {\ttfamily \doxylink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl} -\/-\/help} output for all known command line options. 

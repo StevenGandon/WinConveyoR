@@ -1,0 +1,31 @@
+\doxysection{QCPColor\+Gradient Class Reference}
+\hypertarget{classQCPColorGradient}{}\label{classQCPColorGradient}\index{QCPColorGradient@{QCPColorGradient}}
+
+
+Defines a color gradient for use with e.\+g. \doxylink{classQCPColorMap}{QCPColor\+Map}.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Defines a color gradient for use with e.\+g. \doxylink{classQCPColorMap}{QCPColor\+Map}. 
+
+This class describes a color gradient which can be used to encode data with color. For example, \doxylink{classQCPColorMap}{QCPColor\+Map} and \doxylink{classQCPColorScale}{QCPColor\+Scale} have set\+Gradient methods which take an instance of this class. Colors are set with set\+Color\+Stop\+At(double position, const QColor \&color) with a {\itshape position} from 0 to 1. In between these defined color positions, the color will be interpolated linearly either in RGB or HSV space, see set\+Color\+Interpolation.
+
+Alternatively, load one of the preset color gradients shown in the image below, with load\+Preset, or by directly specifying the preset in the constructor.
+
+Apart from red, green and blue components, the gradient also interpolates the alpha values of the configured color stops. This allows to display some portions of the data range as transparent in the plot.
+
+
+
+The \doxylink{classQCPColorGradient}{QCPColor\+Gradient(\+Gradient\+Preset preset)} constructor allows directly converting a Gradient\+Preset to a \doxylink{classQCPColorGradient}{QCPColor\+Gradient}. This means that you can directly pass Gradient\+Preset to all the {\itshape set\+Gradient} methods, e.\+g.\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+The total number of levels used in the gradient can be set with set\+Level\+Count. Whether the color gradient shall be applied periodically (wrapping around) to data values that lie outside the data range specified on the plottable instance can be controlled with set\+Periodic. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

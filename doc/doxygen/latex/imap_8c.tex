@@ -1,0 +1,629 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/imap.c File Reference}
+\hypertarget{imap_8c}{}\label{imap_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/imap.c@{lib/libwconr/build/\_deps/curl-\/src/lib/imap.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}hostip.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}socks.\+h"{}}\newline
+{\ttfamily \#include "{}imap.\+h"{}}\newline
+{\ttfamily \#include "{}mime.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}bufref.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sasl.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+ctype.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{imap_8c_adbaedd433cb50b17f37cf5772f9e3475}{IMAP\+\_\+\+RESP\+\_\+\+OK}}~1
+\item 
+\#define \mbox{\hyperlink{imap_8c_af0481802b10618d47e7c6ba936f300ea}{IMAP\+\_\+\+RESP\+\_\+\+NOT\+\_\+\+OK}}~2
+\item 
+\#define \mbox{\hyperlink{imap_8c_a12c4bcee933e8e06bacbee077813de2c}{IMAP\+\_\+\+RESP\+\_\+\+PREAUTH}}~3
+\item 
+\#define \mbox{\hyperlink{imap_8c_a36b324474a9d2730691634beebff39f7}{imap\+\_\+to\+\_\+imaps}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a74f7763dc5cf1300bbae6a0398605ebc}{imap\+\_\+regular\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a1d1642b83c9ab6353c33c59a1d2cea10}{imap\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a5fb8d9f811dfc78c5601e47993fe8378}{imap\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} status, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} premature)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_ac72f374fc78771234abda6e44c749c9b}{imap\+\_\+connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_ab35f546da1b0fdbdab74fc47e58a67e0}{imap\+\_\+disconnect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} dead)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a8c733cd30f9f606531070dc6136154ca}{imap\+\_\+multi\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static int \mbox{\hyperlink{imap_8c_aff4f84ce44d94e7aef0c11b9a0dec916}{imap\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_ab1b1426c928bacfb13992c36c49025ee}{imap\+\_\+doing}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a7f5e80ea5d491f71793e0932f3b8ba5b}{imap\+\_\+setup\+\_\+connection}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{imap_8c_af78e8e1c179b28a6b798834d958d183f}{imap\+\_\+atom}} (const char \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} escape\+\_\+only)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a80cf2fc26425bc6a066aa4e090cd0ef0}{imap\+\_\+sendf}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a39540efc58ed2585dfddcb55b05823ee}{imap\+\_\+parse\+\_\+url\+\_\+options}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a66edc87f1f1b87db568ddaac48875c5d}{imap\+\_\+parse\+\_\+url\+\_\+path}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a49c183ea41c29dc72ad8bea2cc793c2f}{imap\+\_\+parse\+\_\+custom\+\_\+request}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_afd3b899874f647606907f6c4952d2d33}{imap\+\_\+perform\+\_\+authenticate}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}initresp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a492764ab0e54d00e13dfce1979b11271}{imap\+\_\+continue\+\_\+authenticate}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}resp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_acd2b9fefd333fc29b04abc574c25f753}{imap\+\_\+cancel\+\_\+authenticate}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a417c0b9b945a6633fc0e19df2cab1605}{imap\+\_\+get\+\_\+message}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}out)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{imap_8c_a0c830853be058e678ac5b1d2d3026500}{imap\+\_\+matchresp}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}, const char \texorpdfstring{$\ast$}{*}cmd)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{imap_8c_af4463cd67e6827dca83d6deee994f2f0}{imap\+\_\+endofresp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}, int \texorpdfstring{$\ast$}{*}resp)
+\item 
+static void \mbox{\hyperlink{imap_8c_a4ea0f5edac46fc77df79dd007cba8140}{state}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} newstate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a0a39582bc708f446558801c143896abd}{imap\+\_\+perform\+\_\+capability}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a14e7334b076acc55ff12953d82c09b2e}{imap\+\_\+perform\+\_\+starttls}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_aed8961987cc3cbca5e13683a378a5e4d}{imap\+\_\+perform\+\_\+upgrade\+\_\+tls}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_aa8039dfd1331af737d798143d5334330}{imap\+\_\+perform\+\_\+login}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_aca71001463dd35c6b83bb8da39812167}{imap\+\_\+perform\+\_\+authentication}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a5887e19124b4690150f3e7f2dacd21c8}{imap\+\_\+perform\+\_\+list}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a38336651a15f9be68902f643b8ab271d}{imap\+\_\+perform\+\_\+select}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a861067a200a99dce0a57672d1096b7e0}{imap\+\_\+perform\+\_\+fetch}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a1dac2ed1aeb82b2c35dba1e68d5fffa1}{imap\+\_\+perform\+\_\+append}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_af7587b54f821e9c7749b50c3b75a8547}{imap\+\_\+perform\+\_\+search}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a371e45e2a5256192d28255b4d73bb345}{imap\+\_\+perform\+\_\+logout}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a0a6b4af6bed3b101decf5c42fd261eb1}{imap\+\_\+state\+\_\+servergreet\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_aebaf9f310b13a9f17f566d4302f34846}{imap\+\_\+state\+\_\+capability\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a189c007c2c1d24527cfb2924958a81ee}{imap\+\_\+state\+\_\+starttls\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_aec9a51d7565b9904652c4b7732f5fe0b}{imap\+\_\+state\+\_\+auth\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_ac6fa890703194c2c6c50d818cac2fab7}{imap\+\_\+state\+\_\+login\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a9019da4f51a504968f797f1ae21e0eeb}{imap\+\_\+state\+\_\+listsearch\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a5ac29a5a6f1d6a982ce7fa6fe352b5e5}{imap\+\_\+state\+\_\+select\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a4a17010dacc84063a8bdc4f0e057b5a8}{imap\+\_\+state\+\_\+fetch\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_af8c598b9d2a16e21bdbcef18f75a1410}{imap\+\_\+state\+\_\+fetch\+\_\+final\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a83823fd2e694fd46b351fcc0cdeaffaa}{imap\+\_\+state\+\_\+append\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_ac55f88c7dca3cc3817ec0a768160bcc3}{imap\+\_\+state\+\_\+append\+\_\+final\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int imapcode, \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a3dc78aa62e6127d36a38710190962af6}{imap\+\_\+statemachine}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a6971d5ca7899d1750c2f8e0f74fb2f23}{imap\+\_\+block\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} disconnecting)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_ab600803f80f7bfeea3fe2f39728acac2}{imap\+\_\+init}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a466789f11edc7658b7eb31245a1dde52}{imap\+\_\+perform}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}connected, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{imap_8c_a49868363dde84641be395c31b5c0a543}{imap\+\_\+dophase\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} connected)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{imap_8c_a832789848522b186a29a5627634d07bf}{imap\+\_\+is\+\_\+bchar}} (char ch)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{imap_8c_ae276e4e81c4afa813d9324d62421bff8}{Curl\+\_\+handler\+\_\+imap}}
+\item 
+static const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} \mbox{\hyperlink{imap_8c_a5f82927c04a98b2c62f8ee723f27eb31}{saslimap}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{imap_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{imap_8c_af0481802b10618d47e7c6ba936f300ea}\index{imap.c@{imap.c}!IMAP\_RESP\_NOT\_OK@{IMAP\_RESP\_NOT\_OK}}
+\index{IMAP\_RESP\_NOT\_OK@{IMAP\_RESP\_NOT\_OK}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{IMAP\_RESP\_NOT\_OK}{IMAP\_RESP\_NOT\_OK}}
+{\footnotesize\ttfamily \label{imap_8c_af0481802b10618d47e7c6ba936f300ea} 
+\#define IMAP\+\_\+\+RESP\+\_\+\+NOT\+\_\+\+OK~2}
+
+\Hypertarget{imap_8c_adbaedd433cb50b17f37cf5772f9e3475}\index{imap.c@{imap.c}!IMAP\_RESP\_OK@{IMAP\_RESP\_OK}}
+\index{IMAP\_RESP\_OK@{IMAP\_RESP\_OK}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{IMAP\_RESP\_OK}{IMAP\_RESP\_OK}}
+{\footnotesize\ttfamily \label{imap_8c_adbaedd433cb50b17f37cf5772f9e3475} 
+\#define IMAP\+\_\+\+RESP\+\_\+\+OK~1}
+
+\Hypertarget{imap_8c_a12c4bcee933e8e06bacbee077813de2c}\index{imap.c@{imap.c}!IMAP\_RESP\_PREAUTH@{IMAP\_RESP\_PREAUTH}}
+\index{IMAP\_RESP\_PREAUTH@{IMAP\_RESP\_PREAUTH}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{IMAP\_RESP\_PREAUTH}{IMAP\_RESP\_PREAUTH}}
+{\footnotesize\ttfamily \label{imap_8c_a12c4bcee933e8e06bacbee077813de2c} 
+\#define IMAP\+\_\+\+RESP\+\_\+\+PREAUTH~3}
+
+\Hypertarget{imap_8c_a36b324474a9d2730691634beebff39f7}\index{imap.c@{imap.c}!imap\_to\_imaps@{imap\_to\_imaps}}
+\index{imap\_to\_imaps@{imap\_to\_imaps}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_to\_imaps}{imap\_to\_imaps}}
+{\footnotesize\ttfamily \label{imap_8c_a36b324474a9d2730691634beebff39f7} 
+\#define imap\+\_\+to\+\_\+imaps(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{imap_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{imap_8c_af78e8e1c179b28a6b798834d958d183f}\index{imap.c@{imap.c}!imap\_atom@{imap\_atom}}
+\index{imap\_atom@{imap\_atom}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_atom()}{imap\_atom()}}
+{\footnotesize\ttfamily \label{imap_8c_af78e8e1c179b28a6b798834d958d183f} 
+char \texorpdfstring{$\ast$}{*} imap\+\_\+atom (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{escape\+\_\+only}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_af78e8e1c179b28a6b798834d958d183f}{imap\+\_\+atom()}
+
+Checks the input string for characters that need escaping and returns an atom ready for sending to the server.
+
+The returned string needs to be freed. \Hypertarget{imap_8c_a6971d5ca7899d1750c2f8e0f74fb2f23}\index{imap.c@{imap.c}!imap\_block\_statemach@{imap\_block\_statemach}}
+\index{imap\_block\_statemach@{imap\_block\_statemach}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_block\_statemach()}{imap\_block\_statemach()}}
+{\footnotesize\ttfamily \label{imap_8c_a6971d5ca7899d1750c2f8e0f74fb2f23} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+block\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{disconnecting}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_acd2b9fefd333fc29b04abc574c25f753}\index{imap.c@{imap.c}!imap\_cancel\_authenticate@{imap\_cancel\_authenticate}}
+\index{imap\_cancel\_authenticate@{imap\_cancel\_authenticate}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_cancel\_authenticate()}{imap\_cancel\_authenticate()}}
+{\footnotesize\ttfamily \label{imap_8c_acd2b9fefd333fc29b04abc574c25f753} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+cancel\+\_\+authenticate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_acd2b9fefd333fc29b04abc574c25f753}{imap\+\_\+cancel\+\_\+authenticate()}
+
+Sends \doxylink{structSASL}{SASL} cancellation. \Hypertarget{imap_8c_ac72f374fc78771234abda6e44c749c9b}\index{imap.c@{imap.c}!imap\_connect@{imap\_connect}}
+\index{imap\_connect@{imap\_connect}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_connect()}{imap\_connect()}}
+{\footnotesize\ttfamily \label{imap_8c_ac72f374fc78771234abda6e44c749c9b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_ac72f374fc78771234abda6e44c749c9b}{imap\+\_\+connect()}
+
+This function should do everything that is to be considered a part of the connection phase.
+
+The variable \textquotesingle{}done\textquotesingle{} points to will be TRUE if the protocol-\/layer connect phase is done when this function returns, or FALSE if not. \Hypertarget{imap_8c_a492764ab0e54d00e13dfce1979b11271}\index{imap.c@{imap.c}!imap\_continue\_authenticate@{imap\_continue\_authenticate}}
+\index{imap\_continue\_authenticate@{imap\_continue\_authenticate}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_continue\_authenticate()}{imap\_continue\_authenticate()}}
+{\footnotesize\ttfamily \label{imap_8c_a492764ab0e54d00e13dfce1979b11271} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+continue\+\_\+authenticate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{resp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a492764ab0e54d00e13dfce1979b11271}{imap\+\_\+continue\+\_\+authenticate()}
+
+Sends \doxylink{structSASL}{SASL} continuation data. \Hypertarget{imap_8c_ab35f546da1b0fdbdab74fc47e58a67e0}\index{imap.c@{imap.c}!imap\_disconnect@{imap\_disconnect}}
+\index{imap\_disconnect@{imap\_disconnect}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_disconnect()}{imap\_disconnect()}}
+{\footnotesize\ttfamily \label{imap_8c_ab35f546da1b0fdbdab74fc47e58a67e0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+disconnect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{dead\+\_\+connection}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_ab35f546da1b0fdbdab74fc47e58a67e0}{imap\+\_\+disconnect()}
+
+Disconnect from an \doxylink{structIMAP}{IMAP} server. Cleanup protocol-\/specific per-\/connection resources. BLOCKING. \Hypertarget{imap_8c_a1d1642b83c9ab6353c33c59a1d2cea10}\index{imap.c@{imap.c}!imap\_do@{imap\_do}}
+\index{imap\_do@{imap\_do}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_do()}{imap\_do()}}
+{\footnotesize\ttfamily \label{imap_8c_a1d1642b83c9ab6353c33c59a1d2cea10} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a1d1642b83c9ab6353c33c59a1d2cea10}{imap\+\_\+do()}
+
+This function is registered as \textquotesingle{}curl\+\_\+do\textquotesingle{} function. It decodes the path parts etc as a wrapper to the actual DO function (imap\+\_\+perform).
+
+The input argument is already checked for validity. \Hypertarget{imap_8c_ab1b1426c928bacfb13992c36c49025ee}\index{imap.c@{imap.c}!imap\_doing@{imap\_doing}}
+\index{imap\_doing@{imap\_doing}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_doing()}{imap\_doing()}}
+{\footnotesize\ttfamily \label{imap_8c_ab1b1426c928bacfb13992c36c49025ee} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+doing (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a5fb8d9f811dfc78c5601e47993fe8378}\index{imap.c@{imap.c}!imap\_done@{imap\_done}}
+\index{imap\_done@{imap\_done}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_done()}{imap\_done()}}
+{\footnotesize\ttfamily \label{imap_8c_a5fb8d9f811dfc78c5601e47993fe8378} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{status}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{premature}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a5fb8d9f811dfc78c5601e47993fe8378}{imap\+\_\+done()}
+
+The DONE function. This does what needs to be done after a single DO has performed.
+
+Input argument is already checked for validity. \Hypertarget{imap_8c_a49868363dde84641be395c31b5c0a543}\index{imap.c@{imap.c}!imap\_dophase\_done@{imap\_dophase\_done}}
+\index{imap\_dophase\_done@{imap\_dophase\_done}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_dophase\_done()}{imap\_dophase\_done()}}
+{\footnotesize\ttfamily \label{imap_8c_a49868363dde84641be395c31b5c0a543} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+dophase\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{connected}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_af4463cd67e6827dca83d6deee994f2f0}\index{imap.c@{imap.c}!imap\_endofresp@{imap\_endofresp}}
+\index{imap\_endofresp@{imap\_endofresp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_endofresp()}{imap\_endofresp()}}
+{\footnotesize\ttfamily \label{imap_8c_af4463cd67e6827dca83d6deee994f2f0} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} imap\+\_\+endofresp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{size\+\_\+t}]{len}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{resp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_af4463cd67e6827dca83d6deee994f2f0}{imap\+\_\+endofresp()}
+
+Checks whether the given string is a valid tagged, untagged or continuation response which can be processed by the response handler. \Hypertarget{imap_8c_a417c0b9b945a6633fc0e19df2cab1605}\index{imap.c@{imap.c}!imap\_get\_message@{imap\_get\_message}}
+\index{imap\_get\_message@{imap\_get\_message}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_get\_message()}{imap\_get\_message()}}
+{\footnotesize\ttfamily \label{imap_8c_a417c0b9b945a6633fc0e19df2cab1605} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+get\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a417c0b9b945a6633fc0e19df2cab1605}{imap\+\_\+get\+\_\+message()}
+
+Gets the authentication message from the response buffer. \Hypertarget{imap_8c_aff4f84ce44d94e7aef0c11b9a0dec916}\index{imap.c@{imap.c}!imap\_getsock@{imap\_getsock}}
+\index{imap\_getsock@{imap\_getsock}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_getsock()}{imap\_getsock()}}
+{\footnotesize\ttfamily \label{imap_8c_aff4f84ce44d94e7aef0c11b9a0dec916} 
+int imap\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_ab600803f80f7bfeea3fe2f39728acac2}\index{imap.c@{imap.c}!imap\_init@{imap\_init}}
+\index{imap\_init@{imap\_init}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_init()}{imap\_init()}}
+{\footnotesize\ttfamily \label{imap_8c_ab600803f80f7bfeea3fe2f39728acac2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a832789848522b186a29a5627634d07bf}\index{imap.c@{imap.c}!imap\_is\_bchar@{imap\_is\_bchar}}
+\index{imap\_is\_bchar@{imap\_is\_bchar}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_is\_bchar()}{imap\_is\_bchar()}}
+{\footnotesize\ttfamily \label{imap_8c_a832789848522b186a29a5627634d07bf} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} imap\+\_\+is\+\_\+bchar (\begin{DoxyParamCaption}\item[{char}]{ch}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a832789848522b186a29a5627634d07bf}{imap\+\_\+is\+\_\+bchar()}
+
+Portable test of whether the specified char is a "{}bchar"{} as defined in the grammar of RFC-\/5092. \Hypertarget{imap_8c_a0c830853be058e678ac5b1d2d3026500}\index{imap.c@{imap.c}!imap\_matchresp@{imap\_matchresp}}
+\index{imap\_matchresp@{imap\_matchresp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_matchresp()}{imap\_matchresp()}}
+{\footnotesize\ttfamily \label{imap_8c_a0c830853be058e678ac5b1d2d3026500} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} imap\+\_\+matchresp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{size\+\_\+t}]{len}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{cmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a0c830853be058e678ac5b1d2d3026500}{imap\+\_\+matchresp()}
+
+Determines whether the untagged response is related to the specified command by checking if it is in format "{}\texorpdfstring{$\ast$}{*} $<$command-\/name$>$ ..."{} or "{}\texorpdfstring{$\ast$}{*} $<$number$>$ $<$command-\/name$>$ ..."{}.
+
+The "{}\texorpdfstring{$\ast$}{*} "{} marker is assumed to have already been checked by the caller. \Hypertarget{imap_8c_a8c733cd30f9f606531070dc6136154ca}\index{imap.c@{imap.c}!imap\_multi\_statemach@{imap\_multi\_statemach}}
+\index{imap\_multi\_statemach@{imap\_multi\_statemach}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_multi\_statemach()}{imap\_multi\_statemach()}}
+{\footnotesize\ttfamily \label{imap_8c_a8c733cd30f9f606531070dc6136154ca} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+multi\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a49c183ea41c29dc72ad8bea2cc793c2f}\index{imap.c@{imap.c}!imap\_parse\_custom\_request@{imap\_parse\_custom\_request}}
+\index{imap\_parse\_custom\_request@{imap\_parse\_custom\_request}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_parse\_custom\_request()}{imap\_parse\_custom\_request()}}
+{\footnotesize\ttfamily \label{imap_8c_a49c183ea41c29dc72ad8bea2cc793c2f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+parse\+\_\+custom\+\_\+request (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a49c183ea41c29dc72ad8bea2cc793c2f}{imap\+\_\+parse\+\_\+custom\+\_\+request()}
+
+Parse the custom request. \Hypertarget{imap_8c_a39540efc58ed2585dfddcb55b05823ee}\index{imap.c@{imap.c}!imap\_parse\_url\_options@{imap\_parse\_url\_options}}
+\index{imap\_parse\_url\_options@{imap\_parse\_url\_options}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_parse\_url\_options()}{imap\_parse\_url\_options()}}
+{\footnotesize\ttfamily \label{imap_8c_a39540efc58ed2585dfddcb55b05823ee} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+parse\+\_\+url\+\_\+options (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a39540efc58ed2585dfddcb55b05823ee}{imap\+\_\+parse\+\_\+url\+\_\+options()}
+
+Parse the URL login options. \Hypertarget{imap_8c_a66edc87f1f1b87db568ddaac48875c5d}\index{imap.c@{imap.c}!imap\_parse\_url\_path@{imap\_parse\_url\_path}}
+\index{imap\_parse\_url\_path@{imap\_parse\_url\_path}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_parse\_url\_path()}{imap\_parse\_url\_path()}}
+{\footnotesize\ttfamily \label{imap_8c_a66edc87f1f1b87db568ddaac48875c5d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+parse\+\_\+url\+\_\+path (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a66edc87f1f1b87db568ddaac48875c5d}{imap\+\_\+parse\+\_\+url\+\_\+path()}
+
+Parse the URL path into separate path components. \Hypertarget{imap_8c_a466789f11edc7658b7eb31245a1dde52}\index{imap.c@{imap.c}!imap\_perform@{imap\_perform}}
+\index{imap\_perform@{imap\_perform}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform()}{imap\_perform()}}
+{\footnotesize\ttfamily \label{imap_8c_a466789f11edc7658b7eb31245a1dde52} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{connected}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a466789f11edc7658b7eb31245a1dde52}{imap\+\_\+perform()}
+
+This is the actual DO function for \doxylink{structIMAP}{IMAP}. Fetch or append a message, or do other things according to the options previously setup. \Hypertarget{imap_8c_a1dac2ed1aeb82b2c35dba1e68d5fffa1}\index{imap.c@{imap.c}!imap\_perform\_append@{imap\_perform\_append}}
+\index{imap\_perform\_append@{imap\_perform\_append}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_append()}{imap\_perform\_append()}}
+{\footnotesize\ttfamily \label{imap_8c_a1dac2ed1aeb82b2c35dba1e68d5fffa1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+append (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a1dac2ed1aeb82b2c35dba1e68d5fffa1}{imap\+\_\+perform\+\_\+append()}
+
+Sends an APPEND command to initiate the upload of a message. \Hypertarget{imap_8c_afd3b899874f647606907f6c4952d2d33}\index{imap.c@{imap.c}!imap\_perform\_authenticate@{imap\_perform\_authenticate}}
+\index{imap\_perform\_authenticate@{imap\_perform\_authenticate}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_authenticate()}{imap\_perform\_authenticate()}}
+{\footnotesize\ttfamily \label{imap_8c_afd3b899874f647606907f6c4952d2d33} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+authenticate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{initresp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_afd3b899874f647606907f6c4952d2d33}{imap\+\_\+perform\+\_\+authenticate()}
+
+Sends an AUTHENTICATE command allowing the client to login with the given \doxylink{structSASL}{SASL} authentication mechanism. \Hypertarget{imap_8c_aca71001463dd35c6b83bb8da39812167}\index{imap.c@{imap.c}!imap\_perform\_authentication@{imap\_perform\_authentication}}
+\index{imap\_perform\_authentication@{imap\_perform\_authentication}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_authentication()}{imap\_perform\_authentication()}}
+{\footnotesize\ttfamily \label{imap_8c_aca71001463dd35c6b83bb8da39812167} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+authentication (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_aca71001463dd35c6b83bb8da39812167}{imap\+\_\+perform\+\_\+authentication()}
+
+Initiates the authentication sequence, with the appropriate \doxylink{structSASL}{SASL} authentication mechanism, falling back to clear text should a common mechanism not be available between the client and server. \Hypertarget{imap_8c_a0a39582bc708f446558801c143896abd}\index{imap.c@{imap.c}!imap\_perform\_capability@{imap\_perform\_capability}}
+\index{imap\_perform\_capability@{imap\_perform\_capability}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_capability()}{imap\_perform\_capability()}}
+{\footnotesize\ttfamily \label{imap_8c_a0a39582bc708f446558801c143896abd} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+capability (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a0a39582bc708f446558801c143896abd}{imap\+\_\+perform\+\_\+capability()}
+
+Sends the CAPABILITY command in order to obtain a list of server side supported capabilities. \Hypertarget{imap_8c_a861067a200a99dce0a57672d1096b7e0}\index{imap.c@{imap.c}!imap\_perform\_fetch@{imap\_perform\_fetch}}
+\index{imap\_perform\_fetch@{imap\_perform\_fetch}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_fetch()}{imap\_perform\_fetch()}}
+{\footnotesize\ttfamily \label{imap_8c_a861067a200a99dce0a57672d1096b7e0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+fetch (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a861067a200a99dce0a57672d1096b7e0}{imap\+\_\+perform\+\_\+fetch()}
+
+Sends a FETCH command to initiate the download of a message. \Hypertarget{imap_8c_a5887e19124b4690150f3e7f2dacd21c8}\index{imap.c@{imap.c}!imap\_perform\_list@{imap\_perform\_list}}
+\index{imap\_perform\_list@{imap\_perform\_list}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_list()}{imap\_perform\_list()}}
+{\footnotesize\ttfamily \label{imap_8c_a5887e19124b4690150f3e7f2dacd21c8} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a5887e19124b4690150f3e7f2dacd21c8}{imap\+\_\+perform\+\_\+list()}
+
+Sends a LIST command or an alternative custom request. \Hypertarget{imap_8c_aa8039dfd1331af737d798143d5334330}\index{imap.c@{imap.c}!imap\_perform\_login@{imap\_perform\_login}}
+\index{imap\_perform\_login@{imap\_perform\_login}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_login()}{imap\_perform\_login()}}
+{\footnotesize\ttfamily \label{imap_8c_aa8039dfd1331af737d798143d5334330} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+login (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_aa8039dfd1331af737d798143d5334330}{imap\+\_\+perform\+\_\+login()}
+
+Sends a clear text LOGIN command to authenticate with. \Hypertarget{imap_8c_a371e45e2a5256192d28255b4d73bb345}\index{imap.c@{imap.c}!imap\_perform\_logout@{imap\_perform\_logout}}
+\index{imap\_perform\_logout@{imap\_perform\_logout}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_logout()}{imap\_perform\_logout()}}
+{\footnotesize\ttfamily \label{imap_8c_a371e45e2a5256192d28255b4d73bb345} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+logout (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a371e45e2a5256192d28255b4d73bb345}{imap\+\_\+perform\+\_\+logout()}
+
+Performs the logout action prior to \doxylink{curl__setup__once_8h_abc0fa768a42a766f444259b91e5c6c0f}{sclose()} being called. \Hypertarget{imap_8c_af7587b54f821e9c7749b50c3b75a8547}\index{imap.c@{imap.c}!imap\_perform\_search@{imap\_perform\_search}}
+\index{imap\_perform\_search@{imap\_perform\_search}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_search()}{imap\_perform\_search()}}
+{\footnotesize\ttfamily \label{imap_8c_af7587b54f821e9c7749b50c3b75a8547} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+search (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_af7587b54f821e9c7749b50c3b75a8547}{imap\+\_\+perform\+\_\+search()}
+
+Sends a SEARCH command. \Hypertarget{imap_8c_a38336651a15f9be68902f643b8ab271d}\index{imap.c@{imap.c}!imap\_perform\_select@{imap\_perform\_select}}
+\index{imap\_perform\_select@{imap\_perform\_select}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_select()}{imap\_perform\_select()}}
+{\footnotesize\ttfamily \label{imap_8c_a38336651a15f9be68902f643b8ab271d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+select (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a38336651a15f9be68902f643b8ab271d}{imap\+\_\+perform\+\_\+select()}
+
+Sends a SELECT command to ask the server to change the selected mailbox. \Hypertarget{imap_8c_a14e7334b076acc55ff12953d82c09b2e}\index{imap.c@{imap.c}!imap\_perform\_starttls@{imap\_perform\_starttls}}
+\index{imap\_perform\_starttls@{imap\_perform\_starttls}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_starttls()}{imap\_perform\_starttls()}}
+{\footnotesize\ttfamily \label{imap_8c_a14e7334b076acc55ff12953d82c09b2e} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+starttls (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a14e7334b076acc55ff12953d82c09b2e}{imap\+\_\+perform\+\_\+starttls()}
+
+Sends the STARTTLS command to start the upgrade to TLS. \Hypertarget{imap_8c_aed8961987cc3cbca5e13683a378a5e4d}\index{imap.c@{imap.c}!imap\_perform\_upgrade\_tls@{imap\_perform\_upgrade\_tls}}
+\index{imap\_perform\_upgrade\_tls@{imap\_perform\_upgrade\_tls}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_perform\_upgrade\_tls()}{imap\_perform\_upgrade\_tls()}}
+{\footnotesize\ttfamily \label{imap_8c_aed8961987cc3cbca5e13683a378a5e4d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+perform\+\_\+upgrade\+\_\+tls (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_aed8961987cc3cbca5e13683a378a5e4d}{imap\+\_\+perform\+\_\+upgrade\+\_\+tls()}
+
+Performs the upgrade to TLS. \Hypertarget{imap_8c_a74f7763dc5cf1300bbae6a0398605ebc}\index{imap.c@{imap.c}!imap\_regular\_transfer@{imap\_regular\_transfer}}
+\index{imap\_regular\_transfer@{imap\_regular\_transfer}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_regular\_transfer()}{imap\_regular\_transfer()}}
+{\footnotesize\ttfamily \label{imap_8c_a74f7763dc5cf1300bbae6a0398605ebc} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+regular\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+RFC2195 CRAM-\/\+MD5 authentication RFC2595 Using TLS with \doxylink{structIMAP}{IMAP}, \doxylink{structPOP3}{POP3} and ACAP RFC2831 DIGEST-\/\+MD5 authentication RFC3501 IMAPv4 protocol RFC4422 Simple Authentication and Security Layer (\doxylink{structSASL}{SASL}) RFC4616 PLAIN authentication RFC4752 The Kerberos V5 ("{}\+GSSAPI"{}) \doxylink{structSASL}{SASL} Mechanism RFC4959 \doxylink{structIMAP}{IMAP} Extension for \doxylink{structSASL}{SASL} Initial Client Response RFC5092 \doxylink{structIMAP}{IMAP} URL Scheme RFC6749 OAuth 2.\+0 Authorization Framework RFC8314 Use of TLS for Email Submission and Access Draft LOGIN \doxylink{structSASL}{SASL} Mechanism \texorpdfstring{$<$}{<}draft-\/murchison-\/sasl-\/login-\/00.\+txt\texorpdfstring{$>$}{>}
+
+\doxylink{imap_8c_a74f7763dc5cf1300bbae6a0398605ebc}{imap\+\_\+regular\+\_\+transfer()}
+
+The input argument is already checked for validity.
+
+Performs all commands done before a regular transfer between a local and a remote host. \Hypertarget{imap_8c_a80cf2fc26425bc6a066aa4e090cd0ef0}\index{imap.c@{imap.c}!imap\_sendf@{imap\_sendf}}
+\index{imap\_sendf@{imap\_sendf}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_sendf()}{imap\_sendf()}}
+{\footnotesize\ttfamily \label{imap_8c_a80cf2fc26425bc6a066aa4e090cd0ef0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+sendf (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fmt}{, }\item[{}]{...}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{imap_8c_a80cf2fc26425bc6a066aa4e090cd0ef0}{imap\+\_\+sendf()}
+
+Sends the formatted string as an \doxylink{structIMAP}{IMAP} command to the server.
+
+Designed to never block. \Hypertarget{imap_8c_a7f5e80ea5d491f71793e0932f3b8ba5b}\index{imap.c@{imap.c}!imap\_setup\_connection@{imap\_setup\_connection}}
+\index{imap\_setup\_connection@{imap\_setup\_connection}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_setup\_connection()}{imap\_setup\_connection()}}
+{\footnotesize\ttfamily \label{imap_8c_a7f5e80ea5d491f71793e0932f3b8ba5b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+setup\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_ac55f88c7dca3cc3817ec0a768160bcc3}\index{imap.c@{imap.c}!imap\_state\_append\_final\_resp@{imap\_state\_append\_final\_resp}}
+\index{imap\_state\_append\_final\_resp@{imap\_state\_append\_final\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_append\_final\_resp()}{imap\_state\_append\_final\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_ac55f88c7dca3cc3817ec0a768160bcc3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+append\+\_\+final\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a83823fd2e694fd46b351fcc0cdeaffaa}\index{imap.c@{imap.c}!imap\_state\_append\_resp@{imap\_state\_append\_resp}}
+\index{imap\_state\_append\_resp@{imap\_state\_append\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_append\_resp()}{imap\_state\_append\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_a83823fd2e694fd46b351fcc0cdeaffaa} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+append\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_aec9a51d7565b9904652c4b7732f5fe0b}\index{imap.c@{imap.c}!imap\_state\_auth\_resp@{imap\_state\_auth\_resp}}
+\index{imap\_state\_auth\_resp@{imap\_state\_auth\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_auth\_resp()}{imap\_state\_auth\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_aec9a51d7565b9904652c4b7732f5fe0b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+auth\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_aebaf9f310b13a9f17f566d4302f34846}\index{imap.c@{imap.c}!imap\_state\_capability\_resp@{imap\_state\_capability\_resp}}
+\index{imap\_state\_capability\_resp@{imap\_state\_capability\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_capability\_resp()}{imap\_state\_capability\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_aebaf9f310b13a9f17f566d4302f34846} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+capability\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_af8c598b9d2a16e21bdbcef18f75a1410}\index{imap.c@{imap.c}!imap\_state\_fetch\_final\_resp@{imap\_state\_fetch\_final\_resp}}
+\index{imap\_state\_fetch\_final\_resp@{imap\_state\_fetch\_final\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_fetch\_final\_resp()}{imap\_state\_fetch\_final\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_af8c598b9d2a16e21bdbcef18f75a1410} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+fetch\+\_\+final\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a4a17010dacc84063a8bdc4f0e057b5a8}\index{imap.c@{imap.c}!imap\_state\_fetch\_resp@{imap\_state\_fetch\_resp}}
+\index{imap\_state\_fetch\_resp@{imap\_state\_fetch\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_fetch\_resp()}{imap\_state\_fetch\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_a4a17010dacc84063a8bdc4f0e057b5a8} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+fetch\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a9019da4f51a504968f797f1ae21e0eeb}\index{imap.c@{imap.c}!imap\_state\_listsearch\_resp@{imap\_state\_listsearch\_resp}}
+\index{imap\_state\_listsearch\_resp@{imap\_state\_listsearch\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_listsearch\_resp()}{imap\_state\_listsearch\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_a9019da4f51a504968f797f1ae21e0eeb} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+listsearch\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_ac6fa890703194c2c6c50d818cac2fab7}\index{imap.c@{imap.c}!imap\_state\_login\_resp@{imap\_state\_login\_resp}}
+\index{imap\_state\_login\_resp@{imap\_state\_login\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_login\_resp()}{imap\_state\_login\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_ac6fa890703194c2c6c50d818cac2fab7} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+login\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a5ac29a5a6f1d6a982ce7fa6fe352b5e5}\index{imap.c@{imap.c}!imap\_state\_select\_resp@{imap\_state\_select\_resp}}
+\index{imap\_state\_select\_resp@{imap\_state\_select\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_select\_resp()}{imap\_state\_select\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_a5ac29a5a6f1d6a982ce7fa6fe352b5e5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+select\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a0a6b4af6bed3b101decf5c42fd261eb1}\index{imap.c@{imap.c}!imap\_state\_servergreet\_resp@{imap\_state\_servergreet\_resp}}
+\index{imap\_state\_servergreet\_resp@{imap\_state\_servergreet\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_servergreet\_resp()}{imap\_state\_servergreet\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_a0a6b4af6bed3b101decf5c42fd261eb1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+servergreet\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a189c007c2c1d24527cfb2924958a81ee}\index{imap.c@{imap.c}!imap\_state\_starttls\_resp@{imap\_state\_starttls\_resp}}
+\index{imap\_state\_starttls\_resp@{imap\_state\_starttls\_resp}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_state\_starttls\_resp()}{imap\_state\_starttls\_resp()}}
+{\footnotesize\ttfamily \label{imap_8c_a189c007c2c1d24527cfb2924958a81ee} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+state\+\_\+starttls\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{imapcode}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a3dc78aa62e6127d36a38710190962af6}\index{imap.c@{imap.c}!imap\_statemachine@{imap\_statemachine}}
+\index{imap\_statemachine@{imap\_statemachine}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{imap\_statemachine()}{imap\_statemachine()}}
+{\footnotesize\ttfamily \label{imap_8c_a3dc78aa62e6127d36a38710190962af6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} imap\+\_\+statemachine (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{imap_8c_a4ea0f5edac46fc77df79dd007cba8140}\index{imap.c@{imap.c}!state@{state}}
+\index{state@{state}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{state()}{state()}}
+{\footnotesize\ttfamily \label{imap_8c_a4ea0f5edac46fc77df79dd007cba8140} 
+void state (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a77812d4945cd21094debbd06962f0f01}{state()}
+
+This is the ONLY way to change \doxylink{structIMAP}{IMAP} state! 
+
+\label{doc-var-members}
+\Hypertarget{imap_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{imap_8c_ae276e4e81c4afa813d9324d62421bff8}\index{imap.c@{imap.c}!Curl\_handler\_imap@{Curl\_handler\_imap}}
+\index{Curl\_handler\_imap@{Curl\_handler\_imap}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_imap}{Curl\_handler\_imap}}
+{\footnotesize\ttfamily \label{imap_8c_ae276e4e81c4afa813d9324d62421bff8} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+imap}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}IMAP"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_a7f5e80ea5d491f71793e0932f3b8ba5b}{imap\_setup\_connection}},\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_a1d1642b83c9ab6353c33c59a1d2cea10}{imap\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_a5fb8d9f811dfc78c5601e47993fe8378}{imap\_done}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_ac72f374fc78771234abda6e44c749c9b}{imap\_connect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_a8c733cd30f9f606531070dc6136154ca}{imap\_multi\_statemach}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_ab1b1426c928bacfb13992c36c49025ee}{imap\_doing}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_aff4f84ce44d94e7aef0c11b9a0dec916}{imap\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_aff4f84ce44d94e7aef0c11b9a0dec916}{imap\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_ab35f546da1b0fdbdab74fc47e58a67e0}{imap\_disconnect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a0ea7effcf0508ef4153127d686fabdcb}{PORT\_IMAP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a30d3c27b363600b6748798f8b3a1ec75}{CURLPROTO\_IMAP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a30d3c27b363600b6748798f8b3a1ec75}{CURLPROTO\_IMAP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_ad1e824167a50a205dad75e1256dedfca}{PROTOPT\_CLOSEACTION}}|\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a7dc3bffda7491b001e405e434493b896}{PROTOPT\_URLOPTIONS}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{imap_8c_a5f82927c04a98b2c62f8ee723f27eb31}\index{imap.c@{imap.c}!saslimap@{saslimap}}
+\index{saslimap@{saslimap}!imap.c@{imap.c}}
+\doxysubsubsection{\texorpdfstring{saslimap}{saslimap}}
+{\footnotesize\ttfamily \label{imap_8c_a5f82927c04a98b2c62f8ee723f27eb31} 
+const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} saslimap\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}imap"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_afd3b899874f647606907f6c4952d2d33}{imap\_perform\_authenticate}},\ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_a492764ab0e54d00e13dfce1979b11271}{imap\_continue\_authenticate}},\ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_acd2b9fefd333fc29b04abc574c25f753}{imap\_cancel\_authenticate}},\ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_a417c0b9b945a6633fc0e19df2cab1605}{imap\_get\_message}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \textcolor{charliteral}{'+'},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{imap_8c_adbaedd433cb50b17f37cf5772f9e3475}{IMAP\_RESP\_OK}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__sasl_8h_aec5d6836cac4e54d575a669afdf0dea3}{SASL\_AUTH\_DEFAULT}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__sasl_8h_a2fabe7138c0de17bf23d5fb51412be97}{SASL\_FLAG\_BASE64}}\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

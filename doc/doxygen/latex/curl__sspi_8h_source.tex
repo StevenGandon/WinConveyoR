@@ -1,0 +1,336 @@
+\doxysection{curl\+\_\+sspi.\+h}
+\hypertarget{curl__sspi_8h_source}{}\label{curl__sspi_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_sspi.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_sspi.h}}
+\mbox{\hyperlink{curl__sspi_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SSPI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SSPI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_WINDOWS\_SSPI}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ When\ including\ the\ following\ three\ headers,\ it\ is\ mandatory\ to\ define\ either}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ SECURITY\_WIN32\ or\ SECURITY\_KERNEL,\ indicating\ who\ is\ compiling\ the\ code.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#undef\ SECURITY\_WIN32}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#undef\ SECURITY\_KERNEL}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SECURITY\_WIN32\ 1}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <security.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <sspi.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <rpc.h>}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_sspi\_global\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ Curl\_sspi\_global\_cleanup(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ This\ is\ used\ to\ populate\ the\ domain\ in\ a\ SSPI\ identity\ structure\ */}}
+\DoxyCodeLine{00049\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_override\_sspi\_http\_realm(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *chlg,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEC\_WINNT\_AUTH\_IDENTITY\ *\mbox{\hyperlink{sasl-authzid_8d_aa708d319427347a0e27d55e6f0cda696}{identity}});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*\ This\ is\ used\ to\ generate\ an\ SSPI\ identity\ structure\ */}}
+\DoxyCodeLine{00053\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_create\_sspi\_identity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *userp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *passwdp,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEC\_WINNT\_AUTH\_IDENTITY\ *\mbox{\hyperlink{sasl-authzid_8d_aa708d319427347a0e27d55e6f0cda696}{identity}});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ This\ is\ used\ to\ free\ an\ SSPI\ identity\ structure\ */}}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ Curl\_sspi\_free\_identity(SEC\_WINNT\_AUTH\_IDENTITY\ *\mbox{\hyperlink{sasl-authzid_8d_aa708d319427347a0e27d55e6f0cda696}{identity}});}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ Forward-\/declaration\ of\ global\ variables\ defined\ in\ curl\_sspi.c\ */}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{extern}\ HMODULE\ s\_hSecDll;}
+\DoxyCodeLine{00061\ \textcolor{keyword}{extern}\ PSecurityFunctionTable\ s\_pSecFn;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ Provide\ some\ definitions\ missing\ in\ old\ headers\ */}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ SP\_NAME\_DIGEST\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}WDigest"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ SP\_NAME\_NTLM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}NTLM"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ SP\_NAME\_NEGOTIATE\ \ \ \ \ \ \ \ \ \ \ "{}Negotiate"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ SP\_NAME\_KERBEROS\ \ \ \ \ \ \ \ \ \ \ \ "{}Kerberos"{}}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#ifndef\ ISC\_REQ\_USE\_HTTP\_STYLE}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ISC\_REQ\_USE\_HTTP\_STYLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01000000}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#ifndef\ ISC\_RET\_REPLAY\_DETECT}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ISC\_RET\_REPLAY\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000004}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifndef\ ISC\_RET\_SEQUENCE\_DETECT}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ ISC\_RET\_SEQUENCE\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000008}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#ifndef\ ISC\_RET\_CONFIDENTIALITY}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ISC\_RET\_CONFIDENTIALITY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000010}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#ifndef\ ISC\_RET\_ALLOCATED\_MEMORY}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ISC\_RET\_ALLOCATED\_MEMORY\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000100}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#ifndef\ ISC\_RET\_STREAM}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ ISC\_RET\_STREAM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00008000}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INSUFFICIENT\_MEMORY}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INSUFFICIENT\_MEMORY\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090300L)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INVALID\_HANDLE}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INVALID\_HANDLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090301L)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_UNSUPPORTED\_FUNCTION}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_UNSUPPORTED\_FUNCTION\ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090302L)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_TARGET\_UNKNOWN}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_TARGET\_UNKNOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090303L)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INTERNAL\_ERROR}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INTERNAL\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090304L)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_SECPKG\_NOT\_FOUND}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_SECPKG\_NOT\_FOUND\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090305L)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NOT\_OWNER}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NOT\_OWNER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090306L)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CANNOT\_INSTALL}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CANNOT\_INSTALL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090307L)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INVALID\_TOKEN}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INVALID\_TOKEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090308L)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CANNOT\_PACK}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CANNOT\_PACK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090309L)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_QOP\_NOT\_SUPPORTED}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_QOP\_NOT\_SUPPORTED\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009030AL)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_IMPERSONATION}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_IMPERSONATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009030BL)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_LOGON\_DENIED}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_LOGON\_DENIED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009030CL)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_UNKNOWN\_CREDENTIALS}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_UNKNOWN\_CREDENTIALS\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009030DL)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_CREDENTIALS}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_CREDENTIALS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009030EL)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_MESSAGE\_ALTERED}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_MESSAGE\_ALTERED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009030FL)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_OUT\_OF\_SEQUENCE}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_OUT\_OF\_SEQUENCE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090310L)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_AUTHENTICATING\_AUTHORITY}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_AUTHENTICATING\_AUTHORITY\ \ \ \ ((HRESULT)0x80090311L)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_BAD\_PKGID}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_BAD\_PKGID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090316L)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CONTEXT\_EXPIRED}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CONTEXT\_EXPIRED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090317L)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INCOMPLETE\_MESSAGE}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INCOMPLETE\_MESSAGE\ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090318L)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INCOMPLETE\_CREDENTIALS}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INCOMPLETE\_CREDENTIALS\ \ \ \ \ \ \ \ \ ((HRESULT)0x80090320L)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_BUFFER\_TOO\_SMALL}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_BUFFER\_TOO\_SMALL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090321L)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_WRONG\_PRINCIPAL}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_WRONG\_PRINCIPAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090322L)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_TIME\_SKEW}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_TIME\_SKEW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090324L)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_UNTRUSTED\_ROOT}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_UNTRUSTED\_ROOT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090325L)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_ILLEGAL\_MESSAGE}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_ILLEGAL\_MESSAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090326L)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CERT\_UNKNOWN}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CERT\_UNKNOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090327L)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CERT\_EXPIRED}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CERT\_EXPIRED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090328L)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_ENCRYPT\_FAILURE}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_ENCRYPT\_FAILURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090329L)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_DECRYPT\_FAILURE}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_DECRYPT\_FAILURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090330L)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_ALGORITHM\_MISMATCH}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_ALGORITHM\_MISMATCH\ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090331L)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_SECURITY\_QOS\_FAILED}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_SECURITY\_QOS\_FAILED\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090332L)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_UNFINISHED\_CONTEXT\_DELETED}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_UNFINISHED\_CONTEXT\_DELETED\ \ \ \ \ ((HRESULT)0x80090333L)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_TGT\_REPLY}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_TGT\_REPLY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090334L)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_IP\_ADDRESSES}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_IP\_ADDRESSES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090335L)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_WRONG\_CREDENTIAL\_HANDLE}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_WRONG\_CREDENTIAL\_HANDLE\ \ \ \ \ \ \ \ ((HRESULT)0x80090336L)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CRYPTO\_SYSTEM\_INVALID}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CRYPTO\_SYSTEM\_INVALID\ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090337L)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_MAX\_REFERRALS\_EXCEEDED}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_MAX\_REFERRALS\_EXCEEDED\ \ \ \ \ \ \ \ \ ((HRESULT)0x80090338L)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_MUST\_BE\_KDC}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_MUST\_BE\_KDC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090339L)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_STRONG\_CRYPTO\_NOT\_SUPPORTED}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_STRONG\_CRYPTO\_NOT\_SUPPORTED\ \ \ \ ((HRESULT)0x8009033AL)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_TOO\_MANY\_PRINCIPALS}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_TOO\_MANY\_PRINCIPALS\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009033BL)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_PA\_DATA}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_PA\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009033CL)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_PKINIT\_NAME\_MISMATCH}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_PKINIT\_NAME\_MISMATCH\ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009033DL)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_SMARTCARD\_LOGON\_REQUIRED}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_SMARTCARD\_LOGON\_REQUIRED\ \ \ \ \ \ \ ((HRESULT)0x8009033EL)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_SHUTDOWN\_IN\_PROGRESS}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_SHUTDOWN\_IN\_PROGRESS\ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009033FL)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_KDC\_INVALID\_REQUEST}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_KDC\_INVALID\_REQUEST\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090340L)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_KDC\_UNABLE\_TO\_REFER}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_KDC\_UNABLE\_TO\_REFER\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090341L)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_KDC\_UNKNOWN\_ETYPE}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_KDC\_UNKNOWN\_ETYPE\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090342L)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_UNSUPPORTED\_PREAUTH}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_UNSUPPORTED\_PREAUTH\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090343L)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_DELEGATION\_REQUIRED}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_DELEGATION\_REQUIRED\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090345L)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_BAD\_BINDINGS}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_BAD\_BINDINGS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090346L)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_MULTIPLE\_ACCOUNTS}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_MULTIPLE\_ACCOUNTS\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090347L)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_KERB\_KEY}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_KERB\_KEY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090348L)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CERT\_WRONG\_USAGE}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CERT\_WRONG\_USAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090349L)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_DOWNGRADE\_DETECTED}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_DOWNGRADE\_DETECTED\ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090350L)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_SMARTCARD\_CERT\_REVOKED}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_SMARTCARD\_CERT\_REVOKED\ \ \ \ \ \ \ \ \ ((HRESULT)0x80090351L)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_ISSUING\_CA\_UNTRUSTED}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_ISSUING\_CA\_UNTRUSTED\ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090352L)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_REVOCATION\_OFFLINE\_C}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_REVOCATION\_OFFLINE\_C\ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090353L)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_PKINIT\_CLIENT\_FAILURE}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_PKINIT\_CLIENT\_FAILURE\ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090354L)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_SMARTCARD\_CERT\_EXPIRED}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_SMARTCARD\_CERT\_EXPIRED\ \ \ \ \ \ \ \ \ ((HRESULT)0x80090355L)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_NO\_S4U\_PROT\_SUPPORT}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_NO\_S4U\_PROT\_SUPPORT\ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80090356L)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_CROSSREALM\_DELEGATION\_FAILURE}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_CROSSREALM\_DELEGATION\_FAILURE\ \ ((HRESULT)0x80090357L)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_REVOCATION\_OFFLINE\_KDC}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_REVOCATION\_OFFLINE\_KDC\ \ \ \ \ \ \ \ \ ((HRESULT)0x80090358L)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_ISSUING\_CA\_UNTRUSTED\_KDC}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_ISSUING\_CA\_UNTRUSTED\_KDC\ \ \ \ \ \ \ ((HRESULT)0x80090359L)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_KDC\_CERT\_EXPIRED}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_KDC\_CERT\_EXPIRED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009035AL)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_KDC\_CERT\_REVOKED}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_KDC\_CERT\_REVOKED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009035BL)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_INVALID\_PARAMETER}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_INVALID\_PARAMETER\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009035DL)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_DELEGATION\_POLICY}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_DELEGATION\_POLICY\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009035EL)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#ifndef\ SEC\_E\_POLICY\_NLTM\_ONLY}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#\ define\ SEC\_E\_POLICY\_NLTM\_ONLY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x8009035FL)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_CONTINUE\_NEEDED}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_CONTINUE\_NEEDED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090312L)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_COMPLETE\_NEEDED}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_COMPLETE\_NEEDED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090313L)}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_COMPLETE\_AND\_CONTINUE}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_COMPLETE\_AND\_CONTINUE\ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090314L)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_LOCAL\_LOGON}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_LOCAL\_LOGON\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090315L)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_CONTEXT\_EXPIRED}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_CONTEXT\_EXPIRED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090317L)}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_INCOMPLETE\_CREDENTIALS}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_INCOMPLETE\_CREDENTIALS\ \ \ \ \ \ \ \ \ ((HRESULT)0x00090320L)}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_RENEGOTIATE}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_RENEGOTIATE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090321L)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_NO\_LSA\_CONTEXT}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_NO\_LSA\_CONTEXT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x00090323L)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#ifndef\ SEC\_I\_SIGNATURE\_NEEDED}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#\ define\ SEC\_I\_SIGNATURE\_NEEDED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x0009035CL)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#ifndef\ CRYPT\_E\_REVOKED}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#\ define\ CRYPT\_E\_REVOKED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((HRESULT)0x80092010L)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#ifdef\ UNICODE}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#\ \ define\ SECFLAG\_WINNT\_AUTH\_IDENTITY\ \(\backslash\)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\ \ \ \ \ (unsigned\ long)SEC\_WINNT\_AUTH\_IDENTITY\_UNICODE}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#\ \ define\ SECFLAG\_WINNT\_AUTH\_IDENTITY\ \(\backslash\)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\ \ \ \ \ (unsigned\ long)SEC\_WINNT\_AUTH\_IDENTITY\_ANSI}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ *\ Definitions\ required\ from\ ntsecapi.h\ are\ directly\ provided\ below\ this\ point}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ *\ to\ avoid\ including\ ntsecapi.h\ due\ to\ a\ conflict\ with\ OpenSSL's\ safestack.h}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#define\ KERB\_WRAP\_NO\_ENCRYPT\ 0x80000001}}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_WINDOWS\_SSPI\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SSPI\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

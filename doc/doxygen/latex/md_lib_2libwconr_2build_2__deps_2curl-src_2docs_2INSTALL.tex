@@ -1,0 +1,416 @@
+\chapter{how to install curl and libcurl }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL}\index{how to install curl and libcurl@{how to install curl and libcurl}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1740}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1740}%
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1741}{}\doxysection{\texorpdfstring{Installing Binary Packages}{Installing Binary Packages}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1741}
+Lots of people download binary distributions of curl and libcurl. This document does not describe how to install curl or libcurl using such a binary package. This document describes how to compile, build and install curl and libcurl from source code.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1742}{}\doxysection{\texorpdfstring{Building using vcpkg}{Building using vcpkg}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1742}
+You can download and install curl and libcurl using the \href{https://github.com/Microsoft/vcpkg/}{\texttt{vcpkg}} dependency manager\+: \begin{DoxyVerb}git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+vcpkg install curl[tool]
+\end{DoxyVerb}
+
+
+The curl port in vcpkg is kept up to date by Microsoft team members and community contributors. If the version is out of date, please \href{https://github.com/Microsoft/vcpkg}{\texttt{create an issue or pull request}} on the vcpkg repository.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1743}{}\doxysection{\texorpdfstring{Building from git}{Building from git}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1743}
+If you get your code off a git repository instead of a release tarball, see the {\ttfamily GIT-\/\+INFO} file in the root directory for specific instructions on how to proceed.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1744}{}\doxysection{\texorpdfstring{Unix}{Unix}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1744}
+A normal Unix installation is made in three or four steps (after you have unpacked the source archive)\+: \begin{DoxyVerb}./configure --with-openssl [--with-gnutls --with-wolfssl]
+make
+make test (optional)
+make install
+\end{DoxyVerb}
+
+
+(Adjust the configure line accordingly to use the TLS library you want.)
+
+You probably need to be root when doing the last command.
+
+Get a full listing of all available configure options by invoking it like\+: \begin{DoxyVerb}./configure --help
+\end{DoxyVerb}
+
+
+If you want to install curl in a different file hierarchy than {\ttfamily /usr/local}, specify that when running configure\+: \begin{DoxyVerb}./configure --prefix=/path/to/curl/tree
+\end{DoxyVerb}
+
+
+If you have write permission in that directory, you can do \textquotesingle{}make install\textquotesingle{} without being root. An example of this would be to make a local install in your own home directory\+: \begin{DoxyVerb}./configure --prefix=$HOME
+make
+make install
+\end{DoxyVerb}
+
+
+The configure script always tries to find a working SSL library unless explicitly told not to. If you have Open\+SSL installed in the default search path for your compiler/linker, you do not need to do anything special. If you have Open\+SSL installed in {\ttfamily /usr/local/ssl}, you can run configure like\+: \begin{DoxyVerb}./configure --with-openssl
+\end{DoxyVerb}
+
+
+If you have Open\+SSL installed somewhere else (for example, {\ttfamily /opt/\+Open\+SSL}) and you have pkg-\/config installed, set the pkg-\/config path first, like this\+: \begin{DoxyVerb}env PKG_CONFIG_PATH=/opt/OpenSSL/lib/pkgconfig ./configure --with-openssl
+\end{DoxyVerb}
+
+
+Without pkg-\/config installed, use this\+: \begin{DoxyVerb}./configure --with-openssl=/opt/OpenSSL
+\end{DoxyVerb}
+
+
+If you insist on forcing a build without SSL support, even though you may have Open\+SSL installed in your system, you can run configure like this\+: \begin{DoxyVerb}./configure --without-ssl
+\end{DoxyVerb}
+
+
+If you have Open\+SSL installed, but with the libraries in one place and the header files somewhere else, you have to set the {\ttfamily LDFLAGS} and {\ttfamily CPPFLAGS} environment variables prior to running configure. Something like this should work\+: \begin{DoxyVerb}CPPFLAGS="-I/path/to/ssl/include" LDFLAGS="-L/path/to/ssl/lib" ./configure
+\end{DoxyVerb}
+
+
+If you have shared SSL libs installed in a directory where your runtime linker does not find them (which usually causes configure failures), you can provide this option to gcc to set a hard-\/coded path to the runtime linker\+: \begin{DoxyVerb}LDFLAGS=-Wl,-R/usr/local/ssl/lib ./configure --with-openssl
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1745}{}\doxysubsection{\texorpdfstring{More Options}{More Options}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1745}
+To force a static library compile, disable the shared library creation by running configure like\+: \begin{DoxyVerb}./configure --disable-shared
+\end{DoxyVerb}
+
+
+To tell the configure script to skip searching for thread-\/safe functions, add an option like\+: \begin{DoxyVerb}./configure --disable-thread
+\end{DoxyVerb}
+
+
+If you are a curl developer and use gcc, you might want to enable more debug options with the {\ttfamily -\/-\/enable-\/debug} option.
+
+curl can be built to use a whole range of libraries to provide various useful services, and configure will try to auto-\/detect a decent default. But if you want to alter it, you can select how to deal with each individual library.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1746}{}\doxysubsection{\texorpdfstring{Select TLS backend}{Select TLS backend}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1746}
+These options are provided to select the TLS backend to use.
+
+
+\begin{DoxyItemize}
+\item Ami\+SSL\+: {\ttfamily -\/-\/with-\/amissl}
+\item Bear\+SSL\+: {\ttfamily -\/-\/with-\/bearssl}
+\item Gnu\+TLS\+: {\ttfamily -\/-\/with-\/gnutls}.
+\item mbed\+TLS\+: {\ttfamily -\/-\/with-\/mbedtls}
+\item NSS\+: {\ttfamily -\/-\/with-\/nss}
+\item Open\+SSL\+: {\ttfamily -\/-\/with-\/openssl} (also for Boring\+SSL and libressl)
+\item rustls\+: {\ttfamily -\/-\/with-\/rustls}
+\item Schannel\+: {\ttfamily -\/-\/with-\/schannel}
+\item Secure Transport\+: {\ttfamily -\/-\/with-\/secure-\/transport}
+\item wolf\+SSL\+: {\ttfamily -\/-\/with-\/wolfssl}
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1747}{}\doxysection{\texorpdfstring{Windows}{Windows}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1747}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1748}{}\doxysubsection{\texorpdfstring{Building Windows DLLs and C runtime (CRT) linkage issues}{Building Windows DLLs and C runtime (CRT) linkage issues}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1748}
+As a general rule, building a DLL with static CRT linkage is highly discouraged, and intermixing CRTs in the same app is something to avoid at any cost.
+
+Reading and comprehending Microsoft Knowledge Base articles KB94248 and KB140584 is a must for any Windows developer. Especially important is full understanding if you are not going to follow the advice given above.
+
+
+\begin{DoxyItemize}
+\item \href{https://support.microsoft.com/help/94248/how-to-use-the-c-run-time}{\texttt{How To Use the C Run-\/\+Time}}
+\item \href{https://docs.microsoft.com/cpp/build/reference/md-mt-ld-use-run-time-library}{\texttt{Run-\/\+Time Library Compiler Options}}
+\item \href{https://docs.microsoft.com/cpp/c-runtime-library/potential-errors-passing-crt-objects-across-dll-boundaries}{\texttt{Potential Errors Passing CRT Objects Across DLL Boundaries}}
+\end{DoxyItemize}
+
+If your app is misbehaving in some strange way, or it is suffering from memory corruption, before asking for further help, please try first to rebuild every single library your app uses as well as your app using the debug multi-\/threaded dynamic C runtime.
+
+If you get linkage errors read section 5.\+7 of the FAQ document.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1749}{}\doxysubsection{\texorpdfstring{Min\+GW32}{Min\+GW32}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1749}
+Make sure that Min\+GW32\textquotesingle{}s bin directory is in the search path, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ PATH=c:\(\backslash\)mingw32\(\backslash\)bin;\%PATH\%}
+
+\end{DoxyCode}
+
+
+then run {\ttfamily mingw32-\/make mingw32} in the root dir. There are other make targets available to build libcurl with more features, use\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily mingw32-\/make mingw32-\/zlib} to build with Zlib support;
+\item {\ttfamily mingw32-\/make mingw32-\/ssl-\/zlib} to build with SSL and Zlib enabled;
+\item {\ttfamily mingw32-\/make mingw32-\/ssh2-\/ssl-\/zlib} to build with SSH2, SSL, Zlib;
+\item {\ttfamily mingw32-\/make mingw32-\/ssh2-\/ssl-\/sspi-\/zlib} to build with SSH2, SSL, Zlib and SSPI support.
+\end{DoxyItemize}
+
+If you have any problems linking libraries or finding header files, be sure to verify that the provided {\ttfamily Makefile.\+m32} files use the proper paths, and adjust as necessary. It is also possible to override these paths with environment variables, for example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ ZLIB\_PATH=c:\(\backslash\)zlib-\/1.2.12}
+\DoxyCodeLine{set\ OPENSSL\_PATH=c:\(\backslash\)openssl-\/3.0.5}
+\DoxyCodeLine{set\ LIBSSH2\_PATH=c:\(\backslash\)libssh2-\/1.10.0}
+
+\end{DoxyCode}
+
+
+It is also possible to build with other LDAP installations than MS LDAP; currently it is possible to build with native Win32 Open\+LDAP, or with the {\itshape Novell CLDAP} SDK. If you want to use these you need to set these vars\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ CPPFLAGS=-\/Ic:/openldap/include\ -\/DCURL\_HAS\_OPENLDAP\_LDAPSDK}
+\DoxyCodeLine{set\ LDFLAGS=-\/Lc:/openldap/lib}
+\DoxyCodeLine{set\ LIBS=-\/lldap\ -\/llber}
+
+\end{DoxyCode}
+
+
+or for using the Novell SDK\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set\ CPPFLAGS=-\/Ic:/openldapsdk/inc\ -\/DCURL\_HAS\_NOVELL\_LDAPSDK}
+\DoxyCodeLine{set\ LDFLAGS=-\/Lc:/openldapsdk/lib/mscvc}
+\DoxyCodeLine{set\ LIBS=-\/lldapsdk\ -\/lldapssl\ -\/lldapx}
+
+\end{DoxyCode}
+
+
+If you want to enable LDAPS support then set LDAPS=1.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1750}{}\doxysubsection{\texorpdfstring{Cygwin}{Cygwin}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1750}
+Almost identical to the Unix installation. Run the configure script in the curl source tree root with {\ttfamily sh configure}. Make sure you have the {\ttfamily sh} executable in {\ttfamily /bin/} or you will see the configure fail toward the end.
+
+Run {\ttfamily make}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1751}{}\doxysubsection{\texorpdfstring{Disabling Specific Protocols in Windows builds}{Disabling Specific Protocols in Windows builds}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1751}
+The configure utility, unfortunately, is not available for the Windows environment, therefore, you cannot use the various disable-\/protocol options of the configure utility on this platform.
+
+You can use specific defines to disable specific protocols and features. See \doxysectlink{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2CURL-DISABLE}{CURL-\/\+DISABLE}{0} for the full list.
+
+If you want to set any of these defines you have the following options\+:
+
+
+\begin{DoxyItemize}
+\item Modify {\ttfamily \doxylink{config-win32_8h}{lib/config-\/win32.\+h}}
+\item Modify {\ttfamily \doxylink{curl__setup_8h}{lib/curl\+\_\+setup.\+h}}
+\item Modify {\ttfamily winbuild/\+Makefile.\+vc}
+\item Modify the "{}\+Preprocessor Definitions"{} in the libcurl project
+\end{DoxyItemize}
+
+Note\+: The pre-\/processor settings can be found using the Visual Studio IDE under "{}\+Project -\/$>$ Properties -\/$>$ Configuration Properties -\/$>$ C/\+C++ -\/$>$ \+Preprocessor"{}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1752}{}\doxysubsection{\texorpdfstring{Using BSD-\/style lw\+IP instead of Winsock TCP/\+IP stack in Win32 builds}{Using BSD-\/style lw\+IP instead of Winsock TCP/\+IP stack in Win32 builds}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1752}
+In order to compile libcurl and curl using BSD-\/style lw\+IP TCP/\+IP stack it is necessary to make the definition of the preprocessor symbol {\ttfamily USE\+\_\+\+LWIPSOCK} visible to libcurl and curl compilation processes. To set this definition you have the following alternatives\+:
+
+
+\begin{DoxyItemize}
+\item Modify {\ttfamily \doxylink{config-win32_8h}{lib/config-\/win32.\+h}} and {\ttfamily src/config-\/win32.\+h}
+\item Modify {\ttfamily winbuild/\+Makefile.\+vc}
+\item Modify the "{}\+Preprocessor Definitions"{} in the libcurl project
+\end{DoxyItemize}
+
+Note\+: The pre-\/processor settings can be found using the Visual Studio IDE under "{}\+Project -\/$>$ Properties -\/$>$ Configuration Properties -\/$>$ C/\+C++ -\/$>$ \+Preprocessor"{}.
+
+Once that libcurl has been built with BSD-\/style lw\+IP TCP/\+IP stack support, in order to use it with your program it is mandatory that your program includes lw\+IP header file {\ttfamily \texorpdfstring{$<$}{<}lwip/opt.\+h\texorpdfstring{$>$}{>}} (or another lw\+IP header that includes this) before including any libcurl header. Your program does not need the {\ttfamily USE\+\_\+\+LWIPSOCK} preprocessor definition which is for libcurl internals only.
+
+Compilation has been verified with lw\+IP 1.\+4.\+0.
+
+This BSD-\/style lw\+IP TCP/\+IP stack support must be considered experimental given that it has been verified that lw\+IP 1.\+4.\+0 still needs some polish, and libcurl might yet need some additional adjustment.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1753}{}\doxysubsection{\texorpdfstring{Important static libcurl usage note}{Important static libcurl usage note}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1753}
+When building an application that uses the static libcurl library on Windows, you must add {\ttfamily -\/DCURL\+\_\+\+STATICLIB} to your {\ttfamily CFLAGS}. Otherwise the linker will look for dynamic import symbols.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1754}{}\doxysubsection{\texorpdfstring{Legacy Windows and SSL}{Legacy Windows and SSL}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1754}
+Schannel (from Windows SSPI), is the native SSL library in Windows. However, Schannel in Windows \texorpdfstring{$<$}{<}= XP is unable to connect to servers that no longer support the legacy handshakes and algorithms used by those versions. If you will be using curl in one of those earlier versions of Windows you should choose another SSL backend such as Open\+SSL.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1755}{}\doxysection{\texorpdfstring{Apple Platforms (mac\+OS, i\+OS, tv\+OS, watch\+OS, and their simulator counterparts)}{Apple Platforms (mac\+OS, i\+OS, tv\+OS, watch\+OS, and their simulator counterparts)}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1755}
+On modern Apple operating systems, curl can be built to use Apple\textquotesingle{}s SSL/\+TLS implementation, Secure Transport, instead of Open\+SSL. To build with Secure Transport for SSL/\+TLS, use the configure option {\ttfamily -\/-\/with-\/secure-\/transport}.
+
+When Secure Transport is in use, the curl options {\ttfamily -\/-\/cacert} and {\ttfamily -\/-\/capath} and their libcurl equivalents, will be ignored, because Secure Transport uses the certificates stored in the Keychain to evaluate whether or not to trust the server. This, of course, includes the root certificates that ship with the OS. The {\ttfamily -\/-\/cert} and {\ttfamily -\/-\/engine} options, and their libcurl equivalents, are currently unimplemented in curl with Secure Transport.
+
+In general, a curl build for an Apple {\ttfamily ARCH/\+SDK/\+DEPLOYMENT\+\_\+\+TARGET} combination can be taken by providing appropriate values for {\ttfamily ARCH}, {\ttfamily SDK}, {\ttfamily DEPLOYMENT\+\_\+\+TARGET} below and running the commands\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Set\ these\ three\ according\ to\ your\ needs}
+\DoxyCodeLine{export\ ARCH=x86\_64}
+\DoxyCodeLine{export\ SDK=macosx}
+\DoxyCodeLine{export\ DEPLOYMENT\_TARGET=10.8}
+\DoxyCodeLine{}
+\DoxyCodeLine{export\ CFLAGS="{}-\/arch\ \$ARCH\ -\/isysroot\ \$(xcrun\ -\/sdk\ \$SDK\ -\/-\/show-\/sdk-\/path)\ -\/m\$SDK-\/version-\/min=\$DEPLOYMENT\_TARGET"{}}
+\DoxyCodeLine{./configure\ -\/-\/host=\$ARCH-\/apple-\/darwin\ -\/-\/prefix\ \$(pwd)/artifacts\ -\/-\/with-\/secure-\/transport}
+\DoxyCodeLine{make\ -\/j8}
+\DoxyCodeLine{make\ install}
+
+\end{DoxyCode}
+
+
+Above will build curl for mac\+OS platform with {\ttfamily x86\+\_\+64} architecture and {\ttfamily 10.\+8} as deployment target.
+
+Here is an example for i\+OS device\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ ARCH=arm64}
+\DoxyCodeLine{export\ SDK=iphoneos}
+\DoxyCodeLine{export\ DEPLOYMENT\_TARGET=11.0}
+\DoxyCodeLine{}
+\DoxyCodeLine{export\ CFLAGS="{}-\/arch\ \$ARCH\ -\/isysroot\ \$(xcrun\ -\/sdk\ \$SDK\ -\/-\/show-\/sdk-\/path)\ -\/m\$SDK-\/version-\/min=\$DEPLOYMENT\_TARGET"{}}
+\DoxyCodeLine{./configure\ -\/-\/host=\$ARCH-\/apple-\/darwin\ -\/-\/prefix\ \$(pwd)/artifacts\ -\/-\/with-\/secure-\/transport}
+\DoxyCodeLine{make\ -\/j8}
+\DoxyCodeLine{make\ install}
+
+\end{DoxyCode}
+
+
+Another example for watch\+OS simulator for macs with Apple Silicon\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ ARCH=arm64}
+\DoxyCodeLine{export\ SDK=watchsimulator}
+\DoxyCodeLine{export\ DEPLOYMENT\_TARGET=5.0}
+\DoxyCodeLine{}
+\DoxyCodeLine{export\ CFLAGS="{}-\/arch\ \$ARCH\ -\/isysroot\ \$(xcrun\ -\/sdk\ \$SDK\ -\/-\/show-\/sdk-\/path)\ -\/m\$SDK-\/version-\/min=\$DEPLOYMENT\_TARGET"{}}
+\DoxyCodeLine{./configure\ -\/-\/host=\$ARCH-\/apple-\/darwin\ -\/-\/prefix\ \$(pwd)/artifacts\ -\/-\/with-\/secure-\/transport}
+\DoxyCodeLine{make\ -\/j8}
+\DoxyCodeLine{make\ install}
+
+\end{DoxyCode}
+
+
+In all above, the built libraries and executables can be found in the {\ttfamily artifacts} folder.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1756}{}\doxysection{\texorpdfstring{Android}{Android}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1756}
+When building curl for Android it\textquotesingle{}s recommended to use a Linux/mac\+OS environment since using curl\textquotesingle{}s {\ttfamily configure} script is the easiest way to build curl for Android. Before you can build curl for Android, you need to install the Android NDK first. This can be done using the SDK Manager that is part of Android Studio. Once you have installed the Android NDK, you need to figure out where it has been installed and then set up some environment variables before launching {\ttfamily configure}. On mac\+OS, those variables could look like this to compile for {\ttfamily aarch64} and API level 29\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ ANDROID\_NDK\_HOME=\string~/Library/Android/sdk/ndk/25.1.8937393\ \#\ Point\ into\ your\ NDK.}
+\DoxyCodeLine{export\ HOST\_TAG=darwin-\/x86\_64\ \#\ Same\ tag\ for\ Apple\ Silicon.\ Other\ OS\ values\ here:\ https://developer.android.com/ndk/guides/other\_build\_systems\#overview}
+\DoxyCodeLine{export\ TOOLCHAIN=\$ANDROID\_NDK\_HOME/toolchains/llvm/prebuilt/\$HOST\_TAG}
+\DoxyCodeLine{export\ AR=\$TOOLCHAIN/bin/llvm-\/ar}
+\DoxyCodeLine{export\ AS=\$TOOLCHAIN/bin/llvm-\/as}
+\DoxyCodeLine{export\ CC=\$TOOLCHAIN/bin/aarch64-\/linux-\/android21-\/clang}
+\DoxyCodeLine{export\ CXX=\$TOOLCHAIN/bin/aarch64-\/linux-\/android21-\/clang++}
+\DoxyCodeLine{export\ LD=\$TOOLCHAIN/bin/ld}
+\DoxyCodeLine{export\ RANLIB=\$TOOLCHAIN/bin/llvm-\/ranlib}
+\DoxyCodeLine{export\ STRIP=\$TOOLCHAIN/bin/llvm-\/strip}
+
+\end{DoxyCode}
+
+
+When building on Linux or targeting other API levels or architectures, you need to adjust those variables accordingly. After that you can build curl like this\+: \begin{DoxyVerb}./configure --host aarch64-linux-android --with-pic --disable-shared
+\end{DoxyVerb}
+
+
+Note that this will not give you SSL/\+TLS support. If you need SSL/\+TLS, you have to build curl against a SSL/\+TLS layer, e.\+g. Open\+SSL, because it\textquotesingle{}s impossible for curl to access Android\textquotesingle{}s native SSL/\+TLS layer. To build curl for Android using Open\+SSL, follow the Open\+SSL build instructions and then install {\ttfamily libssl.\+a} and {\ttfamily libcrypto.\+a} to {\ttfamily \$TOOLCHAIN/sysroot/usr/lib} and copy {\ttfamily include/openssl} to {\ttfamily \$TOOLCHAIN/sysroot/usr/include}. Now you can build curl for Android using Open\+SSL like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{LIBS="{}-\/lssl\ -\/lcrypto\ -\/lc++"{}\ \#\ For\ OpenSSL/BoringSSL.\ In\ general,\ you'll\ need\ to\ the\ SSL/TLS\ layer's\ transtive\ dependencies\ if\ you're\ linking\ statically.}
+\DoxyCodeLine{./configure\ -\/-\/host\ aarch64-\/linux-\/android\ -\/-\/with-\/pic\ -\/-\/disable-\/shared\ -\/-\/with-\/openssl="{}\$TOOLCHAIN/sysroot/usr"{}}
+
+\end{DoxyCode}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1757}{}\doxysection{\texorpdfstring{IBM i}{IBM i}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1757}
+For IBM i (formerly OS/400), you can use curl in two different ways\+:
+
+
+\begin{DoxyItemize}
+\item Natively, running in the {\bfseries{ILE}}. The obvious use is being able to call curl from ILE C or RPG applications.
+\begin{DoxyItemize}
+\item You will need to build this from source. See {\ttfamily packages/\+OS400/\+README} for the ILE specific build instructions.
+\end{DoxyItemize}
+\item In the {\bfseries{PASE}} environment, which runs AIX programs. curl will be built as it would be on AIX.
+\begin{DoxyItemize}
+\item IBM provides builds of curl in their Yum repository for PASE software.
+\item To build from source, follow the Unix instructions.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+There are some additional limitations and quirks with curl on this platform; they affect both environments.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1758}{}\doxysubsection{\texorpdfstring{Multi-\/threading notes}{Multi-\/threading notes}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1758}
+By default, jobs in IBM i will not start with threading enabled. (Exceptions include interactive PASE sessions started by {\ttfamily QP2\+TERM} or SSH.) If you use curl in an environment without threading when options like asynchronous DNS were enabled, you will get messages like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{getaddrinfo()\ thread\ failed\ to\ start}
+
+\end{DoxyCode}
+
+
+Do not panic. curl and your program are not broken. You can fix this by\+:
+
+
+\begin{DoxyItemize}
+\item Set the environment variable {\ttfamily QIBM\+\_\+\+MULTI\+\_\+\+THREADED} to {\ttfamily Y} before starting your program. This can be done at whatever scope you feel is appropriate.
+\item Alternatively, start the job with the {\ttfamily ALWMLTTHD} parameter set to {\ttfamily \texorpdfstring{$\ast$}{*}\+YES}.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1759}{}\doxysection{\texorpdfstring{Cross compile}{Cross compile}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1759}
+Download and unpack the curl package.
+
+{\ttfamily cd} to the new directory. (e.\+g. {\ttfamily cd curl-\/7.\+12.\+3})
+
+Set environment variables to point to the cross-\/compile toolchain and call configure with any options you need. Be sure and specify the {\ttfamily -\/-\/\doxylink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}} and {\ttfamily -\/-\/build} parameters at configuration time. The following script is an example of cross-\/compiling for the IBM 405GP Power\+PC processor using the toolchain on Linux.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#!\ /bin/sh}
+\DoxyCodeLine{}
+\DoxyCodeLine{export\ PATH=\$PATH:/opt/hardhat/devkit/ppc/405/bin}
+\DoxyCodeLine{export\ CPPFLAGS="{}-\/I/opt/hardhat/devkit/ppc/405/target/usr/include"{}}
+\DoxyCodeLine{export\ AR=ppc\_405-\/ar}
+\DoxyCodeLine{export\ AS=ppc\_405-\/as}
+\DoxyCodeLine{export\ LD=ppc\_405-\/ld}
+\DoxyCodeLine{export\ RANLIB=ppc\_405-\/ranlib}
+\DoxyCodeLine{export\ CC=ppc\_405-\/gcc}
+\DoxyCodeLine{export\ NM=ppc\_405-\/nm}
+\DoxyCodeLine{}
+\DoxyCodeLine{./configure\ -\/-\/target=powerpc-\/hardhat-\/linux}
+\DoxyCodeLine{\ \ \ \ -\/-\/host=powerpc-\/hardhat-\/linux}
+\DoxyCodeLine{\ \ \ \ -\/-\/build=i586-\/pc-\/linux-\/gnu}
+\DoxyCodeLine{\ \ \ \ -\/-\/prefix=/opt/hardhat/devkit/ppc/405/target/usr/local}
+\DoxyCodeLine{\ \ \ \ -\/-\/exec-\/prefix=/usr/local}
+
+\end{DoxyCode}
+
+
+You may also need to provide a parameter like {\ttfamily -\/-\/with-\/random=/dev/urandom} to configure as it cannot detect the presence of a random number generating device for a target system. The {\ttfamily -\/-\/prefix} parameter specifies where curl will be installed. If {\ttfamily configure} completes successfully, do {\ttfamily make} and {\ttfamily make install} as usual.
+
+In some cases, you may be able to simplify the above commands to as little as\+: \begin{DoxyVerb}./configure --host=ARCH-OS
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1760}{}\doxysection{\texorpdfstring{REDUCING SIZE}{REDUCING SIZE}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1760}
+There are a number of configure options that can be used to reduce the size of libcurl for embedded applications where binary size is an important factor. First, be sure to set the {\ttfamily CFLAGS} variable when configuring with any relevant compiler optimization flags to reduce the size of the binary. For gcc, this would mean at minimum the -\/Os option, and potentially the {\ttfamily -\/march=X}, {\ttfamily -\/mdynamic-\/no-\/pic} and {\ttfamily -\/flto} options as well, e.\+g. \begin{DoxyVerb}./configure CFLAGS='-Os' LDFLAGS='-Wl,-Bsymbolic'...
+\end{DoxyVerb}
+
+
+Note that newer compilers often produce smaller code than older versions due to improved optimization.
+
+Be sure to specify as many {\ttfamily -\/-\/disable-\/} and {\ttfamily -\/-\/without-\/} flags on the configure command-\/line as you can to disable all the libcurl features that you know your application is not going to need. Besides specifying the {\ttfamily -\/-\/disable-\/\+PROTOCOL} flags for all the types of URLs your application will not use, here are some other flags that can reduce the size of the library by disabling support for some feature\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily -\/-\/disable-\/alt-\/svc} (\doxylink{structHTTP}{HTTP} Alt-\/\+Svc)
+\item {\ttfamily -\/-\/disable-\/ares} (the C-\/\+ARES DNS library)
+\item {\ttfamily -\/-\/disable-\/cookies} (\doxylink{structHTTP}{HTTP} cookies)
+\item {\ttfamily -\/-\/disable-\/crypto-\/auth} (cryptographic authentication)
+\item {\ttfamily -\/-\/disable-\/dateparse} (date parsing for time conditionals)
+\item {\ttfamily -\/-\/disable-\/dnsshuffle} (internal server load spreading)
+\item {\ttfamily -\/-\/disable-\/doh} (DNS-\/over-\/\+HTTP)
+\item {\ttfamily -\/-\/disable-\/get-\/easy-\/options} (lookup easy options at runtime)
+\item {\ttfamily -\/-\/disable-\/hsts} (\doxylink{structHTTP}{HTTP} Strict Transport Security)
+\item {\ttfamily -\/-\/disable-\/http-\/auth} (all \doxylink{structHTTP}{HTTP} authentication)
+\item {\ttfamily -\/-\/disable-\/ipv6} (IPv6)
+\item {\ttfamily -\/-\/disable-\/libcurl-\/option} (--libcurl C code generation support)
+\item {\ttfamily -\/-\/disable-\/manual} (built-\/in documentation)
+\item {\ttfamily -\/-\/disable-\/netrc} (.netrc file)
+\item {\ttfamily -\/-\/disable-\/ntlm-\/wb} (NTLM Win\+Bind)
+\item {\ttfamily -\/-\/disable-\/progress-\/meter} (graphical progress meter in library)
+\item {\ttfamily -\/-\/disable-\/proxy} (\doxylink{structHTTP}{HTTP} and SOCKS proxies)
+\item {\ttfamily -\/-\/disable-\/pthreads} (multi-\/threading)
+\item {\ttfamily -\/-\/disable-\/socketpair} (socketpair for asynchronous name resolving)
+\item {\ttfamily -\/-\/disable-\/threaded-\/resolver} (threaded name resolver)
+\item {\ttfamily -\/-\/disable-\/tls-\/srp} (Secure Remote Password authentication for TLS)
+\item {\ttfamily -\/-\/disable-\/unix-\/sockets} (UNIX sockets)
+\item {\ttfamily -\/-\/disable-\/verbose} (eliminates debugging strings and error code strings)
+\item {\ttfamily -\/-\/disable-\/versioned-\/symbols} (versioned symbols)
+\item {\ttfamily -\/-\/enable-\/symbol-\/hiding} (eliminates unneeded symbols in the shared library)
+\item {\ttfamily -\/-\/without-\/brotli} (Brotli on-\/the-\/fly decompression)
+\item {\ttfamily -\/-\/without-\/libpsl} (Public Suffix List in cookies)
+\item {\ttfamily -\/-\/without-\/nghttp2} (HTTP/2 using nghttp2)
+\item {\ttfamily -\/-\/without-\/ngtcp2} (HTTP/2 using ngtcp2)
+\item {\ttfamily -\/-\/without-\/zstd} (Zstd on-\/the-\/fly decompression)
+\item {\ttfamily -\/-\/without-\/libidn2} (internationalized domain names)
+\item {\ttfamily -\/-\/without-\/librtmp} (RTMP)
+\item {\ttfamily -\/-\/without-\/ssl} (SSL/\+TLS)
+\item {\ttfamily -\/-\/without-\/zlib} (on-\/the-\/fly decompression)
+\end{DoxyItemize}
+
+The GNU compiler and linker have a number of options that can reduce the size of the libcurl dynamic libraries on some platforms even further. Specify them by providing appropriate {\ttfamily CFLAGS} and {\ttfamily LDFLAGS} variables on the configure command-\/line, e.\+g. \begin{DoxyVerb}CFLAGS="-Os -ffunction-sections -fdata-sections
+        -fno-unwind-tables -fno-asynchronous-unwind-tables -flto"
+LDFLAGS="-Wl,-s -Wl,-Bsymbolic -Wl,--gc-sections"
+\end{DoxyVerb}
+
+
+Be sure also to strip debugging symbols from your binaries after compiling using \textquotesingle{}strip\textquotesingle{} (or the appropriate variant if cross-\/compiling). If space is really tight, you may be able to remove some unneeded sections of the shared library using the -\/R option to objcopy (e.\+g. the .comment section).
+
+Using these techniques it is possible to create a basic HTTP-\/only libcurl shared library for i386 Linux platforms that is only 133 KiB in size (as of libcurl version 7.\+80.\+0, using gcc 11.\+2.\+0).
+
+You may find that statically linking libcurl to your application will result in a lower total size than dynamically linking.
+
+Note that the curl test harness can detect the use of some, but not all, of the {\ttfamily -\/-\/disable} statements suggested above. Use will cause tests relying on those features to fail. The test harness can be manually forced to skip the relevant tests by specifying certain key words on the {\ttfamily runtests.\+pl} command line. Following is a list of appropriate key words for those configure options that are not automatically detected\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily -\/-\/disable-\/cookies} !cookies
+\item {\ttfamily -\/-\/disable-\/dateparse} !\+RETRY-\/\+AFTER !{\ttfamily CURLOPT\+\_\+\+TIMECONDITION} !{\ttfamily \doxylink{curl_8h_aabc03ec968a2fdccde5c6709f712dd7ba5101a99671cfb46ce9a5998fe6e5f012}{CURLINFO\+\_\+\+FILETIME}} !{\ttfamily If-\/\+Modified-\/\+Since} !{\ttfamily \doxylink{curl_8h_ad4dd80e15a6f20cdd628a7f222fcb8eb}{curl\+\_\+getdate}} !{\ttfamily -\/z}
+\item {\ttfamily -\/-\/disable-\/libcurl-\/option} !{\ttfamily -\/-\/libcurl}
+\item {\ttfamily -\/-\/disable-\/verbose} !verbose\textbackslash{} logs
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1761}{}\doxysection{\texorpdfstring{PORTS}{PORTS}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1761}
+This is a probably incomplete list of known CPU architectures and operating systems that curl has been compiled for. If you know a system curl compiles and runs on, that is not listed, please let us know!\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1762}{}\doxysubsection{\texorpdfstring{85 Operating Systems}{85 Operating Systems}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1762}
+AIX, Amiga\+OS, Android, Aros, Be\+OS, Blackberry 10, Blackberry Tablet OS, Cell OS, Chrome\+OS, Cisco IOS, Cygwin, Dragonfly BSD, e\+COS, Free\+BSD, Free\+DOS, Free\+RTOS, Fuchsia, Garmin OS, Genode, Haiku, Hardened\+BSD, HP-\/\+UX, Hurd, Illumos, Integrity, i\+OS, ipad\+OS, IRIX, Lineage\+OS, Linux, Lua RTOS, Mac OS 9, mac\+OS, Mbed, Micrium, MINIX, Morph\+OS, MPE/iX, MS-\/\+DOS, NCR MP-\/\+RAS, Net\+BSD, Netware, Nintendo Switch, Non\+Stop OS, NuttX, Open\+BSD, Open\+Step, Orbis OS, OS/2, OS/400, OS21, Plan 9, Play\+Station Portable, QNX, Qubes OS, React\+OS, Redox, RICS OS, Sailfish OS, SCO Unix, Serenity, SINIX-\/Z, Solaris, Sun\+OS, Syllable OS, Symbian, Tizen, TPF, Tru64, tv\+OS, uc\+Linux, Ultrix, UNICOS, Unix\+Ware, VMS, vx\+Works, Web\+OS, Wii system software, Windows, Windows CE, Xbox System, z/\+OS, z/\+TPF, z/\+VM, z/\+VSE\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1763}{}\doxysubsection{\texorpdfstring{22 CPU Architectures}{22 CPU Architectures}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2INSTALL_autotoc_md1763}
+Alpha, ARC, ARM, AVR32, Cell, HP-\/\+PA, Itanium, m68k, Micro\+Blaze, MIPS, Nios, Open\+RISC, POWER, Power\+PC, RISC-\/V, s390, SH4, SPARC, VAX, x86, x86-\/64, Xtensa 

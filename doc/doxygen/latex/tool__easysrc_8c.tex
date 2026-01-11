@@ -1,0 +1,251 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+easysrc.c File Reference}
+\hypertarget{tool__easysrc_8c}{}\label{tool__easysrc_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_easysrc.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_easysrc.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}slist\+\_\+wc.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+easysrc.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__easysrc_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__easysrc_8c_a06bc24d2a6f2428ba9fa6b0c65b2c92e}{CHKRET}}(v)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{tool__easysrc_8c_a7cf5e2b5386c5b790ebf71184d94d9c2}{easysrc\+\_\+free}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__easysrc_8c_ad9a3b81e3018cfb3b80bc00f6870ba49}{easysrc\+\_\+add}} (struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}plist, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__easysrc_8c_aa9c7c3f49b0653fd2cb49af61e848d0f}{easysrc\+\_\+addf}} (struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}plist, const char \texorpdfstring{$\ast$}{*}fmt,...)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__easysrc_8c_a56a994f2e9a9a24a9cd7926889661222}{easysrc\+\_\+init}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__easysrc_8c_a6e60405899a8ead1c38d75c45ce7d8de}{easysrc\+\_\+perform}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__easysrc_8c_a6b92ce116e5e12da4890ea5ab79027ac}{easysrc\+\_\+cleanup}} (void)
+\item 
+void \mbox{\hyperlink{tool__easysrc_8c_a68e6cfbd47ab6ea62043be77b2ec2821}{dumpeasysrc}} (struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__easysrc_8c_a4798f6d6594b3441bffd01aa5621813b}{easysrc\+\_\+decl}} = NULL
+\item 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9}{easysrc\+\_\+data}} = NULL
+\item 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa}{easysrc\+\_\+code}} = NULL
+\item 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__easysrc_8c_a7980bbfb9ad9b2c2122515c14c5c64e7}{easysrc\+\_\+toohard}} = NULL
+\item 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__easysrc_8c_a29223dfa3568c0284506fbd6fe207ed3}{easysrc\+\_\+clean}} = NULL
+\item 
+int \mbox{\hyperlink{tool__easysrc_8c_a5869e8cd0a9ed0553c68c65e9e54202c}{easysrc\+\_\+mime\+\_\+count}} = 0
+\item 
+int \mbox{\hyperlink{tool__easysrc_8c_a3846474f197fa3c2794bfde442939ca4}{easysrc\+\_\+slist\+\_\+count}} = 0
+\item 
+static const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{tool__easysrc_8c_a4aefb1a1e2d1510708c43bbcf15457e3}{srchead}} \mbox{[}$\,$\mbox{]}
+\item 
+static const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{tool__easysrc_8c_a5be8416384917c5d9b1c6e1b508fb552}{srchard}} \mbox{[}$\,$\mbox{]}
+\item 
+static const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{tool__easysrc_8c_abeea7024f4b9bd30eaa37f1cb4c14323}{srcend}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__easysrc_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__easysrc_8c_a06bc24d2a6f2428ba9fa6b0c65b2c92e}\index{tool\_easysrc.c@{tool\_easysrc.c}!CHKRET@{CHKRET}}
+\index{CHKRET@{CHKRET}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{CHKRET}{CHKRET}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a06bc24d2a6f2428ba9fa6b0c65b2c92e} 
+\#define CHKRET(\begin{DoxyParamCaption}\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{do}\ \{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ ret\ =\ (v);\ \textcolor{keywordflow}{if}(ret)\ \textcolor{keywordflow}{return}\ ret;\}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{tool__easysrc_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_easysrc.c@{tool\_easysrc.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{tool__easysrc_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__easysrc_8c_a68e6cfbd47ab6ea62043be77b2ec2821}\index{tool\_easysrc.c@{tool\_easysrc.c}!dumpeasysrc@{dumpeasysrc}}
+\index{dumpeasysrc@{dumpeasysrc}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{dumpeasysrc()}{dumpeasysrc()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a68e6cfbd47ab6ea62043be77b2ec2821} 
+void dumpeasysrc (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__easysrc_8c_ad9a3b81e3018cfb3b80bc00f6870ba49}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_add@{easysrc\_add}}
+\index{easysrc\_add@{easysrc\_add}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_add()}{easysrc\_add()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_ad9a3b81e3018cfb3b80bc00f6870ba49} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easysrc\+\_\+add (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{plist}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{line}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__easysrc_8c_aa9c7c3f49b0653fd2cb49af61e848d0f}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_addf@{easysrc\_addf}}
+\index{easysrc\_addf@{easysrc\_addf}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_addf()}{easysrc\_addf()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_aa9c7c3f49b0653fd2cb49af61e848d0f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easysrc\+\_\+addf (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{plist}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fmt}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__easysrc_8c_a6b92ce116e5e12da4890ea5ab79027ac}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_cleanup@{easysrc\_cleanup}}
+\index{easysrc\_cleanup@{easysrc\_cleanup}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_cleanup()}{easysrc\_cleanup()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a6b92ce116e5e12da4890ea5ab79027ac} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easysrc\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__easysrc_8c_a7cf5e2b5386c5b790ebf71184d94d9c2}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_free@{easysrc\_free}}
+\index{easysrc\_free@{easysrc\_free}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_free()}{easysrc\_free()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a7cf5e2b5386c5b790ebf71184d94d9c2} 
+void easysrc\+\_\+free (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__easysrc_8c_a56a994f2e9a9a24a9cd7926889661222}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_init@{easysrc\_init}}
+\index{easysrc\_init@{easysrc\_init}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_init()}{easysrc\_init()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a56a994f2e9a9a24a9cd7926889661222} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easysrc\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__easysrc_8c_a6e60405899a8ead1c38d75c45ce7d8de}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_perform@{easysrc\_perform}}
+\index{easysrc\_perform@{easysrc\_perform}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_perform()}{easysrc\_perform()}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a6e60405899a8ead1c38d75c45ce7d8de} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easysrc\+\_\+perform (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{tool__easysrc_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tool__easysrc_8c_a29223dfa3568c0284506fbd6fe207ed3}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_clean@{easysrc\_clean}}
+\index{easysrc\_clean@{easysrc\_clean}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_clean}{easysrc\_clean}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a29223dfa3568c0284506fbd6fe207ed3} 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}}\texorpdfstring{$\ast$}{*} easysrc\+\_\+clean = NULL}
+
+\Hypertarget{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_code@{easysrc\_code}}
+\index{easysrc\_code@{easysrc\_code}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_code}{easysrc\_code}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_aea0879dca1c19cab5b6def1380390afa} 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}}\texorpdfstring{$\ast$}{*} easysrc\+\_\+code = NULL}
+
+\Hypertarget{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_data@{easysrc\_data}}
+\index{easysrc\_data@{easysrc\_data}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_data}{easysrc\_data}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a5c68734749a689eac8bc1063b16d9cd9} 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}}\texorpdfstring{$\ast$}{*} easysrc\+\_\+data = NULL}
+
+\Hypertarget{tool__easysrc_8c_a4798f6d6594b3441bffd01aa5621813b}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_decl@{easysrc\_decl}}
+\index{easysrc\_decl@{easysrc\_decl}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_decl}{easysrc\_decl}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a4798f6d6594b3441bffd01aa5621813b} 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}}\texorpdfstring{$\ast$}{*} easysrc\+\_\+decl = NULL}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__easysrc_8c_a5869e8cd0a9ed0553c68c65e9e54202c}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_mime\_count@{easysrc\_mime\_count}}
+\index{easysrc\_mime\_count@{easysrc\_mime\_count}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_mime\_count}{easysrc\_mime\_count}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a5869e8cd0a9ed0553c68c65e9e54202c} 
+int easysrc\+\_\+mime\+\_\+count = 0}
+
+\Hypertarget{tool__easysrc_8c_a3846474f197fa3c2794bfde442939ca4}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_slist\_count@{easysrc\_slist\_count}}
+\index{easysrc\_slist\_count@{easysrc\_slist\_count}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_slist\_count}{easysrc\_slist\_count}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a3846474f197fa3c2794bfde442939ca4} 
+int easysrc\+\_\+slist\+\_\+count = 0}
+
+\Hypertarget{tool__easysrc_8c_a7980bbfb9ad9b2c2122515c14c5c64e7}\index{tool\_easysrc.c@{tool\_easysrc.c}!easysrc\_toohard@{easysrc\_toohard}}
+\index{easysrc\_toohard@{easysrc\_toohard}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{easysrc\_toohard}{easysrc\_toohard}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a7980bbfb9ad9b2c2122515c14c5c64e7} 
+struct \mbox{\hyperlink{structslist__wc}{slist\+\_\+wc}}\texorpdfstring{$\ast$}{*} easysrc\+\_\+toohard = NULL}
+
+\Hypertarget{tool__easysrc_8c_abeea7024f4b9bd30eaa37f1cb4c14323}\index{tool\_easysrc.c@{tool\_easysrc.c}!srcend@{srcend}}
+\index{srcend@{srcend}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{srcend}{srcend}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_abeea7024f4b9bd30eaa37f1cb4c14323} 
+const char\texorpdfstring{$\ast$}{*} const srcend\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ \ return\ (int)ret;"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\}"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}/****\ End\ of\ sample\ code\ ****/"{}},}
+\DoxyCodeLine{\ \ NULL}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__easysrc_8c_a5be8416384917c5d9b1c6e1b508fb552}\index{tool\_easysrc.c@{tool\_easysrc.c}!srchard@{srchard}}
+\index{srchard@{srchard}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{srchard}{srchard}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a5be8416384917c5d9b1c6e1b508fb552} 
+const char\texorpdfstring{$\ast$}{*} const srchard\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}/*\ Here\ is\ a\ list\ of\ options\ the\ curl\ code\ used\ that\ cannot\ get\ generated"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ \ \ as\ source\ easily.\ You\ may\ choose\ to\ either\ not\ use\ them\ or\ implement"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ \ \ them\ yourself."{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\ \ NULL}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tool__easysrc_8c_a4aefb1a1e2d1510708c43bbcf15457e3}\index{tool\_easysrc.c@{tool\_easysrc.c}!srchead@{srchead}}
+\index{srchead@{srchead}!tool\_easysrc.c@{tool\_easysrc.c}}
+\doxysubsubsection{\texorpdfstring{srchead}{srchead}}
+{\footnotesize\ttfamily \label{tool__easysrc_8c_a4aefb1a1e2d1510708c43bbcf15457e3} 
+const char\texorpdfstring{$\ast$}{*} const srchead\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}/*********\ Sample\ code\ generated\ by\ the\ curl\ command\ line\ tool\ **********"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ *\ All\ curl\_easy\_setopt()\ options\ are\ documented\ at:"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ *\ https://curl.se/libcurl/c/curl\_easy\_setopt.html"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ ************************************************************************/"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\#include\ <curl/curl.h>"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}int\ main(int\ argc,\ char\ *argv[])"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\{"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ \ CURLcode\ ret;"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}\ \ CURL\ *hnd;"{}},}
+\DoxyCodeLine{\ \ NULL}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

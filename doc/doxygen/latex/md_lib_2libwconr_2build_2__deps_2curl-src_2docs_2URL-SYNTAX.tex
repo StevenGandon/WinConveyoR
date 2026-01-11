@@ -1,0 +1,192 @@
+\chapter{URL syntax and their use in curl }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX}\index{URL syntax and their use in curl@{URL syntax and their use in curl}}
+\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1894}%
+\Hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1894}%
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1895}{}\doxysection{\texorpdfstring{Specifications}{Specifications}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1895}
+The official "{}\+URL syntax"{} is primarily defined in these two different specifications\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://datatracker.ietf.org/doc/html/rfc3986}{\texttt{RFC 3986}} (although URL is called "{}\+URI"{} in there)
+\item \href{https://url.spec.whatwg.org/}{\texttt{The WHATWG URL Specification}}
+\end{DoxyItemize}
+
+RFC 3986 is the earlier one, and curl has always tried to adhere to that one (since it shipped in January 2005).
+
+The WHATWG URL spec was written later, is incompatible with the RFC 3986 and changes over time.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1896}{}\doxysection{\texorpdfstring{Variations}{Variations}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1896}
+URL parsers as implemented in browsers, libraries and tools usually opt to support one of the mentioned specifications. Bugs, differences in interpretations and the moving nature of the WHATWG spec does however make it unlikely that multiple parsers treat URLs the same way.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1897}{}\doxysection{\texorpdfstring{Security}{Security}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1897}
+Due to the inherent differences between URL parser implementations, it is considered a security risk to mix different implementations and assume the same behavior!
+
+For example, if you use one parser to check if a URL uses a good host name or the correct auth field, and then pass on that same URL to a {\itshape second} parser, there will always be a risk it treats the same URL differently. There is no right and wrong in URL land, only differences of opinions.
+
+libcurl offers a separate API to its URL parser for this reason, among others.
+
+Applications may at times find it convenient to allow users to specify URLs for various purposes and that string would then end up fed to curl. Getting a URL from an external untrusted party and using it with curl brings several security concerns\+:
+
+
+\begin{DoxyEnumerate}
+\item If you have an application that runs as or in a server application, getting an unfiltered URL can trick your application to access a local resource instead of a remote resource. Protecting yourself against localhost accesses is hard when accepting user provided URLs.
+\item Such custom URLs can access other ports than you planned as port numbers are part of the regular URL format. The combination of a local host and a custom port number can allow external users to play tricks with your local services.
+\item Such a URL might use other schemes than you thought of or planned for.
+\end{DoxyEnumerate}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1898}{}\doxysection{\texorpdfstring{"{}\+RFC3986 plus"{}}{"{}\+RFC3986 plus"{}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1898}
+curl recognizes a URL syntax that we call "{}\+RFC 3986 plus"{}. It is grounded on the well established RFC 3986 to make sure previously written command lines and curl using scripts will remain working.
+
+curl\textquotesingle{}s URL parser allows a few deviations from the spec in order to inter-\/operate better with URLs that appear in the wild.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1899}{}\doxysubsection{\texorpdfstring{spaces}{spaces}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1899}
+A URL provided to curl cannot contain spaces. They need to be provided URL encoded to be accepted in a URL by curl.
+
+An exception to this rule\+: {\ttfamily \doxylink{referer_8d_ae45fcf5b4d99b69e3c87c61b73d499b0}{Location}\+:} response headers that indicate to a client where a resource has been redirected to, sometimes contain spaces. This is a violation of RFC 3986 but is fine in the WHATWG spec. curl handles these by re-\/encoding them to {\ttfamily \%20}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1900}{}\doxysubsection{\texorpdfstring{non-\/\+ASCII}{non-\/\+ASCII}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1900}
+Byte values in a provided URL that are outside of the printable ASCII range are percent-\/encoded by curl.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1901}{}\doxysubsection{\texorpdfstring{multiple slashes}{multiple slashes}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1901}
+An absolute URL always starts with a "{}scheme"{} followed by a colon. For all the schemes curl supports, the colon must be followed by two slashes according to RFC 3986 but not according to the WHATWG spec -\/ which allows one to infinity amount.
+
+curl allows one, two or three slashes after the colon to still be considered a valid URL.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1902}{}\doxysubsection{\texorpdfstring{"{}scheme-\/less"{}}{"{}scheme-\/less"{}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1902}
+curl supports "{}\+URLs"{} that do not start with a scheme. This is not supported by any of the specifications. This is a shortcut to entering URLs that was supported by browsers early on and has been mimicked by curl.
+
+Based on what the host name starts with, curl will "{}guess"{} what protocol to use\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily ftp.} means \doxylink{structFTP}{FTP}
+\item {\ttfamily dict.} means DICT
+\item {\ttfamily ldap.} means LDAP
+\item {\ttfamily imap.} means \doxylink{structIMAP}{IMAP}
+\item {\ttfamily smtp.} means \doxylink{structSMTP}{SMTP}
+\item {\ttfamily pop3.} means \doxylink{structPOP3}{POP3}
+\item all other means \doxylink{structHTTP}{HTTP}
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1903}{}\doxysubsection{\texorpdfstring{globbing letters}{globbing letters}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1903}
+The curl command line tool supports "{}globbing"{} of URLs. It means that you can create ranges and lists using {\ttfamily \mbox{[}N-\/M\mbox{]}} and {\ttfamily \{one,two,three\}} sequences. The letters used for this ({\ttfamily \mbox{[}\mbox{]}\{\}}) are reserved in RFC 3986 and can therefore not legitimately be part of such a URL.
+
+They are however not reserved or special in the WHATWG specification, so globbing can mess up such URLs. Globbing can be turned off for such occasions (using {\ttfamily -\/-\/globoff}).\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1904}{}\doxysection{\texorpdfstring{URL syntax details}{URL syntax details}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1904}
+A URL may consist of the following components -\/ many of them are optional\+: \begin{DoxyVerb}[scheme][divider][userinfo][hostname][port number][path][query][fragment]
+\end{DoxyVerb}
+
+
+Each component is separated from the following component with a divider character or string.
+
+For example, this could look like\+: \begin{DoxyVerb}http://user:password@www.example.com:80/index.hmtl?foo=bar#top
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1905}{}\doxysubsection{\texorpdfstring{Scheme}{Scheme}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1905}
+The scheme specifies the protocol to use. A curl build can support a few or many different schemes. You can limit what schemes curl should accept.
+
+curl supports the following schemes on URLs specified to transfer. They are matched case insensitively\+:
+
+{\ttfamily dict}, {\ttfamily \doxylink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}}, {\ttfamily ftp}, {\ttfamily ftps}, {\ttfamily gopher}, {\ttfamily gophers}, {\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}, {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}}, {\ttfamily imap}, {\ttfamily imaps}, {\ttfamily ldap}, {\ttfamily ldaps}, {\ttfamily mqtt}, {\ttfamily pop3}, {\ttfamily pop3s}, {\ttfamily rtmp}, {\ttfamily rtmpe}, {\ttfamily rtmps}, {\ttfamily rtmpt}, {\ttfamily rtmpte}, {\ttfamily rtmpts}, {\ttfamily rtsp}, {\ttfamily smb}, {\ttfamily smbs}, {\ttfamily smtp}, {\ttfamily smtps}, {\ttfamily telnet}, {\ttfamily tftp}
+
+When the URL is specified to identify a proxy, curl recognizes the following schemes\+:
+
+{\ttfamily \doxylink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}, {\ttfamily \doxylink{proto_8d_a8a0a9359398b9cc4c5392fbb4f08a762}{https}}, {\ttfamily \doxylink{socks4_8d_ad625103e48302d53fc0f4ef05521936d}{socks4}}, {\ttfamily \doxylink{socks4a_8d_a1ce9f225e21002b20e170386925ae162}{socks4a}}, {\ttfamily \doxylink{socks5_8d_a26de3ad4966af9f5c7a0d38facc52ea9}{socks5}}, {\ttfamily \doxylink{socks5-hostname_8d_a383670f1258584b7a348c9802ea05ed4}{socks5h}}, {\ttfamily socks}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1906}{}\doxysubsection{\texorpdfstring{Userinfo}{Userinfo}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1906}
+The userinfo field can be used to set user name and password for authentication purposes in this transfer. The use of this field is discouraged since it often means passing around the password in plain text and is thus a security risk.
+
+URLs for \doxylink{structIMAP}{IMAP}, \doxylink{structPOP3}{POP3} and \doxylink{structSMTP}{SMTP} also support {\itshape login options} as part of the userinfo field. They are provided as a semicolon after the password and then the options.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1907}{}\doxysubsection{\texorpdfstring{Hostname}{Hostname}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1907}
+The hostname part of the URL contains the address of the server that you want to connect to. This can be the fully qualified domain name of the server, the local network name of the machine on your network or the IP address of the server or machine represented by either an IPv4 or IPv6 address (within brackets). For example\+: \begin{DoxyVerb}http://www.example.com/
+
+http://hostname/
+
+http://192.168.0.1/
+
+http://[2001:1890:1112:1::20]/
+\end{DoxyVerb}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1908}{}\doxysubsubsection{\texorpdfstring{"{}localhost"{}}{"{}localhost"{}}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1908}
+Starting in curl 7.\+77.\+0, curl uses loopback IP addresses for the name {\ttfamily localhost}\+: {\ttfamily 127.\+0.\+0.\+1} and {\ttfamily \+::1}. It does not resolve the name using the resolver functions.
+
+This is done to make sure the host accessed is truly the localhost -\/ the local machine.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1909}{}\doxysubsubsection{\texorpdfstring{IDNA}{IDNA}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1909}
+If curl was built with International Domain Name (IDN) support, it can also handle host names using non-\/\+ASCII characters.
+
+When built with libidn2, curl uses the IDNA 2008 standard. This is equivalent to the WHATWG URL spec, but differs from certain browsers that use IDNA 2003 Transitional Processing. The two standards have a huge overlap but differ slightly, perhaps most famously in how they deal with the German "{}double s"{} ({\ttfamily ß}).
+
+When winidn is used, curl uses IDNA 2003 Transitional Processing, like the rest of Windows.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1910}{}\doxysubsection{\texorpdfstring{Port number}{Port number}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1910}
+If there\textquotesingle{}s a colon after the hostname, that should be followed by the port number to use. 1 -\/ 65535. curl also supports a blank port number field -\/ but only if the URL starts with a scheme.
+
+If the port number is not specified in the URL, curl will used a default port based on the provide scheme\+:
+
+DICT 2628, \doxylink{structFTP}{FTP} 21, FTPS 990, GOPHER 70, GOPHERS 70, \doxylink{structHTTP}{HTTP} 80, HTTPS 443, \doxylink{structIMAP}{IMAP} 132, IMAPS 993, LDAP 369, LDAPS 636, \doxylink{structMQTT}{MQTT} 1883, \doxylink{structPOP3}{POP3} 110, POP3S 995, RTMP 1935, RTMPS 443, RTMPT 80, \doxylink{structRTSP}{RTSP} 554, SCP 22, SFTP 22, SMB 445, SMBS 445, \doxylink{structSMTP}{SMTP} 25, SMTPS 465, \doxylink{structTELNET}{TELNET} 23, TFTP 69\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1911}{}\doxysection{\texorpdfstring{Scheme specific behaviors}{Scheme specific behaviors}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1911}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1912}{}\doxysubsection{\texorpdfstring{FTP}{FTP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1912}
+The path part of an \doxylink{structFTP}{FTP} request specifies the file to retrieve and from which directory. If the file part is omitted then libcurl downloads the directory listing for the directory specified. If the directory is omitted then the directory listing for the root / home directory will be returned.
+
+\doxylink{structFTP}{FTP} servers typically put the user in its "{}home directory"{} after login, which then differs between users. To explicitly specify the root directory of an \doxylink{structFTP}{FTP} server, start the path with double slash {\ttfamily //} or {\ttfamily /\%2f} (2F is the hexadecimal value of the ascii code for the slash).\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1913}{}\doxysubsection{\texorpdfstring{FILE}{FILE}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1913}
+When a {\ttfamily FILE\+://} URL is accessed on Windows systems, it can be crafted in a way so that Windows attempts to connect to a (remote) machine when curl wants to read or write such a path.
+
+curl only allows the hostname part of a FILE URL to be one out of these three alternatives\+: {\ttfamily localhost}, {\ttfamily 127.\+0.\+0.\+1} or blank ("{}"{}, zero characters). Anything else will make curl fail to parse the URL.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1914}{}\doxysubsubsection{\texorpdfstring{Windows-\/specific FILE details}{Windows-\/specific FILE details}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1914}
+curl accepts that the FILE URL\textquotesingle{}s path starts with a "{}drive letter"{}. That is a single letter {\ttfamily a} to {\ttfamily z} followed by a colon or a pipe character ({\ttfamily \texorpdfstring{$\vert$}{|}}).
+
+The Windows operating system itself will convert some file accesses to perform network accesses over SMB/\+CIFS, through several different file path patterns. This way, a {\ttfamily \href{file://}{\texttt{file\+://}}} URL passed to curl {\itshape might} be converted into a network access inadvertently and unknowingly to curl. This is a Windows feature curl cannot control or disable.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1915}{}\doxysubsection{\texorpdfstring{IMAP}{IMAP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1915}
+The path part of an \doxylink{structIMAP}{IMAP} request not only specifies the mailbox to list or select, but can also be used to check the {\ttfamily UIDVALIDITY} of the mailbox, to specify the {\ttfamily UID}, {\ttfamily SECTION} and {\ttfamily PARTIAL} octets of the message to fetch and to specify what messages to search for.
+
+A top level folder list\+: \begin{DoxyVerb}imap://user:password@mail.example.com
+\end{DoxyVerb}
+
+
+A folder list on the user\textquotesingle{}s inbox\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox and fetch message with {\ttfamily uid = 1}\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX/;UID=1
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox and fetch the first message in the mail box\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX/;MAILINDEX=1
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox, check the {\ttfamily UIDVALIDITY} of the mailbox is 50 and fetch message 2 if it is\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX;UIDVALIDITY=50/;UID=2
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox and fetch the text portion of message 3\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX/;UID=3/;SECTION=TEXT
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox and fetch the first 1024 octets of message 4\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX/;UID=4/;PARTIAL=0.1024
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox and check for NEW messages\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX?NEW
+\end{DoxyVerb}
+
+
+Select the user\textquotesingle{}s inbox and search for messages containing "{}shadows"{} in the subject line\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX?SUBJECT%20shadows
+\end{DoxyVerb}
+
+
+Searching via the query part of the URL {\ttfamily ?} is a search request for the results to be returned as message sequence numbers ({\ttfamily MAILINDEX}). It is possible to make a search request for results to be returned as unique ID numbers ({\ttfamily UID}) by using a custom curl request via {\ttfamily -\/X}. {\ttfamily UID} numbers are unique per session (and multiple sessions when {\ttfamily UIDVALIDITY} is the same). For example, if you are searching for {\ttfamily "{}foo bar"{}} in header+body ({\ttfamily TEXT}) and you want the matching {\ttfamily MAILINDEX} numbers returned then you could search via URL\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX?TEXT%20%22foo%20bar%22
+\end{DoxyVerb}
+
+
+If you want matching {\ttfamily UID} numbers you have to use a custom request\+: \begin{DoxyVerb}imap://user:password@mail.example.com/INBOX -X "UID SEARCH TEXT \"foo bar\""
+\end{DoxyVerb}
+
+
+For more information about \doxylink{structIMAP}{IMAP} commands please see RFC 9051. For more information about the individual components of an \doxylink{structIMAP}{IMAP} URL please see RFC 5092.
+
+
+\begin{DoxyItemize}
+\item Note old curl versions would {\ttfamily FETCH} by message sequence number when {\ttfamily UID} was specified in the URL. That was a bug fixed in 7.\+62.\+0, which added {\ttfamily MAILINDEX} to {\ttfamily FETCH} by mail sequence number.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1916}{}\doxysubsection{\texorpdfstring{LDAP}{LDAP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1916}
+The path part of a LDAP request can be used to specify the\+: Distinguished Name, Attributes, Scope, Filter and Extension for a LDAP search. Each field is separated by a question mark and when that field is not required an empty string with the question mark separator should be included.
+
+Search for the {\ttfamily DN} as {\ttfamily My Organization}\+: \begin{DoxyVerb}ldap://ldap.example.com/o=My%20Organization
+\end{DoxyVerb}
+
+
+the same search but will only return {\ttfamily postal\+Address} attributes\+: \begin{DoxyVerb}ldap://ldap.example.com/o=My%20Organization?postalAddress
+\end{DoxyVerb}
+
+
+Search for an empty {\ttfamily DN} and request information about the {\ttfamily root\+Domain\+Naming\+Context} attribute for an Active Directory server\+: \begin{DoxyVerb}ldap://ldap.example.com/?rootDomainNamingContext
+\end{DoxyVerb}
+
+
+For more information about the individual components of a LDAP URL please see \href{https://datatracker.ietf.org/doc/html/rfc4516}{\texttt{RFC 4516}}.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1917}{}\doxysubsection{\texorpdfstring{POP3}{POP3}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1917}
+The path part of a \doxylink{structPOP3}{POP3} request specifies the message ID to retrieve. If the ID is not specified then a list of waiting messages is returned instead.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1918}{}\doxysubsection{\texorpdfstring{SCP}{SCP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1918}
+The path part of an SCP URL specifies the path and file to retrieve or upload. The file is taken as an absolute path from the root directory on the server.
+
+To specify a path relative to the user\textquotesingle{}s home directory on the server, prepend {\ttfamily \texorpdfstring{$\sim$}{\string~}/} to the path portion.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1919}{}\doxysubsection{\texorpdfstring{SFTP}{SFTP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1919}
+The path part of an SFTP URL specifies the file to retrieve or upload. If the path ends with a slash ({\ttfamily /}) then a directory listing is returned instead of a file. If the path is omitted entirely then the directory listing for the root / home directory will be returned.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1920}{}\doxysubsection{\texorpdfstring{SMB}{SMB}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1920}
+The path part of a SMB request specifies the file to retrieve and from what share and directory or the share to upload to and as such, may not be omitted. If the user name is embedded in the URL then it must contain the domain name and as such, the backslash must be URL encoded as \%2f.
+
+curl supports SMB version 1 (only)\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1921}{}\doxysubsection{\texorpdfstring{SMTP}{SMTP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1921}
+The path part of a \doxylink{structSMTP}{SMTP} request specifies the host name to present during communication with the mail server. If the path is omitted, then libcurl will attempt to resolve the local computer\textquotesingle{}s host name. However, this may not return the fully qualified domain name that is required by some mail servers and specifying this path allows you to set an alternative name, such as your machine\textquotesingle{}s fully qualified domain name, which you might have obtained from an external function such as gethostname or getaddrinfo.
+
+The default smtp port is 25. Some servers use port 587 as an alternative.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1922}{}\doxysubsection{\texorpdfstring{RTMP}{RTMP}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2URL-SYNTAX_autotoc_md1922}
+There\textquotesingle{}s no official URL spec for RTMP so libcurl uses the URL syntax supported by the underlying librtmp library. It has a syntax where it wants a traditional URL, followed by a space and a series of space-\/separated {\ttfamily \doxylink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}=value} pairs.
+
+While space is not typically a "{}legal"{} letter, libcurl accepts them. When a user wants to pass in a {\ttfamily \#} (hash) character it will be treated as a fragment and get cut off by libcurl if provided literally. You will instead have to escape it by providing it as backslash and its ASCII value in hexadecimal\+: {\ttfamily \textbackslash{}23}. 

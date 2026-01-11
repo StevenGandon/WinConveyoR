@@ -1,0 +1,104 @@
+\doxysection{conncache.\+h}
+\hypertarget{conncache_8h_source}{}\label{conncache_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/conncache.h@{lib/libwconr/build/\_deps/curl-\/src/lib/conncache.h}}
+\mbox{\hyperlink{conncache_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_CONNCACHE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_CONNCACHE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ All\ accesses\ to\ struct\ fields\ and\ changing\ of\ data\ in\ the\ connection\ cache}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ and\ connectbundles\ must\ be\ done\ with\ the\ conncache\ LOCKED.\ The\ cache\ might}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ be\ shared.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timeval_8h}{timeval.h}}"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconncache}{conncache}}\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ \mbox{\hyperlink{structconncache_a1d9b0d5a4223f6f6ecdb2b5cdcd099bc}{hash}};}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structconncache_ad72930fe46c411928d02a9c6e1f702ed}{num\_conn}};}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structconncache_a6b2f3468145c0423de5f7206c96ae64d}{next\_connection\_id}};}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurltime}{curltime}}\ \mbox{\hyperlink{structconncache_a4dbacbd9ec736c6eddcff5944be89ff5}{last\_cleanup}};}
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{/*\ handle\ used\ for\ closing\ cached\ connections\ */}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structconncache_af1f325be3cd88b32a416f9fd35f886eb}{closure\_handle}};}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ BUNDLE\_NO\_MULTIUSE\ -\/1}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ BUNDLE\_UNKNOWN\ \ \ \ \ 0\ \ }\textcolor{comment}{/*\ initial\ value\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ BUNDLE\_MULTIPLEX\ \ \ 2}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ CURLDEBUG}}
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ the\ debug\ versions\ of\ these\ macros\ make\ extra\ certain\ that\ the\ lock\ is}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ never\ doubly\ locked\ or\ unlocked\ */}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ CONNCACHE\_LOCK(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ if((x)-\/>share)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \ \ Curl\_share\_lock((x),\ CURL\_LOCK\_DATA\_CONNECT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CURL\_LOCK\_ACCESS\_SINGLE);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \ \ DEBUGASSERT(!(x)-\/>state.conncache\_lock);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \ \ (x)-\/>state.conncache\_lock\ =\ TRUE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ CONNCACHE\_UNLOCK(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ if((x)-\/>share)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \ \ DEBUGASSERT((x)-\/>state.conncache\_lock);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \ \ (x)-\/>state.conncache\_lock\ =\ FALSE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ Curl\_share\_unlock((x),\ CURL\_LOCK\_DATA\_CONNECT);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ CONNCACHE\_LOCK(x)\ if((x)-\/>share)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ Curl\_share\_lock((x),\ CURL\_LOCK\_DATA\_CONNECT,\ CURL\_LOCK\_ACCESS\_SINGLE)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ CONNCACHE\_UNLOCK(x)\ if((x)-\/>share)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ Curl\_share\_unlock((x),\ CURL\_LOCK\_DATA\_CONNECT)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectbundle}{connectbundle}}\ \{}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structconnectbundle_a22977226b49d058b284fe58643165d8b}{multiuse}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ supports\ multi-\/use\ */}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structconnectbundle_a7b746b344ea41126772218e55780fefd}{num\_connections}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Number\ of\ connections\ in\ the\ bundle\ */}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist}{Curl\_llist}}\ \mbox{\hyperlink{structconnectbundle_a31b72b27983a06f1cc24b4256e99e83c}{conn\_list}};\ \ \textcolor{comment}{/*\ The\ connectdata\ members\ of\ the\ bundle\ */}}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ returns\ 1\ on\ error,\ 0\ is\ fine\ */}}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{conncache_8h_abf306eba71eccc038bc598277c7bf422}{Curl\_conncache\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}});}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{conncache_8h_a4b099b50e4232c69faa023dd25e96176}{Curl\_conncache\_destroy}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *connc);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ return\ the\ correct\ bundle,\ to\ a\ host\ or\ a\ proxy\ */}}
+\DoxyCodeLine{00091\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectbundle}{connectbundle}}\ *\mbox{\hyperlink{conncache_8h_ac418eea3245a3f836e7adeed802b9580}{Curl\_conncache\_find\_bundle}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *connc);}
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ returns\ number\ of\ connections\ currently\ held\ in\ the\ connection\ cache\ */}}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{conncache_8h_a558b7525a147680dfe1216e2c157799a}{Curl\_conncache\_size}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{conncache_8h_a1c53e03310a5aa9def84428fbea3e885}{Curl\_conncache\_return\_conn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn);}
+\DoxyCodeLine{00099\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{conncache_8h_ae7306da43c94a22ef02b787e2762aaeb}{Curl\_conncache\_add\_conn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}})\ \mbox{\hyperlink{curl__setup_8h_a4e0e2d9e1ee0f401844b5b6ff8338f82}{WARN\_UNUSED\_RESULT}};}
+\DoxyCodeLine{00100\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{conncache_8h_a90534b778a426e949dd3ebdb753119ed}{Curl\_conncache\_remove\_conn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}});}
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{conncache_8h_a67733b30eaf639829cda6cfedd672396}{Curl\_conncache\_foreach}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *connc,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *param,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ (*func)(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *param));}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *}
+\DoxyCodeLine{00111\ \mbox{\hyperlink{conncache_8h_ab6f5f1e093d6c3ec3ee59b19a0198ec2}{Curl\_conncache\_find\_first\_connection}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *connc);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *}
+\DoxyCodeLine{00114\ \mbox{\hyperlink{conncache_8h_afda88bd125cafd94121aedffb337ee00}{Curl\_conncache\_extract\_bundle}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectbundle}{connectbundle}}\ *\mbox{\hyperlink{structconnectdata_a2bb9cb7096c4799e15ed1b449c5c7f1b}{bundle}});}
+\DoxyCodeLine{00116\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconnectdata}{connectdata}}\ *}
+\DoxyCodeLine{00117\ \mbox{\hyperlink{conncache_8h_a4f870227d1fc8c89a51e8c6df51dfd5d}{Curl\_conncache\_extract\_oldest}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{conncache_8h_a97f883ab6dbffc5418ca83a001dd0a90}{Curl\_conncache\_close\_all\_connections}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *connc);}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{conncache_8h_a6d313307b813b49631680a374f1a69ea}{Curl\_conncache\_print}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconncache}{conncache}}\ *connc);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_CONNCACHE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,294 @@
+\doxysection{Beamage\+::IO\+::Bea\+Stream Class Reference}
+\hypertarget{classBeamage_1_1IO_1_1BeaStream}{}\label{classBeamage_1_1IO_1_1BeaStream}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+
+
+{\ttfamily \#include $<$Beamage\+Stream.\+h$>$}
+
+Inheritance diagram for Beamage\+::IO\+::Bea\+Stream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.120000cm]{classBeamage_1_1IO_1_1BeaStream}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{Bea\+Stream}} (QData\+Stream \texorpdfstring{$\ast$}{*}=nullptr)
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a06870f658c06b9fe043c33ce2b1556e5}{Bea\+Stream}} (std\+::shared\+\_\+ptr$<$ QData\+Stream $>$ \&\&)
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_afd4386f6a52392bf7f74d32705663ee5}{Bea\+Stream}} (QFile \texorpdfstring{$\ast$}{*})
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a5f73281aa1cfe8a25753ec47af59aef0}{Bea\+Stream}} (const std\+::string \&, uint64\+\_\+t=\mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\+\_\+\+INIT\+\_\+\+FLAGS\+::\+FILE\+\_\+\+INIT\+\_\+R}})
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0d808c4d8aa0ae15d277cfd3aeb54b9a}{\texorpdfstring{$\sim$}{\string~}\+Bea\+Stream}} ()
+\item 
+{\footnotesize template$<$typename T$>$ }\\void \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{set\+Factory}} (void)
+\item 
+QData\+Stream \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_af4b853e0104a68cf4fa0f3dc956ca9e0}{get\+Raw\+Stream}} (void)
+\item 
+virtual void \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ad783023198acd6345380e0999119bfb6}{parse\+Header}} (bool \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{set\+Factory}}=true)=0
+\item 
+{\footnotesize template$<$typename T$>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a3b0d05ca6e9470e23407842d9568a0ed}{build\+Object}} (void)
+\item 
+virtual void \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_aec608f344ac167e6f7597bd6061ee81a}{write}} (void)=0
+\item 
+bool \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ab8a1791d0c1c36968156d603dd0e92c1}{is\+Writable}} (void)
+\item 
+bool \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7}{is\+Readable}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::map$<$ std\+::size\+\_\+t, void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee}{static\+Allocation\+Stack}} = std\+::map$<$std\+::size\+\_\+t, void\texorpdfstring{$\ast$}{*}$>$()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory}} $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}{\+\_\+factory}}
+\item 
+std\+::shared\+\_\+ptr$<$ QData\+Stream $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\+\_\+\+QStream}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} class definition.
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} implemented to wrap around QData\+Stream (or other \doxylink{namespaceBeamage_1_1IO}{IO} feature) is an interface to write custom Stream to handle different format and type and read them generically using the same base interface. 
+
+\label{doc-constructors}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!BeaStream@{BeaStream}}
+\index{BeaStream@{BeaStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{BeaStream()}{BeaStream()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893} 
+Bea\+Stream\+::\+Bea\+Stream (\begin{DoxyParamCaption}\item[{QData\+Stream \texorpdfstring{$\ast$}{*}}]{stream}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} constructor to build a \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} from a QData\+Stream pointer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw} & pointer to a QData\+Stream \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a06870f658c06b9fe043c33ce2b1556e5}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!BeaStream@{BeaStream}}
+\index{BeaStream@{BeaStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{BeaStream()}{BeaStream()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a06870f658c06b9fe043c33ce2b1556e5} 
+Bea\+Stream\+::\+Bea\+Stream (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ QData\+Stream $>$ \&\&}]{ptr}{}\end{DoxyParamCaption})}
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} constructor to build a \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} from a reference of a reference QData\+Stream shared\+\_\+ptr (aka\+: move operation of a shared\+\_\+ptr of a QData\+Stream).
+
+
+\begin{DoxyParams}{Parameters}
+{\em move} & operation shared\+\_\+ptr of a QData\+Stream \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_afd4386f6a52392bf7f74d32705663ee5}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!BeaStream@{BeaStream}}
+\index{BeaStream@{BeaStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{BeaStream()}{BeaStream()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_afd4386f6a52392bf7f74d32705663ee5} 
+Bea\+Stream\+::\+Bea\+Stream (\begin{DoxyParamCaption}\item[{QFile \texorpdfstring{$\ast$}{*}}]{file}{}\end{DoxyParamCaption})}
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} constructor to build a \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} from a raw pointer of a QFile.
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw} & pointer to a QFile \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a5f73281aa1cfe8a25753ec47af59aef0}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!BeaStream@{BeaStream}}
+\index{BeaStream@{BeaStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{BeaStream()}{BeaStream()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a5f73281aa1cfe8a25753ec47af59aef0} 
+Bea\+Stream\+::\+Bea\+Stream (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path}{, }\item[{uint64\+\_\+t}]{flags}{ = {\ttfamily \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\+\_\+\+INIT\+\_\+\+FLAGS\+::\+FILE\+\_\+\+INIT\+\_\+R}}}}\end{DoxyParamCaption})}
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} constructor to build a \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} from file path and file open flags.
+
+Allocated files from this functions will be stored until removal of current object in the static allocation stack (\doxylink{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee}{Bea\+Stream\+::static\+Allocation\+Stack}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em constant} & std\+::string reference path to a file \\
+\hline
+{\em unsigned} & int64 corresponding to an entry of \doxylink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80ed}{FILE\+\_\+\+INIT\+\_\+\+FLAGS} enum (list of flag to define the way to open the file) defaulting to \doxylink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\+\_\+\+INIT\+\_\+\+FLAGS\+::\+FILE\+\_\+\+INIT\+\_\+R} (1) \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80ed}{FILE\+\_\+\+INIT\+\_\+\+FLAGS} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a0d808c4d8aa0ae15d277cfd3aeb54b9a}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!````~BeaStream@{\texorpdfstring{$\sim$}{\string~}BeaStream}}
+\index{````~BeaStream@{\texorpdfstring{$\sim$}{\string~}BeaStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}BeaStream()}{\string~BeaStream()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a0d808c4d8aa0ae15d277cfd3aeb54b9a} 
+Bea\+Stream\+::\texorpdfstring{$\sim$}{\string~}\+Bea\+Stream (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} destructor, to destroy allocated memory and opened file descriptor (\+\_\+factory, \+\_\+\+QStream, QFile\texorpdfstring{$\ast$}{*} in static allocation stack used to get trace of file allocated at \doxylink{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee}{Bea\+Stream\+::static\+Allocation\+Stack}). 
+
+\label{doc-func-members}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a3b0d05ca6e9470e23407842d9568a0ed}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!buildObject@{buildObject}}
+\index{buildObject@{buildObject}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{buildObject()}{buildObject()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a3b0d05ca6e9470e23407842d9568a0ed} 
+template$<$typename T$>$ \\
+std\+::shared\+\_\+ptr$<$ T $>$ Beamage\+::\+IO\+::\+Bea\+Stream\+::build\+Object (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+build\+Object template function from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this function is used to genericaly build using template an object it forward its call to \+\_\+factory\+::build$<$\+T$>$() and handle error cases such as stream readability.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T,the} & type to be built by the factory \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory_a8932c79709eb015cd251e5206323acf5}{IStream\+Factory\+::build()} 
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7}{is\+Readable()} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+a built object from template $<$\+T$>$ as a shared pointer 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_af4b853e0104a68cf4fa0f3dc956ca9e0}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!getRawStream@{getRawStream}}
+\index{getRawStream@{getRawStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{getRawStream()}{getRawStream()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_af4b853e0104a68cf4fa0f3dc956ca9e0} 
+QData\+Stream \texorpdfstring{$\ast$}{*} Bea\+Stream\+::get\+Raw\+Stream (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+function get\+Raw\+Stream from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface
+
+This function is used to get the raw Stream (for instance QData\+Stream) used to read datas from.
+
+\begin{DoxyReturn}{Returns}
+raw pointer to a QData\+Stream used by the program to read datas. 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!isReadable@{isReadable}}
+\index{isReadable@{isReadable}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{isReadable()}{isReadable()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7} 
+bool Bea\+Stream\+::is\+Readable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+is\+Readable function from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this function is used to check if the \+\_\+\+QStream is readable, is open has error, and overall is valid.
+
+\begin{DoxyReturn}{Returns}
+a bool true if the Stream is ready to read else false. 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_ab8a1791d0c1c36968156d603dd0e92c1}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!isWritable@{isWritable}}
+\index{isWritable@{isWritable}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{isWritable()}{isWritable()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_ab8a1791d0c1c36968156d603dd0e92c1} 
+bool Bea\+Stream\+::is\+Writable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+is\+Writable function from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this function is used to check if the \+\_\+\+QStream is writable, is open has error, and overall is valid.
+
+\begin{DoxyReturn}{Returns}
+a bool true if the Stream is ready to write else false. 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_ad783023198acd6345380e0999119bfb6}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!parseHeader@{parseHeader}}
+\index{parseHeader@{parseHeader}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{parseHeader()}{parseHeader()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_ad783023198acd6345380e0999119bfb6} 
+virtual void Beamage\+::\+IO\+::\+Bea\+Stream\+::parse\+Header (\begin{DoxyParamCaption}\item[{bool}]{set\+Factory}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+full virtual parse\+Header function from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this function is used to generically parse header of the format to be read by the program (if possible) and set the factory accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em bool} & set\+Factory defaulting to define if the function while or not set the factory from the read data (if possible) \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classBeamage_1_1IO_1_1BDEStream_1_1BdeBeaStream_a589441258ddfd15d9dd4cb8ed085f3fe}{Beamage\+::\+IO\+::\+BDEStream\+::\+Bde\+Bea\+Stream}}, \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_a3bae403fe6a260a00f1d45aba6931e2b}{Beamage\+::\+IO\+::\+DAFStream\+::\+Daf\+Bea\+Stream}}, \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a2e900202c3e8533d06b9d9ba99bfd9da}{Beamage\+::\+IO\+::\+DAFStream\+::\+DAFHeader}}, and \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a79e51bf76dfcebadd2f089b90c33d91c}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat}}.
+
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!setFactory@{setFactory}}
+\index{setFactory@{setFactory}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{setFactory()}{setFactory()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6} 
+template$<$typename T$>$ \\
+void Beamage\+::\+IO\+::\+Bea\+Stream\+::set\+Factory (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+template function set\+Factory from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+This function is used to dynamically build and set a new factory in \+\_\+factory (unique\+\_\+ptr of the interface factory class) from the type given as a template.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T,the} & type used to build the new factory. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+IStream\+Factory() 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_aec608f344ac167e6f7597bd6061ee81a}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!write@{write}}
+\index{write@{write}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_aec608f344ac167e6f7597bd6061ee81a} 
+virtual void Beamage\+::\+IO\+::\+Bea\+Stream\+::write (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classBeamage_1_1IO_1_1BDEStream_1_1BdeBeaStream_a4273939208bb73add1da4554a79db299}{Beamage\+::\+IO\+::\+BDEStream\+::\+Bde\+Bea\+Stream}}, \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DafBeaStream_ad3f17d85c914bccbcbba30e08d6c9800}{Beamage\+::\+IO\+::\+DAFStream\+::\+Daf\+Bea\+Stream}}, \mbox{\hyperlink{classBeamage_1_1IO_1_1DAFStream_1_1DAFHeader_a372006b834a0394196134eeaaee54612}{Beamage\+::\+IO\+::\+DAFStream\+::\+DAFHeader}}, and \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab8a2b18971067adcdc050f6296a5b639}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!\_factory@{\_factory}}
+\index{\_factory@{\_factory}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{\_factory}{\_factory}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589} 
+std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory}}$>$ Beamage\+::\+IO\+::\+Bea\+Stream\+::\+\_\+factory\hspace{0.3cm}{\ttfamily [protected]}}
+
+\+\_\+factory protected attribute from \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this attribute store the factory (a unique\+\_\+ptr of the interface \doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory}) that will then be used to build different types (usefull for versionning).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!\_QStream@{\_QStream}}
+\index{\_QStream@{\_QStream}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{\_QStream}{\_QStream}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72} 
+std\+::shared\+\_\+ptr$<$QData\+Stream$>$ Beamage\+::\+IO\+::\+Bea\+Stream\+::\+\_\+\+QStream\hspace{0.3cm}{\ttfamily [protected]}}
+
+\+\_\+\+QStream protected attribute from \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this attribute store the stream (a shared\+\_\+ptr of a QData\+Stream) that will then be used to read/write datas from/to.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee}\index{Beamage::IO::BeaStream@{Beamage::IO::BeaStream}!staticAllocationStack@{staticAllocationStack}}
+\index{staticAllocationStack@{staticAllocationStack}!Beamage::IO::BeaStream@{Beamage::IO::BeaStream}}
+\doxysubsubsection{\texorpdfstring{staticAllocationStack}{staticAllocationStack}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee} 
+std\+::map$<$ std\+::size\+\_\+t, void \texorpdfstring{$\ast$}{*} $>$ Bea\+Stream\+::static\+Allocation\+Stack = std\+::map$<$std\+::size\+\_\+t, void\texorpdfstring{$\ast$}{*}$>$()\hspace{0.3cm}{\ttfamily [static]}}
+
+static\+Allocation\+Stack static attribute from \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this static attribute store temporarely until current object destruction allocated QFile \texorpdfstring{$\ast$}{*} to be destroy.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1BeaStream_a5f73281aa1cfe8a25753ec47af59aef0}{Bea\+Stream(const std\+::string \&, uint64\+\_\+t)} 
+
+\doxylink{classBeamage_1_1IO_1_1BeaStream_a0d808c4d8aa0ae15d277cfd3aeb54b9a}{\texorpdfstring{$\sim$}{\string~}\+Bea\+Stream()} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Beamage\+Stream/\mbox{\hyperlink{BeamageStream_8h}{Beamage\+Stream.\+h}}\item 
+Beamage\+Stream/\mbox{\hyperlink{stream_8cpp}{stream.\+cpp}}\end{DoxyCompactItemize}

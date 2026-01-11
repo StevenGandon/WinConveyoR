@@ -1,0 +1,38 @@
+\chapter{Version Numbers and Releases }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2VERSIONS}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2VERSIONS}\index{Version Numbers and Releases@{Version Numbers and Releases}}
+Curl is not only curl. Curl is also libcurl. They are actually individually versioned, but they usually follow each other closely.
+
+The version numbering is always built up using the same system\+: \begin{DoxyVerb}   X.Y.Z
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item X is main version number
+\item Y is release number
+\item Z is patch number
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2VERSIONS_autotoc_md1923}{}\doxysection{\texorpdfstring{Bumping numbers}{Bumping numbers}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2VERSIONS_autotoc_md1923}
+One of these numbers will get bumped in each new release. The numbers to the right of a bumped number will be reset to zero.
+
+The main version number will get bumped when {\itshape really} big, world colliding changes are made. The release number is bumped when changes are performed or things/features are added. The patch number is bumped when the changes are mere bugfixes.
+
+It means that after release 1.\+2.\+3, we can release 2.\+0.\+0 if something really big has been made, 1.\+3.\+0 if not that big changes were made or 1.\+2.\+4 if only bugs were fixed.
+
+Bumping, as in increasing the number with 1, is unconditionally only affecting one of the numbers (except the ones to the right of it, that may be set to zero). 1 becomes 2, 3 becomes 4, 9 becomes 10, 88 becomes 89 and 99 becomes 100. So, after 1.\+2.\+9 comes 1.\+2.\+10. After 3.\+99.\+3, 3.\+100.\+0 might come.
+
+All original curl source release archives are named according to the libcurl version (not according to the curl client version that, as said before, might differ).
+
+As a service to any application that might want to support new libcurl features while still being able to build with older versions, all releases have the libcurl version stored in the {\ttfamily \doxylink{curlver_8h}{curl/curlver.\+h}} file using a static numbering scheme that can be used for comparison. The version number is defined as\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ LIBCURL\_VERSION\_NUM\ 0xXXYYZZ}}
+
+\end{DoxyCode}
+
+
+Where {\ttfamily XX}, {\ttfamily YY} and {\ttfamily ZZ} are the main version, release and patch numbers in hexadecimal. All three number fields are always represented using two digits (eight bits each). 1.\+2 would appear as "{}0x010200"{} while version 9.\+11.\+7 appears as {\ttfamily 0x090b07}.
+
+This 6-\/digit hexadecimal number is always a greater number in a more recent release. It makes comparisons with greater than and less than work.
+
+This number is also available as three separate defines\+: {\ttfamily \doxylink{curlver_8h_aab6d7bae480f300f66158427a74d0e3b}{LIBCURL\+\_\+\+VERSION\+\_\+\+MAJOR}}, {\ttfamily \doxylink{curlver_8h_ab9b4ee2929f8c723475cff2d85f55113}{LIBCURL\+\_\+\+VERSION\+\_\+\+MINOR}} and {\ttfamily \doxylink{curlver_8h_a0324754d001c031f4c09b3f4f25aa4c7}{LIBCURL\+\_\+\+VERSION\+\_\+\+PATCH}}. 

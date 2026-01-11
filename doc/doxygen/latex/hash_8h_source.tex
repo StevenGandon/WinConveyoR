@@ -1,0 +1,86 @@
+\doxysection{hash.\+h}
+\hypertarget{hash_8h_source}{}\label{hash_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/hash.h@{lib/libwconr/build/\_deps/curl-\/src/lib/hash.h}}
+\mbox{\hyperlink{hash_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HASH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HASH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{llist_8h}{llist.h}}"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*\ Hash\ function\ prototype\ */}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ size\_t\ (*\mbox{\hyperlink{hash_8h_a8fee071af259cc30552b2b66e1ab2775}{hash\_function}})\ (\textcolor{keywordtype}{void}\ *key,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ key\_length,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slots\_num);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ Comparator\ function\ prototype.\ Compares\ two\ keys.}}
+\DoxyCodeLine{00040\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ size\_t\ (*\mbox{\hyperlink{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}{comp\_function}})\ (\textcolor{keywordtype}{void}\ *key1,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ key1\_len,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *key2,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ key2\_len);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{hash_8h_a299db325dd772cab4f31de553158b3f4}{Curl\_hash\_dtor}})(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ \{}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist}{Curl\_llist}}\ *\mbox{\hyperlink{structCurl__hash_aaadfeafae8f9183322077e7183a709a2}{table}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{/*\ Hash\ function\ to\ be\ used\ for\ this\ hash\ table\ */}}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{hash_8h_a8fee071af259cc30552b2b66e1ab2775}{hash\_function}}\ \mbox{\hyperlink{structCurl__hash_abfdae1d69bb5de677579b01601301b07}{hash\_func}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{/*\ Comparator\ function\ to\ compare\ keys\ */}}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}{comp\_function}}\ \mbox{\hyperlink{structCurl__hash_a09fe93891b11ed04c5d8e117a0e8726c}{comp\_func}};}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{hash_8h_a299db325dd772cab4f31de553158b3f4}{Curl\_hash\_dtor}}\ \ \ \mbox{\hyperlink{structCurl__hash_afa8e3d9147a367ed6e01691b2ca4e3f5}{dtor}};}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__hash_af7f062d37dcc6e70a0b8ed0ce0ae1a20}{slots}};}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structCurl__hash_adfecb78ebe28dbddae2f48bde3b5daad}{size}};}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash__element}{Curl\_hash\_element}}\ \{}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist__element}{Curl\_llist\_element}}\ \mbox{\hyperlink{structCurl__hash__element_a330e5c884bd9c795aa434883fde7700e}{list}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ \ \ *\mbox{\hyperlink{structCurl__hash__element_a950e893566620862be5754c99d149eb4}{ptr}};}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structCurl__hash__element_a36d3e6a04bf4a291686aa11678f79e8b}{key\_len}};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{char}\ \ \ \mbox{\hyperlink{structCurl__hash__element_ab0fa68d15961c8632bc3cfcc58368ff4}{key}}[1];\ \textcolor{comment}{/*\ allocated\ memory\ following\ the\ struct\ */}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash__iterator}{Curl\_hash\_iterator}}\ \{}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{structCurl__hash__iterator_a838700eb8c09b2f73c8e00d92b6e741c}{hash}};}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__hash__iterator_a8759941afceb3c21ad92cbd05c064af7}{slot\_index}};}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist__element}{Curl\_llist\_element}}\ *\mbox{\hyperlink{structCurl__hash__iterator_a9755e04e3ce81f8c17561eca1d5b7d1d}{current\_element}};}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_a545ab1c8787eb47ddba5d855702d4a69}{Curl\_hash\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ slots,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hash_8h_a8fee071af259cc30552b2b66e1ab2775}{hash\_function}}\ hfunc,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hash_8h_a89c8d3cef756bdee0f6064d0a8850ab4}{comp\_function}}\ comparator,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hash_8h_a299db325dd772cab4f31de553158b3f4}{Curl\_hash\_dtor}}\ dtor);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hash_8h_a296b1e32a88e2d58fffd185b26706096}{Curl\_hash\_add}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len,\ \textcolor{keywordtype}{void}\ *p);}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hash_8h_a53978a45b737418c5bfbf65eff82f80d}{Curl\_hash\_delete}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len);}
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hash_8h_a5f52c69f189a254cb0541206e055a4a3}{Curl\_hash\_pick}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *,\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len);}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_a70b2a90f6d6b36d98cb0e2def9cfd1c4}{Curl\_hash\_apply}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keywordtype}{void}\ *user,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ (*cb)(\textcolor{keywordtype}{void}\ *user,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structCurl__llist__element_ac0f80c4f1fb15379f31462e7144ef29d}{ptr}}));}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ Curl\_hash\_count(h)\ ((h)-\/>size)}}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_a07ad677141beb0399d091c5e1fc837ae}{Curl\_hash\_destroy}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}});}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_a0bed31b2a06577ab2d76d133f428a52a}{Curl\_hash\_clean}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}});}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_a67daba7a71eeb0aa082368bfb7f0f353}{Curl\_hash\_clean\_with\_criterium}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},\ \textcolor{keywordtype}{void}\ *user,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ (*comp)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{hash_8h_ad03fbf647c1fe1cdd72ccc7a131ce680}{Curl\_hash\_str}}(\textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_length,\ \textcolor{keywordtype}{size\_t}\ slots\_num);}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{hash_8h_ab260dae4821964f2ea9816ca48939ac8}{Curl\_str\_key\_compare}}(\textcolor{keywordtype}{void}\ *k1,\ \textcolor{keywordtype}{size\_t}\ key1\_len,\ \textcolor{keywordtype}{void}\ *k2,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ key2\_len);}
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_a3072783301855bbc063ef880bceda0b6}{Curl\_hash\_start\_iterate}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *hash,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash__iterator}{Curl\_hash\_iterator}}\ *iter);}
+\DoxyCodeLine{00095\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__hash__element}{Curl\_hash\_element}}\ *}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{hash_8h_acca036350d801a57d0c8299dcb14a8f3}{Curl\_hash\_next\_element}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash__iterator}{Curl\_hash\_iterator}}\ *iter);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hash_8h_abbec77430063eea3e9b9a1d45eb9c5e6}{Curl\_hash\_print}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__hash}{Curl\_hash}}\ *\mbox{\hyperlink{rate_8d_ae05cc7b83e2f80e0a990719b59fe9f01}{h}},}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ (*func)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HASH\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

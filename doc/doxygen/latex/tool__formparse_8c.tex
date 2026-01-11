@@ -1,0 +1,184 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+formparse.c File Reference}
+\hypertarget{tool__formparse_8c}{}\label{tool__formparse_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_formparse.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_formparse.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+binmode.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+getparam.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+paramhlp.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+formparse.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__formparse_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__formparse_8c_a96875cc972b50de646b02ec6231ccf02}{SET\+\_\+\+TOOL\+\_\+\+MIME\+\_\+\+PTR}}(\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}},  field)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__formparse_8c_ab7ff99dacda2896db1c632a872a7e5ca}{tool\+\_\+mime\+\_\+new}} (struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}parent, \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44ea}{toolmimekind}} kind)
+\item 
+static struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__formparse_8c_a1a1462377b9abf9e09d7e3a728444819}{tool\+\_\+mime\+\_\+new\+\_\+parts}} (struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}parent)
+\item 
+static struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__formparse_8c_a6102f907722dd09bb5e57da8e64dc6fc}{tool\+\_\+mime\+\_\+new\+\_\+data}} (struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}parent, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__formparse_8c_a536ef0b5e889d7b20aadb2d894c2aa2d}{tool\+\_\+mime\+\_\+new\+\_\+filedata}} (struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}parent, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} isremotefile, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \texorpdfstring{$\ast$}{*}errcode)
+\item 
+void \mbox{\hyperlink{tool__formparse_8c_a67a49315d48a5649e9769d4b2b101620}{tool\+\_\+mime\+\_\+free}} (struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}mime)
+\item 
+size\+\_\+t \mbox{\hyperlink{tool__formparse_8c_ac65a5ca8fc6968f8a5c18942a930c6c7}{tool\+\_\+mime\+\_\+stdin\+\_\+read}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nitems, void \texorpdfstring{$\ast$}{*}arg)
+\item 
+int \mbox{\hyperlink{tool__formparse_8c_a7ba46cbdfbf04911684dc8b41d4d842e}{tool\+\_\+mime\+\_\+stdin\+\_\+seek}} (void \texorpdfstring{$\ast$}{*}instream, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} offset, int whence)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__formparse_8c_a5915cfd694efb0c0b1c013449bb2fbd5}{tool2curlparts}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}}, \mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}mime)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__formparse_8c_a2edc04f2af623fd08fee6249687a3164}{tool2curlmime}} (\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}}, struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}}, \mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mime)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tool__formparse_8c_a9548cc592935ffe9f39a89f161f92cd9}{get\+\_\+param\+\_\+word}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}end\+\_\+pos, char endchar)
+\item 
+static int \mbox{\hyperlink{tool__formparse_8c_a8de1d22570882490a2264dba3892b9ad}{slist\+\_\+append}} (struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}plist, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static int \mbox{\hyperlink{tool__formparse_8c_a92a8d48977261c68a69c6207bb4388ad}{read\+\_\+field\+\_\+headers}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}}, FILE \texorpdfstring{$\ast$}{*}fp, struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pheaders)
+\item 
+static int \mbox{\hyperlink{tool__formparse_8c_ac996e3884fa00f2607f6ca05f08fec54}{get\+\_\+param\+\_\+part}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, char endchar, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pdata, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ptype, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pfilename, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pencoder, struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pheaders)
+\item 
+int \mbox{\hyperlink{tool__formparse_8c_afe4683cb17b527e0638a05cba4cb0876}{formparse}} (struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}config, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structinput}{input}}, struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mimeroot, struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mimecurrent, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} literal\+\_\+value)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__formparse_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__formparse_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_formparse.c@{tool\_formparse.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__formparse_8c_a96875cc972b50de646b02ec6231ccf02}\index{tool\_formparse.c@{tool\_formparse.c}!SET\_TOOL\_MIME\_PTR@{SET\_TOOL\_MIME\_PTR}}
+\index{SET\_TOOL\_MIME\_PTR@{SET\_TOOL\_MIME\_PTR}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{SET\_TOOL\_MIME\_PTR}{SET\_TOOL\_MIME\_PTR}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a96875cc972b50de646b02ec6231ccf02} 
+\#define SET\+\_\+\+TOOL\+\_\+\+MIME\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}}}{, }\item[{}]{field}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(field)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ (\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}})-\/>field\ =\ \mbox{\hyperlink{curl__memory_8h_aa3f578f8f1eaebf25b2e2313db31cb40}{strdup}}(field);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ if(!(\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}})-\/>field)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ \mbox{\hyperlink{fail-early_8d_ab08f0b7515b254c676ac0dd8f2198448}{fail}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\doxylink{tool__formparse_8c_afe4683cb17b527e0638a05cba4cb0876}{formparse()}
+
+Reads a \textquotesingle{}name=value\textquotesingle{} parameter and builds the appropriate linked list.
+
+If the value is of the form \textquotesingle{}\texorpdfstring{$<$}{<}filename\textquotesingle{}, field data is read from the given file.
+
+Specify files to upload with \textquotesingle{}name=@filename\textquotesingle{}, or \textquotesingle{}name="{}filename"{}\textquotesingle{} in case the filename contain \textquotesingle{},\textquotesingle{} or \textquotesingle{};\textquotesingle{}. Supports specified given Content-\/\+Type of the files. Such as \textquotesingle{};type=$<$content-\/type$>$\textquotesingle{}.  \+If literal\+\_\+value is set, any initial \textquotesingle{}@\textquotesingle{} or \textquotesingle{}$<$\textquotesingle{} in the value string loses its special meaning, as does any embedded \textquotesingle{};type=\textquotesingle{}.  \+You may specify more than one file for a single name (field). Specify multiple files by writing it like\+:  \textquotesingle{}name=@filename,filename2,filename3\textquotesingle{}  or use double-\/quotes quote the filename\+:  \textquotesingle{}name=@"{}filename"{},"{}filename2"{},"{}filename3"{}\textquotesingle{}  \+If you want content-\/types specified for each too, write them like\+:  \textquotesingle{}name=@filename;type=image/gif,filename2,filename3\textquotesingle{}  \+If you want custom headers added for a single part, write them in a separate file and do like this\+:  \textquotesingle{}name=foo;headers= not \textquotesingle{}name=@filemame;headers=  \+To upload a file, but to fake the file name that will be included in the formpost, do like this\+:  \textquotesingle{}name=@filename;filename=/dev/null\textquotesingle{} or quote the faked filename like\+: \textquotesingle{}name=@filename;filename="{}play, play, and play.\+txt"{}\textquotesingle{}  \+If filename/path contains \textquotesingle{},\textquotesingle{} or \textquotesingle{};\textquotesingle{}, it must be quoted by double-\/quotes, else curl will fail to figure out the correct filename. if the filename tobe quoted contains \textquotesingle{}"{}\textquotesingle{} or \textquotesingle{}\textbackslash{}\textquotesingle{}, \textquotesingle{}"{}\textquotesingle{} and \textquotesingle{}\textbackslash{}\textquotesingle{} must be escaped by backslash. 
+
+\label{doc-func-members}
+\Hypertarget{tool__formparse_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__formparse_8c_afe4683cb17b527e0638a05cba4cb0876}\index{tool\_formparse.c@{tool\_formparse.c}!formparse@{formparse}}
+\index{formparse@{formparse}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{formparse()}{formparse()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_afe4683cb17b527e0638a05cba4cb0876} 
+int formparse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{input}{, }\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mimeroot}{, }\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mimecurrent}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{literal\+\_\+value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__formparse_8c_ac996e3884fa00f2607f6ca05f08fec54}\index{tool\_formparse.c@{tool\_formparse.c}!get\_param\_part@{get\_param\_part}}
+\index{get\_param\_part@{get\_param\_part}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{get\_param\_part()}{get\_param\_part()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_ac996e3884fa00f2607f6ca05f08fec54} 
+int get\+\_\+param\+\_\+part (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{char}]{endchar}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{str}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pdata}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{ptype}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pfilename}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pencoder}{, }\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pheaders}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a9548cc592935ffe9f39a89f161f92cd9}\index{tool\_formparse.c@{tool\_formparse.c}!get\_param\_word@{get\_param\_word}}
+\index{get\_param\_word@{get\_param\_word}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{get\_param\_word()}{get\_param\_word()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a9548cc592935ffe9f39a89f161f92cd9} 
+char \texorpdfstring{$\ast$}{*} get\+\_\+param\+\_\+word (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{str}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{end\+\_\+pos}{, }\item[{char}]{endchar}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a92a8d48977261c68a69c6207bb4388ad}\index{tool\_formparse.c@{tool\_formparse.c}!read\_field\_headers@{read\_field\_headers}}
+\index{read\_field\_headers@{read\_field\_headers}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{read\_field\_headers()}{read\_field\_headers()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a92a8d48977261c68a69c6207bb4388ad} 
+int read\+\_\+field\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structOperationConfig}{Operation\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{fp}{, }\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pheaders}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a8de1d22570882490a2264dba3892b9ad}\index{tool\_formparse.c@{tool\_formparse.c}!slist\_append@{slist\_append}}
+\index{slist\_append@{slist\_append}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{slist\_append()}{slist\_append()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a8de1d22570882490a2264dba3892b9ad} 
+int slist\+\_\+append (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{plist}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a2edc04f2af623fd08fee6249687a3164}\index{tool\_formparse.c@{tool\_formparse.c}!tool2curlmime@{tool2curlmime}}
+\index{tool2curlmime@{tool2curlmime}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool2curlmime()}{tool2curlmime()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a2edc04f2af623fd08fee6249687a3164} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool2curlmime (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{m}{, }\item[{\mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mime}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__formparse_8c_a5915cfd694efb0c0b1c013449bb2fbd5}\index{tool\_formparse.c@{tool\_formparse.c}!tool2curlparts@{tool2curlparts}}
+\index{tool2curlparts@{tool2curlparts}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool2curlparts()}{tool2curlparts()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a5915cfd694efb0c0b1c013449bb2fbd5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} tool2curlparts (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*}}]{curl}{, }\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{m}{, }\item[{\mbox{\hyperlink{structcurl__mime}{curl\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{mime}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a67a49315d48a5649e9769d4b2b101620}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_free@{tool\_mime\_free}}
+\index{tool\_mime\_free@{tool\_mime\_free}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_free()}{tool\_mime\_free()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a67a49315d48a5649e9769d4b2b101620} 
+void tool\+\_\+mime\+\_\+free (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{mime}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__formparse_8c_ab7ff99dacda2896db1c632a872a7e5ca}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_new@{tool\_mime\_new}}
+\index{tool\_mime\_new@{tool\_mime\_new}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_new()}{tool\_mime\_new()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_ab7ff99dacda2896db1c632a872a7e5ca} 
+struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} tool\+\_\+mime\+\_\+new (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{parent}{, }\item[{\mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44ea}{toolmimekind}}}]{kind}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a6102f907722dd09bb5e57da8e64dc6fc}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_new\_data@{tool\_mime\_new\_data}}
+\index{tool\_mime\_new\_data@{tool\_mime\_new\_data}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_new\_data()}{tool\_mime\_new\_data()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a6102f907722dd09bb5e57da8e64dc6fc} 
+struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} tool\+\_\+mime\+\_\+new\+\_\+data (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{parent}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a536ef0b5e889d7b20aadb2d894c2aa2d}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_new\_filedata@{tool\_mime\_new\_filedata}}
+\index{tool\_mime\_new\_filedata@{tool\_mime\_new\_filedata}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_new\_filedata()}{tool\_mime\_new\_filedata()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a536ef0b5e889d7b20aadb2d894c2aa2d} 
+struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} tool\+\_\+mime\+\_\+new\+\_\+filedata (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{parent}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{isremotefile}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \texorpdfstring{$\ast$}{*}}]{errcode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_a1a1462377b9abf9e09d7e3a728444819}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_new\_parts@{tool\_mime\_new\_parts}}
+\index{tool\_mime\_new\_parts@{tool\_mime\_new\_parts}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_new\_parts()}{tool\_mime\_new\_parts()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a1a1462377b9abf9e09d7e3a728444819} 
+struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*} tool\+\_\+mime\+\_\+new\+\_\+parts (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structtool__mime}{tool\+\_\+mime}} \texorpdfstring{$\ast$}{*}}]{parent}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__formparse_8c_ac65a5ca8fc6968f8a5c18942a930c6c7}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_stdin\_read@{tool\_mime\_stdin\_read}}
+\index{tool\_mime\_stdin\_read@{tool\_mime\_stdin\_read}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_stdin\_read()}{tool\_mime\_stdin\_read()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_ac65a5ca8fc6968f8a5c18942a930c6c7} 
+size\+\_\+t tool\+\_\+mime\+\_\+stdin\+\_\+read (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nitems}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__formparse_8c_a7ba46cbdfbf04911684dc8b41d4d842e}\index{tool\_formparse.c@{tool\_formparse.c}!tool\_mime\_stdin\_seek@{tool\_mime\_stdin\_seek}}
+\index{tool\_mime\_stdin\_seek@{tool\_mime\_stdin\_seek}!tool\_formparse.c@{tool\_formparse.c}}
+\doxysubsubsection{\texorpdfstring{tool\_mime\_stdin\_seek()}{tool\_mime\_stdin\_seek()}}
+{\footnotesize\ttfamily \label{tool__formparse_8c_a7ba46cbdfbf04911684dc8b41d4d842e} 
+int tool\+\_\+mime\+\_\+stdin\+\_\+seek (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{instream}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{offset}{, }\item[{int}]{whence}{}\end{DoxyParamCaption})}
+

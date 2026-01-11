@@ -1,0 +1,30 @@
+\doxysection{tool\+\_\+cb\+\_\+see.\+h}
+\hypertarget{tool__cb__see_8h_source}{}\label{tool__cb__see_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cb\_see.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cb\_see.h}}
+\mbox{\hyperlink{tool__cb__see_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_CB\_SEE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_CB\_SEE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ defined(WIN32)\ \&\&\ !defined(HAVE\_FTRUNCATE)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{int}\ tool\_ftruncate64(\textcolor{keywordtype}{int}\ fd,\ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ where);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#undef\ \ ftruncate}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ ftruncate(fd,where)\ tool\_ftruncate64(fd,where)}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ HAVE\_FTRUNCATE\ 1}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ USE\_TOOL\_FTRUNCATE\ 1}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WIN32\ \ \&\&\ !\ HAVE\_FTRUNCATE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{**\ callback\ for\ CURLOPT\_SEEKFUNCTION}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tool__cb__see_8h_a072967c10a515943189411af030ed675}{tool\_seek\_cb}}(\textcolor{keywordtype}{void}\ *userdata,\ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ offset,\ \textcolor{keywordtype}{int}\ whence);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_CB\_SEE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

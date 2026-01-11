@@ -1,0 +1,57 @@
+\doxysection{tool\+\_\+formparse.\+h}
+\hypertarget{tool__formparse_8h_source}{}\label{tool__formparse_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_formparse.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_formparse.h}}
+\mbox{\hyperlink{tool__formparse_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_FORMPARSE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_FORMPARSE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ Private\ structure\ for\ mime/parts.\ */}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaad7fb67f665472612a7e1708113287e0e}{TOOLMIME\_NONE}}\ =\ 0,}
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaad16721d86f4ce6a7d127649365e925a4}{TOOLMIME\_PARTS}},}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaa9c211673ba6c8f822c2fc5211089dc4c}{TOOLMIME\_DATA}},}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaa6db05fc0ece62c5fd6fb5370fae3c210}{TOOLMIME\_FILE}},}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaaa5128123860caf336427b0d9dcf1c896}{TOOLMIME\_FILEDATA}},}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaaf99c0d0dc0cd5987821876a5fdde6995}{TOOLMIME\_STDIN}},}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44eaa1ee324d553b9f90b0c53433c2f080374}{TOOLMIME\_STDINDATA}}}
+\DoxyCodeLine{00038\ \}\ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44ea}{toolmimekind}};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtool__mime}{tool\_mime}}\ \{}
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{/*\ Structural\ fields.\ */}}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{tool__formparse_8h_a2d8dee104cdb1280b64edea58e3f44ea}{toolmimekind}}\ \mbox{\hyperlink{structtool__mime_a4c33138eb5883eeca58081bd07f43a92}{kind}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part\ kind.\ */}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *\mbox{\hyperlink{structtool__mime_a31df0c2e6f2d89be50a67c849f6fdace}{parent}};\ \ \ \ \ \textcolor{comment}{/*\ Parent\ item.\ */}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *\mbox{\hyperlink{structtool__mime_a576e38915e4a4774071bb570db80f48b}{prev}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Previous\ sibling\ (reverse\ order\ link).\ */}}
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{/*\ Common\ fields.\ */}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structtool__mime_ab55a21e00e04b476c20d4190f64b1e6a}{data}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Actual\ data\ or\ data\ filename.\ */}}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structtool__mime_aa7a583cdfe8d272d33b58fa2b46d5e8e}{name}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part\ name.\ */}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structtool__mime_a4529228ebd9992a0224101e5db41c496}{filename}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part's\ filename.\ */}}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structtool__mime_aeef516d1d353b686799dc35bdaf10046}{type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part's\ mime\ type.\ */}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structtool__mime_a2872ce52622051fcabe832985224de5b}{encoder}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part's\ requested\ encoding.\ */}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structtool__mime_a9d45648a7f580e13d9c85a5cd197eb29}{headers}};\ \ \ \textcolor{comment}{/*\ User-\/defined\ headers.\ */}}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{/*\ TOOLMIME\_PARTS\ fields.\ */}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *\mbox{\hyperlink{structtool__mime_abd43757249485a0d0611d2d97499cccd}{subparts}};\ \ \ \textcolor{comment}{/*\ Part's\ subparts.\ */}}
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{/*\ TOOLMIME\_STDIN/TOOLMIME\_STDINDATA\ fields.\ */}}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structtool__mime_a0ae25ff6ee4c2e9094221644f0275b4b}{origin}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Stdin\ read\ origin\ offset.\ */}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structtool__mime_a029be0cce624f5ce254b9b0cf7e51949}{size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Stdin\ data\ size.\ */}}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structtool__mime_ab5becb2f438123bd7bab074cd16514c8}{curpos}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Stdin\ current\ read\ position.\ */}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGlobalConfig}{GlobalConfig}}\ *\mbox{\hyperlink{structtool__mime_aedf748adbaf2c49d4c03a2d0cd361e50}{config}};\ \ \textcolor{comment}{/*\ For\ access\ from\ callback.\ */}}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{tool__formparse_8h_ac65a5ca8fc6968f8a5c18942a930c6c7}{tool\_mime\_stdin\_read}}(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},\ \textcolor{keywordtype}{size\_t}\ nitems,\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tool__formparse_8h_a7ba46cbdfbf04911684dc8b41d4d842e}{tool\_mime\_stdin\_seek}}(\textcolor{keywordtype}{void}\ *instream,\ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ offset,\ \textcolor{keywordtype}{int}\ whence);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tool__formparse_8h_afe4683cb17b527e0638a05cba4cb0876}{formparse}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *config,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structinput}{input}},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structtool__mime}{tool\_mime}}\ **mimeroot,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structtool__mime}{tool\_mime}}\ **mimecurrent,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ literal\_value);}
+\DoxyCodeLine{00070\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{tool__formparse_8h_a2edc04f2af623fd08fee6249687a3164}{tool2curlmime}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *\mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}},\ \mbox{\hyperlink{structcurl__mime}{curl\_mime}}\ **mime);}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tool__formparse_8h_a67a49315d48a5649e9769d4b2b101620}{tool\_mime\_free}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *mime);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_FORMPARSE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

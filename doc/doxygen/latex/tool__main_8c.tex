@@ -1,0 +1,107 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/src/tool\+\_\+main.c File Reference}
+\hypertarget{tool__main_8c}{}\label{tool__main_8c}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_main.c@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_main.c}}
+{\ttfamily \#include "{}tool\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include "{}curlx.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+cfgable.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+doswin.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+msgs.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+operate.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+panykey.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+vms.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+main.\+h"{}}\newline
+{\ttfamily \#include "{}tool\+\_\+libinfo.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tool__main_8c_a4858ee8b549f158fb5eb37dc7dad537e}{ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}}
+\item 
+\#define \mbox{\hyperlink{tool__main_8c_a484d26feb0a779369f4e2cf5ffda1dff}{main\+\_\+checkfds}}()
+\item 
+\#define \mbox{\hyperlink{tool__main_8c_ae051997ddc6a31d1719cf63a716d98de}{memory\+\_\+tracking\+\_\+init}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{tool__main_8c_a807cc68bfc3d6cf4b8aa614ac095ddb9}{main\+\_\+init}} (struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+static void \mbox{\hyperlink{tool__main_8c_acb50cbe1b374c5bf140ea670be3c6e86}{free\+\_\+globalconfig}} (struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+static void \mbox{\hyperlink{tool__main_8c_ab94dedf4bfd57d43891a6ec1e2186d80}{main\+\_\+free}} (struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+int \mbox{\hyperlink{tool__main_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tool__main_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tool__main_8c_a4858ee8b549f158fb5eb37dc7dad537e}\index{tool\_main.c@{tool\_main.c}!ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}}
+\index{ENABLE\_CURLX\_PRINTF@{ENABLE\_CURLX\_PRINTF}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_CURLX\_PRINTF}{ENABLE\_CURLX\_PRINTF}}
+{\footnotesize\ttfamily \label{tool__main_8c_a4858ee8b549f158fb5eb37dc7dad537e} 
+\#define ENABLE\+\_\+\+CURLX\+\_\+\+PRINTF}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{tool__main_8c_a484d26feb0a779369f4e2cf5ffda1dff}\index{tool\_main.c@{tool\_main.c}!main\_checkfds@{main\_checkfds}}
+\index{main\_checkfds@{main\_checkfds}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{main\_checkfds}{main\_checkfds}}
+{\footnotesize\ttfamily \label{tool__main_8c_a484d26feb0a779369f4e2cf5ffda1dff} 
+\#define main\+\_\+checkfds(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{0}
+
+\end{DoxyCode}
+\Hypertarget{tool__main_8c_ae051997ddc6a31d1719cf63a716d98de}\index{tool\_main.c@{tool\_main.c}!memory\_tracking\_init@{memory\_tracking\_init}}
+\index{memory\_tracking\_init@{memory\_tracking\_init}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{memory\_tracking\_init}{memory\_tracking\_init}}
+{\footnotesize\ttfamily \label{tool__main_8c_ae051997ddc6a31d1719cf63a716d98de} 
+\#define memory\+\_\+tracking\+\_\+init(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{tool__main_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tool__main_8c_acb50cbe1b374c5bf140ea670be3c6e86}\index{tool\_main.c@{tool\_main.c}!free\_globalconfig@{free\_globalconfig}}
+\index{free\_globalconfig@{free\_globalconfig}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{free\_globalconfig()}{free\_globalconfig()}}
+{\footnotesize\ttfamily \label{tool__main_8c_acb50cbe1b374c5bf140ea670be3c6e86} 
+void free\+\_\+globalconfig (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__main_8c_a0ddf1224851353fc92bfbff6f499fa97}\index{tool\_main.c@{tool\_main.c}!main@{main}}
+\index{main@{main}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{tool__main_8c_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+\Hypertarget{tool__main_8c_ab94dedf4bfd57d43891a6ec1e2186d80}\index{tool\_main.c@{tool\_main.c}!main\_free@{main\_free}}
+\index{main\_free@{main\_free}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{main\_free()}{main\_free()}}
+{\footnotesize\ttfamily \label{tool__main_8c_ab94dedf4bfd57d43891a6ec1e2186d80} 
+void main\+\_\+free (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tool__main_8c_a807cc68bfc3d6cf4b8aa614ac095ddb9}\index{tool\_main.c@{tool\_main.c}!main\_init@{main\_init}}
+\index{main\_init@{main\_init}!tool\_main.c@{tool\_main.c}}
+\doxysubsubsection{\texorpdfstring{main\_init()}{main\_init()}}
+{\footnotesize\ttfamily \label{tool__main_8c_a807cc68bfc3d6cf4b8aa614ac095ddb9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} main\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structGlobalConfig}{Global\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

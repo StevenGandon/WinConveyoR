@@ -1,0 +1,67 @@
+\doxysection{websockets.\+h}
+\hypertarget{websockets_8h_source}{}\label{websockets_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/include/curl/websockets.h@{lib/libwconr/build/\_deps/curl-\/src/include/curl/websockets.h}}
+\mbox{\hyperlink{websockets_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CURLINC\_WEBSOCKETS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CURLINC\_WEBSOCKETS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__ws__frame}{curl\_ws\_frame}}\ \{}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcurl__ws__frame_a8aa38db589389f9ead421e0caebbb2ea}{age}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ zero\ */}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcurl__ws__frame_a0f416a2da9864ad5c62fd611eba44ec8}{flags}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ See\ the\ CURLWS\_*\ defines\ */}}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structcurl__ws__frame_a87384403b6044852d697c964953afd13}{offset}};\ \ \ \ \textcolor{comment}{/*\ the\ offset\ of\ this\ data\ into\ the\ frame\ */}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structcurl__ws__frame_a65da96e005a5894c0d01a3e6b598c48d}{bytesleft}};\ \textcolor{comment}{/*\ number\ of\ pending\ bytes\ left\ of\ the\ payload\ */}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ flag\ bits\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ CURLWS\_TEXT\ \ \ \ \ \ \ (1<<0)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ CURLWS\_BINARY\ \ \ \ \ (1<<1)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ CURLWS\_CONT\ \ \ \ \ \ \ (1<<2)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ CURLWS\_CLOSE\ \ \ \ \ \ (1<<3)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ CURLWS\_PING\ \ \ \ \ \ \ (1<<4)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ CURLWS\_OFFSET\ \ \ \ \ (1<<5)}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ NAME\ curl\_ws\_recv()}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ DESCRIPTION}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ Receives\ data\ from\ the\ websocket\ connection.\ Use\ after\ successful}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ curl\_easy\_perform()\ with\ CURLOPT\_CONNECT\_ONLY\ option.}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00054\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{websockets_8h_ac3fe2d0f36634203a5e683310c11bf7f}{curl\_ws\_recv}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}},\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ buflen,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *recv,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__ws__frame}{curl\_ws\_frame}}\ **metap);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ sendflags\ for\ curl\_ws\_send()\ */}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ CURLWS\_PONG\ \ \ \ \ \ \ (1<<6)}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ NAME\ curl\_easy\_send()}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ DESCRIPTION}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ Sends\ data\ over\ the\ websocket\ connection.\ Use\ after\ successful}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ curl\_easy\_perform()\ with\ CURLOPT\_CONNECT\_ONLY\ option.}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00069\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{websockets_8h_a359a451c130bfa870a25d5c539a64ca7}{curl\_ws\_send}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ buflen,\ \textcolor{keywordtype}{size\_t}\ *sent,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ framesize,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sendflags);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ bits\ for\ the\ CURLOPT\_WS\_OPTIONS\ bitmask:\ */}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ CURLWS\_RAW\_MODE\ (1<<0)}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \mbox{\hyperlink{curl_8h_a3adb15f21a822fbf7e879d3b78474490}{CURL\_EXTERN}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__ws__frame}{curl\_ws\_frame}}\ *\mbox{\hyperlink{websockets_8h_a61188d64101b265df09dcdcb0b458a04}{curl\_ws\_meta}}(\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}}\ *\mbox{\hyperlink{sessioninfo_8c_a6a59594ba3469ec6a1d56f6631e275e0}{curl}});}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURLINC\_WEBSOCKETS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

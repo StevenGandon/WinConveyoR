@@ -1,0 +1,28 @@
+var classdafReader =
+[
+    [ "dafReader", "classdafReader.html#a0099611a67ed13dc2faa1b84f95c0e35", null ],
+    [ "~dafReader", "classdafReader.html#a6cb3776896a0624cfef75cdd67e47bdc", null ],
+    [ "close", "classdafReader.html#a3317e991193dd2bb06068c5bc6e41321", null ],
+    [ "currentfilename", "classdafReader.html#afebdc1006d82248011de550b04412380", null ],
+    [ "currentPos", "classdafReader.html#ae2fa0ddb9badd8a75da750226a336811", null ],
+    [ "filesfound", "classdafReader.html#a6da005415e87663c8769dec8a4eb8a5e", null ],
+    [ "getFilename", "classdafReader.html#a97233d35d99e57ca0cd6f08f3e76546b", null ],
+    [ "goodFile", "classdafReader.html#a02042316863ba28e381c2dc56ddc742b", null ],
+    [ "headerContent", "classdafReader.html#a72ee29334f39c368298e477cc655f01a", null ],
+    [ "jumpTo", "classdafReader.html#a80742c37bd3c0ffcc7ece49aa344ed6d", null ],
+    [ "length", "classdafReader.html#a329d3fd6710ec6519984ec502c5e756c", null ],
+    [ "nFiles", "classdafReader.html#a3237de645b0977aca9de77dcce4d2d83", null ],
+    [ "openFile", "classdafReader.html#ac68e92193be8e17fcb78cf70891cde68", null ],
+    [ "openFile", "classdafReader.html#a037a4244423cb08adbdf0de4e2736f7f", null ],
+    [ "openMainFile", "classdafReader.html#ac9408c844c733375df210f371e50ca12", null ],
+    [ "openNextFile", "classdafReader.html#a4dd350343178aecccf03900bc0a2489a", null ],
+    [ "readEvent", "classdafReader.html#ae123f6421f900895f44581a235f4f727", null ],
+    [ "readEvents", "classdafReader.html#adaab470ace8d604e5192967288c772d9", null ],
+    [ "readHeader", "classdafReader.html#a10969497f7679891b26d8a7833ec35de", null ],
+    [ "rewind", "classdafReader.html#a7d98dd439b40dd132173fd789da0a268", null ],
+    [ "setEntryList", "classdafReader.html#a7fa652674ca97f574cffc8388363f177", null ],
+    [ "setFilename", "classdafReader.html#ae4392da5cfd538700252678405320500", null ],
+    [ "evOut", "classdafReader.html#a06d40d32a59d5d5a8b97fdba8a2d7cfb", null ],
+    [ "evOuts", "classdafReader.html#a1e4d6b01716bcf45031be09adf74ccab", null ],
+    [ "head", "classdafReader.html#a84970e9dbfbee59de58bcebf7b3ea89b", null ]
+];

@@ -1,0 +1,32 @@
+\doxysection{QCPMargin\+Group Class Reference}
+\hypertarget{classQCPMarginGroup}{}\label{classQCPMarginGroup}\index{QCPMarginGroup@{QCPMarginGroup}}
+
+
+A margin group allows synchronization of margin sides if working with multiple layout elements.  
+
+
+
+
+\doxysubsection{Detailed Description}
+A margin group allows synchronization of margin sides if working with multiple layout elements. 
+
+\doxylink{classQCPMarginGroup}{QCPMargin\+Group} allows you to tie a margin side of two or more layout elements together, such that they will all have the same size, based on the largest required margin in the group.
+
+~\newline
+ ~\newline
+ In certain situations it is desirable that margins at specific sides are synchronized across layout elements. For example, if one \doxylink{classQCPAxisRect}{QCPAxis\+Rect} is below another one in a grid layout, it will provide a cleaner look to the user if the left and right margins of the two axis rects are of the same size. The left axis of the top axis rect will then be at the same horizontal position as the left axis of the lower axis rect, making them appear aligned. The same applies for the right axes. This is what \doxylink{classQCPMarginGroup}{QCPMargin\+Group} makes possible.
+
+To add/remove a specific side of a layout element to/from a margin group, use the QCPLayout\+Element\+::set\+Margin\+Group method. To completely break apart the margin group, either call clear, or just delete the margin group.\hypertarget{classQCPMarginGroup_QCPMarginGroup-example}{}\doxysubsection{\texorpdfstring{Example}{Example}}\label{classQCPMarginGroup_QCPMarginGroup-example}
+First create a margin group\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ Then set this group on the layout element sides\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ Here, we\textquotesingle{}ve used the first two axis rects of the plot and synchronized their left margins with each other and their right margins with each other. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

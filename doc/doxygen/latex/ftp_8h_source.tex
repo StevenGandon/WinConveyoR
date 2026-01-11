@@ -1,0 +1,143 @@
+\doxysection{ftp.\+h}
+\hypertarget{ftp_8h_source}{}\label{ftp_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/ftp.h@{lib/libwconr/build/\_deps/curl-\/src/lib/ftp.h}}
+\mbox{\hyperlink{ftp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_FTP\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_FTP\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pingpong_8h}{pingpong.h}}"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifndef\ CURL\_DISABLE\_FTP}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ \mbox{\hyperlink{ftp_8c_a79071fb30b2abfa423a252245cbc6190}{Curl\_handler\_ftp}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ USE\_SSL}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ Curl\_handler\_ftps;}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{ftp_8h_aedf86bc294699c5ed5b6a77fac3e5801}{Curl\_GetFTPResponse}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\_t}}\ *nread,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *ftpcode);}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CURL\_DISABLE\_FTP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab728995e08add6b7411b0c347b973b42}{FTP\_STOP}},\ \ \ \ \textcolor{comment}{/*\ do\ nothing\ state,\ stops\ the\ state\ machine\ */}}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65abae6a623835e4269b257ff21bcb79ed0}{FTP\_WAIT220}},\ \textcolor{comment}{/*\ waiting\ for\ the\ initial\ 220\ response\ immediately\ after}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ connect\ */}}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2bd11bd4d07b54cfbeb51199eaf998d9}{FTP\_AUTH}},}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a95518daa497390189c61aa83c8a1e88a}{FTP\_USER}},}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca6266a872be15f938cdbbfb3848fc83}{FTP\_PASS}},}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a93a65808449e2f199c573d6c71aaca8b}{FTP\_ACCT}},}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa5bab60813f0dee8060cc00dadf070d9}{FTP\_PBSZ}},}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a41b778c2aeab0dd5779fe00bd47fd383}{FTP\_PROT}},}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a84a7ed5d4f674a884524357db49c890d}{FTP\_CCC}},}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aca379f22e83e32b84e6ae13c8e2ec021}{FTP\_PWD}},}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a18b677d0252c2519d54ad5e65476eff0}{FTP\_SYST}},}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a424cb619b42ed94ebefe203d045abc99}{FTP\_NAMEFMT}},}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1fdf8f9a38a07300052b2c9a49659fd2}{FTP\_QUOTE}},\ \textcolor{comment}{/*\ waiting\ for\ a\ response\ to\ a\ command\ sent\ in\ a\ quote\ list\ */}}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a436e55df5f5834180e78cefa2e95bc29}{FTP\_RETR\_PREQUOTE}},}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab73fcc31ca43404e66b393f314ed3c15}{FTP\_STOR\_PREQUOTE}},}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac15dd7cd691c70046eb44ed87668587b}{FTP\_POSTQUOTE}},}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a3630e79d997c97b4eb91c87c67bb477f}{FTP\_CWD}},\ \ \textcolor{comment}{/*\ change\ dir\ */}}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a8115a39494ea1a40fd0e2d9e51b61b92}{FTP\_MKD}},\ \ \textcolor{comment}{/*\ if\ the\ dir\ didn't\ exist\ */}}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a27602c6b9eaa7f0ce5fbb45493180e49}{FTP\_MDTM}},\ \textcolor{comment}{/*\ to\ figure\ out\ the\ datestamp\ */}}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2706bd50f04c829f62a30ee886e67ed0}{FTP\_TYPE}},\ \textcolor{comment}{/*\ to\ set\ type\ when\ doing\ a\ head-\/like\ request\ */}}
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a65afd49b1baa6e1a4915c85f372a64eb}{FTP\_LIST\_TYPE}},\ \textcolor{comment}{/*\ set\ type\ when\ about\ to\ do\ a\ dir\ list\ */}}
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1d39a52adb8e2162b2c56dcaf0943c80}{FTP\_RETR\_TYPE}},\ \textcolor{comment}{/*\ set\ type\ when\ about\ to\ RETR\ a\ file\ */}}
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65aa6233d6e045100c7beda9fb549430f28}{FTP\_STOR\_TYPE}},\ \textcolor{comment}{/*\ set\ type\ when\ about\ to\ STOR\ a\ file\ */}}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b38c28089de4d15ded4a7a16ac28a87}{FTP\_SIZE}},\ \textcolor{comment}{/*\ get\ the\ remote\ file's\ size\ for\ head-\/like\ request\ */}}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af08a45f6d43a3e58495131fb582ff1c0}{FTP\_RETR\_SIZE}},\ \textcolor{comment}{/*\ get\ the\ remote\ file's\ size\ for\ RETR\ */}}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a2b3b874197ce162d8f012723a7184004}{FTP\_STOR\_SIZE}},\ \textcolor{comment}{/*\ get\ the\ size\ for\ STOR\ */}}
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a9dfb8cf86d141a0b4dd611d19069d127}{FTP\_REST}},\ \textcolor{comment}{/*\ when\ used\ to\ check\ if\ the\ server\ supports\ it\ in\ head-\/like\ */}}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a0d9d6b2c221700c4479d9c4aab0192f8}{FTP\_RETR\_REST}},\ \textcolor{comment}{/*\ when\ asking\ for\ "{}resume"{}\ in\ for\ RETR\ */}}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ad8fbe74a695b640f4c917d49696c1b90}{FTP\_PORT}},\ \textcolor{comment}{/*\ generic\ state\ for\ PORT,\ LPRT\ and\ EPRT,\ check\ count1\ */}}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a1e32e2a175bcdb45625a04ebcfea1d7f}{FTP\_PRET}},\ \textcolor{comment}{/*\ generic\ state\ for\ PRET\ RETR,\ PRET\ STOR\ and\ PRET\ LIST/NLST\ */}}
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ac50fb126afa10cf6754b070caa0485e3}{FTP\_PASV}},\ \textcolor{comment}{/*\ generic\ state\ for\ PASV\ and\ EPSV,\ check\ count1\ */}}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a45792e6cafc2628e4bef7a25035acd4d}{FTP\_LIST}},\ \textcolor{comment}{/*\ generic\ state\ for\ LIST,\ NLST\ or\ a\ custom\ list\ command\ */}}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ace331d2993199828afd6f0a348483f91}{FTP\_RETR}},}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65ab1ccd7c5223945586470ddac912f5659}{FTP\_STOR}},\ \textcolor{comment}{/*\ generic\ state\ for\ STOR\ and\ APPE\ */}}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65a5a431b48a039b3f3125648f79ac77057}{FTP\_QUIT}},}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65af173018902b58a189d485550a0f6fe33}{FTP\_LAST}}\ \ \textcolor{comment}{/*\ never\ used\ */}}
+\DoxyCodeLine{00083\ \}\ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structftp__parselist__data}{ftp\_parselist\_data}};\ \textcolor{comment}{/*\ defined\ later\ in\ ftplistparser.c\ */}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structftp__wc}{ftp\_wc}}\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structftp__parselist__data}{ftp\_parselist\_data}}\ *\mbox{\hyperlink{structftp__wc_a8ddded70d25f4fe26ec10ccd0b7f568e}{parser}};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{curl_8h_ad65e62dcde45b356254b0f25f38dd802}{curl\_write\_callback}}\ \mbox{\hyperlink{structftp__wc_ae73ce67e5c2a18aaff021770934adee6}{write\_function}};}
+\DoxyCodeLine{00092\ \ \ \ \ FILE\ *\mbox{\hyperlink{structftp__wc_a99acb1d843e05a88ae7974cab659375a}{file\_descriptor}};}
+\DoxyCodeLine{00093\ \ \ \}\ \mbox{\hyperlink{structftp__wc_a314271d4560ea29555d3a410e3407cb8}{backup}};}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a99eba1414ed72de04dca8f1914a90b9a}{FTPFILE\_MULTICWD}}\ \ =\ 1,\ \textcolor{comment}{/*\ as\ defined\ by\ RFC1738\ */}}
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955af40087a98668a23d7e6167d675c37ce8}{FTPFILE\_NOCWD}}\ \ \ \ \ =\ 2,\ \textcolor{comment}{/*\ use\ SIZE\ /\ RETR\ /\ STOR\ on\ the\ full\ path\ */}}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955a6797c5e57b04b63f4f8bab20bbac89f3}{FTPFILE\_SINGLECWD}}\ =\ 3\ \ \textcolor{comment}{/*\ make\ one\ CWD,\ then\ SIZE\ /\ RETR\ /\ STOR\ on\ the}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ */}}
+\DoxyCodeLine{00101\ \}\ \mbox{\hyperlink{ftp_8h_ad68713f9a78b1d9e9eeec5ad478a3955}{curl\_ftpfile}};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{/*\ This\ FTP\ struct\ is\ used\ in\ the\ Curl\_easy.\ All\ FTP\ data\ that\ is}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ connection-\/oriented\ must\ be\ in\ FTP\_conn\ to\ properly\ deal\ with\ the\ fact\ that}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ perhaps\ the\ Curl\_easy\ is\ changed\ between\ the\ times\ the\ connection\ is}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ used.\ */}}
+\DoxyCodeLine{00107\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structFTP}{FTP}}\ \{}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFTP_a8f0c4898b604a9e3973d7568fc12edd1}{path}};\ \ \ \ \textcolor{comment}{/*\ points\ to\ the\ urlpieces\ struct\ field\ */}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structFTP_a8f277380bb8d9d1876c10acb36ca98d7}{pathalloc}};\ \textcolor{comment}{/*\ if\ non-\/NULL\ a\ pointer\ to\ an\ allocated\ path\ */}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{/*\ transfer\ a\ file/body\ or\ not,\ done\ as\ a\ typedefed\ enum\ just\ to\ make}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ debuggers\ display\ the\ full\ symbol\ and\ not\ just\ the\ numerical\ value\ */}}
+\DoxyCodeLine{00113\ \ \ \mbox{\hyperlink{pingpong_8h_aa1cf969282409b2cbdfb2beade8b652e}{curl\_pp\_transfer}}\ \mbox{\hyperlink{structFTP_ad671531094afd7ef812491f2f2e481ea}{transfer}};}
+\DoxyCodeLine{00114\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structFTP_a49cded0904da8573af538a74dff5f141}{downloadsize}};}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ ftp\_conn\ is\ used\ for\ struct\ connection-\/oriented\ data\ in\ the\ connectdata}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ struct\ */}}
+\DoxyCodeLine{00120\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structftp__conn}{ftp\_conn}}\ \{}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpingpong}{pingpong}}\ \mbox{\hyperlink{structftp__conn_ab98ebc40c5fa6a685da919de5b06a96f}{pp}};}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structftp__conn_aca1e36474c6b5ed4b9e998add6fd0ca4}{entrypath}};\ \textcolor{comment}{/*\ the\ PWD\ reply\ when\ we\ logged\ on\ */}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structftp__conn_a8c3cde6cac2101bcc33471a69ebf8998}{file}};\ \ \ \ \textcolor{comment}{/*\ url-\/decoded\ file\ name\ (or\ path)\ */}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{structftp__conn_a17df3aea99fb9a9af5128274354c4321}{dirs}};\ \ \ \textcolor{comment}{/*\ realloc()ed\ array\ for\ path\ components\ */}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structftp__conn_a008ec248827badcb60d8243e0b717120}{dirdepth}};\ \ \textcolor{comment}{/*\ number\ of\ entries\ used\ in\ the\ 'dirs'\ array\ */}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structftp__conn_a678c7789979434e2a2212b3177ed9eb8}{dont\_check}};\ \ \textcolor{comment}{/*\ Set\ to\ TRUE\ to\ prevent\ the\ final\ (post-\/transfer)}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ size\ and\ 226/250\ status\ check.\ It\ should\ still}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ read\ the\ line,\ just\ ignore\ the\ result.\ */}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structftp__conn_a65a81fe9976947ff339081c5f83077c0}{ctl\_valid}};\ \ \ \textcolor{comment}{/*\ Tells\ Curl\_ftp\_quit()\ whether\ or\ not\ to\ do\ anything.\ If}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ connection\ has\ timed\ out\ or\ been\ closed,\ this}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ should\ be\ FALSE\ when\ it\ gets\ to\ Curl\_ftp\_quit()\ */}}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structftp__conn_ae6de82dcc76af4ea97e828e326606561}{cwddone}};\ \ \ \ \ \textcolor{comment}{/*\ if\ it\ has\ been\ determined\ that\ the\ proper\ CWD\ combo}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ already\ has\ been\ done\ */}}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structftp__conn_ab70bbd41ddfe254007b5bca2680d8933}{cwdcount}};\ \ \ \ \ \textcolor{comment}{/*\ number\ of\ CWD\ commands\ issued\ */}}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structftp__conn_a5899ffca5f9760f9e0109f126d0167fd}{cwdfail}};\ \ \ \ \ \textcolor{comment}{/*\ set\ TRUE\ if\ a\ CWD\ command\ fails,\ as\ then\ we\ must\ prevent}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ caching\ the\ current\ directory\ */}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structftp__conn_a537292f9d1482a4a1dd44d3203e37fac}{wait\_data\_conn}};\ \textcolor{comment}{/*\ this\ is\ set\ TRUE\ if\ data\ connection\ is\ waited\ */}}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{/*\ newhost\ is\ the\ (allocated)\ IP\ addr\ or\ host\ name\ to\ connect\ the\ data}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ \ \ connection\ to\ */}}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structftp__conn_a52af6638576b3f069c72a23c3d531793}{newport}};}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structftp__conn_a80b9c9f3256802c0b61ac1f533c8411b}{newhost}};}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structftp__conn_a3963dc806ac74b8d6fae8005d06f7283}{prevpath}};\ \ \ \textcolor{comment}{/*\ url-\/decoded\ conn-\/>path\ from\ the\ previous\ transfer\ */}}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structftp__conn_ab0970f16c847f1cbf177ea0f31087612}{transfertype}};\ \textcolor{comment}{/*\ set\ by\ ftp\_transfertype\ for\ use\ by\ Curl\_client\_write()a}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ and\ others\ (A/I\ or\ zero)\ */}}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structftp__conn_a66569c61f61185dfcc2220f731eba91b}{count1}};\ \textcolor{comment}{/*\ general\ purpose\ counter\ for\ the\ state\ machine\ */}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structftp__conn_a203982dfa2c975ba4d9c20a0509eba48}{count2}};\ \textcolor{comment}{/*\ general\ purpose\ counter\ for\ the\ state\ machine\ */}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structftp__conn_a831bd86495d87bc074d9b94cdd5c3efc}{count3}};\ \textcolor{comment}{/*\ general\ purpose\ counter\ for\ the\ state\ machine\ */}}
+\DoxyCodeLine{00148\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}\ \mbox{\hyperlink{structftp__conn_a2068379f1421acf8658b1bb75bfd30de}{state}};\ \textcolor{comment}{/*\ always\ use\ ftp.c:state()\ to\ change\ state!\ */}}
+\DoxyCodeLine{00149\ \ \ \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}\ \mbox{\hyperlink{structftp__conn_afe0772034a72ef6799a141b877dcef0d}{state\_saved}};\ \textcolor{comment}{/*\ transfer\ type\ saved\ to\ be\ reloaded\ after}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\ connection\ is\ established\ */}}
+\DoxyCodeLine{00151\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structftp__conn_a2cf7ba1957a627d4c956c11df54a1602}{retr\_size\_saved}};\ \textcolor{comment}{/*\ Size\ of\ retrieved\ file\ saved\ */}}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structftp__conn_ae2660b015c55aec7c79f619b00ed8098}{server\_os}};\ \ \ \ \ \textcolor{comment}{/*\ The\ target\ server\ operating\ system.\ */}}
+\DoxyCodeLine{00153\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structftp__conn_aa54a94f33093241f936fc99510d2631a}{known\_filesize}};\ \textcolor{comment}{/*\ file\ size\ is\ different\ from\ -\/1,\ if\ wildcard}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LIST\ parsing\ was\ done\ and\ wc\_statemach\ set}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it\ */}}
+\DoxyCodeLine{00156\ \ \ \mbox{\hyperlink{structftp__conn_a76aebe6f2f9101c070f4556b158f806f}{BIT}}(ftp\_trying\_alternative);}
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ DEFAULT\_ACCEPT\_TIMEOUT\ \ \ 60000\ }\textcolor{comment}{/*\ milliseconds\ ==\ one\ minute\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_FTP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

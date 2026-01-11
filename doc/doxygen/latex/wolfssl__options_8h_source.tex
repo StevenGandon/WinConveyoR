@@ -1,0 +1,292 @@
+\doxysection{wolfssl\+\_\+options.\+h}
+\hypertarget{wolfssl__options_8h_source}{}\label{wolfssl__options_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/projects/wolfssl\_options.h@{lib/libwconr/build/\_deps/curl-\/src/projects/wolfssl\_options.h}}
+\mbox{\hyperlink{wolfssl__options_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00025\ \textcolor{comment}{By\ default\ wolfSSL\ has\ a\ very\ conservative\ configuration\ that\ can\ result\ in}}
+\DoxyCodeLine{00026\ \textcolor{comment}{connections\ to\ servers\ failing\ due\ to\ certificate\ or\ algorithm\ problems.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{To\ remedy\ this\ issue\ for\ libcurl\ I've\ generated\ this\ options\ file\ that}}
+\DoxyCodeLine{00028\ \textcolor{comment}{build-\/wolfssl\ will\ copy\ to\ the\ wolfSSL\ include\ directories\ and\ will\ result\ in}}
+\DoxyCodeLine{00029\ \textcolor{comment}{maximum\ compatibility.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{}}
+\DoxyCodeLine{00031\ \textcolor{comment}{These\ are\ the\ configure\ options\ that\ were\ used\ to\ build\ wolfSSL\ v5.1.1\ in}}
+\DoxyCodeLine{00032\ \textcolor{comment}{mingw\ and\ generate\ the\ options\ in\ this\ file:}}
+\DoxyCodeLine{00033\ \textcolor{comment}{}}
+\DoxyCodeLine{00034\ \textcolor{comment}{C\_EXTRA\_FLAGS="{}\(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ -\/Wno-\/attributes\ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ -\/Wno-\/unused-\/but-\/set-\/variable\ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ -\/DFP\_MAX\_BITS=16384\ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ -\/DHAVE\_SECRET\_CALLBACK\ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ -\/DTFM\_TIMING\_RESISTANT\ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ -\/DUSE\_WOLF\_STRTOK\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ -\/DWOLFSSL\_DES\_ECB\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ -\/DWOLFSSL\_STATIC\_DH\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ -\/DWOLFSSL\_STATIC\_RSA\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ "{}\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{comment}{./configure\ -\/-\/prefix=/usr/local\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ -\/-\/disable-\/jobserver\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ -\/-\/enable-\/aesgcm\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ -\/-\/enable-\/alpn\ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ -\/-\/enable-\/altcertchains\ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ -\/-\/enable-\/certgen\ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ -\/-\/enable-\/des3\ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ -\/-\/enable-\/dh\ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ -\/-\/enable-\/dsa\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ -\/-\/enable-\/ecc\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ -\/-\/enable-\/eccshamir\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ -\/-\/enable-\/fastmath\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ -\/-\/enable-\/opensslextra\ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ -\/-\/enable-\/ripemd\ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ -\/-\/enable-\/sessioncerts\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ -\/-\/enable-\/sha512\ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ -\/-\/enable-\/sni\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ -\/-\/enable-\/tlsv10\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ -\/-\/enable-\/supportedcurves\ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ -\/-\/enable-\/tls13\ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ -\/-\/enable-\/testcert\ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ >\ config.out\ 2>\&1}}
+\DoxyCodeLine{00067\ \textcolor{comment}{}}
+\DoxyCodeLine{00068\ \textcolor{comment}{Two\ generated\ options\ HAVE\_THREAD\_LS\ and\ \_POSIX\_THREADS\ were\ removed\ since\ they}}
+\DoxyCodeLine{00069\ \textcolor{comment}{are\ inapplicable\ for\ our\ Visual\ Studio\ build.\ Currently\ thread\ local\ storage\ is}}
+\DoxyCodeLine{00070\ \textcolor{comment}{only\ used\ by\ the\ Fixed\ Point\ cache\ ECC\ which\ we're\ not\ enabling.\ However\ even}}
+\DoxyCodeLine{00071\ \textcolor{comment}{if\ we\ later\ may\ decide\ to\ enable\ the\ cache\ it\ will\ fallback\ on\ mutexes\ when}}
+\DoxyCodeLine{00072\ \textcolor{comment}{thread\ local\ storage\ is\ not\ available.\ wolfSSL\ is\ using\ \_\_declspec(thread)\ to}}
+\DoxyCodeLine{00073\ \textcolor{comment}{create\ the\ thread\ local\ storage\ and\ that\ could\ be\ a\ problem\ for\ LoadLibrary.}}
+\DoxyCodeLine{00074\ \textcolor{comment}{}}
+\DoxyCodeLine{00075\ \textcolor{comment}{Regarding\ the\ options\ that\ were\ added\ via\ C\_EXTRA\_FLAGS:}}
+\DoxyCodeLine{00076\ \textcolor{comment}{}}
+\DoxyCodeLine{00077\ \textcolor{comment}{FP\_MAX\_BITS=16384}}
+\DoxyCodeLine{00078\ \textcolor{comment}{https://www.yassl.com/forums/topic423-\/cacertorgs-\/ca-\/cert-\/verify-\/failed-\/but-\/withdisablefastmath-\/it-\/works.html}}
+\DoxyCodeLine{00079\ \textcolor{comment}{"{}Since\ root.crt\ uses\ a\ 4096-\/bit\ RSA\ key,\ you'll\ need\ to\ increase\ the\ fastmath}}
+\DoxyCodeLine{00080\ \textcolor{comment}{buffer\ size.\ \ You\ can\ do\ this\ using\ the\ define:}}
+\DoxyCodeLine{00081\ \textcolor{comment}{FP\_MAX\_BITS\ and\ setting\ it\ to\ 8192."{}}}
+\DoxyCodeLine{00082\ \textcolor{comment}{}}
+\DoxyCodeLine{00083\ \textcolor{comment}{HAVE\_SECRET\_CALLBACK}}
+\DoxyCodeLine{00084\ \textcolor{comment}{Build\ wolfSSL\ with\ wolfSSL\_set\_tls13\_secret\_cb\ which\ allows\ saving\ TLS\ 1.3}}
+\DoxyCodeLine{00085\ \textcolor{comment}{secrets\ to\ SSLKEYLOGFILE.}}
+\DoxyCodeLine{00086\ \textcolor{comment}{}}
+\DoxyCodeLine{00087\ \textcolor{comment}{TFM\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00088\ \textcolor{comment}{https://wolfssl.com/wolfSSL/Docs-\/wolfssl-\/manual-\/2-\/building-\/wolfssl.html}}
+\DoxyCodeLine{00089\ \textcolor{comment}{From\ section\ 2.4.5\ Increasing\ Performance,\ USE\_FAST\_MATH:}}
+\DoxyCodeLine{00090\ \textcolor{comment}{"{}Because\ the\ stack\ memory\ usage\ can\ be\ larger\ when\ using\ fastmath,\ we\ recommend}}
+\DoxyCodeLine{00091\ \textcolor{comment}{defining\ TFM\_TIMING\_RESISTANT\ as\ well\ when\ using\ this\ option."{}}}
+\DoxyCodeLine{00092\ \textcolor{comment}{}}
+\DoxyCodeLine{00093\ \textcolor{comment}{USE\_WOLF\_STRTOK}}
+\DoxyCodeLine{00094\ \textcolor{comment}{Build\ wolfSSL\ to\ always\ use\ its\ internal\ strtok\ instead\ of\ C\ runtime\ strtok.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{}}
+\DoxyCodeLine{00096\ \textcolor{comment}{WOLFSSL\_DES\_ECB}}
+\DoxyCodeLine{00097\ \textcolor{comment}{Build\ wolfSSL\ with\ wolfSSL\_DES\_ecb\_encrypt\ which\ is\ needed\ by\ libcurl\ for\ NTLM.}}
+\DoxyCodeLine{00098\ \textcolor{comment}{}}
+\DoxyCodeLine{00099\ \textcolor{comment}{WOLFSSL\_STATIC\_DH:\ \ \ \ Allow\ TLS\_ECDH\_\ ciphers}}
+\DoxyCodeLine{00100\ \textcolor{comment}{WOLFSSL\_STATIC\_RSA:\ \ \ Allow\ TLS\_RSA\_\ ciphers}}
+\DoxyCodeLine{00101\ \textcolor{comment}{https://github.com/wolfSSL/wolfssl/blob/v3.6.6/README.md\#note-\/1}}
+\DoxyCodeLine{00102\ \textcolor{comment}{Static\ key\ cipher\ suites\ are\ deprecated\ and\ disabled\ by\ default\ since\ v3.6.6.}}
+\DoxyCodeLine{00103\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*\ wolfssl\ options.h}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ generated\ from\ configure\ options}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2006-\/2022\ wolfSSL\ Inc.}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ wolfSSL.\ (formerly\ known\ as\ CyaSSL)}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#ifndef\ WOLFSSL\_OPTIONS\_H}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ WOLFSSL\_OPTIONS\_H}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00119\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#undef\ \ FP\_MAX\_BITS}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ FP\_MAX\_BITS\ 16384}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#undef\ \ HAVE\_SECRET\_CALLBACK}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ HAVE\_SECRET\_CALLBACK}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#undef\ \ TFM\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ TFM\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#undef\ \ USE\_WOLF\_STRTOK}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ USE\_WOLF\_STRTOK}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_DES\_ECB}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ WOLFSSL\_DES\_ECB}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_STATIC\_DH}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ WOLFSSL\_STATIC\_DH}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_STATIC\_RSA}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ WOLFSSL\_STATIC\_RSA}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#undef\ \ TFM\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ TFM\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#undef\ \ ECC\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ ECC\_TIMING\_RESISTANT}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#undef\ \ WC\_RSA\_BLINDING}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ WC\_RSA\_BLINDING}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_USE\_ALIGN}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ WOLFSSL\_USE\_ALIGN}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_RIPEMD}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ WOLFSSL\_RIPEMD}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_SHA512}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ WOLFSSL\_SHA512}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_SHA384}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ WOLFSSL\_SHA384}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#undef\ \ SESSION\_CERTS}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ SESSION\_CERTS}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#undef\ \ HAVE\_HKDF}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ HAVE\_HKDF}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#undef\ \ HAVE\_ECC}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ HAVE\_ECC}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#undef\ \ TFM\_ECC256}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ TFM\_ECC256}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#undef\ \ ECC\_SHAMIR}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ ECC\_SHAMIR}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_ALLOW\_TLSV10}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ WOLFSSL\_ALLOW\_TLSV10}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#undef\ \ WC\_RSA\_PSS}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ WC\_RSA\_PSS}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#undef\ \ NO\_HC128}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ NO\_HC128}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#undef\ \ NO\_RABBIT}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ NO\_RABBIT}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#undef\ \ HAVE\_POLY1305}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ HAVE\_POLY1305}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#undef\ \ HAVE\_ONE\_TIME\_AUTH}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ HAVE\_ONE\_TIME\_AUTH}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#undef\ \ HAVE\_CHACHA}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ HAVE\_CHACHA}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#undef\ \ HAVE\_HASHDRBG}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ HAVE\_HASHDRBG}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#undef\ \ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#undef\ \ HAVE\_SNI}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ HAVE\_SNI}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#undef\ \ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#undef\ \ HAVE\_ALPN}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ HAVE\_ALPN}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#undef\ \ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#undef\ \ HAVE\_SUPPORTED\_CURVES}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ HAVE\_SUPPORTED\_CURVES}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#undef\ \ HAVE\_FFDHE\_2048}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ HAVE\_FFDHE\_2048}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#undef\ \ HAVE\_SUPPORTED\_CURVES}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ HAVE\_SUPPORTED\_CURVES}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_TLS13}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ WOLFSSL\_TLS13}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#undef\ \ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ HAVE\_TLS\_EXTENSIONS}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#undef\ \ HAVE\_EXTENDED\_MASTER}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ HAVE\_EXTENDED\_MASTER}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_ALT\_CERT\_CHAINS}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ WOLFSSL\_ALT\_CERT\_CHAINS}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_TEST\_CERT}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ WOLFSSL\_TEST\_CERT}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#undef\ \ NO\_RC4}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ NO\_RC4}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#undef\ \ HAVE\_ENCRYPT\_THEN\_MAC}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ HAVE\_ENCRYPT\_THEN\_MAC}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#undef\ \ NO\_PSK}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ NO\_PSK}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#undef\ \ NO\_MD4}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ NO\_MD4}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_ENCRYPTED\_KEYS}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ WOLFSSL\_ENCRYPTED\_KEYS}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#undef\ \ USE\_FAST\_MATH}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ USE\_FAST\_MATH}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#undef\ \ WC\_NO\_ASYNC\_THREADING}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ WC\_NO\_ASYNC\_THREADING}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#undef\ \ HAVE\_DH\_DEFAULT\_PARAMS}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ HAVE\_DH\_DEFAULT\_PARAMS}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_CERT\_GEN}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ WOLFSSL\_CERT\_GEN}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#undef\ \ OPENSSL\_EXTRA}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ OPENSSL\_EXTRA}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_ALWAYS\_VERIFY\_CB}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ WOLFSSL\_ALWAYS\_VERIFY\_CB}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_VERIFY\_CB\_ALL\_CERTS}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ WOLFSSL\_VERIFY\_CB\_ALL\_CERTS}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_EXTRA\_ALERTS}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ WOLFSSL\_EXTRA\_ALERTS}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#undef\ \ HAVE\_EXT\_CACHE}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ HAVE\_EXT\_CACHE}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_FORCE\_CACHE\_ON\_TICKET}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ WOLFSSL\_FORCE\_CACHE\_ON\_TICKET}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#undef\ \ WOLFSSL\_AKID\_NAME}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ WOLFSSL\_AKID\_NAME}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#undef\ \ HAVE\_CTS}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ HAVE\_CTS}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#undef\ \ GCM\_TABLE\_4BIT}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ GCM\_TABLE\_4BIT}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#undef\ \ HAVE\_AESGCM}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#define\ HAVE\_AESGCM}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#undef\ \ HAVE\_WC\_INTROSPECTION}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ HAVE\_WC\_INTROSPECTION}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00304\ \}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ WOLFSSL\_OPTIONS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

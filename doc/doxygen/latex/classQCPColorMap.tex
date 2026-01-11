@@ -1,0 +1,51 @@
+\doxysection{QCPColor\+Map Class Reference}
+\hypertarget{classQCPColorMap}{}\label{classQCPColorMap}\index{QCPColorMap@{QCPColorMap}}
+
+
+A plottable representing a two-\/dimensional color map in a plot.  
+
+
+
+
+\doxysubsection{Detailed Description}
+A plottable representing a two-\/dimensional color map in a plot. 
+
+
+
+The data is stored in the class \doxylink{classQCPColorMapData}{QCPColor\+Map\+Data}, which can be accessed via the data() method.
+
+A color map has three dimensions to represent a data point\+: The {\itshape key} dimension, the {\itshape value} dimension and the {\itshape data} dimension. As with other plottables such as graphs, {\itshape key} and {\itshape value} correspond to two orthogonal axes on the \doxylink{classQCustomPlot}{QCustom\+Plot} surface that you specify in the \doxylink{classQCPColorMap}{QCPColor\+Map} constructor. The {\itshape data} dimension however is encoded as the color of the point at ({\itshape key}, {\itshape value}).
+
+Set the number of points (or {\itshape cells}) in the key/value dimension via QCPColor\+Map\+Data\+::set\+Size. The plot coordinate range over which these points will be displayed is specified via QCPColor\+Map\+Data\+::set\+Range. The first cell will be centered on the lower range boundary and the last cell will be centered on the upper range boundary. The data can be set by either accessing the cells directly with QCPColor\+Map\+Data\+::set\+Cell or by addressing the cells via their plot coordinates with QCPColor\+Map\+Data\+::set\+Data. If possible, you should prefer set\+Cell, since it doesn\textquotesingle{}t need to do any coordinate transformation and thus performs a bit better.
+
+The cell with index (0, 0) is at the bottom left, if the color map uses normal (i.\+e. not reversed) key and value axes.
+
+To show the user which colors correspond to which {\itshape data} values, a \doxylink{classQCPColorScale}{QCPColor\+Scale} is typically placed to the right of the axis rect. See the documentation there for details on how to add and use a color scale.\hypertarget{classQCPColorMap_qcpcolormap-appearance}{}\doxysubsection{\texorpdfstring{Changing the appearance}{Changing the appearance}}\label{classQCPColorMap_qcpcolormap-appearance}
+The central part of the appearance is the color gradient, which can be specified via set\+Gradient. See the documentation of \doxylink{classQCPColorGradient}{QCPColor\+Gradient} for details on configuring a color gradient.
+
+The {\itshape data} range that is mapped to the colors of the gradient can be specified with set\+Data\+Range. To make the data range encompass the whole data set minimum to maximum, call rescale\+Data\+Range.\hypertarget{classQCPColorMap_qcpcolormap-transparency}{}\doxysubsection{\texorpdfstring{Transparency}{Transparency}}\label{classQCPColorMap_qcpcolormap-transparency}
+Transparency in color maps can be achieved by two mechanisms. On one hand, you can specify alpha values for color stops of the \doxylink{classQCPColorGradient}{QCPColor\+Gradient}, via the regular QColor interface. This will cause the color map data which gets mapped to colors around those color stops to appear with the accordingly interpolated transparency.
+
+On the other hand you can also directly apply an alpha value to each cell independent of its data, by using the alpha map feature of \doxylink{classQCPColorMapData}{QCPColor\+Map\+Data}. The relevant methods are QCPColor\+Map\+Data\+::set\+Alpha, QCPColor\+Map\+Data\+::fill\+Alpha and QCPColor\+Map\+Data\+::clear\+Alpha().
+
+The two transparencies will be joined together in the plot and otherwise not interfere with each other. They are mixed in a multiplicative matter, so an alpha of e.\+g. 50\% (128/255) in both modes simultaneously, will result in a total transparency of 25\% (64/255).\hypertarget{classQCPColorMap_qcpcolormap-usage}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{classQCPColorMap_qcpcolormap-usage}
+Like all data representing objects in \doxylink{classQCustomPlot}{QCustom\+Plot}, the \doxylink{classQCPColorMap}{QCPColor\+Map} is a plottable (\doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable}). So the plottable-\/interface of \doxylink{classQCustomPlot}{QCustom\+Plot} applies (QCustom\+Plot\+::plottable, QCustom\+Plot\+::remove\+Plottable, etc.)
+
+Usually, you first create an instance\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ which registers it with the \doxylink{classQCustomPlot}{QCustom\+Plot} instance of the passed axes. Note that this \doxylink{classQCustomPlot}{QCustom\+Plot} instance takes ownership of the plottable, so do not delete it manually but use QCustom\+Plot\+::remove\+Plottable() instead. The newly created plottable can be modified, e.\+g.\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+\begin{DoxyNote}{Note}
+The \doxylink{classQCPColorMap}{QCPColor\+Map} always displays the data at equal key/value intervals, even if the key or value axis is set to a logarithmic scaling. If you want to use \doxylink{classQCPColorMap}{QCPColor\+Map} with logarithmic axes, you shouldn\textquotesingle{}t use the QCPColor\+Map\+Data\+::set\+Data method as it uses a linear transformation to determine the cell index. Rather directly access the cell index with QCPColor\+Map\+Data\+::set\+Cell. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

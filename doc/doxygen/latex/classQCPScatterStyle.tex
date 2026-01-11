@@ -1,0 +1,44 @@
+\doxysection{QCPScatter\+Style Class Reference}
+\hypertarget{classQCPScatterStyle}{}\label{classQCPScatterStyle}\index{QCPScatterStyle@{QCPScatterStyle}}
+
+
+Represents the visual appearance of scatter points.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Represents the visual appearance of scatter points. 
+
+This class holds information about shape, color and size of scatter points. In plottables like \doxylink{classQCPGraph}{QCPGraph} it is used to store how scatter points shall be drawn. For example, QCPGraph\+::set\+Scatter\+Style takes a \doxylink{classQCPScatterStyle}{QCPScatter\+Style} instance.
+
+A scatter style consists of a shape (set\+Shape), a line color (set\+Pen) and possibly a fill (set\+Brush), if the shape provides a fillable area. Further, the size of the shape can be controlled with set\+Size.\hypertarget{classQCPScatterStyle_QCPScatterStyle-defining}{}\doxysubsection{\texorpdfstring{Specifying a scatter style}{Specifying a scatter style}}\label{classQCPScatterStyle_QCPScatterStyle-defining}
+You can set all these configurations either by calling the respective functions on an instance\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+Or you can use one of the various constructors that take different parameter combinations, making it easy to specify a scatter style in a single call, like so\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+\hypertarget{classQCPScatterStyle_QCPScatterStyle-undefinedpen}{}\doxysubsection{\texorpdfstring{Leaving the color/pen up to the plottable}{Leaving the color/pen up to the plottable}}\label{classQCPScatterStyle_QCPScatterStyle-undefinedpen}
+There are two constructors which leave the pen undefined\+: \doxylink{classQCPScatterStyle}{QCPScatter\+Style()} and \doxylink{classQCPScatterStyle}{QCPScatter\+Style(\+Scatter\+Shape shape, double size)}. If those constructors are used, a call to is\+Pen\+Defined will return false. It leads to scatter points that inherit the pen from the plottable that uses the scatter style. Thus, if such a scatter style is passed to \doxylink{classQCPGraph}{QCPGraph}, the line color of the graph (QCPGraph\+::set\+Pen) will be used by the scatter points. This makes it very convenient to set up typical scatter settings\+:
+
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+
+Notice that it wasn\textquotesingle{}t even necessary to explicitly call a \doxylink{classQCPScatterStyle}{QCPScatter\+Style} constructor. This works because \doxylink{classQCPScatterStyle}{QCPScatter\+Style} provides a constructor that can transform a Scatter\+Shape directly into a \doxylink{classQCPScatterStyle}{QCPScatter\+Style} instance (that\textquotesingle{}s the \doxylink{classQCPScatterStyle}{QCPScatter\+Style(\+Scatter\+Shape shape, double size)} constructor with a default for {\itshape size}). In those cases, C++ allows directly supplying a Scatter\+Shape, where actually a \doxylink{classQCPScatterStyle}{QCPScatter\+Style} is expected.\hypertarget{classQCPScatterStyle_QCPScatterStyle-custompath-and-pixmap}{}\doxysubsection{\texorpdfstring{Custom shapes and pixmaps}{Custom shapes and pixmaps}}\label{classQCPScatterStyle_QCPScatterStyle-custompath-and-pixmap}
+\doxylink{classQCPScatterStyle}{QCPScatter\+Style} supports drawing custom shapes and arbitrary pixmaps as scatter points.
+
+For custom shapes, you can provide a QPainter\+Path with the desired shape to the set\+Custom\+Path function or call the constructor that takes a painter path. The scatter shape will automatically be set to ss\+Custom.
+
+For pixmaps, you call set\+Pixmap with the desired QPixmap. Alternatively you can use the constructor that takes a QPixmap. The scatter shape will automatically be set to ss\+Pixmap. Note that set\+Size does not influence the appearance of the pixmap. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,39 @@
+\doxysection{headers.\+h}
+\hypertarget{headers_8h_source}{}\label{headers_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/headers.h@{lib/libwconr/build/\_deps/curl-\/src/lib/headers.h}}
+\mbox{\hyperlink{headers_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_HEADER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_HEADER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_HTTP)\ \&\&\ !defined(CURL\_DISABLE\_HEADERS\_API)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__header__store}{Curl\_header\_store}}\ \{}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__llist__element}{Curl\_llist\_element}}\ \mbox{\hyperlink{structCurl__header__store_a04cdcdbaa1cde74f88ebf184e418fd08}{node}};}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structCurl__header__store_acfe5fef714527d56eeb6e1801d1d8baf}{name}};\ \textcolor{comment}{/*\ points\ into\ 'buffer'\ */}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structCurl__header__store_aa2da84d7d974578c1ac896fd264d8aee}{value}};\ \textcolor{comment}{/*\ points\ into\ 'buffer\ */}}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structCurl__header__store_a0bb3d7b7b7682baa2e5b30cf68607fdc}{request}};\ \textcolor{comment}{/*\ 0\ is\ the\ first\ request,\ then\ 1..\ 2..\ */}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structCurl__header__store_afdffc5df1a8d77dd0447572d6a27a9da}{type}};\ \textcolor{comment}{/*\ CURLH\_*\ defines\ */}}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structCurl__header__store_a0dde7c90fc6ebe094f9d4d4e59a9c6f6}{buffer}}[1];\ \textcolor{comment}{/*\ this\ is\ the\ raw\ header\ blob\ */}}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ Curl\_headers\_push()\ gets\ passed\ a\ full\ header\ to\ store.}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00042\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{headers_8h_a41c41a0949b59392eda2739240d57b91}{Curl\_headers\_push}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{user-agent_8d_ad8c76b4bdd86e61de828f3429552a54e}{header}},}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ Curl\_headers\_cleanup().\ Free\ all\ stored\ headers\ and\ associated\ memory.}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00048\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{headers_8h_a23e47056ac4c93f88ae8cc7cb5cf08fb}{Curl\_headers\_cleanup}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ Curl\_headers\_push(x,y,z)\ CURLE\_OK}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ Curl\_headers\_cleanup(x)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_HEADER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

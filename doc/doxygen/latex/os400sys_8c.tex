@@ -1,0 +1,513 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/packages/\+OS400/os400sys.c File Reference}
+\hypertarget{os400sys_8c}{}\label{os400sys_8c}\index{lib/libwconr/build/\_deps/curl-\/src/packages/OS400/os400sys.c@{lib/libwconr/build/\_deps/curl-\/src/packages/OS400/os400sys.c}}
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}config-\/os400.\+h"{}}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$sys/un.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$netdb.\+h$>$}\newline
+{\ttfamily \#include $<$qadrt.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$gskssl.\+h$>$}\newline
+{\ttfamily \#include $<$qsoasync.\+h$>$}\newline
+{\ttfamily \#include $<$gssapi.\+h$>$}\newline
+{\ttfamily \#include $<$ldap.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include "{}os400sys.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structgskstrlist}{gskstrlist}}
+\item 
+struct \mbox{\hyperlink{structCurl__gsk__descriptor}{Curl\+\_\+gsk\+\_\+descriptor}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{os400sys_8c_a32728b063897166d6785e554c93547c9}{MIN\+\_\+\+BYTE\+\_\+\+GAIN}}~1024    /\texorpdfstring{$\ast$}{*} Minimum gain when shortening a buffer. \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a668d76ddc1f67e9beca527d57039041a}{buffer\+\_\+undef}} (\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}} key, long \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_abeb00ddef1437f6042278c15056c4d5d}{buffer\+\_\+threaded}} (\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}} key, long \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a6c02e11c898689a5289771bfc89ba534}{buffer\+\_\+unthreaded}} (\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}} key, long \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+static void \mbox{\hyperlink{os400sys_8c_ad18d6ab4a3f96b7acf270e92f6691af8}{thdbufdestroy}} (void \texorpdfstring{$\ast$}{*}private)
+\item 
+static void \mbox{\hyperlink{os400sys_8c_ae5a773506a43a9bc54bce503f234c209}{terminate}} (void)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_af5e21f2b012f4dd512d4616954131a54}{get\+\_\+buffer}} (struct \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, long \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_ad9dbc531e14b7f428ee72e88833db4c1}{set\+\_\+thread\+\_\+string}} (\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}} key, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}})
+\item 
+int \mbox{\hyperlink{os400sys_8c_a105a6dc488da139ab644ca74e9174b6a}{Curl\+\_\+getnameinfo\+\_\+a}} (const struct sockaddr \texorpdfstring{$\ast$}{*}sa, \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\+\_\+socklen\+\_\+t}} salen, char \texorpdfstring{$\ast$}{*}nodename, \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\+\_\+socklen\+\_\+t}} nodenamelen, char \texorpdfstring{$\ast$}{*}servname, \mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\+\_\+socklen\+\_\+t}} servnamelen, int flags)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a94b30574af9802914d21cf5c6afcc51a}{Curl\+\_\+getaddrinfo\+\_\+a}} (const char \texorpdfstring{$\ast$}{*}nodename, const char \texorpdfstring{$\ast$}{*}servname, const struct addrinfo \texorpdfstring{$\ast$}{*}hints, struct addrinfo \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a34ac37ffba37fbcff0ffecc3aca51bb8}{Curl\+\_\+gsk\+\_\+environment\+\_\+open}} (gsk\+\_\+handle \texorpdfstring{$\ast$}{*}my\+\_\+env\+\_\+handle)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a0c767427782c7fa7dfada153ef61925e}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+open}} (gsk\+\_\+handle my\+\_\+env\+\_\+handle, gsk\+\_\+handle \texorpdfstring{$\ast$}{*}my\+\_\+session\+\_\+handle)
+\item 
+static void \mbox{\hyperlink{os400sys_8c_a04bcbf13fec12e0065f5f43c9669a28c}{gsk\+\_\+free\+\_\+handle}} (struct \mbox{\hyperlink{structCurl__gsk__descriptor}{Curl\+\_\+gsk\+\_\+descriptor}} \texorpdfstring{$\ast$}{*}p)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a3a38eb59ef37f2a5b6d3870d3fed296b}{Curl\+\_\+gsk\+\_\+environment\+\_\+close}} (gsk\+\_\+handle \texorpdfstring{$\ast$}{*}my\+\_\+env\+\_\+handle)
+\item 
+int \mbox{\hyperlink{os400sys_8c_ab3bc238b9e34619f5e167bd20b336101}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+close}} (gsk\+\_\+handle \texorpdfstring{$\ast$}{*}my\+\_\+session\+\_\+handle)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a7c0fd106da30d668750a22e78aac8bc9}{Curl\+\_\+gsk\+\_\+environment\+\_\+init}} (gsk\+\_\+handle my\+\_\+env\+\_\+handle)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a4fe3350fc6c1fbb93b51bac59a8bcf76}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+init}} (gsk\+\_\+handle my\+\_\+session\+\_\+handle)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a2cdf4633d73d3f20e51a5b7b3fa21f7b}{Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+buffer\+\_\+a}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+BUF\+\_\+\+ID buf\+ID, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, int buf\+Size)
+\item 
+int \mbox{\hyperlink{os400sys_8c_ac190e68c55924647ea52d530fefccce3}{Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+enum}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+ENUM\+\_\+\+ID enum\+ID, GSK\+\_\+\+ENUM\+\_\+\+VALUE enum\+Value)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a4bc9a1e7e14a2972fb6990d07e9f4618}{Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+numeric\+\_\+value}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+NUM\+\_\+\+ID num\+ID, int num\+Value)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a4da64abba050be7b3394aca06082cd2d}{Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+callback}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+CALLBACK\+\_\+\+ID call\+Back\+ID, void \texorpdfstring{$\ast$}{*}call\+Back\+Area\+Ptr)
+\item 
+static int \mbox{\hyperlink{os400sys_8c_afb36a1df30a818f4c16fc1c1e591f72b}{cachestring}} (struct \mbox{\hyperlink{structCurl__gsk__descriptor}{Curl\+\_\+gsk\+\_\+descriptor}} \texorpdfstring{$\ast$}{*}p, const char \texorpdfstring{$\ast$}{*}ebcdicbuf, int bufsize, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}})
+\item 
+int \mbox{\hyperlink{os400sys_8c_a6f45929c99942a09526a652692b82087}{Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+buffer\+\_\+a}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+BUF\+\_\+\+ID buf\+ID, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, int \texorpdfstring{$\ast$}{*}buf\+Size)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a79a0f0cef46b797e13556128488b4289}{Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+enum}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+ENUM\+\_\+\+ID enum\+ID, GSK\+\_\+\+ENUM\+\_\+\+VALUE \texorpdfstring{$\ast$}{*}enum\+Value)
+\item 
+int \mbox{\hyperlink{os400sys_8c_ad44fe7ff90f5920ad4d4075fbf9730d2}{Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+numeric\+\_\+value}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+NUM\+\_\+\+ID num\+ID, int \texorpdfstring{$\ast$}{*}num\+Value)
+\item 
+int \mbox{\hyperlink{os400sys_8c_ae69aa46912e2b32464629ef0c9dae3d8}{Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+cert\+\_\+info}} (gsk\+\_\+handle my\+\_\+gsk\+\_\+handle, GSK\+\_\+\+CERT\+\_\+\+ID cert\+ID, const gsk\+\_\+cert\+\_\+data\+\_\+elem \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}cert\+Data\+Elem, int \texorpdfstring{$\ast$}{*}cert\+Data\+Element\+Count)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a3ec31554702347a51e3e1bcd4a83d61a}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+misc}} (gsk\+\_\+handle my\+\_\+session\+\_\+handle, GSK\+\_\+\+MISC\+\_\+\+ID misc\+ID)
+\item 
+int \mbox{\hyperlink{os400sys_8c_adf644a090c472c6e35700d2e423a75d9}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+read}} (gsk\+\_\+handle my\+\_\+session\+\_\+handle, char \texorpdfstring{$\ast$}{*}read\+Buffer, int read\+Buf\+Size, int \texorpdfstring{$\ast$}{*}amt\+Read)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a305b934382e97cfbdedd7d95f9ade45f}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+write}} (gsk\+\_\+handle my\+\_\+session\+\_\+handle, char \texorpdfstring{$\ast$}{*}write\+Buffer, int write\+Buf\+Size, int \texorpdfstring{$\ast$}{*}amt\+Written)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a1551ed59734572cdb3b7d9e60da78465}{Curl\+\_\+gsk\+\_\+strerror\+\_\+a}} (int gsk\+\_\+return\+\_\+value)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a8bd57dec8ac434e6a39b0170d1d6d80e}{Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+start\+Init}} (gsk\+\_\+handle my\+\_\+session\+\_\+handle, int IOCompletion\+Port, Qso\+\_\+\+Overlapped\+IO\+\_\+t \texorpdfstring{$\ast$}{*}communications\+Area)
+\item 
+static int \mbox{\hyperlink{os400sys_8c_a7f72c2a3fa369db17b18329d0e298157}{Curl\+\_\+gss\+\_\+convert\+\_\+in\+\_\+place}} (OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}minor\+\_\+status, gss\+\_\+buffer\+\_\+t buf)
+\item 
+OM\+\_\+uint32 \mbox{\hyperlink{os400sys_8c_a5c1f7a939ef26d7532719025c65f2091}{Curl\+\_\+gss\+\_\+import\+\_\+name\+\_\+a}} (OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}minor\+\_\+status, gss\+\_\+buffer\+\_\+t in\+\_\+name, gss\+\_\+\+OID in\+\_\+name\+\_\+type, gss\+\_\+name\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+name)
+\item 
+OM\+\_\+uint32 \mbox{\hyperlink{os400sys_8c_a76373c2baa56e6de279f302e7b690633}{Curl\+\_\+gss\+\_\+display\+\_\+status\+\_\+a}} (OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}minor\+\_\+status, OM\+\_\+uint32 status\+\_\+value, int status\+\_\+type, gss\+\_\+\+OID mech\+\_\+type, gss\+\_\+msg\+\_\+ctx\+\_\+t \texorpdfstring{$\ast$}{*}message\+\_\+context, gss\+\_\+buffer\+\_\+t status\+\_\+string)
+\item 
+OM\+\_\+uint32 \mbox{\hyperlink{os400sys_8c_a2ee8957fb83f869554b1c455ddfe5758}{Curl\+\_\+gss\+\_\+init\+\_\+sec\+\_\+context\+\_\+a}} (OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}minor\+\_\+status, gss\+\_\+cred\+\_\+id\+\_\+t cred\+\_\+handle, gss\+\_\+ctx\+\_\+id\+\_\+t \texorpdfstring{$\ast$}{*}context\+\_\+handle, gss\+\_\+name\+\_\+t target\+\_\+name, gss\+\_\+\+OID mech\+\_\+type, gss\+\_\+flags\+\_\+t req\+\_\+flags, OM\+\_\+uint32 time\+\_\+req, gss\+\_\+channel\+\_\+bindings\+\_\+t input\+\_\+chan\+\_\+bindings, gss\+\_\+buffer\+\_\+t input\+\_\+token, gss\+\_\+\+OID \texorpdfstring{$\ast$}{*}actual\+\_\+mech\+\_\+type, gss\+\_\+buffer\+\_\+t output\+\_\+token, gss\+\_\+flags\+\_\+t \texorpdfstring{$\ast$}{*}ret\+\_\+flags, OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}time\+\_\+rec)
+\item 
+OM\+\_\+uint32 \mbox{\hyperlink{os400sys_8c_abff013234d94e763277d932998397583}{Curl\+\_\+gss\+\_\+delete\+\_\+sec\+\_\+context\+\_\+a}} (OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}minor\+\_\+status, gss\+\_\+ctx\+\_\+id\+\_\+t \texorpdfstring{$\ast$}{*}context\+\_\+handle, gss\+\_\+buffer\+\_\+t output\+\_\+token)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_aa888707d2bf5748c2e3e8f1b6e918266}{Curl\+\_\+ldap\+\_\+init\+\_\+a}} (char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, int port)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a8fe1daa006153dce7cf10f0c5a57dbd3}{Curl\+\_\+ldap\+\_\+simple\+\_\+bind\+\_\+s\+\_\+a}} (void \texorpdfstring{$\ast$}{*}ld, char \texorpdfstring{$\ast$}{*}dn, char \texorpdfstring{$\ast$}{*}passwd)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a58e84254b2fe76dbad664a6606791f09}{Curl\+\_\+ldap\+\_\+search\+\_\+s\+\_\+a}} (void \texorpdfstring{$\ast$}{*}ld, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacebase}{base}}, int scope, char \texorpdfstring{$\ast$}{*}filter, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}attrs, int attrsonly, LDAPMessage \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res)
+\item 
+struct berval \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a5414d81a035051fedfc40f987018d708}{Curl\+\_\+ldap\+\_\+get\+\_\+values\+\_\+len\+\_\+a}} (void \texorpdfstring{$\ast$}{*}ld, LDAPMessage \texorpdfstring{$\ast$}{*}entry, const char \texorpdfstring{$\ast$}{*}attr)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_ab279ba74cb334744653391007b707637}{Curl\+\_\+ldap\+\_\+err2string\+\_\+a}} (int \mbox{\hyperlink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}})
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_acde4563d82e24e97101d2aa74f1af9d6}{Curl\+\_\+ldap\+\_\+get\+\_\+dn\+\_\+a}} (void \texorpdfstring{$\ast$}{*}ld, LDAPMessage \texorpdfstring{$\ast$}{*}entry)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a91bba45ec27bc61e3a7d818d5a98f5f7}{Curl\+\_\+ldap\+\_\+first\+\_\+attribute\+\_\+a}} (void \texorpdfstring{$\ast$}{*}ld, LDAPMessage \texorpdfstring{$\ast$}{*}entry, Ber\+Element \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}berptr)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_aadef7d371971c09e512c35e6228dbb73}{Curl\+\_\+ldap\+\_\+next\+\_\+attribute\+\_\+a}} (void \texorpdfstring{$\ast$}{*}ld, LDAPMessage \texorpdfstring{$\ast$}{*}entry, Ber\+Element \texorpdfstring{$\ast$}{*}berptr)
+\item 
+static int \mbox{\hyperlink{os400sys_8c_af83f810323b537d9f8addbad1daa73b1}{sockaddr2ebcdic}} (struct sockaddr\+\_\+storage \texorpdfstring{$\ast$}{*}dstaddr, const struct sockaddr \texorpdfstring{$\ast$}{*}srcaddr, int srclen)
+\item 
+static int \mbox{\hyperlink{os400sys_8c_aa0c044ed948211861572c1dc87eebd99}{sockaddr2ascii}} (struct sockaddr \texorpdfstring{$\ast$}{*}dstaddr, int dstlen, const struct sockaddr\+\_\+storage \texorpdfstring{$\ast$}{*}srcaddr, int srclen)
+\item 
+int \mbox{\hyperlink{os400sys_8c_ae4d4846b78f9955040176e74d77a6806}{Curl\+\_\+os400\+\_\+connect}} (int sd, struct sockaddr \texorpdfstring{$\ast$}{*}destaddr, int addrlen)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a883d0bc74848b803f32197e366fc339f}{Curl\+\_\+os400\+\_\+bind}} (int sd, struct sockaddr \texorpdfstring{$\ast$}{*}localaddr, int addrlen)
+\item 
+int \mbox{\hyperlink{os400sys_8c_ac29446ef93ec2052b091162d3c47683a}{Curl\+\_\+os400\+\_\+sendto}} (int sd, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, int buflen, int flags, struct sockaddr \texorpdfstring{$\ast$}{*}dstaddr, int addrlen)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a83d656361246e6e529fe5eeb32c66e2f}{Curl\+\_\+os400\+\_\+recvfrom}} (int sd, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, int buflen, int flags, struct sockaddr \texorpdfstring{$\ast$}{*}fromaddr, int \texorpdfstring{$\ast$}{*}addrlen)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a2ba998af81ef51400ff9f93c397e9a8e}{Curl\+\_\+os400\+\_\+getpeername}} (int sd, struct sockaddr \texorpdfstring{$\ast$}{*}addr, int \texorpdfstring{$\ast$}{*}addrlen)
+\item 
+int \mbox{\hyperlink{os400sys_8c_a3fd77152941087418bd7ff728537d699}{Curl\+\_\+os400\+\_\+getsockname}} (int sd, struct sockaddr \texorpdfstring{$\ast$}{*}addr, int \texorpdfstring{$\ast$}{*}addrlen)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{os400sys_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}} = PTHREAD\+\_\+\+MUTEX\+\_\+\+INITIALIZER
+\item 
+static pthread\+\_\+key\+\_\+t \mbox{\hyperlink{os400sys_8c_abdfccac6b36c2f1eb25d26a1dcf81550}{thdkey}}
+\item 
+static struct \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a8aaa55d7c1375e9ee59308511dad0ed6}{locbufs}}
+\item 
+char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{os400sys_8c_a21f2bc71cb4cf4e0c22f45e109f6693c}{Curl\+\_\+thread\+\_\+buffer}} )(\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}} key, long \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}) = \mbox{\hyperlink{os400sys_8c_a668d76ddc1f67e9beca527d57039041a}{buffer\+\_\+undef}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{os400sys_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{os400sys_8c_a32728b063897166d6785e554c93547c9}\index{os400sys.c@{os400sys.c}!MIN\_BYTE\_GAIN@{MIN\_BYTE\_GAIN}}
+\index{MIN\_BYTE\_GAIN@{MIN\_BYTE\_GAIN}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{MIN\_BYTE\_GAIN}{MIN\_BYTE\_GAIN}}
+{\footnotesize\ttfamily \label{os400sys_8c_a32728b063897166d6785e554c93547c9} 
+\#define MIN\+\_\+\+BYTE\+\_\+\+GAIN~1024    /\texorpdfstring{$\ast$}{*} Minimum gain when shortening a buffer. \texorpdfstring{$\ast$}{*}/}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl QADRT OS/400 ASCII runtime defines only the most used procedures, but a lot of them are not supported. This module implements ASCII wrappers for those that are used by libcurl, but not defined by QADRT. 
+
+\label{doc-func-members}
+\Hypertarget{os400sys_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{os400sys_8c_abeb00ddef1437f6042278c15056c4d5d}\index{os400sys.c@{os400sys.c}!buffer\_threaded@{buffer\_threaded}}
+\index{buffer\_threaded@{buffer\_threaded}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{buffer\_threaded()}{buffer\_threaded()}}
+{\footnotesize\ttfamily \label{os400sys_8c_abeb00ddef1437f6042278c15056c4d5d} 
+char \texorpdfstring{$\ast$}{*} buffer\+\_\+threaded (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}}}]{key}{, }\item[{long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_a668d76ddc1f67e9beca527d57039041a}\index{os400sys.c@{os400sys.c}!buffer\_undef@{buffer\_undef}}
+\index{buffer\_undef@{buffer\_undef}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{buffer\_undef()}{buffer\_undef()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a668d76ddc1f67e9beca527d57039041a} 
+char \texorpdfstring{$\ast$}{*} buffer\+\_\+undef (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}}}]{key}{, }\item[{long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_a6c02e11c898689a5289771bfc89ba534}\index{os400sys.c@{os400sys.c}!buffer\_unthreaded@{buffer\_unthreaded}}
+\index{buffer\_unthreaded@{buffer\_unthreaded}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{buffer\_unthreaded()}{buffer\_unthreaded()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a6c02e11c898689a5289771bfc89ba534} 
+char \texorpdfstring{$\ast$}{*} buffer\+\_\+unthreaded (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}}}]{key}{, }\item[{long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_afb36a1df30a818f4c16fc1c1e591f72b}\index{os400sys.c@{os400sys.c}!cachestring@{cachestring}}
+\index{cachestring@{cachestring}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{cachestring()}{cachestring()}}
+{\footnotesize\ttfamily \label{os400sys_8c_afb36a1df30a818f4c16fc1c1e591f72b} 
+int cachestring (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__gsk__descriptor}{Curl\+\_\+gsk\+\_\+descriptor}} \texorpdfstring{$\ast$}{*}}]{p}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{ebcdicbuf}{, }\item[{int}]{bufsize}{, }\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_a94b30574af9802914d21cf5c6afcc51a}\index{os400sys.c@{os400sys.c}!Curl\_getaddrinfo\_a@{Curl\_getaddrinfo\_a}}
+\index{Curl\_getaddrinfo\_a@{Curl\_getaddrinfo\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_getaddrinfo\_a()}{Curl\_getaddrinfo\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a94b30574af9802914d21cf5c6afcc51a} 
+int Curl\+\_\+getaddrinfo\+\_\+a (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nodename}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{servname}{, }\item[{const struct addrinfo \texorpdfstring{$\ast$}{*}}]{hints}{, }\item[{struct addrinfo \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a105a6dc488da139ab644ca74e9174b6a}\index{os400sys.c@{os400sys.c}!Curl\_getnameinfo\_a@{Curl\_getnameinfo\_a}}
+\index{Curl\_getnameinfo\_a@{Curl\_getnameinfo\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_getnameinfo\_a()}{Curl\_getnameinfo\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a105a6dc488da139ab644ca74e9174b6a} 
+int Curl\+\_\+getnameinfo\+\_\+a (\begin{DoxyParamCaption}\item[{const struct sockaddr \texorpdfstring{$\ast$}{*}}]{sa}{, }\item[{\mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\+\_\+socklen\+\_\+t}}}]{salen}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{nodename}{, }\item[{\mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\+\_\+socklen\+\_\+t}}}]{nodenamelen}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{servname}{, }\item[{\mbox{\hyperlink{system_8h_af89f74b4f46628d93e3cc829fcd69801}{curl\+\_\+socklen\+\_\+t}}}]{servnamelen}{, }\item[{int}]{flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a6f45929c99942a09526a652692b82087}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_get\_buffer\_a@{Curl\_gsk\_attribute\_get\_buffer\_a}}
+\index{Curl\_gsk\_attribute\_get\_buffer\_a@{Curl\_gsk\_attribute\_get\_buffer\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_get\_buffer\_a()}{Curl\_gsk\_attribute\_get\_buffer\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a6f45929c99942a09526a652692b82087} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+buffer\+\_\+a (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+BUF\+\_\+\+ID}]{buf\+ID}{, }\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{buf\+Size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ae69aa46912e2b32464629ef0c9dae3d8}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_get\_cert\_info@{Curl\_gsk\_attribute\_get\_cert\_info}}
+\index{Curl\_gsk\_attribute\_get\_cert\_info@{Curl\_gsk\_attribute\_get\_cert\_info}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_get\_cert\_info()}{Curl\_gsk\_attribute\_get\_cert\_info()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ae69aa46912e2b32464629ef0c9dae3d8} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+cert\+\_\+info (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+CERT\+\_\+\+ID}]{cert\+ID}{, }\item[{const gsk\+\_\+cert\+\_\+data\+\_\+elem \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{cert\+Data\+Elem}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{cert\+Data\+Element\+Count}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a79a0f0cef46b797e13556128488b4289}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_get\_enum@{Curl\_gsk\_attribute\_get\_enum}}
+\index{Curl\_gsk\_attribute\_get\_enum@{Curl\_gsk\_attribute\_get\_enum}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_get\_enum()}{Curl\_gsk\_attribute\_get\_enum()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a79a0f0cef46b797e13556128488b4289} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+enum (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+ENUM\+\_\+\+ID}]{enum\+ID}{, }\item[{GSK\+\_\+\+ENUM\+\_\+\+VALUE \texorpdfstring{$\ast$}{*}}]{enum\+Value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ad44fe7ff90f5920ad4d4075fbf9730d2}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_get\_numeric\_value@{Curl\_gsk\_attribute\_get\_numeric\_value}}
+\index{Curl\_gsk\_attribute\_get\_numeric\_value@{Curl\_gsk\_attribute\_get\_numeric\_value}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_get\_numeric\_value()}{Curl\_gsk\_attribute\_get\_numeric\_value()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ad44fe7ff90f5920ad4d4075fbf9730d2} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+get\+\_\+numeric\+\_\+value (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+NUM\+\_\+\+ID}]{num\+ID}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{num\+Value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a2cdf4633d73d3f20e51a5b7b3fa21f7b}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_set\_buffer\_a@{Curl\_gsk\_attribute\_set\_buffer\_a}}
+\index{Curl\_gsk\_attribute\_set\_buffer\_a@{Curl\_gsk\_attribute\_set\_buffer\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_set\_buffer\_a()}{Curl\_gsk\_attribute\_set\_buffer\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a2cdf4633d73d3f20e51a5b7b3fa21f7b} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+buffer\+\_\+a (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+BUF\+\_\+\+ID}]{buf\+ID}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{int}]{buf\+Size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a4da64abba050be7b3394aca06082cd2d}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_set\_callback@{Curl\_gsk\_attribute\_set\_callback}}
+\index{Curl\_gsk\_attribute\_set\_callback@{Curl\_gsk\_attribute\_set\_callback}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_set\_callback()}{Curl\_gsk\_attribute\_set\_callback()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a4da64abba050be7b3394aca06082cd2d} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+callback (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+CALLBACK\+\_\+\+ID}]{call\+Back\+ID}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{call\+Back\+Area\+Ptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ac190e68c55924647ea52d530fefccce3}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_set\_enum@{Curl\_gsk\_attribute\_set\_enum}}
+\index{Curl\_gsk\_attribute\_set\_enum@{Curl\_gsk\_attribute\_set\_enum}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_set\_enum()}{Curl\_gsk\_attribute\_set\_enum()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ac190e68c55924647ea52d530fefccce3} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+enum (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+ENUM\+\_\+\+ID}]{enum\+ID}{, }\item[{GSK\+\_\+\+ENUM\+\_\+\+VALUE}]{enum\+Value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a4bc9a1e7e14a2972fb6990d07e9f4618}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_attribute\_set\_numeric\_value@{Curl\_gsk\_attribute\_set\_numeric\_value}}
+\index{Curl\_gsk\_attribute\_set\_numeric\_value@{Curl\_gsk\_attribute\_set\_numeric\_value}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_attribute\_set\_numeric\_value()}{Curl\_gsk\_attribute\_set\_numeric\_value()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a4bc9a1e7e14a2972fb6990d07e9f4618} 
+int Curl\+\_\+gsk\+\_\+attribute\+\_\+set\+\_\+numeric\+\_\+value (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+gsk\+\_\+handle}{, }\item[{GSK\+\_\+\+NUM\+\_\+\+ID}]{num\+ID}{, }\item[{int}]{num\+Value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a3a38eb59ef37f2a5b6d3870d3fed296b}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_environment\_close@{Curl\_gsk\_environment\_close}}
+\index{Curl\_gsk\_environment\_close@{Curl\_gsk\_environment\_close}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_environment\_close()}{Curl\_gsk\_environment\_close()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a3a38eb59ef37f2a5b6d3870d3fed296b} 
+int Curl\+\_\+gsk\+\_\+environment\+\_\+close (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle \texorpdfstring{$\ast$}{*}}]{my\+\_\+env\+\_\+handle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a7c0fd106da30d668750a22e78aac8bc9}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_environment\_init@{Curl\_gsk\_environment\_init}}
+\index{Curl\_gsk\_environment\_init@{Curl\_gsk\_environment\_init}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_environment\_init()}{Curl\_gsk\_environment\_init()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a7c0fd106da30d668750a22e78aac8bc9} 
+int Curl\+\_\+gsk\+\_\+environment\+\_\+init (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+env\+\_\+handle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a34ac37ffba37fbcff0ffecc3aca51bb8}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_environment\_open@{Curl\_gsk\_environment\_open}}
+\index{Curl\_gsk\_environment\_open@{Curl\_gsk\_environment\_open}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_environment\_open()}{Curl\_gsk\_environment\_open()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a34ac37ffba37fbcff0ffecc3aca51bb8} 
+int Curl\+\_\+gsk\+\_\+environment\+\_\+open (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle \texorpdfstring{$\ast$}{*}}]{my\+\_\+env\+\_\+handle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ab3bc238b9e34619f5e167bd20b336101}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_close@{Curl\_gsk\_secure\_soc\_close}}
+\index{Curl\_gsk\_secure\_soc\_close@{Curl\_gsk\_secure\_soc\_close}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_close()}{Curl\_gsk\_secure\_soc\_close()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ab3bc238b9e34619f5e167bd20b336101} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+close (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle \texorpdfstring{$\ast$}{*}}]{my\+\_\+session\+\_\+handle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a4fe3350fc6c1fbb93b51bac59a8bcf76}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_init@{Curl\_gsk\_secure\_soc\_init}}
+\index{Curl\_gsk\_secure\_soc\_init@{Curl\_gsk\_secure\_soc\_init}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_init()}{Curl\_gsk\_secure\_soc\_init()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a4fe3350fc6c1fbb93b51bac59a8bcf76} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+init (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+session\+\_\+handle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a3ec31554702347a51e3e1bcd4a83d61a}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_misc@{Curl\_gsk\_secure\_soc\_misc}}
+\index{Curl\_gsk\_secure\_soc\_misc@{Curl\_gsk\_secure\_soc\_misc}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_misc()}{Curl\_gsk\_secure\_soc\_misc()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a3ec31554702347a51e3e1bcd4a83d61a} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+misc (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+session\+\_\+handle}{, }\item[{GSK\+\_\+\+MISC\+\_\+\+ID}]{misc\+ID}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a0c767427782c7fa7dfada153ef61925e}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_open@{Curl\_gsk\_secure\_soc\_open}}
+\index{Curl\_gsk\_secure\_soc\_open@{Curl\_gsk\_secure\_soc\_open}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_open()}{Curl\_gsk\_secure\_soc\_open()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a0c767427782c7fa7dfada153ef61925e} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+open (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+env\+\_\+handle}{, }\item[{gsk\+\_\+handle \texorpdfstring{$\ast$}{*}}]{my\+\_\+session\+\_\+handle}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_adf644a090c472c6e35700d2e423a75d9}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_read@{Curl\_gsk\_secure\_soc\_read}}
+\index{Curl\_gsk\_secure\_soc\_read@{Curl\_gsk\_secure\_soc\_read}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_read()}{Curl\_gsk\_secure\_soc\_read()}}
+{\footnotesize\ttfamily \label{os400sys_8c_adf644a090c472c6e35700d2e423a75d9} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+read (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+session\+\_\+handle}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{read\+Buffer}{, }\item[{int}]{read\+Buf\+Size}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{amt\+Read}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a8bd57dec8ac434e6a39b0170d1d6d80e}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_startInit@{Curl\_gsk\_secure\_soc\_startInit}}
+\index{Curl\_gsk\_secure\_soc\_startInit@{Curl\_gsk\_secure\_soc\_startInit}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_startInit()}{Curl\_gsk\_secure\_soc\_startInit()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a8bd57dec8ac434e6a39b0170d1d6d80e} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+start\+Init (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+session\+\_\+handle}{, }\item[{int}]{IOCompletion\+Port}{, }\item[{Qso\+\_\+\+Overlapped\+IO\+\_\+t \texorpdfstring{$\ast$}{*}}]{communications\+Area}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a305b934382e97cfbdedd7d95f9ade45f}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_secure\_soc\_write@{Curl\_gsk\_secure\_soc\_write}}
+\index{Curl\_gsk\_secure\_soc\_write@{Curl\_gsk\_secure\_soc\_write}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_secure\_soc\_write()}{Curl\_gsk\_secure\_soc\_write()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a305b934382e97cfbdedd7d95f9ade45f} 
+int Curl\+\_\+gsk\+\_\+secure\+\_\+soc\+\_\+write (\begin{DoxyParamCaption}\item[{gsk\+\_\+handle}]{my\+\_\+session\+\_\+handle}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{write\+Buffer}{, }\item[{int}]{write\+Buf\+Size}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{amt\+Written}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a1551ed59734572cdb3b7d9e60da78465}\index{os400sys.c@{os400sys.c}!Curl\_gsk\_strerror\_a@{Curl\_gsk\_strerror\_a}}
+\index{Curl\_gsk\_strerror\_a@{Curl\_gsk\_strerror\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gsk\_strerror\_a()}{Curl\_gsk\_strerror\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a1551ed59734572cdb3b7d9e60da78465} 
+const char \texorpdfstring{$\ast$}{*} Curl\+\_\+gsk\+\_\+strerror\+\_\+a (\begin{DoxyParamCaption}\item[{int}]{gsk\+\_\+return\+\_\+value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a7f72c2a3fa369db17b18329d0e298157}\index{os400sys.c@{os400sys.c}!Curl\_gss\_convert\_in\_place@{Curl\_gss\_convert\_in\_place}}
+\index{Curl\_gss\_convert\_in\_place@{Curl\_gss\_convert\_in\_place}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gss\_convert\_in\_place()}{Curl\_gss\_convert\_in\_place()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a7f72c2a3fa369db17b18329d0e298157} 
+int Curl\+\_\+gss\+\_\+convert\+\_\+in\+\_\+place (\begin{DoxyParamCaption}\item[{OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}}]{minor\+\_\+status}{, }\item[{gss\+\_\+buffer\+\_\+t}]{buf}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_abff013234d94e763277d932998397583}\index{os400sys.c@{os400sys.c}!Curl\_gss\_delete\_sec\_context\_a@{Curl\_gss\_delete\_sec\_context\_a}}
+\index{Curl\_gss\_delete\_sec\_context\_a@{Curl\_gss\_delete\_sec\_context\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gss\_delete\_sec\_context\_a()}{Curl\_gss\_delete\_sec\_context\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_abff013234d94e763277d932998397583} 
+OM\+\_\+uint32 Curl\+\_\+gss\+\_\+delete\+\_\+sec\+\_\+context\+\_\+a (\begin{DoxyParamCaption}\item[{OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}}]{minor\+\_\+status}{, }\item[{gss\+\_\+ctx\+\_\+id\+\_\+t \texorpdfstring{$\ast$}{*}}]{context\+\_\+handle}{, }\item[{gss\+\_\+buffer\+\_\+t}]{output\+\_\+token}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a76373c2baa56e6de279f302e7b690633}\index{os400sys.c@{os400sys.c}!Curl\_gss\_display\_status\_a@{Curl\_gss\_display\_status\_a}}
+\index{Curl\_gss\_display\_status\_a@{Curl\_gss\_display\_status\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gss\_display\_status\_a()}{Curl\_gss\_display\_status\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a76373c2baa56e6de279f302e7b690633} 
+OM\+\_\+uint32 Curl\+\_\+gss\+\_\+display\+\_\+status\+\_\+a (\begin{DoxyParamCaption}\item[{OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}}]{minor\+\_\+status}{, }\item[{OM\+\_\+uint32}]{status\+\_\+value}{, }\item[{int}]{status\+\_\+type}{, }\item[{gss\+\_\+\+OID}]{mech\+\_\+type}{, }\item[{gss\+\_\+msg\+\_\+ctx\+\_\+t \texorpdfstring{$\ast$}{*}}]{message\+\_\+context}{, }\item[{gss\+\_\+buffer\+\_\+t}]{status\+\_\+string}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a5c1f7a939ef26d7532719025c65f2091}\index{os400sys.c@{os400sys.c}!Curl\_gss\_import\_name\_a@{Curl\_gss\_import\_name\_a}}
+\index{Curl\_gss\_import\_name\_a@{Curl\_gss\_import\_name\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gss\_import\_name\_a()}{Curl\_gss\_import\_name\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a5c1f7a939ef26d7532719025c65f2091} 
+OM\+\_\+uint32 Curl\+\_\+gss\+\_\+import\+\_\+name\+\_\+a (\begin{DoxyParamCaption}\item[{OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}}]{minor\+\_\+status}{, }\item[{gss\+\_\+buffer\+\_\+t}]{in\+\_\+name}{, }\item[{gss\+\_\+\+OID}]{in\+\_\+name\+\_\+type}{, }\item[{gss\+\_\+name\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+name}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a2ee8957fb83f869554b1c455ddfe5758}\index{os400sys.c@{os400sys.c}!Curl\_gss\_init\_sec\_context\_a@{Curl\_gss\_init\_sec\_context\_a}}
+\index{Curl\_gss\_init\_sec\_context\_a@{Curl\_gss\_init\_sec\_context\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_gss\_init\_sec\_context\_a()}{Curl\_gss\_init\_sec\_context\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a2ee8957fb83f869554b1c455ddfe5758} 
+OM\+\_\+uint32 Curl\+\_\+gss\+\_\+init\+\_\+sec\+\_\+context\+\_\+a (\begin{DoxyParamCaption}\item[{OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}}]{minor\+\_\+status}{, }\item[{gss\+\_\+cred\+\_\+id\+\_\+t}]{cred\+\_\+handle}{, }\item[{gss\+\_\+ctx\+\_\+id\+\_\+t \texorpdfstring{$\ast$}{*}}]{context\+\_\+handle}{, }\item[{gss\+\_\+name\+\_\+t}]{target\+\_\+name}{, }\item[{gss\+\_\+\+OID}]{mech\+\_\+type}{, }\item[{gss\+\_\+flags\+\_\+t}]{req\+\_\+flags}{, }\item[{OM\+\_\+uint32}]{time\+\_\+req}{, }\item[{gss\+\_\+channel\+\_\+bindings\+\_\+t}]{input\+\_\+chan\+\_\+bindings}{, }\item[{gss\+\_\+buffer\+\_\+t}]{input\+\_\+token}{, }\item[{gss\+\_\+\+OID \texorpdfstring{$\ast$}{*}}]{actual\+\_\+mech\+\_\+type}{, }\item[{gss\+\_\+buffer\+\_\+t}]{output\+\_\+token}{, }\item[{gss\+\_\+flags\+\_\+t \texorpdfstring{$\ast$}{*}}]{ret\+\_\+flags}{, }\item[{OM\+\_\+uint32 \texorpdfstring{$\ast$}{*}}]{time\+\_\+rec}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ab279ba74cb334744653391007b707637}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_err2string\_a@{Curl\_ldap\_err2string\_a}}
+\index{Curl\_ldap\_err2string\_a@{Curl\_ldap\_err2string\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_err2string\_a()}{Curl\_ldap\_err2string\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ab279ba74cb334744653391007b707637} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+ldap\+\_\+err2string\+\_\+a (\begin{DoxyParamCaption}\item[{int}]{error}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a91bba45ec27bc61e3a7d818d5a98f5f7}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_first\_attribute\_a@{Curl\_ldap\_first\_attribute\_a}}
+\index{Curl\_ldap\_first\_attribute\_a@{Curl\_ldap\_first\_attribute\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_first\_attribute\_a()}{Curl\_ldap\_first\_attribute\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a91bba45ec27bc61e3a7d818d5a98f5f7} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+ldap\+\_\+first\+\_\+attribute\+\_\+a (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ld}{, }\item[{LDAPMessage \texorpdfstring{$\ast$}{*}}]{entry}{, }\item[{Ber\+Element \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{berptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_acde4563d82e24e97101d2aa74f1af9d6}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_get\_dn\_a@{Curl\_ldap\_get\_dn\_a}}
+\index{Curl\_ldap\_get\_dn\_a@{Curl\_ldap\_get\_dn\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_get\_dn\_a()}{Curl\_ldap\_get\_dn\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_acde4563d82e24e97101d2aa74f1af9d6} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+ldap\+\_\+get\+\_\+dn\+\_\+a (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ld}{, }\item[{LDAPMessage \texorpdfstring{$\ast$}{*}}]{entry}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a5414d81a035051fedfc40f987018d708}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_get\_values\_len\_a@{Curl\_ldap\_get\_values\_len\_a}}
+\index{Curl\_ldap\_get\_values\_len\_a@{Curl\_ldap\_get\_values\_len\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_get\_values\_len\_a()}{Curl\_ldap\_get\_values\_len\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a5414d81a035051fedfc40f987018d708} 
+struct berval \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Curl\+\_\+ldap\+\_\+get\+\_\+values\+\_\+len\+\_\+a (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ld}{, }\item[{LDAPMessage \texorpdfstring{$\ast$}{*}}]{entry}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{attr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_aa888707d2bf5748c2e3e8f1b6e918266}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_init\_a@{Curl\_ldap\_init\_a}}
+\index{Curl\_ldap\_init\_a@{Curl\_ldap\_init\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_init\_a()}{Curl\_ldap\_init\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_aa888707d2bf5748c2e3e8f1b6e918266} 
+void \texorpdfstring{$\ast$}{*} Curl\+\_\+ldap\+\_\+init\+\_\+a (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{int}]{port}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_aadef7d371971c09e512c35e6228dbb73}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_next\_attribute\_a@{Curl\_ldap\_next\_attribute\_a}}
+\index{Curl\_ldap\_next\_attribute\_a@{Curl\_ldap\_next\_attribute\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_next\_attribute\_a()}{Curl\_ldap\_next\_attribute\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_aadef7d371971c09e512c35e6228dbb73} 
+char \texorpdfstring{$\ast$}{*} Curl\+\_\+ldap\+\_\+next\+\_\+attribute\+\_\+a (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ld}{, }\item[{LDAPMessage \texorpdfstring{$\ast$}{*}}]{entry}{, }\item[{Ber\+Element \texorpdfstring{$\ast$}{*}}]{berptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a58e84254b2fe76dbad664a6606791f09}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_search\_s\_a@{Curl\_ldap\_search\_s\_a}}
+\index{Curl\_ldap\_search\_s\_a@{Curl\_ldap\_search\_s\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_search\_s\_a()}{Curl\_ldap\_search\_s\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a58e84254b2fe76dbad664a6606791f09} 
+int Curl\+\_\+ldap\+\_\+search\+\_\+s\+\_\+a (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ld}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{base}{, }\item[{int}]{scope}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{filter}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{attrs}{, }\item[{int}]{attrsonly}{, }\item[{LDAPMessage \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a8fe1daa006153dce7cf10f0c5a57dbd3}\index{os400sys.c@{os400sys.c}!Curl\_ldap\_simple\_bind\_s\_a@{Curl\_ldap\_simple\_bind\_s\_a}}
+\index{Curl\_ldap\_simple\_bind\_s\_a@{Curl\_ldap\_simple\_bind\_s\_a}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ldap\_simple\_bind\_s\_a()}{Curl\_ldap\_simple\_bind\_s\_a()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a8fe1daa006153dce7cf10f0c5a57dbd3} 
+int Curl\+\_\+ldap\+\_\+simple\+\_\+bind\+\_\+s\+\_\+a (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ld}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{dn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{passwd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a883d0bc74848b803f32197e366fc339f}\index{os400sys.c@{os400sys.c}!Curl\_os400\_bind@{Curl\_os400\_bind}}
+\index{Curl\_os400\_bind@{Curl\_os400\_bind}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_os400\_bind()}{Curl\_os400\_bind()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a883d0bc74848b803f32197e366fc339f} 
+int Curl\+\_\+os400\+\_\+bind (\begin{DoxyParamCaption}\item[{int}]{sd}{, }\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{localaddr}{, }\item[{int}]{addrlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ae4d4846b78f9955040176e74d77a6806}\index{os400sys.c@{os400sys.c}!Curl\_os400\_connect@{Curl\_os400\_connect}}
+\index{Curl\_os400\_connect@{Curl\_os400\_connect}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_os400\_connect()}{Curl\_os400\_connect()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ae4d4846b78f9955040176e74d77a6806} 
+int Curl\+\_\+os400\+\_\+connect (\begin{DoxyParamCaption}\item[{int}]{sd}{, }\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{destaddr}{, }\item[{int}]{addrlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a2ba998af81ef51400ff9f93c397e9a8e}\index{os400sys.c@{os400sys.c}!Curl\_os400\_getpeername@{Curl\_os400\_getpeername}}
+\index{Curl\_os400\_getpeername@{Curl\_os400\_getpeername}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_os400\_getpeername()}{Curl\_os400\_getpeername()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a2ba998af81ef51400ff9f93c397e9a8e} 
+int Curl\+\_\+os400\+\_\+getpeername (\begin{DoxyParamCaption}\item[{int}]{sd}{, }\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{addr}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{addrlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a3fd77152941087418bd7ff728537d699}\index{os400sys.c@{os400sys.c}!Curl\_os400\_getsockname@{Curl\_os400\_getsockname}}
+\index{Curl\_os400\_getsockname@{Curl\_os400\_getsockname}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_os400\_getsockname()}{Curl\_os400\_getsockname()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a3fd77152941087418bd7ff728537d699} 
+int Curl\+\_\+os400\+\_\+getsockname (\begin{DoxyParamCaption}\item[{int}]{sd}{, }\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{addr}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{addrlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_a83d656361246e6e529fe5eeb32c66e2f}\index{os400sys.c@{os400sys.c}!Curl\_os400\_recvfrom@{Curl\_os400\_recvfrom}}
+\index{Curl\_os400\_recvfrom@{Curl\_os400\_recvfrom}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_os400\_recvfrom()}{Curl\_os400\_recvfrom()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a83d656361246e6e529fe5eeb32c66e2f} 
+int Curl\+\_\+os400\+\_\+recvfrom (\begin{DoxyParamCaption}\item[{int}]{sd}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{int}]{buflen}{, }\item[{int}]{flags}{, }\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{fromaddr}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{addrlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_ac29446ef93ec2052b091162d3c47683a}\index{os400sys.c@{os400sys.c}!Curl\_os400\_sendto@{Curl\_os400\_sendto}}
+\index{Curl\_os400\_sendto@{Curl\_os400\_sendto}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_os400\_sendto()}{Curl\_os400\_sendto()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ac29446ef93ec2052b091162d3c47683a} 
+int Curl\+\_\+os400\+\_\+sendto (\begin{DoxyParamCaption}\item[{int}]{sd}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{int}]{buflen}{, }\item[{int}]{flags}{, }\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{dstaddr}{, }\item[{int}]{addrlen}{}\end{DoxyParamCaption})}
+
+\Hypertarget{os400sys_8c_af5e21f2b012f4dd512d4616954131a54}\index{os400sys.c@{os400sys.c}!get\_buffer@{get\_buffer}}
+\index{get\_buffer@{get\_buffer}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{get\_buffer()}{get\_buffer()}}
+{\footnotesize\ttfamily \label{os400sys_8c_af5e21f2b012f4dd512d4616954131a54} 
+char \texorpdfstring{$\ast$}{*} get\+\_\+buffer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_a04bcbf13fec12e0065f5f43c9669a28c}\index{os400sys.c@{os400sys.c}!gsk\_free\_handle@{gsk\_free\_handle}}
+\index{gsk\_free\_handle@{gsk\_free\_handle}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{gsk\_free\_handle()}{gsk\_free\_handle()}}
+{\footnotesize\ttfamily \label{os400sys_8c_a04bcbf13fec12e0065f5f43c9669a28c} 
+void gsk\+\_\+free\+\_\+handle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__gsk__descriptor}{Curl\+\_\+gsk\+\_\+descriptor}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_ad9dbc531e14b7f428ee72e88833db4c1}\index{os400sys.c@{os400sys.c}!set\_thread\_string@{set\_thread\_string}}
+\index{set\_thread\_string@{set\_thread\_string}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{set\_thread\_string()}{set\_thread\_string()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ad9dbc531e14b7f428ee72e88833db4c1} 
+char \texorpdfstring{$\ast$}{*} set\+\_\+thread\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_aa0c044ed948211861572c1dc87eebd99}\index{os400sys.c@{os400sys.c}!sockaddr2ascii@{sockaddr2ascii}}
+\index{sockaddr2ascii@{sockaddr2ascii}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{sockaddr2ascii()}{sockaddr2ascii()}}
+{\footnotesize\ttfamily \label{os400sys_8c_aa0c044ed948211861572c1dc87eebd99} 
+int sockaddr2ascii (\begin{DoxyParamCaption}\item[{struct sockaddr \texorpdfstring{$\ast$}{*}}]{dstaddr}{, }\item[{int}]{dstlen}{, }\item[{const struct sockaddr\+\_\+storage \texorpdfstring{$\ast$}{*}}]{srcaddr}{, }\item[{int}]{srclen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_af83f810323b537d9f8addbad1daa73b1}\index{os400sys.c@{os400sys.c}!sockaddr2ebcdic@{sockaddr2ebcdic}}
+\index{sockaddr2ebcdic@{sockaddr2ebcdic}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{sockaddr2ebcdic()}{sockaddr2ebcdic()}}
+{\footnotesize\ttfamily \label{os400sys_8c_af83f810323b537d9f8addbad1daa73b1} 
+int sockaddr2ebcdic (\begin{DoxyParamCaption}\item[{struct sockaddr\+\_\+storage \texorpdfstring{$\ast$}{*}}]{dstaddr}{, }\item[{const struct sockaddr \texorpdfstring{$\ast$}{*}}]{srcaddr}{, }\item[{int}]{srclen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_ae5a773506a43a9bc54bce503f234c209}\index{os400sys.c@{os400sys.c}!terminate@{terminate}}
+\index{terminate@{terminate}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ae5a773506a43a9bc54bce503f234c209} 
+void terminate (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_ad18d6ab4a3f96b7acf270e92f6691af8}\index{os400sys.c@{os400sys.c}!thdbufdestroy@{thdbufdestroy}}
+\index{thdbufdestroy@{thdbufdestroy}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{thdbufdestroy()}{thdbufdestroy()}}
+{\footnotesize\ttfamily \label{os400sys_8c_ad18d6ab4a3f96b7acf270e92f6691af8} 
+void thdbufdestroy (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{private}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{os400sys_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{os400sys_8c_a21f2bc71cb4cf4e0c22f45e109f6693c}\index{os400sys.c@{os400sys.c}!Curl\_thread\_buffer@{Curl\_thread\_buffer}}
+\index{Curl\_thread\_buffer@{Curl\_thread\_buffer}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_thread\_buffer}{Curl\_thread\_buffer}}
+{\footnotesize\ttfamily \label{os400sys_8c_a21f2bc71cb4cf4e0c22f45e109f6693c} 
+char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} Curl\+\_\+thread\+\_\+buffer) (\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}} key, long \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}) (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{os400sys_8h_a6cf611a7bb54659950fd1a060d940206}{localkey\+\_\+t}}}]{key}{, }\item[{long}]{size}{}\end{DoxyParamCaption}) = \mbox{\hyperlink{os400sys_8c_a668d76ddc1f67e9beca527d57039041a}{buffer\+\_\+undef}}}
+
+\Hypertarget{os400sys_8c_a8aaa55d7c1375e9ee59308511dad0ed6}\index{os400sys.c@{os400sys.c}!locbufs@{locbufs}}
+\index{locbufs@{locbufs}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{locbufs}{locbufs}}
+{\footnotesize\ttfamily \label{os400sys_8c_a8aaa55d7c1375e9ee59308511dad0ed6} 
+struct \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}}\texorpdfstring{$\ast$}{*} locbufs\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}\index{os400sys.c@{os400sys.c}!mutex@{mutex}}
+\index{mutex@{mutex}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{mutex}{mutex}}
+{\footnotesize\ttfamily \label{os400sys_8c_a4acff8232e4aec9cd5c6dc200ac55ef3} 
+pthread\+\_\+mutex\+\_\+t mutex = PTHREAD\+\_\+\+MUTEX\+\_\+\+INITIALIZER\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{os400sys_8c_abdfccac6b36c2f1eb25d26a1dcf81550}\index{os400sys.c@{os400sys.c}!thdkey@{thdkey}}
+\index{thdkey@{thdkey}!os400sys.c@{os400sys.c}}
+\doxysubsubsection{\texorpdfstring{thdkey}{thdkey}}
+{\footnotesize\ttfamily \label{os400sys_8c_abdfccac6b36c2f1eb25d26a1dcf81550} 
+pthread\+\_\+key\+\_\+t thdkey\hspace{0.3cm}{\ttfamily [static]}}
+

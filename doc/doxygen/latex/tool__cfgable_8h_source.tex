@@ -1,0 +1,321 @@
+\doxysection{tool\+\_\+cfgable.\+h}
+\hypertarget{tool__cfgable_8h_source}{}\label{tool__cfgable_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cfgable.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_cfgable.h}}
+\mbox{\hyperlink{tool__cfgable_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_CFGABLE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_CFGABLE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__sdecls_8h}{tool\_sdecls.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__urlglob_8h}{tool\_urlglob.h}}"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__formparse_8h}{tool\_formparse.h}}"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGlobalConfig}{GlobalConfig}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structState}{State}}\ \{}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structState_a4af21ca98a5428e5c63cc5501b4bb7bb}{urlnode}};}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structURLGlob}{URLGlob}}\ *\mbox{\hyperlink{structState_a07749951ccaccb7cca2b644811f15ef8}{inglob}};}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structURLGlob}{URLGlob}}\ *\mbox{\hyperlink{structState_a021d97367fb19f00cba5948971439156}{urls}};}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structState_a6c9086b9415e265f61bdd028238ffa39}{outfiles}};}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structState_a3eaff1c0f57a6dd4bf5cdb37c396ccac}{httpgetfields}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structState_a0f15147c5d7a2e4ab49f8093e6e345d6}{uploadfile}};}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structState_accea1126f7dd26034fabb581ab067cc1}{infilenum}};\ \textcolor{comment}{/*\ number\ of\ files\ to\ upload\ */}}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structState_ab34f90cbcf73fd4ce1e3fb0f3f5682e8}{up}};\ \ \textcolor{comment}{/*\ upload\ file\ counter\ within\ a\ single\ upload\ glob\ */}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structState_a02c15297fceb9367ec677b76ef81c8ba}{urlnum}};\ \textcolor{comment}{/*\ how\ many\ iterations\ this\ single\ URL\ has\ with\ ranges}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ etc\ */}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structState_a439ccb0adc0d942d6ee3d093ef67a39c}{li}};}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ \{}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a3659f4e63a67f2a3ceb9809cbb709dbd}{remote\_time}};}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_aeca64e84db1f118457f151deb47f5e7b}{useragent}};}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a8e433ef117cf98a48397bf4440358aec}{cookies}};\ \ \textcolor{comment}{/*\ cookies\ to\ serialize\ into\ a\ single\ line\ */}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a9d879bb8d9c3e9c6a3115ae04a8c0179}{cookiejar}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ write\ to\ this\ file\ */}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_aebc02b3ba1952b1e622d18759e995a51}{cookiefiles}};\ \ \textcolor{comment}{/*\ file(s)\ to\ load\ cookies\ from\ */}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a82809a19358c7a0e9d59b5cbd7826743}{altsvc}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ alt-\/svc\ cache\ file\ name\ */}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_af6f589b3d9bfceaa57d6a50484536a2d}{hsts}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ HSTS\ cache\ file\ name\ */}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a8c1e50c60828f976ae3988d435f8ba8e}{cookiesession}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ new\ session?\ */}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aca43ebc19c81cccf1f72c128c76dc75f}{encoding}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Accept-\/Encoding\ please\ */}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a35c94a6c0f6b2318f5d93801c722752f}{tr\_encoding}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Transfer-\/Encoding\ please\ */}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a1e20f2cbe18154ffe2430bae18798cb4}{authtype}};\ \ \ \textcolor{comment}{/*\ auth\ bitmask\ */}}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aa435bdd61c9ef946046604aac07857af}{use\_resume}};}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a9e834e253070f3ba4c106be7b46be249}{resume\_from\_current}};}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a42d563bbf3e351f83e8e2d8f340b8bab}{disable\_epsv}};}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a76d3dc6d25aff1b7fcaf31c95fd49f2c}{disable\_eprt}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a61453e70309900fcddf65e98010e5d0f}{ftp\_pret}};}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a1ee7f70b00ab6b688d9e1d8cef7e08c5}{proto\_str}};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a133c6d3f9ee28342607b15cb403fa798}{proto\_present}};}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a9aeb69f0ed38634fe6abde0e244261f8}{proto\_redir\_str}};}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aca644c17d1c5cb06aad156df0fb67f68}{proto\_redir\_present}};}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a314bda0c96df349b480405fe727e3159}{proto\_default}};}
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOperationConfig_a1db1d8aa0e616fbff45096437a082c74}{resume\_from}};}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a10722fafc2bce8d1c53a5afce2dd0e97}{postfields}};}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOperationConfig_af28b83f4dc74286f5e27742848641b49}{postfieldsize}};}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a57e676b376e2ee59e7f544e49db57e5e}{referer}};}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structOperationConfig_a7a052cb57a03bb03b758219e021d3227}{timeout}};}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structOperationConfig_af9432847f7604b8e9c442bf855984715}{connecttimeout}};}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_ab07d6963ac992a4b408029374ecfa073}{maxredirs}};}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOperationConfig_a34dc2b2363485455b2170a1a51538f90}{max\_filesize}};}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a41fe1af9a10d60ffdb42308e14c30482}{output\_dir}};}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_aab9af42369701230c0aa8bbdf3ac9fa1}{headerfile}};}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_add492e7e6c85987685ebb5a18e3d932f}{ftpport}};}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ae7518a8683c2ff0ac6ffbbafa5671eb2}{iface}};}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a2df351a2bb072c0c2cfe2a575d70e5c5}{localport}};}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_af58fa424526f56e46586634e9219b64a}{localportrange}};}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structOperationConfig_a7f7816c4326845416cfb6ee916c3899f}{porttouse}};}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a418c39e036c6f52c3eedad8d8cb243ae}{range}};}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a55bbc39cb5aa792eb551dfd9342d54f8}{low\_speed\_limit}};}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a548f1ccd8ed34edd1470eef82c9c76b1}{low\_speed\_time}};}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a0c2f1f1e1fa3e36c0d97eda9722da2be}{dns\_servers}};\ \ \ \textcolor{comment}{/*\ dot\ notation:\ 1.1.1.1;2.2.2.2\ */}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_abe5d32155e7e512ad9553bccfa13b17a}{dns\_interface}};\ \textcolor{comment}{/*\ interface\ name\ */}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a71b225da2172d12864c8f141ad7e3413}{dns\_ipv4\_addr}};\ \textcolor{comment}{/*\ dot\ notation\ */}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_aca7fbf808bb4765fb9e6ffdcfca0dc14}{dns\_ipv6\_addr}};\ \textcolor{comment}{/*\ dot\ notation\ */}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a4b6cd31586b6a0740ec64da3bbeed958}{userpwd}};}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a97efa4f98032fd5703366620490d9a23}{login\_options}};}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ae959ed61458e110eba1abf8f97e0ba74}{tls\_username}};}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a2b42e775c8d84bf0651e752bfde28ee2}{tls\_password}};}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a3baa287d8aa17f8346b90b107297d23c}{tls\_authtype}};}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a2df7688f8e446210ea090e477ac13f63}{proxy\_tls\_username}};}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a63bb4622e9b494930d96c1e8afbb8fdb}{proxy\_tls\_password}};}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ae71686b996c79685e1b87cd70bee20cc}{proxy\_tls\_authtype}};}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a913314bb11cee74edc02e690d505c899}{proxyuserpwd}};}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a6453118092a99cbd4ff11ac3804784d0}{proxy}};}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOperationConfig_a1907a22e325a858f6d1d33195b77aecc}{proxyver}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ set\ to\ CURLPROXY\_HTTP*\ define\ */}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ad9a50663d9afc2899eb1f3c36a2ca31a}{noproxy}};}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_af87a80dcbda02463818ed4df4aadd287}{mail\_from}};}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a4bf95c0dc11f3c26101fcb631c98ca61}{mail\_rcpt}};}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a6903e57599903034aa4288cf9c22c2c6}{mail\_auth}};}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a6e51e9b8bf80e7549f08283b4b327f33}{mail\_rcpt\_allowfails}};\ \textcolor{comment}{/*\ -\/-\/mail-\/rcpt-\/allowfails\ */}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ab6ae3c544df7cd3908bbccbe049630ed}{sasl\_authzid}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Authorization\ identity\ (identity\ to\ use)\ */}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a89d2dce97ac23b7669bcc9b3455eb8c2}{sasl\_ir}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable/disable\ SASL\ initial\ response\ */}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a6700d587af67720003c88928400ee5ad}{proxytunnel}};}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a559560a0761808b1f8e937e756ae95a3}{ftp\_append}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ APPE\ on\ ftp\ */}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a0023c6f86fae7afb2d4afaa70c93fbba}{use\_ascii}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ select\ ascii\ or\ text\ transfer\ */}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ac9c852cdbe997fa8c508c2dc874e961d}{autoreferer}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ automatically\ set\ referer\ */}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a6d6d059b432e40f48cc105fab364b577}{failonerror}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ fail\ on\ (HTTP)\ errors\ */}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a57fe533b8dfc35383776c5fcaf071194}{failwithbody}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ fail\ on\ (HTTP)\ errors\ but\ still\ store\ body\ */}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a6d7224ee1ce3827fcc9ca39fcd3c05b9}{show\_headers}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ show\ headers\ to\ data\ output\ */}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ad62b1f9a0dd44d9b440527b99660f061}{no\_body}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ don't\ get\ the\ body\ */}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a4ac2c0239e4ac68a218f91a793b97d23}{dirlistonly}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ only\ get\ the\ FTP\ dir\ list\ */}}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a869767a8d1aa0488a0df5aeab1b649ee}{followlocation}};\ \ \ \ \ \ \textcolor{comment}{/*\ follow\ http\ redirects\ */}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a695ad898cac8a5848ed9057839fbbd7b}{unrestricted\_auth}};\ \ \ \textcolor{comment}{/*\ Continue\ to\ send\ authentication\ (user+password)}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ when\ following\ ocations,\ even\ when\ hostname}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ changed\ */}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a8bba70f3e68762d1474b25a37638a06f}{netrc\_opt}};}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a398e248457d0afd848d1d87fecedde0b}{netrc}};}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a48f614847044acb2384f0561f5134f2e}{netrc\_file}};}
+\DoxyCodeLine{00125\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structOperationConfig_a866bcfb2e0b08c50e6eaf93549b86272}{url\_list}};\ \ \textcolor{comment}{/*\ point\ to\ the\ first\ node\ */}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structOperationConfig_a798f80268467de3911c114f769c98c9c}{url\_last}};\ \ \textcolor{comment}{/*\ point\ to\ the\ last/current\ node\ */}}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structOperationConfig_a23a40a59de73fc35d5548af1491f143a}{url\_get}};\ \ \ \textcolor{comment}{/*\ point\ to\ the\ node\ to\ fill\ in\ URL\ */}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structOperationConfig_ab265a1c4da2b637823348c655647ee81}{url\_out}};\ \ \ \textcolor{comment}{/*\ point\ to\ the\ node\ to\ fill\ in\ outfile\ */}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structOperationConfig_ac50277c34bd340045bebe6aca8310fb6}{url\_ul}};\ \ \ \ \textcolor{comment}{/*\ point\ to\ the\ node\ to\ fill\ in\ upload\ */}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a76bb68fbd527eab386a6e8b386bf5c76}{doh\_url}};}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a73c69cc28bb609c3670e3e5c39326f7d}{cipher\_list}};}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a2af9bdb0c293b9d9b1a72df506fb531d}{proxy\_cipher\_list}};}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_aa1222827aed27ad2f444e4c418b77d20}{cipher13\_list}};}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_add75c3b0d50d3f4a44fd8beb1689e036}{proxy\_cipher13\_list}};}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a6257a44be808a7adbaa401ff18ccdd8a}{cert}};}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ac31a0169ad279e97610cfe09506ab52c}{proxy\_cert}};}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a40d094554a49d0d70c18fe39e3f0ddc6}{cert\_type}};}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ae41c3a8988c09a85f4c561bad5183785}{proxy\_cert\_type}};}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a83d3f69ea8e35a5c0600c7d28c8f3c14}{cacert}};}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a63bb0fe39350c81d9c691df4c6e1e753}{proxy\_cacert}};}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a33a5a642dfacb20e126a1bd104172bdc}{capath}};}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a7f44030c7f93e9f6826db6196a99dafb}{proxy\_capath}};}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_acd7906bdf1adcbd2488fcb4333563795}{crlfile}};}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a778dc7d1ba794ed8525ec3d7a5bc8057}{proxy\_crlfile}};}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_aa00e6ae4f1853f74d591f39a72595ece}{pinnedpubkey}};}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a0d26975891bdd2d4f2d4f5d3c978e8a2}{proxy\_pinnedpubkey}};}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_abb5604070a926dbfc42eef0fd6d4c5ab}{key}};}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ac03ad7102b9297ab4a4f474b694103b9}{proxy\_key}};}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a3791d29115c254b8fecee7ad6b7b5293}{key\_type}};}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a8f3af4b8095b9157ac45eaef1da557af}{proxy\_key\_type}};}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a88c63ae6444c390ebfea5dcd7a944655}{key\_passwd}};}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ac98be4771879c8817c3557b26a3a47db}{proxy\_key\_passwd}};}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a2f72c5ba88acf17c58109c6bb11bba18}{pubkey}};}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_afa620bf99bd8bc4ac2b897556cbfee81}{hostpubmd5}};}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a061c815457eca3568467ff8faeacba60}{hostpubsha256}};}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a4c73a3fbe53d9d461b34f76a0c1a4ac2}{engine}};}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a56dbb9e54f5bf4d1cf269e50ae147cb7}{etag\_save\_file}};}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a31f3f6039abf94b6dbb557f578cac523}{etag\_compare\_file}};}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aef8df21f2c4bbe2fed54f21587562891}{crlf}};}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_afddb080a959219c06b5935db310244ac}{customrequest}};}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a7dc216f3d27af06322cd3a604680621b}{ssl\_ec\_curves}};}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a600116db07ba2220b88f2f3341ef6f6e}{krblevel}};}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a0fe29fbb1bf00c5a95482fe66294e97b}{request\_target}};}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_ad0f8787744bfa0f28eb5edb1d63ada98}{httpversion}};}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a7b1e6b7bc14ce1975d060d501abe1517}{http09\_allowed}};}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a6c15f53aa6d5f9df8b3a1213b5095244}{nobuffer}};}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a89de51dd87b4f86da594e8e4e403bc71}{readbusy}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ set\ when\ reading\ input\ returns\ EAGAIN\ */}}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aa0bda5acdbdfca54e4d5e81a29965611}{globoff}};}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_abed7c76824330a1109c6503480d32a9f}{use\_httpget}};}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_abf5cbc5787a8502a0e155499a8940fdc}{insecure\_ok}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ set\ TRUE\ to\ allow\ insecure\ SSL\ connects\ */}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_abb642af798f3adc4e3ebaa5319d1d971}{doh\_insecure\_ok}};\ \ \ \ \ \textcolor{comment}{/*\ set\ TRUE\ to\ allow\ insecure\ SSL\ connects}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ DoH\ */}}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a1c45b4fe1232187f874461a10e8fecdd}{proxy\_insecure\_ok}};\ \ \ \textcolor{comment}{/*\ set\ TRUE\ to\ allow\ insecure\ SSL\ connects}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ proxy\ */}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a1a53cbca4db6edf16e883088dae90632}{terminal\_binary\_ok}};}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a3b7a4ab0ff1a36970d730af1d27e972a}{verifystatus}};}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a42aa7a5243acb4bdf6305fb2998e2720}{doh\_verifystatus}};}
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_acc8dca9d6dacc30f913e8c0c4abbf200}{create\_dirs}};}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a79e7073841c9dda6bd754f30ae713e23}{ftp\_create\_dirs}};}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a3f81e70e47917329d4b35d65f61bb9c1}{ftp\_skip\_ip}};}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a220a7d707f56e0be972757905033468e}{proxynegotiate}};}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_af91da73360131ed8463a9e1ca193e1c6}{proxyntlm}};}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a75d0f66e54e8c293477b1414684b9305}{proxydigest}};}
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a14a9e0415bd2ad7cbb34ca5e2512e29f}{proxybasic}};}
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_acecc6391531df378b19af2dd9ca2517d}{proxyanyauth}};}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aa0b3c93b91f0e79ec22da24e6d133de4}{jsoned}};\ \textcolor{comment}{/*\ added\ json\ content-\/type\ */}}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a8cdf9bf2e92cc0518916d4e67a137da4}{writeout}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \%-\/styled\ format\ string\ to\ output\ */}}
+\DoxyCodeLine{00188\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a5ea635117145f55b9fa8d77dcc7f1c25}{quote}};}
+\DoxyCodeLine{00189\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_adadea743126d5a7f66e9a9c14c8a22e3}{postquote}};}
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_ae93c79ed2f8fe75c9d2fe1fa0d4149b9}{prequote}};}
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a3abb8ec1e68db9c5002399b5300895a4}{ssl\_version}};}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_abf58a16960e05d4a7dab87d0ca2349dd}{ssl\_version\_max}};}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a3217d15e0846e4f63e78c94cd6631b4e}{proxy\_ssl\_version}};}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a75c090c0af382e4dcab243b3023a907e}{ip\_version}};}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_aa4ff2248cb15d417a67bc5dc07eae5d5}{create\_file\_mode}};\ \textcolor{comment}{/*\ CURLOPT\_NEW\_FILE\_PERMS\ */}}
+\DoxyCodeLine{00196\ \ \ \mbox{\hyperlink{curl_8h_a845d262749bd413d724b58e26f713f25}{curl\_TimeCond}}\ \mbox{\hyperlink{structOperationConfig_ad77d50f3e088e9c0b7dc003cfbc96000}{timecond}};}
+\DoxyCodeLine{00197\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOperationConfig_a300c571cbb20048cdb898433ccb4b312}{condtime}};}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a308486aebdca0fa6b96c5ee9d7c02660}{headers}};}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a91250315cdf866b4267b6ab0795d4f66}{proxyheaders}};}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *\mbox{\hyperlink{structOperationConfig_a7c834fa4c71f5196ca7c745ae6e2ef20}{mimeroot}};}
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtool__mime}{tool\_mime}}\ *\mbox{\hyperlink{structOperationConfig_a2c2acce06942eba420d7a1b5a87fb679}{mimecurrent}};}
+\DoxyCodeLine{00202\ \ \ \mbox{\hyperlink{structcurl__mime}{curl\_mime}}\ *\mbox{\hyperlink{structOperationConfig_a330c4378b13f3d5d2db92b5955561cce}{mimepost}};}
+\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_ab6eb8c10930e1642492880809a594c9d}{telnet\_options}};}
+\DoxyCodeLine{00204\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a81e95b05c6682a2088bf8532d0ecab02}{resolve}};}
+\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structOperationConfig_a9ebf638d460367b900969c6c9258a0f7}{connect\_to}};}
+\DoxyCodeLine{00206\ \ \ \mbox{\hyperlink{tool__sdecls_8h_ae61fdc45d6c635cc61c2f4c3f62bcfbc}{HttpReq}}\ \mbox{\hyperlink{structOperationConfig_a7db09f9ba4ec9ba2d691252f758c3be7}{httpreq}};}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{comment}{/*\ for\ bandwidth\ limiting\ features:\ */}}
+\DoxyCodeLine{00209\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOperationConfig_a60137a249b1137da09fa178b4df150d4}{sendpersecond}};\ \textcolor{comment}{/*\ send\ to\ peer\ */}}
+\DoxyCodeLine{00210\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOperationConfig_a8ab4e1399fbb341677d9167d63a8c712}{recvpersecond}};\ \textcolor{comment}{/*\ receive\ from\ peer\ */}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aac05dfb995a524bbac70d8933cb30b2d}{ftp\_ssl}};}
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a42ad4eabfa93a1be4c6c4ed995aef68a}{ftp\_ssl\_reqd}};}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a2b772369e5af7a01b0ce2f23057eff25}{ftp\_ssl\_control}};}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a202a697167844323d7fef0e7ebfe38a3}{ftp\_ssl\_ccc}};}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOperationConfig_ae2738484fc95c704e2e0bc69f4ae023b}{ftp\_ssl\_ccc\_mode}};}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a9de7c2604a8857276354060a4ea8a4df}{preproxy}};}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOperationConfig_a52a91729e0e561838bdb528a197f57be}{socks5\_gssapi\_nec}};\ \ \ \ \textcolor{comment}{/*\ The\ NEC\ reference\ server\ does\ not\ protect\ the}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ encryption\ type\ exchange\ */}}
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_ab524b8676cd1cceb0cfb7d39ecbf6807}{socks5\_auth}};\textcolor{comment}{/*\ auth\ bitmask\ for\ socks5\ proxies\ */}}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a30bb7fe25a21561c42903c898576ffb7}{proxy\_service\_name}};\ \textcolor{comment}{/*\ set\ authentication\ service\ name\ for\ HTTP\ and}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SOCKS5\ proxies\ */}}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a735e181c865f0c73b845a0b8e5a75885}{service\_name}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ set\ authentication\ service\ name\ for\ DIGEST-\/MD5,}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Kerberos\ 5\ and\ SPNEGO\ */}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a54d20a0507b5d8683eb466b638fb61b6}{tcp\_nodelay}};}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a3b2667579fc2ee5cd87e5c6d332a29b6}{tcp\_fastopen}};}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a3d7012af48d251bcc36900fff6446a95}{req\_retry}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ retries\ */}}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a647291de46d7baa42ffd28b921a0998b}{retry\_all\_errors}};\ \ \ \ \textcolor{comment}{/*\ retry\ on\ any\ error\ */}}
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a48d6ae57617bae50e8c671122808915b}{retry\_connrefused}};\ \ \ \textcolor{comment}{/*\ set\ connection\ refused\ as\ a\ transient\ error\ */}}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a264f9e02a9f3840271ec640dc68d5d2a}{retry\_delay}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ delay\ between\ retries\ (in\ seconds)\ */}}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_ad64aa572fcd7dc47704dc3c5346c4bc0}{retry\_maxtime}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ maximum\ time\ to\ keep\ retrying\ */}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_ae4a1bfd0ef37b32db92967c35a1d2858}{ftp\_account}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ for\ ACCT\ */}}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a71d5b29da609323652be9e3fdd2e3645}{ftp\_alternative\_to\_user}};\ \ \textcolor{comment}{/*\ send\ command\ if\ USER/PASS\ fails\ */}}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOperationConfig_a48661f706f5096e4c46a52c2f6fa38b2}{ftp\_filemethod}};}
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a204b769ad9096ec74dc77f2cc858d7dc}{mime\_options}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Mime\ option\ flags.\ */}}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a2e5f8c48e2da953a50305e054e728529}{tftp\_blksize}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TFTP\ BLKSIZE\ option\ */}}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a52b1b4fe1b9bc8fbfa89d20c38bf80ce}{tftp\_no\_options}};\ \ \ \ \ \textcolor{comment}{/*\ do\ not\ send\ TFTP\ options\ requests\ */}}
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a8c327d675ae0705c55e2ee8e09777c66}{ignorecl}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/ignore-\/content-\/length\ */}}
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a44cf7ff075e673d0610aacb7df987115}{disable\_sessionid}};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ade2405036d3e225e668dfb9ca130a81d}{raw}};}
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a2d90fbc84dcb3aa296b7a4dbc7b3f284}{post301}};}
+\DoxyCodeLine{00245\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a573b215c980641cef3c67d7fb6bbae6b}{post302}};}
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a5238087b85bccd52bab8650d9e745e5d}{post303}};}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ad7ae7c77071d451c1891204b2340344f}{nokeepalive}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ for\ keepalive\ needs\ */}}
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a1b3a8e6637237f39028bedbbfe6187f4}{alivetime}};}
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ad655f17f45b11c744f093b749c39f864}{content\_disposition}};\ \textcolor{comment}{/*\ use\ Content-\/disposition\ filename\ */}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structOperationConfig_a58be631cc94da10c1ad48c076018e6bb}{default\_node\_flags}};\ \ \ \textcolor{comment}{/*\ default\ flags\ to\ search\ for\ each\ 'node',\ which}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\ basically\ each\ given\ URL\ to\ transfer\ */}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ac6df8f874f4ca1f44dd45e648ebd6d62}{xattr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ store\ metadata\ in\ extended\ attributes\ */}}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a26bdfcf84534e6878d20262f3c30eb4c}{gssapi\_delegation}};}
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ae909324592ddc1efe41b76df0754387d}{ssl\_allow\_beast}};\ \ \ \ \ \textcolor{comment}{/*\ allow\ this\ SSL\ vulnerability\ */}}
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aed5c8a04f45ba8c4344a793794cc7f65}{proxy\_ssl\_allow\_beast}};\ \textcolor{comment}{/*\ allow\ this\ SSL\ vulnerability\ for\ proxy*/}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a205b995e63193bdf1cbcad4a928b8956}{ssl\_no\_revoke}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ disable\ SSL\ certificate\ revocation\ checks\ */}}
+\DoxyCodeLine{00260\ \ \ \textcolor{comment}{/*bool\ proxy\_ssl\_no\_revoke;\ */}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aea8d147da943282cf67aaefa6cbae4b6}{ssl\_revoke\_best\_effort}};\ \textcolor{comment}{/*\ ignore\ SSL\ revocation\ offline/missing}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ revocation\ list\ errors\ */}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a8a27a94db6a2154126302ecb89601ca5}{native\_ca\_store}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ use\ the\ native\ os\ ca\ store\ */}}
+\DoxyCodeLine{00266\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a65cc8fe0c28193d575a56fa3c80f50e5}{ssl\_auto\_client\_cert}};\ \ \ \textcolor{comment}{/*\ automatically\ locate\ and\ use\ a\ client}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ certificate\ for\ authentication\ (Schannel)\ */}}
+\DoxyCodeLine{00268\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a3e6877207a927806c27bb500a3407e96}{proxy\_ssl\_auto\_client\_cert}};\ \textcolor{comment}{/*\ proxy\ version\ of\ ssl\_auto\_client\_cert\ */}}
+\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a7f74e561d8cb74e9a54df1122e0130a8}{oauth\_bearer}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ OAuth\ 2.0\ bearer\ token\ */}}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a165459b1eec1b7867a7ca001af75f5f3}{noalpn}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable/disable\ TLS\ ALPN\ extension\ */}}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a1504dbfecceff6869e37f0f4922a3bdf}{unix\_socket\_path}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ path\ to\ Unix\ domain\ socket\ */}}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_ad068917bd3f9031e59cfc0ffe37159ec}{abstract\_unix\_socket}};\ \ \ \ \ \ \textcolor{comment}{/*\ path\ to\ an\ abstract\ Unix\ domain\ socket\ */}}
+\DoxyCodeLine{00273\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a5bd24b32619abe6d6aa59b7d5ebb8eb4}{falsestart}};}
+\DoxyCodeLine{00274\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_aa0d95062f7ace1364b10041036bd0ff1}{path\_as\_is}};}
+\DoxyCodeLine{00275\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structOperationConfig_ad76b26e0b7b42cdd8d50661a4c84a4cc}{expect100timeout}};}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a1f691a1c7dab9a5adefa5339a07c371f}{suppress\_connect\_headers}};\ \ \textcolor{comment}{/*\ suppress\ proxy\ CONNECT\ response\ headers}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ from\ user\ callbacks\ */}}
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_acb990db93548b1cd1256d2775427ef4a}{synthetic\_error}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ if\ TRUE,\ this\ is\ tool-\/internal\ error\ */}}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a1ec81ba6f5edb1a8ba7db7f33dbaebf2}{ssh\_compression}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable/disable\ SSH\ compression\ */}}
+\DoxyCodeLine{00280\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structOperationConfig_a3df40c7edcd8b5289cb54fa52f8d3683}{happy\_eyeballs\_timeout\_ms}};\ \textcolor{comment}{/*\ happy\ eyeballs\ timeout\ in\ milliseconds.}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ is\ valid.\ default:\ CURL\_HET\_DEFAULT.\ */}}
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a77c63aab87bb0a4b6cf9e104c5d2509a}{haproxy\_protocol}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ whether\ to\ send\ HAProxy\ protocol\ v1\ */}}
+\DoxyCodeLine{00283\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a86e702471b779f4c9bd6796a7fa3f909}{disallow\_username\_in\_url}};\ \ \textcolor{comment}{/*\ disallow\ usernames\ in\ URLs\ */}}
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOperationConfig_a6a6616e7e26a099d0abe2ed8fb686492}{aws\_sigv4}};}
+\DoxyCodeLine{00285\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \mbox{\hyperlink{structOperationConfig_a893584523518473118ac3a0971beac99a52055df00abadc3d749a0514bb520f57}{CLOBBER\_DEFAULT}},\ \textcolor{comment}{/*\ Provides\ compatibility\ with\ previous\ versions\ of\ curl,}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ by\ using\ the\ default\ behavior\ for\ -\/o,\ -\/O,\ and\ -\/J.}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ If\ those\ options\ would\ have\ overwritten\ files,\ like}}
+\DoxyCodeLine{00289\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/o\ and\ -\/O\ would,\ then\ overwrite\ them.\ In\ the\ case\ of}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/J,\ this\ will\ not\ overwrite\ any\ files.\ */}}
+\DoxyCodeLine{00291\ \ \ \ \ \mbox{\hyperlink{structOperationConfig_a893584523518473118ac3a0971beac99af57f32919e7d6014d9f06e0096aa20c8}{CLOBBER\_NEVER}},\ \textcolor{comment}{/*\ If\ the\ file\ exists,\ always\ fail\ */}}
+\DoxyCodeLine{00292\ \ \ \ \ \mbox{\hyperlink{structOperationConfig_a893584523518473118ac3a0971beac99a89d47b2803d2f5717374304f86f637fd}{CLOBBER\_ALWAYS}}\ \textcolor{comment}{/*\ If\ the\ file\ exists,\ always\ overwrite\ it\ */}}
+\DoxyCodeLine{00293\ \ \ \}\ \mbox{\hyperlink{structOperationConfig_a850117f836bc8136a3f9f60959ff43ef}{file\_clobber\_mode}};}
+\DoxyCodeLine{00294\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGlobalConfig}{GlobalConfig}}\ *\mbox{\hyperlink{structOperationConfig_a9817c385b502eed85b8645f74a654530}{global}};}
+\DoxyCodeLine{00295\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structOperationConfig_a15a68e3dcc9299c07785abeb2a9cf7bd}{prev}};}
+\DoxyCodeLine{00296\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structOperationConfig_a833a98cb2529cdb46f0f7555f52d96a2}{next}};\ \ \ \textcolor{comment}{/*\ Always\ last\ in\ the\ struct\ */}}
+\DoxyCodeLine{00297\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structState}{State}}\ \mbox{\hyperlink{structOperationConfig_ab0c8620c8fd8288773cfa509275dbe73}{state}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ for\ create\_transfer()\ */}}
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOperationConfig_a99775d611e46ea9267d3d3dbd758c8b8}{rm\_partial}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ on\ error,\ remove\ partially\ written\ output}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ files\ */}}
+\DoxyCodeLine{00300\ \};}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGlobalConfig}{GlobalConfig}}\ \{}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structGlobalConfig_acb8c42b98c64675be27d3225fb3d4894}{showerror}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/1\ ==\ unset,\ default\ =>\ show\ errors}}
+\DoxyCodeLine{00304\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ =>\ -\/s\ is\ used\ to\ NOT\ show\ errors}}
+\DoxyCodeLine{00305\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ =>\ -\/S\ has\ been\ used\ to\ show\ errors\ */}}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a86b26318583e4626e06fb6c82c26ead7}{mute}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ don't\ show\ messages,\ -\/-\/silent\ given\ */}}
+\DoxyCodeLine{00307\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_ab576a5f5ef6a161d08bb67d7ae98c06c}{noprogress}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ don't\ show\ progress\ bar\ -\/-\/silent\ given\ */}}
+\DoxyCodeLine{00308\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a10705bd14848bd494788f35ef1c10f70}{isatty}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Updated\ internally\ if\ output\ is\ a\ tty\ */}}
+\DoxyCodeLine{00309\ \ \ FILE\ *\mbox{\hyperlink{structGlobalConfig_af87198ad3c9c77861ed042bf1779c5d3}{errors}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ stream,\ defaults\ to\ stderr\ */}}
+\DoxyCodeLine{00310\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a04231017108f199103fb45fd6497ba90}{errors\_fopened}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Whether\ error\ stream\ isn't\ stderr\ */}}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structGlobalConfig_a04247e79eab8ecdf29345a44b16513e8}{trace\_dump}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ file\ to\ dump\ the\ network\ trace\ to\ */}}
+\DoxyCodeLine{00312\ \ \ FILE\ *\mbox{\hyperlink{structGlobalConfig_ab485f0ad1bab76bc1c8fb787217242df}{trace\_stream}};}
+\DoxyCodeLine{00313\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a9f7ecb3effabdc2a3c2d99ce99c6194e}{trace\_fopened}};}
+\DoxyCodeLine{00314\ \ \ \mbox{\hyperlink{tool__sdecls_8h_a1ef4c4162762c60a00cf44b5969127c5}{trace}}\ \mbox{\hyperlink{structGlobalConfig_abcd053d005f1c4028fb53862f5109a2e}{tracetype}};}
+\DoxyCodeLine{00315\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_accad22454c7b4e230d69ac8283fb1cb6}{tracetime}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ include\ timestamp?\ */}}
+\DoxyCodeLine{00316\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structGlobalConfig_a7ac1076553346732f3efbd02e43bddd5}{progressmode}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CURL\_PROGRESS\_BAR\ /\ CURL\_PROGRESS\_STATS\ */}}
+\DoxyCodeLine{00317\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structGlobalConfig_a523182cc120d9c0c16101d49ca01765b}{libcurl}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Output\ libcurl\ code\ to\ this\ file\ name\ */}}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a1c1cce7e7dc141a854ea77f35893574e}{fail\_early}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ exit\ on\ first\ transfer\ error\ */}}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a67f9cac2dc8d690e8ba5eea33fa4ec43}{styled\_output}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable\ fancy\ output\ style\ detection\ */}}
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structGlobalConfig_af1b7d6b1c4b9981185ca4d96d5f72ef3}{ms\_per\_transfer}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ start\ next\ transfer\ after\ (at\ least)\ this}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ many\ milliseconds\ */}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#ifdef\ CURLDEBUG}}
+\DoxyCodeLine{00323\ \ \ \textcolor{keywordtype}{bool}\ test\_event\_based;}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_addb363194e677df787853572ce93293a}{parallel}};}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structGlobalConfig_a57627a4dca8e85e5ea387f119c2511b5}{parallel\_max}};}
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGlobalConfig_a847e8d4cd9a0dec9febb608f25bcfb41}{parallel\_connect}};}
+\DoxyCodeLine{00328\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structGlobalConfig_a73c4252a666a728917058015afa44657}{help\_category}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ help\ category,\ if\ set\ */}}
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structGlobalConfig_a9db6ff82dc2c12afbff67fcbd9f5beb3}{first}};}
+\DoxyCodeLine{00330\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structGlobalConfig_acbc097975aa82bd26799ea7412add789}{current}};}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structGlobalConfig_acd71172371f2aa72c87f9dd9fcff9c6d}{last}};\ \ \ \textcolor{comment}{/*\ Always\ last\ in\ the\ struct\ */}}
+\DoxyCodeLine{00332\ \};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tool__cfgable_8h_a84b686c5f2efb223a6f6ad33d197a242}{config\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *config);}
+\DoxyCodeLine{00335\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tool__cfgable_8h_a630ac42946e72c5b136bf02e0aa95676}{config\_free}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *config);}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_CFGABLE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

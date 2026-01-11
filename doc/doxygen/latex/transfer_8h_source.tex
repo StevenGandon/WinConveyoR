@@ -1,0 +1,58 @@
+\doxysection{transfer.\+h}
+\hypertarget{transfer_8h_source}{}\label{transfer_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/transfer.h@{lib/libwconr/build/\_deps/curl-\/src/lib/transfer.h}}
+\mbox{\hyperlink{transfer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TRANSFER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TRANSFER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ Curl\_headersep(x)\ ((((x)==':')\ ||\ ((x)==';')))}}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{transfer_8h_a33874741a8addc49ac59eb75669e1fc7}{Curl\_checkheaders}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *thisheader,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ thislen);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{transfer_8h_a055b20e035ac986f69148eaa4a44eaaa}{Curl\_init\_CONNECT}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_a0dae98156f3b0dc5f703d4d19d15c137}{Curl\_pretransfer}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00035\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_a6afc3b6e11b658604fb00a32646c2f15}{Curl\_posttransfer}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963ab387c536c13d6435a4696a19fc865c5c}{FOLLOW\_NONE}},\ \ \textcolor{comment}{/*\ not\ used\ within\ the\ function,\ just\ a\ placeholder\ to}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allow\ initing\ to\ this\ */}}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963a0d049e79236e49899f5aff3e0b46bed6}{FOLLOW\_FAKE}},\ \ \textcolor{comment}{/*\ only\ records\ stuff,\ not\ actually\ following\ */}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963ad2816ee7aaf9704289116c93e1d694a8}{FOLLOW\_RETRY}},\ \textcolor{comment}{/*\ set\ if\ this\ is\ a\ request\ retry\ as\ opposed\ to\ a\ real}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ redirect\ following\ */}}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963a88a3c59ee1a6490b85dc50d0568e2603}{FOLLOW\_REDIR}}\ \textcolor{comment}{/*\ a\ full\ true\ redirect\ */}}
+\DoxyCodeLine{00044\ \}\ \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963}{followtype}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_a96a72bb80c85af1210d7fc49244920e9}{Curl\_follow}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{char}\ *newurl,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{transfer_8h_a5d8d8c391641700d5c2f715193e27963}{followtype}}\ \mbox{\hyperlink{form_8d_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}});}
+\DoxyCodeLine{00048\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_ac06679494870ed2a702de92759b06c7d}{Curl\_readwrite}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{bool}\ *done,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *comeback);}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{transfer_8h_aafd1343c992edeaac81bc8de1b9cc508}{Curl\_single\_getsock}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\_socket\_t}}\ *socks);}
+\DoxyCodeLine{00053\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_ac1ade793c623fae78190e398bf827b69}{Curl\_readrewind}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00054\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_aaa429e6e04e6df09a6b389bdeac795af}{Curl\_fillreadbuffer}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{size\_t}\ bytes,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *nreadp);}
+\DoxyCodeLine{00056\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_ad452c9820e9491b689d4618789c40f0a}{Curl\_retry\_request}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{char}\ **url);}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{transfer_8h_a110f6f53341d61200abc2b0b7cdd53f2}{Curl\_meets\_timecondition}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},\ time\_t\ timeofdoc);}
+\DoxyCodeLine{00058\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_a15440032c495bf0f3f6c535ec5e811e3}{Curl\_get\_upload\_buffer}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{transfer_8h_aa0bd5e431162628573c21148b7e8cdd1}{Curl\_done\_sending}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structSingleRequest}{SingleRequest}}\ *k);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ This\ sets\ up\ a\ forthcoming\ transfer\ */}}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{transfer_8h_a12ac91ee5b865f947ad27c81d41c22f6}{Curl\_setup\_transfer}}\ (\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sockindex,\ \ \ \ \ \textcolor{comment}{/*\ socket\ index\ to\ read\ from\ or\ -\/1\ */}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},\ \ \ \textcolor{comment}{/*\ -\/1\ if\ unknown\ at\ this\ point\ */}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ getheader,\ \ \ \ \textcolor{comment}{/*\ TRUE\ if\ header\ parsing\ is\ wanted\ */}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ writesockindex\ \textcolor{comment}{/*\ socket\ index\ to\ write\ to.\ May\ be}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ same\ we\ read\ from.\ -\/1}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disables\ */}}
+\DoxyCodeLine{00072\ \ \ );}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TRANSFER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

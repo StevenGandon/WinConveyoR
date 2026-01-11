@@ -1,0 +1,351 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/easy.c File Reference}
+\hypertarget{easy_8c}{}\label{easy_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/easy.c@{lib/libwconr/build/\_deps/curl-\/src/lib/easy.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}getinfo.\+h"{}}\newline
+{\ttfamily \#include "{}hostip.\+h"{}}\newline
+{\ttfamily \#include "{}share.\+h"{}}\newline
+{\ttfamily \#include "{}strdup.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}easyif.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}slist.\+h"{}}\newline
+{\ttfamily \#include "{}mime.\+h"{}}\newline
+{\ttfamily \#include "{}amigaos.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}sigpipe.\+h"{}}\newline
+{\ttfamily \#include "{}vssh/ssh.\+h"{}}\newline
+{\ttfamily \#include "{}setopt.\+h"{}}\newline
+{\ttfamily \#include "{}http\+\_\+digest.\+h"{}}\newline
+{\ttfamily \#include "{}system\+\_\+win32.\+h"{}}\newline
+{\ttfamily \#include "{}http2.\+h"{}}\newline
+{\ttfamily \#include "{}dynbuf.\+h"{}}\newline
+{\ttfamily \#include "{}altsvc.\+h"{}}\newline
+{\ttfamily \#include "{}hsts.\+h"{}}\newline
+{\ttfamily \#include "{}easy\+\_\+lock.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{easy_8c_a80667e9771f165750773901c93277af6}{global\+\_\+init\+\_\+lock}}()
+\item 
+\#define \mbox{\hyperlink{easy_8c_a43f84cbc104fc47e5b00c06a6c38b648}{global\+\_\+init\+\_\+unlock}}()
+\item 
+\#define \mbox{\hyperlink{easy_8c_a15bca709deba4fa1df268eba82915006}{system\+\_\+strdup}}~\mbox{\hyperlink{strdup_8c_a529e341f46c8f75673ff7080f86d9bd3}{curlx\+\_\+strdup}}
+\item 
+\#define \mbox{\hyperlink{easy_8c_ad78543d4205acc1f5bb446b296ee76e2}{easy\+\_\+events}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a3b3fcbd6231ab07da5dce486259c7f7f}{global\+\_\+init}} (long flags, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} memoryfuncs)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_af45816ef02458a780045822f6cd6fc7c}{curl\+\_\+global\+\_\+init}} (long flags)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_adfff4443fe1c07e9b44f6fecb4112ebc}{curl\+\_\+global\+\_\+init\+\_\+mem}} (long flags, \mbox{\hyperlink{curl_8h_afc284a94030dd05ccdb8c3b85c6eb976}{curl\+\_\+malloc\+\_\+callback}} \mbox{\hyperlink{rate_8d_a1f130e965e3a8956a1b2364a0e38af82}{m}}, \mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\+\_\+free\+\_\+callback}} f, \mbox{\hyperlink{curl_8h_a2b36a486d739c94d3fd1850db5fccc24}{curl\+\_\+realloc\+\_\+callback}} r, \mbox{\hyperlink{curl_8h_a33a481b7d9e82533c0a163e38fe053d3}{curl\+\_\+strdup\+\_\+callback}} \mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}}, \mbox{\hyperlink{curl_8h_aade46d08ec28d1477f74e553ae08343f}{curl\+\_\+calloc\+\_\+callback}} c)
+\item 
+void \mbox{\hyperlink{easy_8c_a51c50b677b22f0de3127e58532aeb4ea}{curl\+\_\+global\+\_\+cleanup}} (void)
+\item 
+\mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}} \mbox{\hyperlink{easy_8c_a9c46acf5dfae9aa4b40fbb64c9035768}{curl\+\_\+global\+\_\+sslset}} (\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}} id, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{no-clobber_8d_a55aa2dc823b414005b6ab9f51301106d}{name}}, const \mbox{\hyperlink{structcurl__ssl__backend}{curl\+\_\+ssl\+\_\+backend}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}avail)
+\item 
+struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{easy_8c_abc96fac7eb9e8c7639213420d4e88ea2}{curl\+\_\+easy\+\_\+init}} (void)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a1c756c1ed8208d43ace67dc5bc841190}{easy\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__multi}{Curl\+\_\+multi}} \texorpdfstring{$\ast$}{*}multi)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a1a169bf019a632e83bfd42ee65f8d58d}{easy\+\_\+perform}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} events)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a1875495cbf1c81302e801c67f758cc62}{curl\+\_\+easy\+\_\+perform}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{easy_8c_af8cda1f83b3622be7593effecefc306d}{curl\+\_\+easy\+\_\+cleanup}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a7205b2a2a379fc9c43e901e71a4bd7ce}{curl\+\_\+easy\+\_\+getinfo}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_aabc03ec968a2fdccde5c6709f712dd7b}{CURLINFO}} info,...)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a7ef573163a0acf720968e691f9215464}{dupset}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}dst, struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacesrc}{src}})
+\item 
+struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{easy_8c_a861ead42a5076087ec83baa7f79b9c5d}{curl\+\_\+easy\+\_\+duphandle}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{easy_8c_adcdee0c559288b14101cad7c8657367e}{curl\+\_\+easy\+\_\+reset}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a1bc05a6c5399806848a2a80443567455}{curl\+\_\+easy\+\_\+pause}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int action)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a4c8f44c8777f39a3d2d37041b61b5b13}{easy\+\_\+connection}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}sfd, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}connp)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a174c49744c627dced8b0abdee4c63cb1}{curl\+\_\+easy\+\_\+recv}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t buflen, size\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_ac56eba5c3dda27b77bba28615ceff57d}{Curl\+\_\+senddata}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t buflen, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_a1b976d2e31d5701731a0d03f3c20839b}{curl\+\_\+easy\+\_\+send}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, size\+\_\+t buflen, size\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}})
+\item 
+static int \mbox{\hyperlink{easy_8c_a98e189d2b67a94ee58d7cf7bd11db498}{conn\+\_\+upkeep}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, void \texorpdfstring{$\ast$}{*}param)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_ad2081a6ea3beffa6b277a3e652532507}{upkeep}} (struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}conn\+\_\+cache, void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{easy_8c_ae79ef2d0d1c7c1c26e8b5eb2dd94fcd3}{curl\+\_\+easy\+\_\+upkeep}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned int \mbox{\hyperlink{easy_8c_af00a707f65afa5d0f6cf27ec821bb763}{initialized}}
+\item 
+static long \mbox{\hyperlink{easy_8c_afb6c89d946f38a6024183cd367db8560}{init\+\_\+flags}}
+\item 
+\mbox{\hyperlink{curl_8h_afc284a94030dd05ccdb8c3b85c6eb976}{curl\+\_\+malloc\+\_\+callback}} \mbox{\hyperlink{easy_8c_a68be1ba9f097411cd19bcaaa3dc589d3}{Curl\+\_\+cmalloc}} = (\mbox{\hyperlink{curl_8h_afc284a94030dd05ccdb8c3b85c6eb976}{curl\+\_\+malloc\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}
+\item 
+\mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\+\_\+free\+\_\+callback}} \mbox{\hyperlink{easy_8c_ad1a2aea0c593a1be2db67c172e00f3af}{Curl\+\_\+cfree}} = (\mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\+\_\+free\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_a9cc854374299a1dd933bf62029761768}{free}}
+\item 
+\mbox{\hyperlink{curl_8h_a2b36a486d739c94d3fd1850db5fccc24}{curl\+\_\+realloc\+\_\+callback}} \mbox{\hyperlink{easy_8c_a49700efc07a6ab0828e78ee73e11358f}{Curl\+\_\+crealloc}} = (\mbox{\hyperlink{curl_8h_a2b36a486d739c94d3fd1850db5fccc24}{curl\+\_\+realloc\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_aa568500a9ca507b5a53de5372c81f26a}{realloc}}
+\item 
+\mbox{\hyperlink{curl_8h_a33a481b7d9e82533c0a163e38fe053d3}{curl\+\_\+strdup\+\_\+callback}} \mbox{\hyperlink{easy_8c_ae5fd994ac352cdda8098d6fce11b5158}{Curl\+\_\+cstrdup}} = (\mbox{\hyperlink{curl_8h_a33a481b7d9e82533c0a163e38fe053d3}{curl\+\_\+strdup\+\_\+callback}})\mbox{\hyperlink{easy_8c_a15bca709deba4fa1df268eba82915006}{system\+\_\+strdup}}
+\item 
+\mbox{\hyperlink{curl_8h_aade46d08ec28d1477f74e553ae08343f}{curl\+\_\+calloc\+\_\+callback}} \mbox{\hyperlink{easy_8c_a5595c74f95f697d9dc6dae2cdf0f9e0d}{Curl\+\_\+ccalloc}} = (\mbox{\hyperlink{curl_8h_aade46d08ec28d1477f74e553ae08343f}{curl\+\_\+calloc\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_abc013d1a27cb591a5316801c509c781f}{calloc}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{easy_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{easy_8c_ad78543d4205acc1f5bb446b296ee76e2}\index{easy.c@{easy.c}!easy\_events@{easy\_events}}
+\index{easy\_events@{easy\_events}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{easy\_events}{easy\_events}}
+{\footnotesize\ttfamily \label{easy_8c_ad78543d4205acc1f5bb446b296ee76e2} 
+\#define easy\+\_\+events(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951ac92786e19b828c0c4a8fa5f7d6b1e01e}{CURLE\_NOT\_BUILT\_IN}}}
+
+\end{DoxyCode}
+\Hypertarget{easy_8c_a80667e9771f165750773901c93277af6}\index{easy.c@{easy.c}!global\_init\_lock@{global\_init\_lock}}
+\index{global\_init\_lock@{global\_init\_lock}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{global\_init\_lock}{global\_init\_lock}}
+{\footnotesize\ttfamily \label{easy_8c_a80667e9771f165750773901c93277af6} 
+\#define global\+\_\+init\+\_\+lock(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a43f84cbc104fc47e5b00c06a6c38b648}\index{easy.c@{easy.c}!global\_init\_unlock@{global\_init\_unlock}}
+\index{global\_init\_unlock@{global\_init\_unlock}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{global\_init\_unlock}{global\_init\_unlock}}
+{\footnotesize\ttfamily \label{easy_8c_a43f84cbc104fc47e5b00c06a6c38b648} 
+\#define global\+\_\+init\+\_\+unlock(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a15bca709deba4fa1df268eba82915006}\index{easy.c@{easy.c}!system\_strdup@{system\_strdup}}
+\index{system\_strdup@{system\_strdup}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{system\_strdup}{system\_strdup}}
+{\footnotesize\ttfamily \label{easy_8c_a15bca709deba4fa1df268eba82915006} 
+\#define system\+\_\+strdup~\mbox{\hyperlink{strdup_8c_a529e341f46c8f75673ff7080f86d9bd3}{curlx\+\_\+strdup}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{easy_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{easy_8c_a98e189d2b67a94ee58d7cf7bd11db498}\index{easy.c@{easy.c}!conn\_upkeep@{conn\_upkeep}}
+\index{conn\_upkeep@{conn\_upkeep}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{conn\_upkeep()}{conn\_upkeep()}}
+{\footnotesize\ttfamily \label{easy_8c_a98e189d2b67a94ee58d7cf7bd11db498} 
+int conn\+\_\+upkeep (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{easy_8c_af8cda1f83b3622be7593effecefc306d}\index{easy.c@{easy.c}!curl\_easy\_cleanup@{curl\_easy\_cleanup}}
+\index{curl\_easy\_cleanup@{curl\_easy\_cleanup}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_cleanup()}{curl\_easy\_cleanup()}}
+{\footnotesize\ttfamily \label{easy_8c_af8cda1f83b3622be7593effecefc306d} 
+void curl\+\_\+easy\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a861ead42a5076087ec83baa7f79b9c5d}\index{easy.c@{easy.c}!curl\_easy\_duphandle@{curl\_easy\_duphandle}}
+\index{curl\_easy\_duphandle@{curl\_easy\_duphandle}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_duphandle()}{curl\_easy\_duphandle()}}
+{\footnotesize\ttfamily \label{easy_8c_a861ead42a5076087ec83baa7f79b9c5d} 
+struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+duphandle (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a7205b2a2a379fc9c43e901e71a4bd7ce}\index{easy.c@{easy.c}!curl\_easy\_getinfo@{curl\_easy\_getinfo}}
+\index{curl\_easy\_getinfo@{curl\_easy\_getinfo}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_getinfo()}{curl\_easy\_getinfo()}}
+{\footnotesize\ttfamily \label{easy_8c_a7205b2a2a379fc9c43e901e71a4bd7ce} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+getinfo (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_aabc03ec968a2fdccde5c6709f712dd7b}{CURLINFO}}}]{info}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_abc96fac7eb9e8c7639213420d4e88ea2}\index{easy.c@{easy.c}!curl\_easy\_init@{curl\_easy\_init}}
+\index{curl\_easy\_init@{curl\_easy\_init}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_init()}{curl\_easy\_init()}}
+{\footnotesize\ttfamily \label{easy_8c_abc96fac7eb9e8c7639213420d4e88ea2} 
+struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*} curl\+\_\+easy\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a1bc05a6c5399806848a2a80443567455}\index{easy.c@{easy.c}!curl\_easy\_pause@{curl\_easy\_pause}}
+\index{curl\_easy\_pause@{curl\_easy\_pause}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_pause()}{curl\_easy\_pause()}}
+{\footnotesize\ttfamily \label{easy_8c_a1bc05a6c5399806848a2a80443567455} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+pause (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{action}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a1875495cbf1c81302e801c67f758cc62}\index{easy.c@{easy.c}!curl\_easy\_perform@{curl\_easy\_perform}}
+\index{curl\_easy\_perform@{curl\_easy\_perform}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_perform()}{curl\_easy\_perform()}}
+{\footnotesize\ttfamily \label{easy_8c_a1875495cbf1c81302e801c67f758cc62} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+perform (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a174c49744c627dced8b0abdee4c63cb1}\index{easy.c@{easy.c}!curl\_easy\_recv@{curl\_easy\_recv}}
+\index{curl\_easy\_recv@{curl\_easy\_recv}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_recv()}{curl\_easy\_recv()}}
+{\footnotesize\ttfamily \label{easy_8c_a174c49744c627dced8b0abdee4c63cb1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+recv (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{buflen}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_adcdee0c559288b14101cad7c8657367e}\index{easy.c@{easy.c}!curl\_easy\_reset@{curl\_easy\_reset}}
+\index{curl\_easy\_reset@{curl\_easy\_reset}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_reset()}{curl\_easy\_reset()}}
+{\footnotesize\ttfamily \label{easy_8c_adcdee0c559288b14101cad7c8657367e} 
+void curl\+\_\+easy\+\_\+reset (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a1b976d2e31d5701731a0d03f3c20839b}\index{easy.c@{easy.c}!curl\_easy\_send@{curl\_easy\_send}}
+\index{curl\_easy\_send@{curl\_easy\_send}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_send()}{curl\_easy\_send()}}
+{\footnotesize\ttfamily \label{easy_8c_a1b976d2e31d5701731a0d03f3c20839b} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+send (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{buflen}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_ae79ef2d0d1c7c1c26e8b5eb2dd94fcd3}\index{easy.c@{easy.c}!curl\_easy\_upkeep@{curl\_easy\_upkeep}}
+\index{curl\_easy\_upkeep@{curl\_easy\_upkeep}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_easy\_upkeep()}{curl\_easy\_upkeep()}}
+{\footnotesize\ttfamily \label{easy_8c_ae79ef2d0d1c7c1c26e8b5eb2dd94fcd3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+easy\+\_\+upkeep (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a51c50b677b22f0de3127e58532aeb4ea}\index{easy.c@{easy.c}!curl\_global\_cleanup@{curl\_global\_cleanup}}
+\index{curl\_global\_cleanup@{curl\_global\_cleanup}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_global\_cleanup()}{curl\_global\_cleanup()}}
+{\footnotesize\ttfamily \label{easy_8c_a51c50b677b22f0de3127e58532aeb4ea} 
+void curl\+\_\+global\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\doxylink{easy_8c_a51c50b677b22f0de3127e58532aeb4ea}{curl\+\_\+global\+\_\+cleanup()} globally cleanups curl, uses the value of "{}init\+\_\+flags"{} to determine what needs to be cleaned up and what doesn\textquotesingle{}t. \Hypertarget{easy_8c_af45816ef02458a780045822f6cd6fc7c}\index{easy.c@{easy.c}!curl\_global\_init@{curl\_global\_init}}
+\index{curl\_global\_init@{curl\_global\_init}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_global\_init()}{curl\_global\_init()}}
+{\footnotesize\ttfamily \label{easy_8c_af45816ef02458a780045822f6cd6fc7c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+global\+\_\+init (\begin{DoxyParamCaption}\item[{long}]{flags}{}\end{DoxyParamCaption})}
+
+\doxylink{easy_8c_af45816ef02458a780045822f6cd6fc7c}{curl\+\_\+global\+\_\+init()} globally initializes curl given a bitwise set of the different features of what to initialize. \Hypertarget{easy_8c_adfff4443fe1c07e9b44f6fecb4112ebc}\index{easy.c@{easy.c}!curl\_global\_init\_mem@{curl\_global\_init\_mem}}
+\index{curl\_global\_init\_mem@{curl\_global\_init\_mem}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_global\_init\_mem()}{curl\_global\_init\_mem()}}
+{\footnotesize\ttfamily \label{easy_8c_adfff4443fe1c07e9b44f6fecb4112ebc} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} curl\+\_\+global\+\_\+init\+\_\+mem (\begin{DoxyParamCaption}\item[{long}]{flags}{, }\item[{\mbox{\hyperlink{curl_8h_afc284a94030dd05ccdb8c3b85c6eb976}{curl\+\_\+malloc\+\_\+callback}}}]{m}{, }\item[{\mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\+\_\+free\+\_\+callback}}}]{f}{, }\item[{\mbox{\hyperlink{curl_8h_a2b36a486d739c94d3fd1850db5fccc24}{curl\+\_\+realloc\+\_\+callback}}}]{r}{, }\item[{\mbox{\hyperlink{curl_8h_a33a481b7d9e82533c0a163e38fe053d3}{curl\+\_\+strdup\+\_\+callback}}}]{s}{, }\item[{\mbox{\hyperlink{curl_8h_aade46d08ec28d1477f74e553ae08343f}{curl\+\_\+calloc\+\_\+callback}}}]{c}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_a9c46acf5dfae9aa4b40fbb64c9035768}\index{easy.c@{easy.c}!curl\_global\_sslset@{curl\_global\_sslset}}
+\index{curl\_global\_sslset@{curl\_global\_sslset}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{curl\_global\_sslset()}{curl\_global\_sslset()}}
+{\footnotesize\ttfamily \label{easy_8c_a9c46acf5dfae9aa4b40fbb64c9035768} 
+\mbox{\hyperlink{curl_8h_a60ecc2082ebefd3b59083c19f6ca2946}{CURLsslset}} curl\+\_\+global\+\_\+sslset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{curl_8h_a908c5b707ac681212b8f8688cf76689d}{curl\+\_\+sslbackend}}}]{id}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const \mbox{\hyperlink{structcurl__ssl__backend}{curl\+\_\+ssl\+\_\+backend}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{avail}{}\end{DoxyParamCaption})}
+
+\Hypertarget{easy_8c_ac56eba5c3dda27b77bba28615ceff57d}\index{easy.c@{easy.c}!Curl\_senddata@{Curl\_senddata}}
+\index{Curl\_senddata@{Curl\_senddata}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_senddata()}{Curl\_senddata()}}
+{\footnotesize\ttfamily \label{easy_8c_ac56eba5c3dda27b77bba28615ceff57d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+senddata (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{buflen}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{easy_8c_a7ef573163a0acf720968e691f9215464}\index{easy.c@{easy.c}!dupset@{dupset}}
+\index{dupset@{dupset}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{dupset()}{dupset()}}
+{\footnotesize\ttfamily \label{easy_8c_a7ef573163a0acf720968e691f9215464} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} dupset (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{dst}{, }\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{src}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{easy_8c_a4c8f44c8777f39a3d2d37041b61b5b13}\index{easy.c@{easy.c}!easy\_connection@{easy\_connection}}
+\index{easy\_connection@{easy\_connection}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{easy\_connection()}{easy\_connection()}}
+{\footnotesize\ttfamily \label{easy_8c_a4c8f44c8777f39a3d2d37041b61b5b13} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easy\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{sfd}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{connp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{easy_8c_a1a169bf019a632e83bfd42ee65f8d58d}\index{easy.c@{easy.c}!easy\_perform@{easy\_perform}}
+\index{easy\_perform@{easy\_perform}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{easy\_perform()}{easy\_perform()}}
+{\footnotesize\ttfamily \label{easy_8c_a1a169bf019a632e83bfd42ee65f8d58d} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easy\+\_\+perform (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{events}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{easy_8c_a1c756c1ed8208d43ace67dc5bc841190}\index{easy.c@{easy.c}!easy\_transfer@{easy\_transfer}}
+\index{easy\_transfer@{easy\_transfer}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{easy\_transfer()}{easy\_transfer()}}
+{\footnotesize\ttfamily \label{easy_8c_a1c756c1ed8208d43ace67dc5bc841190} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} easy\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__multi}{Curl\+\_\+multi}} \texorpdfstring{$\ast$}{*}}]{multi}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{easy_8c_a3b3fcbd6231ab07da5dce486259c7f7f}\index{easy.c@{easy.c}!global\_init@{global\_init}}
+\index{global\_init@{global\_init}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{global\_init()}{global\_init()}}
+{\footnotesize\ttfamily \label{easy_8c_a3b3fcbd6231ab07da5dce486259c7f7f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} global\+\_\+init (\begin{DoxyParamCaption}\item[{long}]{flags}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{memoryfuncs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{easy_8c_af45816ef02458a780045822f6cd6fc7c}{curl\+\_\+global\+\_\+init()} globally initializes curl given a bitwise set of the different features of what to initialize. \Hypertarget{easy_8c_ad2081a6ea3beffa6b277a3e652532507}\index{easy.c@{easy.c}!upkeep@{upkeep}}
+\index{upkeep@{upkeep}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{upkeep()}{upkeep()}}
+{\footnotesize\ttfamily \label{easy_8c_ad2081a6ea3beffa6b277a3e652532507} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} upkeep (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconncache}{conncache}} \texorpdfstring{$\ast$}{*}}]{conn\+\_\+cache}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{easy_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{easy_8c_a5595c74f95f697d9dc6dae2cdf0f9e0d}\index{easy.c@{easy.c}!Curl\_ccalloc@{Curl\_ccalloc}}
+\index{Curl\_ccalloc@{Curl\_ccalloc}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ccalloc}{Curl\_ccalloc}}
+{\footnotesize\ttfamily \label{easy_8c_a5595c74f95f697d9dc6dae2cdf0f9e0d} 
+\mbox{\hyperlink{curl_8h_aade46d08ec28d1477f74e553ae08343f}{curl\+\_\+calloc\+\_\+callback}} Curl\+\_\+ccalloc = (\mbox{\hyperlink{curl_8h_aade46d08ec28d1477f74e553ae08343f}{curl\+\_\+calloc\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_abc013d1a27cb591a5316801c509c781f}{calloc}}}
+
+\Hypertarget{easy_8c_ad1a2aea0c593a1be2db67c172e00f3af}\index{easy.c@{easy.c}!Curl\_cfree@{Curl\_cfree}}
+\index{Curl\_cfree@{Curl\_cfree}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cfree}{Curl\_cfree}}
+{\footnotesize\ttfamily \label{easy_8c_ad1a2aea0c593a1be2db67c172e00f3af} 
+\mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\+\_\+free\+\_\+callback}} Curl\+\_\+cfree = (\mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\+\_\+free\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_a9cc854374299a1dd933bf62029761768}{free}}}
+
+\Hypertarget{easy_8c_a68be1ba9f097411cd19bcaaa3dc589d3}\index{easy.c@{easy.c}!Curl\_cmalloc@{Curl\_cmalloc}}
+\index{Curl\_cmalloc@{Curl\_cmalloc}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cmalloc}{Curl\_cmalloc}}
+{\footnotesize\ttfamily \label{easy_8c_a68be1ba9f097411cd19bcaaa3dc589d3} 
+\mbox{\hyperlink{curl_8h_afc284a94030dd05ccdb8c3b85c6eb976}{curl\+\_\+malloc\+\_\+callback}} Curl\+\_\+cmalloc = (\mbox{\hyperlink{curl_8h_afc284a94030dd05ccdb8c3b85c6eb976}{curl\+\_\+malloc\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_a2eb0b03d1a9de9615a291b1205969069}{malloc}}}
+
+\Hypertarget{easy_8c_a49700efc07a6ab0828e78ee73e11358f}\index{easy.c@{easy.c}!Curl\_crealloc@{Curl\_crealloc}}
+\index{Curl\_crealloc@{Curl\_crealloc}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_crealloc}{Curl\_crealloc}}
+{\footnotesize\ttfamily \label{easy_8c_a49700efc07a6ab0828e78ee73e11358f} 
+\mbox{\hyperlink{curl_8h_a2b36a486d739c94d3fd1850db5fccc24}{curl\+\_\+realloc\+\_\+callback}} Curl\+\_\+crealloc = (\mbox{\hyperlink{curl_8h_a2b36a486d739c94d3fd1850db5fccc24}{curl\+\_\+realloc\+\_\+callback}})\mbox{\hyperlink{curl__memory_8h_aa568500a9ca507b5a53de5372c81f26a}{realloc}}}
+
+\Hypertarget{easy_8c_ae5fd994ac352cdda8098d6fce11b5158}\index{easy.c@{easy.c}!Curl\_cstrdup@{Curl\_cstrdup}}
+\index{Curl\_cstrdup@{Curl\_cstrdup}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cstrdup}{Curl\_cstrdup}}
+{\footnotesize\ttfamily \label{easy_8c_ae5fd994ac352cdda8098d6fce11b5158} 
+\mbox{\hyperlink{curl_8h_a33a481b7d9e82533c0a163e38fe053d3}{curl\+\_\+strdup\+\_\+callback}} Curl\+\_\+cstrdup = (\mbox{\hyperlink{curl_8h_a33a481b7d9e82533c0a163e38fe053d3}{curl\+\_\+strdup\+\_\+callback}})\mbox{\hyperlink{easy_8c_a15bca709deba4fa1df268eba82915006}{system\+\_\+strdup}}}
+
+\Hypertarget{easy_8c_afb6c89d946f38a6024183cd367db8560}\index{easy.c@{easy.c}!init\_flags@{init\_flags}}
+\index{init\_flags@{init\_flags}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{init\_flags}{init\_flags}}
+{\footnotesize\ttfamily \label{easy_8c_afb6c89d946f38a6024183cd367db8560} 
+long init\+\_\+flags\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{easy_8c_af00a707f65afa5d0f6cf27ec821bb763}\index{easy.c@{easy.c}!initialized@{initialized}}
+\index{initialized@{initialized}!easy.c@{easy.c}}
+\doxysubsubsection{\texorpdfstring{initialized}{initialized}}
+{\footnotesize\ttfamily \label{easy_8c_af00a707f65afa5d0f6cf27ec821bb763} 
+unsigned int initialized\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

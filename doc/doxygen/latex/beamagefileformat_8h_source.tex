@@ -1,0 +1,219 @@
+\doxysection{beamagefileformat.\+h}
+\hypertarget{beamagefileformat_8h_source}{}\label{beamagefileformat_8h_source}\index{BeamageStream/beamagefileformat.h@{BeamageStream/beamagefileformat.h}}
+\mbox{\hyperlink{beamagefileformat_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{BeamageStream_8h}{BeamageStream.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QDataStream>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ MAGIC\_BHEADER\ 0x10A14501}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ implementIBSectionHeader()\ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ public:\ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint64\_t\ getSize(Beamage::IO::FileFormat::BFormat*\ format)\ const;\ \(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ std::shared\_ptr<unsigned\ char>\ toBytes(Beamage::IO::FileFormat::BFormat*\ format\ =\ nullptr)\ const;\ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ BSTATUS\_LOAD\ load(Beamage::IO::FileFormat::BFormat*\ format);\ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ private:\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint64\_t\ \_computeSize(void)\ const\ noexcept;\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ unsigned\ char*\ \_generateBaseData(Beamage::IO::FileFormat::BFormat*\ format)\ const;}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ implementCommonSectionBuilder(allocationErrorMessage)\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ if\ (!section)\ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ throw\ Beamage::Exception::MemoryError(allocationErrorMessage);\ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ section-\/>sectionType\ =\ Beamage::IO::FileFormat::IBSection::BSST\_REF;\ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ section-\/>sectionName\ =\ name;\ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ section-\/>sectionOffset\ =\ offset;\ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ if\ (format\ \&\&\ ((format-\/>loadingStrategy\ \&\ format-\/>BL\_ALL)\ >\ 0))\ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ section-\/>load(format);\ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ return\ (std::shared\_ptr<Beamage::IO::FileFormat::IBSection>(section));}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ implementCommonSectionByteConversion(allocationErrorMessage)\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ unsigned\ char*\ data\ =\ \_generateBaseData(format);\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ if\ (!data)\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ throw\ Beamage::Exception::MemoryError(allocationErrorMessage);\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ if\ (format\ \&\&\ ((format-\/>flags\ \&\ Beamage::IO::FileFormat::BFormat::BF\_ZLIB)\ >\ 0))\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ format-\/>applyByteCompression(\&data,\ \_computeSize());\ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ return\ (std::shared\_ptr<unsigned\ char>(data));}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ implementCommonSectionGetSize(allocationErrorMessage)\ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ unsigned\ char*\ temp;\ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ uint64\_t\ value\ =\ 0;\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ if\ (format\ \&\&\ ((format-\/>flags\ \&\ Beamage::IO::FileFormat::BFormat::BF\_ZLIB)\ >\ 0))\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ temp\ =\ \_generateBaseData(format);\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!temp)\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ throw\ Beamage::Exception::MemoryError(allocationErrorMessage);\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ value\ =\ format-\/>applyByteCompression(\&temp,\ \_computeSize());\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ delete[]temp;\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ (value);\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ return\ (\_computeSize());}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage}{Beamage}}\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage_1_1IO}{IO}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage_1_1IO_1_1FileFormat}{FileFormat}}\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a9c47654c6f9a8f6db03d5297efb16ff3}{IBSection}}\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7a}{BSTYPE}}\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aabb9751d45dab34a74b3faee28da3c289}{BST\_UKNOWN}}\ =\ 0,}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aa889ca9b63d3f33a6df518d14fc9c7771}{BST\_PALETTE}}\ =\ 1,}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aa711695e8bd4a152dfe952c85018fb209}{BST\_VIEW}}\ =\ 2,}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aaaa696d6f9f91979bf76b3333abe2ec05}{BST\_SCENE}}\ =\ 3,}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ test\ */}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aaba54e2ce82e3d36bdaa5ce3befd957cc}{BST\_TEST}}\ =\ 4,}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ BDE\ header\ */}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aac88c0c6ba6acf8e66bf89da2976139eb}{BST\_BDE\_DATA}}\ =\ 5}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a39fcf71c7959bbd5740d1f76d977f3b7}{BSECTION\_STATE}}\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a39fcf71c7959bbd5740d1f76d977f3b7a06d270d7ba4fde85069b7e37bab85aef}{BSST\_REF}},}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a39fcf71c7959bbd5740d1f76d977f3b7af5e1825fbb8904f0ee397f2f5470ae55}{BSST\_LOADED}}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a8495544e1be190eb1243c999e6ef8b79}{BSTATUS\_LOAD}}\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a8495544e1be190eb1243c999e6ef8b79a001bfcdf913c865ef81014ed74259fd7}{BSL\_OK}},}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a8495544e1be190eb1243c999e6ef8b79a316b66c6a348b288486cb7c821e84a86}{BSL\_KO}}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a9c47654c6f9a8f6db03d5297efb16ff3}{IBSection}}(\textcolor{keyword}{const}\ std::string\ \&name\ =\ \textcolor{stringliteral}{"{}newSection"{}},\ int16\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_ac3f0f48e8fd7e4266fb9503df8e117b9}{sectionType}}\ =\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a2da232cb4db4a707275bf900a6e51c7aabb9751d45dab34a74b3faee28da3c289}{BSTYPE::BST\_UKNOWN}});}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a4708e8577285646683143ecedbebc6ef}{getSize}}(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}*\ format\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ std::shared\_ptr<unsigned\ char>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_ade3fc57afe70b59fe5fbc65687b364e2}{toBytes}}(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}\ *format\ =\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a8495544e1be190eb1243c999e6ef8b79}{BSTATUS\_LOAD}}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_ad993b01683014ccd0cb20484f1358e10}{load}}(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}\ *format)\ =\ 0;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a39fcf71c7959bbd5740d1f76d977f3b7}{BSECTION\_STATE}}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a56f4070afaa9cb5324fcccd86ab03c8f}{getState}}(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int16\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_ac3f0f48e8fd7e4266fb9503df8e117b9}{sectionType}};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_aa2ca1550bf69bee7d13088f33876b4b6}{sectionName}};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int64\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_ade8c3c70b196bfba7a839fa0899a0d25}{sectionOffset}};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a39fcf71c7959bbd5740d1f76d977f3b7}{BSECTION\_STATE}}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection_a53e5f385d20a638de9e2ed049ae70c44}{\_state}};}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3}{BLOAD\_TYPE}}\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a69419cafd177247ec0c04660dcf82caf}{BL\_LAZY}},}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3ac7a873b05037461ae694649b462b835a}{BL\_ALL}},}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a1a60ea75ed3aa976fb950d53d23446ba}{BL\_CHUNK}}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8}{BTYPE}}\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8ab577a36da3c93fad1a0ee7279f3835c5}{BT\_DBE}}\ =\ 0,}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8aa5805b196c60b33aabca217a95fbba3d}{BT\_DAF}}\ =\ 1}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c}{BFLAGS}}\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30ca2ea88421bf86554a9f36863104024fb6}{BF\_NONE}}\ =\ 0x00,}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30caf50a4149c5f419938211ad1d8f593c8a}{BF\_ZLIB}}\ =\ (1\ <<\ 0),}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30cac2a2115c7fc87b7e900d6cf20c33cf99}{BF\_NOPAD}}\ =\ (1\ <<\ 1)}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056}{BVersion}}\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056ab9c871c08043efed732ec68a6f5b958d}{BV\_1}}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ commonConstructorBFormatInit\ magic(MAGIC\_BHEADER),\ version(BV\_1),\ type(BT\_DBE),\ flags(BFLAGS::BF\_NONE),\ loadingStrategy(BLOAD\_TYPE::BL\_ALL)}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BFormat(QDataStream*\ stream\ =\ \textcolor{keyword}{nullptr})\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(stream),\ \mbox{\hyperlink{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c}{commonConstructorBFormatInit}}\ \{\};}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BFormat(std::shared\_ptr<QDataStream>\&\&\ stream)\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(std::move(stream)),\ \mbox{\hyperlink{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c}{commonConstructorBFormatInit}}\ \{\};}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BFormat(QFile*\ file)\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(file),\ \mbox{\hyperlink{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c}{commonConstructorBFormatInit}}\ \{\};}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BFormat(\textcolor{keyword}{const}\ std::string\&\ path,\ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520}{flags}}\ =\ \mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\_INIT\_FLAGS::FILE\_INIT\_R}})\ :\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{BeaStream}}(path,\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520}{flags}}),\ \mbox{\hyperlink{beamagefileformat_8h_a6dc17009530a3f1ad8af054adbf5875c}{commonConstructorBFormatInit}}\ \{\};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a42baca5973f7ca986c2af0fa20e71f5a}{\string~BFormat}}();}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a79e51bf76dfcebadd2f089b90c33d91c}{parseHeader}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{setFactory}}\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab8a2b18971067adcdc050f6296a5b639}{write}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::pair<std::shared\_ptr<IBSection>,\ int64\_t>>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7068e152b835f3c4d3694de4a0f806e4}{findSections}}(\textcolor{keyword}{const}\ std::string\&,\ \textcolor{keywordtype}{bool}\ loadSectionIfLazy\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ loadPathIfChunk\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7522c5190e4a484a5bdc651f6846a669}{findStr}}(\textcolor{keyword}{const}\ std::string\&)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7522c5190e4a484a5bdc651f6846a669}{findStr}}(uint32\_t\ addr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_afc4c7a57f0a12402f44aa3203803e0a0}{addSection}}(std::shared\_ptr<IBSection>\ \&);}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a9fb2ce60a86185bf150a2d8189412d14}{addStr}}(\textcolor{keyword}{const}\ std::string\ \&);}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ac99f8ecefbedb0c6946abb709a7cb8f2}{applyByteCompression}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}**\ buffer,\ std::size\_t\ bufferSize);}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a229180dca79515da46d74e2c01496df2}{applyByteDecompression}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}**\ buffer,\ std::size\_t\ bufferSize);}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_aef62b2b339c6ae0ac7a4be50fa12ad7b}{magic}};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab87fbb325b5423f1fe1749d22ce3e11d}{type}};}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae7226322af8560898b0bace786726cf1}{version}};}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520}{flags}};}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a1baf62c0bac28cb8ac12c218847beacc}{loadingStrategy}};}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::shared\_ptr<IBSection>>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a6e9831604ffb6009b3291ba275acb754}{sections}};}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab2e0d2c8654112b92f3b32732fff14b6}{strndx}};}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::map<uint16\_t,\ std::function<std::shared\_ptr<IBSection>\ (\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}\ *,\ \textcolor{keyword}{const}\ std::string\ \&,\ uint64\_t)>>\ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a902efb571ba84a676398bf805eff0d61}{sectionBuilders}};}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00413\ \ \ \ \ \}}
+\DoxyCodeLine{00414\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,212 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/progress.c File Reference}
+\hypertarget{progress_8c}{}\label{progress_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/progress.c@{lib/libwconr/build/\_deps/curl-\/src/lib/progress.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}timeval.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{progress_8c_a6f71364531437e9cfb4929b77fa1f3d5}{MIN\+\_\+\+RATE\+\_\+\+LIMIT\+\_\+\+PERIOD}}~3000
+\item 
+\#define \mbox{\hyperlink{progress_8c_a4c523cda4c3fdef82056a14af468a461}{ONE\+\_\+\+KILOBYTE}}~\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024)
+\item 
+\#define \mbox{\hyperlink{progress_8c_aae4d4761b231a4321c08bd4bd18937e0}{ONE\+\_\+\+MEGABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_a4c523cda4c3fdef82056a14af468a461}{ONE\+\_\+\+KILOBYTE}})
+\item 
+\#define \mbox{\hyperlink{progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}{ONE\+\_\+\+GIGABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_aae4d4761b231a4321c08bd4bd18937e0}{ONE\+\_\+\+MEGABYTE}})
+\item 
+\#define \mbox{\hyperlink{progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}{ONE\+\_\+\+TERABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}{ONE\+\_\+\+GIGABYTE}})
+\item 
+\#define \mbox{\hyperlink{progress_8c_a80037231a88b4e05a656d4eb7234adff}{ONE\+\_\+\+PETABYTE}}~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}{ONE\+\_\+\+TERABYTE}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{progress_8c_a868046b28baa9bed9cf0e9aaa5bc0139}{time2str}} (char \texorpdfstring{$\ast$}{*}r, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} seconds)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_a9df453f796003793338a113d742ba3ef}{max5data}} (\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} bytes, char \texorpdfstring{$\ast$}{*}max5)
+\item 
+int \mbox{\hyperlink{progress_8c_a272f189704532e236a3f9b7ae63c8ee2}{Curl\+\_\+pgrs\+Done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{progress_8c_ad9dca3b2d400d41c3f7d255a9fedcf59}{Curl\+\_\+pgrs\+Reset\+Transfer\+Sizes}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+struct \mbox{\hyperlink{structcurltime}{curltime}} \mbox{\hyperlink{progress_8c_afaa0b7fc142e2ce07732a56ec880388c}{Curl\+\_\+pgrs\+Time}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{progress_8h_abc090d144fb55d31dff488d24c46fb2a}{timerid}} timer)
+\item 
+void \mbox{\hyperlink{progress_8c_a4887bd15abbedadf869cedab36e4eb34}{Curl\+\_\+pgrs\+Start\+Now}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+\mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\+\_\+t}} \mbox{\hyperlink{progress_8c_a00a3a19b8aa449c308923825c7380f13}{Curl\+\_\+pgrs\+Limit\+Wait\+Time}} (\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} cursize, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} startsize, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} limit, struct \mbox{\hyperlink{structcurltime}{curltime}} start, struct \mbox{\hyperlink{structcurltime}{curltime}} now)
+\item 
+void \mbox{\hyperlink{progress_8c_afd65889574fb7bde6ffcec48b0d8debb}{Curl\+\_\+pgrs\+Set\+Download\+Counter}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+void \mbox{\hyperlink{progress_8c_a9003c983a024c16cf5893a62b8b34b9d}{Curl\+\_\+ratelimit}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcurltime}{curltime}} now)
+\item 
+void \mbox{\hyperlink{progress_8c_a9458c724bbe21e16b9abf8f696a3916a}{Curl\+\_\+pgrs\+Set\+Upload\+Counter}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+void \mbox{\hyperlink{progress_8c_a00f01952b08507f31def8af5b088e53f}{Curl\+\_\+pgrs\+Set\+Download\+Size}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+void \mbox{\hyperlink{progress_8c_a82906bd19baedaf94d95274dd2371b22}{Curl\+\_\+pgrs\+Set\+Upload\+Size}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+static \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress_8c_afa19df30a6eb963c9e95203ea3abf099}{trspeed}} (\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} us)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{progress_8c_a118fe8904db1ac201e7800eedda3673c}{progress\+\_\+calc}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structcurltime}{curltime}} now)
+\item 
+static void \mbox{\hyperlink{progress_8c_a4d51dd1fb3e9878cf74f1e85ed93372b}{progress\+\_\+meter}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+int \mbox{\hyperlink{progress_8c_abf139a93adc33a012220a13e50158ac7}{Curl\+\_\+pgrs\+Update}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{progress_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{progress_8c_a6f71364531437e9cfb4929b77fa1f3d5}\index{progress.c@{progress.c}!MIN\_RATE\_LIMIT\_PERIOD@{MIN\_RATE\_LIMIT\_PERIOD}}
+\index{MIN\_RATE\_LIMIT\_PERIOD@{MIN\_RATE\_LIMIT\_PERIOD}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{MIN\_RATE\_LIMIT\_PERIOD}{MIN\_RATE\_LIMIT\_PERIOD}}
+{\footnotesize\ttfamily \label{progress_8c_a6f71364531437e9cfb4929b77fa1f3d5} 
+\#define MIN\+\_\+\+RATE\+\_\+\+LIMIT\+\_\+\+PERIOD~3000}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}\index{progress.c@{progress.c}!ONE\_GIGABYTE@{ONE\_GIGABYTE}}
+\index{ONE\_GIGABYTE@{ONE\_GIGABYTE}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_GIGABYTE}{ONE\_GIGABYTE}}
+{\footnotesize\ttfamily \label{progress_8c_a392b0fd73abc05b7803d7db8975d1ffa} 
+\#define ONE\+\_\+\+GIGABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_aae4d4761b231a4321c08bd4bd18937e0}{ONE\+\_\+\+MEGABYTE}})}
+
+\Hypertarget{progress_8c_a4c523cda4c3fdef82056a14af468a461}\index{progress.c@{progress.c}!ONE\_KILOBYTE@{ONE\_KILOBYTE}}
+\index{ONE\_KILOBYTE@{ONE\_KILOBYTE}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_KILOBYTE}{ONE\_KILOBYTE}}
+{\footnotesize\ttfamily \label{progress_8c_a4c523cda4c3fdef82056a14af468a461} 
+\#define ONE\+\_\+\+KILOBYTE~\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024)}
+
+\Hypertarget{progress_8c_aae4d4761b231a4321c08bd4bd18937e0}\index{progress.c@{progress.c}!ONE\_MEGABYTE@{ONE\_MEGABYTE}}
+\index{ONE\_MEGABYTE@{ONE\_MEGABYTE}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_MEGABYTE}{ONE\_MEGABYTE}}
+{\footnotesize\ttfamily \label{progress_8c_aae4d4761b231a4321c08bd4bd18937e0} 
+\#define ONE\+\_\+\+MEGABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_a4c523cda4c3fdef82056a14af468a461}{ONE\+\_\+\+KILOBYTE}})}
+
+\Hypertarget{progress_8c_a80037231a88b4e05a656d4eb7234adff}\index{progress.c@{progress.c}!ONE\_PETABYTE@{ONE\_PETABYTE}}
+\index{ONE\_PETABYTE@{ONE\_PETABYTE}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_PETABYTE}{ONE\_PETABYTE}}
+{\footnotesize\ttfamily \label{progress_8c_a80037231a88b4e05a656d4eb7234adff} 
+\#define ONE\+\_\+\+PETABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}{ONE\+\_\+\+TERABYTE}})}
+
+\Hypertarget{progress_8c_ac4076c4c4d46cac7e008f22150bf1a80}\index{progress.c@{progress.c}!ONE\_TERABYTE@{ONE\_TERABYTE}}
+\index{ONE\_TERABYTE@{ONE\_TERABYTE}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_TERABYTE}{ONE\_TERABYTE}}
+{\footnotesize\ttfamily \label{progress_8c_ac4076c4c4d46cac7e008f22150bf1a80} 
+\#define ONE\+\_\+\+TERABYTE~(\mbox{\hyperlink{system_8h_a5c5d338cf3f0e585ed739b384f2a2a6e}{CURL\+\_\+\+OFF\+\_\+\+T\+\_\+C}}(1024) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{progress_8c_a392b0fd73abc05b7803d7db8975d1ffa}{ONE\+\_\+\+GIGABYTE}})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{progress_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{progress_8c_a272f189704532e236a3f9b7ae63c8ee2}\index{progress.c@{progress.c}!Curl\_pgrsDone@{Curl\_pgrsDone}}
+\index{Curl\_pgrsDone@{Curl\_pgrsDone}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsDone()}{Curl\_pgrsDone()}}
+{\footnotesize\ttfamily \label{progress_8c_a272f189704532e236a3f9b7ae63c8ee2} 
+int Curl\+\_\+pgrs\+Done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a00a3a19b8aa449c308923825c7380f13}\index{progress.c@{progress.c}!Curl\_pgrsLimitWaitTime@{Curl\_pgrsLimitWaitTime}}
+\index{Curl\_pgrsLimitWaitTime@{Curl\_pgrsLimitWaitTime}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsLimitWaitTime()}{Curl\_pgrsLimitWaitTime()}}
+{\footnotesize\ttfamily \label{progress_8c_a00a3a19b8aa449c308923825c7380f13} 
+\mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\+\_\+t}} Curl\+\_\+pgrs\+Limit\+Wait\+Time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{cursize}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{startsize}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{limit}{, }\item[{struct \mbox{\hyperlink{structcurltime}{curltime}}}]{start}{, }\item[{struct \mbox{\hyperlink{structcurltime}{curltime}}}]{now}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_ad9dca3b2d400d41c3f7d255a9fedcf59}\index{progress.c@{progress.c}!Curl\_pgrsResetTransferSizes@{Curl\_pgrsResetTransferSizes}}
+\index{Curl\_pgrsResetTransferSizes@{Curl\_pgrsResetTransferSizes}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsResetTransferSizes()}{Curl\_pgrsResetTransferSizes()}}
+{\footnotesize\ttfamily \label{progress_8c_ad9dca3b2d400d41c3f7d255a9fedcf59} 
+void Curl\+\_\+pgrs\+Reset\+Transfer\+Sizes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_afd65889574fb7bde6ffcec48b0d8debb}\index{progress.c@{progress.c}!Curl\_pgrsSetDownloadCounter@{Curl\_pgrsSetDownloadCounter}}
+\index{Curl\_pgrsSetDownloadCounter@{Curl\_pgrsSetDownloadCounter}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsSetDownloadCounter()}{Curl\_pgrsSetDownloadCounter()}}
+{\footnotesize\ttfamily \label{progress_8c_afd65889574fb7bde6ffcec48b0d8debb} 
+void Curl\+\_\+pgrs\+Set\+Download\+Counter (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a00f01952b08507f31def8af5b088e53f}\index{progress.c@{progress.c}!Curl\_pgrsSetDownloadSize@{Curl\_pgrsSetDownloadSize}}
+\index{Curl\_pgrsSetDownloadSize@{Curl\_pgrsSetDownloadSize}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsSetDownloadSize()}{Curl\_pgrsSetDownloadSize()}}
+{\footnotesize\ttfamily \label{progress_8c_a00f01952b08507f31def8af5b088e53f} 
+void Curl\+\_\+pgrs\+Set\+Download\+Size (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a9458c724bbe21e16b9abf8f696a3916a}\index{progress.c@{progress.c}!Curl\_pgrsSetUploadCounter@{Curl\_pgrsSetUploadCounter}}
+\index{Curl\_pgrsSetUploadCounter@{Curl\_pgrsSetUploadCounter}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsSetUploadCounter()}{Curl\_pgrsSetUploadCounter()}}
+{\footnotesize\ttfamily \label{progress_8c_a9458c724bbe21e16b9abf8f696a3916a} 
+void Curl\+\_\+pgrs\+Set\+Upload\+Counter (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a82906bd19baedaf94d95274dd2371b22}\index{progress.c@{progress.c}!Curl\_pgrsSetUploadSize@{Curl\_pgrsSetUploadSize}}
+\index{Curl\_pgrsSetUploadSize@{Curl\_pgrsSetUploadSize}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsSetUploadSize()}{Curl\_pgrsSetUploadSize()}}
+{\footnotesize\ttfamily \label{progress_8c_a82906bd19baedaf94d95274dd2371b22} 
+void Curl\+\_\+pgrs\+Set\+Upload\+Size (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a4887bd15abbedadf869cedab36e4eb34}\index{progress.c@{progress.c}!Curl\_pgrsStartNow@{Curl\_pgrsStartNow}}
+\index{Curl\_pgrsStartNow@{Curl\_pgrsStartNow}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsStartNow()}{Curl\_pgrsStartNow()}}
+{\footnotesize\ttfamily \label{progress_8c_a4887bd15abbedadf869cedab36e4eb34} 
+void Curl\+\_\+pgrs\+Start\+Now (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_afaa0b7fc142e2ce07732a56ec880388c}\index{progress.c@{progress.c}!Curl\_pgrsTime@{Curl\_pgrsTime}}
+\index{Curl\_pgrsTime@{Curl\_pgrsTime}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsTime()}{Curl\_pgrsTime()}}
+{\footnotesize\ttfamily \label{progress_8c_afaa0b7fc142e2ce07732a56ec880388c} 
+struct \mbox{\hyperlink{structcurltime}{curltime}} Curl\+\_\+pgrs\+Time (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{progress_8h_abc090d144fb55d31dff488d24c46fb2a}{timerid}}}]{timer}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_abf139a93adc33a012220a13e50158ac7}\index{progress.c@{progress.c}!Curl\_pgrsUpdate@{Curl\_pgrsUpdate}}
+\index{Curl\_pgrsUpdate@{Curl\_pgrsUpdate}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pgrsUpdate()}{Curl\_pgrsUpdate()}}
+{\footnotesize\ttfamily \label{progress_8c_abf139a93adc33a012220a13e50158ac7} 
+int Curl\+\_\+pgrs\+Update (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a9003c983a024c16cf5893a62b8b34b9d}\index{progress.c@{progress.c}!Curl\_ratelimit@{Curl\_ratelimit}}
+\index{Curl\_ratelimit@{Curl\_ratelimit}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_ratelimit()}{Curl\_ratelimit()}}
+{\footnotesize\ttfamily \label{progress_8c_a9003c983a024c16cf5893a62b8b34b9d} 
+void Curl\+\_\+ratelimit (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcurltime}{curltime}}}]{now}{}\end{DoxyParamCaption})}
+
+\Hypertarget{progress_8c_a9df453f796003793338a113d742ba3ef}\index{progress.c@{progress.c}!max5data@{max5data}}
+\index{max5data@{max5data}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{max5data()}{max5data()}}
+{\footnotesize\ttfamily \label{progress_8c_a9df453f796003793338a113d742ba3ef} 
+char \texorpdfstring{$\ast$}{*} max5data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{bytes}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{max5}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{progress_8c_a118fe8904db1ac201e7800eedda3673c}\index{progress.c@{progress.c}!progress\_calc@{progress\_calc}}
+\index{progress\_calc@{progress\_calc}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{progress\_calc()}{progress\_calc()}}
+{\footnotesize\ttfamily \label{progress_8c_a118fe8904db1ac201e7800eedda3673c} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} progress\+\_\+calc (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structcurltime}{curltime}}}]{now}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{progress_8c_a4d51dd1fb3e9878cf74f1e85ed93372b}\index{progress.c@{progress.c}!progress\_meter@{progress\_meter}}
+\index{progress\_meter@{progress\_meter}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{progress\_meter()}{progress\_meter()}}
+{\footnotesize\ttfamily \label{progress_8c_a4d51dd1fb3e9878cf74f1e85ed93372b} 
+void progress\+\_\+meter (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{progress_8c_a868046b28baa9bed9cf0e9aaa5bc0139}\index{progress.c@{progress.c}!time2str@{time2str}}
+\index{time2str@{time2str}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{time2str()}{time2str()}}
+{\footnotesize\ttfamily \label{progress_8c_a868046b28baa9bed9cf0e9aaa5bc0139} 
+void time2str (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{r}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{seconds}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{progress_8c_afa19df30a6eb963c9e95203ea3abf099}\index{progress.c@{progress.c}!trspeed@{trspeed}}
+\index{trspeed@{trspeed}!progress.c@{progress.c}}
+\doxysubsubsection{\texorpdfstring{trspeed()}{trspeed()}}
+{\footnotesize\ttfamily \label{progress_8c_afa19df30a6eb963c9e95203ea3abf099} 
+\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} trspeed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{size}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{us}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

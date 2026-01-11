@@ -1,0 +1,317 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/cookie.c File Reference}
+\hypertarget{cookie_8c}{}\label{cookie_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/cookie.c@{lib/libwconr/build/\_deps/curl-\/src/lib/cookie.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}cookie.\+h"{}}\newline
+{\ttfamily \#include "{}psl.\+h"{}}\newline
+{\ttfamily \#include "{}strtok.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}slist.\+h"{}}\newline
+{\ttfamily \#include "{}share.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+get\+\_\+line.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memrchr.\+h"{}}\newline
+{\ttfamily \#include "{}parsedate.\+h"{}}\newline
+{\ttfamily \#include "{}rename.\+h"{}}\newline
+{\ttfamily \#include "{}fopen.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cookie_8c_ab8f0766a397683771883ecc142c374b3}{CLONE}}(field)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{cookie_8c_a3015fbe4142f5e3246853925a5e8a2b2}{strstore}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}str, const char \texorpdfstring{$\ast$}{*}newstr)
+\item 
+static void \mbox{\hyperlink{cookie_8c_a653dc05aae8cea42e77fb9253c99f88e}{freecookie}} (struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}co)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{cookie_8c_aed871c17c5bcf3c1df51542fceb310b7}{tailmatch}} (const char \texorpdfstring{$\ast$}{*}cooke\+\_\+domain, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structhostname}{hostname}})
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{cookie_8c_abfa4146853718b9e8b0fc71f3c1dec1e}{pathmatch}} (const char \texorpdfstring{$\ast$}{*}cookie\+\_\+path, const char \texorpdfstring{$\ast$}{*}request\+\_\+uri)
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_ae32abd7c96dd40b5b3c448a2dd827a5a}{get\+\_\+top\+\_\+domain}} (const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}}, size\+\_\+t \texorpdfstring{$\ast$}{*}outlen)
+\item 
+static size\+\_\+t \mbox{\hyperlink{cookie_8c_a54e847b496ad2478f7a0fc7ae8ddc228}{cookie\+\_\+hash\+\_\+domain}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}}, const size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})
+\item 
+static size\+\_\+t \mbox{\hyperlink{cookie_8c_a0f04eef2e1ee70580cc57651ad04e54c}{cookiehash}} (const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}})
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_a1b4e415faf021090ec6a7290c020e36f}{sanitize\+\_\+cookie\+\_\+path}} (const char \texorpdfstring{$\ast$}{*}cookie\+\_\+path)
+\item 
+void \mbox{\hyperlink{cookie_8c_ae44350d9d4dd49e91e604b70c3573809}{Curl\+\_\+cookie\+\_\+loadfiles}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static void \mbox{\hyperlink{cookie_8c_a0a4d7d88930cc1b261160be30fb3d6e6}{remove\+\_\+expired}} (struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{include_8d_a5560acc686c22088ee2f56da8ab10446}{cookies}})
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{cookie_8c_a9be9c8da5305eed75f5296f24cf4cad9}{bad\+\_\+domain}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}})
+\item 
+static int \mbox{\hyperlink{cookie_8c_a3230f90fedb8fd48c2d0d465bef3a5ec}{invalid\+\_\+octets}} (const char \texorpdfstring{$\ast$}{*}p)
+\item 
+struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_a9eb5aebdeebcf3c956a4602f166aeee0}{Curl\+\_\+cookie\+\_\+add}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}c, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} httpheader, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} noexpire, char \texorpdfstring{$\ast$}{*}lineptr, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}}, const char \texorpdfstring{$\ast$}{*}path, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} secure)
+\item 
+struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_abe7e5eedbda770035c8f1380fb64749f}{Curl\+\_\+cookie\+\_\+init}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{config_8d_a34cbb35f789b411f7d24bf64d261acbb}{file}}, struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}inc, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} newsession)
+\item 
+static int \mbox{\hyperlink{cookie_8c_a48aee9675cba7d1c571e83e5535604c8}{cookie\+\_\+sort}} (const void \texorpdfstring{$\ast$}{*}p1, const void \texorpdfstring{$\ast$}{*}p2)
+\item 
+static int \mbox{\hyperlink{cookie_8c_ab2901f671b082f18f97147c0ef647ecd}{cookie\+\_\+sort\+\_\+ct}} (const void \texorpdfstring{$\ast$}{*}p1, const void \texorpdfstring{$\ast$}{*}p2)
+\item 
+static struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_adf1ef509ef971ffaab49f7a548d9842d}{dup\+\_\+cookie}} (struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespacesrc}{src}})
+\item 
+struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_a5328e10e799036115bf9dabf83153ad5}{Curl\+\_\+cookie\+\_\+getlist}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}c, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, const char \texorpdfstring{$\ast$}{*}path, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} secure)
+\item 
+void \mbox{\hyperlink{cookie_8c_a51d3e29b5943c67abae422363f78a633}{Curl\+\_\+cookie\+\_\+clearall}} (struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{include_8d_a5560acc686c22088ee2f56da8ab10446}{cookies}})
+\item 
+void \mbox{\hyperlink{cookie_8c_a4e0b732b5a4ce674481a17c5c0b1ade6}{Curl\+\_\+cookie\+\_\+freelist}} (struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}co)
+\item 
+void \mbox{\hyperlink{cookie_8c_aff89dc409a08660714ffa16a8e1dd503}{Curl\+\_\+cookie\+\_\+clearsess}} (struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{include_8d_a5560acc686c22088ee2f56da8ab10446}{cookies}})
+\item 
+void \mbox{\hyperlink{cookie_8c_a94ef82292380794dc327fb84f45fd228}{Curl\+\_\+cookie\+\_\+cleanup}} (struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}c)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_a174d28a020f7261fa8bfcd9edbe1b06c}{get\+\_\+netscape\+\_\+format}} (const struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}co)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{cookie_8c_ab39d69c220cfe9aae222fd8aa0db0977}{cookie\+\_\+output}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}c, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}})
+\item 
+static struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_ac5dcd8fc2a04e3c35a0bdcf39676f604}{cookie\+\_\+list}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cookie_8c_ab0088c69c5ac8f0750a3cba4f851d6fd}{Curl\+\_\+cookie\+\_\+list}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+void \mbox{\hyperlink{cookie_8c_a04e44a4d55e03fc46a2b19def7b69c2e}{Curl\+\_\+flush\+\_\+cookies}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} cleanup)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{cookie_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cookie_8c_ab8f0766a397683771883ecc142c374b3}\index{cookie.c@{cookie.c}!CLONE@{CLONE}}
+\index{CLONE@{CLONE}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{CLONE}{CLONE}}
+{\footnotesize\ttfamily \label{cookie_8c_ab8f0766a397683771883ecc142c374b3} 
+\#define CLONE(\begin{DoxyParamCaption}\item[{}]{field}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(\mbox{\hyperlink{namespacesrc}{src}}-\/>field)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ d-\/>field\ =\ \mbox{\hyperlink{curl__memory_8h_aa3f578f8f1eaebf25b2e2313db31cb40}{strdup}}(\mbox{\hyperlink{namespacesrc}{src}}-\/>field);\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ if(!d-\/>field)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ \mbox{\hyperlink{fail-early_8d_ab08f0b7515b254c676ac0dd8f2198448}{fail}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{cookie_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{cookie_8c_a9be9c8da5305eed75f5296f24cf4cad9}\index{cookie.c@{cookie.c}!bad\_domain@{bad\_domain}}
+\index{bad\_domain@{bad\_domain}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{bad\_domain()}{bad\_domain()}}
+{\footnotesize\ttfamily \label{cookie_8c_a9be9c8da5305eed75f5296f24cf4cad9} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} bad\+\_\+domain (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{domain}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a54e847b496ad2478f7a0fc7ae8ddc228}\index{cookie.c@{cookie.c}!cookie\_hash\_domain@{cookie\_hash\_domain}}
+\index{cookie\_hash\_domain@{cookie\_hash\_domain}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{cookie\_hash\_domain()}{cookie\_hash\_domain()}}
+{\footnotesize\ttfamily \label{cookie_8c_a54e847b496ad2478f7a0fc7ae8ddc228} 
+size\+\_\+t cookie\+\_\+hash\+\_\+domain (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{domain}{, }\item[{const size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_ac5dcd8fc2a04e3c35a0bdcf39676f604}\index{cookie.c@{cookie.c}!cookie\_list@{cookie\_list}}
+\index{cookie\_list@{cookie\_list}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{cookie\_list()}{cookie\_list()}}
+{\footnotesize\ttfamily \label{cookie_8c_ac5dcd8fc2a04e3c35a0bdcf39676f604} 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} cookie\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_ab39d69c220cfe9aae222fd8aa0db0977}\index{cookie.c@{cookie.c}!cookie\_output@{cookie\_output}}
+\index{cookie\_output@{cookie\_output}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{cookie\_output()}{cookie\_output()}}
+{\footnotesize\ttfamily \label{cookie_8c_ab39d69c220cfe9aae222fd8aa0db0977} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} cookie\+\_\+output (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{c}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a48aee9675cba7d1c571e83e5535604c8}\index{cookie.c@{cookie.c}!cookie\_sort@{cookie\_sort}}
+\index{cookie\_sort@{cookie\_sort}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{cookie\_sort()}{cookie\_sort()}}
+{\footnotesize\ttfamily \label{cookie_8c_a48aee9675cba7d1c571e83e5535604c8} 
+int cookie\+\_\+sort (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{p1}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{p2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_ab2901f671b082f18f97147c0ef647ecd}\index{cookie.c@{cookie.c}!cookie\_sort\_ct@{cookie\_sort\_ct}}
+\index{cookie\_sort\_ct@{cookie\_sort\_ct}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{cookie\_sort\_ct()}{cookie\_sort\_ct()}}
+{\footnotesize\ttfamily \label{cookie_8c_ab2901f671b082f18f97147c0ef647ecd} 
+int cookie\+\_\+sort\+\_\+ct (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{p1}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{p2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a0f04eef2e1ee70580cc57651ad04e54c}\index{cookie.c@{cookie.c}!cookiehash@{cookiehash}}
+\index{cookiehash@{cookiehash}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{cookiehash()}{cookiehash()}}
+{\footnotesize\ttfamily \label{cookie_8c_a0f04eef2e1ee70580cc57651ad04e54c} 
+size\+\_\+t cookiehash (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const}]{domain}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a9eb5aebdeebcf3c956a4602f166aeee0}\index{cookie.c@{cookie.c}!Curl\_cookie\_add@{Curl\_cookie\_add}}
+\index{Curl\_cookie\_add@{Curl\_cookie\_add}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_add()}{Curl\_cookie\_add()}}
+{\footnotesize\ttfamily \label{cookie_8c_a9eb5aebdeebcf3c956a4602f166aeee0} 
+struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*} Curl\+\_\+cookie\+\_\+add (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{c}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{httpheader}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{noexpire}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{lineptr}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{domain}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{secure}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_a94ef82292380794dc327fb84f45fd228}\index{cookie.c@{cookie.c}!Curl\_cookie\_cleanup@{Curl\_cookie\_cleanup}}
+\index{Curl\_cookie\_cleanup@{Curl\_cookie\_cleanup}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_cleanup()}{Curl\_cookie\_cleanup()}}
+{\footnotesize\ttfamily \label{cookie_8c_a94ef82292380794dc327fb84f45fd228} 
+void Curl\+\_\+cookie\+\_\+cleanup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{c}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_a51d3e29b5943c67abae422363f78a633}\index{cookie.c@{cookie.c}!Curl\_cookie\_clearall@{Curl\_cookie\_clearall}}
+\index{Curl\_cookie\_clearall@{Curl\_cookie\_clearall}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_clearall()}{Curl\_cookie\_clearall()}}
+{\footnotesize\ttfamily \label{cookie_8c_a51d3e29b5943c67abae422363f78a633} 
+void Curl\+\_\+cookie\+\_\+clearall (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{cookies}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_aff89dc409a08660714ffa16a8e1dd503}\index{cookie.c@{cookie.c}!Curl\_cookie\_clearsess@{Curl\_cookie\_clearsess}}
+\index{Curl\_cookie\_clearsess@{Curl\_cookie\_clearsess}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_clearsess()}{Curl\_cookie\_clearsess()}}
+{\footnotesize\ttfamily \label{cookie_8c_aff89dc409a08660714ffa16a8e1dd503} 
+void Curl\+\_\+cookie\+\_\+clearsess (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{cookies}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_a4e0b732b5a4ce674481a17c5c0b1ade6}\index{cookie.c@{cookie.c}!Curl\_cookie\_freelist@{Curl\_cookie\_freelist}}
+\index{Curl\_cookie\_freelist@{Curl\_cookie\_freelist}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_freelist()}{Curl\_cookie\_freelist()}}
+{\footnotesize\ttfamily \label{cookie_8c_a4e0b732b5a4ce674481a17c5c0b1ade6} 
+void Curl\+\_\+cookie\+\_\+freelist (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}}]{co}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_a5328e10e799036115bf9dabf83153ad5}\index{cookie.c@{cookie.c}!Curl\_cookie\_getlist@{Curl\_cookie\_getlist}}
+\index{Curl\_cookie\_getlist@{Curl\_cookie\_getlist}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_getlist()}{Curl\_cookie\_getlist()}}
+{\footnotesize\ttfamily \label{cookie_8c_a5328e10e799036115bf9dabf83153ad5} 
+struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*} Curl\+\_\+cookie\+\_\+getlist (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{c}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{secure}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_abe7e5eedbda770035c8f1380fb64749f}\index{cookie.c@{cookie.c}!Curl\_cookie\_init@{Curl\_cookie\_init}}
+\index{Curl\_cookie\_init@{Curl\_cookie\_init}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_init()}{Curl\_cookie\_init()}}
+{\footnotesize\ttfamily \label{cookie_8c_abe7e5eedbda770035c8f1380fb64749f} 
+struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*} Curl\+\_\+cookie\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{inc}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{newsession}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_ab0088c69c5ac8f0750a3cba4f851d6fd}\index{cookie.c@{cookie.c}!Curl\_cookie\_list@{Curl\_cookie\_list}}
+\index{Curl\_cookie\_list@{Curl\_cookie\_list}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_list()}{Curl\_cookie\_list()}}
+{\footnotesize\ttfamily \label{cookie_8c_ab0088c69c5ac8f0750a3cba4f851d6fd} 
+struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*} Curl\+\_\+cookie\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_ae44350d9d4dd49e91e604b70c3573809}\index{cookie.c@{cookie.c}!Curl\_cookie\_loadfiles@{Curl\_cookie\_loadfiles}}
+\index{Curl\_cookie\_loadfiles@{Curl\_cookie\_loadfiles}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_cookie\_loadfiles()}{Curl\_cookie\_loadfiles()}}
+{\footnotesize\ttfamily \label{cookie_8c_ae44350d9d4dd49e91e604b70c3573809} 
+void Curl\+\_\+cookie\+\_\+loadfiles (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_a04e44a4d55e03fc46a2b19def7b69c2e}\index{cookie.c@{cookie.c}!Curl\_flush\_cookies@{Curl\_flush\_cookies}}
+\index{Curl\_flush\_cookies@{Curl\_flush\_cookies}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_flush\_cookies()}{Curl\_flush\_cookies()}}
+{\footnotesize\ttfamily \label{cookie_8c_a04e44a4d55e03fc46a2b19def7b69c2e} 
+void Curl\+\_\+flush\+\_\+cookies (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{cleanup}{}\end{DoxyParamCaption})}
+
+\Hypertarget{cookie_8c_adf1ef509ef971ffaab49f7a548d9842d}\index{cookie.c@{cookie.c}!dup\_cookie@{dup\_cookie}}
+\index{dup\_cookie@{dup\_cookie}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{dup\_cookie()}{dup\_cookie()}}
+{\footnotesize\ttfamily \label{cookie_8c_adf1ef509ef971ffaab49f7a548d9842d} 
+struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*} dup\+\_\+cookie (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}}]{src}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a653dc05aae8cea42e77fb9253c99f88e}\index{cookie.c@{cookie.c}!freecookie@{freecookie}}
+\index{freecookie@{freecookie}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{freecookie()}{freecookie()}}
+{\footnotesize\ttfamily \label{cookie_8c_a653dc05aae8cea42e77fb9253c99f88e} 
+void freecookie (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}}]{co}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a174d28a020f7261fa8bfcd9edbe1b06c}\index{cookie.c@{cookie.c}!get\_netscape\_format@{get\_netscape\_format}}
+\index{get\_netscape\_format@{get\_netscape\_format}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{get\_netscape\_format()}{get\_netscape\_format()}}
+{\footnotesize\ttfamily \label{cookie_8c_a174d28a020f7261fa8bfcd9edbe1b06c} 
+char \texorpdfstring{$\ast$}{*} get\+\_\+netscape\+\_\+format (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structCookie}{Cookie}} \texorpdfstring{$\ast$}{*}}]{co}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_ae32abd7c96dd40b5b3c448a2dd827a5a}\index{cookie.c@{cookie.c}!get\_top\_domain@{get\_top\_domain}}
+\index{get\_top\_domain@{get\_top\_domain}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{get\_top\_domain()}{get\_top\_domain()}}
+{\footnotesize\ttfamily \label{cookie_8c_ae32abd7c96dd40b5b3c448a2dd827a5a} 
+const char \texorpdfstring{$\ast$}{*} get\+\_\+top\+\_\+domain (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const}]{domain}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{outlen}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a3230f90fedb8fd48c2d0d465bef3a5ec}\index{cookie.c@{cookie.c}!invalid\_octets@{invalid\_octets}}
+\index{invalid\_octets@{invalid\_octets}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{invalid\_octets()}{invalid\_octets()}}
+{\footnotesize\ttfamily \label{cookie_8c_a3230f90fedb8fd48c2d0d465bef3a5ec} 
+int invalid\+\_\+octets (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_abfa4146853718b9e8b0fc71f3c1dec1e}\index{cookie.c@{cookie.c}!pathmatch@{pathmatch}}
+\index{pathmatch@{pathmatch}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{pathmatch()}{pathmatch()}}
+{\footnotesize\ttfamily \label{cookie_8c_abfa4146853718b9e8b0fc71f3c1dec1e} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} pathmatch (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{cookie\+\_\+path}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{request\+\_\+uri}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a0a4d7d88930cc1b261160be30fb3d6e6}\index{cookie.c@{cookie.c}!remove\_expired@{remove\_expired}}
+\index{remove\_expired@{remove\_expired}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{remove\_expired()}{remove\_expired()}}
+{\footnotesize\ttfamily \label{cookie_8c_a0a4d7d88930cc1b261160be30fb3d6e6} 
+void remove\+\_\+expired (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCookieInfo}{Cookie\+Info}} \texorpdfstring{$\ast$}{*}}]{cookies}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a1b4e415faf021090ec6a7290c020e36f}\index{cookie.c@{cookie.c}!sanitize\_cookie\_path@{sanitize\_cookie\_path}}
+\index{sanitize\_cookie\_path@{sanitize\_cookie\_path}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{sanitize\_cookie\_path()}{sanitize\_cookie\_path()}}
+{\footnotesize\ttfamily \label{cookie_8c_a1b4e415faf021090ec6a7290c020e36f} 
+char \texorpdfstring{$\ast$}{*} sanitize\+\_\+cookie\+\_\+path (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{cookie\+\_\+path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{cookie_8c_a3015fbe4142f5e3246853925a5e8a2b2}\index{cookie.c@{cookie.c}!strstore@{strstore}}
+\index{strstore@{strstore}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{strstore()}{strstore()}}
+{\footnotesize\ttfamily \label{cookie_8c_a3015fbe4142f5e3246853925a5e8a2b2} 
+void strstore (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{str}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{newstr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \hypertarget{cookie_8c_autotoc_md1933}{}\doxysubsection{\texorpdfstring{RECEIVING COOKIE INFORMATION}{RECEIVING COOKIE INFORMATION}}\label{cookie_8c_autotoc_md1933}
+struct \doxylink{structCookieInfo}{Cookie\+Info} \texorpdfstring{$\ast$}{*}\+Curl\+\_\+cookie\+\_\+init(struct \doxylink{structCurl__easy}{Curl\+\_\+easy} \texorpdfstring{$\ast$}{*}data, const char \texorpdfstring{$\ast$}{*}file, struct \doxylink{structCookieInfo}{Cookie\+Info} \texorpdfstring{$\ast$}{*}inc, bool newsession);
+
+Inits a cookie struct to store data in a local file. This is always called before any cookies are set.
+
+struct \doxylink{structCookie}{Cookie} \texorpdfstring{$\ast$}{*}\+Curl\+\_\+cookie\+\_\+add(struct \doxylink{structCurl__easy}{Curl\+\_\+easy} \texorpdfstring{$\ast$}{*}data, struct \doxylink{structCookieInfo}{Cookie\+Info} \texorpdfstring{$\ast$}{*}c, bool httpheader, bool noexpire, char \texorpdfstring{$\ast$}{*}lineptr, const char \texorpdfstring{$\ast$}{*}domain, const char \texorpdfstring{$\ast$}{*}path, bool secure);
+
+The \textquotesingle{}lineptr\textquotesingle{} parameter is a full "{}\+Set-\/cookie\+:"{} line as received from a server.
+
+The function need to replace previously stored lines that this new line supersedes.
+
+It may remove lines that are expired.
+
+It should return an indication of success/error.\hypertarget{cookie_8c_autotoc_md1934}{}\doxysubsection{\texorpdfstring{SENDING COOKIE INFORMATION}{SENDING COOKIE INFORMATION}}\label{cookie_8c_autotoc_md1934}
+struct Cookies \texorpdfstring{$\ast$}{*}\+Curl\+\_\+cookie\+\_\+getlist(struct \doxylink{structCookieInfo}{Cookie\+Info} \texorpdfstring{$\ast$}{*}cookie, char \texorpdfstring{$\ast$}{*}host, char \texorpdfstring{$\ast$}{*}path, bool secure);
+
+For a given host and path, return a linked list of cookies that the client should send to the server if used now. The secure boolean informs the cookie if a secure connection is achieved or not.
+
+It shall only return cookies that haven\textquotesingle{}t expired.
+
+Example set of cookies\+: \begin{DoxyVerb}Set-cookie: PRODUCTINFO=webxpress; domain=.fidelity.com; path=/; secure
+Set-cookie: PERSONALIZE=none;expires=Monday, 13-Jun-1988 03:04:55 GMT;
+domain=.fidelity.com; path=/ftgw; secure
+Set-cookie: FidHist=none;expires=Monday, 13-Jun-1988 03:04:55 GMT;
+domain=.fidelity.com; path=/; secure
+Set-cookie: FidOrder=none;expires=Monday, 13-Jun-1988 03:04:55 GMT;
+domain=.fidelity.com; path=/; secure
+Set-cookie: DisPend=none;expires=Monday, 13-Jun-1988 03:04:55 GMT;
+domain=.fidelity.com; path=/; secure
+Set-cookie: FidDis=none;expires=Monday, 13-Jun-1988 03:04:55 GMT;
+domain=.fidelity.com; path=/; secure
+Set-cookie:
+Session_Key@6791a9e0-901a-11d0-a1c8-9b012c88aa77=none;expires=Monday,
+13-Jun-1988 03:04:55 GMT; domain=.fidelity.com; path=/; secure
+\end{DoxyVerb}
+ \Hypertarget{cookie_8c_aed871c17c5bcf3c1df51542fceb310b7}\index{cookie.c@{cookie.c}!tailmatch@{tailmatch}}
+\index{tailmatch@{tailmatch}!cookie.c@{cookie.c}}
+\doxysubsubsection{\texorpdfstring{tailmatch()}{tailmatch()}}
+{\footnotesize\ttfamily \label{cookie_8c_aed871c17c5bcf3c1df51542fceb310b7} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} tailmatch (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{cooke\+\_\+domain}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{hostname}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

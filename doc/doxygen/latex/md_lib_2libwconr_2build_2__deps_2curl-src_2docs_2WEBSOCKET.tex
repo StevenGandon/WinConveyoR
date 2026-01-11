@@ -1,0 +1,72 @@
+\chapter{WEBSOCKET }
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET}{}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET}\index{WEBSOCKET@{WEBSOCKET}}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1924}{}\doxysection{\texorpdfstring{Web\+Socket in curl}{Web\+Socket in curl}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1924}
+\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1925}{}\doxysubsection{\texorpdfstring{API}{API}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1925}
+The Web\+Socket API is described in the individual man pages for the new API.
+
+Web\+Socket with libcurl can be done two ways.
+
+
+\begin{DoxyEnumerate}
+\item Get the Web\+Socket frames from the server sent to the write callback. You can then respond with {\ttfamily \doxylink{websockets_8h_a359a451c130bfa870a25d5c539a64ca7}{curl\+\_\+ws\+\_\+send()}} from within the callback (or outside of it).
+\item Set {\ttfamily CURLOPT\+\_\+\+CONNECT\+\_\+\+ONLY} to 2L (new for Web\+Socket), which makes libcurl do a \doxylink{structHTTP}{HTTP} GET + {\ttfamily Upgrade\+:} request plus response in the {\ttfamily \doxylink{easy_8h_a8126b918a6e44facb451ce6c78658506}{curl\+\_\+easy\+\_\+perform()}} call before it returns and then you can use {\ttfamily \doxylink{websockets_8h_ac3fe2d0f36634203a5e683310c11bf7f}{curl\+\_\+ws\+\_\+recv()}} and {\ttfamily \doxylink{websockets_8h_a359a451c130bfa870a25d5c539a64ca7}{curl\+\_\+ws\+\_\+send()}} to receive and send Web\+Socket frames from and to the server.
+\end{DoxyEnumerate}
+
+The new options to {\ttfamily \doxylink{typecheck-gcc_8h_af8d527555aeac344caa3754445c6ecba}{curl\+\_\+easy\+\_\+setopt()}}\+:
+
+{\ttfamily CURLOPT\+\_\+\+WS\+\_\+\+OPTIONS} -\/ to control specific behavior. {\ttfamily \doxylink{websockets_8h_a74d8734ee45c2baaa6952ca10344b45e}{CURLWS\+\_\+\+RAW\+\_\+\+MODE}} makes libcurl provide all Web\+Socket traffic raw in the callback.
+
+The new function calls\+:
+
+{\ttfamily \doxylink{websockets_8h_ac3fe2d0f36634203a5e683310c11bf7f}{curl\+\_\+ws\+\_\+recv()}} -\/ receive a Web\+Socket frame
+
+{\ttfamily \doxylink{websockets_8h_a359a451c130bfa870a25d5c539a64ca7}{curl\+\_\+ws\+\_\+send()}} -\/ send a Web\+Socket frame
+
+{\ttfamily \doxylink{websockets_8h_a61188d64101b265df09dcdcb0b458a04}{curl\+\_\+ws\+\_\+meta()}} -\/ return Web\+Socket metadata within a write callback\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1926}{}\doxysubsection{\texorpdfstring{Max frame size}{Max frame size}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1926}
+The current implementation only supports frame sizes up to a max (64K right now). This is because the API delivers full frames and it then cannot manage the full 2\texorpdfstring{$^\wedge$}{\string^}63 bytes size.
+
+If we decide we need to support (much) larger frames than 64K, we need to adjust the API accordingly to be able to deliver partial frames in both directions.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1927}{}\doxysubsection{\texorpdfstring{Errors}{Errors}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1927}
+If the given Web\+Socket URL (using {\ttfamily ws\+://} or {\ttfamily wss\+://}) fails to get upgraded via a 101 response code and instead gets another response code back from the \doxylink{structHTTP}{HTTP} server -\/ the transfer will return {\ttfamily \doxylink{curl_8h_af0691941698240652e0a391394217951a1e57e9a26e10b0a871f2539d24994cd3}{CURLE\+\_\+\+HTTP\+\_\+\+RETURNED\+\_\+\+ERROR}} for that transfer. Note then that even 2xx response codes are then considered error since it failed to provide a Web\+Socket transfer.\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1928}{}\doxysubsection{\texorpdfstring{Test suite}{Test suite}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1928}
+I looked for an existing small Web\+Socket server implementation with maximum flexibility to dissect and cram into the test suite but I ended up deciding that extending the existing test suite server sws to deal with Web\+Socket might be the better way.
+
+
+\begin{DoxyItemize}
+\item This server is already integrated and working in the test suite
+\item We want maximum control and ability to generate broken protocol and negative tests as well. A dumber and simpler TCP server could then be easier to massage into this than a "{}proper"{} Web\+Socket server.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1929}{}\doxysubsection{\texorpdfstring{Command line tool Web\+Socket}{Command line tool Web\+Socket}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1929}
+The plan is to make curl do Web\+Socket similar to telnet/nc. That part of the work has not been started.
+
+Ideas\+:
+
+
+\begin{DoxyItemize}
+\item Read stdin and send off as messages. Consider newline as end of fragment. (default to text? offer option to set binary)
+\item Respond to PINGs automatically
+\item Issue PINGs at some default interval (option to switch off/change interval?)
+\item Allow {\ttfamily -\/d} to specify (initial) data to send (should the format allow for multiple separate frames?)
+\item Exit after N messages received, where N can be zero.
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1930}{}\doxysubsection{\texorpdfstring{Future work}{Future work}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1930}
+
+\begin{DoxyItemize}
+\item Verify the Sec-\/\+Web\+Socket-\/\+Accept response. It requires a sha-\/1 function.
+\item Verify Sec-\/\+Web\+Socket-\/\+Extensions and Sec-\/\+Web\+Socket-\/\+Protocol in the response
+\item Make Web\+Socket work with hyper
+\item Consider a {\ttfamily curl\+\_\+ws\+\_\+poll()}
+\item Make sure Web\+Socket code paths are fuzzed
+\item Add client-\/side PING interval
+\item Provide option to disable PING-\/\+PONG automation
+\item Support compression ({\ttfamily CURLWS\+\_\+\+COMPRESS})
+\end{DoxyItemize}\hypertarget{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1931}{}\doxysubsection{\texorpdfstring{Why not lib\+Web\+Socket}{Why not lib\+Web\+Socket}}\label{md_lib_2libwconr_2build_2__deps_2curl-src_2docs_2WEBSOCKET_autotoc_md1931}
+\href{https://libWebSocket.org/}{\texttt{lib\+Web\+Socket}} is said to be a solid, fast and efficient Web\+Socket library with a vast amount of users. My plan was originally to build upon it to skip having to implement the low level parts of Web\+Socket myself.
+
+Here are the reasons why I have decided to move forward with Web\+Socket in curl {\bfseries{without using lib\+Web\+Socket}}\+:
+
+
+\begin{DoxyItemize}
+\item doxygen generated docs only makes them hard to navigate. No tutorial, no clearly written explanatory pages for specific functions.
+\item seems (too) tightly integrated with a specific TLS library, while we want to support Web\+Socket with whatever TLS library libcurl was already made to work with.
+\item seems (too) tightly integrated with event libraries
+\item the references to threads and thread-\/pools in code and APIs indicate too much logic for our purposes
+\item "{}bloated"{} -\/ it is a {\itshape huge} library that is actually more lines of code than libcurl itself
+\item Web\+Socket is a fairly simple protocol on the network/framing layer so making a homegrown handling of it should be fine 
+\end{DoxyItemize}

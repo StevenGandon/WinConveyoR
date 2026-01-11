@@ -1,0 +1,174 @@
+\doxysection{gui/node\+\_\+modules/cacheable-\/request Directory Reference}
+\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307}{}\label{dir_6db7d299ed5de4c3f92182e959cf7307}\index{gui/node\_modules/cacheable-\/request Directory Reference@{gui/node\_modules/cacheable-\/request Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md301}{}\doxysubsection{\texorpdfstring{cacheable-\/request}{cacheable-\/request}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md301}
+\begin{quote}
+Wrap native \doxylink{structHTTP}{HTTP} requests with RFC compliant cache support \end{quote}
+
+
+\href{https://travis-ci.org/lukechilds/cacheable-request}{\texttt{}} \href{https://coveralls.io/github/lukechilds/cacheable-request?branch=master}{\texttt{}} \href{https://www.npmjs.com/package/cacheable-request}{\texttt{}} \href{https://www.npmjs.com/package/cacheable-request}{\texttt{}}
+
+\href{http://httpwg.org/specs/rfc7234.html}{\texttt{RFC 7234}} compliant \doxylink{structHTTP}{HTTP} caching for native Node.\+js HTTP/\+HTTPS requests. Caching works out of the box in memory or is easily pluggable with a wide range of storage adapters.
+
+{\bfseries{Note\+:}} This is a low level wrapper around the core \doxylink{structHTTP}{HTTP} modules, it\textquotesingle{}s not a high level request library.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md302}{}\doxysubsection{\texorpdfstring{Features}{Features}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md302}
+
+\begin{DoxyItemize}
+\item Only stores cacheable responses as defined by RFC 7234
+\item Fresh cache entries are served directly from cache
+\item Stale cache entries are revalidated with {\ttfamily If-\/\+None-\/\+Match}/{\ttfamily If-\/\+Modified-\/\+Since} headers
+\item 304 responses from revalidation requests use cached body
+\item Updates {\ttfamily Age} header on cached responses
+\item Can completely bypass cache on a per request basis
+\item In memory cache by default
+\item Official support for Redis, Mongo\+DB, SQLite, Postgre\+SQL and My\+SQL storage adapters
+\item Easily plug in your own or third-\/party storage adapters
+\item If DB connection fails, cache is automatically bypassed (disabled by default)
+\item Adds cache support to any existing \doxylink{structHTTP}{HTTP} code with minimal changes
+\item Uses \href{https://github.com/pornel/http-cache-semantics}{\texttt{http-\/cache-\/semantics}} internally for \doxylink{structHTTP}{HTTP} RFC 7234 compliance
+\end{DoxyItemize}\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md303}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md303}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ cacheable-\/request}
+
+\end{DoxyCode}
+\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md304}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md304}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ http\ =\ require('http');}
+\DoxyCodeLine{const\ CacheableRequest\ =\ require('cacheable-\/request');}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ Then\ instead\ of}
+\DoxyCodeLine{const\ req\ =\ http.request('http://example.com',\ cb);}
+\DoxyCodeLine{req.end();}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ You\ can\ do}
+\DoxyCodeLine{const\ cacheableRequest\ =\ new\ CacheableRequest(http.request);}
+\DoxyCodeLine{const\ cacheReq\ =\ cacheableRequest('http://example.com',\ cb);}
+\DoxyCodeLine{cacheReq.on('request',\ req\ =>\ req.end());}
+\DoxyCodeLine{//\ Future\ requests\ to\ 'example.com'\ will\ be\ returned\ from\ cache\ if\ still\ valid}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ You\ pass\ in\ any\ other\ http.request\ API\ compatible\ method\ to\ be\ wrapped\ with\ cache\ support:}
+\DoxyCodeLine{const\ cacheableRequest\ =\ new\ CacheableRequest(https.request);}
+\DoxyCodeLine{const\ cacheableRequest\ =\ new\ CacheableRequest(electron.net);}
+
+\end{DoxyCode}
+\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md305}{}\doxysubsection{\texorpdfstring{Storage Adapters}{Storage Adapters}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md305}
+{\ttfamily cacheable-\/request} uses \href{https://github.com/lukechilds/keyv}{\texttt{Keyv}} to support a wide range of storage adapters.
+
+For example, to use Redis as a cache backend, you just need to install the official Redis Keyv storage adapter\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ @keyv/redis}
+
+\end{DoxyCode}
+
+
+And then you can pass {\ttfamily Cacheable\+Request} your connection string\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ cacheableRequest\ =\ new\ CacheableRequest(http.request,\ 'redis://user:pass@localhost:6379');}
+
+\end{DoxyCode}
+
+
+\href{https://github.com/lukechilds/keyv\#official-storage-adapters}{\texttt{View all official Keyv storage adapters.}}
+
+Keyv also supports anything that follows the Map API so it\textquotesingle{}s easy to write your own storage adapter or use a third-\/party solution.
+
+e.\+g The following are all valid storage adapters
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ storageAdapter\ =\ new\ Map();}
+\DoxyCodeLine{//\ or}
+\DoxyCodeLine{const\ storageAdapter\ =\ require('./my-\/storage-\/adapter');}
+\DoxyCodeLine{//\ or}
+\DoxyCodeLine{const\ QuickLRU\ =\ require('quick-\/lru');}
+\DoxyCodeLine{const\ storageAdapter\ =\ new\ QuickLRU(\{\ maxSize:\ 1000\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ cacheableRequest\ =\ new\ CacheableRequest(http.request,\ storageAdapter);}
+
+\end{DoxyCode}
+
+
+View the \href{https://github.com/lukechilds/keyv}{\texttt{Keyv docs}} for more information on how to use storage adapters.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md306}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md306}
+\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md307}{}\doxysubsubsection{\texorpdfstring{new cacheable\+Request(request, \mbox{[}storage\+Adapter\mbox{]})}{new cacheable\+Request(request, \mbox{[}storage\+Adapter\mbox{]})}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md307}
+Returns the provided request function wrapped with cache support.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md308}{}\doxysubsubsubsection{\texorpdfstring{request}{request}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md308}
+Type\+: {\ttfamily function}
+
+Request function to wrap with cache support. Should be \href{https://nodejs.org/api/http.html\#http_http_request_options_callback}{\texttt{{\ttfamily http.\+request}}} or a similar API compatible request function.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md309}{}\doxysubsubsubsection{\texorpdfstring{storage\+Adapter}{storage\+Adapter}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md309}
+Type\+: {\ttfamily Keyv storage adapter}~\newline
+ Default\+: {\ttfamily new Map()}
+
+A \href{https://github.com/lukechilds/keyv}{\texttt{Keyv}} storage adapter instance, or connection string if using with an official Keyv storage adapter.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md310}{}\doxysubsubsection{\texorpdfstring{Instance}{Instance}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md310}
+\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md311}{}\doxysubsubsubsection{\texorpdfstring{cacheable\+Request(opts, \mbox{[}cb\mbox{]})}{cacheable\+Request(opts, \mbox{[}cb\mbox{]})}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md311}
+Returns an event emitter.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md312}{}\doxysubsubsubsubsection{\texorpdfstring{opts}{opts}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md312}
+Type\+: {\ttfamily object}, {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}
+
+
+\begin{DoxyItemize}
+\item Any of the default request functions options.
+\item Any \href{https://github.com/kornelski/http-cache-semantics\#constructor-options}{\texttt{{\ttfamily http-\/cache-\/semantics}}} options.
+\item Any of the following\+:
+\end{DoxyItemize}\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md313}{}\doxysubsubsubsubsubsection{\texorpdfstring{opts.\+cache}{opts.\+cache}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md313}
+Type\+: {\ttfamily boolean}~\newline
+ Default\+: {\ttfamily true}
+
+If the cache should be used. Setting this to false will completely bypass the cache for the current request.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md314}{}\doxysubsubsubsubsubsection{\texorpdfstring{opts.\+strict\+Ttl}{opts.\+strict\+Ttl}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md314}
+Type\+: {\ttfamily boolean}~\newline
+ Default\+: {\ttfamily false}
+
+If set to {\ttfamily true} once a cached resource has expired it is deleted and will have to be re-\/requested.
+
+If set to {\ttfamily false} (default), after a cached resource\textquotesingle{}s TTL expires it is kept in the cache and will be revalidated on the next request with {\ttfamily If-\/\+None-\/\+Match}/{\ttfamily If-\/\+Modified-\/\+Since} headers.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md315}{}\doxysubsubsubsubsubsection{\texorpdfstring{opts.\+max\+Ttl}{opts.\+max\+Ttl}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md315}
+Type\+: {\ttfamily number}~\newline
+ Default\+: {\ttfamily undefined}
+
+Limits TTL. The {\ttfamily number} represents milliseconds.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md316}{}\doxysubsubsubsubsubsection{\texorpdfstring{opts.\+automatic\+Failover}{opts.\+automatic\+Failover}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md316}
+Type\+: {\ttfamily boolean}~\newline
+ Default\+: {\ttfamily false}
+
+When set to {\ttfamily true}, if the DB connection fails we will automatically fallback to a network request. DB errors will still be emitted to notify you of the problem even though the request callback may succeed.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md317}{}\doxysubsubsubsubsubsection{\texorpdfstring{opts.\+force\+Refresh}{opts.\+force\+Refresh}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md317}
+Type\+: {\ttfamily boolean}~\newline
+ Default\+: {\ttfamily false}
+
+Forces refreshing the cache. If the response could be retrieved from the cache, it will perform a new request and override the cache instead.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md318}{}\doxysubsubsubsubsection{\texorpdfstring{cb}{cb}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md318}
+Type\+: {\ttfamily function}
+
+The callback function which will receive the response as an argument.
+
+The response can be either a \href{https://nodejs.org/api/http.html\#http_class_http_incomingmessage}{\texttt{Node.\+js HTTP response stream}} or a \href{https://github.com/lukechilds/responselike}{\texttt{responselike object}}. The response will also have a {\ttfamily from\+Cache} property set with a boolean value.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md319}{}\doxysubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}request\textquotesingle{}, request)}{.on(\textquotesingle{}request\textquotesingle{}, request)}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md319}
+{\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} event to get the request object of the request.
+
+{\bfseries{Note\+:}} This event will only fire if an \doxylink{structHTTP}{HTTP} request is actually made, not when a response is retrieved from cache. However, you should always handle the {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} event to end the request and handle any potential request errors.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md320}{}\doxysubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}response\textquotesingle{}, response)}{.on(\textquotesingle{}response\textquotesingle{}, response)}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md320}
+{\ttfamily \doxylink{etag-compare_8d_aa183506658afe29ffc57504cb6e1116a}{response}} event to get the response object from the \doxylink{structHTTP}{HTTP} request or cache.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md321}{}\doxysubsubsubsubsection{\texorpdfstring{.on(\textquotesingle{}error\textquotesingle{}, error)}{.on(\textquotesingle{}error\textquotesingle{}, error)}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md321}
+{\ttfamily \doxylink{retry-all-errors_8d_a15465fc80b6245852b14c0ca6a48c4fb}{error}} event emitted in case of an error with the cache.
+
+Errors emitted here will be an instance of {\ttfamily Cacheable\+Request.\+Request\+Error} or {\ttfamily Cacheable\+Request.\+Cache\+Error}. You will only ever receive a {\ttfamily Request\+Error} if the request function throws (normally caused by invalid user input). Normal request errors should be handled inside the {\ttfamily \doxylink{compressed_8d_ad77a8bf6bf91f4e7f4a9a017f6c7e68e}{request}} event.
+
+To properly handle all error scenarios you should use the following pattern\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cacheableRequest('example.com',\ cb)}
+\DoxyCodeLine{\ \ .on('error',\ err\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (err\ instanceof\ CacheableRequest.CacheError)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ handleCacheError(err);\ //\ Cache\ error}
+\DoxyCodeLine{\ \ \ \ \}\ else\ if\ (err\ instanceof\ CacheableRequest.RequestError)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ handleRequestError(err);\ //\ Request\ function\ thrown}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\ \ .on('request',\ req\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ req.on('error',\ handleRequestError);\ //\ Request\ error\ emitted}
+\DoxyCodeLine{\ \ \ \ req.end();}
+\DoxyCodeLine{\ \ \});}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} Database connection errors are emitted here, however {\ttfamily cacheable-\/request} will attempt to re-\/request the resource and bypass the cache on a connection error. Therefore a database connection error doesn\textquotesingle{}t necessarily mean the request won\textquotesingle{}t be fulfilled.\hypertarget{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md322}{}\doxysubsection{\texorpdfstring{License}{License}}\label{dir_6db7d299ed5de4c3f92182e959cf7307_autotoc_md322}
+MIT © Luke Childs 

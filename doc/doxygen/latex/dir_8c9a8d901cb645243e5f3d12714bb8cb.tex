@@ -1,0 +1,579 @@
+\doxysection{gui/node\+\_\+modules/@sindresorhus/is Directory Reference}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb}{}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb}\index{gui/node\_modules/"@sindresorhus/is Directory Reference@{gui/node\_modules/"@sindresorhus/is Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md22}{}\doxysubsection{\texorpdfstring{is}{is}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md22}
+\begin{quote}
+Type check values \end{quote}
+
+
+For example, {\ttfamily is.\+string(\textquotesingle{}🦄\textquotesingle{}) //=\texorpdfstring{$>$}{>} true}
+
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md23}{}\doxysubsection{\texorpdfstring{Highlights}{Highlights}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md23}
+
+\begin{DoxyItemize}
+\item Written in Type\+Script
+\item Extensive use of type guards
+\item Supports type assertions
+\item Aware of generic type parameters (use with caution)
+\item Actively maintained
+\item 
+\end{DoxyItemize}\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md24}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md24}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ @sindresorhus/is}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md25}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md25}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ is\ =\ require('@sindresorhus/is');}
+\DoxyCodeLine{}
+\DoxyCodeLine{is('🦄');}
+\DoxyCodeLine{//=>\ 'string'}
+\DoxyCodeLine{}
+\DoxyCodeLine{is(new\ Map());}
+\DoxyCodeLine{//=>\ 'Map'}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.number(6);}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+
+
+Assertions perform the same type checks, but throw an error if the type does not match.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{assert\}\ =\ require('@sindresorhus/is');}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.string(2);}
+\DoxyCodeLine{//=>\ Error:\ Expected\ value\ which\ is\ \`{}string`,\ received\ value\ of\ type\ \`{}number`.}
+
+\end{DoxyCode}
+
+
+And with Type\+Script\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{assert\}\ from\ '@sindresorhus/is';}
+\DoxyCodeLine{}
+\DoxyCodeLine{assert.string(foo);}
+\DoxyCodeLine{//\ \`{}foo`\ is\ now\ typed\ as\ a\ \`{}string`.}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md26}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md26}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md27}{}\doxysubsubsection{\texorpdfstring{is(value)}{is(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md27}
+Returns the type of {\ttfamily value}.
+
+Primitives are lowercase and object types are camelcase.
+
+Example\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \textquotesingle{}undefined\textquotesingle{}}
+\item {\ttfamily \textquotesingle{}null\textquotesingle{}}
+\item {\ttfamily \textquotesingle{}\doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\textquotesingle{}}
+\item {\ttfamily \textquotesingle{}symbol\textquotesingle{}}
+\item {\ttfamily \textquotesingle{}Array\textquotesingle{}}
+\item {\ttfamily \textquotesingle{}Function\textquotesingle{}}
+\item {\ttfamily \textquotesingle{}Object\textquotesingle{}}
+\end{DoxyItemize}
+
+Note\+: It will throw an error if you try to feed it object-\/wrapped primitives, as that\textquotesingle{}s a bad practice. For example {\ttfamily new String(\textquotesingle{}foo\textquotesingle{})}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md28}{}\doxysubsubsection{\texorpdfstring{is.\{method\}}{is.\{method\}}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md28}
+All the below methods accept a value and returns a boolean for whether the value is of the desired type.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md29}{}\doxysubsubsubsection{\texorpdfstring{Primitives}{Primitives}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md29}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md30}{}\doxysubsubsubsubsection{\texorpdfstring{.undefined(value)}{.undefined(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md30}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md31}{}\doxysubsubsubsubsection{\texorpdfstring{.null(value)}{.null(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md31}
+{\bfseries{Note\+:}} Type\+Script users must use {\ttfamily .null\+\_\+()} because of a Type\+Script naming limitation.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md32}{}\doxysubsubsubsubsection{\texorpdfstring{.string(value)}{.string(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md32}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md33}{}\doxysubsubsubsubsection{\texorpdfstring{.number(value)}{.number(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md33}
+Note\+: {\ttfamily is.\+number(\+Na\+N)} returns {\ttfamily false}. This intentionally deviates from {\ttfamily typeof} behavior to increase user-\/friendliness of {\ttfamily is} type checks.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md34}{}\doxysubsubsubsubsection{\texorpdfstring{.boolean(value)}{.boolean(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md34}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md35}{}\doxysubsubsubsubsection{\texorpdfstring{.symbol(value)}{.symbol(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md35}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md36}{}\doxysubsubsubsubsection{\texorpdfstring{.bigint(value)}{.bigint(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md36}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md37}{}\doxysubsubsubsection{\texorpdfstring{Built-\/in types}{Built-\/in types}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md37}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md38}{}\doxysubsubsubsubsection{\texorpdfstring{.array(value, assertion?)}{.array(value, assertion?)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md38}
+Returns true if {\ttfamily value} is an array and all of its items match the assertion (if provided).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.array(value);\ //\ Validate\ \`{}value`\ is\ an\ array.}
+\DoxyCodeLine{is.array(value,\ is.number);\ //\ Validate\ \`{}value`\ is\ an\ array\ and\ all\ of\ its\ items\ are\ numbers.}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md39}{}\doxysubsubsubsubsection{\texorpdfstring{.function(value)}{.function(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md39}
+{\bfseries{Note\+:}} Type\+Script users must use {\ttfamily .function\+\_\+()} because of a Type\+Script naming limitation.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md40}{}\doxysubsubsubsubsection{\texorpdfstring{.buffer(value)}{.buffer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md40}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md41}{}\doxysubsubsubsubsection{\texorpdfstring{.blob(value)}{.blob(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md41}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md42}{}\doxysubsubsubsubsection{\texorpdfstring{.object(value)}{.object(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md42}
+Keep in mind that \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions}{\texttt{functions are objects too}}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md43}{}\doxysubsubsubsubsection{\texorpdfstring{.numeric\+String(value)}{.numeric\+String(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md43}
+Returns {\ttfamily true} for a string that represents a number satisfying {\ttfamily is.\+number}, for example, {\ttfamily \textquotesingle{}42\textquotesingle{}} and {\ttfamily \textquotesingle{}-\/8.\+3\textquotesingle{}}.
+
+Note\+: {\ttfamily \textquotesingle{}NaN\textquotesingle{}} returns {\ttfamily false}, but {\ttfamily \textquotesingle{}Infinity\textquotesingle{}} and {\ttfamily \textquotesingle{}-\/Infinity\textquotesingle{}} return {\ttfamily true}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md44}{}\doxysubsubsubsubsection{\texorpdfstring{.reg\+Exp(value)}{.reg\+Exp(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md44}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md45}{}\doxysubsubsubsubsection{\texorpdfstring{.date(value)}{.date(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md45}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md46}{}\doxysubsubsubsubsection{\texorpdfstring{.error(value)}{.error(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md46}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md47}{}\doxysubsubsubsubsection{\texorpdfstring{.native\+Promise(value)}{.native\+Promise(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md47}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md48}{}\doxysubsubsubsubsection{\texorpdfstring{.promise(value)}{.promise(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md48}
+Returns {\ttfamily true} for any object with a {\ttfamily .then()} and {\ttfamily .catch()} method. Prefer this one over {\ttfamily .native\+Promise()} as you usually want to allow userland promise implementations too.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md49}{}\doxysubsubsubsubsection{\texorpdfstring{.generator(value)}{.generator(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md49}
+Returns {\ttfamily true} for any object that implements its own {\ttfamily .next()} and {\ttfamily .throw()} methods and has a function definition for {\ttfamily Symbol.\+iterator}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md50}{}\doxysubsubsubsubsection{\texorpdfstring{.generator\+Function(value)}{.generator\+Function(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md50}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md51}{}\doxysubsubsubsubsection{\texorpdfstring{.async\+Function(value)}{.async\+Function(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md51}
+Returns {\ttfamily true} for any {\ttfamily async} function that can be called with the {\ttfamily await} operator.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.asyncFunction(async\ ()\ =>\ \{\});}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.asyncFunction(()\ =>\ \{\});}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md52}{}\doxysubsubsubsubsection{\texorpdfstring{.async\+Generator(value)}{.async\+Generator(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md52}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.asyncGenerator(}
+\DoxyCodeLine{\ \ \ \ (async\ function\ *\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ yield\ 4;}
+\DoxyCodeLine{\ \ \ \ \})()}
+\DoxyCodeLine{);}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.asyncGenerator(}
+\DoxyCodeLine{\ \ \ \ (function\ *\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ yield\ 4;}
+\DoxyCodeLine{\ \ \ \ \})()}
+\DoxyCodeLine{);}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md53}{}\doxysubsubsubsubsection{\texorpdfstring{.async\+Generator\+Function(value)}{.async\+Generator\+Function(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md53}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.asyncGeneratorFunction(async\ function\ *\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ yield\ 4;}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.asyncGeneratorFunction(function\ *\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ yield\ 4;}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md54}{}\doxysubsubsubsubsection{\texorpdfstring{.bound\+Function(value)}{.bound\+Function(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md54}
+Returns {\ttfamily true} for any {\ttfamily bound} function.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.boundFunction(()\ =>\ \{\});}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.boundFunction(function\ ()\ \{\}.bind(null));}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.boundFunction(function\ ()\ \{\});}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md55}{}\doxysubsubsubsubsection{\texorpdfstring{.map(value)}{.map(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md55}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md56}{}\doxysubsubsubsubsection{\texorpdfstring{.set(value)}{.set(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md56}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md57}{}\doxysubsubsubsubsection{\texorpdfstring{.weak\+Map(value)}{.weak\+Map(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md57}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md58}{}\doxysubsubsubsubsection{\texorpdfstring{.weak\+Set(value)}{.weak\+Set(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md58}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md59}{}\doxysubsubsubsection{\texorpdfstring{Typed arrays}{Typed arrays}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md59}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md60}{}\doxysubsubsubsubsection{\texorpdfstring{.int8\+Array(value)}{.int8\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md60}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md61}{}\doxysubsubsubsubsection{\texorpdfstring{.uint8\+Array(value)}{.uint8\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md61}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md62}{}\doxysubsubsubsubsection{\texorpdfstring{.uint8\+Clamped\+Array(value)}{.uint8\+Clamped\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md62}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md63}{}\doxysubsubsubsubsection{\texorpdfstring{.int16\+Array(value)}{.int16\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md63}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md64}{}\doxysubsubsubsubsection{\texorpdfstring{.uint16\+Array(value)}{.uint16\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md64}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md65}{}\doxysubsubsubsubsection{\texorpdfstring{.int32\+Array(value)}{.int32\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md65}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md66}{}\doxysubsubsubsubsection{\texorpdfstring{.uint32\+Array(value)}{.uint32\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md66}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md67}{}\doxysubsubsubsubsection{\texorpdfstring{.float32\+Array(value)}{.float32\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md67}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md68}{}\doxysubsubsubsubsection{\texorpdfstring{.float64\+Array(value)}{.float64\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md68}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md69}{}\doxysubsubsubsubsection{\texorpdfstring{.big\+Int64\+Array(value)}{.big\+Int64\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md69}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md70}{}\doxysubsubsubsubsection{\texorpdfstring{.big\+Uint64\+Array(value)}{.big\+Uint64\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md70}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md71}{}\doxysubsubsubsection{\texorpdfstring{Structured data}{Structured data}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md71}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md72}{}\doxysubsubsubsubsection{\texorpdfstring{.array\+Buffer(value)}{.array\+Buffer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md72}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md73}{}\doxysubsubsubsubsection{\texorpdfstring{.shared\+Array\+Buffer(value)}{.shared\+Array\+Buffer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md73}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md74}{}\doxysubsubsubsubsection{\texorpdfstring{.data\+View(value)}{.data\+View(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md74}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md75}{}\doxysubsubsubsubsection{\texorpdfstring{.enum\+Case(value, enum)}{.enum\+Case(value, enum)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md75}
+Type\+Script-\/only. Returns {\ttfamily true} if {\ttfamily value} is a member of {\ttfamily enum}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{enum\ Direction\ \{}
+\DoxyCodeLine{\ \ \ \ Ascending\ =\ 'ascending',}
+\DoxyCodeLine{\ \ \ \ Descending\ =\ 'descending'}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.enumCase('ascending',\ Direction);}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.enumCase('other',\ Direction);}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md76}{}\doxysubsubsubsection{\texorpdfstring{Emptiness}{Emptiness}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md76}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md77}{}\doxysubsubsubsubsection{\texorpdfstring{.empty\+String(value)}{.empty\+String(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md77}
+Returns {\ttfamily true} if the value is a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} and the {\ttfamily .length} is 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md78}{}\doxysubsubsubsubsection{\texorpdfstring{.empty\+String\+Or\+Whitespace(value)}{.empty\+String\+Or\+Whitespace(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md78}
+Returns {\ttfamily true} if {\ttfamily is.\+empty\+String(value)} or if it\textquotesingle{}s a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} that is all whitespace.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md79}{}\doxysubsubsubsubsection{\texorpdfstring{.non\+Empty\+String(value)}{.non\+Empty\+String(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md79}
+Returns {\ttfamily true} if the value is a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} and the {\ttfamily .length} is more than 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md80}{}\doxysubsubsubsubsection{\texorpdfstring{.non\+Empty\+String\+And\+Not\+Whitespace(value)}{.non\+Empty\+String\+And\+Not\+Whitespace(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md80}
+Returns {\ttfamily true} if the value is a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} that is not empty and not whitespace.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ values\ =\ ['property1',\ '',\ null,\ 'property2',\ '\ \ \ \ ',\ undefined];}
+\DoxyCodeLine{}
+\DoxyCodeLine{values.filter(is.nonEmptyStringAndNotWhitespace);}
+\DoxyCodeLine{//=>\ ['property1',\ 'property2']}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md81}{}\doxysubsubsubsubsection{\texorpdfstring{.empty\+Array(value)}{.empty\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md81}
+Returns {\ttfamily true} if the value is an {\ttfamily Array} and the {\ttfamily .length} is 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md82}{}\doxysubsubsubsubsection{\texorpdfstring{.non\+Empty\+Array(value)}{.non\+Empty\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md82}
+Returns {\ttfamily true} if the value is an {\ttfamily Array} and the {\ttfamily .length} is more than 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md83}{}\doxysubsubsubsubsection{\texorpdfstring{.empty\+Object(value)}{.empty\+Object(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md83}
+Returns {\ttfamily true} if the value is an {\ttfamily Object} and {\ttfamily Object.\+keys(value).length} is 0.
+
+Please note that {\ttfamily Object.\+keys} returns only own enumerable properties. Hence something like this can happen\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ object1\ =\ \{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{Object.defineProperty(object1,\ 'property1',\ \{}
+\DoxyCodeLine{\ \ \ \ value:\ 42,}
+\DoxyCodeLine{\ \ \ \ writable:\ true,}
+\DoxyCodeLine{\ \ \ \ enumerable:\ false,}
+\DoxyCodeLine{\ \ \ \ configurable:\ true}
+\DoxyCodeLine{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.emptyObject(object1);}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md84}{}\doxysubsubsubsubsection{\texorpdfstring{.non\+Empty\+Object(value)}{.non\+Empty\+Object(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md84}
+Returns {\ttfamily true} if the value is an {\ttfamily Object} and {\ttfamily Object.\+keys(value).length} is more than 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md85}{}\doxysubsubsubsubsection{\texorpdfstring{.empty\+Set(value)}{.empty\+Set(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md85}
+Returns {\ttfamily true} if the value is a {\ttfamily Set} and the {\ttfamily .\doxylink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} is 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md86}{}\doxysubsubsubsubsection{\texorpdfstring{.non\+Empty\+Set(\+Value)}{.non\+Empty\+Set(\+Value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md86}
+Returns {\ttfamily true} if the value is a {\ttfamily Set} and the {\ttfamily .\doxylink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} is more than 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md87}{}\doxysubsubsubsubsection{\texorpdfstring{.empty\+Map(value)}{.empty\+Map(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md87}
+Returns {\ttfamily true} if the value is a {\ttfamily Map} and the {\ttfamily .\doxylink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} is 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md88}{}\doxysubsubsubsubsection{\texorpdfstring{.non\+Empty\+Map(value)}{.non\+Empty\+Map(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md88}
+Returns {\ttfamily true} if the value is a {\ttfamily Map} and the {\ttfamily .\doxylink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}} is more than 0.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md89}{}\doxysubsubsubsection{\texorpdfstring{Miscellaneous}{Miscellaneous}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md89}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md90}{}\doxysubsubsubsubsection{\texorpdfstring{.direct\+Instance\+Of(value, class)}{.direct\+Instance\+Of(value, class)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md90}
+Returns {\ttfamily true} if {\ttfamily value} is a direct instance of {\ttfamily class}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.directInstanceOf(new\ Error(),\ Error);}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{class\ UnicornError\ extends\ Error\ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.directInstanceOf(new\ UnicornError(),\ Error);}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md91}{}\doxysubsubsubsubsection{\texorpdfstring{.url\+Instance(value)}{.url\+Instance(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md91}
+Returns {\ttfamily true} if {\ttfamily value} is an instance of the \href{https://developer.mozilla.org/en-US/docs/Web/API/URL}{\texttt{{\ttfamily URL} class}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ url\ =\ new\ URL('https://example.com');}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.urlInstance(url);}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md92}{}\doxysubsubsubsubsection{\texorpdfstring{.url\+String(value)}{.url\+String(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md92}
+Returns {\ttfamily true} if {\ttfamily value} is a URL string.
+
+Note\+: this only does basic checking using the \href{https://developer.mozilla.org/en-US/docs/Web/API/URL}{\texttt{{\ttfamily URL} class}} constructor.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ url\ =\ 'https://example.com';}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.urlString(url);}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.urlString(new\ URL(url));}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md93}{}\doxysubsubsubsubsection{\texorpdfstring{.truthy(value)}{.truthy(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md93}
+Returns {\ttfamily true} for all values that evaluate to true in a boolean context\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.truthy('🦄');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.truthy(undefined);}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md94}{}\doxysubsubsubsubsection{\texorpdfstring{.falsy(value)}{.falsy(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md94}
+Returns {\ttfamily true} if {\ttfamily value} is one of\+: {\ttfamily false}, {\ttfamily 0}, {\ttfamily \textquotesingle{}\textquotesingle{}}, {\ttfamily null}, {\ttfamily undefined}, {\ttfamily NaN}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md95}{}\doxysubsubsubsubsection{\texorpdfstring{.nan(value)}{.nan(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md95}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md96}{}\doxysubsubsubsubsection{\texorpdfstring{.null\+Or\+Undefined(value)}{.null\+Or\+Undefined(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md96}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md97}{}\doxysubsubsubsubsection{\texorpdfstring{.primitive(value)}{.primitive(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md97}
+Java\+Script primitives are as follows\+: {\ttfamily null}, {\ttfamily undefined}, {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, {\ttfamily number}, {\ttfamily boolean}, {\ttfamily symbol}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md98}{}\doxysubsubsubsubsection{\texorpdfstring{.integer(value)}{.integer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md98}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md99}{}\doxysubsubsubsubsection{\texorpdfstring{.safe\+Integer(value)}{.safe\+Integer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md99}
+Returns {\ttfamily true} if {\ttfamily value} is a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger}{\texttt{safe integer}}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md100}{}\doxysubsubsubsubsection{\texorpdfstring{.plain\+Object(value)}{.plain\+Object(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md100}
+An object is plain if it\textquotesingle{}s created by either {\ttfamily \{\}}, {\ttfamily new Object()}, or {\ttfamily Object.\+create(null)}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md101}{}\doxysubsubsubsubsection{\texorpdfstring{.iterable(value)}{.iterable(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md101}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md102}{}\doxysubsubsubsubsection{\texorpdfstring{.async\+Iterable(value)}{.async\+Iterable(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md102}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md103}{}\doxysubsubsubsubsection{\texorpdfstring{.class(value)}{.class(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md103}
+Returns {\ttfamily true} for instances created by a class.
+
+{\bfseries{Note\+:}} Type\+Script users must use {\ttfamily .class\+\_\+()} because of a Type\+Script naming limitation.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md104}{}\doxysubsubsubsubsection{\texorpdfstring{.typed\+Array(value)}{.typed\+Array(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md104}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md105}{}\doxysubsubsubsubsection{\texorpdfstring{.array\+Like(value)}{.array\+Like(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md105}
+A {\ttfamily value} is array-\/like if it is not a function and has a {\ttfamily value.\+length} that is a safe integer greater than or equal to 0.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.arrayLike(document.forms);}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ foo()\ \{}
+\DoxyCodeLine{\ \ \ \ is.arrayLike(arguments);}
+\DoxyCodeLine{\ \ \ \ //=>\ true}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{foo();}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md106}{}\doxysubsubsubsubsection{\texorpdfstring{.in\+Range(value, range)}{.in\+Range(value, range)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md106}
+Check if {\ttfamily value} (number) is in the given {\ttfamily \doxylink{ftp-port_8d_aca7743579e26b3a3f36f576d1cca45c1}{range}}. The range is an array of two values, lower bound and upper bound, in no specific order.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.inRange(3,\ [0,\ 5]);}
+\DoxyCodeLine{is.inRange(3,\ [5,\ 0]);}
+\DoxyCodeLine{is.inRange(0,\ [-\/2,\ 2]);}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md107}{}\doxysubsubsubsubsection{\texorpdfstring{.in\+Range(value, upper\+Bound)}{.in\+Range(value, upper\+Bound)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md107}
+Check if {\ttfamily value} (number) is in the range of {\ttfamily 0} to {\ttfamily upper\+Bound}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.inRange(3,\ 10);}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md108}{}\doxysubsubsubsubsection{\texorpdfstring{.dom\+Element(value)}{.dom\+Element(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md108}
+Returns {\ttfamily true} if {\ttfamily value} is a DOM Element.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md109}{}\doxysubsubsubsubsection{\texorpdfstring{.node\+Stream(value)}{.node\+Stream(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md109}
+Returns {\ttfamily true} if {\ttfamily value} is a Node.\+js \href{https://nodejs.org/api/stream.html}{\texttt{stream}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ fs\ =\ require('fs');}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.nodeStream(fs.createReadStream('unicorn.png'));}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md110}{}\doxysubsubsubsubsection{\texorpdfstring{.observable(value)}{.observable(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md110}
+Returns {\ttfamily true} if {\ttfamily value} is an {\ttfamily Observable}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{Observable\}\ =\ require('rxjs');}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.observable(new\ Observable());}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md111}{}\doxysubsubsubsubsection{\texorpdfstring{.infinite(value)}{.infinite(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md111}
+Check if {\ttfamily value} is {\ttfamily Infinity} or {\ttfamily -\/Infinity}.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md112}{}\doxysubsubsubsubsection{\texorpdfstring{.even\+Integer(value)}{.even\+Integer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md112}
+Returns {\ttfamily true} if {\ttfamily value} is an even integer.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md113}{}\doxysubsubsubsubsection{\texorpdfstring{.odd\+Integer(value)}{.odd\+Integer(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md113}
+Returns {\ttfamily true} if {\ttfamily value} is an odd integer.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md114}{}\doxysubsubsubsubsection{\texorpdfstring{.property\+Key(value)}{.property\+Key(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md114}
+Returns {\ttfamily true} if {\ttfamily value} can be used as an object property key (either {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, {\ttfamily number}, or {\ttfamily symbol}).\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md115}{}\doxysubsubsubsubsection{\texorpdfstring{.form\+Data(value)}{.form\+Data(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md115}
+Returns {\ttfamily true} if {\ttfamily value} is an instance of the \href{https://developer.mozilla.org/en-US/docs/Web/API/FormData}{\texttt{{\ttfamily Form\+Data} class}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ data\ =\ new\ FormData();}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.formData(data);}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md116}{}\doxysubsubsubsubsection{\texorpdfstring{.url\+Search\+Params(value)}{.url\+Search\+Params(value)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md116}
+Returns {\ttfamily true} if {\ttfamily value} is an instance of the \href{https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams}{\texttt{{\ttfamily URLSearch\+Params} class}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ searchParams\ =\ new\ URLSearchParams();}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.urlSearchParams(searchParams);}
+\DoxyCodeLine{//=>\ true}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md117}{}\doxysubsubsubsubsection{\texorpdfstring{.any(predicate \texorpdfstring{$\vert$}{|} predicate\mbox{[}\mbox{]}, ...values)}{.any(predicate \texorpdfstring{$\vert$}{|} predicate\mbox{[}\mbox{]}, ...values)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md117}
+Using a single {\ttfamily predicate} argument, returns {\ttfamily true} if {\bfseries{any}} of the input {\ttfamily \doxylink{max-time_8d_af8a92ef6f0f2944323fc1f893c46d397}{values}} returns true in the {\ttfamily predicate}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.any(is.string,\ \{\},\ true,\ '🦄');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.any(is.boolean,\ 'unicorns',\ [],\ new\ Map());}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+
+
+Using an array of {\ttfamily predicate\mbox{[}\mbox{]}}, returns {\ttfamily true} if {\bfseries{any}} of the input {\ttfamily \doxylink{max-time_8d_af8a92ef6f0f2944323fc1f893c46d397}{values}} returns true for {\bfseries{any}} of the {\ttfamily predicates} provided in an array\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.any([is.string,\ is.number],\ \{\},\ true,\ '🦄');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.any([is.boolean,\ is.number],\ 'unicorns',\ [],\ new\ Map());}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md118}{}\doxysubsubsubsubsection{\texorpdfstring{.all(predicate, ...\+values)}{.all(predicate, ...\+values)}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md118}
+Returns {\ttfamily true} if {\bfseries{all}} of the input {\ttfamily \doxylink{max-time_8d_af8a92ef6f0f2944323fc1f893c46d397}{values}} returns true in the {\ttfamily predicate}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{is.all(is.object,\ \{\},\ new\ Map(),\ new\ Set());}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{is.all(is.string,\ '🦄',\ [],\ 'unicorns');}
+\DoxyCodeLine{//=>\ false}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md119}{}\doxysubsection{\texorpdfstring{Type guards}{Type guards}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md119}
+When using {\ttfamily is} together with Type\+Script, \href{http://www.typescriptlang.org/docs/handbook/advanced-types.html\#type-guards-and-differentiating-types}{\texttt{type guards}} are being used extensively to infer the correct type inside if-\/else statements.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ is\ from\ '@sindresorhus/is';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ padLeft\ =\ (value:\ string,\ padding:\ string\ |\ number)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (is.number(padding))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ \`{}padding`\ is\ typed\ as\ \`{}number`}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ Array(padding\ +\ 1).join('\ ')\ +\ value;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ if\ (is.string(padding))\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ //\ \`{}padding`\ is\ typed\ as\ \`{}string`}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ return\ padding\ +\ value;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ throw\ new\ TypeError(`Expected\ 'padding'\ to\ be\ of\ type\ 'string'\ or\ 'number',\ got\ '\$\{is(padding)\}'.`);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{padLeft('🦄',\ 3);}
+\DoxyCodeLine{//=>\ '\ \ \ 🦄'}
+\DoxyCodeLine{}
+\DoxyCodeLine{padLeft('🦄',\ '🌈');}
+\DoxyCodeLine{//=>\ '🌈🦄'}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md120}{}\doxysubsection{\texorpdfstring{Type assertions}{Type assertions}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md120}
+The type guards are also available as \href{https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html\#assertion-functions}{\texttt{type assertions}}, which throw an error for unexpected types. It is a convenient one-\/line version of the often repetitive "{}if-\/not-\/expected-\/type-\/throw"{} pattern.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{assert\}\ from\ '@sindresorhus/is';}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ handleMovieRatingApiResponse\ =\ (response:\ unknown)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ assert.plainObject(response);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}response`\ is\ now\ typed\ as\ a\ plain\ \`{}object`\ with\ \`{}unknown`\ properties.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ assert.number(response.rating);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}response.rating`\ is\ now\ typed\ as\ a\ \`{}number`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ assert.string(response.title);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}response.title`\ is\ now\ typed\ as\ a\ \`{}string`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ return\ \`{}\$\{response.title\}\ (\$\{response.rating\ *\ 10\})`;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{handleMovieRatingApiResponse(\{rating:\ 0.87,\ title:\ 'The\ Matrix'\});}
+\DoxyCodeLine{//=>\ 'The\ Matrix\ (8.7)'}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ This\ throws\ an\ error.}
+\DoxyCodeLine{handleMovieRatingApiResponse(\{rating:\ '🦄'\});}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md121}{}\doxysubsection{\texorpdfstring{Generic type parameters}{Generic type parameters}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md121}
+The type guards and type assertions are aware of \href{https://www.typescriptlang.org/docs/handbook/generics.html}{\texttt{generic type parameters}}, such as {\ttfamily Promise\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} and {\ttfamily Map\texorpdfstring{$<$}{<}Key, Value\texorpdfstring{$>$}{>}}. The default is {\ttfamily unknown} for most cases, since {\ttfamily is} cannot check them at runtime. If the generic type is known at compile-\/time, either implicitly (inferred) or explicitly (provided), {\ttfamily is} propagates the type so it can be used later.
+
+Use generic type parameters with caution. They are only checked by the Type\+Script compiler, and not checked by {\ttfamily is} at runtime. This can lead to unexpected behavior, where the generic type is {\itshape assumed} at compile-\/time, but actually is something completely different at runtime. It is best to use {\ttfamily unknown} (default) and type-\/check the value of the generic type parameter at runtime with {\ttfamily is} or {\ttfamily assert}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{assert\}\ from\ '@sindresorhus/is';}
+\DoxyCodeLine{}
+\DoxyCodeLine{async\ function\ badNumberAssumption(input:\ unknown)\ \{}
+\DoxyCodeLine{\ \ \ \ //\ Bad\ assumption\ about\ the\ generic\ type\ parameter\ fools\ the\ compile-\/time\ type\ system.}
+\DoxyCodeLine{\ \ \ \ assert.promise<number>(input);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}input`\ is\ a\ \`{}Promise`\ but\ only\ assumed\ to\ be\ \`{}Promise<number>`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ resolved\ =\ await\ input;}
+\DoxyCodeLine{\ \ \ \ //\ \`{}resolved`\ is\ typed\ as\ \`{}number`\ but\ was\ not\ actually\ checked\ at\ runtime.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Multiplication\ will\ return\ NaN\ if\ the\ input\ promise\ did\ not\ actually\ contain\ a\ number.}
+\DoxyCodeLine{\ \ \ \ return\ 2\ *\ resolved;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{async\ function\ goodNumberAssertion(input:\ unknown)\ \{}
+\DoxyCodeLine{\ \ \ \ assert.promise(input);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}input`\ is\ typed\ as\ \`{}Promise<unknown>`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ const\ resolved\ =\ await\ input;}
+\DoxyCodeLine{\ \ \ \ //\ \`{}resolved`\ is\ typed\ as\ \`{}unknown`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ assert.number(resolved);}
+\DoxyCodeLine{\ \ \ \ //\ \`{}resolved`\ is\ typed\ as\ \`{}number`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ //\ Uses\ runtime\ checks\ so\ only\ numbers\ will\ reach\ the\ multiplication.}
+\DoxyCodeLine{\ \ \ \ return\ 2\ *\ resolved;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{badNumberAssumption(Promise.resolve('An\ unexpected\ string'));}
+\DoxyCodeLine{//=>\ NaN}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ This\ correctly\ throws\ an\ error\ because\ of\ the\ unexpected\ string\ value.}
+\DoxyCodeLine{goodNumberAssertion(Promise.resolve('An\ unexpected\ string'));}
+
+\end{DoxyCode}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md122}{}\doxysubsection{\texorpdfstring{FAQ}{FAQ}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md122}
+\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md123}{}\doxysubsubsection{\texorpdfstring{Why yet another type checking module?}{Why yet another type checking module?}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md123}
+There are hundreds of type checking modules on npm, unfortunately, I couldn\textquotesingle{}t find any that fit my needs\+:
+
+
+\begin{DoxyItemize}
+\item Includes both type methods and ability to get the type
+\item Types of primitives returned as lowercase and object types as camelcase
+\item Covers all built-\/ins
+\item Unsurprising behavior
+\item Well-\/maintained
+\item Comprehensive test suite
+\end{DoxyItemize}
+
+For the ones I found, pick 3 of these.
+
+The most common mistakes I noticed in these modules was using {\ttfamily instanceof} for type checking, forgetting that functions are objects, and omitting {\ttfamily symbol} as a primitive.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md124}{}\doxysubsubsection{\texorpdfstring{Why not just use {\ttfamily instanceof} instead of this package?}{Why not just use {\ttfamily instanceof} instead of this package?}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md124}
+{\ttfamily instanceof} does not work correctly for all types and it does not work across \href{https://stackoverflow.com/a/49832343/64949}{\texttt{realms}}. Examples of realms are iframes, windows, web workers, and the {\ttfamily vm} module in Node.\+js.\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md125}{}\doxysubsection{\texorpdfstring{For enterprise}{For enterprise}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md125}
+Available as part of the Tidelift Subscription.
+
+The maintainers of @sindresorhus/is and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. \href{https://tidelift.com/subscription/pkg/npm-sindresorhus-is?utm_source=npm-sindresorhus-is&utm_medium=referral&utm_campaign=enterprise&utm_term=repo}{\texttt{Learn more.}}\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md126}{}\doxysubsection{\texorpdfstring{Related}{Related}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md126}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus/ow}{\texttt{ow}} -\/ Function argument validation for humans
+\item \href{https://github.com/sindresorhus/is-stream}{\texttt{is-\/stream}} -\/ Check if something is a Node.\+js stream
+\item \href{https://github.com/sindresorhus/is-observable}{\texttt{is-\/observable}} -\/ Check if a value is an Observable
+\item \href{https://github.com/sindresorhus/file-type}{\texttt{file-\/type}} -\/ Detect the file type of a Buffer/\+Uint8\+Array
+\item \href{https://github.com/sindresorhus/is-ip}{\texttt{is-\/ip}} -\/ Check if a string is an IP address
+\item \href{https://github.com/sindresorhus/is-array-sorted}{\texttt{is-\/array-\/sorted}} -\/ Check if an Array is sorted
+\item \href{https://github.com/sindresorhus/is-error-constructor}{\texttt{is-\/error-\/constructor}} -\/ Check if a value is an error constructor
+\item \href{https://github.com/sindresorhus/is-empty-iterable}{\texttt{is-\/empty-\/iterable}} -\/ Check if an Iterable is empty
+\item \href{https://github.com/sindresorhus/is-blob}{\texttt{is-\/blob}} -\/ Check if a value is a Blob -\/ File-\/like object of immutable, raw data
+\item \href{https://github.com/sindresorhus/has-emoji}{\texttt{has-\/emoji}} -\/ Check whether a string has any emoji
+\end{DoxyItemize}\hypertarget{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md127}{}\doxysubsection{\texorpdfstring{Maintainers}{Maintainers}}\label{dir_8c9a8d901cb645243e5f3d12714bb8cb_autotoc_md127}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/sindresorhus}{\texttt{Sindre Sorhus}}
+\item \href{https://github.com/gioragutt}{\texttt{Giora Guttsait}}
+\item \href{https://github.com/brandon93s}{\texttt{Brandon Smith}} 
+\end{DoxyItemize}

@@ -1,0 +1,72 @@
+\doxysection{curl\+\_\+ntlm\+\_\+core.\+h}
+\hypertarget{curl__ntlm__core_8h_source}{}\label{curl__ntlm__core_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_ntlm\_core.h@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_ntlm\_core.h}}
+\mbox{\hyperlink{curl__ntlm__core_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_NTLM\_CORE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_NTLM\_CORE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ defined(USE\_CURL\_NTLM\_CORE)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ If\ NSS\ is\ the\ first\ available\ SSL\ backend\ (see\ order\ in\ curl\_ntlm\_core.c)}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ then\ it\ must\ be\ initialized\ to\ be\ used\ by\ NTLM.\ */}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ !defined(USE\_OPENSSL)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ !defined(USE\_WOLFSSL)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ !defined(USE\_GNUTLS)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ defined(USE\_NSS)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ NTLM\_NEEDS\_NSS\_INIT}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ USE\_WOLFSSL}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ include\ <wolfssl/openssl/ssl.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#elif\ defined(USE\_OPENSSL)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ Helpers\ to\ generate\ function\ byte\ arguments\ in\ little\ endian\ order\ */}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ SHORTPAIR(x)\ ((int)((x)\ \&\ 0xff)),\ ((int)(((x)\ >>\ 8)\ \&\ 0xff))}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ LONGQUARTET(x)\ ((int)((x)\ \&\ 0xff)),\ ((int)(((x)\ >>\ 8)\ \&\ 0xff)),\ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ ((int)(((x)\ >>\ 16)\ \&\ 0xff)),\ ((int)(((x)\ >>\ 24)\ \&\ 0xff))}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ Curl\_ntlm\_core\_lm\_resp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *keys,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *plaintext,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *results);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ntlm\_core\_mk\_lm\_hash(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *lmbuffer\ \textcolor{comment}{/*\ 21\ bytes\ */});}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ntlm\_core\_mk\_nt\_hash(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ntbuffer\ \textcolor{comment}{/*\ 21\ bytes\ */});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#if\ !defined(USE\_WINDOWS\_SSPI)}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_hmac\_md5(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ keylen,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ datalen,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{write-out_8d_ae590089fcdf1b00e10370630bd1e3cba}{output}});}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_ntlm\_core\_mk\_ntlmv2\_hash(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user,\ \textcolor{keywordtype}{size\_t}\ userlen,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{mail-rcpt_8d_ae787bef6267eb81c543b0bfa1342df46}{domain}},\ \textcolor{keywordtype}{size\_t}\ domlen,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ntlmhash,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ntlmv2hash);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \ Curl\_ntlm\_core\_mk\_ntlmv2\_resp(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ntlmv2hash,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *challenge\_client,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ ntlmdata\ *\mbox{\hyperlink{anyauth_8d_a271ddbf810b454649419562ea2febf10}{ntlm}},}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **ntresp,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *ntresp\_len);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \ Curl\_ntlm\_core\_mk\_lmv2\_resp(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ntlmv2hash,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *challenge\_client,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *challenge\_server,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *lmresp);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !USE\_WINDOWS\_SSPI\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_CURL\_NTLM\_CORE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_NTLM\_CORE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,211 @@
+\doxysection{QCPPlottable\+Interface1D Class Reference}
+\hypertarget{classQCPPlottableInterface1D}{}\label{classQCPPlottableInterface1D}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+
+
+Defines an abstract interface for one-\/dimensional plottables.  
+
+
+
+
+{\ttfamily \#include $<$qcustomplot.\+h$>$}
+
+Inheritance diagram for QCPPlottable\+Interface1D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.035599cm]{classQCPPlottableInterface1D}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classQCPPlottableInterface1D_a8829011d62208625f741f2d7e1cb6280}{\texorpdfstring{$\sim$}{\string~}\+QCPPlottable\+Interface1D}} ()
+\item 
+virtual int \mbox{\hyperlink{classQCPPlottableInterface1D_adf4ce17d263b506df80d0ac37e497432}{data\+Count}} () const =0
+\item 
+virtual double \mbox{\hyperlink{classQCPPlottableInterface1D_a572ed2583cb6a2bb590a265c3fc2b004}{data\+Main\+Key}} (int index) const =0
+\item 
+virtual double \mbox{\hyperlink{classQCPPlottableInterface1D_aa21351ab3d6edbcf8d95f9c377e5003b}{data\+Sort\+Key}} (int index) const =0
+\item 
+virtual double \mbox{\hyperlink{classQCPPlottableInterface1D_a17f6fbd78e004b6f3c8257fea50f9808}{data\+Main\+Value}} (int index) const =0
+\item 
+virtual \mbox{\hyperlink{classQCPRange}{QCPRange}} \mbox{\hyperlink{classQCPPlottableInterface1D_af9a720ace6499337406a5e65d4823f57}{data\+Value\+Range}} (int index) const =0
+\item 
+virtual QPointF \mbox{\hyperlink{classQCPPlottableInterface1D_a35fd032c6e5226ff7b50e0f37c57922b}{data\+Pixel\+Position}} (int index) const =0
+\item 
+virtual bool \mbox{\hyperlink{classQCPPlottableInterface1D_acec8492c49e051aaec5ca5267900a98e}{sort\+Key\+Is\+Main\+Key}} () const =0
+\item 
+virtual \mbox{\hyperlink{classQCPDataSelection}{QCPData\+Selection}} \mbox{\hyperlink{classQCPPlottableInterface1D_a05874ade11a735bb290bb96ccf7fdac1}{select\+Test\+Rect}} (const QRectF \&rect, bool only\+Selectable) const =0
+\item 
+virtual int \mbox{\hyperlink{classQCPPlottableInterface1D_ac8f224af7f2afeed46d82368344d8d9e}{find\+Begin}} (double sort\+Key, bool expanded\+Range=true) const =0
+\item 
+virtual int \mbox{\hyperlink{classQCPPlottableInterface1D_a2a6f8cad846ea18d3ab46a95047de681}{find\+End}} (double sort\+Key, bool expanded\+Range=true) const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines an abstract interface for one-\/dimensional plottables. 
+
+This class contains only pure virtual methods which define a common interface to the data of one-\/dimensional plottables.
+
+For example, it is implemented by the template class \doxylink{classQCPAbstractPlottable1D}{QCPAbstract\+Plottable1D} (the preferred base class for one-\/dimensional plottables). So if you use that template class as base class of your one-\/dimensional plottable, you won\textquotesingle{}t have to care about implementing the 1d interface yourself.
+
+If your plottable doesn\textquotesingle{}t derive from \doxylink{classQCPAbstractPlottable1D}{QCPAbstract\+Plottable1D} but still wants to provide a 1d interface (e.\+g. like \doxylink{classQCPErrorBars}{QCPError\+Bars} does), you should inherit from both \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable} and \doxylink{classQCPPlottableInterface1D}{QCPPlottable\+Interface1D} and accordingly reimplement the pure virtual methods of the 1d interface, matching your data container. Also, reimplement \doxylink{classQCPAbstractPlottable_a53c8b30779771f2c743104e652e74ab1}{QCPAbstract\+Plottable\+::interface1D} to return the {\ttfamily this} pointer.
+
+If you have a \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable} pointer, you can check whether it implements this interface by calling \doxylink{classQCPAbstractPlottable_a53c8b30779771f2c743104e652e74ab1}{QCPAbstract\+Plottable\+::interface1D} and testing it for a non-\/zero return value. If it indeed implements this interface, you may use it to access the plottable\textquotesingle{}s data without needing to know the exact type of the plottable or its data point type. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classQCPPlottableInterface1D_a8829011d62208625f741f2d7e1cb6280}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!````~QCPPlottableInterface1D@{\texorpdfstring{$\sim$}{\string~}QCPPlottableInterface1D}}
+\index{````~QCPPlottableInterface1D@{\texorpdfstring{$\sim$}{\string~}QCPPlottableInterface1D}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}QCPPlottableInterface1D()}{\string~QCPPlottableInterface1D()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_a8829011d62208625f741f2d7e1cb6280} 
+virtual QCPPlottable\+Interface1\+D\+::\texorpdfstring{$\sim$}{\string~}\+QCPPlottable\+Interface1D (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classQCPPlottableInterface1D_adf4ce17d263b506df80d0ac37e497432}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!dataCount@{dataCount}}
+\index{dataCount@{dataCount}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{dataCount()}{dataCount()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_adf4ce17d263b506df80d0ac37e497432} 
+virtual int QCPPlottable\+Interface1\+D\+::data\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the number of data points of the plottable. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_ab5dd99e4f1621e7dbd63438e0b02984e}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ab5dd99e4f1621e7dbd63438e0b02984e}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ab5dd99e4f1621e7dbd63438e0b02984e}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ab5dd99e4f1621e7dbd63438e0b02984e}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ab5dd99e4f1621e7dbd63438e0b02984e}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ab5dd99e4f1621e7dbd63438e0b02984e}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_aaf7ae2ba94f4beaedd2637dede6f27ea}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_a572ed2583cb6a2bb590a265c3fc2b004}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!dataMainKey@{dataMainKey}}
+\index{dataMainKey@{dataMainKey}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{dataMainKey()}{dataMainKey()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_a572ed2583cb6a2bb590a265c3fc2b004} 
+virtual double QCPPlottable\+Interface1\+D\+::data\+Main\+Key (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the main key of the data point at the given {\itshape index}.
+
+What the main key is, is defined by the plottable\textquotesingle{}s data type. See the \doxysectlink{classQCPDataContainer_qcpdatacontainer-datatype}{QCPData\+Container Data\+Type}{1} documentation for details about this naming convention. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_aeb156ebf5d3c8de906b428be30733ad8}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aeb156ebf5d3c8de906b428be30733ad8}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aeb156ebf5d3c8de906b428be30733ad8}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aeb156ebf5d3c8de906b428be30733ad8}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aeb156ebf5d3c8de906b428be30733ad8}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aeb156ebf5d3c8de906b428be30733ad8}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_ab3964216ec44468c62fe95c1eed3f3b4}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_a17f6fbd78e004b6f3c8257fea50f9808}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!dataMainValue@{dataMainValue}}
+\index{dataMainValue@{dataMainValue}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{dataMainValue()}{dataMainValue()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_a17f6fbd78e004b6f3c8257fea50f9808} 
+virtual double QCPPlottable\+Interface1\+D\+::data\+Main\+Value (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the main value of the data point at the given {\itshape index}.
+
+What the main value is, is defined by the plottable\textquotesingle{}s data type. See the \doxysectlink{classQCPDataContainer_qcpdatacontainer-datatype}{QCPData\+Container Data\+Type}{1} documentation for details about this naming convention. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_a6be0f657ba85a1688336d76ad649ecf2}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6be0f657ba85a1688336d76ad649ecf2}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6be0f657ba85a1688336d76ad649ecf2}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6be0f657ba85a1688336d76ad649ecf2}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6be0f657ba85a1688336d76ad649ecf2}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6be0f657ba85a1688336d76ad649ecf2}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_aaac71c5df8e7e3ed5d16bdff24a5e022}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_a35fd032c6e5226ff7b50e0f37c57922b}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!dataPixelPosition@{dataPixelPosition}}
+\index{dataPixelPosition@{dataPixelPosition}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{dataPixelPosition()}{dataPixelPosition()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_a35fd032c6e5226ff7b50e0f37c57922b} 
+virtual QPointF QCPPlottable\+Interface1\+D\+::data\+Pixel\+Position (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the pixel position on the widget surface at which the data point at the given {\itshape index} appears.
+
+Usually this corresponds to the point of data\+Main\+Key/ data\+Main\+Value, in pixel coordinates. However, depending on the plottable, this might be a different apparent position than just a coord-\/to-\/pixel transform of those values. For example, \doxylink{classQCPBars}{QCPBars} apparent data values can be shifted depending on their stacking, bar grouping or configured base value. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_a6ca0699a6af5f25a7565de7c50ce13b2}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6ca0699a6af5f25a7565de7c50ce13b2}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6ca0699a6af5f25a7565de7c50ce13b2}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6ca0699a6af5f25a7565de7c50ce13b2}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6ca0699a6af5f25a7565de7c50ce13b2}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6ca0699a6af5f25a7565de7c50ce13b2}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, \mbox{\hyperlink{classQCPBars_a71faeb70a3834f1f391c1a7e11c9fce7}{QCPBars}}, and \mbox{\hyperlink{classQCPErrorBars_a56aae52209498108d9b5c370172cd9d1}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_aa21351ab3d6edbcf8d95f9c377e5003b}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!dataSortKey@{dataSortKey}}
+\index{dataSortKey@{dataSortKey}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{dataSortKey()}{dataSortKey()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_aa21351ab3d6edbcf8d95f9c377e5003b} 
+virtual double QCPPlottable\+Interface1\+D\+::data\+Sort\+Key (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the sort key of the data point at the given {\itshape index}.
+
+What the sort key is, is defined by the plottable\textquotesingle{}s data type. See the \doxysectlink{classQCPDataContainer_qcpdatacontainer-datatype}{QCPData\+Container Data\+Type}{1} documentation for details about this naming convention. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_aa8277da921b009bce474437d50b4a2d8}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aa8277da921b009bce474437d50b4a2d8}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aa8277da921b009bce474437d50b4a2d8}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aa8277da921b009bce474437d50b4a2d8}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aa8277da921b009bce474437d50b4a2d8}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_aa8277da921b009bce474437d50b4a2d8}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_a30d593535a27a6127d04bfa14bdad541}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_af9a720ace6499337406a5e65d4823f57}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!dataValueRange@{dataValueRange}}
+\index{dataValueRange@{dataValueRange}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{dataValueRange()}{dataValueRange()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_af9a720ace6499337406a5e65d4823f57} 
+virtual \mbox{\hyperlink{classQCPRange}{QCPRange}} QCPPlottable\+Interface1\+D\+::data\+Value\+Range (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the value range of the data point at the given {\itshape index}.
+
+What the value range is, is defined by the plottable\textquotesingle{}s data type. See the \doxysectlink{classQCPDataContainer_qcpdatacontainer-datatype}{QCPData\+Container Data\+Type}{1} documentation for details about this naming convention. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_a55f937ba6a63e56e57f0b1a6e85a333a}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a55f937ba6a63e56e57f0b1a6e85a333a}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a55f937ba6a63e56e57f0b1a6e85a333a}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a55f937ba6a63e56e57f0b1a6e85a333a}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a55f937ba6a63e56e57f0b1a6e85a333a}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a55f937ba6a63e56e57f0b1a6e85a333a}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_a9f01a160cd8802ceea73665e3c27780d}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_ac8f224af7f2afeed46d82368344d8d9e}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!findBegin@{findBegin}}
+\index{findBegin@{findBegin}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{findBegin()}{findBegin()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_ac8f224af7f2afeed46d82368344d8d9e} 
+virtual int QCPPlottable\+Interface1\+D\+::find\+Begin (\begin{DoxyParamCaption}\item[{double}]{sort\+Key}{, }\item[{bool}]{expanded\+Range}{ = {\ttfamily true}}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the index of the data point with a (sort-\/)key that is equal to, just below, or just above {\itshape sort\+Key}. If {\itshape expanded\+Range} is true, the data point just below {\itshape sort\+Key} will be considered, otherwise the one just above.
+
+This can be used in conjunction with \doxylink{classQCPPlottableInterface1D_a2a6f8cad846ea18d3ab46a95047de681}{find\+End} to iterate over data points within a given key range, including or excluding the bounding data points that are just beyond the specified range.
+
+If {\itshape expanded\+Range} is true but there are no data points below {\itshape sort\+Key}, 0 is returned.
+
+If the container is empty, returns 0 (in that case, \doxylink{classQCPPlottableInterface1D_a2a6f8cad846ea18d3ab46a95047de681}{find\+End} will also return 0, so a loop using these methods will not iterate over the index 0).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classQCPPlottableInterface1D_a2a6f8cad846ea18d3ab46a95047de681}{find\+End}, \doxylink{classQCPDataContainer_a2ad8a5399072d99a242d3a6d2d7e278a}{QCPData\+Container\+::find\+Begin} 
+\end{DoxySeeAlso}
+
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_ad0b46d25cde3d035b180fb8f10c056e6}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ad0b46d25cde3d035b180fb8f10c056e6}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ad0b46d25cde3d035b180fb8f10c056e6}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ad0b46d25cde3d035b180fb8f10c056e6}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ad0b46d25cde3d035b180fb8f10c056e6}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_ad0b46d25cde3d035b180fb8f10c056e6}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_ab3edb6e8dca7933dc9f68677d5e7bb28}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_a2a6f8cad846ea18d3ab46a95047de681}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!findEnd@{findEnd}}
+\index{findEnd@{findEnd}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{findEnd()}{findEnd()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_a2a6f8cad846ea18d3ab46a95047de681} 
+virtual int QCPPlottable\+Interface1\+D\+::find\+End (\begin{DoxyParamCaption}\item[{double}]{sort\+Key}{, }\item[{bool}]{expanded\+Range}{ = {\ttfamily true}}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the index one after the data point with a (sort-\/)key that is equal to, just above, or just below {\itshape sort\+Key}. If {\itshape expanded\+Range} is true, the data point just above {\itshape sort\+Key} will be considered, otherwise the one just below.
+
+This can be used in conjunction with \doxylink{classQCPPlottableInterface1D_ac8f224af7f2afeed46d82368344d8d9e}{find\+Begin} to iterate over data points within a given key range, including the bounding data points that are just below and above the specified range.
+
+If {\itshape expanded\+Range} is true but there are no data points above {\itshape sort\+Key}, the index just above the highest data point is returned.
+
+If the container is empty, returns 0.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classQCPPlottableInterface1D_ac8f224af7f2afeed46d82368344d8d9e}{find\+Begin}, \doxylink{classQCPDataContainer_afb8b8f23cc2b7234a793a25ce79fe48f}{QCPData\+Container\+::find\+End} 
+\end{DoxySeeAlso}
+
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_a6e3ba20c9160d7361e58070390d10b1a}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6e3ba20c9160d7361e58070390d10b1a}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6e3ba20c9160d7361e58070390d10b1a}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6e3ba20c9160d7361e58070390d10b1a}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6e3ba20c9160d7361e58070390d10b1a}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a6e3ba20c9160d7361e58070390d10b1a}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_a59ef20c33de4ff25fa49f10eda0a893c}{QCPError\+Bars}}.
+
+\Hypertarget{classQCPPlottableInterface1D_a05874ade11a735bb290bb96ccf7fdac1}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!selectTestRect@{selectTestRect}}
+\index{selectTestRect@{selectTestRect}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{selectTestRect()}{selectTestRect()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_a05874ade11a735bb290bb96ccf7fdac1} 
+virtual \mbox{\hyperlink{classQCPDataSelection}{QCPData\+Selection}} QCPPlottable\+Interface1\+D\+::select\+Test\+Rect (\begin{DoxyParamCaption}\item[{const QRectF \&}]{rect}{, }\item[{bool}]{only\+Selectable}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns a data selection containing all the data points of this plottable which are contained (or hit by) {\itshape rect}. This is used mainly in the selection rect interaction for data selection (data selection mechanism).
+
+If {\itshape only\+Selectable} is true, an empty \doxylink{classQCPDataSelection}{QCPData\+Selection} is returned if this plottable is not selectable (i.\+e. if \doxylink{classQCPAbstractPlottable_a068d169679b7088d28aa3ba5e663dd8c}{QCPAbstract\+Plottable\+::set\+Selectable} is \doxylink{namespaceQCP_ac6cb9db26a564b27feda362a438db038aa64628e338a2dd1e6f0dc84dec0b63fe}{QCP\+::st\+None}).
+
+\begin{DoxyNote}{Note}
+{\itshape rect} must be a normalized rect (positive or zero width and height). This is especially important when using the rect of \doxylink{classQCPSelectionRect_a15a43542e1f7b953a44c260b419e6d2c}{QCPSelection\+Rect\+::accepted}, which is not necessarily normalized. Use {\ttfamily QRect\+::normalized()} when passing a rect which might not be normalized. 
+\end{DoxyNote}
+
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_a22377bf6e57ab7eedbc9e489250c6ded}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a22377bf6e57ab7eedbc9e489250c6ded}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a22377bf6e57ab7eedbc9e489250c6ded}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a22377bf6e57ab7eedbc9e489250c6ded}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a22377bf6e57ab7eedbc9e489250c6ded}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_a22377bf6e57ab7eedbc9e489250c6ded}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, \mbox{\hyperlink{classQCPBars_a429d8c3c39972bf6069329175bb85c34}{QCPBars}}, \mbox{\hyperlink{classQCPErrorBars_aa65896d664ac0b82e680db71a431b0b5}{QCPError\+Bars}}, \mbox{\hyperlink{classQCPFinancial_a2d7c9beec376fed78a6091a17f59eb1e}{QCPFinancial}}, and \mbox{\hyperlink{classQCPStatisticalBox_a7047863d59673d8d049bf26cfdd9912c}{QCPStatistical\+Box}}.
+
+\Hypertarget{classQCPPlottableInterface1D_acec8492c49e051aaec5ca5267900a98e}\index{QCPPlottableInterface1D@{QCPPlottableInterface1D}!sortKeyIsMainKey@{sortKeyIsMainKey}}
+\index{sortKeyIsMainKey@{sortKeyIsMainKey}!QCPPlottableInterface1D@{QCPPlottableInterface1D}}
+\doxysubsubsection{\texorpdfstring{sortKeyIsMainKey()}{sortKeyIsMainKey()}}
+{\footnotesize\ttfamily \label{classQCPPlottableInterface1D_acec8492c49e051aaec5ca5267900a98e} 
+virtual bool QCPPlottable\+Interface1\+D\+::sort\+Key\+Is\+Main\+Key (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns whether the sort key (\doxylink{classQCPPlottableInterface1D_aa21351ab3d6edbcf8d95f9c377e5003b}{data\+Sort\+Key}) is identical to the main key (\doxylink{classQCPPlottableInterface1D_a572ed2583cb6a2bb590a265c3fc2b004}{data\+Main\+Key}).
+
+What the sort and main keys are, is defined by the plottable\textquotesingle{}s data type. See the \doxysectlink{classQCPDataContainer_qcpdatacontainer-datatype}{QCPData\+Container Data\+Type}{1} documentation for details about this naming convention. 
+
+Implemented in \mbox{\hyperlink{classQCPAbstractPlottable1D_afe0d56e39cc076032922f059b304c092}{QCPAbstract\+Plottable1\+D$<$ Data\+Type $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_afe0d56e39cc076032922f059b304c092}{QCPAbstract\+Plottable1\+D$<$ QCPBars\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_afe0d56e39cc076032922f059b304c092}{QCPAbstract\+Plottable1\+D$<$ QCPCurve\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_afe0d56e39cc076032922f059b304c092}{QCPAbstract\+Plottable1\+D$<$ QCPFinancial\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_afe0d56e39cc076032922f059b304c092}{QCPAbstract\+Plottable1\+D$<$ QCPGraph\+Data $>$}}, \mbox{\hyperlink{classQCPAbstractPlottable1D_afe0d56e39cc076032922f059b304c092}{QCPAbstract\+Plottable1\+D$<$ QCPStatistical\+Box\+Data $>$}}, and \mbox{\hyperlink{classQCPErrorBars_a1ced9adaab857f36486b486551ba94b8}{QCPError\+Bars}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8h}{qcustomplot.\+h}}\end{DoxyCompactItemize}

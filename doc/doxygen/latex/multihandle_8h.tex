@@ -1,0 +1,207 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/multihandle.h File Reference}
+\hypertarget{multihandle_8h}{}\label{multihandle_8h}\index{lib/libwconr/build/\_deps/curl-\/src/lib/multihandle.h@{lib/libwconr/build/\_deps/curl-\/src/lib/multihandle.h}}
+{\ttfamily \#include "{}llist.\+h"{}}\newline
+{\ttfamily \#include "{}hash.\+h"{}}\newline
+{\ttfamily \#include "{}conncache.\+h"{}}\newline
+{\ttfamily \#include "{}psl.\+h"{}}\newline
+{\ttfamily \#include "{}socketpair.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCurl__message}{Curl\+\_\+message}}
+\item 
+struct \mbox{\hyperlink{structCurl__multi}{Curl\+\_\+multi}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_a472aff39aba6058f1e7372319df882c0}{MAX\+\_\+\+SOCKSPEREASYHANDLE}}~5
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_aff201959aa9b8e49f28d4d64e3e98c7d}{GETSOCK\+\_\+\+READABLE}}~(0x00ff)
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_a2eda5b2bd171b44e04c3f63a1be6d5a4}{GETSOCK\+\_\+\+WRITABLE}}~(0xff00)
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_a18fab2a676cd4bdb3eb935b1261c0db0}{CURLPIPE\+\_\+\+ANY}}~(\mbox{\hyperlink{http2-upload_8c_af29d172b038fadd90daf541df3b945c6}{CURLPIPE\+\_\+\+MULTIPLEX}})
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_a5aadd59068af30fa769e065fdefd44e2}{ENABLE\+\_\+\+WAKEUP}}
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_a37c15bef464d979333399c6f9b535fda}{INITIAL\+\_\+\+MAX\+\_\+\+CONCURRENT\+\_\+\+STREAMS}}~((1U $<$$<$ 31) -\/ 1)
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_a9c2ea6b12952ff0383927cf3d845d7bf}{IPV6\+\_\+\+UNKNOWN}}~0
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_ac63a8369c7dabcd57d570ad19a1d1f9a}{IPV6\+\_\+\+DEAD}}~1
+\item 
+\#define \mbox{\hyperlink{multihandle_8h_ad3dc03d10de471a5f5c9ab3921f35df1}{IPV6\+\_\+\+WORKS}}~2
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383}{CURLMstate}} \{ \newline
+\mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a12f633d06096e50c79c96acd228460e8}{MSTATE\+\_\+\+INIT}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6527386726090dfd47b1f0bb2d48d5b7}{MSTATE\+\_\+\+PENDING}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ae43cdeb00c5bc7d596f435cbec3ab871}{MSTATE\+\_\+\+CONNECT}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6ea7c6a708d9ae453e29a313cb2125f7}{MSTATE\+\_\+\+RESOLVING}}
+, \newline
+\mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383afcab973ddfdef772342ad8247aaa8cb7}{MSTATE\+\_\+\+CONNECTING}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ad3c5cb2018b13d0745a3461d93420b2d}{MSTATE\+\_\+\+TUNNELING}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383aca9df5c6034dedde7650c26bf5b30056}{MSTATE\+\_\+\+PROTOCONNECT}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ab102030004843856e9ed9a9bbb1878ac}{MSTATE\+\_\+\+PROTOCONNECTING}}
+, \newline
+\mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a76adc382c5057a252959c9149abe3af6}{MSTATE\+\_\+\+DO}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a533a17a3cbce60a82b0a49f4f4bde605}{MSTATE\+\_\+\+DOING}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a55094055120ee94d6ff73959cc0c2bc8}{MSTATE\+\_\+\+DOING\+\_\+\+MORE}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a474fa0bf470ebef1775a18a469747c1b}{MSTATE\+\_\+\+DID}}
+, \newline
+\mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a8d4b76f0e01286fa81be0f4d7dd65467}{MSTATE\+\_\+\+PERFORMING}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a87f5bcd40edad5454cddbb7c08742497}{MSTATE\+\_\+\+RATELIMITING}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a0b5f6f0b406de42ae6a1926f89f44250}{MSTATE\+\_\+\+DONE}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6f8e635ad3050080f13440d58f93ef09}{MSTATE\+\_\+\+COMPLETED}}
+, \newline
+\mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383acd5638e51050679b2dbf0fb222978b7f}{MSTATE\+\_\+\+MSGSENT}}
+, \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383af7a224b56d80d8d053aec222b1df9515}{MSTATE\+\_\+\+LAST}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{multihandle_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{multihandle_8h_a18fab2a676cd4bdb3eb935b1261c0db0}\index{multihandle.h@{multihandle.h}!CURLPIPE\_ANY@{CURLPIPE\_ANY}}
+\index{CURLPIPE\_ANY@{CURLPIPE\_ANY}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{CURLPIPE\_ANY}{CURLPIPE\_ANY}}
+{\footnotesize\ttfamily \label{multihandle_8h_a18fab2a676cd4bdb3eb935b1261c0db0} 
+\#define CURLPIPE\+\_\+\+ANY~(\mbox{\hyperlink{http2-upload_8c_af29d172b038fadd90daf541df3b945c6}{CURLPIPE\+\_\+\+MULTIPLEX}})}
+
+\Hypertarget{multihandle_8h_a5aadd59068af30fa769e065fdefd44e2}\index{multihandle.h@{multihandle.h}!ENABLE\_WAKEUP@{ENABLE\_WAKEUP}}
+\index{ENABLE\_WAKEUP@{ENABLE\_WAKEUP}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_WAKEUP}{ENABLE\_WAKEUP}}
+{\footnotesize\ttfamily \label{multihandle_8h_a5aadd59068af30fa769e065fdefd44e2} 
+\#define ENABLE\+\_\+\+WAKEUP}
+
+\Hypertarget{multihandle_8h_aff201959aa9b8e49f28d4d64e3e98c7d}\index{multihandle.h@{multihandle.h}!GETSOCK\_READABLE@{GETSOCK\_READABLE}}
+\index{GETSOCK\_READABLE@{GETSOCK\_READABLE}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{GETSOCK\_READABLE}{GETSOCK\_READABLE}}
+{\footnotesize\ttfamily \label{multihandle_8h_aff201959aa9b8e49f28d4d64e3e98c7d} 
+\#define GETSOCK\+\_\+\+READABLE~(0x00ff)}
+
+\Hypertarget{multihandle_8h_a2eda5b2bd171b44e04c3f63a1be6d5a4}\index{multihandle.h@{multihandle.h}!GETSOCK\_WRITABLE@{GETSOCK\_WRITABLE}}
+\index{GETSOCK\_WRITABLE@{GETSOCK\_WRITABLE}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{GETSOCK\_WRITABLE}{GETSOCK\_WRITABLE}}
+{\footnotesize\ttfamily \label{multihandle_8h_a2eda5b2bd171b44e04c3f63a1be6d5a4} 
+\#define GETSOCK\+\_\+\+WRITABLE~(0xff00)}
+
+\Hypertarget{multihandle_8h_a37c15bef464d979333399c6f9b535fda}\index{multihandle.h@{multihandle.h}!INITIAL\_MAX\_CONCURRENT\_STREAMS@{INITIAL\_MAX\_CONCURRENT\_STREAMS}}
+\index{INITIAL\_MAX\_CONCURRENT\_STREAMS@{INITIAL\_MAX\_CONCURRENT\_STREAMS}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{INITIAL\_MAX\_CONCURRENT\_STREAMS}{INITIAL\_MAX\_CONCURRENT\_STREAMS}}
+{\footnotesize\ttfamily \label{multihandle_8h_a37c15bef464d979333399c6f9b535fda} 
+\#define INITIAL\+\_\+\+MAX\+\_\+\+CONCURRENT\+\_\+\+STREAMS~((1U $<$$<$ 31) -\/ 1)}
+
+\Hypertarget{multihandle_8h_ac63a8369c7dabcd57d570ad19a1d1f9a}\index{multihandle.h@{multihandle.h}!IPV6\_DEAD@{IPV6\_DEAD}}
+\index{IPV6\_DEAD@{IPV6\_DEAD}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{IPV6\_DEAD}{IPV6\_DEAD}}
+{\footnotesize\ttfamily \label{multihandle_8h_ac63a8369c7dabcd57d570ad19a1d1f9a} 
+\#define IPV6\+\_\+\+DEAD~1}
+
+\Hypertarget{multihandle_8h_a9c2ea6b12952ff0383927cf3d845d7bf}\index{multihandle.h@{multihandle.h}!IPV6\_UNKNOWN@{IPV6\_UNKNOWN}}
+\index{IPV6\_UNKNOWN@{IPV6\_UNKNOWN}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{IPV6\_UNKNOWN}{IPV6\_UNKNOWN}}
+{\footnotesize\ttfamily \label{multihandle_8h_a9c2ea6b12952ff0383927cf3d845d7bf} 
+\#define IPV6\+\_\+\+UNKNOWN~0}
+
+\Hypertarget{multihandle_8h_ad3dc03d10de471a5f5c9ab3921f35df1}\index{multihandle.h@{multihandle.h}!IPV6\_WORKS@{IPV6\_WORKS}}
+\index{IPV6\_WORKS@{IPV6\_WORKS}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{IPV6\_WORKS}{IPV6\_WORKS}}
+{\footnotesize\ttfamily \label{multihandle_8h_ad3dc03d10de471a5f5c9ab3921f35df1} 
+\#define IPV6\+\_\+\+WORKS~2}
+
+\Hypertarget{multihandle_8h_a472aff39aba6058f1e7372319df882c0}\index{multihandle.h@{multihandle.h}!MAX\_SOCKSPEREASYHANDLE@{MAX\_SOCKSPEREASYHANDLE}}
+\index{MAX\_SOCKSPEREASYHANDLE@{MAX\_SOCKSPEREASYHANDLE}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_SOCKSPEREASYHANDLE}{MAX\_SOCKSPEREASYHANDLE}}
+{\footnotesize\ttfamily \label{multihandle_8h_a472aff39aba6058f1e7372319df882c0} 
+\#define MAX\+\_\+\+SOCKSPEREASYHANDLE~5}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{multihandle_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383}\index{multihandle.h@{multihandle.h}!CURLMstate@{CURLMstate}}
+\index{CURLMstate@{CURLMstate}!multihandle.h@{multihandle.h}}
+\doxysubsubsection{\texorpdfstring{CURLMstate}{CURLMstate}}
+{\footnotesize\ttfamily \label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383} 
+enum \mbox{\hyperlink{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383}{CURLMstate}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_INIT@{MSTATE\_INIT}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_INIT@{MSTATE\_INIT}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a12f633d06096e50c79c96acd228460e8}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a12f633d06096e50c79c96acd228460e8} 
+MSTATE\+\_\+\+INIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_PENDING@{MSTATE\_PENDING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_PENDING@{MSTATE\_PENDING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6527386726090dfd47b1f0bb2d48d5b7}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6527386726090dfd47b1f0bb2d48d5b7} 
+MSTATE\+\_\+\+PENDING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_CONNECT@{MSTATE\_CONNECT}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_CONNECT@{MSTATE\_CONNECT}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ae43cdeb00c5bc7d596f435cbec3ab871}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ae43cdeb00c5bc7d596f435cbec3ab871} 
+MSTATE\+\_\+\+CONNECT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_RESOLVING@{MSTATE\_RESOLVING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_RESOLVING@{MSTATE\_RESOLVING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6ea7c6a708d9ae453e29a313cb2125f7}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6ea7c6a708d9ae453e29a313cb2125f7} 
+MSTATE\+\_\+\+RESOLVING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_CONNECTING@{MSTATE\_CONNECTING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_CONNECTING@{MSTATE\_CONNECTING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383afcab973ddfdef772342ad8247aaa8cb7}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383afcab973ddfdef772342ad8247aaa8cb7} 
+MSTATE\+\_\+\+CONNECTING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_TUNNELING@{MSTATE\_TUNNELING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_TUNNELING@{MSTATE\_TUNNELING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ad3c5cb2018b13d0745a3461d93420b2d}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ad3c5cb2018b13d0745a3461d93420b2d} 
+MSTATE\+\_\+\+TUNNELING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_PROTOCONNECT@{MSTATE\_PROTOCONNECT}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_PROTOCONNECT@{MSTATE\_PROTOCONNECT}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383aca9df5c6034dedde7650c26bf5b30056}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383aca9df5c6034dedde7650c26bf5b30056} 
+MSTATE\+\_\+\+PROTOCONNECT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_PROTOCONNECTING@{MSTATE\_PROTOCONNECTING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_PROTOCONNECTING@{MSTATE\_PROTOCONNECTING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ab102030004843856e9ed9a9bbb1878ac}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383ab102030004843856e9ed9a9bbb1878ac} 
+MSTATE\+\_\+\+PROTOCONNECTING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_DO@{MSTATE\_DO}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_DO@{MSTATE\_DO}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a76adc382c5057a252959c9149abe3af6}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a76adc382c5057a252959c9149abe3af6} 
+MSTATE\+\_\+\+DO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_DOING@{MSTATE\_DOING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_DOING@{MSTATE\_DOING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a533a17a3cbce60a82b0a49f4f4bde605}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a533a17a3cbce60a82b0a49f4f4bde605} 
+MSTATE\+\_\+\+DOING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_DOING\_MORE@{MSTATE\_DOING\_MORE}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_DOING\_MORE@{MSTATE\_DOING\_MORE}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a55094055120ee94d6ff73959cc0c2bc8}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a55094055120ee94d6ff73959cc0c2bc8} 
+MSTATE\+\_\+\+DOING\+\_\+\+MORE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_DID@{MSTATE\_DID}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_DID@{MSTATE\_DID}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a474fa0bf470ebef1775a18a469747c1b}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a474fa0bf470ebef1775a18a469747c1b} 
+MSTATE\+\_\+\+DID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_PERFORMING@{MSTATE\_PERFORMING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_PERFORMING@{MSTATE\_PERFORMING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a8d4b76f0e01286fa81be0f4d7dd65467}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a8d4b76f0e01286fa81be0f4d7dd65467} 
+MSTATE\+\_\+\+PERFORMING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_RATELIMITING@{MSTATE\_RATELIMITING}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_RATELIMITING@{MSTATE\_RATELIMITING}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a87f5bcd40edad5454cddbb7c08742497}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a87f5bcd40edad5454cddbb7c08742497} 
+MSTATE\+\_\+\+RATELIMITING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_DONE@{MSTATE\_DONE}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_DONE@{MSTATE\_DONE}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a0b5f6f0b406de42ae6a1926f89f44250}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a0b5f6f0b406de42ae6a1926f89f44250} 
+MSTATE\+\_\+\+DONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_COMPLETED@{MSTATE\_COMPLETED}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_COMPLETED@{MSTATE\_COMPLETED}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6f8e635ad3050080f13440d58f93ef09}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383a6f8e635ad3050080f13440d58f93ef09} 
+MSTATE\+\_\+\+COMPLETED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_MSGSENT@{MSTATE\_MSGSENT}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_MSGSENT@{MSTATE\_MSGSENT}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383acd5638e51050679b2dbf0fb222978b7f}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383acd5638e51050679b2dbf0fb222978b7f} 
+MSTATE\+\_\+\+MSGSENT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MSTATE\_LAST@{MSTATE\_LAST}!multihandle.h@{multihandle.h}}\index{multihandle.h@{multihandle.h}!MSTATE\_LAST@{MSTATE\_LAST}}}\Hypertarget{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383af7a224b56d80d8d053aec222b1df9515}\label{multihandle_8h_aef4270d2c08f187bc6a2d434c782b383af7a224b56d80d8d053aec222b1df9515} 
+MSTATE\+\_\+\+LAST&\\
+\hline
+
+\end{DoxyEnumFields}

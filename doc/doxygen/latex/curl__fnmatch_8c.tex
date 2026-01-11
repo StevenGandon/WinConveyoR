@@ -1,0 +1,293 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/curl\+\_\+fnmatch.c File Reference}
+\hypertarget{curl__fnmatch_8c}{}\label{curl__fnmatch_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_fnmatch.c@{lib/libwconr/build/\_deps/curl-\/src/lib/curl\_fnmatch.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}curl\+\_\+fnmatch.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}}~(sizeof(char) \texorpdfstring{$\ast$}{*} 256)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a3cb6419e202c3e64a3eeb68a329a6b35}{CURLFNM\+\_\+\+CHSET\+\_\+\+SIZE}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 15)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_af578cf36ef54bc914ee1de7a70d978b1}{CURLFNM\+\_\+\+NEGATE}}~\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}}
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_aeae934a66d0e758aac0fbbf202309c44}{CURLFNM\+\_\+\+ALNUM}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 1)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a20dddb15758b107f843cb4c64ebae2f4}{CURLFNM\+\_\+\+DIGIT}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 2)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a4c588225a89792716c01b860bc8163d6}{CURLFNM\+\_\+\+XDIGIT}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 3)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a994cf5420206f641909a7cce7d13b697}{CURLFNM\+\_\+\+ALPHA}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 4)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a1c6d7a5b624e9dbb12de7e4cbb29228c}{CURLFNM\+\_\+\+PRINT}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 5)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a4e0788e9a442fbaa602ed79cabbea90a}{CURLFNM\+\_\+\+BLANK}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 6)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a4ac57087582f5314c4c9783ebbf869a3}{CURLFNM\+\_\+\+LOWER}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 7)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a0d467ab0fc2634a4d9e80061512cf92a}{CURLFNM\+\_\+\+GRAPH}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 8)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a8e85b03283492ad699af5f36590e1b5b}{CURLFNM\+\_\+\+SPACE}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 9)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a6da6442ab8fddff15139925eb86e1eab}{CURLFNM\+\_\+\+UPPER}}~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 10)
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a8ec0992633e09f8211aecd29053a067f}{SETCHARSET\+\_\+\+OK}}~1
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_a31066dd95573e83e50aacb690346a09b}{SETCHARSET\+\_\+\+FAIL}}~0
+\item 
+\#define \mbox{\hyperlink{curl__fnmatch_8c_ae6ae55940dfdf1155736df656d83a7cd}{KEYLEN}}~10
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846}{setcharset\+\_\+state}} \{ \mbox{\hyperlink{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846a5e47a155d5ea9bee092f7446312397d2}{CURLFNM\+\_\+\+SCHS\+\_\+\+DEFAULT}} = 0
+, \mbox{\hyperlink{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846a633d2e8886e5e437af218db68f641507}{CURLFNM\+\_\+\+SCHS\+\_\+\+RIGHTBR}}
+, \mbox{\hyperlink{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846ad998eb92503db391e7453986084a867a}{CURLFNM\+\_\+\+SCHS\+\_\+\+RIGHTBRLEFTBR}}
+ \}
+\item 
+enum \mbox{\hyperlink{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5}{parsekey\+\_\+state}} \{ \mbox{\hyperlink{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5a90ba676c8dbf39a635e8027cd49c6bb9}{CURLFNM\+\_\+\+PKW\+\_\+\+INIT}} = 0
+, \mbox{\hyperlink{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5a24048ec0be58141aa39dceaf4d985afc}{CURLFNM\+\_\+\+PKW\+\_\+\+DDOT}}
+ \}
+\item 
+enum \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989}{char\+\_\+class}} \{ \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989ac72898107d28625daae0bba155d6f2b4}{CCLASS\+\_\+\+OTHER}} = 0
+, \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989a280c1389bcc69622c17217e23384de80}{CCLASS\+\_\+\+DIGIT}}
+, \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989ac12088cbd6700cf78aca89de86d76f99}{CCLASS\+\_\+\+UPPER}}
+, \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989a9cbe7bc996a455ee264dcd1c9cbdad59}{CCLASS\+\_\+\+LOWER}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{curl__fnmatch_8c_a96ca22b7c612894950df1ace094ad30b}{parsekeyword}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pattern, unsigned char \texorpdfstring{$\ast$}{*}charset)
+\item 
+static \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989}{char\+\_\+class}} \mbox{\hyperlink{curl__fnmatch_8c_a212ef9f5922c99b48709ef788fd3542d}{charclass}} (unsigned char c)
+\item 
+static void \mbox{\hyperlink{curl__fnmatch_8c_a6874c536f04f98fff16fc21053de774b}{setcharorrange}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp, unsigned char \texorpdfstring{$\ast$}{*}charset)
+\item 
+static int \mbox{\hyperlink{curl__fnmatch_8c_a5eae2eac6842c48e057deca31000b558}{setcharset}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}p, unsigned char \texorpdfstring{$\ast$}{*}charset)
+\item 
+static int \mbox{\hyperlink{curl__fnmatch_8c_aa8e1f39977a42760f66e95b60c0a20b3}{loop}} (const unsigned char \texorpdfstring{$\ast$}{*}pattern, const unsigned char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}}, int maxstars)
+\item 
+int \mbox{\hyperlink{curl__fnmatch_8c_afaeb1c52b410d2810e9eb7c7963f50bb}{Curl\+\_\+fnmatch}} (void \texorpdfstring{$\ast$}{*}ptr, const char \texorpdfstring{$\ast$}{*}pattern, const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{curl__fnmatch_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{curl__fnmatch_8c_aeae934a66d0e758aac0fbbf202309c44}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_ALNUM@{CURLFNM\_ALNUM}}
+\index{CURLFNM\_ALNUM@{CURLFNM\_ALNUM}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_ALNUM}{CURLFNM\_ALNUM}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_aeae934a66d0e758aac0fbbf202309c44} 
+\#define CURLFNM\+\_\+\+ALNUM~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 1)}
+
+\Hypertarget{curl__fnmatch_8c_a994cf5420206f641909a7cce7d13b697}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_ALPHA@{CURLFNM\_ALPHA}}
+\index{CURLFNM\_ALPHA@{CURLFNM\_ALPHA}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_ALPHA}{CURLFNM\_ALPHA}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a994cf5420206f641909a7cce7d13b697} 
+\#define CURLFNM\+\_\+\+ALPHA~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 4)}
+
+\Hypertarget{curl__fnmatch_8c_a4e0788e9a442fbaa602ed79cabbea90a}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_BLANK@{CURLFNM\_BLANK}}
+\index{CURLFNM\_BLANK@{CURLFNM\_BLANK}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_BLANK}{CURLFNM\_BLANK}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a4e0788e9a442fbaa602ed79cabbea90a} 
+\#define CURLFNM\+\_\+\+BLANK~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 6)}
+
+\Hypertarget{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_CHARSET\_LEN@{CURLFNM\_CHARSET\_LEN}}
+\index{CURLFNM\_CHARSET\_LEN@{CURLFNM\_CHARSET\_LEN}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_CHARSET\_LEN}{CURLFNM\_CHARSET\_LEN}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0} 
+\#define CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN~(sizeof(char) \texorpdfstring{$\ast$}{*} 256)}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{curl__fnmatch_8c_a3cb6419e202c3e64a3eeb68a329a6b35}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_CHSET\_SIZE@{CURLFNM\_CHSET\_SIZE}}
+\index{CURLFNM\_CHSET\_SIZE@{CURLFNM\_CHSET\_SIZE}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_CHSET\_SIZE}{CURLFNM\_CHSET\_SIZE}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a3cb6419e202c3e64a3eeb68a329a6b35} 
+\#define CURLFNM\+\_\+\+CHSET\+\_\+\+SIZE~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 15)}
+
+\Hypertarget{curl__fnmatch_8c_a20dddb15758b107f843cb4c64ebae2f4}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_DIGIT@{CURLFNM\_DIGIT}}
+\index{CURLFNM\_DIGIT@{CURLFNM\_DIGIT}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_DIGIT}{CURLFNM\_DIGIT}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a20dddb15758b107f843cb4c64ebae2f4} 
+\#define CURLFNM\+\_\+\+DIGIT~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 2)}
+
+\Hypertarget{curl__fnmatch_8c_a0d467ab0fc2634a4d9e80061512cf92a}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_GRAPH@{CURLFNM\_GRAPH}}
+\index{CURLFNM\_GRAPH@{CURLFNM\_GRAPH}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_GRAPH}{CURLFNM\_GRAPH}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a0d467ab0fc2634a4d9e80061512cf92a} 
+\#define CURLFNM\+\_\+\+GRAPH~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 8)}
+
+\Hypertarget{curl__fnmatch_8c_a4ac57087582f5314c4c9783ebbf869a3}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_LOWER@{CURLFNM\_LOWER}}
+\index{CURLFNM\_LOWER@{CURLFNM\_LOWER}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_LOWER}{CURLFNM\_LOWER}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a4ac57087582f5314c4c9783ebbf869a3} 
+\#define CURLFNM\+\_\+\+LOWER~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 7)}
+
+\Hypertarget{curl__fnmatch_8c_af578cf36ef54bc914ee1de7a70d978b1}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_NEGATE@{CURLFNM\_NEGATE}}
+\index{CURLFNM\_NEGATE@{CURLFNM\_NEGATE}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_NEGATE}{CURLFNM\_NEGATE}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_af578cf36ef54bc914ee1de7a70d978b1} 
+\#define CURLFNM\+\_\+\+NEGATE~\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}}}
+
+\Hypertarget{curl__fnmatch_8c_a1c6d7a5b624e9dbb12de7e4cbb29228c}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_PRINT@{CURLFNM\_PRINT}}
+\index{CURLFNM\_PRINT@{CURLFNM\_PRINT}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_PRINT}{CURLFNM\_PRINT}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a1c6d7a5b624e9dbb12de7e4cbb29228c} 
+\#define CURLFNM\+\_\+\+PRINT~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 5)}
+
+\Hypertarget{curl__fnmatch_8c_a8e85b03283492ad699af5f36590e1b5b}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_SPACE@{CURLFNM\_SPACE}}
+\index{CURLFNM\_SPACE@{CURLFNM\_SPACE}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_SPACE}{CURLFNM\_SPACE}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a8e85b03283492ad699af5f36590e1b5b} 
+\#define CURLFNM\+\_\+\+SPACE~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 9)}
+
+\Hypertarget{curl__fnmatch_8c_a6da6442ab8fddff15139925eb86e1eab}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_UPPER@{CURLFNM\_UPPER}}
+\index{CURLFNM\_UPPER@{CURLFNM\_UPPER}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_UPPER}{CURLFNM\_UPPER}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a6da6442ab8fddff15139925eb86e1eab} 
+\#define CURLFNM\+\_\+\+UPPER~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 10)}
+
+\Hypertarget{curl__fnmatch_8c_a4c588225a89792716c01b860bc8163d6}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_XDIGIT@{CURLFNM\_XDIGIT}}
+\index{CURLFNM\_XDIGIT@{CURLFNM\_XDIGIT}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{CURLFNM\_XDIGIT}{CURLFNM\_XDIGIT}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a4c588225a89792716c01b860bc8163d6} 
+\#define CURLFNM\+\_\+\+XDIGIT~(\mbox{\hyperlink{curl__fnmatch_8c_a82ee837c3bdd66c68c65580d447308f0}{CURLFNM\+\_\+\+CHARSET\+\_\+\+LEN}} + 3)}
+
+\Hypertarget{curl__fnmatch_8c_ae6ae55940dfdf1155736df656d83a7cd}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!KEYLEN@{KEYLEN}}
+\index{KEYLEN@{KEYLEN}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{KEYLEN}{KEYLEN}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_ae6ae55940dfdf1155736df656d83a7cd} 
+\#define KEYLEN~10}
+
+\Hypertarget{curl__fnmatch_8c_a31066dd95573e83e50aacb690346a09b}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!SETCHARSET\_FAIL@{SETCHARSET\_FAIL}}
+\index{SETCHARSET\_FAIL@{SETCHARSET\_FAIL}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{SETCHARSET\_FAIL}{SETCHARSET\_FAIL}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a31066dd95573e83e50aacb690346a09b} 
+\#define SETCHARSET\+\_\+\+FAIL~0}
+
+\Hypertarget{curl__fnmatch_8c_a8ec0992633e09f8211aecd29053a067f}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!SETCHARSET\_OK@{SETCHARSET\_OK}}
+\index{SETCHARSET\_OK@{SETCHARSET\_OK}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{SETCHARSET\_OK}{SETCHARSET\_OK}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a8ec0992633e09f8211aecd29053a067f} 
+\#define SETCHARSET\+\_\+\+OK~1}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{curl__fnmatch_8c_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!char\_class@{char\_class}}
+\index{char\_class@{char\_class}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{char\_class}{char\_class}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989} 
+enum \mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989}{char\+\_\+class}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CCLASS\_OTHER@{CCLASS\_OTHER}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CCLASS\_OTHER@{CCLASS\_OTHER}}}\Hypertarget{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989ac72898107d28625daae0bba155d6f2b4}\label{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989ac72898107d28625daae0bba155d6f2b4} 
+CCLASS\+\_\+\+OTHER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CCLASS\_DIGIT@{CCLASS\_DIGIT}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CCLASS\_DIGIT@{CCLASS\_DIGIT}}}\Hypertarget{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989a280c1389bcc69622c17217e23384de80}\label{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989a280c1389bcc69622c17217e23384de80} 
+CCLASS\+\_\+\+DIGIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CCLASS\_UPPER@{CCLASS\_UPPER}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CCLASS\_UPPER@{CCLASS\_UPPER}}}\Hypertarget{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989ac12088cbd6700cf78aca89de86d76f99}\label{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989ac12088cbd6700cf78aca89de86d76f99} 
+CCLASS\+\_\+\+UPPER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CCLASS\_LOWER@{CCLASS\_LOWER}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CCLASS\_LOWER@{CCLASS\_LOWER}}}\Hypertarget{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989a9cbe7bc996a455ee264dcd1c9cbdad59}\label{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989a9cbe7bc996a455ee264dcd1c9cbdad59} 
+CCLASS\+\_\+\+LOWER&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!parsekey\_state@{parsekey\_state}}
+\index{parsekey\_state@{parsekey\_state}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{parsekey\_state}{parsekey\_state}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5} 
+enum \mbox{\hyperlink{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5}{parsekey\+\_\+state}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLFNM\_PKW\_INIT@{CURLFNM\_PKW\_INIT}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_PKW\_INIT@{CURLFNM\_PKW\_INIT}}}\Hypertarget{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5a90ba676c8dbf39a635e8027cd49c6bb9}\label{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5a90ba676c8dbf39a635e8027cd49c6bb9} 
+CURLFNM\+\_\+\+PKW\+\_\+\+INIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLFNM\_PKW\_DDOT@{CURLFNM\_PKW\_DDOT}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_PKW\_DDOT@{CURLFNM\_PKW\_DDOT}}}\Hypertarget{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5a24048ec0be58141aa39dceaf4d985afc}\label{curl__fnmatch_8c_a4767692d2d45843e7ea19bdbcdf2e3a5a24048ec0be58141aa39dceaf4d985afc} 
+CURLFNM\+\_\+\+PKW\+\_\+\+DDOT&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!setcharset\_state@{setcharset\_state}}
+\index{setcharset\_state@{setcharset\_state}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{setcharset\_state}{setcharset\_state}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846} 
+enum \mbox{\hyperlink{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846}{setcharset\+\_\+state}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLFNM\_SCHS\_DEFAULT@{CURLFNM\_SCHS\_DEFAULT}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_SCHS\_DEFAULT@{CURLFNM\_SCHS\_DEFAULT}}}\Hypertarget{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846a5e47a155d5ea9bee092f7446312397d2}\label{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846a5e47a155d5ea9bee092f7446312397d2} 
+CURLFNM\+\_\+\+SCHS\+\_\+\+DEFAULT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLFNM\_SCHS\_RIGHTBR@{CURLFNM\_SCHS\_RIGHTBR}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_SCHS\_RIGHTBR@{CURLFNM\_SCHS\_RIGHTBR}}}\Hypertarget{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846a633d2e8886e5e437af218db68f641507}\label{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846a633d2e8886e5e437af218db68f641507} 
+CURLFNM\+\_\+\+SCHS\+\_\+\+RIGHTBR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURLFNM\_SCHS\_RIGHTBRLEFTBR@{CURLFNM\_SCHS\_RIGHTBRLEFTBR}!curl\_fnmatch.c@{curl\_fnmatch.c}}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!CURLFNM\_SCHS\_RIGHTBRLEFTBR@{CURLFNM\_SCHS\_RIGHTBRLEFTBR}}}\Hypertarget{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846ad998eb92503db391e7453986084a867a}\label{curl__fnmatch_8c_ab425ad59afb2943629db2fd97d2c5846ad998eb92503db391e7453986084a867a} 
+CURLFNM\+\_\+\+SCHS\+\_\+\+RIGHTBRLEFTBR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{curl__fnmatch_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{curl__fnmatch_8c_a212ef9f5922c99b48709ef788fd3542d}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!charclass@{charclass}}
+\index{charclass@{charclass}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{charclass()}{charclass()}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a212ef9f5922c99b48709ef788fd3542d} 
+\mbox{\hyperlink{curl__fnmatch_8c_a7fb46c0a2d432858c047eace2a386989}{char\+\_\+class}} charclass (\begin{DoxyParamCaption}\item[{unsigned char}]{c}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{curl__fnmatch_8c_afaeb1c52b410d2810e9eb7c7963f50bb}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!Curl\_fnmatch@{Curl\_fnmatch}}
+\index{Curl\_fnmatch@{Curl\_fnmatch}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_fnmatch()}{Curl\_fnmatch()}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_afaeb1c52b410d2810e9eb7c7963f50bb} 
+int Curl\+\_\+fnmatch (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{pattern}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{}\end{DoxyParamCaption})}
+
+\Hypertarget{curl__fnmatch_8c_aa8e1f39977a42760f66e95b60c0a20b3}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!loop@{loop}}
+\index{loop@{loop}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_aa8e1f39977a42760f66e95b60c0a20b3} 
+int loop (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{pattern}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{int}]{maxstars}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{curl__fnmatch_8c_a96ca22b7c612894950df1ace094ad30b}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!parsekeyword@{parsekeyword}}
+\index{parsekeyword@{parsekeyword}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{parsekeyword()}{parsekeyword()}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a96ca22b7c612894950df1ace094ad30b} 
+int parsekeyword (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pattern}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{charset}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{curl__fnmatch_8c_a6874c536f04f98fff16fc21053de774b}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!setcharorrange@{setcharorrange}}
+\index{setcharorrange@{setcharorrange}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{setcharorrange()}{setcharorrange()}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a6874c536f04f98fff16fc21053de774b} 
+void setcharorrange (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{charset}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{curl__fnmatch_8c_a5eae2eac6842c48e057deca31000b558}\index{curl\_fnmatch.c@{curl\_fnmatch.c}!setcharset@{setcharset}}
+\index{setcharset@{setcharset}!curl\_fnmatch.c@{curl\_fnmatch.c}}
+\doxysubsubsection{\texorpdfstring{setcharset()}{setcharset()}}
+{\footnotesize\ttfamily \label{curl__fnmatch_8c_a5eae2eac6842c48e057deca31000b558} 
+int setcharset (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{p}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{charset}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

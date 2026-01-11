@@ -1,0 +1,78 @@
+\doxysection{dynbuf.\+h}
+\hypertarget{dynbuf_8h_source}{}\label{dynbuf_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/dynbuf.h@{lib/libwconr/build/\_deps/curl-\/src/lib/dynbuf.h}}
+\mbox{\hyperlink{dynbuf_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_DYNBUF\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_DYNBUF\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{curl_8h}{curl/curl.h}}>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ BUILDING\_LIBCURL}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ this\ renames\ the\ functions\ so\ that\ the\ tool\ code\ can\ use\ the\ same\ code}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ without\ getting\ symbol\ collisions\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_init(a,b)\ curlx\_dyn\_init(a,b)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_add(a,b)\ curlx\_dyn\_add(a,b)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_addn(a,b,c)\ curlx\_dyn\_addn(a,b,c)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_addf\ curlx\_dyn\_addf}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_vaddf\ curlx\_dyn\_vaddf}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_free(a)\ curlx\_dyn\_free(a)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_ptr(a)\ curlx\_dyn\_ptr(a)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_uptr(a)\ curlx\_dyn\_uptr(a)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_len(a)\ curlx\_dyn\_len(a)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_reset(a)\ curlx\_dyn\_reset(a)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_tail(a,b)\ curlx\_dyn\_tail(a,b)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ Curl\_dyn\_setlen(a,b)\ curlx\_dyn\_setlen(a,b)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ curlx\_dynbuf\ dynbuf\ }\textcolor{comment}{/*\ for\ the\ struct\ name\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \{}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structdynbuf_a6ee5ed9a03586f1689536995c0051962}{bufr}};\ \ \ \ \textcolor{comment}{/*\ point\ to\ a\ null-\/terminated\ allocated\ buffer\ */}}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structdynbuf_ab40208ece1f4312eecb940721b58e714}{leng}};\ \ \ \textcolor{comment}{/*\ number\ of\ bytes\ *EXCLUDING*\ the\ null-\/terminator\ */}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structdynbuf_ab34b81406eb14ad90900cbe045f4ee5a}{allc}};\ \ \ \textcolor{comment}{/*\ size\ of\ the\ current\ allocation\ */}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structdynbuf_a29b697ad3982e6c44d92a09de0a9cfce}{toobig}};\ \textcolor{comment}{/*\ size\ limit\ for\ the\ buffer\ */}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ DEBUGBUILD}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceinit}{init}};\ \ \ \ \ \textcolor{comment}{/*\ detect\ API\ usage\ mistakes\ */}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dynbuf_8h_a5f1fecbc9cdc3d8dff66caec576fea8a}{Curl\_dyn\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{size\_t}\ toobig);}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dynbuf_8h_a75cb18f9a6ccb9e84e36b73999b1b3ea}{Curl\_dyn\_free}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+\DoxyCodeLine{00059\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_aeeafd052e2d37de41d9227be65603b42}{Curl\_dyn\_addn}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mem,\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}})}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{curl__setup_8h_a4e0e2d9e1ee0f401844b5b6ff8338f82}{WARN\_UNUSED\_RESULT}};}
+\DoxyCodeLine{00061\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_a7bf54dd0827665992275bca34d3ce4b0}{Curl\_dyn\_add}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str)}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{curl__setup_8h_a4e0e2d9e1ee0f401844b5b6ff8338f82}{WARN\_UNUSED\_RESULT}};}
+\DoxyCodeLine{00063\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_ae8a609dd61bb3768bda61a77fb667a0c}{Curl\_dyn\_addf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...)}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{curl__setup_8h_a4e0e2d9e1ee0f401844b5b6ff8338f82}{WARN\_UNUSED\_RESULT}};}
+\DoxyCodeLine{00065\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_ad6d8354e55590d1aeaf6af76826876ee}{Curl\_dyn\_vaddf}}(struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ const\ \textcolor{keywordtype}{char}\ *fmt,\ va\_list\ ap)}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{curl__setup_8h_a4e0e2d9e1ee0f401844b5b6ff8338f82}{WARN\_UNUSED\_RESULT}};}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dynbuf_8h_af4a7fa3b9f53070b8176ead3ff56f363}{Curl\_dyn\_reset}}(struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+\DoxyCodeLine{00068\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_a57e596c68c05b14fd1c981fb9f456626}{Curl\_dyn\_tail}}(struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{size\_t}\ trail);}
+\DoxyCodeLine{00069\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{dynbuf_8h_a9fff178a9c1a150de28a40899ab801b3}{Curl\_dyn\_setlen}}(struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{cacert_8d_adf642db66c5d3cc87685fcb1937ca95f}{set}});}
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{dynbuf_8h_a27957b96d5408d9b3ba785dcac4f2dc4}{Curl\_dyn\_ptr}}(const\ struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{dynbuf_8h_ada4c6cd33311245a01ba0a783da45025}{Curl\_dyn\_uptr}}(const\ struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dynbuf_8h_add23ceccd52ffd40530b4bd2062c5332}{Curl\_dyn\_len}}(const\ struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *\mbox{\hyperlink{rate_8d_aee045eb61c53cb73568f961ea2129b45}{s}});}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ returns\ 0\ on\ success,\ -\/1\ on\ error\ */}}
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ The\ implementation\ of\ this\ function\ exists\ in\ mprintf.c\ */}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{dynbuf_8h_a177366d5003af42a6eea57fd38b239d9}{Curl\_dyn\_vprintf}}(struct\ \mbox{\hyperlink{structdynbuf}{dynbuf}}\ *dyn,\ const\ \textcolor{keywordtype}{char}\ *format,\ va\_list\ ap\_save);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*\ Dynamic\ buffer\ max\ sizes\ */}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ DYN\_DOH\_RESPONSE\ \ \ \ 3000}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ DYN\_DOH\_CNAME\ \ \ \ \ \ \ 256}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ DYN\_PAUSE\_BUFFER\ \ \ \ (64\ *\ 1024\ *\ 1024)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ DYN\_HAXPROXY\ \ \ \ \ \ \ \ 2048}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ DYN\_HTTP\_REQUEST\ \ \ \ (1024*1024)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ DYN\_H2\_HEADERS\ \ \ \ \ \ (128*1024)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ DYN\_H2\_TRAILERS\ \ \ \ \ (128*1024)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ DYN\_APRINTF\ \ \ \ \ \ \ \ \ 8000000}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ DYN\_RTSP\_REQ\_HEADER\ (64*1024)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ DYN\_TRAILERS\ \ \ \ \ \ \ \ (64*1024)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ DYN\_PROXY\_CONNECT\_HEADERS\ 16384}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ DYN\_QLOG\_NAME\ \ \ \ \ \ \ 1024}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ DYN\_H1\_TRAILER\ \ \ \ \ \ 4096}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ DYN\_PINGPPONG\_CMD\ \ \ (64*1024)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ DYN\_IMAP\_CMD\ \ \ \ \ \ \ \ (64*1024)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,35 @@
+\doxysection{QCPCurve Class Reference}
+\hypertarget{classQCPCurve}{}\label{classQCPCurve}\index{QCPCurve@{QCPCurve}}
+
+
+A plottable representing a parametric curve in a plot.  
+
+
+
+
+\doxysubsection{Detailed Description}
+A plottable representing a parametric curve in a plot. 
+
+
+
+Unlike \doxylink{classQCPGraph}{QCPGraph}, plottables of this type may have multiple points with the same key coordinate, so their visual representation can have {\itshape loops}. This is realized by introducing a third coordinate {\itshape t}, which defines the order of the points described by the other two coordinates {\itshape x} and {\itshape y}.
+
+To plot data, assign it with the set\+Data or add\+Data functions. Alternatively, you can also access and modify the curve\textquotesingle{}s data via the data method, which returns a pointer to the internal QCPCurve\+Data\+Container.
+
+Gaps in the curve can be created by adding data points with NaN as key and value ({\ttfamily q\+QNa\+N()} or {\ttfamily std\+::numeric\+\_\+limits$<$double$>$\+::quiet\+\_\+\+Na\+N()}) in between the two data points that shall be separated.\hypertarget{classQCPCurve_qcpcurve-appearance}{}\doxysubsection{\texorpdfstring{Changing the appearance}{Changing the appearance}}\label{classQCPCurve_qcpcurve-appearance}
+The appearance of the curve is determined by the pen and the brush (set\+Pen, set\+Brush).\hypertarget{classQCPCurve_qcpcurve-usage}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{classQCPCurve_qcpcurve-usage}
+Like all data representing objects in \doxylink{classQCustomPlot}{QCustom\+Plot}, the \doxylink{classQCPCurve}{QCPCurve} is a plottable (\doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable}). So the plottable-\/interface of \doxylink{classQCustomPlot}{QCustom\+Plot} applies (QCustom\+Plot\+::plottable, QCustom\+Plot\+::remove\+Plottable, etc.)
+
+Usually, you first create an instance\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ which registers it with the \doxylink{classQCustomPlot}{QCustom\+Plot} instance of the passed axes. Note that this \doxylink{classQCustomPlot}{QCustom\+Plot} instance takes ownership of the plottable, so do not delete it manually but use QCustom\+Plot\+::remove\+Plottable() instead. The newly created plottable can be modified, e.\+g.\+: 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

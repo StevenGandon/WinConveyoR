@@ -1,0 +1,514 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/pop3.c File Reference}
+\hypertarget{pop3_8c}{}\label{pop3_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/pop3.c@{lib/libwconr/build/\_deps/curl-\/src/lib/pop3.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}hostip.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}socks.\+h"{}}\newline
+{\ttfamily \#include "{}pop3.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}bufref.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+sasl.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+md5.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pop3_8c_a739d219aeaad47a34406a433f30a8fd2}{pop3\+\_\+to\+\_\+pop3s}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a5b4a65af11c3cc7303de96c6d1d13aed}{pop3\+\_\+regular\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a026b709d042a9205c242d2f5687f112a}{pop3\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a021ed448efbf8b3a6deb24e697695e74}{pop3\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} status, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} premature)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a9144642d3e329bb49d6d91bedc2201e1}{pop3\+\_\+connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_aefc9908c993dec5dfebc9517502565f3}{pop3\+\_\+disconnect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} dead)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a909f31b95d1dfb56f3a700a2966f8cd5}{pop3\+\_\+multi\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static int \mbox{\hyperlink{pop3_8c_a8d926c2486bc6bbfc1a496959ea19af6}{pop3\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_abc2c33a3ba0c46826899d7662243a925}{pop3\+\_\+doing}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a4afca2cefe2877c24b2767656d63fd57}{pop3\+\_\+setup\+\_\+connection}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_af76abdf9b6c83feb8b6715b24d39b574}{pop3\+\_\+parse\+\_\+url\+\_\+options}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a14dce52ac910a5bb5e9bb19a1d2e10a0}{pop3\+\_\+parse\+\_\+url\+\_\+path}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_ae052bdb6deba7b944d669758dc208c74}{pop3\+\_\+parse\+\_\+custom\+\_\+request}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_ade2585e962b2bb3354a8a0dc5f5a424a}{pop3\+\_\+perform\+\_\+auth}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}initresp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a38b3d19f7f2a7897b2b1ba4781d5428a}{pop3\+\_\+continue\+\_\+auth}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech, const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}resp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_ace314ce3bd0f1c06632deea6f9d0f639}{pop3\+\_\+cancel\+\_\+auth}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}mech)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_acaf41d0bfda7f844be78cecefde15aaa}{pop3\+\_\+get\+\_\+message}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}out)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{pop3_8c_a17a76917b24d03911500446fec8882af}{pop3\+\_\+endofresp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}, int \texorpdfstring{$\ast$}{*}resp)
+\item 
+static void \mbox{\hyperlink{pop3_8c_a6598854e1a3d4b56f34b489ec42a11ca}{state}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} newstate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_ab7833758816c9a0072f5129a1cdcf9e7}{pop3\+\_\+perform\+\_\+capa}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a202fc8e28592270abdc9702b75b96394}{pop3\+\_\+perform\+\_\+starttls}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a844c5e121a2d3a874d10b5cb75bab2e9}{pop3\+\_\+perform\+\_\+upgrade\+\_\+tls}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a744d7ff4ac94c99819fe9b788a433560}{pop3\+\_\+perform\+\_\+user}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a8ac9a71641e1e907340708aef8e6d50f}{pop3\+\_\+perform\+\_\+apop}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a0660fe41c50fa03e2c4e810cd718659f}{pop3\+\_\+perform\+\_\+authentication}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a7ae5c9c1ecfec072150bb04248a0b752}{pop3\+\_\+perform\+\_\+command}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a04fbdba29701b9bb0a7b459bcad1cffe}{pop3\+\_\+perform\+\_\+quit}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a5b11d07f19c1ead918a0f8a0fcf5b6fe}{pop3\+\_\+state\+\_\+servergreet\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a3029e65476642f6002a99304abe337b2}{pop3\+\_\+state\+\_\+capa\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_aae30fb0c3ba0fc8aaf31540b1006493c}{pop3\+\_\+state\+\_\+starttls\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a982daae0607c61234d0d0136663f6bf0}{pop3\+\_\+state\+\_\+auth\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_aaa34d6077fbe25a5b732e2b5a53390c2}{pop3\+\_\+state\+\_\+apop\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_ad08d9c3a7a4b1e6e91add0cbdf6c1262}{pop3\+\_\+state\+\_\+user\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a6f985b31d1661403e75ba5b88ff60afc}{pop3\+\_\+state\+\_\+pass\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a2f350523d77995229cb3187c1ca40168}{pop3\+\_\+state\+\_\+command\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int pop3code, \mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_abd8185322259cd9d339eb9677a063579}{pop3\+\_\+statemachine}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a20cab42cf8b784b6f849fb543086018f}{pop3\+\_\+block\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} disconnecting)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a5ed48a8ed5dc67cf4bda1ca0011254b0}{pop3\+\_\+init}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_aae6003a91b3aec3e10ce58b13c23be5c}{pop3\+\_\+perform}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}connected, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_aa224c22e4d68e77dde181929f1d76d6a}{pop3\+\_\+dophase\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} connected)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{pop3_8c_a3cf29cbd72f55ec7a320cb488ebbe64f}{Curl\+\_\+pop3\+\_\+write}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}str, size\+\_\+t nread)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{pop3_8c_ad66fb72d1c6b45256deaf03f6415612c}{Curl\+\_\+handler\+\_\+pop3}}
+\item 
+static const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} \mbox{\hyperlink{pop3_8c_ac1f452a074a4382a91cee0e3fd2bbe93}{saslpop3}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{pop3_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{pop3_8c_a739d219aeaad47a34406a433f30a8fd2}\index{pop3.c@{pop3.c}!pop3\_to\_pop3s@{pop3\_to\_pop3s}}
+\index{pop3\_to\_pop3s@{pop3\_to\_pop3s}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_to\_pop3s}{pop3\_to\_pop3s}}
+{\footnotesize\ttfamily \label{pop3_8c_a739d219aeaad47a34406a433f30a8fd2} 
+\#define pop3\+\_\+to\+\_\+pop3s(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{pop3_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{pop3_8c_a3cf29cbd72f55ec7a320cb488ebbe64f}\index{pop3.c@{pop3.c}!Curl\_pop3\_write@{Curl\_pop3\_write}}
+\index{Curl\_pop3\_write@{Curl\_pop3\_write}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_pop3\_write()}{Curl\_pop3\_write()}}
+{\footnotesize\ttfamily \label{pop3_8c_a3cf29cbd72f55ec7a320cb488ebbe64f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+pop3\+\_\+write (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{size\+\_\+t}]{nread}{}\end{DoxyParamCaption})}
+
+\doxylink{pop3_8c_a3cf29cbd72f55ec7a320cb488ebbe64f}{Curl\+\_\+pop3\+\_\+write()}
+
+This function scans the body after the end-\/of-\/body and writes everything until the end is found. \Hypertarget{pop3_8c_a20cab42cf8b784b6f849fb543086018f}\index{pop3.c@{pop3.c}!pop3\_block\_statemach@{pop3\_block\_statemach}}
+\index{pop3\_block\_statemach@{pop3\_block\_statemach}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_block\_statemach()}{pop3\_block\_statemach()}}
+{\footnotesize\ttfamily \label{pop3_8c_a20cab42cf8b784b6f849fb543086018f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+block\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{disconnecting}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_ace314ce3bd0f1c06632deea6f9d0f639}\index{pop3.c@{pop3.c}!pop3\_cancel\_auth@{pop3\_cancel\_auth}}
+\index{pop3\_cancel\_auth@{pop3\_cancel\_auth}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_cancel\_auth()}{pop3\_cancel\_auth()}}
+{\footnotesize\ttfamily \label{pop3_8c_ace314ce3bd0f1c06632deea6f9d0f639} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+cancel\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_ace314ce3bd0f1c06632deea6f9d0f639}{pop3\+\_\+cancel\+\_\+auth()}
+
+Sends \doxylink{structSASL}{SASL} cancellation. \Hypertarget{pop3_8c_a9144642d3e329bb49d6d91bedc2201e1}\index{pop3.c@{pop3.c}!pop3\_connect@{pop3\_connect}}
+\index{pop3\_connect@{pop3\_connect}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_connect()}{pop3\_connect()}}
+{\footnotesize\ttfamily \label{pop3_8c_a9144642d3e329bb49d6d91bedc2201e1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a9144642d3e329bb49d6d91bedc2201e1}{pop3\+\_\+connect()}
+
+This function should do everything that is to be considered a part of the connection phase.
+
+The variable \textquotesingle{}done\textquotesingle{} points to will be TRUE if the protocol-\/layer connect phase is done when this function returns, or FALSE if not. \Hypertarget{pop3_8c_a38b3d19f7f2a7897b2b1ba4781d5428a}\index{pop3.c@{pop3.c}!pop3\_continue\_auth@{pop3\_continue\_auth}}
+\index{pop3\_continue\_auth@{pop3\_continue\_auth}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_continue\_auth()}{pop3\_continue\_auth()}}
+{\footnotesize\ttfamily \label{pop3_8c_a38b3d19f7f2a7897b2b1ba4781d5428a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+continue\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{resp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a38b3d19f7f2a7897b2b1ba4781d5428a}{pop3\+\_\+continue\+\_\+auth()}
+
+Sends \doxylink{structSASL}{SASL} continuation data. \Hypertarget{pop3_8c_aefc9908c993dec5dfebc9517502565f3}\index{pop3.c@{pop3.c}!pop3\_disconnect@{pop3\_disconnect}}
+\index{pop3\_disconnect@{pop3\_disconnect}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_disconnect()}{pop3\_disconnect()}}
+{\footnotesize\ttfamily \label{pop3_8c_aefc9908c993dec5dfebc9517502565f3} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+disconnect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{dead\+\_\+connection}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_aefc9908c993dec5dfebc9517502565f3}{pop3\+\_\+disconnect()}
+
+Disconnect from an \doxylink{structPOP3}{POP3} server. Cleanup protocol-\/specific per-\/connection resources. BLOCKING. \Hypertarget{pop3_8c_a026b709d042a9205c242d2f5687f112a}\index{pop3.c@{pop3.c}!pop3\_do@{pop3\_do}}
+\index{pop3\_do@{pop3\_do}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_do()}{pop3\_do()}}
+{\footnotesize\ttfamily \label{pop3_8c_a026b709d042a9205c242d2f5687f112a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a026b709d042a9205c242d2f5687f112a}{pop3\+\_\+do()}
+
+This function is registered as \textquotesingle{}curl\+\_\+do\textquotesingle{} function. It decodes the path parts etc as a wrapper to the actual DO function (pop3\+\_\+perform).
+
+The input argument is already checked for validity. \Hypertarget{pop3_8c_abc2c33a3ba0c46826899d7662243a925}\index{pop3.c@{pop3.c}!pop3\_doing@{pop3\_doing}}
+\index{pop3\_doing@{pop3\_doing}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_doing()}{pop3\_doing()}}
+{\footnotesize\ttfamily \label{pop3_8c_abc2c33a3ba0c46826899d7662243a925} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+doing (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a021ed448efbf8b3a6deb24e697695e74}\index{pop3.c@{pop3.c}!pop3\_done@{pop3\_done}}
+\index{pop3\_done@{pop3\_done}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_done()}{pop3\_done()}}
+{\footnotesize\ttfamily \label{pop3_8c_a021ed448efbf8b3a6deb24e697695e74} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{status}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{premature}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a021ed448efbf8b3a6deb24e697695e74}{pop3\+\_\+done()}
+
+The DONE function. This does what needs to be done after a single DO has performed.
+
+Input argument is already checked for validity. \Hypertarget{pop3_8c_aa224c22e4d68e77dde181929f1d76d6a}\index{pop3.c@{pop3.c}!pop3\_dophase\_done@{pop3\_dophase\_done}}
+\index{pop3\_dophase\_done@{pop3\_dophase\_done}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_dophase\_done()}{pop3\_dophase\_done()}}
+{\footnotesize\ttfamily \label{pop3_8c_aa224c22e4d68e77dde181929f1d76d6a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+dophase\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{connected}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a17a76917b24d03911500446fec8882af}\index{pop3.c@{pop3.c}!pop3\_endofresp@{pop3\_endofresp}}
+\index{pop3\_endofresp@{pop3\_endofresp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_endofresp()}{pop3\_endofresp()}}
+{\footnotesize\ttfamily \label{pop3_8c_a17a76917b24d03911500446fec8882af} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} pop3\+\_\+endofresp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{size\+\_\+t}]{len}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{resp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a17a76917b24d03911500446fec8882af}{pop3\+\_\+endofresp()}
+
+Checks for an ending \doxylink{structPOP3}{POP3} status code at the start of the given string, but also detects the APOP timestamp from the server greeting and various capabilities from the CAPA response including the supported authentication types and allowed \doxylink{structSASL}{SASL} mechanisms. \Hypertarget{pop3_8c_acaf41d0bfda7f844be78cecefde15aaa}\index{pop3.c@{pop3.c}!pop3\_get\_message@{pop3\_get\_message}}
+\index{pop3\_get\_message@{pop3\_get\_message}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_get\_message()}{pop3\_get\_message()}}
+{\footnotesize\ttfamily \label{pop3_8c_acaf41d0bfda7f844be78cecefde15aaa} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+get\+\_\+message (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_acaf41d0bfda7f844be78cecefde15aaa}{pop3\+\_\+get\+\_\+message()}
+
+Gets the authentication message from the response buffer. \Hypertarget{pop3_8c_a8d926c2486bc6bbfc1a496959ea19af6}\index{pop3.c@{pop3.c}!pop3\_getsock@{pop3\_getsock}}
+\index{pop3\_getsock@{pop3\_getsock}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_getsock()}{pop3\_getsock()}}
+{\footnotesize\ttfamily \label{pop3_8c_a8d926c2486bc6bbfc1a496959ea19af6} 
+int pop3\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a5ed48a8ed5dc67cf4bda1ca0011254b0}\index{pop3.c@{pop3.c}!pop3\_init@{pop3\_init}}
+\index{pop3\_init@{pop3\_init}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_init()}{pop3\_init()}}
+{\footnotesize\ttfamily \label{pop3_8c_a5ed48a8ed5dc67cf4bda1ca0011254b0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a909f31b95d1dfb56f3a700a2966f8cd5}\index{pop3.c@{pop3.c}!pop3\_multi\_statemach@{pop3\_multi\_statemach}}
+\index{pop3\_multi\_statemach@{pop3\_multi\_statemach}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_multi\_statemach()}{pop3\_multi\_statemach()}}
+{\footnotesize\ttfamily \label{pop3_8c_a909f31b95d1dfb56f3a700a2966f8cd5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+multi\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_ae052bdb6deba7b944d669758dc208c74}\index{pop3.c@{pop3.c}!pop3\_parse\_custom\_request@{pop3\_parse\_custom\_request}}
+\index{pop3\_parse\_custom\_request@{pop3\_parse\_custom\_request}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_parse\_custom\_request()}{pop3\_parse\_custom\_request()}}
+{\footnotesize\ttfamily \label{pop3_8c_ae052bdb6deba7b944d669758dc208c74} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+parse\+\_\+custom\+\_\+request (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_ae052bdb6deba7b944d669758dc208c74}{pop3\+\_\+parse\+\_\+custom\+\_\+request()}
+
+Parse the custom request. \Hypertarget{pop3_8c_af76abdf9b6c83feb8b6715b24d39b574}\index{pop3.c@{pop3.c}!pop3\_parse\_url\_options@{pop3\_parse\_url\_options}}
+\index{pop3\_parse\_url\_options@{pop3\_parse\_url\_options}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_parse\_url\_options()}{pop3\_parse\_url\_options()}}
+{\footnotesize\ttfamily \label{pop3_8c_af76abdf9b6c83feb8b6715b24d39b574} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+parse\+\_\+url\+\_\+options (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_af76abdf9b6c83feb8b6715b24d39b574}{pop3\+\_\+parse\+\_\+url\+\_\+options()}
+
+Parse the URL login options. \Hypertarget{pop3_8c_a14dce52ac910a5bb5e9bb19a1d2e10a0}\index{pop3.c@{pop3.c}!pop3\_parse\_url\_path@{pop3\_parse\_url\_path}}
+\index{pop3\_parse\_url\_path@{pop3\_parse\_url\_path}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_parse\_url\_path()}{pop3\_parse\_url\_path()}}
+{\footnotesize\ttfamily \label{pop3_8c_a14dce52ac910a5bb5e9bb19a1d2e10a0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+parse\+\_\+url\+\_\+path (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a14dce52ac910a5bb5e9bb19a1d2e10a0}{pop3\+\_\+parse\+\_\+url\+\_\+path()}
+
+Parse the URL path into separate path components. \Hypertarget{pop3_8c_aae6003a91b3aec3e10ce58b13c23be5c}\index{pop3.c@{pop3.c}!pop3\_perform@{pop3\_perform}}
+\index{pop3\_perform@{pop3\_perform}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform()}{pop3\_perform()}}
+{\footnotesize\ttfamily \label{pop3_8c_aae6003a91b3aec3e10ce58b13c23be5c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{connected}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_aae6003a91b3aec3e10ce58b13c23be5c}{pop3\+\_\+perform()}
+
+This is the actual DO function for \doxylink{structPOP3}{POP3}. Get a message/listing according to the options previously setup. \Hypertarget{pop3_8c_a8ac9a71641e1e907340708aef8e6d50f}\index{pop3.c@{pop3.c}!pop3\_perform\_apop@{pop3\_perform\_apop}}
+\index{pop3\_perform\_apop@{pop3\_perform\_apop}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_apop()}{pop3\_perform\_apop()}}
+{\footnotesize\ttfamily \label{pop3_8c_a8ac9a71641e1e907340708aef8e6d50f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+apop (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a8ac9a71641e1e907340708aef8e6d50f}{pop3\+\_\+perform\+\_\+apop()}
+
+Sends an APOP command to authenticate with. \Hypertarget{pop3_8c_ade2585e962b2bb3354a8a0dc5f5a424a}\index{pop3.c@{pop3.c}!pop3\_perform\_auth@{pop3\_perform\_auth}}
+\index{pop3\_perform\_auth@{pop3\_perform\_auth}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_auth()}{pop3\_perform\_auth()}}
+{\footnotesize\ttfamily \label{pop3_8c_ade2585e962b2bb3354a8a0dc5f5a424a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{mech}{, }\item[{const struct \mbox{\hyperlink{structbufref}{bufref}} \texorpdfstring{$\ast$}{*}}]{initresp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_ade2585e962b2bb3354a8a0dc5f5a424a}{pop3\+\_\+perform\+\_\+auth()}
+
+Sends an AUTH command allowing the client to login with the given \doxylink{structSASL}{SASL} authentication mechanism. \Hypertarget{pop3_8c_a0660fe41c50fa03e2c4e810cd718659f}\index{pop3.c@{pop3.c}!pop3\_perform\_authentication@{pop3\_perform\_authentication}}
+\index{pop3\_perform\_authentication@{pop3\_perform\_authentication}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_authentication()}{pop3\_perform\_authentication()}}
+{\footnotesize\ttfamily \label{pop3_8c_a0660fe41c50fa03e2c4e810cd718659f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+authentication (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a0660fe41c50fa03e2c4e810cd718659f}{pop3\+\_\+perform\+\_\+authentication()}
+
+Initiates the authentication sequence, with the appropriate \doxylink{structSASL}{SASL} authentication mechanism, falling back to APOP and clear text should a common mechanism not be available between the client and server. \Hypertarget{pop3_8c_ab7833758816c9a0072f5129a1cdcf9e7}\index{pop3.c@{pop3.c}!pop3\_perform\_capa@{pop3\_perform\_capa}}
+\index{pop3\_perform\_capa@{pop3\_perform\_capa}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_capa()}{pop3\_perform\_capa()}}
+{\footnotesize\ttfamily \label{pop3_8c_ab7833758816c9a0072f5129a1cdcf9e7} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+capa (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_ab7833758816c9a0072f5129a1cdcf9e7}{pop3\+\_\+perform\+\_\+capa()}
+
+Sends the CAPA command in order to obtain a list of server side supported capabilities. \Hypertarget{pop3_8c_a7ae5c9c1ecfec072150bb04248a0b752}\index{pop3.c@{pop3.c}!pop3\_perform\_command@{pop3\_perform\_command}}
+\index{pop3\_perform\_command@{pop3\_perform\_command}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_command()}{pop3\_perform\_command()}}
+{\footnotesize\ttfamily \label{pop3_8c_a7ae5c9c1ecfec072150bb04248a0b752} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+command (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a7ae5c9c1ecfec072150bb04248a0b752}{pop3\+\_\+perform\+\_\+command()}
+
+Sends a \doxylink{structPOP3}{POP3} based command. \Hypertarget{pop3_8c_a04fbdba29701b9bb0a7b459bcad1cffe}\index{pop3.c@{pop3.c}!pop3\_perform\_quit@{pop3\_perform\_quit}}
+\index{pop3\_perform\_quit@{pop3\_perform\_quit}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_quit()}{pop3\_perform\_quit()}}
+{\footnotesize\ttfamily \label{pop3_8c_a04fbdba29701b9bb0a7b459bcad1cffe} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+quit (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a04fbdba29701b9bb0a7b459bcad1cffe}{pop3\+\_\+perform\+\_\+quit()}
+
+Performs the quit action prior to \doxylink{curl__setup__once_8h_abc0fa768a42a766f444259b91e5c6c0f}{sclose()} be called. \Hypertarget{pop3_8c_a202fc8e28592270abdc9702b75b96394}\index{pop3.c@{pop3.c}!pop3\_perform\_starttls@{pop3\_perform\_starttls}}
+\index{pop3\_perform\_starttls@{pop3\_perform\_starttls}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_starttls()}{pop3\_perform\_starttls()}}
+{\footnotesize\ttfamily \label{pop3_8c_a202fc8e28592270abdc9702b75b96394} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+starttls (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a202fc8e28592270abdc9702b75b96394}{pop3\+\_\+perform\+\_\+starttls()}
+
+Sends the STLS command to start the upgrade to TLS. \Hypertarget{pop3_8c_a844c5e121a2d3a874d10b5cb75bab2e9}\index{pop3.c@{pop3.c}!pop3\_perform\_upgrade\_tls@{pop3\_perform\_upgrade\_tls}}
+\index{pop3\_perform\_upgrade\_tls@{pop3\_perform\_upgrade\_tls}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_upgrade\_tls()}{pop3\_perform\_upgrade\_tls()}}
+{\footnotesize\ttfamily \label{pop3_8c_a844c5e121a2d3a874d10b5cb75bab2e9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+upgrade\+\_\+tls (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a844c5e121a2d3a874d10b5cb75bab2e9}{pop3\+\_\+perform\+\_\+upgrade\+\_\+tls()}
+
+Performs the upgrade to TLS. \Hypertarget{pop3_8c_a744d7ff4ac94c99819fe9b788a433560}\index{pop3.c@{pop3.c}!pop3\_perform\_user@{pop3\_perform\_user}}
+\index{pop3\_perform\_user@{pop3\_perform\_user}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_perform\_user()}{pop3\_perform\_user()}}
+{\footnotesize\ttfamily \label{pop3_8c_a744d7ff4ac94c99819fe9b788a433560} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+perform\+\_\+user (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{pop3_8c_a744d7ff4ac94c99819fe9b788a433560}{pop3\+\_\+perform\+\_\+user()}
+
+Sends a clear text USER command to authenticate with. \Hypertarget{pop3_8c_a5b4a65af11c3cc7303de96c6d1d13aed}\index{pop3.c@{pop3.c}!pop3\_regular\_transfer@{pop3\_regular\_transfer}}
+\index{pop3\_regular\_transfer@{pop3\_regular\_transfer}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_regular\_transfer()}{pop3\_regular\_transfer()}}
+{\footnotesize\ttfamily \label{pop3_8c_a5b4a65af11c3cc7303de96c6d1d13aed} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+regular\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+RFC1734 \doxylink{structPOP3}{POP3} Authentication RFC1939 \doxylink{structPOP3}{POP3} protocol RFC2195 CRAM-\/\+MD5 authentication RFC2384 POP URL Scheme RFC2449 \doxylink{structPOP3}{POP3} Extension Mechanism RFC2595 Using TLS with \doxylink{structIMAP}{IMAP}, \doxylink{structPOP3}{POP3} and ACAP RFC2831 DIGEST-\/\+MD5 authentication RFC4422 Simple Authentication and Security Layer (\doxylink{structSASL}{SASL}) RFC4616 PLAIN authentication RFC4752 The Kerberos V5 ("{}\+GSSAPI"{}) \doxylink{structSASL}{SASL} Mechanism RFC5034 \doxylink{structPOP3}{POP3} \doxylink{structSASL}{SASL} Authentication Mechanism RFC6749 OAuth 2.\+0 Authorization Framework RFC8314 Use of TLS for Email Submission and Access Draft LOGIN \doxylink{structSASL}{SASL} Mechanism \texorpdfstring{$<$}{<}draft-\/murchison-\/sasl-\/login-\/00.\+txt\texorpdfstring{$>$}{>}
+
+\doxylink{pop3_8c_a5b4a65af11c3cc7303de96c6d1d13aed}{pop3\+\_\+regular\+\_\+transfer()}
+
+The input argument is already checked for validity.
+
+Performs all commands done before a regular transfer between a local and a remote host. \Hypertarget{pop3_8c_a4afca2cefe2877c24b2767656d63fd57}\index{pop3.c@{pop3.c}!pop3\_setup\_connection@{pop3\_setup\_connection}}
+\index{pop3\_setup\_connection@{pop3\_setup\_connection}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_setup\_connection()}{pop3\_setup\_connection()}}
+{\footnotesize\ttfamily \label{pop3_8c_a4afca2cefe2877c24b2767656d63fd57} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+setup\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_aaa34d6077fbe25a5b732e2b5a53390c2}\index{pop3.c@{pop3.c}!pop3\_state\_apop\_resp@{pop3\_state\_apop\_resp}}
+\index{pop3\_state\_apop\_resp@{pop3\_state\_apop\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_apop\_resp()}{pop3\_state\_apop\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_aaa34d6077fbe25a5b732e2b5a53390c2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+apop\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a982daae0607c61234d0d0136663f6bf0}\index{pop3.c@{pop3.c}!pop3\_state\_auth\_resp@{pop3\_state\_auth\_resp}}
+\index{pop3\_state\_auth\_resp@{pop3\_state\_auth\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_auth\_resp()}{pop3\_state\_auth\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_a982daae0607c61234d0d0136663f6bf0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+auth\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a3029e65476642f6002a99304abe337b2}\index{pop3.c@{pop3.c}!pop3\_state\_capa\_resp@{pop3\_state\_capa\_resp}}
+\index{pop3\_state\_capa\_resp@{pop3\_state\_capa\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_capa\_resp()}{pop3\_state\_capa\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_a3029e65476642f6002a99304abe337b2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+capa\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a2f350523d77995229cb3187c1ca40168}\index{pop3.c@{pop3.c}!pop3\_state\_command\_resp@{pop3\_state\_command\_resp}}
+\index{pop3\_state\_command\_resp@{pop3\_state\_command\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_command\_resp()}{pop3\_state\_command\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_a2f350523d77995229cb3187c1ca40168} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+command\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a6f985b31d1661403e75ba5b88ff60afc}\index{pop3.c@{pop3.c}!pop3\_state\_pass\_resp@{pop3\_state\_pass\_resp}}
+\index{pop3\_state\_pass\_resp@{pop3\_state\_pass\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_pass\_resp()}{pop3\_state\_pass\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_a6f985b31d1661403e75ba5b88ff60afc} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+pass\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a5b11d07f19c1ead918a0f8a0fcf5b6fe}\index{pop3.c@{pop3.c}!pop3\_state\_servergreet\_resp@{pop3\_state\_servergreet\_resp}}
+\index{pop3\_state\_servergreet\_resp@{pop3\_state\_servergreet\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_servergreet\_resp()}{pop3\_state\_servergreet\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_a5b11d07f19c1ead918a0f8a0fcf5b6fe} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+servergreet\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_aae30fb0c3ba0fc8aaf31540b1006493c}\index{pop3.c@{pop3.c}!pop3\_state\_starttls\_resp@{pop3\_state\_starttls\_resp}}
+\index{pop3\_state\_starttls\_resp@{pop3\_state\_starttls\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_starttls\_resp()}{pop3\_state\_starttls\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_aae30fb0c3ba0fc8aaf31540b1006493c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+starttls\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_ad08d9c3a7a4b1e6e91add0cbdf6c1262}\index{pop3.c@{pop3.c}!pop3\_state\_user\_resp@{pop3\_state\_user\_resp}}
+\index{pop3\_state\_user\_resp@{pop3\_state\_user\_resp}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_state\_user\_resp()}{pop3\_state\_user\_resp()}}
+{\footnotesize\ttfamily \label{pop3_8c_ad08d9c3a7a4b1e6e91add0cbdf6c1262} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+state\+\_\+user\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{pop3code}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_abd8185322259cd9d339eb9677a063579}\index{pop3.c@{pop3.c}!pop3\_statemachine@{pop3\_statemachine}}
+\index{pop3\_statemachine@{pop3\_statemachine}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{pop3\_statemachine()}{pop3\_statemachine()}}
+{\footnotesize\ttfamily \label{pop3_8c_abd8185322259cd9d339eb9677a063579} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} pop3\+\_\+statemachine (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pop3_8c_a6598854e1a3d4b56f34b489ec42a11ca}\index{pop3.c@{pop3.c}!state@{state}}
+\index{state@{state}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{state()}{state()}}
+{\footnotesize\ttfamily \label{pop3_8c_a6598854e1a3d4b56f34b489ec42a11ca} 
+void state (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{pop3_8h_a8dc4c466e83109628feda6fe2808ac03}{pop3state}}}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a77812d4945cd21094debbd06962f0f01}{state()}
+
+This is the ONLY way to change \doxylink{structPOP3}{POP3} state! 
+
+\label{doc-var-members}
+\Hypertarget{pop3_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{pop3_8c_ad66fb72d1c6b45256deaf03f6415612c}\index{pop3.c@{pop3.c}!Curl\_handler\_pop3@{Curl\_handler\_pop3}}
+\index{Curl\_handler\_pop3@{Curl\_handler\_pop3}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_pop3}{Curl\_handler\_pop3}}
+{\footnotesize\ttfamily \label{pop3_8c_ad66fb72d1c6b45256deaf03f6415612c} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+pop3}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}POP3"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a4afca2cefe2877c24b2767656d63fd57}{pop3\_setup\_connection}},\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a026b709d042a9205c242d2f5687f112a}{pop3\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a021ed448efbf8b3a6deb24e697695e74}{pop3\_done}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a9144642d3e329bb49d6d91bedc2201e1}{pop3\_connect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a909f31b95d1dfb56f3a700a2966f8cd5}{pop3\_multi\_statemach}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_abc2c33a3ba0c46826899d7662243a925}{pop3\_doing}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a8d926c2486bc6bbfc1a496959ea19af6}{pop3\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a8d926c2486bc6bbfc1a496959ea19af6}{pop3\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_aefc9908c993dec5dfebc9517502565f3}{pop3\_disconnect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_add2731146d7a5d6893036c927d881b50}{PORT\_POP3}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a10d827e5e0e4d1c324f0dbc4ebe2f2b1}{CURLPROTO\_POP3}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a10d827e5e0e4d1c324f0dbc4ebe2f2b1}{CURLPROTO\_POP3}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_ad1e824167a50a205dad75e1256dedfca}{PROTOPT\_CLOSEACTION}}\ |\ \mbox{\hyperlink{urldata_8h_a93a3791fdbb761285b636725fed39385}{PROTOPT\_NOURLQUERY}}\ |\ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a7dc3bffda7491b001e405e434493b896}{PROTOPT\_URLOPTIONS}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{pop3_8c_ac1f452a074a4382a91cee0e3fd2bbe93}\index{pop3.c@{pop3.c}!saslpop3@{saslpop3}}
+\index{saslpop3@{saslpop3}!pop3.c@{pop3.c}}
+\doxysubsubsection{\texorpdfstring{saslpop3}{saslpop3}}
+{\footnotesize\ttfamily \label{pop3_8c_ac1f452a074a4382a91cee0e3fd2bbe93} 
+const struct \mbox{\hyperlink{structSASLproto}{SASLproto}} saslpop3\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}pop"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_ade2585e962b2bb3354a8a0dc5f5a424a}{pop3\_perform\_auth}},\ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_a38b3d19f7f2a7897b2b1ba4781d5428a}{pop3\_continue\_auth}},\ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_ace314ce3bd0f1c06632deea6f9d0f639}{pop3\_cancel\_auth}},\ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{pop3_8c_acaf41d0bfda7f844be78cecefde15aaa}{pop3\_get\_message}},\ \ \ \ \ }
+\DoxyCodeLine{\ \ 255\ -\/\ 8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \textcolor{charliteral}{'*'},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \textcolor{charliteral}{'+'},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__sasl_8h_aec5d6836cac4e54d575a669afdf0dea3}{SASL\_AUTH\_DEFAULT}},\ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__sasl_8h_a2fabe7138c0de17bf23d5fb51412be97}{SASL\_FLAG\_BASE64}}\ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

@@ -1,0 +1,33 @@
+\doxysection{mbedtls\+\_\+threadlock.\+h}
+\hypertarget{mbedtls__threadlock_8h_source}{}\label{mbedtls__threadlock_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/mbedtls\_threadlock.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/mbedtls\_threadlock.h}}
+\mbox{\hyperlink{mbedtls__threadlock_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_MBEDTLS\_THREADLOCK\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_MBEDTLS\_THREADLOCK\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_MBEDTLS}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#if\ (defined(USE\_THREADS\_POSIX)\ \&\&\ defined(HAVE\_PTHREAD\_H))\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ (defined(USE\_THREADS\_WIN32)\ \&\&\ defined(HAVE\_PROCESS\_H))}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{int}\ Curl\_mbedtlsthreadlock\_thread\_setup(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{int}\ Curl\_mbedtlsthreadlock\_thread\_cleanup(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{int}\ Curl\_mbedtlsthreadlock\_lock\_function(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}});}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{int}\ Curl\_mbedtlsthreadlock\_unlock\_function(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}});}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ Curl\_mbedtlsthreadlock\_thread\_setup()\ 1}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ Curl\_mbedtlsthreadlock\_thread\_cleanup()\ 1}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ Curl\_mbedtlsthreadlock\_lock\_function(x)\ 1}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ Curl\_mbedtlsthreadlock\_unlock\_function(x)\ 1}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_THREADS\_POSIX\ ||\ USE\_THREADS\_WIN32\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_MBEDTLS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_MBEDTLS\_THREADLOCK\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

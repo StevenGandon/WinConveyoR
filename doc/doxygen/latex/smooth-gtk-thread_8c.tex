@@ -1,0 +1,154 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/smooth-\/gtk-\/thread.c File Reference}
+\hypertarget{smooth-gtk-thread_8c}{}\label{smooth-gtk-thread_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/smooth-\/gtk-\/thread.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/smooth-\/gtk-\/thread.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\newline
+{\ttfamily \#include $<$glib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{smooth-gtk-thread_8c_a7dcaf8f5ad01281f819701808dd33410}{NUMT}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{smooth-gtk-thread_8c_aa6badb3e3fbe5d713a6635047ae69175}{write\+\_\+file}} (void \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}}, size\+\_\+t nmemb, FILE \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{data-binary_8d_a73d1d2257c0428f3cbe588f0ac996fad}{stream}})
+\item 
+static void \mbox{\hyperlink{smooth-gtk-thread_8c_afa7640021465e58a4629f77c6e04a2ab}{run\+\_\+one}} (gchar \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{proto-redir_8d_a4beefa350c52cf2ccc0b8eee249ceffb}{http}}, int \mbox{\hyperlink{smooth-gtk-thread_8c_a37d972ae0b47b9099e30983131d31916}{j}})
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{smooth-gtk-thread_8c_a9bdb09d1683db7bffd86e6e86eccecfe}{pull\+\_\+one\+\_\+url}} (void \texorpdfstring{$\ast$}{*}NaN)
+\item 
+gboolean \mbox{\hyperlink{smooth-gtk-thread_8c_a7a12b9159981f1a4341b4ed4cd85cfe3}{pulse\+\_\+bar}} (gpointer \mbox{\hyperlink{structdata}{data}})
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{smooth-gtk-thread_8c_aac3c5832f218eda7aa3473729bc03d93}{create\+\_\+thread}} (void \texorpdfstring{$\ast$}{*}progress\+\_\+bar)
+\item 
+static gboolean \mbox{\hyperlink{smooth-gtk-thread_8c_ae87c859170342b69b47948ab9016b3b1}{cb\+\_\+delete}} (Gtk\+Widget \texorpdfstring{$\ast$}{*}window, gpointer \mbox{\hyperlink{structdata}{data}})
+\item 
+int \mbox{\hyperlink{smooth-gtk-thread_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}{lock}} = PTHREAD\+\_\+\+MUTEX\+\_\+\+INITIALIZER
+\item 
+int \mbox{\hyperlink{smooth-gtk-thread_8c_a37d972ae0b47b9099e30983131d31916}{j}} = 0
+\item 
+gint \mbox{\hyperlink{smooth-gtk-thread_8c_a7dbb274b8ff68ee19a040137e0abc2ed}{num\+\_\+urls}} = 9
+\item 
+const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{smooth-gtk-thread_8c_ae8d74f388656f66a2276e33644765da1}{urls}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{smooth-gtk-thread_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{smooth-gtk-thread_8c_a7dcaf8f5ad01281f819701808dd33410}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!NUMT@{NUMT}}
+\index{NUMT@{NUMT}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{NUMT}{NUMT}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a7dcaf8f5ad01281f819701808dd33410} 
+\#define NUMT~4}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 
+
+\label{doc-func-members}
+\Hypertarget{smooth-gtk-thread_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{smooth-gtk-thread_8c_ae87c859170342b69b47948ab9016b3b1}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!cb\_delete@{cb\_delete}}
+\index{cb\_delete@{cb\_delete}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{cb\_delete()}{cb\_delete()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_ae87c859170342b69b47948ab9016b3b1} 
+gboolean cb\+\_\+delete (\begin{DoxyParamCaption}\item[{Gtk\+Widget \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{gpointer}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smooth-gtk-thread_8c_aac3c5832f218eda7aa3473729bc03d93}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!create\_thread@{create\_thread}}
+\index{create\_thread@{create\_thread}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{create\_thread()}{create\_thread()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_aac3c5832f218eda7aa3473729bc03d93} 
+void \texorpdfstring{$\ast$}{*} create\+\_\+thread (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{progress\+\_\+bar}{}\end{DoxyParamCaption})}
+
+\Hypertarget{smooth-gtk-thread_8c_a3c04138a5bfe5d72780bb7e82a18e627}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!main@{main}}
+\index{main@{main}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+\Hypertarget{smooth-gtk-thread_8c_a9bdb09d1683db7bffd86e6e86eccecfe}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!pull\_one\_url@{pull\_one\_url}}
+\index{pull\_one\_url@{pull\_one\_url}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{pull\_one\_url()}{pull\_one\_url()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a9bdb09d1683db7bffd86e6e86eccecfe} 
+void \texorpdfstring{$\ast$}{*} pull\+\_\+one\+\_\+url (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{NaN}{}\end{DoxyParamCaption})}
+
+\Hypertarget{smooth-gtk-thread_8c_a7a12b9159981f1a4341b4ed4cd85cfe3}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!pulse\_bar@{pulse\_bar}}
+\index{pulse\_bar@{pulse\_bar}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{pulse\_bar()}{pulse\_bar()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a7a12b9159981f1a4341b4ed4cd85cfe3} 
+gboolean pulse\+\_\+bar (\begin{DoxyParamCaption}\item[{gpointer}]{data}{}\end{DoxyParamCaption})}
+
+\Hypertarget{smooth-gtk-thread_8c_afa7640021465e58a4629f77c6e04a2ab}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!run\_one@{run\_one}}
+\index{run\_one@{run\_one}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{run\_one()}{run\_one()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_afa7640021465e58a4629f77c6e04a2ab} 
+void run\+\_\+one (\begin{DoxyParamCaption}\item[{gchar \texorpdfstring{$\ast$}{*}}]{http}{, }\item[{int}]{j}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{smooth-gtk-thread_8c_aa6badb3e3fbe5d713a6635047ae69175}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!write\_file@{write\_file}}
+\index{write\_file@{write\_file}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{write\_file()}{write\_file()}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_aa6badb3e3fbe5d713a6635047ae69175} 
+size\+\_\+t write\+\_\+file (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{size}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{stream}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{smooth-gtk-thread_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{smooth-gtk-thread_8c_a37d972ae0b47b9099e30983131d31916}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!j@{j}}
+\index{j@{j}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{j}{j}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a37d972ae0b47b9099e30983131d31916} 
+int j = 0}
+
+\Hypertarget{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!lock@{lock}}
+\index{lock@{lock}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a0abaf4b5d42c4e5d19190035fade3599} 
+pthread\+\_\+mutex\+\_\+t lock = PTHREAD\+\_\+\+MUTEX\+\_\+\+INITIALIZER}
+
+\Hypertarget{smooth-gtk-thread_8c_a7dbb274b8ff68ee19a040137e0abc2ed}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!num\_urls@{num\_urls}}
+\index{num\_urls@{num\_urls}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{num\_urls}{num\_urls}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_a7dbb274b8ff68ee19a040137e0abc2ed} 
+gint num\+\_\+urls = 9}
+
+\Hypertarget{smooth-gtk-thread_8c_ae8d74f388656f66a2276e33644765da1}\index{smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}!urls@{urls}}
+\index{urls@{urls}!smooth-\/gtk-\/thread.c@{smooth-\/gtk-\/thread.c}}
+\doxysubsubsection{\texorpdfstring{urls}{urls}}
+{\footnotesize\ttfamily \label{smooth-gtk-thread_8c_ae8d74f388656f66a2276e33644765da1} 
+const char\texorpdfstring{$\ast$}{*} const urls\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90022"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90023"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90024"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90025"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90026"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90027"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90028"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90029"{}},}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}90030"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

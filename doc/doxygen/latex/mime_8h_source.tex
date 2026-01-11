@@ -1,0 +1,158 @@
+\doxysection{mime.\+h}
+\hypertarget{mime_8h_source}{}\label{mime_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/mime.h@{lib/libwconr/build/\_deps/curl-\/src/lib/mime.h}}
+\mbox{\hyperlink{mime_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_MIME\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_MIME\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ MIME\_BOUNDARY\_DASHES\ \ \ \ \ \ \ \ \ \ \ \ 24\ \ }\textcolor{comment}{/*\ leading\ boundary\ dashes\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ MIME\_RAND\_BOUNDARY\_CHARS\ \ \ \ \ \ \ \ 16\ \ }\textcolor{comment}{/*\ Nb.\ of\ random\ boundary\ chars.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ MAX\_ENCODED\_LINE\_LENGTH\ \ \ \ \ \ \ \ \ 76\ \ }\textcolor{comment}{/*\ Maximum\ encoded\ line\ length.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ ENCODING\_BUFFER\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ 256\ }\textcolor{comment}{/*\ Encoding\ temp\ buffers\ size.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ Part\ flags.\ */}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ MIME\_USERHEADERS\_OWNER\ \ (1\ <<\ 0)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ MIME\_BODY\_ONLY\ \ \ \ \ \ \ \ \ \ (1\ <<\ 1)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ MIME\_FAST\_READ\ \ \ \ \ \ \ \ \ \ (1\ <<\ 2)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ FILE\_CONTENTTYPE\_DEFAULT\ \ \ \ \ \ \ \ "{}application/octet-\/stream"{}}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ MULTIPART\_CONTENTTYPE\_DEFAULT\ \ \ "{}multipart/mixed"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ DISPOSITION\_DEFAULT\ \ \ \ \ \ \ \ \ \ \ \ \ "{}attachment"{}}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ Part\ source\ kinds.\ */}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101}{mimekind}}\ \{}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101abe93c496b53ded1073ef46824c2e260b}{MIMEKIND\_NONE}}\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part\ not\ set.\ */}}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a3fa11ee93428c5cb981af0dbc5ff745a}{MIMEKIND\_DATA}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Allocated\ mime\ data.\ */}}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101ae008e417ccf479abfb3d3117c330df4b}{MIMEKIND\_FILE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Data\ from\ file.\ */}}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a73ab828a446b18e6c64cf58121c2876c}{MIMEKIND\_CALLBACK}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Data\ from\ \`{}read'\ callback.\ */}}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a6167535771a4ad417b9d4cb82be44fe2}{MIMEKIND\_MULTIPART}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Data\ is\ a\ mime\ subpart.\ */}}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101a25866420cb7860c0f07c81234a6171c3}{MIMEKIND\_LAST}}}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ Readback\ state\ tokens.\ */}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30}{mimestate}}\ \{}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30ae986dee840014a75ec576769fda3d31c}{MIMESTATE\_BEGIN}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Readback\ has\ not\ yet\ started.\ */}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a0fe3323e6cdcb2985a7f23f7038b927a}{MIMESTATE\_CURLHEADERS}},\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ curl-\/generated\ headers.\ */}}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a75222abd526c43d846a29d1dc7129f48}{MIMESTATE\_USERHEADERS}},\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ caller's\ supplied\ headers.\ */}}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a6e1ee28103ed68ef48e14de419e20c02}{MIMESTATE\_EOH}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ End\ of\ headers.\ */}}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a26f14961a9c8856beaf155b62a958145}{MIMESTATE\_BODY}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Placeholder.\ */}}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30ad253a9d2d1bd2c40cf1ea26fe42ae563}{MIMESTATE\_BOUNDARY1}},\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ boundary\ prefix.\ */}}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a38e49688e71df767cd2f1c2261faead7}{MIMESTATE\_BOUNDARY2}},\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ boundary.\ */}}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30a0d49370eb200044ef0caf87f127bec91}{MIMESTATE\_CONTENT}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ content.\ */}}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30af392f88ef7fd223144ee718ab32b22a2}{MIMESTATE\_END}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ End\ of\ part\ reached.\ */}}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30ac12d6331daf814b5e5c75dded9bb4d6e}{MIMESTATE\_LAST}}}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*\ Mime\ headers\ strategies.\ */}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}{mimestrategy}}\ \{}
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172a52e324a18fd8b30fa3c3801991ecbded}{MIMESTRATEGY\_MAIL}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Mime\ mail.\ */}}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ac556c9982f42232a0d711e2e1a7dbd0a}{MIMESTRATEGY\_FORM}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ HTTP\ post\ form.\ */}}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172ad63f140f1e54f1e1b0bcff917b8e9cc0}{MIMESTRATEGY\_LAST}}}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ Content\ transfer\ encoder.\ */}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__encoder}{mime\_encoder}}\ \{}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \ \ \mbox{\hyperlink{structmime__encoder_abaab4586c414ec775deddae5978fa07a}{name}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Encoding\ name.\ */}}
+\DoxyCodeLine{00077\ \ \ size\_t\ \ \ \ \ \ \ \ \ (*\mbox{\hyperlink{structmime__encoder_aeff563a98b71792b45bfa38589e45b96}{encodefunc}})(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},\ \textcolor{keywordtype}{bool}\ ateof,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part);\ \ \textcolor{comment}{/*\ Encoded\ read.\ */}}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \ \ \ \ (*\mbox{\hyperlink{structmime__encoder_a5fe26718eb210007e0d5fc5b7292e1ed}{sizefunc}})(\mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part);\ \ \textcolor{comment}{/*\ Encoded\ size.\ */}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{/*\ Content\ transfer\ encoder\ state.\ */}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__encoder__state}{mime\_encoder\_state}}\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmime__encoder__state_a9de571d91a0bd1a9697dc544929d80ae}{pos}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Position\ on\ output\ line.\ */}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmime__encoder__state_a9c2e9a4785a813fde7fc20659a5b1200}{bufbeg}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Next\ data\ index\ in\ input\ buffer.\ */}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmime__encoder__state_a648137b0d19c885943492450644c5c2e}{bufend}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ First\ unused\ byte\ index\ in\ input\ buffer.\ */}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmime__encoder__state_a6db893fcae276ee6f67c6d0945a6b4e0}{buf}}[\mbox{\hyperlink{mime_8h_abe3e5be5161161e88475b2f2b23c62dd}{ENCODING\_BUFFER\_SIZE}}];\ \textcolor{comment}{/*\ Input\ buffer.\ */}}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ Mime\ readback\ state.\ */}}
+\DoxyCodeLine{00091\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__state}{mime\_state}}\ \{}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mime_8h_aa435b43174844a5636586eb1393ebf30}{mimestate}}\ \mbox{\hyperlink{structmime__state_aebcf0f37d17920f4df99f0f76840c2d1}{state}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ Current\ state\ token.\ */}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structmime__state_ad367d9eabdfe1f28c7a3efdb349abeed}{ptr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ State-\/dependent\ pointer.\ */}}
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structmime__state_a9d3f7bcb23b14a32c67a0df151a60853}{offset}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ State-\/dependent\ offset.\ */}}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ Boundary\ string\ length.\ */}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ MIME\_BOUNDARY\_LEN\ (MIME\_BOUNDARY\_DASHES\ +\ MIME\_RAND\_BOUNDARY\_CHARS)}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{/*\ A\ mime\ multipart.\ */}}
+\DoxyCodeLine{00101\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__mime}{curl\_mime}}\ \{}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structcurl__mime_a86302300c8f23fa65bdd623fe3cfe08e}{easy}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ associated\ easy\ handle.\ */}}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *\mbox{\hyperlink{structcurl__mime_afec18c14ac7b124b3795f1fb6c86cb6b}{parent}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Parent\ part.\ */}}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *\mbox{\hyperlink{structcurl__mime_a2a3509aa58950781f6b9a93868e11ae9}{firstpart}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ First\ part.\ */}}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *\mbox{\hyperlink{structcurl__mime_abd6f8dc663661da5595a6d818cd344cb}{lastpart}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Last\ part.\ */}}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structcurl__mime_a881d37f4891347e5cf982ebd2737b52d}{boundary}}[\mbox{\hyperlink{mime_8h_a2525739b2fc45f5ac6b2ca7014788641}{MIME\_BOUNDARY\_LEN}}\ +\ 1];\ \textcolor{comment}{/*\ The\ part\ boundary.\ */}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__state}{mime\_state}}\ \mbox{\hyperlink{structcurl__mime_a8cdab72d6750385eb29018ab1f13f2ff}{state}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Current\ readback\ state.\ */}}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{/*\ A\ mime\ part.\ */}}
+\DoxyCodeLine{00111\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ \{}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structcurl__mimepart_acfc46235306501bb54977ab3627afb05}{easy}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ associated\ easy\ handle.\ */}}
+\DoxyCodeLine{00113\ \ \ \mbox{\hyperlink{structcurl__mime}{curl\_mime}}\ *\mbox{\hyperlink{structcurl__mimepart_afef8006b9e6c1f51fd4b56097d3c1a61}{parent}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Parent\ mime\ structure.\ */}}
+\DoxyCodeLine{00114\ \ \ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *\mbox{\hyperlink{structcurl__mimepart_ac8b1393d645e366f73c080e9578972ca}{nextpart}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Forward\ linked\ list.\ */}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mime_8h_a3f7ea952d37b502d03fb5d8f8b9d7101}{mimekind}}\ \mbox{\hyperlink{structcurl__mimepart_a9c114006dde2cc051708dd5e11eeaba8}{kind}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ part\ kind.\ */}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structcurl__mimepart_a511dde2cf755b80ce61701b681ac7eb1}{flags}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Flags.\ */}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcurl__mimepart_ab9e45607c0e5cd63d02c541eeb76b00e}{data}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Memory\ data\ or\ file\ name.\ */}}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{curl_8h_a7516630ec17f247697dd3272be7ada74}{curl\_read\_callback}}\ \mbox{\hyperlink{structcurl__mimepart_a0eb7b59b95a191172a3b7bcd1c95b143}{readfunc}};\ \ \ \ \ \textcolor{comment}{/*\ Read\ function.\ */}}
+\DoxyCodeLine{00119\ \ \ \mbox{\hyperlink{curl_8h_a8ea5d0b350bebdf47cfb237e7caac14a}{curl\_seek\_callback}}\ \mbox{\hyperlink{structcurl__mimepart_a7b83b4ff894382a5f3aa4fdb16ac512a}{seekfunc}};\ \ \ \ \ \textcolor{comment}{/*\ Seek\ function.\ */}}
+\DoxyCodeLine{00120\ \ \ \mbox{\hyperlink{curl_8h_ad7ff72bc35b39df6cca31d944c585add}{curl\_free\_callback}}\ \mbox{\hyperlink{structcurl__mimepart_ac35e04998a14c9510009a5866b561942}{freefunc}};\ \ \ \ \ \textcolor{comment}{/*\ Argument\ free\ function.\ */}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structcurl__mimepart_af94669931b42227bc3dd86ee02a5ab2f}{arg}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Argument\ to\ callback\ functions.\ */}}
+\DoxyCodeLine{00122\ \ \ FILE\ *\mbox{\hyperlink{structcurl__mimepart_a7222bf7b7b57b53d652695ba4384dd2d}{fp}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ File\ pointer.\ */}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structcurl__mimepart_acd242891d17c352ce793f619188878a8}{curlheaders}};\ \ \textcolor{comment}{/*\ Part\ headers.\ */}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ *\mbox{\hyperlink{structcurl__mimepart_ae4749eceead17c62c7f38b899e4bbaec}{userheaders}};\ \ \textcolor{comment}{/*\ Part\ headers.\ */}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcurl__mimepart_a6f787af6dac4f5a295fdb9306e334dd8}{mimetype}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Part\ mime\ type.\ */}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcurl__mimepart_aa5efd09e264e478eb760667ea510ee18}{filename}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Remote\ file\ name.\ */}}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structcurl__mimepart_af7c0bd7c58e0807f27423758d2a8fa72}{name}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Data\ name.\ */}}
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structcurl__mimepart_ae9c388a6554647bfb64db891f78be81b}{datasize}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Expected\ data\ size.\ */}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__state}{mime\_state}}\ \mbox{\hyperlink{structcurl__mimepart_aedd930cf8913c04f3f86b153b887ca25}{state}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Current\ readback\ state.\ */}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__encoder}{mime\_encoder}}\ *\mbox{\hyperlink{structcurl__mimepart_acbc934d34131bca39866c86e80ceb97b}{encoder}};\ \textcolor{comment}{/*\ Content\ data\ encoder.\ */}}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmime__encoder__state}{mime\_encoder\_state}}\ \mbox{\hyperlink{structcurl__mimepart_a35ca818b045f9049c020f53f545dddf4}{encstate}};\ \textcolor{comment}{/*\ Data\ encoder\ state.\ */}}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structcurl__mimepart_acf55190ace66d14eea193122664761d2}{lastreadstatus}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Last\ read\ callback\ returned\ status.\ */}}
+\DoxyCodeLine{00133\ \};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{mime_8h_a18951691569e3c259cba64edf1d3bd4b}{Curl\_mime\_add\_header}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__slist}{curl\_slist}}\ **slp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#if\ !defined(CURL\_DISABLE\_MIME)\ \&\&\ (!defined(CURL\_DISABLE\_HTTP)\ ||\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !defined(CURL\_DISABLE\_SMTP)\ ||\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !defined(CURL\_DISABLE\_IMAP))}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*\ Prototypes.\ */}}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mime_8h_a2f268d07bebff5abbafc1775433b6885}{Curl\_mime\_initpart}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *easy);}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mime_8h_ab9a4dfe14017d3b76502a757c271507b}{Curl\_mime\_cleanpart}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part);}
+\DoxyCodeLine{00144\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{mime_8h_a21631327d50101d3459247fbd3dc6316}{Curl\_mime\_duppart}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *dst,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *\mbox{\hyperlink{namespacesrc}{src}});}
+\DoxyCodeLine{00146\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{mime_8h_aae3d8e16641f873b986a1fd36e83cbac}{Curl\_mime\_set\_subparts}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mime}{curl\_mime}}\ *subparts,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ take\_ownership);}
+\DoxyCodeLine{00149\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{mime_8h_a73949f80d17ff2c32e67ff87259348ae}{Curl\_mime\_prepare\_headers}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *contenttype,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *disposition,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{mime_8h_afdc5138da8e131f5e919d4f8e67ae172}{mimestrategy}}\ strategy);}
+\DoxyCodeLine{00153\ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{mime_8h_a9b02db2452a0bc84daecd02dff7ac8a6}{Curl\_mime\_size}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part);}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mime_8h_a421afd16d330a7d51f13ec1aecca05be}{Curl\_mime\_read}}(\textcolor{keywordtype}{char}\ *\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}},\ \textcolor{keywordtype}{size\_t}\ nitems,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *instream);}
+\DoxyCodeLine{00156\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ \mbox{\hyperlink{mime_8h_a94ad2966914f5b80f057528d6b9a75a2}{Curl\_mime\_rewind}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part);}
+\DoxyCodeLine{00157\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{mime_8h_aa26cdd97339de1e9df7f1a0950d50cba}{Curl\_mime\_contenttype}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}});}
+\DoxyCodeLine{00158\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mime_8h_a8f469c7131c9b795f2c37e6efd18733e}{Curl\_mime\_unpause}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structcurl__mimepart}{curl\_mimepart}}\ *part);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00161\ \textcolor{comment}{/*\ if\ disabled\ */}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ Curl\_mime\_initpart(x,y)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ Curl\_mime\_cleanpart(x)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ Curl\_mime\_duppart(x,y)\ CURLE\_OK\ }\textcolor{comment}{/*\ Nothing\ to\ duplicate.\ Succeed\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ Curl\_mime\_set\_subparts(a,b,c)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ Curl\_mime\_prepare\_headers(a,b,c,d)\ CURLE\_NOT\_BUILT\_IN}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ Curl\_mime\_size(x)\ (curl\_off\_t)\ -\/1}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ Curl\_mime\_read\ NULL}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ Curl\_mime\_rewind(x)\ ((void)x,\ CURLE\_NOT\_BUILT\_IN)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ Curl\_mime\_unpause(x)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_MIME\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

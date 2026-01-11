@@ -1,0 +1,42 @@
+\doxysection{QCPAbstract\+Plottable Class Reference}
+\hypertarget{classQCPAbstractPlottable}{}\label{classQCPAbstractPlottable}\index{QCPAbstractPlottable@{QCPAbstractPlottable}}
+
+
+The abstract base class for all data representing objects in a plot.  
+
+
+
+
+\doxysubsection{Detailed Description}
+The abstract base class for all data representing objects in a plot. 
+
+It defines a very basic interface like name, pen, brush, visibility etc. Since this class is abstract, it can\textquotesingle{}t be instantiated. Use one of the subclasses or create a subclass yourself to create new ways of displaying data (see "{}\+Creating own plottables"{} below). Plottables that display one-\/dimensional data (i.\+e. data points have a single key dimension and one or multiple values at each key) are based off of the template subclass QCPAbstract\+Plottable1D, see details there.
+
+All further specifics are in the subclasses, for example\+: \begin{DoxyItemize}
+\item A normal graph with possibly a line and/or scatter points \doxylink{classQCPGraph}{QCPGraph} (typically created with QCustom\+Plot\+::add\+Graph) \item A parametric curve\+: \doxylink{classQCPCurve}{QCPCurve} \item A bar chart\+: \doxylink{classQCPBars}{QCPBars} \item A statistical box plot\+: \doxylink{classQCPStatisticalBox}{QCPStatistical\+Box} \item A color encoded two-\/dimensional map\+: \doxylink{classQCPColorMap}{QCPColor\+Map} \item An OHLC/\+Candlestick chart\+: \doxylink{classQCPFinancial}{QCPFinancial}\end{DoxyItemize}
+\hypertarget{classQCPAbstractPlottable_plottables-subclassing}{}\doxysubsection{\texorpdfstring{Creating own plottables}{Creating own plottables}}\label{classQCPAbstractPlottable_plottables-subclassing}
+Subclassing directly from \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable} is only recommended if you wish to display two-\/dimensional data like \doxylink{classQCPColorMap}{QCPColor\+Map}, i.\+e. two logical key dimensions and one (or more) data dimensions. If you want to display data with only one logical key dimension, you should rather derive from QCPAbstract\+Plottable1D.
+
+If subclassing \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable} directly, these are the pure virtual functions you must implement\+: \begin{DoxyItemize}
+\item select\+Test \item draw \item draw\+Legend\+Icon \item get\+Key\+Range \item get\+Value\+Range\end{DoxyItemize}
+See the documentation of those functions for what they need to do.
+
+For drawing your plot, you can use the coords\+To\+Pixels functions to translate a point in plot coordinates to pixel coordinates. This function is quite convenient, because it takes the orientation of the key and value axes into account for you (x and y are swapped when the key axis is vertical and the value axis horizontal). If you are worried about performance (i.\+e. you need to translate many points in a loop like \doxylink{classQCPGraph}{QCPGraph}), you can directly use QCPAxis\+::coord\+To\+Pixel. However, you must then take care about the orientation of the axis yourself.
+
+Here are some important members you inherit from \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable}\+: \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\doxylink{classQCustomPlot}{QCustom\+Plot} \texorpdfstring{$\ast$}{*}{\bfseries{m\+Parent\+Plot}}  &A pointer to the parent \doxylink{classQCustomPlot}{QCustom\+Plot} instance. The parent plot is inferred from the axes that are passed in the constructor. \\\cline{1-2}
+QString {\bfseries{m\+Name}}  &The name of the plottable. \\\cline{1-2}
+QPen {\bfseries{m\+Pen}}  &The generic pen of the plottable. You should use this pen for the most prominent data representing lines in the plottable (e.\+g \doxylink{classQCPGraph}{QCPGraph} uses this pen for its graph lines and scatters) \\\cline{1-2}
+QBrush {\bfseries{m\+Brush}}  &The generic brush of the plottable. You should use this brush for the most prominent fillable structures in the plottable (e.\+g. \doxylink{classQCPGraph}{QCPGraph} uses this brush to control filling under the graph) \\\cline{1-2}
+QPointer\texorpdfstring{$<$}{<}\doxylink{classQCPAxis}{QCPAxis}\texorpdfstring{$>$}{>} {\bfseries{m\+Key\+Axis}}, {\bfseries{m\+Value\+Axis}}  &The key and value axes this plottable is attached to. Call their QCPAxis\+::coord\+To\+Pixel functions to translate coordinates to pixels in either the key or value dimension. Make sure to check whether the pointer is null before using it. If one of the axes is null, don\textquotesingle{}t draw the plottable. \\\cline{1-2}
+\doxylink{classQCPSelectionDecorator}{QCPSelection\+Decorator} {\bfseries{m\+Selection\+Decorator}}  &The currently set selection decorator which specifies how selected data of the plottable shall be drawn and decorated. When drawing your data, you must consult this decorator for the appropriate pen/brush before drawing unselected/selected data segments. Finally, you should call its QCPSelection\+Decorator\+::draw\+Decoration method at the end of your draw implementation. \\\cline{1-2}
+QCP\+::\+Selection\+Type {\bfseries{m\+Selectable}}  &In which composition, if at all, this plottable\textquotesingle{}s data may be selected. Enforcing this setting on the data selection is done by \doxylink{classQCPAbstractPlottable}{QCPAbstract\+Plottable} automatically. \\\cline{1-2}
+\doxylink{classQCPDataSelection}{QCPData\+Selection} {\bfseries{m\+Selection}}  &Holds the current selection state of the plottable\textquotesingle{}s data, i.\+e. the selected data ranges (\doxylink{classQCPDataRange}{QCPData\+Range}).  \\\cline{1-2}
+\end{longtabu}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,768 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/ftp.c File Reference}
+\hypertarget{ftp_8c}{}\label{ftp_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/ftp.c@{lib/libwconr/build/\_deps/curl-\/src/lib/ftp.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}if2ip.\+h"{}}\newline
+{\ttfamily \#include "{}hostip.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}http.\+h"{}}\newline
+{\ttfamily \#include "{}ftp.\+h"{}}\newline
+{\ttfamily \#include "{}fileinfo.\+h"{}}\newline
+{\ttfamily \#include "{}ftplistparser.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+range.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+krb5.\+h"{}}\newline
+{\ttfamily \#include "{}strtoofft.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}vtls/vtls.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}strerror.\+h"{}}\newline
+{\ttfamily \#include "{}inet\+\_\+ntop.\+h"{}}\newline
+{\ttfamily \#include "{}inet\+\_\+pton.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}parsedate.\+h"{}}\newline
+{\ttfamily \#include "{}sockaddr.\+h"{}}\newline
+{\ttfamily \#include "{}multiif.\+h"{}}\newline
+{\ttfamily \#include "{}url.\+h"{}}\newline
+{\ttfamily \#include "{}speedcheck.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}http\+\_\+proxy.\+h"{}}\newline
+{\ttfamily \#include "{}socks.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ftp_8c_aebc53e498b2434654a1d44070d9ccd40}{NI\+\_\+\+MAXHOST}}~1025
+\item 
+\#define \mbox{\hyperlink{ftp_8c_a93b37007689284fd9c4bde1a8f4b9199}{INET\+\_\+\+ADDRSTRLEN}}~16
+\item 
+\#define \mbox{\hyperlink{ftp_8c_a77812d4945cd21094debbd06962f0f01}{state}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  y)
+\item 
+\#define \mbox{\hyperlink{ftp_8c_a113f034b06f26387c98293c69b4cddec}{CURL\+\_\+\+FTP\+\_\+\+HTTPSTYLE\+\_\+\+HEAD}}~1
+\item 
+\#define \mbox{\hyperlink{ftp_8c_a977ae5ca75fa33bfee0315d66a228808}{STATUSCODE}}(\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})
+\item 
+\#define \mbox{\hyperlink{ftp_8c_af474756496959c8a45bbbb2d7e199aad}{LASTLINE}}(\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5}{ftpport}} \{ \mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5ad11a5684a2d8dd93df27782a4462f6e7}{EPRT}}
+, \mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5a8268527d969e4ef493d3f35844a0b841}{PORT}}
+, \mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5a9c954bcf443428c80b0f107b3bc48749}{DONE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{ftp_8c_a7df0f4774cd64b849b19637942c57164}{\+\_\+state}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} newstate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a09a3c44ebe82dbd8938b7fc57c88cfe9}{ftp\+\_\+sendquote}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}quote)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a36f3eabaa2b9a2aa25d135d4d90b82b1}{ftp\+\_\+quit}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a673944731d425dec4510ba695f6c58e1}{ftp\+\_\+parse\+\_\+url\+\_\+path}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_aba0b8bc21a585629ee11b793ba85d28f}{ftp\+\_\+regular\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static void \mbox{\hyperlink{ftp_8c_a6d8a13975d67e2acf88475389976b6f0}{ftp\+\_\+pasv\+\_\+verbose}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}ai, char \texorpdfstring{$\ast$}{*}newhost, int port)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_af7e503bffa3d049293233ad841989bd1}{ftp\+\_\+state\+\_\+prepare\+\_\+transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a3c3a832e2918fcdb1edeecc4ce744b54}{ftp\+\_\+state\+\_\+mdtm}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a501e6fc8c6439b77ef98e6526cb4a319}{ftp\+\_\+state\+\_\+quote}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{namespaceinit}{init}}, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_ac232b454cd8efcc46393662d16a476ab}{ftp\+\_\+nb\+\_\+type}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} ascii, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} newstate)
+\item 
+static int \mbox{\hyperlink{ftp_8c_a621b20e239d0ef5c5f4a51cb848ef5b0}{ftp\+\_\+need\+\_\+type}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} ascii)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a087b550458366ed2aef8ace2509f19bc}{ftp\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a4b8ac504fc650f6d283e56c9d52fbd2c}{ftp\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} premature)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a5f46bec6d8766fa874724e91ecb8c396}{ftp\+\_\+connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_afcbb05dd38c5b6231ad9c7e0febf5850}{ftp\+\_\+disconnect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} dead\+\_\+connection)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a08f9dadb7a723402512b78949ebc1997}{ftp\+\_\+do\+\_\+more}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \texorpdfstring{$\ast$}{*}completed)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a372694b30040b8e6ffbc858fc549520f}{ftp\+\_\+multi\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static int \mbox{\hyperlink{ftp_8c_aee16e022a723beff0383f2856d233a30}{ftp\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+static int \mbox{\hyperlink{ftp_8c_a6a0c15de803247b5d1140dcf49ce31a7}{ftp\+\_\+domore\+\_\+getsock}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}socks)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_afc9ed03be92ba937f5003d55eaa30283}{ftp\+\_\+doing}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a2a06dc329180388055cc7fa70fe90d47}{ftp\+\_\+setup\+\_\+connection}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a3d743a3932589a1926c9f27cb1830eb6}{init\+\_\+wc\+\_\+data}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a2d6be473db65c405008f96b789eba1e5}{wc\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static void \mbox{\hyperlink{ftp_8c_a40a2fc97167e0ef3bf52d65e9a318a08}{wc\+\_\+data\+\_\+dtor}} (void \texorpdfstring{$\ast$}{*}ptr)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_af1b977121f29254890e490be675ec9e2}{ftp\+\_\+state\+\_\+retr}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}} \mbox{\hyperlink{mime_8c_a6750c6bf3d5e493a9afbf0c278110187}{filesize}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a8224e4e44b3795e443c52e71176431f0}{ftp\+\_\+readresp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} sockfd, struct \mbox{\hyperlink{structpingpong}{pingpong}} \texorpdfstring{$\ast$}{*}pp, int \texorpdfstring{$\ast$}{*}ftpcode, size\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{progress-bar_8d_a17210dd9ea23f8fa31bb9160b69db303}{size}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_aea76e47863e418c192bf1b83d6d25862}{ftp\+\_\+dophase\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} connected)
+\item 
+static void \mbox{\hyperlink{ftp_8c_a3c9e869898b1967daee234f0a9e8bbe1}{close\+\_\+secondarysocket}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static void \mbox{\hyperlink{ftp_8c_ad145acf7b95b9f9fe19fab6e070baf81}{freedirs}} (struct \mbox{\hyperlink{structftp__conn}{ftp\+\_\+conn}} \texorpdfstring{$\ast$}{*}ftpc)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a0c5e921fd0f1678b82d59a0cca162f86}{Accept\+Server\+Connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\+\_\+t}} \mbox{\hyperlink{ftp_8c_ad925bf9b1074701f62af0bc7c19b72f6}{ftp\+\_\+timeleft\+\_\+accept}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_aeca8f04eb0ea0226eae4214700d12642}{Received\+Server\+Connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{cert-status_8d_af8813f247ee893b9fd489ba39157e306}{received}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a2bebc4bdc965dbdbcb7511df30b21b87}{Initiate\+Transfer}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a8f91793484efb3473fa49c572bffadd6}{Allow\+Server\+Connect}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}connected)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{ftp_8c_a550ab2db0467e0088c59c06cf31155a8}{ftp\+\_\+endofresp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}, size\+\_\+t \mbox{\hyperlink{curl__sasl_8c_a7360b55975153b822efc5217b7734e6a}{len}}, int \texorpdfstring{$\ast$}{*}code)
+\item 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a2fae0f177d6f4c9be422a56a1c22c6f4}{Curl\+\_\+\+Get\+FTPResponse}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}nreadp, int \texorpdfstring{$\ast$}{*}ftpcode)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a001684b31fc84c5043eaf108ff038f26}{ftp\+\_\+state\+\_\+user}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a8c5d079b58a3a3789a2b043f333f8251}{ftp\+\_\+state\+\_\+pwd}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a2bc80ff6ee82c511d90cf0926385e44a}{ftp\+\_\+state\+\_\+cwd}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a3787f572dc273ce3b15e0117ab8913f1}{ftp\+\_\+state\+\_\+use\+\_\+port}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5}{ftpport}} fcmd)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a06e98b9136efcf372bc8c8f3bd22f590}{ftp\+\_\+state\+\_\+use\+\_\+pasv}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a6f277654c0e8e25fbfb2936416567aa5}{ftp\+\_\+state\+\_\+rest}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_ab3480526f6fe8fc52278f371faafee1a}{ftp\+\_\+state\+\_\+size}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a220fb5dea63fea49269f9fd7246a54b5}{ftp\+\_\+state\+\_\+list}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_aced181c9bf35ceae649c363839869c61}{ftp\+\_\+state\+\_\+retr\+\_\+prequote}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_ae03813944791cc069e73097b43efb8a2}{ftp\+\_\+state\+\_\+stor\+\_\+prequote}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a4809d5a8cf92ef278b53690d3eb401eb}{ftp\+\_\+state\+\_\+type}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a7599e3d13f03e7936119438d2553431f}{ftp\+\_\+state\+\_\+ul\+\_\+setup}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} sizechecked)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_af5003343c2fb9b96f3aca8fcfaf588ca}{ftp\+\_\+epsv\+\_\+disable}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ftp_8c_ab031d9b6a81b850906ceff7be86e4fbc}{control\+\_\+address}} (struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_ad1595cd0c7df0f1e82aeb49b49c6c3c9}{ftp\+\_\+state\+\_\+pasv\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_aec9aedd59b184650612a0fda1095cdd9}{ftp\+\_\+state\+\_\+port\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a9a2fdf8c49d1a9c6d30b4def8a7a58c9}{ftp\+\_\+state\+\_\+mdtm\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a0b6f418b0516cbb878cc04690d7f2faf}{ftp\+\_\+state\+\_\+type\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_abeef70d7a481d9084213d2ae6cd56af6}{ftp\+\_\+state\+\_\+size\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_acf2725966a7680b82187855e8419bece}{ftp\+\_\+state\+\_\+rest\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, int ftpcode, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_aaf49e86881e8c0fb121ca903adfd3c75}{ftp\+\_\+state\+\_\+stor\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a6bd62394afee068225b964ebc392f2f4}{ftp\+\_\+state\+\_\+get\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a8cf1edc07ea5d788f6ed67f694247976}{ftp\+\_\+state\+\_\+loggedin}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a4ae7f693a3dbf9fdf60c8284d15977be}{ftp\+\_\+state\+\_\+user\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode, \mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}} instate)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_ad11e35d2e4e06998dc25fd001d429357}{ftp\+\_\+state\+\_\+acct\+\_\+resp}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int ftpcode)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a74b432f829333b90d2ec28e11ebdb3b1}{ftp\+\_\+statemachine}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_a141154b2f5b43d9b67862485bc5b8a68}{ftp\+\_\+block\+\_\+statemach}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ftp_8c_af11cc495403ea50b3754eff1e4209184}{ftp\+\_\+perform}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}connected, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}dophase\+\_\+done)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{ftp_8c_a79071fb30b2abfa423a252245cbc6190}{Curl\+\_\+handler\+\_\+ftp}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ftp_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ftp_8c_a113f034b06f26387c98293c69b4cddec}\index{ftp.c@{ftp.c}!CURL\_FTP\_HTTPSTYLE\_HEAD@{CURL\_FTP\_HTTPSTYLE\_HEAD}}
+\index{CURL\_FTP\_HTTPSTYLE\_HEAD@{CURL\_FTP\_HTTPSTYLE\_HEAD}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_FTP\_HTTPSTYLE\_HEAD}{CURL\_FTP\_HTTPSTYLE\_HEAD}}
+{\footnotesize\ttfamily \label{ftp_8c_a113f034b06f26387c98293c69b4cddec} 
+\#define CURL\+\_\+\+FTP\+\_\+\+HTTPSTYLE\+\_\+\+HEAD~1}
+
+\Hypertarget{ftp_8c_a93b37007689284fd9c4bde1a8f4b9199}\index{ftp.c@{ftp.c}!INET\_ADDRSTRLEN@{INET\_ADDRSTRLEN}}
+\index{INET\_ADDRSTRLEN@{INET\_ADDRSTRLEN}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{INET\_ADDRSTRLEN}{INET\_ADDRSTRLEN}}
+{\footnotesize\ttfamily \label{ftp_8c_a93b37007689284fd9c4bde1a8f4b9199} 
+\#define INET\+\_\+\+ADDRSTRLEN~16}
+
+\Hypertarget{ftp_8c_af474756496959c8a45bbbb2d7e199aad}\index{ftp.c@{ftp.c}!LASTLINE@{LASTLINE}}
+\index{LASTLINE@{LASTLINE}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{LASTLINE}{LASTLINE}}
+{\footnotesize\ttfamily \label{ftp_8c_af474756496959c8a45bbbb2d7e199aad} 
+\#define LASTLINE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{ftp_8c_a977ae5ca75fa33bfee0315d66a228808}{STATUSCODE}}(\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}})\ \&\&\ (\textcolor{charliteral}{'\ '}\ ==\ \mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}[3]))}
+
+\end{DoxyCode}
+\Hypertarget{ftp_8c_aebc53e498b2434654a1d44070d9ccd40}\index{ftp.c@{ftp.c}!NI\_MAXHOST@{NI\_MAXHOST}}
+\index{NI\_MAXHOST@{NI\_MAXHOST}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{NI\_MAXHOST}{NI\_MAXHOST}}
+{\footnotesize\ttfamily \label{ftp_8c_aebc53e498b2434654a1d44070d9ccd40} 
+\#define NI\+\_\+\+MAXHOST~1025}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{ftp_8c_a77812d4945cd21094debbd06962f0f01}\index{ftp.c@{ftp.c}!state@{state}}
+\index{state@{state}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily \label{ftp_8c_a77812d4945cd21094debbd06962f0f01} 
+\#define state(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{ftp_8c_a7df0f4774cd64b849b19637942c57164}{\_state}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},y)}
+
+\end{DoxyCode}
+\Hypertarget{ftp_8c_a977ae5ca75fa33bfee0315d66a228808}\index{ftp.c@{ftp.c}!STATUSCODE@{STATUSCODE}}
+\index{STATUSCODE@{STATUSCODE}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{STATUSCODE}{STATUSCODE}}
+{\footnotesize\ttfamily \label{ftp_8c_a977ae5ca75fa33bfee0315d66a228808} 
+\#define STATUSCODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{curl__ctype_8h_acc3e9b1176bd8c62c4fe0e017007e719}{ISDIGIT}}(\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}[0])\ \&\&\ \mbox{\hyperlink{curl__ctype_8h_acc3e9b1176bd8c62c4fe0e017007e719}{ISDIGIT}}(\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}[1])\ \&\&\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ISDIGIT(\mbox{\hyperlink{json_8d_ab069be55434a7aa5e71ffa08c6421065}{line}}[2]))}
+
+\end{DoxyCode}
+
+
+\label{doc-enum-members}
+\Hypertarget{ftp_8c_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5}\index{ftp.c@{ftp.c}!ftpport@{ftpport}}
+\index{ftpport@{ftpport}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftpport}{ftpport}}
+{\footnotesize\ttfamily \label{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5} 
+enum \mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5}{ftpport}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EPRT@{EPRT}!ftp.c@{ftp.c}}\index{ftp.c@{ftp.c}!EPRT@{EPRT}}}\Hypertarget{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5ad11a5684a2d8dd93df27782a4462f6e7}\label{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5ad11a5684a2d8dd93df27782a4462f6e7} 
+EPRT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PORT@{PORT}!ftp.c@{ftp.c}}\index{ftp.c@{ftp.c}!PORT@{PORT}}}\Hypertarget{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5a8268527d969e4ef493d3f35844a0b841}\label{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5a8268527d969e4ef493d3f35844a0b841} 
+PORT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DONE@{DONE}!ftp.c@{ftp.c}}\index{ftp.c@{ftp.c}!DONE@{DONE}}}\Hypertarget{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5a9c954bcf443428c80b0f107b3bc48749}\label{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5a9c954bcf443428c80b0f107b3bc48749} 
+DONE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{ftp_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ftp_8c_a7df0f4774cd64b849b19637942c57164}\index{ftp.c@{ftp.c}!\_state@{\_state}}
+\index{\_state@{\_state}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{\_state()}{\_state()}}
+{\footnotesize\ttfamily \label{ftp_8c_a7df0f4774cd64b849b19637942c57164} 
+void \+\_\+state (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a0c5e921fd0f1678b82d59a0cca162f86}\index{ftp.c@{ftp.c}!AcceptServerConnect@{AcceptServerConnect}}
+\index{AcceptServerConnect@{AcceptServerConnect}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{AcceptServerConnect()}{AcceptServerConnect()}}
+{\footnotesize\ttfamily \label{ftp_8c_a0c5e921fd0f1678b82d59a0cca162f86} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Accept\+Server\+Connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a0c5e921fd0f1678b82d59a0cca162f86}{Accept\+Server\+Connect()}
+
+After connection request is received from the server this function is called to accept the connection and close the listening socket \Hypertarget{ftp_8c_a8f91793484efb3473fa49c572bffadd6}\index{ftp.c@{ftp.c}!AllowServerConnect@{AllowServerConnect}}
+\index{AllowServerConnect@{AllowServerConnect}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{AllowServerConnect()}{AllowServerConnect()}}
+{\footnotesize\ttfamily \label{ftp_8c_a8f91793484efb3473fa49c572bffadd6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Allow\+Server\+Connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{connected}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a8f91793484efb3473fa49c572bffadd6}{Allow\+Server\+Connect()}
+
+When we\textquotesingle{}ve issue the PORT command, we have told the server to connect to us. This function checks whether data connection is established if so it is accepted. \Hypertarget{ftp_8c_a3c9e869898b1967daee234f0a9e8bbe1}\index{ftp.c@{ftp.c}!close\_secondarysocket@{close\_secondarysocket}}
+\index{close\_secondarysocket@{close\_secondarysocket}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{close\_secondarysocket()}{close\_secondarysocket()}}
+{\footnotesize\ttfamily \label{ftp_8c_a3c9e869898b1967daee234f0a9e8bbe1} 
+void close\+\_\+secondarysocket (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ab031d9b6a81b850906ceff7be86e4fbc}\index{ftp.c@{ftp.c}!control\_address@{control\_address}}
+\index{control\_address@{control\_address}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{control\_address()}{control\_address()}}
+{\footnotesize\ttfamily \label{ftp_8c_ab031d9b6a81b850906ceff7be86e4fbc} 
+char \texorpdfstring{$\ast$}{*} control\+\_\+address (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a2fae0f177d6f4c9be422a56a1c22c6f4}\index{ftp.c@{ftp.c}!Curl\_GetFTPResponse@{Curl\_GetFTPResponse}}
+\index{Curl\_GetFTPResponse@{Curl\_GetFTPResponse}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_GetFTPResponse()}{Curl\_GetFTPResponse()}}
+{\footnotesize\ttfamily \label{ftp_8c_a2fae0f177d6f4c9be422a56a1c22c6f4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Curl\+\_\+\+Get\+FTPResponse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{nreadp}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{ftpcode}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ftp_8c_ad145acf7b95b9f9fe19fab6e070baf81}\index{ftp.c@{ftp.c}!freedirs@{freedirs}}
+\index{freedirs@{freedirs}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{freedirs()}{freedirs()}}
+{\footnotesize\ttfamily \label{ftp_8c_ad145acf7b95b9f9fe19fab6e070baf81} 
+void freedirs (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structftp__conn}{ftp\+\_\+conn}} \texorpdfstring{$\ast$}{*}}]{ftpc}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a141154b2f5b43d9b67862485bc5b8a68}\index{ftp.c@{ftp.c}!ftp\_block\_statemach@{ftp\_block\_statemach}}
+\index{ftp\_block\_statemach@{ftp\_block\_statemach}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_block\_statemach()}{ftp\_block\_statemach()}}
+{\footnotesize\ttfamily \label{ftp_8c_a141154b2f5b43d9b67862485bc5b8a68} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+block\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a5f46bec6d8766fa874724e91ecb8c396}\index{ftp.c@{ftp.c}!ftp\_connect@{ftp\_connect}}
+\index{ftp\_connect@{ftp\_connect}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_connect()}{ftp\_connect()}}
+{\footnotesize\ttfamily \label{ftp_8c_a5f46bec6d8766fa874724e91ecb8c396} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_afcbb05dd38c5b6231ad9c7e0febf5850}\index{ftp.c@{ftp.c}!ftp\_disconnect@{ftp\_disconnect}}
+\index{ftp\_disconnect@{ftp\_disconnect}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_disconnect()}{ftp\_disconnect()}}
+{\footnotesize\ttfamily \label{ftp_8c_afcbb05dd38c5b6231ad9c7e0febf5850} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+disconnect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{dead\+\_\+connection}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_afcbb05dd38c5b6231ad9c7e0febf5850}{ftp\+\_\+disconnect()}
+
+Disconnect from an \doxylink{structFTP}{FTP} server. Cleanup protocol-\/specific per-\/connection resources. BLOCKING. \Hypertarget{ftp_8c_a087b550458366ed2aef8ace2509f19bc}\index{ftp.c@{ftp.c}!ftp\_do@{ftp\_do}}
+\index{ftp\_do@{ftp\_do}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_do()}{ftp\_do()}}
+{\footnotesize\ttfamily \label{ftp_8c_a087b550458366ed2aef8ace2509f19bc} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a087b550458366ed2aef8ace2509f19bc}{ftp\+\_\+do()}
+
+This function is registered as \textquotesingle{}curl\+\_\+do\textquotesingle{} function. It decodes the path parts etc as a wrapper to the actual DO function (ftp\+\_\+perform).
+
+The input argument is already checked for validity. \Hypertarget{ftp_8c_a08f9dadb7a723402512b78949ebc1997}\index{ftp.c@{ftp.c}!ftp\_do\_more@{ftp\_do\_more}}
+\index{ftp\_do\_more@{ftp\_do\_more}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_do\_more()}{ftp\_do\_more()}}
+{\footnotesize\ttfamily \label{ftp_8c_a08f9dadb7a723402512b78949ebc1997} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+do\+\_\+more (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{completed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_afc9ed03be92ba937f5003d55eaa30283}\index{ftp.c@{ftp.c}!ftp\_doing@{ftp\_doing}}
+\index{ftp\_doing@{ftp\_doing}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_doing()}{ftp\_doing()}}
+{\footnotesize\ttfamily \label{ftp_8c_afc9ed03be92ba937f5003d55eaa30283} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+doing (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a6a0c15de803247b5d1140dcf49ce31a7}\index{ftp.c@{ftp.c}!ftp\_domore\_getsock@{ftp\_domore\_getsock}}
+\index{ftp\_domore\_getsock@{ftp\_domore\_getsock}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_domore\_getsock()}{ftp\_domore\_getsock()}}
+{\footnotesize\ttfamily \label{ftp_8c_a6a0c15de803247b5d1140dcf49ce31a7} 
+int ftp\+\_\+domore\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a4b8ac504fc650f6d283e56c9d52fbd2c}\index{ftp.c@{ftp.c}!ftp\_done@{ftp\_done}}
+\index{ftp\_done@{ftp\_done}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_done()}{ftp\_done()}}
+{\footnotesize\ttfamily \label{ftp_8c_a4b8ac504fc650f6d283e56c9d52fbd2c} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{status}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{premature}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a4b8ac504fc650f6d283e56c9d52fbd2c}{ftp\+\_\+done()}
+
+The DONE function. This does what needs to be done after a single DO has performed.
+
+Input argument is already checked for validity. \Hypertarget{ftp_8c_aea76e47863e418c192bf1b83d6d25862}\index{ftp.c@{ftp.c}!ftp\_dophase\_done@{ftp\_dophase\_done}}
+\index{ftp\_dophase\_done@{ftp\_dophase\_done}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_dophase\_done()}{ftp\_dophase\_done()}}
+{\footnotesize\ttfamily \label{ftp_8c_aea76e47863e418c192bf1b83d6d25862} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+dophase\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{connected}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a550ab2db0467e0088c59c06cf31155a8}\index{ftp.c@{ftp.c}!ftp\_endofresp@{ftp\_endofresp}}
+\index{ftp\_endofresp@{ftp\_endofresp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_endofresp()}{ftp\_endofresp()}}
+{\footnotesize\ttfamily \label{ftp_8c_a550ab2db0467e0088c59c06cf31155a8} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} ftp\+\_\+endofresp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{line}{, }\item[{size\+\_\+t}]{len}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_af5003343c2fb9b96f3aca8fcfaf588ca}\index{ftp.c@{ftp.c}!ftp\_epsv\_disable@{ftp\_epsv\_disable}}
+\index{ftp\_epsv\_disable@{ftp\_epsv\_disable}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_epsv\_disable()}{ftp\_epsv\_disable()}}
+{\footnotesize\ttfamily \label{ftp_8c_af5003343c2fb9b96f3aca8fcfaf588ca} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+epsv\+\_\+disable (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_aee16e022a723beff0383f2856d233a30}\index{ftp.c@{ftp.c}!ftp\_getsock@{ftp\_getsock}}
+\index{ftp\_getsock@{ftp\_getsock}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_getsock()}{ftp\_getsock()}}
+{\footnotesize\ttfamily \label{ftp_8c_aee16e022a723beff0383f2856d233a30} 
+int ftp\+\_\+getsock (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{socks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a372694b30040b8e6ffbc858fc549520f}\index{ftp.c@{ftp.c}!ftp\_multi\_statemach@{ftp\_multi\_statemach}}
+\index{ftp\_multi\_statemach@{ftp\_multi\_statemach}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_multi\_statemach()}{ftp\_multi\_statemach()}}
+{\footnotesize\ttfamily \label{ftp_8c_a372694b30040b8e6ffbc858fc549520f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+multi\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ac232b454cd8efcc46393662d16a476ab}\index{ftp.c@{ftp.c}!ftp\_nb\_type@{ftp\_nb\_type}}
+\index{ftp\_nb\_type@{ftp\_nb\_type}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_nb\_type()}{ftp\_nb\_type()}}
+{\footnotesize\ttfamily \label{ftp_8c_ac232b454cd8efcc46393662d16a476ab} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+nb\+\_\+type (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{ascii}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_ac232b454cd8efcc46393662d16a476ab}{ftp\+\_\+nb\+\_\+type()}
+
+Set TYPE. We only deal with ASCII or BINARY so this function sets one of them. If the transfer type is not sent, simulate on OK response in newstate \Hypertarget{ftp_8c_a621b20e239d0ef5c5f4a51cb848ef5b0}\index{ftp.c@{ftp.c}!ftp\_need\_type@{ftp\_need\_type}}
+\index{ftp\_need\_type@{ftp\_need\_type}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_need\_type()}{ftp\_need\_type()}}
+{\footnotesize\ttfamily \label{ftp_8c_a621b20e239d0ef5c5f4a51cb848ef5b0} 
+int ftp\+\_\+need\+\_\+type (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{ascii\+\_\+wanted}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a621b20e239d0ef5c5f4a51cb848ef5b0}{ftp\+\_\+need\+\_\+type()}
+
+Returns TRUE if we in the current situation should send TYPE \Hypertarget{ftp_8c_a673944731d425dec4510ba695f6c58e1}\index{ftp.c@{ftp.c}!ftp\_parse\_url\_path@{ftp\_parse\_url\_path}}
+\index{ftp\_parse\_url\_path@{ftp\_parse\_url\_path}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_parse\_url\_path()}{ftp\_parse\_url\_path()}}
+{\footnotesize\ttfamily \label{ftp_8c_a673944731d425dec4510ba695f6c58e1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+parse\+\_\+url\+\_\+path (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a673944731d425dec4510ba695f6c58e1}{ftp\+\_\+parse\+\_\+url\+\_\+path()}
+
+Parse the URL path into separate path components. \Hypertarget{ftp_8c_a6d8a13975d67e2acf88475389976b6f0}\index{ftp.c@{ftp.c}!ftp\_pasv\_verbose@{ftp\_pasv\_verbose}}
+\index{ftp\_pasv\_verbose@{ftp\_pasv\_verbose}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_pasv\_verbose()}{ftp\_pasv\_verbose()}}
+{\footnotesize\ttfamily \label{ftp_8c_a6d8a13975d67e2acf88475389976b6f0} 
+void ftp\+\_\+pasv\+\_\+verbose (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structCurl__addrinfo}{Curl\+\_\+addrinfo}} \texorpdfstring{$\ast$}{*}}]{ai}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{newhost}{, }\item[{int}]{port}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a6d8a13975d67e2acf88475389976b6f0}{ftp\+\_\+pasv\+\_\+verbose()}
+
+This function only outputs some informationals about this second connection when we\textquotesingle{}ve issued a PASV command before and thus we have connected to a possibly new IP address. \Hypertarget{ftp_8c_af11cc495403ea50b3754eff1e4209184}\index{ftp.c@{ftp.c}!ftp\_perform@{ftp\_perform}}
+\index{ftp\_perform@{ftp\_perform}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_perform()}{ftp\_perform()}}
+{\footnotesize\ttfamily \label{ftp_8c_af11cc495403ea50b3754eff1e4209184} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+perform (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{connected}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_af11cc495403ea50b3754eff1e4209184}{ftp\+\_\+perform()}
+
+This is the actual DO function for \doxylink{structFTP}{FTP}. Get a file/directory according to the options previously setup. \Hypertarget{ftp_8c_a36f3eabaa2b9a2aa25d135d4d90b82b1}\index{ftp.c@{ftp.c}!ftp\_quit@{ftp\_quit}}
+\index{ftp\_quit@{ftp\_quit}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_quit()}{ftp\_quit()}}
+{\footnotesize\ttfamily \label{ftp_8c_a36f3eabaa2b9a2aa25d135d4d90b82b1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+quit (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a36f3eabaa2b9a2aa25d135d4d90b82b1}{ftp\+\_\+quit()}
+
+This should be called before calling \doxylink{curl__setup__once_8h_abc0fa768a42a766f444259b91e5c6c0f}{sclose()} on an ftp control connection (not data connections). We should then wait for the response from the server before returning. The calling code should then try to close the connection. \Hypertarget{ftp_8c_a8224e4e44b3795e443c52e71176431f0}\index{ftp.c@{ftp.c}!ftp\_readresp@{ftp\_readresp}}
+\index{ftp\_readresp@{ftp\_readresp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_readresp()}{ftp\_readresp()}}
+{\footnotesize\ttfamily \label{ftp_8c_a8224e4e44b3795e443c52e71176431f0} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+readresp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_adb5a46d02359d2379dc7e0904c987828}{curl\+\_\+socket\+\_\+t}}}]{sockfd}{, }\item[{struct \mbox{\hyperlink{structpingpong}{pingpong}} \texorpdfstring{$\ast$}{*}}]{pp}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{ftpcode}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_aba0b8bc21a585629ee11b793ba85d28f}\index{ftp.c@{ftp.c}!ftp\_regular\_transfer@{ftp\_regular\_transfer}}
+\index{ftp\_regular\_transfer@{ftp\_regular\_transfer}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_regular\_transfer()}{ftp\_regular\_transfer()}}
+{\footnotesize\ttfamily \label{ftp_8c_aba0b8bc21a585629ee11b793ba85d28f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+regular\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{dophase\+\_\+done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_aba0b8bc21a585629ee11b793ba85d28f}{ftp\+\_\+regular\+\_\+transfer()}
+
+The input argument is already checked for validity.
+
+Performs all commands done before a regular transfer between a local and a remote host.
+
+ftp-\/\texorpdfstring{$>$}{>}ctl\+\_\+valid starts out as FALSE, and gets set to TRUE if we reach the \doxylink{ftp_8c_a4b8ac504fc650f6d283e56c9d52fbd2c}{ftp\+\_\+done()} function without finding any major problem. \Hypertarget{ftp_8c_a09a3c44ebe82dbd8938b7fc57c88cfe9}\index{ftp.c@{ftp.c}!ftp\_sendquote@{ftp\_sendquote}}
+\index{ftp\_sendquote@{ftp\_sendquote}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_sendquote()}{ftp\_sendquote()}}
+{\footnotesize\ttfamily \label{ftp_8c_a09a3c44ebe82dbd8938b7fc57c88cfe9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+sendquote (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{struct \mbox{\hyperlink{structcurl__slist}{curl\+\_\+slist}} \texorpdfstring{$\ast$}{*}}]{quote}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a09a3c44ebe82dbd8938b7fc57c88cfe9}{ftp\+\_\+sendquote()}
+
+Where a \textquotesingle{}quote\textquotesingle{} means a list of custom commands to send to the server. The quote list is passed as an argument.
+
+BLOCKING \Hypertarget{ftp_8c_a2a06dc329180388055cc7fa70fe90d47}\index{ftp.c@{ftp.c}!ftp\_setup\_connection@{ftp\_setup\_connection}}
+\index{ftp\_setup\_connection@{ftp\_setup\_connection}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_setup\_connection()}{ftp\_setup\_connection()}}
+{\footnotesize\ttfamily \label{ftp_8c_a2a06dc329180388055cc7fa70fe90d47} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+setup\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ad11e35d2e4e06998dc25fd001d429357}\index{ftp.c@{ftp.c}!ftp\_state\_acct\_resp@{ftp\_state\_acct\_resp}}
+\index{ftp\_state\_acct\_resp@{ftp\_state\_acct\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_acct\_resp()}{ftp\_state\_acct\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_ad11e35d2e4e06998dc25fd001d429357} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+acct\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a2bc80ff6ee82c511d90cf0926385e44a}\index{ftp.c@{ftp.c}!ftp\_state\_cwd@{ftp\_state\_cwd}}
+\index{ftp\_state\_cwd@{ftp\_state\_cwd}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_cwd()}{ftp\_state\_cwd()}}
+{\footnotesize\ttfamily \label{ftp_8c_a2bc80ff6ee82c511d90cf0926385e44a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+cwd (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a6bd62394afee068225b964ebc392f2f4}\index{ftp.c@{ftp.c}!ftp\_state\_get\_resp@{ftp\_state\_get\_resp}}
+\index{ftp\_state\_get\_resp@{ftp\_state\_get\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_get\_resp()}{ftp\_state\_get\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_a6bd62394afee068225b964ebc392f2f4} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+get\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a220fb5dea63fea49269f9fd7246a54b5}\index{ftp.c@{ftp.c}!ftp\_state\_list@{ftp\_state\_list}}
+\index{ftp\_state\_list@{ftp\_state\_list}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_list()}{ftp\_state\_list()}}
+{\footnotesize\ttfamily \label{ftp_8c_a220fb5dea63fea49269f9fd7246a54b5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a8cf1edc07ea5d788f6ed67f694247976}\index{ftp.c@{ftp.c}!ftp\_state\_loggedin@{ftp\_state\_loggedin}}
+\index{ftp\_state\_loggedin@{ftp\_state\_loggedin}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_loggedin()}{ftp\_state\_loggedin()}}
+{\footnotesize\ttfamily \label{ftp_8c_a8cf1edc07ea5d788f6ed67f694247976} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+loggedin (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a3c3a832e2918fcdb1edeecc4ce744b54}\index{ftp.c@{ftp.c}!ftp\_state\_mdtm@{ftp\_state\_mdtm}}
+\index{ftp\_state\_mdtm@{ftp\_state\_mdtm}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_mdtm()}{ftp\_state\_mdtm()}}
+{\footnotesize\ttfamily \label{ftp_8c_a3c3a832e2918fcdb1edeecc4ce744b54} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+mdtm (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a9a2fdf8c49d1a9c6d30b4def8a7a58c9}\index{ftp.c@{ftp.c}!ftp\_state\_mdtm\_resp@{ftp\_state\_mdtm\_resp}}
+\index{ftp\_state\_mdtm\_resp@{ftp\_state\_mdtm\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_mdtm\_resp()}{ftp\_state\_mdtm\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_a9a2fdf8c49d1a9c6d30b4def8a7a58c9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+mdtm\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ad1595cd0c7df0f1e82aeb49b49c6c3c9}\index{ftp.c@{ftp.c}!ftp\_state\_pasv\_resp@{ftp\_state\_pasv\_resp}}
+\index{ftp\_state\_pasv\_resp@{ftp\_state\_pasv\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_pasv\_resp()}{ftp\_state\_pasv\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_ad1595cd0c7df0f1e82aeb49b49c6c3c9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+pasv\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_aec9aedd59b184650612a0fda1095cdd9}\index{ftp.c@{ftp.c}!ftp\_state\_port\_resp@{ftp\_state\_port\_resp}}
+\index{ftp\_state\_port\_resp@{ftp\_state\_port\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_port\_resp()}{ftp\_state\_port\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_aec9aedd59b184650612a0fda1095cdd9} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+port\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_af7e503bffa3d049293233ad841989bd1}\index{ftp.c@{ftp.c}!ftp\_state\_prepare\_transfer@{ftp\_state\_prepare\_transfer}}
+\index{ftp\_state\_prepare\_transfer@{ftp\_state\_prepare\_transfer}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_prepare\_transfer()}{ftp\_state\_prepare\_transfer()}}
+{\footnotesize\ttfamily \label{ftp_8c_af7e503bffa3d049293233ad841989bd1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+prepare\+\_\+transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a8c5d079b58a3a3789a2b043f333f8251}\index{ftp.c@{ftp.c}!ftp\_state\_pwd@{ftp\_state\_pwd}}
+\index{ftp\_state\_pwd@{ftp\_state\_pwd}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_pwd()}{ftp\_state\_pwd()}}
+{\footnotesize\ttfamily \label{ftp_8c_a8c5d079b58a3a3789a2b043f333f8251} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+pwd (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a501e6fc8c6439b77ef98e6526cb4a319}\index{ftp.c@{ftp.c}!ftp\_state\_quote@{ftp\_state\_quote}}
+\index{ftp\_state\_quote@{ftp\_state\_quote}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_quote()}{ftp\_state\_quote()}}
+{\footnotesize\ttfamily \label{ftp_8c_a501e6fc8c6439b77ef98e6526cb4a319} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+quote (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{init}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a6f277654c0e8e25fbfb2936416567aa5}\index{ftp.c@{ftp.c}!ftp\_state\_rest@{ftp\_state\_rest}}
+\index{ftp\_state\_rest@{ftp\_state\_rest}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_rest()}{ftp\_state\_rest()}}
+{\footnotesize\ttfamily \label{ftp_8c_a6f277654c0e8e25fbfb2936416567aa5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+rest (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_acf2725966a7680b82187855e8419bece}\index{ftp.c@{ftp.c}!ftp\_state\_rest\_resp@{ftp\_state\_rest\_resp}}
+\index{ftp\_state\_rest\_resp@{ftp\_state\_rest\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_rest\_resp()}{ftp\_state\_rest\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_acf2725966a7680b82187855e8419bece} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+rest\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{int}]{ftpcode}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_af1b977121f29254890e490be675ec9e2}\index{ftp.c@{ftp.c}!ftp\_state\_retr@{ftp\_state\_retr}}
+\index{ftp\_state\_retr@{ftp\_state\_retr}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_retr()}{ftp\_state\_retr()}}
+{\footnotesize\ttfamily \label{ftp_8c_af1b977121f29254890e490be675ec9e2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+retr (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\+\_\+off\+\_\+t}}}]{filesize}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_aced181c9bf35ceae649c363839869c61}\index{ftp.c@{ftp.c}!ftp\_state\_retr\_prequote@{ftp\_state\_retr\_prequote}}
+\index{ftp\_state\_retr\_prequote@{ftp\_state\_retr\_prequote}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_retr\_prequote()}{ftp\_state\_retr\_prequote()}}
+{\footnotesize\ttfamily \label{ftp_8c_aced181c9bf35ceae649c363839869c61} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+retr\+\_\+prequote (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ab3480526f6fe8fc52278f371faafee1a}\index{ftp.c@{ftp.c}!ftp\_state\_size@{ftp\_state\_size}}
+\index{ftp\_state\_size@{ftp\_state\_size}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_size()}{ftp\_state\_size()}}
+{\footnotesize\ttfamily \label{ftp_8c_ab3480526f6fe8fc52278f371faafee1a} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+size (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_abeef70d7a481d9084213d2ae6cd56af6}\index{ftp.c@{ftp.c}!ftp\_state\_size\_resp@{ftp\_state\_size\_resp}}
+\index{ftp\_state\_size\_resp@{ftp\_state\_size\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_size\_resp()}{ftp\_state\_size\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_abeef70d7a481d9084213d2ae6cd56af6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+size\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ae03813944791cc069e73097b43efb8a2}\index{ftp.c@{ftp.c}!ftp\_state\_stor\_prequote@{ftp\_state\_stor\_prequote}}
+\index{ftp\_state\_stor\_prequote@{ftp\_state\_stor\_prequote}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_stor\_prequote()}{ftp\_state\_stor\_prequote()}}
+{\footnotesize\ttfamily \label{ftp_8c_ae03813944791cc069e73097b43efb8a2} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+stor\+\_\+prequote (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_aaf49e86881e8c0fb121ca903adfd3c75}\index{ftp.c@{ftp.c}!ftp\_state\_stor\_resp@{ftp\_state\_stor\_resp}}
+\index{ftp\_state\_stor\_resp@{ftp\_state\_stor\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_stor\_resp()}{ftp\_state\_stor\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_aaf49e86881e8c0fb121ca903adfd3c75} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+stor\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a4809d5a8cf92ef278b53690d3eb401eb}\index{ftp.c@{ftp.c}!ftp\_state\_type@{ftp\_state\_type}}
+\index{ftp\_state\_type@{ftp\_state\_type}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_type()}{ftp\_state\_type()}}
+{\footnotesize\ttfamily \label{ftp_8c_a4809d5a8cf92ef278b53690d3eb401eb} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+type (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a0b6f418b0516cbb878cc04690d7f2faf}\index{ftp.c@{ftp.c}!ftp\_state\_type\_resp@{ftp\_state\_type\_resp}}
+\index{ftp\_state\_type\_resp@{ftp\_state\_type\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_type\_resp()}{ftp\_state\_type\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_a0b6f418b0516cbb878cc04690d7f2faf} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+type\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a7599e3d13f03e7936119438d2553431f}\index{ftp.c@{ftp.c}!ftp\_state\_ul\_setup@{ftp\_state\_ul\_setup}}
+\index{ftp\_state\_ul\_setup@{ftp\_state\_ul\_setup}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_ul\_setup()}{ftp\_state\_ul\_setup()}}
+{\footnotesize\ttfamily \label{ftp_8c_a7599e3d13f03e7936119438d2553431f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+ul\+\_\+setup (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{sizechecked}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a06e98b9136efcf372bc8c8f3bd22f590}\index{ftp.c@{ftp.c}!ftp\_state\_use\_pasv@{ftp\_state\_use\_pasv}}
+\index{ftp\_state\_use\_pasv@{ftp\_state\_use\_pasv}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_use\_pasv()}{ftp\_state\_use\_pasv()}}
+{\footnotesize\ttfamily \label{ftp_8c_a06e98b9136efcf372bc8c8f3bd22f590} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+use\+\_\+pasv (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a3787f572dc273ce3b15e0117ab8913f1}\index{ftp.c@{ftp.c}!ftp\_state\_use\_port@{ftp\_state\_use\_port}}
+\index{ftp\_state\_use\_port@{ftp\_state\_use\_port}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_use\_port()}{ftp\_state\_use\_port()}}
+{\footnotesize\ttfamily \label{ftp_8c_a3787f572dc273ce3b15e0117ab8913f1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+use\+\_\+port (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{ftp_8c_ae19150e23e50c1c93bff64146ea0e5c5}{ftpport}}}]{fcmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a001684b31fc84c5043eaf108ff038f26}\index{ftp.c@{ftp.c}!ftp\_state\_user@{ftp\_state\_user}}
+\index{ftp\_state\_user@{ftp\_state\_user}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_user()}{ftp\_state\_user()}}
+{\footnotesize\ttfamily \label{ftp_8c_a001684b31fc84c5043eaf108ff038f26} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+user (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a4ae7f693a3dbf9fdf60c8284d15977be}\index{ftp.c@{ftp.c}!ftp\_state\_user\_resp@{ftp\_state\_user\_resp}}
+\index{ftp\_state\_user\_resp@{ftp\_state\_user\_resp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_state\_user\_resp()}{ftp\_state\_user\_resp()}}
+{\footnotesize\ttfamily \label{ftp_8c_a4ae7f693a3dbf9fdf60c8284d15977be} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+state\+\_\+user\+\_\+resp (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{ftpcode}{, }\item[{\mbox{\hyperlink{ftp_8h_a09ddc2c929b5d7c0e5142b88b98dec65}{ftpstate}}}]{instate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a74b432f829333b90d2ec28e11ebdb3b1}\index{ftp.c@{ftp.c}!ftp\_statemachine@{ftp\_statemachine}}
+\index{ftp\_statemachine@{ftp\_statemachine}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_statemachine()}{ftp\_statemachine()}}
+{\footnotesize\ttfamily \label{ftp_8c_a74b432f829333b90d2ec28e11ebdb3b1} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ftp\+\_\+statemachine (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_ad925bf9b1074701f62af0bc7c19b72f6}\index{ftp.c@{ftp.c}!ftp\_timeleft\_accept@{ftp\_timeleft\_accept}}
+\index{ftp\_timeleft\_accept@{ftp\_timeleft\_accept}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ftp\_timeleft\_accept()}{ftp\_timeleft\_accept()}}
+{\footnotesize\ttfamily \label{ftp_8c_ad925bf9b1074701f62af0bc7c19b72f6} 
+\mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\+\_\+t}} ftp\+\_\+timeleft\+\_\+accept (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a3d743a3932589a1926c9f27cb1830eb6}\index{ftp.c@{ftp.c}!init\_wc\_data@{init\_wc\_data}}
+\index{init\_wc\_data@{init\_wc\_data}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{init\_wc\_data()}{init\_wc\_data()}}
+{\footnotesize\ttfamily \label{ftp_8c_a3d743a3932589a1926c9f27cb1830eb6} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} init\+\_\+wc\+\_\+data (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a2bebc4bdc965dbdbcb7511df30b21b87}\index{ftp.c@{ftp.c}!InitiateTransfer@{InitiateTransfer}}
+\index{InitiateTransfer@{InitiateTransfer}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{InitiateTransfer()}{InitiateTransfer()}}
+{\footnotesize\ttfamily \label{ftp_8c_a2bebc4bdc965dbdbcb7511df30b21b87} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Initiate\+Transfer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_a2bebc4bdc965dbdbcb7511df30b21b87}{Initiate\+Transfer()}
+
+After connection from server is accepted this function is called to setup transfer parameters and initiate the data transfer. \Hypertarget{ftp_8c_aeca8f04eb0ea0226eae4214700d12642}\index{ftp.c@{ftp.c}!ReceivedServerConnect@{ReceivedServerConnect}}
+\index{ReceivedServerConnect@{ReceivedServerConnect}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{ReceivedServerConnect()}{ReceivedServerConnect()}}
+{\footnotesize\ttfamily \label{ftp_8c_aeca8f04eb0ea0226eae4214700d12642} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} Received\+Server\+Connect (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{received}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{ftp_8c_aeca8f04eb0ea0226eae4214700d12642}{Received\+Server\+Connect()}
+
+After allowing server to connect to us from data port, this function checks both data connection for connection establishment and ctrl connection for a negative response regarding a failure in connecting \Hypertarget{ftp_8c_a40a2fc97167e0ef3bf52d65e9a318a08}\index{ftp.c@{ftp.c}!wc\_data\_dtor@{wc\_data\_dtor}}
+\index{wc\_data\_dtor@{wc\_data\_dtor}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{wc\_data\_dtor()}{wc\_data\_dtor()}}
+{\footnotesize\ttfamily \label{ftp_8c_a40a2fc97167e0ef3bf52d65e9a318a08} 
+void wc\+\_\+data\+\_\+dtor (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ftp_8c_a2d6be473db65c405008f96b789eba1e5}\index{ftp.c@{ftp.c}!wc\_statemach@{wc\_statemach}}
+\index{wc\_statemach@{wc\_statemach}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{wc\_statemach()}{wc\_statemach()}}
+{\footnotesize\ttfamily \label{ftp_8c_a2d6be473db65c405008f96b789eba1e5} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} wc\+\_\+statemach (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{ftp_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{ftp_8c_a79071fb30b2abfa423a252245cbc6190}\index{ftp.c@{ftp.c}!Curl\_handler\_ftp@{Curl\_handler\_ftp}}
+\index{Curl\_handler\_ftp@{Curl\_handler\_ftp}!ftp.c@{ftp.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_ftp}{Curl\_handler\_ftp}}
+{\footnotesize\ttfamily \label{ftp_8c_a79071fb30b2abfa423a252245cbc6190} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+ftp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}FTP"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a2a06dc329180388055cc7fa70fe90d47}{ftp\_setup\_connection}},\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a087b550458366ed2aef8ace2509f19bc}{ftp\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a4b8ac504fc650f6d283e56c9d52fbd2c}{ftp\_done}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a08f9dadb7a723402512b78949ebc1997}{ftp\_do\_more}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a5f46bec6d8766fa874724e91ecb8c396}{ftp\_connect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a372694b30040b8e6ffbc858fc549520f}{ftp\_multi\_statemach}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_afc9ed03be92ba937f5003d55eaa30283}{ftp\_doing}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_aee16e022a723beff0383f2856d233a30}{ftp\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_aee16e022a723beff0383f2856d233a30}{ftp\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_a6a0c15de803247b5d1140dcf49ce31a7}{ftp\_domore\_getsock}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ftp_8c_afcbb05dd38c5b6231ad9c7e0febf5850}{ftp\_disconnect}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a5a17341fe1dab2c775265da4ab90af34}{PORT\_FTP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a9ba581e59a874626d594c0f7c241d6d2}{CURLPROTO\_FTP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a9ba581e59a874626d594c0f7c241d6d2}{CURLPROTO\_FTP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a703cdbe3f849aab3b41d2122f0d126f1}{PROTOPT\_DUAL}}\ |\ \mbox{\hyperlink{urldata_8h_ad1e824167a50a205dad75e1256dedfca}{PROTOPT\_CLOSEACTION}}\ |\ \mbox{\hyperlink{urldata_8h_a3b42f4c610116cfa591c4eda7c1f7346}{PROTOPT\_NEEDSPWD}}\ |}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a93a3791fdbb761285b636725fed39385}{PROTOPT\_NOURLQUERY}}\ |\ \mbox{\hyperlink{urldata_8h_a033a9d4c349c6179bbf570bab3c10444}{PROTOPT\_PROXY\_AS\_HTTP}}\ |}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a766105b6448011146b33df92f55d2261}{PROTOPT\_WILDCARD}}\ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

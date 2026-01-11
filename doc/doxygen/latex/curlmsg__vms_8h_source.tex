@@ -1,0 +1,127 @@
+\doxysection{curlmsg\+\_\+vms.\+h}
+\hypertarget{curlmsg__vms_8h_source}{}\label{curlmsg__vms_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/packages/vms/curlmsg\_vms.h@{lib/libwconr/build/\_deps/curl-\/src/packages/vms/curlmsg\_vms.h}}
+\mbox{\hyperlink{curlmsg__vms_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURLMSG\_VMS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURLMSG\_VMS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ CURLMSG\_VMS.H\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ This\ defines\ the\ necessary\ bits\ to\ change\ CURLE\_*\ error\ codes\ to\ VMS\ \ \ \ \ */}}
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ style\ error\ codes.\ \ CURLMSG.H\ is\ built\ from\ CURLMSG.SDL\ which\ is\ built\ \ \ */}}
+\DoxyCodeLine{00032\ \textcolor{comment}{/*\ from\ CURLMSG.MSG.\ \ The\ vms\_cond\ array\ is\ used\ to\ return\ VMS\ errors\ by\ \ \ \ */}}
+\DoxyCodeLine{00033\ \textcolor{comment}{/*\ putting\ the\ VMS\ error\ codes\ into\ the\ array\ offset\ based\ on\ CURLE\_*\ code.\ */}}
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ If\ you\ update\ CURLMSG.MSG\ make\ sure\ to\ update\ this\ file\ to\ match.\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curlmsg_8h}{curlmsg.h}}"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\#define\ \ \ FAC\_CURL\ \ \ \ \ \ 0xC01}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\#define\ \ \ FAC\_SYSTEM\ \ \ \ 0}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\#define\ \ \ MSG\_NORMAL\ \ \ \ 0}}
+\DoxyCodeLine{00044\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\#define\ \ \ SEV\_WARNING\ \ \ 0}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\#define\ \ \ SEV\_SUCCESS\ \ \ 1}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\#define\ \ \ SEV\_ERROR\ \ \ \ \ 2}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\#define\ \ \ SEV\_INFO\ \ \ \ \ \ 3}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\#define\ \ \ SEV\_FATAL\ \ \ \ \ 4}}
+\DoxyCodeLine{00052\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{curlmsg__vms_8h_a11f7193515063ee371440bbc9e088b18}{vms\_cond}}[]\ =}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a5c9ef24e916af9cd824c6e0a18a3d989}{CURL\_OK}},}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ace47f9210fdd25b1827ccd60089b3ae2}{CURL\_UNSUPPORTED\_PROTOCOL}},}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a42a43b87f9a1b9d775a965c93836bafc}{CURL\_FAILED\_INIT}},}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a52e11826f416f39a30b3cecfd3c7923b}{CURL\_URL\_MALFORMAT}},}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a658d625146955d305fa48c971715235d}{CURL\_OBSOLETE4}},}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aca601f4681c9cff654fc428d7ecd8481}{CURL\_COULDNT\_RESOLVE\_PROXY}},}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a1aab995bd1a7150b5b7cbb4326775bdb}{CURL\_COULDNT\_RESOLVE\_HOST}},}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a8e89f090ac7ef034cf6324a0c83a2d23}{CURL\_COULDNT\_CONNECT}},}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a46750defdeef9ff4b21d920c880ef684}{CURL\_WEIRD\_SERVER\_REPLY}},}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af0739e3c23887b55b664c138b38dfce3}{CURL\_FTP\_ACCESS\_DENIED}},}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af4e5f4bd750c482d3591432902bb3610}{CURL\_OBSOLETE10}},}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a6040916d8bab9b9ef529dd986f400b41}{CURL\_FTP\_WEIRD\_PASS\_REPLY}},}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af2ebd2dd07ef1a69064fa3acef9ed649}{CURL\_OBSOLETE12}},}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ab9f056fa38d3badd7c749ad6f0e0509b}{CURL\_FTP\_WEIRD\_PASV\_REPLY}},}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ab065e74a9e3a7abc5a37ec1069e297f6}{CURL\_FTP\_WEIRD\_227\_FORMAT}},}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a785b099ff40fffa0e9ab31a68494e5b9}{CURL\_FTP\_CANT\_GET\_HOST}},}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a86a1ae9a7f16bfaec421cd8fdae999d7}{CURL\_OBSOLETE16}},}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a436250e532ff15976bfeff6ec3c742d3}{CURL\_FTP\_COULDNT\_SET\_TYPE}},}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a3d055251e8a1e93f26b86a84e5cdb63a}{CURL\_PARTIAL\_FILE}},}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a1ff5d7bb7ef33f5cde72f032d1882d1c}{CURL\_FTP\_COULDNT\_RETR\_FILE}},}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af8f7d98d56df5efe7870b25dce65cc47}{CURL\_OBSOLETE20}},}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a5d0c55b0bc3cf4e6ad3513844f4de964}{CURL\_QUOTE\_ERROR}},}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aaec260ea72be1c6860286b4fa49adc8a}{CURL\_HTTP\_RETURNED\_ERROR}},}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a529149391a582d5b5a9e555f8569e5dc}{CURL\_WRITE\_ERROR}},}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a2c097eba01b084231376b2b09d526eb9}{CURL\_OBSOLETE24}},}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aa28afdd8ebada2ac468c5bbf347fcabc}{CURL\_UPLOAD\_FAILED}},}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a62eeaa85a139c6dfd480d10b7e683317}{CURL\_READ\_ERROR}},}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a466644dadf67b83ff0e984c884409963}{CURL\_OUT\_OF\_MEMORY}},}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aea1900e2fdcd5197a32af6343ff7c56f}{CURL\_OPERATION\_TIMEOUTED}},}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a35d5a1991e8c9c4514dc3a95e707f7de}{CURL\_OBSOLETE29}},}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_abde1b6014956ca43419e04d3b26a8ac5}{CURL\_FTP\_PORT\_FAILED}},}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aca23a002bf14199776d2e6466a72b0a2}{CURL\_FTP\_COULDNT\_USE\_REST}},}
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ad6f387d5cd1ced225936f0a9947c4e8c}{CURL\_OBSOLETE32}},}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a42adf87ef0db3dd06cbd447b4f71bd1f}{CURL\_RANGE\_ERROR}},}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a0bd243f409a0c5196a2740f7f9026b91}{CURL\_HTTP\_POST\_ERROR}},}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a6754ea43dac6c314adeb8095d503e459}{CURL\_SSL\_CONNECT\_ERROR}},}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aa47692445caa3ea4e584947298143181}{CURL\_BAD\_DOWNLOAD\_RESUME}},}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a1bd2387fa72443d21f18d38b95e6c8fd}{CURL\_FILE\_COULDNT\_READ\_FILE}},}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a581ab72fb3e5cda56ff3e79e12b711ed}{CURL\_LDAP\_CANNOT\_BIND}},}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a4fc6e9f929ece359b7f821fe53ba30b4}{CURL\_LDAP\_SEARCH\_FAILED}},}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a2949432f9f86465c1fe6f72615d4beca}{CURL\_OBSOLETE40}},}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a3a445608b771d3a276a5137e4496770f}{CURL\_FUNCTION\_NOT\_FOUND}},}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aa224455ef0215c366fd585a817ab3847}{CURL\_ABORTED\_BY\_CALLBACK}},}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a696d8a88ebaf26adfa1ff8cfdc56aebf}{CURL\_BAD\_FUNCTION\_ARGUMENT}},}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a3140b6ae11ff6498d257fb83cd4d9f4c}{CURL\_OBSOLETE44}},}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a5639cea3bb50b73fd63c23f57549895d}{CURL\_INTERFACE\_FAILED}},}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a5546bdaccfa42ecc0ad84dea6a2187a3}{CURL\_OBSOLETE46}},}
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a2a1e05a4f6c6ce965a9da3e5e9fadcbf}{CURL\_TOO\_MANY\_REDIRECTS}},}
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a3c7780be9ae8261eb660b8d8c0339651}{CURL\_UNKNOWN\_TELNET\_OPTION}},}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a327d700da16ed37df93c752688d29c19}{CURL\_TELNET\_OPTION\_SYNTAX}},}
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ae90153868d2d9ed1f53cf54ea6933698}{CURL\_OBSOLETE50}},}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a6b489be958a546ec90b27fa51b9b5b1d}{CURL\_PEER\_FAILED\_VERIF}},}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ac6eaf4d3638169ca9a67e2f758db32bf}{CURL\_GOT\_NOTHING}},}
+\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a039d26eb5ef13d10b9e00c746ec5ab0e}{CURL\_SSL\_ENGINE\_NOTFOUND}},}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_adda23c56d4406326cc5126a59fcb3ecd}{CURL\_SSL\_ENGINE\_SETFAILED}},}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_afe192716ffe52649a9ae69216234ea43}{CURL\_SEND\_ERROR}},}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a404a0eaf888c495d1ae86180c5f7d00f}{CURL\_RECV\_ERROR}},}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aeca329507cdd00ef57eca1cf81e475ac}{CURL\_OBSOLETE57}},}
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ab43b552e73fcf4d985dadadfa83b9344}{CURL\_SSL\_CERTPROBLEM}},}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_aa00425cdaf0346b36f8adb4411474149}{CURL\_SSL\_CIPHER}},}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ad13b54a9b3401c9da21eb4a4aaa470f2}{CURL\_SSL\_CACERT}},}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ae49b79673cad3bf5354e81162db3f0e4}{CURL\_BAD\_CONTENT\_ENCODING}},}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a35f40ba3b9e71dfe2e2c448b53d1e898}{CURL\_LDAP\_INVALID\_URL}},}
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a05056acde2c6bd7af1535a935820b6aa}{CURL\_FILESIZE\_EXCEEDED}},}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a0c4076db6642dc0e3d8f003c7891fdcb}{CURL\_USE\_SSL\_FAILED}},}
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a9708ac50d1c3521821b922df1d7f73ac}{CURL\_SEND\_FAIL\_REWIND}},}
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a92fbd486b023112ab433754efc21fcf1}{CURL\_SSL\_ENGINE\_INITFAILED}},}
+\DoxyCodeLine{00123\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ab4fb0a815343c784872c85b7b0daf0d8}{CURL\_LOGIN\_DENIED}},}
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a386cdf99d670e4d26ac63495ddc89e93}{CURL\_TFTP\_NOTFOUND}},}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a69dafc41a8a6aa6ea8fece419c83d096}{CURL\_TFTP\_PERM}},}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af4b58eff8e3b55fa271c0b2a114c49ce}{CURL\_REMOTE\_DISK\_FULL}},}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af8d290f73810c33ac0a42ec3fc855bf5}{CURL\_TFTP\_ILLEGAL}},}
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a8139f9d5c23b77d3fa644d82d5ba0f2d}{CURL\_TFTP\_UNKNOWNID}},}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a48708f70425e8a1383d3a9d5fa7b521f}{CURL\_REMOTE\_FILE\_EXISTS}},}
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a38d8582c6d8c227d1cf24351d5a8d8b7}{CURL\_TFTP\_NOSUCHUSER}},}
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ae29b7900354efff567209dc010e465c7}{CURL\_CONV\_FAILED}},}
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_af4829be3efd4fc1cab7445f854ee039e}{CURL\_CONV\_REQD}},}
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a02bfa41a1c1d0a1b9ca9a1870182429c}{CURL\_SSL\_CACERT\_BADFILE}},}
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a4c5d801a381207674c2d3d4fca0fdf50}{CURL\_REMOTE\_FILE\_NOT\_FOUND}},}
+\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a8d4ce1c53d1ae62c6fcacde36f1be249}{CURL\_SSH}},}
+\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a2458ec6e663dca34da1d4eb1d1cee4e3}{CURL\_SSL\_SHUTDOWN\_FAILED}},}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_a343815276f78d7ab9d752304a6103ff3}{CURL\_AGAIN}},}
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951a241c54474fe64668004fc8d15496085c}{CURLE\_SSL\_CRL\_BADFILE}},}
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951a567c864875b56a6fed90ca22bc89a5a2}{CURLE\_SSL\_ISSUER\_ERROR}},}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{curlmsg_8h_ae424025a014e72583db7ef74eb3ca994}{CURL\_CURL\_LAST}}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURLMSG\_VMS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

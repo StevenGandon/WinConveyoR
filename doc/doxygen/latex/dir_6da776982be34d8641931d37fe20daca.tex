@@ -1,0 +1,47 @@
+\doxysection{gui/node\+\_\+modules/serialize-\/error Directory Reference}
+\hypertarget{dir_6da776982be34d8641931d37fe20daca}{}\label{dir_6da776982be34d8641931d37fe20daca}\index{gui/node\_modules/serialize-\/error Directory Reference@{gui/node\_modules/serialize-\/error Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_6da776982be34d8641931d37fe20daca_autotoc_md1272}{}\doxysubsection{\texorpdfstring{serialize-\/error \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.org/sindresorhus/serialize-error.svg?branch=master}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/serialize-\/error.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.org/sindresorhus/serialize-error}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/serialize-\/error}})}{serialize-\/error \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.org/sindresorhus/serialize-error.svg?branch=master}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/serialize-\/error.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.org/sindresorhus/serialize-error}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/serialize-\/error}})}}\label{dir_6da776982be34d8641931d37fe20daca_autotoc_md1272}
+\begin{quote}
+Serialize/deserialize an error into a plain object \end{quote}
+
+
+Useful if you for example need to {\ttfamily JSON.\+stringify()} or {\ttfamily process.\+send()} the error.\hypertarget{dir_6da776982be34d8641931d37fe20daca_autotoc_md1273}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_6da776982be34d8641931d37fe20daca_autotoc_md1273}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ serialize-\/error}
+
+\end{DoxyCode}
+\hypertarget{dir_6da776982be34d8641931d37fe20daca_autotoc_md1274}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_6da776982be34d8641931d37fe20daca_autotoc_md1274}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{serializeError,\ deserializeError\}\ =\ require('serialize-\/error');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ error\ =\ new\ Error('🦄');}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(error);}
+\DoxyCodeLine{//=>\ [Error:\ 🦄]}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ serialized\ =\ serializeError(error)}
+\DoxyCodeLine{}
+\DoxyCodeLine{console.log(serialized);}
+\DoxyCodeLine{//=>\ \{name:\ 'Error',\ message:\ '🦄',\ stack:\ 'Error:\ 🦄\(\backslash\)n\ \ \ \ at\ Object.<anonymous>\ …'\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ deserialized\ =\ deserializeError(serialized);}
+\DoxyCodeLine{//=>\ [Error:\ 🦄]}
+
+\end{DoxyCode}
+\hypertarget{dir_6da776982be34d8641931d37fe20daca_autotoc_md1275}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_6da776982be34d8641931d37fe20daca_autotoc_md1275}
+\hypertarget{dir_6da776982be34d8641931d37fe20daca_autotoc_md1276}{}\doxysubsubsection{\texorpdfstring{serialize\+Error(value)}{serialize\+Error(value)}}\label{dir_6da776982be34d8641931d37fe20daca_autotoc_md1276}
+Type\+: {\ttfamily Error \texorpdfstring{$\vert$}{|} unknown}
+
+Serialize an {\ttfamily Error} object into a plain object.
+
+Non-\/error values are passed through. Custom properties are preserved. Non-\/enumerable properties are kept non-\/enumerable (name, message, stack). Enumerable properties are kept enumerable (all properties besides the non-\/enumerable ones). Circular references are handled.\hypertarget{dir_6da776982be34d8641931d37fe20daca_autotoc_md1277}{}\doxysubsubsection{\texorpdfstring{deserialize\+Error(value)}{deserialize\+Error(value)}}\label{dir_6da776982be34d8641931d37fe20daca_autotoc_md1277}
+Type\+: {\ttfamily \{\mbox{[}key\+: \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}\mbox{]}\+: unknown\} \texorpdfstring{$\vert$}{|} unknown}
+
+Deserialize a plain object or any value into an {\ttfamily Error} object.
+
+{\ttfamily Error} objects are passed through. Non-\/error values are wrapped in a {\ttfamily Non\+Error} error. Custom properties are preserved. Circular references are handled. 

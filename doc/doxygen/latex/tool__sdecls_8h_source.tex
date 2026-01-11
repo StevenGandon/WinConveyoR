@@ -1,0 +1,128 @@
+\doxysection{tool\+\_\+sdecls.\+h}
+\hypertarget{tool__sdecls_8h_source}{}\label{tool__sdecls_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_sdecls.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_sdecls.h}}
+\mbox{\hyperlink{tool__sdecls_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_SDECLS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_SDECLS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ OutStruct\ variables\ keep\ track\ of\ information\ relative\ to\ curl's}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ output\ writing,\ which\ may\ take\ place\ to\ a\ standard\ stream\ or\ a\ file.}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ 'filename'\ member\ is\ either\ a\ pointer\ to\ a\ file\ name\ string\ or\ NULL}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ when\ dealing\ with\ a\ standard\ stream.}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ 'alloc\_filename'\ member\ is\ TRUE\ when\ string\ pointed\ by\ 'filename'\ has\ been}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ dynamically\ allocated\ and\ 'belongs'\ to\ this\ OutStruct,\ otherwise\ FALSE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ 'is\_cd\_filename'\ member\ is\ TRUE\ when\ string\ pointed\ by\ 'filename'\ has\ been}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ set\ using\ a\ server-\/specified\ Content-\/Disposition\ filename,\ otherwise\ FALSE.}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ 's\_isreg'\ member\ is\ TRUE\ when\ output\ goes\ to\ a\ regular\ file,\ this\ also}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ implies\ that\ output\ is\ 'seekable'\ and\ 'appendable'\ and\ also\ that\ member}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ 'filename'\ points\ to\ file\ name's\ string.\ For\ any\ standard\ stream\ member}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ 's\_isreg'\ will\ be\ FALSE.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ 'fopened'\ member\ is\ TRUE\ when\ output\ goes\ to\ a\ regular\ file\ and\ it}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ has\ been\ fopen'ed,\ requiring\ it\ to\ be\ closed\ later\ on.\ In\ any\ other}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ case\ this\ is\ FALSE.}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ 'stream'\ member\ is\ a\ pointer\ to\ a\ stream\ controlling\ object\ as\ returned}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ from\ a\ 'fopen'\ call\ or\ a\ standard\ stream.}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ 'config'\ member\ is\ a\ pointer\ to\ associated\ 'OperationConfig'\ struct.}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ 'bytes'\ member\ represents\ amount\ written\ so\ far.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ 'init'\ member\ holds\ original\ file\ size\ or\ offset\ at\ which\ truncation\ is}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ taking\ place.\ Always\ zero\ unless\ appending\ to\ a\ non-\/empty\ regular\ file.}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOutStruct}{OutStruct}}\ \{}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structOutStruct_a638712c4ba05b4cd98bf8e3d13c06eee}{filename}};}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOutStruct_a0c59d313a5f617288d925b087db2a195}{alloc\_filename}};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOutStruct_a17b75104ff148316c505438e28e4f540}{is\_cd\_filename}};}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOutStruct_a5b36a28ce8bdf036e80001ac15d90f53}{s\_isreg}};}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structOutStruct_aa282bddfd3e00830ba718bd47d818e43}{fopened}};}
+\DoxyCodeLine{00068\ \ \ FILE\ *\mbox{\hyperlink{structOutStruct_a82b4beb0a6770ebc6954875f1881cb57}{stream}};}
+\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{structOutStruct_a698a337f52a796d51999a3156a2fc825}{bytes}};}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{namespaceinit}{init}};}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ InStruct\ variables\ keep\ track\ of\ information\ relative\ to\ curl's}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ input\ reading,\ which\ may\ take\ place\ from\ stdin\ or\ from\ some\ file.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ 'fd'\ member\ is\ either\ 'stdin'\ file\ descriptor\ number\ STDIN\_FILENO}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ or\ a\ file\ descriptor\ as\ returned\ from\ an\ 'open'\ call\ for\ some\ file.}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ 'config'\ member\ is\ a\ pointer\ to\ associated\ 'OperationConfig'\ struct.}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structInStruct}{InStruct}}\ \{}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structInStruct_a1fa8b7acd1fe071c5cf11afe2cd61278}{fd}};}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structOperationConfig}{OperationConfig}}\ *\mbox{\hyperlink{structInStruct_af46b193b72143794d645b13aec3801fd}{config}};}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ A\ linked\ list\ of\ these\ 'getout'\ nodes\ contain\ URL's\ to\ fetch,}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ as\ well\ as\ information\ relative\ to\ where\ URL\ contents\ should}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ be\ stored\ or\ which\ file\ should\ be\ uploaded.}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ \{}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgetout}{getout}}\ *\mbox{\hyperlink{structgetout_a90fb41ebe2896fe07df346e9d626f847}{next}};\ \ \ \ \ \ \textcolor{comment}{/*\ next\ one\ */}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structgetout_aec218140272b0d67faea83ac530bd6ea}{url}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ URL\ we\ deal\ with\ */}}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structgetout_a839a2138e3abcc7ef4cde3f4a25737f2}{outfile}};\ \ \ \textcolor{comment}{/*\ where\ to\ store\ the\ output\ */}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structgetout_aa1972d1de674698fbe91c770038c2cf8}{infile}};\ \ \ \ \textcolor{comment}{/*\ file\ to\ upload,\ if\ GETOUT\_UPLOAD\ is\ set\ */}}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgetout_aaa208311d905958c4a0c8709454d58f8}{flags}};\ \ \ \ \ \textcolor{comment}{/*\ options\ -\/\ composed\ of\ GETOUT\_*\ bits\ */}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgetout_ae6209c581a6913c721ce99a9c6444649}{num}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ which\ URL\ number\ in\ an\ invocation\ */}}
+\DoxyCodeLine{00103\ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ GETOUT\_OUTFILE\ \ \ \ (1<<0)\ \ }\textcolor{comment}{/*\ set\ when\ outfile\ is\ deemed\ done\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ GETOUT\_URL\ \ \ \ \ \ \ \ (1<<1)\ \ }\textcolor{comment}{/*\ set\ when\ URL\ is\ deemed\ done\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ GETOUT\_USEREMOTE\ \ (1<<2)\ \ }\textcolor{comment}{/*\ use\ remote\ file\ name\ locally\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ GETOUT\_UPLOAD\ \ \ \ \ (1<<3)\ \ }\textcolor{comment}{/*\ if\ set,\ -\/T\ has\ been\ used\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ GETOUT\_NOUPLOAD\ \ \ (1<<4)\ \ }\textcolor{comment}{/*\ if\ set,\ -\/T\ "{}"{}\ has\ been\ used\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ 'trace'\ enumeration\ represents\ curl's\ output\ look'n\ feel\ possibilities.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{tool__sdecls_8h_a1ef4c4162762c60a00cf44b5969127c5a0f86d222933b826db9d05ba02fe069ae}{TRACE\_NONE}},\ \ \textcolor{comment}{/*\ no\ trace/verbose\ output\ at\ all\ */}}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{tool__sdecls_8h_a1ef4c4162762c60a00cf44b5969127c5a047692edcbacc4a5ba87b3b730ae47bc}{TRACE\_BIN}},\ \ \ \textcolor{comment}{/*\ tcpdump\ inspired\ look\ */}}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{tool__sdecls_8h_a1ef4c4162762c60a00cf44b5969127c5a484d8d3250317bcd6c0b672408ba925d}{TRACE\_ASCII}},\ \textcolor{comment}{/*\ like\ *BIN\ but\ without\ the\ hex\ output\ */}}
+\DoxyCodeLine{00119\ \ \ \mbox{\hyperlink{tool__sdecls_8h_a1ef4c4162762c60a00cf44b5969127c5adc5ce61f35d3679c0af422ae7aa094d1}{TRACE\_PLAIN}}\ \ \textcolor{comment}{/*\ -\/v/-\/-\/verbose\ type\ */}}
+\DoxyCodeLine{00120\ \}\ \mbox{\hyperlink{tool__sdecls_8h_a1ef4c4162762c60a00cf44b5969127c5}{trace}};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ 'HttpReq'\ enumeration\ represents\ HTTP\ request\ types.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{tool__sdecls_8h_ae61fdc45d6c635cc61c2f4c3f62bcfbca33aa937c57d5919c4749e380718c6485}{HTTPREQ\_UNSPEC}},\ \ \textcolor{comment}{/*\ first\ in\ list\ */}}
+\DoxyCodeLine{00129\ \ \ \mbox{\hyperlink{http_8h_ac67e77846b7b67d5808da8f1dfa2eab8ae4322de705c516b61756f9874183ef05}{HTTPREQ\_GET}},}
+\DoxyCodeLine{00130\ \ \ \mbox{\hyperlink{http_8h_ac67e77846b7b67d5808da8f1dfa2eab8aca19517adc74c705bb46cd5f505f3456}{HTTPREQ\_HEAD}},}
+\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{tool__sdecls_8h_ae61fdc45d6c635cc61c2f4c3f62bcfbcaaef5b19917c34226ecf3446e1fe4ea25}{HTTPREQ\_MIMEPOST}},}
+\DoxyCodeLine{00132\ \ \ \mbox{\hyperlink{tool__sdecls_8h_ae61fdc45d6c635cc61c2f4c3f62bcfbcafc02ba37f9a43ffb8bdc06228498e5b9}{HTTPREQ\_SIMPLEPOST}},}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{http_8h_ac67e77846b7b67d5808da8f1dfa2eab8a4b328e0aa83f04505b21057059a9715f}{HTTPREQ\_PUT}}}
+\DoxyCodeLine{00134\ \}\ \mbox{\hyperlink{tool__sdecls_8h_ae61fdc45d6c635cc61c2f4c3f62bcfbc}{HttpReq}};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ Complete\ struct\ declarations\ which\ have\ OperationConfig\ struct\ members,}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ just\ in\ case\ this\ header\ is\ directly\ included\ in\ some\ source\ file.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__cfgable_8h}{tool\_cfgable.h}}"{}}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_SDECLS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

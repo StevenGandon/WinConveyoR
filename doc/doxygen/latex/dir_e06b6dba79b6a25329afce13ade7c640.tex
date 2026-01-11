@@ -1,0 +1,111 @@
+\doxysection{gui/node\+\_\+modules/boolean Directory Reference}
+\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640}{}\label{dir_e06b6dba79b6a25329afce13ade7c640}\index{gui/node\_modules/boolean Directory Reference@{gui/node\_modules/boolean Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md257}{}\doxysubsection{\texorpdfstring{boolean}{boolean}}\label{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md257}
+boolean converts lots of things to boolean.\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md258}{}\doxysubsection{\texorpdfstring{Status}{Status}}\label{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md258}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Category  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Status  \\
+Version  &\href{https://www.npmjs.com/package/boolean}{\texttt{}}  \\
+Dependencies  &  \\
+Dev dependencies  &  \\
+Build  &  \\
+License  &  \\
+\end{DoxyTable}
+\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md259}{}\doxysubsection{\texorpdfstring{Installation}{Installation}}\label{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md259}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ boolean}
+
+\end{DoxyCode}
+\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md260}{}\doxysubsection{\texorpdfstring{Quick start}{Quick start}}\label{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md260}
+First you need to add a reference to boolean in your application\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ \{\ boolean,\ isBooleanable\ \}\ =\ require('boolean');}
+
+\end{DoxyCode}
+
+
+If you use Type\+Script, use the following code instead\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import\ \{\ boolean,\ isBooleanable\ \}\ from\ 'boolean';}
+
+\end{DoxyCode}
+
+
+To verify a value for its boolean value, call the {\ttfamily boolean} function and provide the value in question as parameter\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{console.log(boolean('true'));\ //\ =>\ true}
+
+\end{DoxyCode}
+
+
+The {\ttfamily boolean} function considers the following values to be equivalent to {\ttfamily true}\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily true} (boolean)
+\item {\ttfamily \textquotesingle{}true\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}\doxylink{multi-debugcallback_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}\doxylink{config_8d_a320fb34680bbe75f9ac43e0840037367}{t}\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}T\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}yes\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}YES\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}y\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}Y\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}\doxylink{output_8d_a6a76cbf346d11ea9d44fb34b9207479e}{on}\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}ON\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}1\textquotesingle{}} (string)
+\item {\ttfamily 1} (number)
+\end{DoxyItemize}
+
+In addition to the primitive types mentioned above, boolean also supports their object wrappers {\ttfamily Boolean}, {\ttfamily String}, and {\ttfamily Number}.
+
+{\itshape Please note that if you provide a {\ttfamily \doxylink{connect-to_8d_ac8ac085c4f62ccd2c91e80fac72d4453}{string}} or a {\ttfamily String} object, it will be trimmed.}
+
+All other values, including {\ttfamily undefined} and {\ttfamily null} are considered to be {\ttfamily false}.\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md261}{}\doxysubsubsection{\texorpdfstring{Figuring out whether a value can be considered to be boolean}{Figuring out whether a value can be considered to be boolean}}\label{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md261}
+From time to time, you may not want to directly convert a value to its boolean equivalent, but explicitly check whether it looks like a boolean. E.\+g., although {\ttfamily boolean(\textquotesingle{}\doxylink{md4_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{F}\textquotesingle{})} returns {\ttfamily false}, the string {\ttfamily \doxylink{md4_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{F}} at least looks like a boolean, in contrast to something such as {\ttfamily 123} (for which {\ttfamily boolean(123)} would also return {\ttfamily false}).
+
+To figure out whether a value can be considered to be a boolean, use the {\ttfamily is\+Booleanable} function\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{console.log(isBooleanable('true'));\ //\ =>\ true}
+
+\end{DoxyCode}
+
+
+The {\ttfamily is\+Booleanable} function considers all of the above mentioned values to be reasonable boolean values, and additionally, also the following ones\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily false} (boolean)
+\item {\ttfamily \textquotesingle{}false\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}FALSE\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}f\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}\doxylink{md4_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{F}\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}no\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}NO\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}\doxylink{config_8d_a158c5674297ffe11bdaf31c523b658de}{n}\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}N\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}off\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}OFF\textquotesingle{}} (string)
+\item {\ttfamily \textquotesingle{}0\textquotesingle{}} (string)
+\item {\ttfamily 0} (number)
+\end{DoxyItemize}\hypertarget{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md262}{}\doxysubsection{\texorpdfstring{Running quality assurance}{Running quality assurance}}\label{dir_e06b6dba79b6a25329afce13ade7c640_autotoc_md262}
+To run quality assurance for this module use \href{https://www.npmjs.com/package/roboter}{\texttt{roboter}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npx\ roboter}
+
+\end{DoxyCode}
+ 

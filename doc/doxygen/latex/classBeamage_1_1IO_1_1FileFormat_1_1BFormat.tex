@@ -1,0 +1,442 @@
+\doxysection{Beamage\+::IO\+::File\+Format\+::BFormat Class Reference}
+\hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+
+
+{\ttfamily \#include $<$beamagefileformat.\+h$>$}
+
+Inheritance diagram for Beamage\+::IO\+::File\+Format\+::BFormat\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3}{BLOAD\+\_\+\+TYPE}} \{ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a69419cafd177247ec0c04660dcf82caf}{BL\+\_\+\+LAZY}}
+, \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3ac7a873b05037461ae694649b462b835a}{BL\+\_\+\+ALL}}
+, \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a1a60ea75ed3aa976fb950d53d23446ba}{BL\+\_\+\+CHUNK}}
+ \}
+\item 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8}{BTYPE}} \{ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8ab577a36da3c93fad1a0ee7279f3835c5}{BT\+\_\+\+DBE}} = 0
+, \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8aa5805b196c60b33aabca217a95fbba3d}{BT\+\_\+\+DAF}} = 1
+ \}
+\item 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c}{BFLAGS}} \{ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30ca2ea88421bf86554a9f36863104024fb6}{BF\+\_\+\+NONE}} = 0x00
+, \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30caf50a4149c5f419938211ad1d8f593c8a}{BF\+\_\+\+ZLIB}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0)
+, \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30cac2a2115c7fc87b7e900d6cf20c33cf99}{BF\+\_\+\+NOPAD}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1)
+ \}
+\item 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056}{BVersion}} \{ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056ab9c871c08043efed732ec68a6f5b958d}{BV\+\_\+1}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a79e51bf76dfcebadd2f089b90c33d91c}{parse\+Header}} (bool \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{set\+Factory}}=true)
+\item 
+void \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab8a2b18971067adcdc050f6296a5b639}{write}} (void)
+\item 
+std\+::vector$<$ std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}} $>$, int64\+\_\+t $>$ $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7068e152b835f3c4d3694de4a0f806e4}{find\+Sections}} (const std\+::string \&, bool load\+Section\+If\+Lazy=true, bool load\+Path\+If\+Chunk=true)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7522c5190e4a484a5bdc651f6846a669}{find\+Str}} (const std\+::string \&) const
+\item 
+std\+::string \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a72722cb61f45cb2f812a1224fe6020ab}{find\+Str}} (uint32\+\_\+t addr) const
+\item 
+uint64\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_afc4c7a57f0a12402f44aa3203803e0a0}{add\+Section}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}} $>$ \&)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a9fb2ce60a86185bf150a2d8189412d14}{add\+Str}} (const std\+::string \&)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ac99f8ecefbedb0c6946abb709a7cb8f2}{apply\+Byte\+Compression}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer, std\+::size\+\_\+t buffer\+Size)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a229180dca79515da46d74e2c01496df2}{apply\+Byte\+Decompression}} (unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}buffer, std\+::size\+\_\+t buffer\+Size)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream}{Beamage\+::\+IO\+::\+Bea\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a4f5803a5d580c92acd7cf00658db1893}{Bea\+Stream}} (QData\+Stream \texorpdfstring{$\ast$}{*}=nullptr)
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a06870f658c06b9fe043c33ce2b1556e5}{Bea\+Stream}} (std\+::shared\+\_\+ptr$<$ QData\+Stream $>$ \&\&)
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_afd4386f6a52392bf7f74d32705663ee5}{Bea\+Stream}} (QFile \texorpdfstring{$\ast$}{*})
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a5f73281aa1cfe8a25753ec47af59aef0}{Bea\+Stream}} (const std\+::string \&, uint64\+\_\+t=\mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\+\_\+\+INIT\+\_\+\+FLAGS\+::\+FILE\+\_\+\+INIT\+\_\+R}})
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0d808c4d8aa0ae15d277cfd3aeb54b9a}{\texorpdfstring{$\sim$}{\string~}\+Bea\+Stream}} ()
+\item 
+{\footnotesize template$<$typename T$>$ }\\void \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ae37be82c712cbb9b6b5efbf15399d1b6}{set\+Factory}} (void)
+\item 
+QData\+Stream \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_af4b853e0104a68cf4fa0f3dc956ca9e0}{get\+Raw\+Stream}} (void)
+\item 
+{\footnotesize template$<$typename T$>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a3b0d05ca6e9470e23407842d9568a0ed}{build\+Object}} (void)
+\item 
+bool \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ab8a1791d0c1c36968156d603dd0e92c1}{is\+Writable}} (void)
+\item 
+bool \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a0f4415f4b58c81ceb0ac2491ef563ec7}{is\+Readable}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}(QData\+Stream \texorpdfstring{$\ast$}{*}stream=nullptr) \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}(std\+::shared\+\_\+ptr$<$ QData\+Stream $>$ \&\&stream) \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}(QFile \texorpdfstring{$\ast$}{*}file) \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}}(const std\+::string \&path, uint64\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520}{flags}}=\mbox{\hyperlink{namespaceBeamage_1_1IO_a697a193ca24604fb59e69ac7505a80edad4850c82f0e0fa1a17511ab6b3f1c224}{FILE\+\_\+\+INIT\+\_\+\+FLAGS\+::\+FILE\+\_\+\+INIT\+\_\+R}} \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a42baca5973f7ca986c2af0fa20e71f5a}{\texorpdfstring{$\sim$}{\string~}\+BFormat}} )()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_aef62b2b339c6ae0ac7a4be50fa12ad7b}{magic}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab87fbb325b5423f1fe1749d22ce3e11d}{type}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae7226322af8560898b0bace786726cf1}{version}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520}{flags}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a1baf62c0bac28cb8ac12c218847beacc}{loading\+Strategy}}
+\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}} $>$ $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a6e9831604ffb6009b3291ba275acb754}{sections}}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab2e0d2c8654112b92f3b32732fff14b6}{strndx}}
+\item 
+std\+::map$<$ uint16\+\_\+t, std\+::function$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}} $>$(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}} \texorpdfstring{$\ast$}{*}, const std\+::string \&, uint64\+\_\+t)$>$ $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a902efb571ba84a676398bf805eff0d61}{section\+Builders}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Attributes inherited from \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream}{Beamage\+::\+IO\+::\+Bea\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::map$<$ std\+::size\+\_\+t, void \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a021329be143a4cee7f21cba693597cee}{static\+Allocation\+Stack}} = std\+::map$<$std\+::size\+\_\+t, void\texorpdfstring{$\ast$}{*}$>$()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream}{Beamage\+::\+IO\+::\+Bea\+Stream}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1IStreamFactory}{IStream\+Factory}} $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_a93d52a3d21660ff7a461def531f1d589}{\+\_\+factory}}
+\item 
+std\+::shared\+\_\+ptr$<$ QData\+Stream $>$ \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_adfdca314f0983f9d71d06d6c57f3df72}{\+\_\+\+QStream}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class definition.
+
+\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} is a class used to load, read, write the custom \doxylink{namespaceBeamage}{Beamage} format. 
+
+\label{doc-enum-members}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BFLAGS@{BFLAGS}}
+\index{BFLAGS@{BFLAGS}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{BFLAGS}{BFLAGS}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c} 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::\+BFLAGS}}}
+
+type enum define the additional flags (used for additionnal customization). \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BF\_NONE@{BF\_NONE}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BF\_NONE@{BF\_NONE}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30ca2ea88421bf86554a9f36863104024fb6}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30ca2ea88421bf86554a9f36863104024fb6} 
+BF\+\_\+\+NONE&Empty flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BF\_ZLIB@{BF\_ZLIB}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BF\_ZLIB@{BF\_ZLIB}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30caf50a4149c5f419938211ad1d8f593c8a}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30caf50a4149c5f419938211ad1d8f593c8a} 
+BF\+\_\+\+ZLIB&Use compression. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BF\_NOPAD@{BF\_NOPAD}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BF\_NOPAD@{BF\_NOPAD}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30cac2a2115c7fc87b7e900d6cf20c33cf99}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30cac2a2115c7fc87b7e900d6cf20c33cf99} 
+BF\+\_\+\+NOPAD&No 4 bytes padding. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BLOAD\_TYPE@{BLOAD\_TYPE}}
+\index{BLOAD\_TYPE@{BLOAD\_TYPE}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{BLOAD\_TYPE}{BLOAD\_TYPE}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3} 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::\+BLOAD\+\_\+\+TYPE}}}
+
+Loading method enum to define the different way to initialize format \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BL\_LAZY@{BL\_LAZY}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BL\_LAZY@{BL\_LAZY}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a69419cafd177247ec0c04660dcf82caf}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a69419cafd177247ec0c04660dcf82caf} 
+BL\+\_\+\+LAZY&BL\+\_\+\+LAZY will make the format load datas only when required. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BL\_ALL@{BL\_ALL}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BL\_ALL@{BL\_ALL}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3ac7a873b05037461ae694649b462b835a}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3ac7a873b05037461ae694649b462b835a} 
+BL\+\_\+\+ALL&BL\+\_\+\+ALL will make the format load everything at instantiation. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BL\_CHUNK@{BL\_CHUNK}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BL\_CHUNK@{BL\_CHUNK}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a1a60ea75ed3aa976fb950d53d23446ba}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3a1a60ea75ed3aa976fb950d53d23446ba} 
+BL\+\_\+\+CHUNK&BL\+\_\+\+CHUNK will make the format load chunks of data when it needs to access datas. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BTYPE@{BTYPE}}
+\index{BTYPE@{BTYPE}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{BTYPE}{BTYPE}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8} 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::\+BTYPE}}}
+
+type enum define the file type (used to recognize on read). \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BT\_DBE@{BT\_DBE}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BT\_DBE@{BT\_DBE}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8ab577a36da3c93fad1a0ee7279f3835c5}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8ab577a36da3c93fad1a0ee7279f3835c5} 
+BT\+\_\+\+DBE&If its a BDE. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BT\_DAF@{BT\_DAF}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BT\_DAF@{BT\_DAF}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8aa5805b196c60b33aabca217a95fbba3d}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8aa5805b196c60b33aabca217a95fbba3d} 
+BT\+\_\+\+DAF&If its a DAF. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BVersion@{BVersion}}
+\index{BVersion@{BVersion}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{BVersion}{BVersion}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056} 
+enum \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056}{Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::\+BVersion}}}
+
+version enum to store the format version \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BV\_1@{BV\_1}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!BV\_1@{BV\_1}}}\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056ab9c871c08043efed732ec68a6f5b958d}\label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056ab9c871c08043efed732ec68a6f5b958d} 
+BV\+\_\+1&Format version {\ttfamily 1} \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_afc4c7a57f0a12402f44aa3203803e0a0}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!addSection@{addSection}}
+\index{addSection@{addSection}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{addSection()}{addSection()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_afc4c7a57f0a12402f44aa3203803e0a0} 
+uint64\+\_\+t BFormat\+::add\+Section (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}} $>$ \&}]{section}{}\end{DoxyParamCaption})}
+
+add\+Section function from the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this function is used to add a new section to sections attribute.
+
+
+\begin{DoxyParams}{Parameters}
+{\em section} & a reference to a shared\+\_\+ptr of the interface BSection \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the reference to the newly added section 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a9fb2ce60a86185bf150a2d8189412d14}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!addStr@{addStr}}
+\index{addStr@{addStr}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{addStr()}{addStr()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a9fb2ce60a86185bf150a2d8189412d14} 
+uint32\+\_\+t BFormat\+::add\+Str (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str}{}\end{DoxyParamCaption})}
+
+add\+Str function from the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this function is used to add a new str to the strndx.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & a string to add to strndx \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the reference to the newly added string if it doesn\textquotesingle{}t already exist else the existing reference 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ac99f8ecefbedb0c6946abb709a7cb8f2}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!applyByteCompression@{applyByteCompression}}
+\index{applyByteCompression@{applyByteCompression}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{applyByteCompression()}{applyByteCompression()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ac99f8ecefbedb0c6946abb709a7cb8f2} 
+std\+::size\+\_\+t BFormat\+::apply\+Byte\+Compression (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{std\+::size\+\_\+t}]{buffer\+Size}{}\end{DoxyParamCaption})}
+
+apply\+Byte\+Compression function from the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this function is used to abstract the compression using zlib.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & a string buffer to compress \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to the newly allocated buffer 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a229180dca79515da46d74e2c01496df2}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!applyByteDecompression@{applyByteDecompression}}
+\index{applyByteDecompression@{applyByteDecompression}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{applyByteDecompression()}{applyByteDecompression()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a229180dca79515da46d74e2c01496df2} 
+std\+::size\+\_\+t BFormat\+::apply\+Byte\+Decompression (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{std\+::size\+\_\+t}]{buffer\+Size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7068e152b835f3c4d3694de4a0f806e4}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!findSections@{findSections}}
+\index{findSections@{findSections}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{findSections()}{findSections()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7068e152b835f3c4d3694de4a0f806e4} 
+std\+::vector$<$ std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}} $>$, int64\+\_\+t $>$ $>$ BFormat\+::find\+Sections (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{bool}]{load\+Section\+If\+Lazy}{ = {\ttfamily true}, }\item[{bool}]{load\+Path\+If\+Chunk}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+find\+Section function from the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this function is used to get a section mapped and stored in its sections attribute it returns the section and its offset in memory in a pair \texorpdfstring{$<$}{<}IBsection \texorpdfstring{$\ast$}{*}section, int64\+\_\+t offset\texorpdfstring{$>$}{>}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & const std\+::string\& the name of the section \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list of pair containing \texorpdfstring{$<$}{<}\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection} \texorpdfstring{$\ast$}{*}, int64\+\_\+t\texorpdfstring{$>$}{>} repectively section and offset 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7522c5190e4a484a5bdc651f6846a669}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!findStr@{findStr}}
+\index{findStr@{findStr}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{findStr()}{findStr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a7522c5190e4a484a5bdc651f6846a669} 
+uint32\+\_\+t BFormat\+::find\+Str (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{string}{}\end{DoxyParamCaption}) const}
+
+find\+Str function from the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this function is used to get the reference to a str stored in strndx.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & the value that match strcmp(strndx\mbox{[}n\mbox{]}, str) == 0 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the reference of the searched str in strndx, exception occur if nothing can be found. 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a72722cb61f45cb2f812a1224fe6020ab}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!findStr@{findStr}}
+\index{findStr@{findStr}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{findStr()}{findStr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a72722cb61f45cb2f812a1224fe6020ab} 
+std\+::string BFormat\+::find\+Str (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{addr}{}\end{DoxyParamCaption}) const}
+
+find\+Str function from the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this function is used to get the str stored in strndx from its reference.
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & the value that match (N(i) = N(i -\/ 1) + size(strndx\mbox{[}i\mbox{]})) where N(i) == addr (size here represent the raw size of the strndx block) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the string in strndx at reference addr, exception occur if nothing can be found. 
+\end{DoxyReturn}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a79e51bf76dfcebadd2f089b90c33d91c}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!parseHeader@{parseHeader}}
+\index{parseHeader@{parseHeader}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{parseHeader()}{parseHeader()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a79e51bf76dfcebadd2f089b90c33d91c} 
+void BFormat\+::parse\+Header (\begin{DoxyParamCaption}\item[{bool}]{set\+Factory}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+full virtual parse\+Header function from the \doxylink{classBeamage_1_1IO_1_1BeaStream}{Bea\+Stream} interface.
+
+this function is used to generically parse header of the format to be read by the program (if possible) and set the factory accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em bool} & set\+Factory defaulting to define if the function while or not set the factory from the read data (if possible) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_ad783023198acd6345380e0999119bfb6}{Beamage\+::\+IO\+::\+Bea\+Stream}}.
+
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab8a2b18971067adcdc050f6296a5b639}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!write@{write}}
+\index{write@{write}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab8a2b18971067adcdc050f6296a5b639} 
+void BFormat\+::write (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classBeamage_1_1IO_1_1BeaStream_aec608f344ac167e6f7597bd6061ee81a}{Beamage\+::\+IO\+::\+Bea\+Stream}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!flags@{flags}}
+\index{flags@{flags}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_adc2ad3007a625bb0f8aa73ede7c46520} 
+uint32\+\_\+t Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::flags}
+
+flags public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the format flags in the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c}{BFLAGS} enum used to customize even more format handling.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a8726b1dac3d60bed6ca107f04d70a30c}{BFLAGS} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a1baf62c0bac28cb8ac12c218847beacc}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!loadingStrategy@{loadingStrategy}}
+\index{loadingStrategy@{loadingStrategy}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{loadingStrategy}{loadingStrategy}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a1baf62c0bac28cb8ac12c218847beacc} 
+uint32\+\_\+t Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::loading\+Strategy}
+
+flags public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the loading strategy flags in the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3}{BLOAD\+\_\+\+TYPE} enum used to choose the way the file is going to be read by the program.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a508fef0e378d45c733ceb4ec0f053ec3}{BLOAD\+\_\+\+TYPE} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_aef62b2b339c6ae0ac7a4be50fa12ad7b}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!magic@{magic}}
+\index{magic@{magic}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{magic}{magic}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_aef62b2b339c6ae0ac7a4be50fa12ad7b} 
+uint32\+\_\+t Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::magic}
+
+magic public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the magic value to indentify the format.
+
+\begin{DoxySeeAlso}{See also}
+MAGIC\+\_\+\+HEADER 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a902efb571ba84a676398bf805eff0d61}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!sectionBuilders@{sectionBuilders}}
+\index{sectionBuilders@{sectionBuilders}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{sectionBuilders}{sectionBuilders}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a902efb571ba84a676398bf805eff0d61} 
+std\+::map$<$uint16\+\_\+t, std\+::function$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}}$>$(\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat}} \texorpdfstring{$\ast$}{*}, const std\+::string \&, uint64\+\_\+t)$>$ $>$ Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::section\+Builders}
+
+section\+Builders public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the format sections builder callback to generically build sections from types. \Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a6e9831604ffb6009b3291ba275acb754}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!sections@{sections}}
+\index{sections@{sections}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{sections}{sections}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a6e9831604ffb6009b3291ba275acb754} 
+std\+::vector$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBeamage_1_1IO_1_1FileFormat_1_1IBSection}{IBSection}}$>$ $>$ Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::sections}
+
+sections public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the format sections \Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab2e0d2c8654112b92f3b32732fff14b6}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!strndx@{strndx}}
+\index{strndx@{strndx}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{strndx}{strndx}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab2e0d2c8654112b92f3b32732fff14b6} 
+std\+::vector$<$std\+::string$>$ Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::strndx}
+
+strndx public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the format strndx \Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab87fbb325b5423f1fe1749d22ce3e11d}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!type@{type}}
+\index{type@{type}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ab87fbb325b5423f1fe1749d22ce3e11d} 
+uint16\+\_\+t Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::type}
+
+type public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the format type in the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8}{BTYPE} enum.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae20149ac1bde276d33ab3905469468d8}{BTYPE} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae7226322af8560898b0bace786726cf1}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!version@{version}}
+\index{version@{version}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{version}{version}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ae7226322af8560898b0bace786726cf1} 
+uint16\+\_\+t Beamage\+::\+IO\+::\+File\+Format\+::\+BFormat\+::version}
+
+version public attribute from \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat}{BFormat} class.
+
+this attribute store the format version in the \doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056}{BVersion} enum.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_ade9f568cf5ea5c00b397611e845b5056}{BVersion} 
+\end{DoxySeeAlso}
+\Hypertarget{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a42baca5973f7ca986c2af0fa20e71f5a}\index{Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}!````~BFormat@{\texorpdfstring{$\sim$}{\string~}BFormat}}
+\index{````~BFormat@{\texorpdfstring{$\sim$}{\string~}BFormat}!Beamage::IO::FileFormat::BFormat@{Beamage::IO::FileFormat::BFormat}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}BFormat}{\string~BFormat}}
+{\footnotesize\ttfamily \label{classBeamage_1_1IO_1_1FileFormat_1_1BFormat_a42baca5973f7ca986c2af0fa20e71f5a} 
+BFormat\+::\texorpdfstring{$\sim$}{\string~}\+BFormat}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Beamage\+Stream/\mbox{\hyperlink{beamagefileformat_8h}{beamagefileformat.\+h}}\item 
+Beamage\+Stream/\mbox{\hyperlink{beamagefileformat_8cpp}{beamagefileformat.\+cpp}}\end{DoxyCompactItemize}

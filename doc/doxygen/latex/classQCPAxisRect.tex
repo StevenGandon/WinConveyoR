@@ -1,0 +1,29 @@
+\doxysection{QCPAxis\+Rect Class Reference}
+\hypertarget{classQCPAxisRect}{}\label{classQCPAxisRect}\index{QCPAxisRect@{QCPAxisRect}}
+
+
+Holds multiple axes and arranges them in a rectangular shape.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Holds multiple axes and arranges them in a rectangular shape. 
+
+This class represents an axis rect, a rectangular area that is bounded on all sides with an arbitrary number of axes.
+
+Initially \doxylink{classQCustomPlot}{QCustom\+Plot} has one axis rect, accessible via QCustom\+Plot\+::axis\+Rect(). However, the layout system allows to have multiple axis rects, e.\+g. arranged in a grid layout (QCustom\+Plot\+::plot\+Layout).
+
+By default, \doxylink{classQCPAxisRect}{QCPAxis\+Rect} comes with four axes, at bottom, top, left and right. They can be accessed via axis by providing the respective axis type (QCPAxis\+::\+Axis\+Type) and index. If you need all axes in the axis rect, use axes. The top and right axes are set to be invisible initially (QCPAxis\+::set\+Visible). To add more axes to a side, use add\+Axis or add\+Axes. To remove an axis, use remove\+Axis.
+
+The axis rect layerable itself only draws a background pixmap or color, if specified (set\+Background). It is placed on the "{}background"{} layer initially (see \doxylink{classQCPLayer}{QCPLayer} for an explanation of the \doxylink{classQCustomPlot}{QCustom\+Plot} layer system). The axes that are held by the axis rect can be placed on other layers, independently of the axis rect.
+
+Every axis rect has a child layout of type \doxylink{classQCPLayoutInset}{QCPLayout\+Inset}. It is accessible via inset\+Layout and can be used to have other layout elements (or even other layouts with multiple elements) hovering inside the axis rect.
+
+If an axis rect is clicked and dragged, it processes this by moving certain axis ranges. The behaviour can be controlled with set\+Range\+Drag and set\+Range\+Drag\+Axes. If the mouse wheel is scrolled while the cursor is on the axis rect, certain axes are scaled. This is controllable via set\+Range\+Zoom, set\+Range\+Zoom\+Axes and set\+Range\+Zoom\+Factor. These interactions are only enabled if QCustom\+Plot\+::set\+Interactions contains QCP\+::i\+Range\+Drag and QCP\+::i\+Range\+Zoom.
+
+ \begin{center}Overview of the spacings and paddings that define the geometry of an axis. The dashed line on the far left indicates the viewport/widget border.\end{center}  
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Beamage/\mbox{\hyperlink{qcustomplot_8cpp}{qcustomplot.\+cpp}}\end{DoxyCompactItemize}

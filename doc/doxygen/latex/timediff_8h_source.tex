@@ -1,0 +1,36 @@
+\doxysection{timediff.\+h}
+\hypertarget{timediff_8h_source}{}\label{timediff_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/timediff.h@{lib/libwconr/build/\_deps/curl-\/src/lib/timediff.h}}
+\mbox{\hyperlink{timediff_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TIMEDIFF\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TIMEDIFF\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ Use\ a\ larger\ type\ even\ for\ 32\ bit\ time\_t\ systems\ so\ that\ we\ can\ keep}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ microsecond\ accuracy\ in\ it\ */}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}};}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ CURL\_FORMAT\_TIMEDIFF\_T\ CURL\_FORMAT\_CURL\_OFF\_T}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ TIMEDIFF\_T\_MAX\ CURL\_OFF\_T\_MAX}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ TIMEDIFF\_T\_MIN\ CURL\_OFF\_T\_MIN}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ Converts\ number\ of\ milliseconds\ into\ a\ timeval\ structure.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ Return\ values:}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ \ \ \ NULL\ IF\ tv\ is\ NULL\ or\ ms\ <\ 0\ (eg.\ no\ timeout\ -\/>\ blocking\ select)}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ \ \ \ tv\ with\ 0\ in\ both\ fields\ IF\ ms\ ==\ 0\ (eg.\ 0ms\ timeout\ -\/>\ polling\ select)}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ \ \ \ tv\ with\ converted\ fields\ IF\ ms\ >\ 0\ (eg.\ >0ms\ timeout\ -\/>\ waiting\ select)}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtimeval}{timeval}}\ *\mbox{\hyperlink{timediff_8h_abd4a02f1bc904cd890a871131513f28e}{curlx\_mstotv}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structtimeval}{timeval}}\ *tv,\ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ ms);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ Converts\ a\ timeval\ structure\ into\ number\ of\ milliseconds.}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00050\ \mbox{\hyperlink{timediff_8h_aee771ed0d3fddc94b5cc09f21d7b41b3}{timediff\_t}}\ \mbox{\hyperlink{timediff_8h_aeded41391c7fcf057409b5d8cf9af455}{curlx\_tvtoms}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structtimeval}{timeval}}\ *tv);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TIMEDIFF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

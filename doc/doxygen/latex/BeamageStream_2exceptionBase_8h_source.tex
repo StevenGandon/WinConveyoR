@@ -1,0 +1,33 @@
+\doxysection{exception\+Base.\+h}
+\hypertarget{BeamageStream_2exceptionBase_8h_source}{}\label{BeamageStream_2exceptionBase_8h_source}\index{BeamageStream/exceptionBase.h@{BeamageStream/exceptionBase.h}}
+\mbox{\hyperlink{BeamageStream_2exceptionBase_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage}{Beamage}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceBeamage_1_1Exception}{Exception}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ DEFINITION\_EXCEPTION\_BASE\ }\textcolor{comment}{//\ hacky\ stuff\ to\ make\ the\ compiler\ happy,\ because\ it\ may\ be\ defined\ somewhere\ else\ (in\ libs\ for\ exemple)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ DEFINITION\_EXCEPTION\_BASE}}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }BeamageError\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_aa1fe7708462106cdde9d62a19ff83d2a}{BeamageError}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_a177225d5892d941e3cb77cd7880b866a}{what}}\ =\ \textcolor{stringliteral}{"{}Uknown\ exception"{}},\ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_ad42166f48ed43f356171ad3f2ac2ea8f}{where}}\ =\ \textcolor{stringliteral}{"{}???"{}})\ :\ \_what(\mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_a177225d5892d941e3cb77cd7880b866a}{what}}),\ \_where(\mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_ad42166f48ed43f356171ad3f2ac2ea8f}{where}})\ \{\};}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_a177225d5892d941e3cb77cd7880b866a}{what}}(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\_what.c\_str());}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{classBeamage_1_1Exception_1_1BeamageError_ad42166f48ed43f356171ad3f2ac2ea8f}{where}}(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\_where.c\_str());}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \_what;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \_where;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !DEFINITION\_EXCEPTION\_BASE}}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \}}
+
+\end{DoxyCode}

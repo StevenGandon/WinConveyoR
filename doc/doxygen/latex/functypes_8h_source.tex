@@ -1,0 +1,99 @@
+\doxysection{functypes.\+h}
+\hypertarget{functypes_8h_source}{}\label{functypes_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/functypes.h@{lib/libwconr/build/\_deps/curl-\/src/lib/functypes.h}}
+\mbox{\hyperlink{functypes_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_FUNCTYPES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_FUNCTYPES\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ defaults:}}
+\DoxyCodeLine{00030\ \textcolor{comment}{}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ ssize\_t\ recv(int,\ void\ *,\ size\_t,\ int);}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ ssize\_t\ send(int,\ const\ void\ *,\ size\_t,\ int);}}
+\DoxyCodeLine{00033\ \textcolor{comment}{}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ If\ other\ argument\ or\ return\ types\ are\ needed:}}
+\DoxyCodeLine{00035\ \textcolor{comment}{}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ 1.\ For\ systems\ that\ run\ configure\ or\ cmake,\ the\ alternatives\ are\ provided}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \ \ here.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ 2.\ For\ systems\ with\ config-\/*.h\ files,\ define\ them\ there.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifdef\ WIN32}}
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ int\ recv(SOCKET,\ char\ *,\ int,\ int)\ */}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG1\ SOCKET}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG2\ char\ *}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG3\ int}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_RETV\ int}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ int\ send(SOCKET,\ const\ char\ *,\ int,\ int);\ */}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG1\ SOCKET}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG2\ char\ *}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG3\ int}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_RETV\ int}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#elif\ defined(\_\_AMIGA\_\_)\ }\textcolor{comment}{/*\ Any\ AmigaOS\ flavour\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ long\ recv(long,\ char\ *,\ long,\ long);\ */}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG1\ long}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG2\ char\ *}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG3\ long}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG4\ long}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_RETV\ long}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ int\ send(int,\ const\ char\ *,\ int,\ int);\ */}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG1\ int}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG2\ char\ *}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG3\ int}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_RETV\ int}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifndef\ RECV\_TYPE\_ARG1}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG1\ int}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifndef\ RECV\_TYPE\_ARG2}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG2\ void\ *}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifndef\ RECV\_TYPE\_ARG3}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG3\ size\_t}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#ifndef\ RECV\_TYPE\_ARG4}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_ARG4\ int}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#ifndef\ RECV\_TYPE\_RETV}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ RECV\_TYPE\_RETV\ ssize\_t}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifndef\ SEND\_QUAL\_ARG2}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ SEND\_QUAL\_ARG2\ const}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#ifndef\ SEND\_TYPE\_ARG1}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG1\ int}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifndef\ SEND\_TYPE\_ARG2}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG2\ void\ *}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ SEND\_TYPE\_ARG3}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG3\ size\_t}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifndef\ SEND\_TYPE\_ARG4}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_ARG4\ int}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#ifndef\ SEND\_TYPE\_RETV}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ SEND\_TYPE\_RETV\ ssize\_t}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_FUNCTYPES\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

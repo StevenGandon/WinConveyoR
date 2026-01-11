@@ -1,0 +1,340 @@
+\doxysection{gui/node\+\_\+modules/semver Directory Reference}
+\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd}{}\label{dir_bbb246019db5c129b32124fdc9f267cd}\index{gui/node\_modules/semver Directory Reference@{gui/node\_modules/semver Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1265}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1265}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{npm\ install\ semver}
+\DoxyCodeLine{\`{}\`{}\`{}\`{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Usage}
+\DoxyCodeLine{}
+\DoxyCodeLine{As\ a\ node\ module:}
+
+\end{DoxyCode}
+ js const semver = require(\textquotesingle{}semver\textquotesingle{})
+
+semver.\+valid(\textquotesingle{}1.\+2.\+3\textquotesingle{}) // \textquotesingle{}1.\+2.\+3\textquotesingle{} semver.\+valid(\textquotesingle{}a.\+b.\+c\textquotesingle{}) // null semver.\+clean(\textquotesingle{} =v1.\+2.\+3 \textquotesingle{}) // \textquotesingle{}1.\+2.\+3\textquotesingle{} semver.\+satisfies(\textquotesingle{}1.\+2.\+3\textquotesingle{}, \textquotesingle{}1.\+x \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} \texorpdfstring{$>$}{>}=2.\+5.\+0 \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} 5.\+0.\+0 -\/ 7.\+2.\+3\textquotesingle{}) // true semver.\+gt(\textquotesingle{}1.\+2.\+3\textquotesingle{}, \textquotesingle{}9.\+8.\+7\textquotesingle{}) // false semver.\+lt(\textquotesingle{}1.\+2.\+3\textquotesingle{}, \textquotesingle{}9.\+8.\+7\textquotesingle{}) // true semver.\+min\+Version(\textquotesingle{}\texorpdfstring{$>$}{>}=1.\+0.\+0\textquotesingle{}) // \textquotesingle{}1.\+0.\+0\textquotesingle{} semver.\+valid(semver.\+coerce(\textquotesingle{}v2\textquotesingle{})) // \textquotesingle{}2.\+0.\+0\textquotesingle{} semver.\+valid(semver.\+coerce(\textquotesingle{}42.\+6.\+7.\+9.\+3-\/alpha\textquotesingle{})) // \textquotesingle{}42.\+6.\+7\textquotesingle{} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{As\ a\ command-\/line\ utility:}
+
+\end{DoxyCode}
+ \$ semver -\/h
+
+A Java\+Script implementation of the \href{https://semver.org/}{\texttt{https\+://semver.\+org/}} specification Copyright Isaac Z. Schlueter
+
+Usage\+: semver \mbox{[}options\mbox{]} $<$version$>$ \mbox{[}$<$version$>$ \mbox{[}...\mbox{]}\mbox{]} Prints valid versions sorted by Sem\+Ver precedence
+
+Options\+: -\/r --range $<$range$>$ Print versions that match the specified range.
+
+-\/i --increment \mbox{[}$<$level$>$\mbox{]} Increment a version by the specified level. Level can be one of\+: major, minor, patch, premajor, preminor, prepatch, or prerelease. Default level is \textquotesingle{}patch\textquotesingle{}. Only one version may be specified.
+
+--preid $<$identifier$>$ Identifier to be used to prefix premajor, preminor, prepatch or prerelease version increments.
+
+-\/l --loose Interpret versions and ranges loosely
+
+-\/p --include-\/prerelease Always include prerelease versions in range matching
+
+-\/c --coerce Coerce a string into Sem\+Ver if possible (does not imply --loose)
+
+--rtl Coerce version strings right to left
+
+--ltr Coerce version strings left to right (default)
+
+Program exits successfully if any valid version satisfies all supplied ranges, and prints all satisfying versions.
+
+If no satisfying versions are found, then exits failure.
+
+Versions are printed in ascending order, so supplying multiple versions to the utility will just sort them. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ Versions}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ "{}version"{}\ is\ described\ by\ the\ \`{}v2.0.0`\ specification\ found\ at}
+\DoxyCodeLine{<https://semver.org/>.}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ leading\ \`{}"{}="{}`\ or\ \`{}"{}v"{}`\ character\ is\ stripped\ off\ and\ ignored.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Ranges}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ \`{}version\ range`\ is\ a\ set\ of\ \`{}comparators`\ which\ specify\ versions}
+\DoxyCodeLine{that\ satisfy\ the\ range.}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ \`{}comparator`\ is\ composed\ of\ an\ \`{}operator`\ and\ a\ \`{}version`.\ \ The\ set}
+\DoxyCodeLine{of\ primitive\ \`{}operators`\ is:}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}<`\ Less\ than}
+\DoxyCodeLine{*\ \`{}<=`\ Less\ than\ or\ equal\ to}
+\DoxyCodeLine{*\ \`{}>`\ Greater\ than}
+\DoxyCodeLine{*\ \`{}>=`\ Greater\ than\ or\ equal\ to}
+\DoxyCodeLine{*\ \`{}=`\ Equal.\ \ If\ no\ operator\ is\ specified,\ then\ equality\ is\ assumed,}
+\DoxyCodeLine{\ \ so\ this\ operator\ is\ optional,\ but\ MAY\ be\ included.}
+\DoxyCodeLine{}
+\DoxyCodeLine{For\ example,\ the\ comparator\ \`{}>=1.2.7`\ would\ match\ the\ versions}
+\DoxyCodeLine{\`{}1.2.7`,\ \`{}1.2.8`,\ \`{}2.5.3`,\ and\ \`{}1.3.9`,\ but\ not\ the\ versions\ \`{}1.2.6`}
+\DoxyCodeLine{or\ \`{}1.1.0`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Comparators\ can\ be\ joined\ by\ whitespace\ to\ form\ a\ \`{}comparator\ set`,}
+\DoxyCodeLine{which\ is\ satisfied\ by\ the\ **intersection**\ of\ all\ of\ the\ comparators}
+\DoxyCodeLine{it\ includes.}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ range\ is\ composed\ of\ one\ or\ more\ comparator\ sets,\ joined\ by\ \`{}||`.\ \ A}
+\DoxyCodeLine{version\ matches\ a\ range\ if\ and\ only\ if\ every\ comparator\ in\ at\ least}
+\DoxyCodeLine{one\ of\ the\ \`{}||`-\/separated\ comparator\ sets\ is\ satisfied\ by\ the\ version.}
+\DoxyCodeLine{}
+\DoxyCodeLine{For\ example,\ the\ range\ \`{}>=1.2.7\ <1.3.0`\ would\ match\ the\ versions}
+\DoxyCodeLine{\`{}1.2.7`,\ \`{}1.2.8`,\ and\ \`{}1.2.99`,\ but\ not\ the\ versions\ \`{}1.2.6`,\ \`{}1.3.0`,}
+\DoxyCodeLine{or\ \`{}1.1.0`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ range\ \`{}1.2.7\ ||\ >=1.2.9\ <2.0.0`\ would\ match\ the\ versions\ \`{}1.2.7`,}
+\DoxyCodeLine{\`{}1.2.9`,\ and\ \`{}1.4.6`,\ but\ not\ the\ versions\ \`{}1.2.8`\ or\ \`{}2.0.0`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\ Prerelease\ Tags}
+\DoxyCodeLine{}
+\DoxyCodeLine{If\ a\ version\ has\ a\ prerelease\ tag\ (for\ example,\ \`{}1.2.3-\/alpha.3`)\ then}
+\DoxyCodeLine{it\ will\ only\ be\ allowed\ to\ satisfy\ comparator\ sets\ if\ at\ least\ one}
+\DoxyCodeLine{comparator\ with\ the\ same\ \`{}[major,\ minor,\ patch]`\ tuple\ also\ has\ a}
+\DoxyCodeLine{prerelease\ tag.}
+\DoxyCodeLine{}
+\DoxyCodeLine{For\ example,\ the\ range\ \`{}>1.2.3-\/alpha.3`\ would\ be\ allowed\ to\ match\ the}
+\DoxyCodeLine{version\ \`{}1.2.3-\/alpha.7`,\ but\ it\ would\ *not*\ be\ satisfied\ by}
+\DoxyCodeLine{\`{}3.4.5-\/alpha.9`,\ even\ though\ \`{}3.4.5-\/alpha.9`\ is\ technically\ "{}greater}
+\DoxyCodeLine{than"{}\ \`{}1.2.3-\/alpha.3`\ according\ to\ the\ SemVer\ sort\ rules.\ \ The\ version}
+\DoxyCodeLine{range\ only\ accepts\ prerelease\ tags\ on\ the\ \`{}1.2.3`\ version.\ \ The}
+\DoxyCodeLine{version\ \`{}3.4.5`\ *would*\ satisfy\ the\ range,\ because\ it\ does\ not\ have\ a}
+\DoxyCodeLine{prerelease\ flag,\ and\ \`{}3.4.5`\ is\ greater\ than\ \`{}1.2.3-\/alpha.7`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ purpose\ for\ this\ behavior\ is\ twofold.\ \ First,\ prerelease\ versions}
+\DoxyCodeLine{frequently\ are\ updated\ very\ quickly,\ and\ contain\ many\ breaking\ changes}
+\DoxyCodeLine{that\ are\ (by\ the\ author's\ design)\ not\ yet\ fit\ for\ public\ consumption.}
+\DoxyCodeLine{Therefore,\ by\ default,\ they\ are\ excluded\ from\ range\ matching}
+\DoxyCodeLine{semantics.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Second,\ a\ user\ who\ has\ opted\ into\ using\ a\ prerelease\ version\ has}
+\DoxyCodeLine{clearly\ indicated\ the\ intent\ to\ use\ *that\ specific*\ set\ of}
+\DoxyCodeLine{alpha/beta/rc\ versions.\ \ By\ including\ a\ prerelease\ tag\ in\ the\ range,}
+\DoxyCodeLine{the\ user\ is\ indicating\ that\ they\ are\ aware\ of\ the\ risk.\ \ However,\ it}
+\DoxyCodeLine{is\ still\ not\ appropriate\ to\ assume\ that\ they\ have\ opted\ into\ taking\ a}
+\DoxyCodeLine{similar\ risk\ on\ the\ *next*\ set\ of\ prerelease\ versions.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Note\ that\ this\ behavior\ can\ be\ suppressed\ (treating\ all\ prerelease}
+\DoxyCodeLine{versions\ as\ if\ they\ were\ normal\ versions,\ for\ the\ purpose\ of\ range}
+\DoxyCodeLine{matching)\ by\ setting\ the\ \`{}includePrerelease`\ flag\ on\ the\ options}
+\DoxyCodeLine{object\ to\ any}
+\DoxyCodeLine{[functions](https://github.com/npm/node-\/semver\#functions)\ that\ do}
+\DoxyCodeLine{range\ matching.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\#\ Prerelease\ Identifiers}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ method\ \`{}.inc`\ takes\ an\ additional\ \`{}identifier`\ string\ argument\ that}
+\DoxyCodeLine{will\ append\ the\ value\ of\ the\ string\ as\ a\ prerelease\ identifier:}
+
+\end{DoxyCode}
+ javascript semver.\+inc(\textquotesingle{}1.\+2.\+3\textquotesingle{}, \textquotesingle{}prerelease\textquotesingle{}, \textquotesingle{}beta\textquotesingle{}) // \textquotesingle{}1.\+2.\+4-\/beta.\+0\textquotesingle{} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{command-\/line\ example:}
+
+\end{DoxyCode}
+ bash \$ semver 1.\+2.\+3 -\/i prerelease --preid beta 1.\+2.\+4-\/beta.\+0 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Which\ then\ can\ be\ used\ to\ increment\ further:}
+
+\end{DoxyCode}
+ bash \$ semver 1.\+2.\+4-\/beta.\+0 -\/i prerelease 1.\+2.\+4-\/beta.\+1 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\ Advanced\ Range\ Syntax}
+\DoxyCodeLine{}
+\DoxyCodeLine{Advanced\ range\ syntax\ desugars\ to\ primitive\ comparators\ in}
+\DoxyCodeLine{deterministic\ ways.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Advanced\ ranges\ may\ be\ combined\ in\ the\ same\ way\ as\ primitive}
+\DoxyCodeLine{comparators\ using\ white\ space\ or\ \`{}||`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\#\ Hyphen\ Ranges\ \`{}X.Y.Z\ -\/\ A.B.C`}
+\DoxyCodeLine{}
+\DoxyCodeLine{Specifies\ an\ inclusive\ set.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}1.2.3\ -\/\ 2.3.4`\ :=\ \`{}>=1.2.3\ <=2.3.4`}
+\DoxyCodeLine{}
+\DoxyCodeLine{If\ a\ partial\ version\ is\ provided\ as\ the\ first\ version\ in\ the\ inclusive}
+\DoxyCodeLine{range,\ then\ the\ missing\ pieces\ are\ replaced\ with\ zeroes.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}1.2\ -\/\ 2.3.4`\ :=\ \`{}>=1.2.0\ <=2.3.4`}
+\DoxyCodeLine{}
+\DoxyCodeLine{If\ a\ partial\ version\ is\ provided\ as\ the\ second\ version\ in\ the}
+\DoxyCodeLine{inclusive\ range,\ then\ all\ versions\ that\ start\ with\ the\ supplied\ parts}
+\DoxyCodeLine{of\ the\ tuple\ are\ accepted,\ but\ nothing\ that\ would\ be\ greater\ than\ the}
+\DoxyCodeLine{provided\ tuple\ parts.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}1.2.3\ -\/\ 2.3`\ :=\ \`{}>=1.2.3\ <2.4.0`}
+\DoxyCodeLine{*\ \`{}1.2.3\ -\/\ 2`\ :=\ \`{}>=1.2.3\ <3.0.0`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\#\ X-\/Ranges\ \`{}1.2.x`\ \`{}1.X`\ \`{}1.2.*`\ \`{}*`}
+\DoxyCodeLine{}
+\DoxyCodeLine{Any\ of\ \`{}X`,\ \`{}x`,\ or\ \`{}*`\ may\ be\ used\ to\ "{}stand\ in"{}\ for\ one\ of\ the}
+\DoxyCodeLine{numeric\ values\ in\ the\ \`{}[major,\ minor,\ patch]`\ tuple.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}*`\ :=\ \`{}>=0.0.0`\ (Any\ version\ satisfies)}
+\DoxyCodeLine{*\ \`{}1.x`\ :=\ \`{}>=1.0.0\ <2.0.0`\ (Matching\ major\ version)}
+\DoxyCodeLine{*\ \`{}1.2.x`\ :=\ \`{}>=1.2.0\ <1.3.0`\ (Matching\ major\ and\ minor\ versions)}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ partial\ version\ range\ is\ treated\ as\ an\ X-\/Range,\ so\ the\ special}
+\DoxyCodeLine{character\ is\ in\ fact\ optional.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}"{}"{}`\ (empty\ string)\ :=\ \`{}*`\ :=\ \`{}>=0.0.0`}
+\DoxyCodeLine{*\ \`{}1`\ :=\ \`{}1.x.x`\ :=\ \`{}>=1.0.0\ <2.0.0`}
+\DoxyCodeLine{*\ \`{}1.2`\ :=\ \`{}1.2.x`\ :=\ \`{}>=1.2.0\ <1.3.0`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\#\ Tilde\ Ranges\ \`{}\string~1.2.3`\ \`{}\string~1.2`\ \`{}\string~1`}
+\DoxyCodeLine{}
+\DoxyCodeLine{Allows\ patch-\/level\ changes\ if\ a\ minor\ version\ is\ specified\ on\ the}
+\DoxyCodeLine{comparator.\ \ Allows\ minor-\/level\ changes\ if\ not.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}\string~1.2.3`\ :=\ \`{}>=1.2.3\ <1.(2+1).0`\ :=\ \`{}>=1.2.3\ <1.3.0`}
+\DoxyCodeLine{*\ \`{}\string~1.2`\ :=\ \`{}>=1.2.0\ <1.(2+1).0`\ :=\ \`{}>=1.2.0\ <1.3.0`\ (Same\ as\ \`{}1.2.x`)}
+\DoxyCodeLine{*\ \`{}\string~1`\ :=\ \`{}>=1.0.0\ <(1+1).0.0`\ :=\ \`{}>=1.0.0\ <2.0.0`\ (Same\ as\ \`{}1.x`)}
+\DoxyCodeLine{*\ \`{}\string~0.2.3`\ :=\ \`{}>=0.2.3\ <0.(2+1).0`\ :=\ \`{}>=0.2.3\ <0.3.0`}
+\DoxyCodeLine{*\ \`{}\string~0.2`\ :=\ \`{}>=0.2.0\ <0.(2+1).0`\ :=\ \`{}>=0.2.0\ <0.3.0`\ (Same\ as\ \`{}0.2.x`)}
+\DoxyCodeLine{*\ \`{}\string~0`\ :=\ \`{}>=0.0.0\ <(0+1).0.0`\ :=\ \`{}>=0.0.0\ <1.0.0`\ (Same\ as\ \`{}0.x`)}
+\DoxyCodeLine{*\ \`{}\string~1.2.3-\/beta.2`\ :=\ \`{}>=1.2.3-\/beta.2\ <1.3.0`\ Note\ that\ prereleases\ in}
+\DoxyCodeLine{\ \ the\ \`{}1.2.3`\ version\ will\ be\ allowed,\ if\ they\ are\ greater\ than\ or}
+\DoxyCodeLine{\ \ equal\ to\ \`{}beta.2`.\ \ So,\ \`{}1.2.3-\/beta.4`\ would\ be\ allowed,\ but}
+\DoxyCodeLine{\ \ \`{}1.2.4-\/beta.2`\ would\ not,\ because\ it\ is\ a\ prerelease\ of\ a}
+\DoxyCodeLine{\ \ different\ \`{}[major,\ minor,\ patch]`\ tuple.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\#\ Caret\ Ranges\ \`{}\string^1.2.3`\ \`{}\string^0.2.5`\ \`{}\string^0.0.4`}
+\DoxyCodeLine{}
+\DoxyCodeLine{Allows\ changes\ that\ do\ not\ modify\ the\ left-\/most\ non-\/zero\ element\ in\ the}
+\DoxyCodeLine{\`{}[major,\ minor,\ patch]`\ tuple.\ \ In\ other\ words,\ this\ allows\ patch\ and}
+\DoxyCodeLine{minor\ updates\ for\ versions\ \`{}1.0.0`\ and\ above,\ patch\ updates\ for}
+\DoxyCodeLine{versions\ \`{}0.X\ >=0.1.0`,\ and\ *no*\ updates\ for\ versions\ \`{}0.0.X`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Many\ authors\ treat\ a\ \`{}0.x`\ version\ as\ if\ the\ \`{}x`\ were\ the\ major}
+\DoxyCodeLine{"{}breaking-\/change"{}\ indicator.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Caret\ ranges\ are\ ideal\ when\ an\ author\ may\ make\ breaking\ changes}
+\DoxyCodeLine{between\ \`{}0.2.4`\ and\ \`{}0.3.0`\ releases,\ which\ is\ a\ common\ practice.}
+\DoxyCodeLine{However,\ it\ presumes\ that\ there\ will\ *not*\ be\ breaking\ changes\ between}
+\DoxyCodeLine{\`{}0.2.4`\ and\ \`{}0.2.5`.\ \ It\ allows\ for\ changes\ that\ are\ presumed\ to\ be}
+\DoxyCodeLine{additive\ (but\ non-\/breaking),\ according\ to\ commonly\ observed\ practices.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}\string^1.2.3`\ :=\ \`{}>=1.2.3\ <2.0.0`}
+\DoxyCodeLine{*\ \`{}\string^0.2.3`\ :=\ \`{}>=0.2.3\ <0.3.0`}
+\DoxyCodeLine{*\ \`{}\string^0.0.3`\ :=\ \`{}>=0.0.3\ <0.0.4`}
+\DoxyCodeLine{*\ \`{}\string^1.2.3-\/beta.2`\ :=\ \`{}>=1.2.3-\/beta.2\ <2.0.0`\ Note\ that\ prereleases\ in}
+\DoxyCodeLine{\ \ the\ \`{}1.2.3`\ version\ will\ be\ allowed,\ if\ they\ are\ greater\ than\ or}
+\DoxyCodeLine{\ \ equal\ to\ \`{}beta.2`.\ \ So,\ \`{}1.2.3-\/beta.4`\ would\ be\ allowed,\ but}
+\DoxyCodeLine{\ \ \`{}1.2.4-\/beta.2`\ would\ not,\ because\ it\ is\ a\ prerelease\ of\ a}
+\DoxyCodeLine{\ \ different\ \`{}[major,\ minor,\ patch]`\ tuple.}
+\DoxyCodeLine{*\ \`{}\string^0.0.3-\/beta`\ :=\ \`{}>=0.0.3-\/beta\ <0.0.4`\ \ Note\ that\ prereleases\ in\ the}
+\DoxyCodeLine{\ \ \`{}0.0.3`\ version\ *only*\ will\ be\ allowed,\ if\ they\ are\ greater\ than\ or}
+\DoxyCodeLine{\ \ equal\ to\ \`{}beta`.\ \ So,\ \`{}0.0.3-\/pr.2`\ would\ be\ allowed.}
+\DoxyCodeLine{}
+\DoxyCodeLine{When\ parsing\ caret\ ranges,\ a\ missing\ \`{}patch`\ value\ desugars\ to\ the}
+\DoxyCodeLine{number\ \`{}0`,\ but\ will\ allow\ flexibility\ within\ that\ value,\ even\ if\ the}
+\DoxyCodeLine{major\ and\ minor\ versions\ are\ both\ \`{}0`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}\string^1.2.x`\ :=\ \`{}>=1.2.0\ <2.0.0`}
+\DoxyCodeLine{*\ \`{}\string^0.0.x`\ :=\ \`{}>=0.0.0\ <0.1.0`}
+\DoxyCodeLine{*\ \`{}\string^0.0`\ :=\ \`{}>=0.0.0\ <0.1.0`}
+\DoxyCodeLine{}
+\DoxyCodeLine{A\ missing\ \`{}minor`\ and\ \`{}patch`\ values\ will\ desugar\ to\ zero,\ but\ also}
+\DoxyCodeLine{allow\ flexibility\ within\ those\ values,\ even\ if\ the\ major\ version\ is}
+\DoxyCodeLine{zero.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ \`{}\string^1.x`\ :=\ \`{}>=1.0.0\ <2.0.0`}
+\DoxyCodeLine{*\ \`{}\string^0.x`\ :=\ \`{}>=0.0.0\ <1.0.0`}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\ Range\ Grammar}
+\DoxyCodeLine{}
+\DoxyCodeLine{Putting\ all\ this\ together,\ here\ is\ a\ Backus-\/Naur\ grammar\ for\ ranges,}
+\DoxyCodeLine{for\ the\ benefit\ of\ parser\ authors:}
+
+\end{DoxyCode}
+ bnf range-\/set \+::= range ( logical-\/or range ) \texorpdfstring{$\ast$}{*} logical-\/or \+::= ( \textquotesingle{} \textquotesingle{} ) \texorpdfstring{$\ast$}{*} \textquotesingle{}\texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|}\textquotesingle{} ( \textquotesingle{} \textquotesingle{} ) \texorpdfstring{$\ast$}{*} range \+::= hyphen \texorpdfstring{$\vert$}{|} simple ( \textquotesingle{} \textquotesingle{} simple ) \texorpdfstring{$\ast$}{*} \texorpdfstring{$\vert$}{|} \textquotesingle{}\textquotesingle{} hyphen \+::= partial \textquotesingle{} -\/ \textquotesingle{} partial simple \+::= primitive \texorpdfstring{$\vert$}{|} partial \texorpdfstring{$\vert$}{|} tilde \texorpdfstring{$\vert$}{|} caret primitive \+::= ( \textquotesingle{}\texorpdfstring{$<$}{<}\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}\texorpdfstring{$>$}{>}\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}\texorpdfstring{$>$}{>}=\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}\texorpdfstring{$<$}{<}=\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}=\textquotesingle{} ) partial partial \+::= xr ( \textquotesingle{}.\textquotesingle{} xr ( \textquotesingle{}.\textquotesingle{} xr qualifier ? )? )? xr \+::= \textquotesingle{}x\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}X\textquotesingle{} \texorpdfstring{$\vert$}{|} \textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{} \texorpdfstring{$\vert$}{|} nr nr \+::= \textquotesingle{}0\textquotesingle{} \texorpdfstring{$\vert$}{|} \mbox{[}\textquotesingle{}1\textquotesingle{}-\/\textquotesingle{}9\textquotesingle{}\mbox{]} ( \mbox{[}\textquotesingle{}0\textquotesingle{}-\/\textquotesingle{}9\textquotesingle{}\mbox{]} ) \texorpdfstring{$\ast$}{*} tilde \+::= \textquotesingle{}\texorpdfstring{$\sim$}{\string~}\textquotesingle{} partial caret \+::= \textquotesingle{}\texorpdfstring{$^\wedge$}{\string^}\textquotesingle{} partial qualifier \+::= ( \textquotesingle{}-\/\textquotesingle{} pre )? ( \textquotesingle{}+\textquotesingle{} build )? pre \+::= parts build \+::= parts parts \+::= part ( \textquotesingle{}.\textquotesingle{} part ) \texorpdfstring{$\ast$}{*} part \+::= nr \texorpdfstring{$\vert$}{|} \mbox{[}-\/0-\/9A-\/\+Za-\/z\mbox{]}+ \`{}\`{}\`{}\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1266}{}\doxysubsection{\texorpdfstring{Functions}{Functions}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1266}
+All methods and classes take a final {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} object argument. All options in this object are {\ttfamily false} by default. The options supported are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily loose} Be more forgiving about not-\/quite-\/valid semver strings. (Any resulting output will always be 100\% strict compliant, of course.) For backwards compatibility reasons, if the {\ttfamily \doxylink{fail-early_8d_a5b2a25eeea74f3361780d61ee1f5576f}{options}} argument is a boolean value instead of an object, it is interpreted to be the {\ttfamily loose} param.
+\item {\ttfamily include\+Prerelease} Set to suppress the \href{https://github.com/npm/node-semver\#prerelease-tags}{\texttt{default behavior}} of excluding prerelease tagged versions from ranges unless they are explicitly opted into.
+\end{DoxyItemize}
+
+Strict-\/mode Comparators and Ranges will be strict about the Sem\+Ver strings that they parse.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily valid(v)}\+: Return the parsed version, or null if it\textquotesingle{}s not valid.
+\item {\ttfamily inc(v, release)}\+: Return the version incremented by the release type ({\ttfamily major}, {\ttfamily premajor}, {\ttfamily minor}, {\ttfamily preminor}, {\ttfamily patch}, {\ttfamily prepatch}, or {\ttfamily prerelease}), or null if it\textquotesingle{}s not valid
+\begin{DoxyItemize}
+\item {\ttfamily premajor} in one call will bump the version up to the next major version and down to a prerelease of that major version. {\ttfamily preminor}, and {\ttfamily prepatch} work the same way.
+\item If called from a non-\/prerelease version, the {\ttfamily prerelease} will work the same as {\ttfamily prepatch}. It increments the patch version, then makes a prerelease. If the input version is already a prerelease it simply increments it.
+\end{DoxyItemize}
+\item {\ttfamily prerelease(v)}\+: Returns an array of prerelease components, or null if none exist. Example\+: {\ttfamily prerelease(\textquotesingle{}1.\+2.\+3-\/alpha.\+1\textquotesingle{}) -\/\texorpdfstring{$>$}{>} \mbox{[}\textquotesingle{}alpha\textquotesingle{}, 1\mbox{]}}
+\item {\ttfamily major(v)}\+: Return the major version number.
+\item {\ttfamily minor(v)}\+: Return the minor version number.
+\item {\ttfamily patch(v)}\+: Return the patch version number.
+\item {\ttfamily intersects(r1, r2, loose)}\+: Return true if the two supplied ranges or comparators intersect.
+\item {\ttfamily parse(v)}\+: Attempt to parse a string as a semantic version, returning either a {\ttfamily Sem\+Ver} object or {\ttfamily null}.
+\end{DoxyItemize}\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1267}{}\doxysubsubsection{\texorpdfstring{Comparison}{Comparison}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1267}
+
+\begin{DoxyItemize}
+\item {\ttfamily gt(v1, v2)}\+: {\ttfamily v1 \texorpdfstring{$>$}{>} v2}
+\item {\ttfamily gte(v1, v2)}\+: {\ttfamily v1 \texorpdfstring{$>$}{>}= v2}
+\item {\ttfamily lt(v1, v2)}\+: {\ttfamily v1 \texorpdfstring{$<$}{<} v2}
+\item {\ttfamily lte(v1, v2)}\+: {\ttfamily v1 \texorpdfstring{$<$}{<}= v2}
+\item {\ttfamily eq(v1, v2)}\+: {\ttfamily v1 == v2} This is true if they\textquotesingle{}re logically equivalent, even if they\textquotesingle{}re not the exact same string. You already know how to compare strings.
+\item {\ttfamily neq(v1, v2)}\+: {\ttfamily v1 != v2} The opposite of {\ttfamily eq}.
+\item {\ttfamily cmp(v1, comparator, v2)}\+: Pass in a comparison string, and it\textquotesingle{}ll call the corresponding function above. {\ttfamily "{}==="{}} and {\ttfamily "{}!=="{}} do simple string comparison, but are included for completeness. Throws if an invalid comparison string is provided.
+\item {\ttfamily \doxylink{splay_8c_abdce6487afd4fbc62d71029ae190a494}{compare(v1, v2)}}\+: Return {\ttfamily 0} if {\ttfamily v1 == v2}, or {\ttfamily 1} if {\ttfamily v1} is greater, or {\ttfamily -\/1} if {\ttfamily v2} is greater. Sorts in ascending order if passed to {\ttfamily Array.\+sort()}.
+\item {\ttfamily rcompare(v1, v2)}\+: The reverse of compare. Sorts an array of versions in descending order when passed to {\ttfamily Array.\+sort()}.
+\item {\ttfamily compare\+Build(v1, v2)}\+: The same as {\ttfamily \doxylink{splay_8c_abdce6487afd4fbc62d71029ae190a494}{compare}} but considers {\ttfamily build} when two versions are equal. Sorts in ascending order if passed to {\ttfamily Array.\+sort()}. {\ttfamily v2} is greater. Sorts in ascending order if passed to {\ttfamily Array.\+sort()}.
+\item {\ttfamily diff(v1, v2)}\+: Returns difference between two versions by the release type ({\ttfamily major}, {\ttfamily premajor}, {\ttfamily minor}, {\ttfamily preminor}, {\ttfamily patch}, {\ttfamily prepatch}, or {\ttfamily prerelease}), or null if the versions are the same.
+\end{DoxyItemize}\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1268}{}\doxysubsubsection{\texorpdfstring{Comparators}{Comparators}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1268}
+
+\begin{DoxyItemize}
+\item {\ttfamily intersects(comparator)}\+: Return true if the comparators intersect
+\end{DoxyItemize}\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1269}{}\doxysubsubsection{\texorpdfstring{Ranges}{Ranges}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1269}
+
+\begin{DoxyItemize}
+\item {\ttfamily valid\+Range(range)}\+: Return the valid range or null if it\textquotesingle{}s not valid
+\item {\ttfamily satisfies(version, range)}\+: Return true if the version satisfies the range.
+\item {\ttfamily max\+Satisfying(versions, range)}\+: Return the highest version in the list that satisfies the range, or {\ttfamily null} if none of them do.
+\item {\ttfamily min\+Satisfying(versions, range)}\+: Return the lowest version in the list that satisfies the range, or {\ttfamily null} if none of them do.
+\item {\ttfamily min\+Version(range)}\+: Return the lowest version that can possibly match the given range.
+\item {\ttfamily gtr(version, range)}\+: Return {\ttfamily true} if version is greater than all the versions possible in the range.
+\item {\ttfamily ltr(version, range)}\+: Return {\ttfamily true} if version is less than all the versions possible in the range.
+\item {\ttfamily outside(version, range, hilo)}\+: Return true if the version is outside the bounds of the range in either the high or low direction. The {\ttfamily hilo} argument must be either the string {\ttfamily \textquotesingle{}\texorpdfstring{$>$}{>}\textquotesingle{}} or {\ttfamily \textquotesingle{}\texorpdfstring{$<$}{<}\textquotesingle{}}. (This is the function called by {\ttfamily gtr} and {\ttfamily ltr}.)
+\item {\ttfamily intersects(range)}\+: Return true if any of the ranges comparators intersect
+\end{DoxyItemize}
+
+Note that, since ranges may be non-\/contiguous, a version might not be greater than a range, less than a range, {\itshape or} satisfy a range! For example, the range {\ttfamily 1.\+2 \texorpdfstring{$<$}{<}1.\+2.\+9 \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} \texorpdfstring{$>$}{>}2.\+0.\+0} would have a hole from {\ttfamily 1.\+2.\+9} until {\ttfamily 2.\+0.\+0}, so the version {\ttfamily 1.\+2.\+10} would not be greater than the range (because {\ttfamily 2.\+0.\+1} satisfies, which is higher), nor less than the range (since {\ttfamily 1.\+2.\+8} satisfies, which is lower), and it also does not satisfy the range.
+
+If you want to know if a version satisfies or does not satisfy a range, use the {\ttfamily satisfies(version, range)} function.\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1270}{}\doxysubsubsection{\texorpdfstring{Coercion}{Coercion}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1270}
+
+\begin{DoxyItemize}
+\item {\ttfamily coerce(version, options)}\+: Coerces a string to semver if possible
+\end{DoxyItemize}
+
+This aims to provide a very forgiving translation of a non-\/semver string to semver. It looks for the first digit in a string, and consumes all remaining characters which satisfy at least a partial semver (e.\+g., {\ttfamily 1}, {\ttfamily 1.\+2}, {\ttfamily 1.\+2.\+3}) up to the max permitted length (256 characters). Longer versions are simply truncated ({\ttfamily 4.\+6.\+3.\+9.\+2-\/alpha2} becomes {\ttfamily 4.\+6.\+3}). All surrounding text is simply ignored ({\ttfamily v3.\+4 replaces v3.\+3.\+1} becomes {\ttfamily 3.\+4.\+0}). Only text which lacks digits will fail coercion ({\ttfamily version one} is not valid). The maximum length for any semver component considered for coercion is 16 characters; longer components will be ignored ({\ttfamily 10000000000000000.\+4.\+7.\+4} becomes {\ttfamily 4.\+7.\+4}). The maximum value for any semver component is {\ttfamily Integer.\+MAX\+\_\+\+SAFE\+\_\+\+INTEGER \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} (2\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}53 -\/ 1)}; higher value components are invalid ({\ttfamily 9999999999999999.\+4.\+7.\+4} is likely invalid).
+
+If the {\ttfamily options.\+rtl} flag is set, then {\ttfamily coerce} will return the right-\/most coercible tuple that does not share an ending index with a longer coercible tuple. For example, {\ttfamily 1.\+2.\+3.\+4} will return {\ttfamily 2.\+3.\+4} in rtl mode, not {\ttfamily 4.\+0.\+0}. {\ttfamily 1.\+2.\+3/4} will return {\ttfamily 4.\+0.\+0}, because the {\ttfamily 4} is not a part of any other overlapping Sem\+Ver tuple.\hypertarget{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1271}{}\doxysubsubsection{\texorpdfstring{Clean}{Clean}}\label{dir_bbb246019db5c129b32124fdc9f267cd_autotoc_md1271}
+
+\begin{DoxyItemize}
+\item {\ttfamily clean(version)}\+: Clean a string to be a valid semver if possible
+\end{DoxyItemize}
+
+This will return a cleaned and trimmed semver version. If the provided version is not valid a null will be returned. This does not work for ranges.
+
+ex.
+\begin{DoxyItemize}
+\item {\ttfamily s.\+clean(\textquotesingle{} = v 2.\+1.\+5foo\textquotesingle{})}\+: {\ttfamily null}
+\item {\ttfamily s.\+clean(\textquotesingle{} = v 2.\+1.\+5foo\textquotesingle{}, \{ loose\+: true \})}\+: {\ttfamily \textquotesingle{}2.\+1.\+5-\/foo\textquotesingle{}}
+\item {\ttfamily s.\+clean(\textquotesingle{} = v 2.\+1.\+5-\/foo\textquotesingle{})}\+: {\ttfamily null}
+\item {\ttfamily s.\+clean(\textquotesingle{} = v 2.\+1.\+5-\/foo\textquotesingle{}, \{ loose\+: true \})}\+: {\ttfamily \textquotesingle{}2.\+1.\+5-\/foo\textquotesingle{}}
+\item {\ttfamily s.\+clean(\textquotesingle{}=v2.\+1.\+5\textquotesingle{})}\+: {\ttfamily \textquotesingle{}2.\+1.\+5\textquotesingle{}}
+\item {\ttfamily s.\+clean(\textquotesingle{} =v2.\+1.\+5\textquotesingle{})}\+: {\ttfamily 2.\+1.\+5}
+\item {\ttfamily s.\+clean(\textquotesingle{} 2.\+1.\+5 \textquotesingle{})}\+: {\ttfamily \textquotesingle{}2.\+1.\+5\textquotesingle{}}
+\item {\ttfamily s.\+clean(\textquotesingle{}\texorpdfstring{$\sim$}{\string~}1.0.\+0\textquotesingle{})}\+: {\ttfamily null} 
+\end{DoxyItemize}

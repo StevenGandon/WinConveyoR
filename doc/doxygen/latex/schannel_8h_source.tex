@@ -1,0 +1,183 @@
+\doxysection{schannel.\+h}
+\hypertarget{schannel_8h_source}{}\label{schannel_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/schannel.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vtls/schannel.h}}
+\mbox{\hyperlink{schannel_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_SCHANNEL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_SCHANNEL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_SCHANNEL}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SCHANNEL\_USE\_BLACKLISTS\ 1}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#pragma\ warning(push)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#pragma\ warning(disable:\ 4201)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <subauth.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#pragma\ warning(pop)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ Wincrypt\ must\ be\ included\ before\ anything\ that\ could\ include\ OpenSSL.\ */}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#if\ defined(USE\_WIN32\_CRYPTO)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <wincrypt.h>}}
+\DoxyCodeLine{00044\ \textcolor{comment}{/*\ Undefine\ wincrypt\ conflicting\ symbols\ for\ BoringSSL.\ */}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#undef\ X509\_NAME}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#undef\ X509\_EXTENSIONS}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#undef\ PKCS7\_ISSUER\_AND\_SERIAL}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#undef\ PKCS7\_SIGNER\_INFO}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#undef\ OCSP\_REQUEST}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#undef\ OCSP\_RESPONSE}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <schnlsp.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{schannel_8h}{schannel.h}}>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__sspi_8h}{curl\_sspi.h}}"{}}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ <wincrypt.h>\ has\ been\ included\ via\ the\ above\ <schnlsp.h>.}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ Or\ in\ case\ of\ ldap.c,\ it\ was\ included\ via\ <winldap.h>.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ And\ since\ <wincrypt.h>\ has\ this:}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ \ \ \#define\ X509\_NAME\ \ ((LPCSTR)\ 7)}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ And\ in\ BoringSSL's\ <openssl/base.h>\ there\ is:}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ \ typedef\ struct\ X509\_name\_st\ X509\_NAME;}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ \ etc.}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ this\ will\ cause\ all\ kinds\ of\ C-\/preprocessing\ paste\ errors\ in}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ BoringSSL's\ <openssl/x509.h>:\ So\ just\ undefine\ those\ defines\ here}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ (and\ only\ here).}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#if\ defined(HAVE\_BORINGSSL)\ ||\ defined(OPENSSL\_IS\_BORINGSSL)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ undef\ X509\_NAME}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ undef\ X509\_CERT\_PAIR}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#\ undef\ X509\_EXTENSIONS}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__ssl}{Curl\_ssl}}\ Curl\_ssl\_schannel;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ Curl\_verify\_certificate(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *\mbox{\hyperlink{structdata}{data}},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structconnectdata}{connectdata}}\ *conn,\ \textcolor{keywordtype}{int}\ sockindex);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ structs\ to\ expose\ only\ in\ schannel.c\ and\ schannel\_verify.c\ */}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#ifdef\ EXPOSE\_SCHANNEL\_INTERNAL\_STRUCTS}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#include\ <wincrypt.h>}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW32\_\_}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#ifdef\ \_\_MINGW64\_VERSION\_MAJOR}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ HAS\_MANUAL\_VERIFY\_API}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#ifdef\ CERT\_CHAIN\_REVOCATION\_CHECK\_CHAIN}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ HAS\_MANUAL\_VERIFY\_API}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#if\ defined(CryptStringToBinary)\ \&\&\ defined(CRYPT\_STRING\_HEX)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \&\&\ !defined(DISABLE\_SCHANNEL\_CLIENT\_CERT)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ HAS\_CLIENT\_CERT\_PATH}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ SCH\_CREDENTIALS\_VERSION}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ SCH\_CREDENTIALS\_VERSION\ \ 0x00000005}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \_eTlsAlgorithmUsage}
+\DoxyCodeLine{00108\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ TlsParametersCngAlgUsageKeyExchange,}
+\DoxyCodeLine{00110\ \ \ \ \ TlsParametersCngAlgUsageSignature,}
+\DoxyCodeLine{00111\ \ \ \ \ TlsParametersCngAlgUsageCipher,}
+\DoxyCodeLine{00112\ \ \ \ \ TlsParametersCngAlgUsageDigest,}
+\DoxyCodeLine{00113\ \ \ \ \ TlsParametersCngAlgUsageCertSig}
+\DoxyCodeLine{00114\ \}\ eTlsAlgorithmUsage;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_CRYPTO\_SETTINGS}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ eTlsAlgorithmUsage\ \ eAlgorithmUsage;}
+\DoxyCodeLine{00119\ \ \ \ \ UNICODE\_STRING\ \ \ \ \ \ strCngAlgId;}
+\DoxyCodeLine{00120\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cChainingModes;}
+\DoxyCodeLine{00121\ \ \ \ \ PUNICODE\_STRING\ \ \ \ \ rgstrChainingModes;}
+\DoxyCodeLine{00122\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwMinBitLength;}
+\DoxyCodeLine{00123\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwMaxBitLength;}
+\DoxyCodeLine{00124\ \}\ CRYPTO\_SETTINGS,\ *\ PCRYPTO\_SETTINGS;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_TLS\_PARAMETERS}
+\DoxyCodeLine{00127\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cAlpnIds;}
+\DoxyCodeLine{00129\ \ \ \ \ PUNICODE\_STRING\ \ \ \ \ rgstrAlpnIds;}
+\DoxyCodeLine{00130\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grbitDisabledProtocols;}
+\DoxyCodeLine{00131\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cDisabledCrypto;}
+\DoxyCodeLine{00132\ \ \ \ \ PCRYPTO\_SETTINGS\ \ \ \ pDisabledCrypto;}
+\DoxyCodeLine{00133\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwFlags;}
+\DoxyCodeLine{00134\ \}\ TLS\_PARAMETERS,\ *\ PTLS\_PARAMETERS;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_SCH\_CREDENTIALS}
+\DoxyCodeLine{00137\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwVersion;}
+\DoxyCodeLine{00139\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwCredFormat;}
+\DoxyCodeLine{00140\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cCreds;}
+\DoxyCodeLine{00141\ \ \ \ \ PCCERT\_CONTEXT*\ paCred;}
+\DoxyCodeLine{00142\ \ \ \ \ HCERTSTORE\ \ \ \ \ \ \ \ \ \ hRootStore;}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cMappers;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{struct\ }\_HMAPPER\ **aphMappers;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwSessionLifespan;}
+\DoxyCodeLine{00148\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dwFlags;}
+\DoxyCodeLine{00149\ \ \ \ \ DWORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cTlsParameters;}
+\DoxyCodeLine{00150\ \ \ \ \ PTLS\_PARAMETERS\ \ \ \ \ pTlsParameters;}
+\DoxyCodeLine{00151\ \}\ SCH\_CREDENTIALS,\ *\ PSCH\_CREDENTIALS;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ SCH\_CRED\_MAX\_SUPPORTED\_PARAMETERS\ 16}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ SCH\_CRED\_MAX\_SUPPORTED\_ALPN\_IDS\ 16}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ SCH\_CRED\_MAX\_SUPPORTED\_CRYPTO\_SETTINGS\ 16}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ SCH\_CRED\_MAX\_SUPPORTED\_CHAINING\_MODES\ 16}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{struct\ }Curl\_schannel\_cred\ \{}
+\DoxyCodeLine{00161\ \ \ CredHandle\ cred\_handle;}
+\DoxyCodeLine{00162\ \ \ TimeStamp\ time\_stamp;}
+\DoxyCodeLine{00163\ \ \ TCHAR\ *sni\_hostname;}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#ifdef\ HAS\_CLIENT\_CERT\_PATH}}
+\DoxyCodeLine{00165\ \ \ HCERTSTORE\ client\_cert\_store;}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{int}\ refcount;}
+\DoxyCodeLine{00168\ \};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{struct\ }Curl\_schannel\_ctxt\ \{}
+\DoxyCodeLine{00171\ \ \ CtxtHandle\ ctxt\_handle;}
+\DoxyCodeLine{00172\ \ \ TimeStamp\ time\_stamp;}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{struct\ }ssl\_backend\_data\ \{}
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{struct\ }Curl\_schannel\_cred\ *cred;}
+\DoxyCodeLine{00177\ \ \ \textcolor{keyword}{struct\ }Curl\_schannel\_ctxt\ *ctxt;}
+\DoxyCodeLine{00178\ \ \ SecPkgContext\_StreamSizes\ stream\_sizes;}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{size\_t}\ encdata\_length,\ decdata\_length;}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{size\_t}\ encdata\_offset,\ decdata\_offset;}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *encdata\_buffer,\ *decdata\_buffer;}
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{/*\ encdata\_is\_incomplete:\ if\ encdata\ contains\ only\ a\ partial\ record\ that}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ \ \ can't\ be\ decrypted\ without\ another\ Curl\_read\_plain\ (that\ is,\ status\ is}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ \ \ SEC\_E\_INCOMPLETE\_MESSAGE)\ then\ set\ this\ true.\ after\ Curl\_read\_plain\ writes}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ \ \ more\ bytes\ into\ encdata\ then\ set\ this\ back\ to\ false.\ */}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{bool}\ encdata\_is\_incomplete;}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ req\_flags,\ ret\_flags;}
+\DoxyCodeLine{00188\ \ \ \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}\ recv\_unrecoverable\_err;\ \textcolor{comment}{/*\ schannel\_recv\ had\ an\ unrecoverable\ err\ */}}
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{bool}\ recv\_sspi\_close\_notify;\ \textcolor{comment}{/*\ true\ if\ connection\ closed\ by\ close\_notify\ */}}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordtype}{bool}\ recv\_connection\_closed;\ \textcolor{comment}{/*\ true\ if\ connection\ closed,\ regardless\ how\ */}}
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{bool}\ recv\_renegotiating;\ \ \ \ \ \textcolor{comment}{/*\ true\ if\ recv\ is\ doing\ renegotiation\ */}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{bool}\ use\_alpn;\ \textcolor{comment}{/*\ true\ if\ ALPN\ is\ used\ for\ this\ connection\ */}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#ifdef\ HAS\_MANUAL\_VERIFY\_API}}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{bool}\ use\_manual\_cred\_validation;\ \textcolor{comment}{/*\ true\ if\ manual\ cred\ validation\ is\ used\ */}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00196\ \};}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ EXPOSE\_SCHANNEL\_INTERNAL\_STRUCTS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_SCHANNEL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_SCHANNEL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

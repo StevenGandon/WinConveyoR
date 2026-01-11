@@ -1,0 +1,489 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/telnet.c File Reference}
+\hypertarget{telnet_8c}{}\label{telnet_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/telnet.c@{lib/libwconr/build/\_deps/curl-\/src/lib/telnet.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}telnet.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}system\+\_\+win32.\+h"{}}\newline
+{\ttfamily \#include "{}arpa\+\_\+telnet.\+h"{}}\newline
+{\ttfamily \#include "{}select.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}warnless.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structTELNET}{TELNET}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a9c7dafa74b2f6a55fb929ab8098f4f0a}{SUBBUFSIZE}}~512
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a1b63bc7b0654d86e3ccf9089e7271b11}{CURL\+\_\+\+SB\+\_\+\+CLEAR}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{telnet_8c_add51e60c582bb442bd3aff5560db78fd}{CURL\+\_\+\+SB\+\_\+\+TERM}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a1228a638e936db538931652b156f8031}{CURL\+\_\+\+SB\+\_\+\+ACCUM}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}},  c)
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a20a6affdf317c9505e9f361d5ded3df4}{CURL\+\_\+\+SB\+\_\+\+GET}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a334c5c603073f8a9dc36b61a8cfb13e5}{CURL\+\_\+\+SB\+\_\+\+LEN}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{telnet_8c_aca853a8a46e53866ee50c0d1e140f252}{CURL\+\_\+\+NO}}~0
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a59f9d8cdf86420fe8133e64fef5a3197}{CURL\+\_\+\+YES}}~1
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a8c60640c6afbac9fd4989fb24e2cab5d}{CURL\+\_\+\+WANTYES}}~2
+\item 
+\#define \mbox{\hyperlink{telnet_8c_af2b9245f00cf7a43c6d8472413b3bbff}{CURL\+\_\+\+WANTNO}}~3
+\item 
+\#define \mbox{\hyperlink{telnet_8c_adfb76bc39aace7a77532b9c08c1afad0}{CURL\+\_\+\+EMPTY}}~0
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a3806a4ea62a78980df9cb190a8c3b8d3}{CURL\+\_\+\+OPPOSITE}}~1
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a27c0c130cdfc625407e31357219114a5}{startskipping}}()
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a5faa3a2e86967618cded1404c5f2f26c}{writebyte}}()
+\item 
+\#define \mbox{\hyperlink{telnet_8c_a4b00784bf638825b32cd1cd816befd79}{bufferflush}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747d}{Telnet\+Receive}} \{ \newline
+\mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747daac2efc4163efc3649eb0cd5befb6270d}{CURL\+\_\+\+TS\+\_\+\+DATA}} = 0
+, \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747da0b1d6b026e845f402c68a483b897cc27}{CURL\+\_\+\+TS\+\_\+\+IAC}}
+, \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747da404db00794d6ee939448141aaa95749d}{CURL\+\_\+\+TS\+\_\+\+WILL}}
+, \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747da1fc624eea5e2589099c78df165394842}{CURL\+\_\+\+TS\+\_\+\+WONT}}
+, \newline
+\mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747dac740bd0721cffd418c2fb12163574139}{CURL\+\_\+\+TS\+\_\+\+DO}}
+, \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747dac866062ce2438eabca400de597eb34de}{CURL\+\_\+\+TS\+\_\+\+DONT}}
+, \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747dae53967cd1916475ef7e51b1d47570714}{CURL\+\_\+\+TS\+\_\+\+CR}}
+, \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747da7306bbefe32741f53758f7cdf13fea91}{CURL\+\_\+\+TS\+\_\+\+SB}}
+, \newline
+\mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747da4e46f6054b84b6bc392711c307ae8acf}{CURL\+\_\+\+TS\+\_\+\+SE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{telnet_8c_ad3a06d68f5d015b2a1913619c09a5062}{telrcv}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const unsigned char \texorpdfstring{$\ast$}{*}inbuf, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} count)
+\item 
+static void \mbox{\hyperlink{telnet_8c_a67fce622a38d643c8aac992c49267efb}{printoption}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const char \texorpdfstring{$\ast$}{*}direction, int cmd, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_a025628dfb2e744adbb891eb08f91e0f3}{negotiate}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_ad4d502adb544837d44b6c48f9aa6d15f}{send\+\_\+negotiation}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int cmd, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_a7144bc5947fbcaff2e5b74123629069b}{set\+\_\+local\+\_\+option}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}}, int newstate)
+\item 
+static void \mbox{\hyperlink{telnet_8c_a5eb9cdd048ab14fc29c5a37c85742317}{set\+\_\+remote\+\_\+option}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}}, int newstate)
+\item 
+static void \mbox{\hyperlink{telnet_8c_a5a044eb103b7d36c1ebb17388e6dad25}{printsub}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int direction, unsigned char \texorpdfstring{$\ast$}{*}pointer, size\+\_\+t length)
+\item 
+static void \mbox{\hyperlink{telnet_8c_ab3bd3bfd249ebf2d141dff498280910d}{suboption}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_a4900457698a474a315a1f6b2bcd516bf}{sendsuboption}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{telnet_8c_a77350b080109d64c396cea98df1208b8}{telnet\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{telnet_8c_ac5321401e21a2125fa8eff06e5e91b7f}{telnet\+\_\+done}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} premature)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{telnet_8c_aa853574b81bd839194027535d0a57e75}{send\+\_\+telnet\+\_\+data}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{htmltitle_8cpp_ab3d71a3630661054e58116e2249c2e9e}{buffer}}, \mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}} nread)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{telnet_8c_a508313ef84c16803166f1f4ac708b808}{init\+\_\+telnet}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_a790f1fe2d813777e1ea37aec1304be4c}{rec\+\_\+will}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_a22be958e573c540687497c6aaab11bac}{rec\+\_\+wont}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_adc0b64015da73c33d97aeab818a1b613}{rec\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static void \mbox{\hyperlink{telnet_8c_a0973e139d1357052b50bfc0656ff5463}{rec\+\_\+dont}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, int \mbox{\hyperlink{create-dirs_8d_a62b5c9f0f07537048c9099f13f9a3590}{option}})
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{telnet_8c_af0f26a69ae0977969760447a18b1b0ba}{check\+\_\+telnet\+\_\+options}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{telnet_8c_a218d1b371584dc032bc046ed14af2ca3}{Curl\+\_\+handler\+\_\+telnet}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{telnet_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{telnet_8c_a4b00784bf638825b32cd1cd816befd79}\index{telnet.c@{telnet.c}!bufferflush@{bufferflush}}
+\index{bufferflush@{bufferflush}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{bufferflush}{bufferflush}}
+{\footnotesize\ttfamily \label{telnet_8c_a4b00784bf638825b32cd1cd816befd79} 
+\#define bufferflush(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{telnet_8c_a27c0c130cdfc625407e31357219114a5}{startskipping}}()}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_adfb76bc39aace7a77532b9c08c1afad0}\index{telnet.c@{telnet.c}!CURL\_EMPTY@{CURL\_EMPTY}}
+\index{CURL\_EMPTY@{CURL\_EMPTY}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_EMPTY}{CURL\_EMPTY}}
+{\footnotesize\ttfamily \label{telnet_8c_adfb76bc39aace7a77532b9c08c1afad0} 
+\#define CURL\+\_\+\+EMPTY~0}
+
+\Hypertarget{telnet_8c_aca853a8a46e53866ee50c0d1e140f252}\index{telnet.c@{telnet.c}!CURL\_NO@{CURL\_NO}}
+\index{CURL\_NO@{CURL\_NO}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_NO}{CURL\_NO}}
+{\footnotesize\ttfamily \label{telnet_8c_aca853a8a46e53866ee50c0d1e140f252} 
+\#define CURL\+\_\+\+NO~0}
+
+\Hypertarget{telnet_8c_a3806a4ea62a78980df9cb190a8c3b8d3}\index{telnet.c@{telnet.c}!CURL\_OPPOSITE@{CURL\_OPPOSITE}}
+\index{CURL\_OPPOSITE@{CURL\_OPPOSITE}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_OPPOSITE}{CURL\_OPPOSITE}}
+{\footnotesize\ttfamily \label{telnet_8c_a3806a4ea62a78980df9cb190a8c3b8d3} 
+\#define CURL\+\_\+\+OPPOSITE~1}
+
+\Hypertarget{telnet_8c_a1228a638e936db538931652b156f8031}\index{telnet.c@{telnet.c}!CURL\_SB\_ACCUM@{CURL\_SB\_ACCUM}}
+\index{CURL\_SB\_ACCUM@{CURL\_SB\_ACCUM}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_SB\_ACCUM}{CURL\_SB\_ACCUM}}
+{\footnotesize\ttfamily \label{telnet_8c_a1228a638e936db538931652b156f8031} 
+\#define CURL\+\_\+\+SB\+\_\+\+ACCUM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{, }\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subpointer\ <\ (\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subbuffer\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subbuffer)))\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ *\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subpointer++\ =\ (c);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_a1b63bc7b0654d86e3ccf9089e7271b11}\index{telnet.c@{telnet.c}!CURL\_SB\_CLEAR@{CURL\_SB\_CLEAR}}
+\index{CURL\_SB\_CLEAR@{CURL\_SB\_CLEAR}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_SB\_CLEAR}{CURL\_SB\_CLEAR}}
+{\footnotesize\ttfamily \label{telnet_8c_a1b63bc7b0654d86e3ccf9089e7271b11} 
+\#define CURL\+\_\+\+SB\+\_\+\+CLEAR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subpointer\ =\ \mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subbuffer}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_a20a6affdf317c9505e9f361d5ded3df4}\index{telnet.c@{telnet.c}!CURL\_SB\_GET@{CURL\_SB\_GET}}
+\index{CURL\_SB\_GET@{CURL\_SB\_GET}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_SB\_GET}{CURL\_SB\_GET}}
+{\footnotesize\ttfamily \label{telnet_8c_a20a6affdf317c9505e9f361d5ded3df4} 
+\#define CURL\+\_\+\+SB\+\_\+\+GET(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((*\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subpointer++)\&0xff)}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_a334c5c603073f8a9dc36b61a8cfb13e5}\index{telnet.c@{telnet.c}!CURL\_SB\_LEN@{CURL\_SB\_LEN}}
+\index{CURL\_SB\_LEN@{CURL\_SB\_LEN}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_SB\_LEN}{CURL\_SB\_LEN}}
+{\footnotesize\ttfamily \label{telnet_8c_a334c5c603073f8a9dc36b61a8cfb13e5} 
+\#define CURL\+\_\+\+SB\+\_\+\+LEN(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subend\ -\/\ \mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subpointer)}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_add51e60c582bb442bd3aff5560db78fd}\index{telnet.c@{telnet.c}!CURL\_SB\_TERM@{CURL\_SB\_TERM}}
+\index{CURL\_SB\_TERM@{CURL\_SB\_TERM}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_SB\_TERM}{CURL\_SB\_TERM}}
+{\footnotesize\ttfamily \label{telnet_8c_add51e60c582bb442bd3aff5560db78fd} 
+\#define CURL\+\_\+\+SB\+\_\+\+TERM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{do}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subend\ =\ \mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}-\/>subpointer;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ CURL\_SB\_CLEAR(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_af2b9245f00cf7a43c6d8472413b3bbff}\index{telnet.c@{telnet.c}!CURL\_WANTNO@{CURL\_WANTNO}}
+\index{CURL\_WANTNO@{CURL\_WANTNO}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_WANTNO}{CURL\_WANTNO}}
+{\footnotesize\ttfamily \label{telnet_8c_af2b9245f00cf7a43c6d8472413b3bbff} 
+\#define CURL\+\_\+\+WANTNO~3}
+
+\Hypertarget{telnet_8c_a8c60640c6afbac9fd4989fb24e2cab5d}\index{telnet.c@{telnet.c}!CURL\_WANTYES@{CURL\_WANTYES}}
+\index{CURL\_WANTYES@{CURL\_WANTYES}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_WANTYES}{CURL\_WANTYES}}
+{\footnotesize\ttfamily \label{telnet_8c_a8c60640c6afbac9fd4989fb24e2cab5d} 
+\#define CURL\+\_\+\+WANTYES~2}
+
+\Hypertarget{telnet_8c_a59f9d8cdf86420fe8133e64fef5a3197}\index{telnet.c@{telnet.c}!CURL\_YES@{CURL\_YES}}
+\index{CURL\_YES@{CURL\_YES}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{CURL\_YES}{CURL\_YES}}
+{\footnotesize\ttfamily \label{telnet_8c_a59f9d8cdf86420fe8133e64fef5a3197} 
+\#define CURL\+\_\+\+YES~1}
+
+\Hypertarget{telnet_8c_a27c0c130cdfc625407e31357219114a5}\index{telnet.c@{telnet.c}!startskipping@{startskipping}}
+\index{startskipping@{startskipping}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{startskipping}{startskipping}}
+{\footnotesize\ttfamily \label{telnet_8c_a27c0c130cdfc625407e31357219114a5} 
+\#define startskipping(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}(startwrite\ >=\ 0)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ result\ =\ \mbox{\hyperlink{sendf_8c_a43fcd932effe919ff1355b46a0c6242d}{Curl\_client\_write}}(\mbox{\hyperlink{structdata}{data}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{sendf_8h_aae18389dfefc98a5057629f6a46fd78f}{CLIENTWRITE\_BODY}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\&inbuf[startwrite],\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ in-\/startwrite);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(result)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ startwrite\ =\ -\/1}
+
+\end{DoxyCode}
+\Hypertarget{telnet_8c_a9c7dafa74b2f6a55fb929ab8098f4f0a}\index{telnet.c@{telnet.c}!SUBBUFSIZE@{SUBBUFSIZE}}
+\index{SUBBUFSIZE@{SUBBUFSIZE}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{SUBBUFSIZE}{SUBBUFSIZE}}
+{\footnotesize\ttfamily \label{telnet_8c_a9c7dafa74b2f6a55fb929ab8098f4f0a} 
+\#define SUBBUFSIZE~512}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{telnet_8c_a5faa3a2e86967618cded1404c5f2f26c}\index{telnet.c@{telnet.c}!writebyte@{writebyte}}
+\index{writebyte@{writebyte}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{writebyte}{writebyte}}
+{\footnotesize\ttfamily \label{telnet_8c_a5faa3a2e86967618cded1404c5f2f26c} 
+\#define writebyte(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}(startwrite\ <\ 0)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ startwrite\ =\ in}
+
+\end{DoxyCode}
+
+
+\label{doc-enum-members}
+\Hypertarget{telnet_8c_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747d}\index{telnet.c@{telnet.c}!TelnetReceive@{TelnetReceive}}
+\index{TelnetReceive@{TelnetReceive}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{TelnetReceive}{TelnetReceive}}
+{\footnotesize\ttfamily \label{telnet_8c_abdf089985d8c33b95f382ea39a86747d} 
+enum \mbox{\hyperlink{telnet_8c_abdf089985d8c33b95f382ea39a86747d}{Telnet\+Receive}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_DATA@{CURL\_TS\_DATA}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_DATA@{CURL\_TS\_DATA}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747daac2efc4163efc3649eb0cd5befb6270d}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747daac2efc4163efc3649eb0cd5befb6270d} 
+CURL\+\_\+\+TS\+\_\+\+DATA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_IAC@{CURL\_TS\_IAC}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_IAC@{CURL\_TS\_IAC}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747da0b1d6b026e845f402c68a483b897cc27}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747da0b1d6b026e845f402c68a483b897cc27} 
+CURL\+\_\+\+TS\+\_\+\+IAC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_WILL@{CURL\_TS\_WILL}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_WILL@{CURL\_TS\_WILL}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747da404db00794d6ee939448141aaa95749d}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747da404db00794d6ee939448141aaa95749d} 
+CURL\+\_\+\+TS\+\_\+\+WILL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_WONT@{CURL\_TS\_WONT}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_WONT@{CURL\_TS\_WONT}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747da1fc624eea5e2589099c78df165394842}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747da1fc624eea5e2589099c78df165394842} 
+CURL\+\_\+\+TS\+\_\+\+WONT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_DO@{CURL\_TS\_DO}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_DO@{CURL\_TS\_DO}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747dac740bd0721cffd418c2fb12163574139}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747dac740bd0721cffd418c2fb12163574139} 
+CURL\+\_\+\+TS\+\_\+\+DO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_DONT@{CURL\_TS\_DONT}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_DONT@{CURL\_TS\_DONT}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747dac866062ce2438eabca400de597eb34de}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747dac866062ce2438eabca400de597eb34de} 
+CURL\+\_\+\+TS\+\_\+\+DONT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_CR@{CURL\_TS\_CR}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_CR@{CURL\_TS\_CR}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747dae53967cd1916475ef7e51b1d47570714}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747dae53967cd1916475ef7e51b1d47570714} 
+CURL\+\_\+\+TS\+\_\+\+CR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_SB@{CURL\_TS\_SB}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_SB@{CURL\_TS\_SB}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747da7306bbefe32741f53758f7cdf13fea91}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747da7306bbefe32741f53758f7cdf13fea91} 
+CURL\+\_\+\+TS\+\_\+\+SB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURL\_TS\_SE@{CURL\_TS\_SE}!telnet.c@{telnet.c}}\index{telnet.c@{telnet.c}!CURL\_TS\_SE@{CURL\_TS\_SE}}}\Hypertarget{telnet_8c_abdf089985d8c33b95f382ea39a86747da4e46f6054b84b6bc392711c307ae8acf}\label{telnet_8c_abdf089985d8c33b95f382ea39a86747da4e46f6054b84b6bc392711c307ae8acf} 
+CURL\+\_\+\+TS\+\_\+\+SE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{telnet_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{telnet_8c_af0f26a69ae0977969760447a18b1b0ba}\index{telnet.c@{telnet.c}!check\_telnet\_options@{check\_telnet\_options}}
+\index{check\_telnet\_options@{check\_telnet\_options}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{check\_telnet\_options()}{check\_telnet\_options()}}
+{\footnotesize\ttfamily \label{telnet_8c_af0f26a69ae0977969760447a18b1b0ba} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} check\+\_\+telnet\+\_\+options (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a508313ef84c16803166f1f4ac708b808}\index{telnet.c@{telnet.c}!init\_telnet@{init\_telnet}}
+\index{init\_telnet@{init\_telnet}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{init\_telnet()}{init\_telnet()}}
+{\footnotesize\ttfamily \label{telnet_8c_a508313ef84c16803166f1f4ac708b808} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} init\+\_\+telnet (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a025628dfb2e744adbb891eb08f91e0f3}\index{telnet.c@{telnet.c}!negotiate@{negotiate}}
+\index{negotiate@{negotiate}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{negotiate()}{negotiate()}}
+{\footnotesize\ttfamily \label{telnet_8c_a025628dfb2e744adbb891eb08f91e0f3} 
+void negotiate (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a67fce622a38d643c8aac992c49267efb}\index{telnet.c@{telnet.c}!printoption@{printoption}}
+\index{printoption@{printoption}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{printoption()}{printoption()}}
+{\footnotesize\ttfamily \label{telnet_8c_a67fce622a38d643c8aac992c49267efb} 
+void printoption (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{direction}{, }\item[{int}]{cmd}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a5a044eb103b7d36c1ebb17388e6dad25}\index{telnet.c@{telnet.c}!printsub@{printsub}}
+\index{printsub@{printsub}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{printsub()}{printsub()}}
+{\footnotesize\ttfamily \label{telnet_8c_a5a044eb103b7d36c1ebb17388e6dad25} 
+void printsub (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{direction}{, }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{pointer}{, }\item[{size\+\_\+t}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_adc0b64015da73c33d97aeab818a1b613}\index{telnet.c@{telnet.c}!rec\_do@{rec\_do}}
+\index{rec\_do@{rec\_do}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{rec\_do()}{rec\_do()}}
+{\footnotesize\ttfamily \label{telnet_8c_adc0b64015da73c33d97aeab818a1b613} 
+void rec\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a0973e139d1357052b50bfc0656ff5463}\index{telnet.c@{telnet.c}!rec\_dont@{rec\_dont}}
+\index{rec\_dont@{rec\_dont}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{rec\_dont()}{rec\_dont()}}
+{\footnotesize\ttfamily \label{telnet_8c_a0973e139d1357052b50bfc0656ff5463} 
+void rec\+\_\+dont (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a790f1fe2d813777e1ea37aec1304be4c}\index{telnet.c@{telnet.c}!rec\_will@{rec\_will}}
+\index{rec\_will@{rec\_will}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{rec\_will()}{rec\_will()}}
+{\footnotesize\ttfamily \label{telnet_8c_a790f1fe2d813777e1ea37aec1304be4c} 
+void rec\+\_\+will (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a22be958e573c540687497c6aaab11bac}\index{telnet.c@{telnet.c}!rec\_wont@{rec\_wont}}
+\index{rec\_wont@{rec\_wont}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{rec\_wont()}{rec\_wont()}}
+{\footnotesize\ttfamily \label{telnet_8c_a22be958e573c540687497c6aaab11bac} 
+void rec\+\_\+wont (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_ad4d502adb544837d44b6c48f9aa6d15f}\index{telnet.c@{telnet.c}!send\_negotiation@{send\_negotiation}}
+\index{send\_negotiation@{send\_negotiation}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{send\_negotiation()}{send\_negotiation()}}
+{\footnotesize\ttfamily \label{telnet_8c_ad4d502adb544837d44b6c48f9aa6d15f} 
+void send\+\_\+negotiation (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{cmd}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_aa853574b81bd839194027535d0a57e75}\index{telnet.c@{telnet.c}!send\_telnet\_data@{send\_telnet\_data}}
+\index{send\_telnet\_data@{send\_telnet\_data}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{send\_telnet\_data()}{send\_telnet\_data()}}
+{\footnotesize\ttfamily \label{telnet_8c_aa853574b81bd839194027535d0a57e75} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} send\+\_\+telnet\+\_\+data (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}}}]{nread}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a4900457698a474a315a1f6b2bcd516bf}\index{telnet.c@{telnet.c}!sendsuboption@{sendsuboption}}
+\index{sendsuboption@{sendsuboption}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{sendsuboption()}{sendsuboption()}}
+{\footnotesize\ttfamily \label{telnet_8c_a4900457698a474a315a1f6b2bcd516bf} 
+void sendsuboption (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a7144bc5947fbcaff2e5b74123629069b}\index{telnet.c@{telnet.c}!set\_local\_option@{set\_local\_option}}
+\index{set\_local\_option@{set\_local\_option}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{set\_local\_option()}{set\_local\_option()}}
+{\footnotesize\ttfamily \label{telnet_8c_a7144bc5947fbcaff2e5b74123629069b} 
+void set\+\_\+local\+\_\+option (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{, }\item[{int}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a5eb9cdd048ab14fc29c5a37c85742317}\index{telnet.c@{telnet.c}!set\_remote\_option@{set\_remote\_option}}
+\index{set\_remote\_option@{set\_remote\_option}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{set\_remote\_option()}{set\_remote\_option()}}
+{\footnotesize\ttfamily \label{telnet_8c_a5eb9cdd048ab14fc29c5a37c85742317} 
+void set\+\_\+remote\+\_\+option (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{int}]{option}{, }\item[{int}]{newstate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_ab3bd3bfd249ebf2d141dff498280910d}\index{telnet.c@{telnet.c}!suboption@{suboption}}
+\index{suboption@{suboption}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{suboption()}{suboption()}}
+{\footnotesize\ttfamily \label{telnet_8c_ab3bd3bfd249ebf2d141dff498280910d} 
+void suboption (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_a77350b080109d64c396cea98df1208b8}\index{telnet.c@{telnet.c}!telnet\_do@{telnet\_do}}
+\index{telnet\_do@{telnet\_do}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{telnet\_do()}{telnet\_do()}}
+{\footnotesize\ttfamily \label{telnet_8c_a77350b080109d64c396cea98df1208b8} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} telnet\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_ac5321401e21a2125fa8eff06e5e91b7f}\index{telnet.c@{telnet.c}!telnet\_done@{telnet\_done}}
+\index{telnet\_done@{telnet\_done}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{telnet\_done()}{telnet\_done()}}
+{\footnotesize\ttfamily \label{telnet_8c_ac5321401e21a2125fa8eff06e5e91b7f} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} telnet\+\_\+done (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}}}]{status}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}}}]{premature}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{telnet_8c_ad3a06d68f5d015b2a1913619c09a5062}\index{telnet.c@{telnet.c}!telrcv@{telrcv}}
+\index{telrcv@{telrcv}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{telrcv()}{telrcv()}}
+{\footnotesize\ttfamily \label{telnet_8c_ad3a06d68f5d015b2a1913619c09a5062} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} telrcv (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{inbuf}{, }\item[{\mbox{\hyperlink{config-win32_8h_a8af93bbb66534e14d651bbb0638ee796}{ssize\+\_\+t}}}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{telnet_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{telnet_8c_a218d1b371584dc032bc046ed14af2ca3}\index{telnet.c@{telnet.c}!Curl\_handler\_telnet@{Curl\_handler\_telnet}}
+\index{Curl\_handler\_telnet@{Curl\_handler\_telnet}!telnet.c@{telnet.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_telnet}{Curl\_handler\_telnet}}
+{\footnotesize\ttfamily \label{telnet_8c_a218d1b371584dc032bc046ed14af2ca3} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+telnet}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}TELNET"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{telnet_8c_a77350b080109d64c396cea98df1208b8}{telnet\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{telnet_8c_ac5321401e21a2125fa8eff06e5e91b7f}{telnet\_done}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a1b44acf701916f9a491b700a0c8ba7d3}{PORT\_TELNET}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_ab3bdc6e04b3b3af7d40f0719e2f66bf2}{CURLPROTO\_TELNET}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_ab3bdc6e04b3b3af7d40f0719e2f66bf2}{CURLPROTO\_TELNET}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a06e40f8f1e2219fb5b519c74715c3537}{PROTOPT\_NONE}}\ |\ \mbox{\hyperlink{urldata_8h_a93a3791fdbb761285b636725fed39385}{PROTOPT\_NOURLQUERY}}\ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

@@ -1,0 +1,25 @@
+\doxysection{tool\+\_\+filetime.\+h}
+\hypertarget{tool__filetime_8h_source}{}\label{tool__filetime_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/src/tool\_filetime.h@{lib/libwconr/build/\_deps/curl-\/src/src/tool\_filetime.h}}
+\mbox{\hyperlink{tool__filetime_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_TOOL\_FILETIME\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_TOOL\_FILETIME\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tool__setup_8h}{tool\_setup.h}}"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGlobalConfig}{GlobalConfig}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ \mbox{\hyperlink{tool__filetime_8h_ac5aa426e579378f8c1f34e57c56feee0}{getfiletime}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structGlobalConfig}{GlobalConfig}}\ *global);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#if\ defined(HAVE\_UTIME)\ ||\ defined(HAVE\_UTIMES)\ ||\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ (defined(WIN32)\ \&\&\ (SIZEOF\_CURL\_OFF\_T\ >=\ 8))}}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tool__filetime_8h_a6c815f9b48c3272e185c708a150ca77b}{setfiletime}}(\mbox{\hyperlink{system_8h_a494e2b4279dc064f7ed1d0abd602b28d}{curl\_off\_t}}\ filetime,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{form_8d_a2ff994e16bf9521154de4cf659a3b689}{filename}},}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structGlobalConfig}{GlobalConfig}}\ *global);}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ setfiletime(a,b,c)\ Curl\_nop\_stmt}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(HAVE\_UTIME)\ ||\ defined(HAVE\_UTIMES)\ ||\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ (defined(WIN32)\ \&\&\ (SIZEOF\_CURL\_OFF\_T\ >=\ 8))\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_TOOL\_FILETIME\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

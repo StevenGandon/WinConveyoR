@@ -1,0 +1,83 @@
+\doxysection{imap.\+h}
+\hypertarget{imap_8h_source}{}\label{imap_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/imap.h@{lib/libwconr/build/\_deps/curl-\/src/lib/imap.h}}
+\mbox{\hyperlink{imap_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_IMAP\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_IMAP\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pingpong_8h}{pingpong.h}}"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__sasl_8h}{curl\_sasl.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa6076e4cab6d67e43e7cedb0f409dba86}{IMAP\_STOP}},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ do\ nothing\ state,\ stops\ the\ state\ machine\ */}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaaf6d1e90b5fcecb4a9baf757df9815110}{IMAP\_SERVERGREET}},\ \ \textcolor{comment}{/*\ waiting\ for\ the\ initial\ greeting\ immediately\ after}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ connect\ */}}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaaca3968b75d65a456f48347d212d316a0}{IMAP\_CAPABILITY}},}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa05191306d5de2126c93f02a62665a548}{IMAP\_STARTTLS}},}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaad84f9beee436b2ca50801981333797b7}{IMAP\_UPGRADETLS}},\ \ \ \textcolor{comment}{/*\ asynchronously\ upgrade\ the\ connection\ to\ SSL/TLS}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (multi\ mode\ only)\ */}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa4b7258cc80f22b67f224f2ac97e703eb}{IMAP\_AUTHENTICATE}},}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa9c6ca16e6c5af045bb8fcbc4ced2c796}{IMAP\_LOGIN}},}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaacbce467d1755f2653c268562a9c7a100}{IMAP\_LIST}},}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa380a71f52c42edbafe4a66ec2ba26619}{IMAP\_SELECT}},}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa1bfe1b2026d0357ee6ba25ea009a7f66}{IMAP\_FETCH}},}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaafe669e271a40f798003fd76c0eaf6e63}{IMAP\_FETCH\_FINAL}},}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa1d6b765d7df319a1b12e1ff92edc9f50}{IMAP\_APPEND}},}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaab873db8c58df0effed9d3fe4e0c5ae54}{IMAP\_APPEND\_FINAL}},}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaaef4439450032e719930d3db4cb1b74ac}{IMAP\_SEARCH}},}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaa7a03ad57f81e95a60b8840401861ced2}{IMAP\_LOGOUT}},}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1eaae384385cd102ec40f657ec13ce06b3f6}{IMAP\_LAST}}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ never\ used\ */}}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ This\ IMAP\ struct\ is\ used\ in\ the\ Curl\_easy.\ All\ IMAP\ data\ that\ is}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ connection-\/oriented\ must\ be\ in\ imap\_conn\ to\ properly\ deal\ with\ the\ fact\ that}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ perhaps\ the\ Curl\_easy\ is\ changed\ between\ the\ times\ the\ connection\ is}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ used.\ */}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structIMAP}{IMAP}}\ \{}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{pingpong_8h_aa1cf969282409b2cbdfb2beade8b652e}{curl\_pp\_transfer}}\ \mbox{\hyperlink{structIMAP_ae843604f745769d50ec667afe96d10c5}{transfer}};}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a3cfa74a98ef25f2d28c419c13a9c8033}{mailbox}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Mailbox\ to\ select\ */}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a416fce2e1931472400c6d56bb5270ae9}{uidvalidity}};\ \ \ \ \ \ \textcolor{comment}{/*\ UIDVALIDITY\ to\ check\ in\ select\ */}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a556484f88f55ead798f328ca5e8d08bc}{uid}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Message\ UID\ to\ fetch\ */}}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_ae03dd8f9fee4884d27afc6c58c764e7b}{mindex}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Index\ in\ mail\ box\ of\ mail\ to\ fetch\ */}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a2552e76060104849e037c5cfe3c091cb}{section}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Message\ SECTION\ to\ fetch\ */}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_aeb46e69bf08a2603006fccd49e90dd46}{partial}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Message\ PARTIAL\ to\ fetch\ */}}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a5626b2fd54a23691539bf7babc9c2841}{query}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Query\ to\ search\ for\ */}}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a36086b5d94c661053ac2a51cb70b8fa7}{custom}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Custom\ request\ */}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structIMAP_a8f38e38285b60bb2be1df3be02fa5ecd}{custom\_params}};\ \ \ \ \textcolor{comment}{/*\ Parameters\ for\ the\ custom\ request\ */}}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ imap\_conn\ is\ used\ for\ struct\ connection-\/oriented\ data\ in\ the\ connectdata}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ struct\ */}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structimap__conn}{imap\_conn}}\ \{}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpingpong}{pingpong}}\ \mbox{\hyperlink{structimap__conn_a9712a9bb41d0fc31ce92ceabbb543d58}{pp}};}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{imap_8h_afd32b033e86ebc4fc96084546d9aa1ea}{imapstate}}\ \mbox{\hyperlink{structimap__conn_aaf8646375e2aa9e615c764874ca093bb}{state}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Always\ use\ imap.c:state()\ to\ change\ state!\ */}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structimap__conn_a5c3f48d09eb40719de673df06e330519}{ssldone}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Is\ connect()\ over\ SSL\ done?\ */}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structimap__conn_afb7c402c854fcd5bb02fafc0ac0bed3a}{preauth}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Is\ this\ connection\ PREAUTH?\ */}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSASL}{SASL}}\ \mbox{\hyperlink{structimap__conn_a98620c8dfd27fb2fd0be3a4de5bb4319}{sasl}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SASL-\/related\ parameters\ */}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structimap__conn_ae476e7a8fa03da99f508812c1d8196d6}{preftype}};\ \ \ \ \ \ \textcolor{comment}{/*\ Preferred\ authentication\ type\ */}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structimap__conn_a7fc7811b4d6f4c964c2f3dff8e93f5e0}{cmdid}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Last\ used\ command\ ID\ */}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structimap__conn_a3460507a270b136ddbc58a0cb9c7ef6a}{resptag}}[5];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Response\ tag\ to\ wait\ for\ */}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structimap__conn_af67d2b9f56c485d016107263531d9fc6}{tls\_supported}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ StartTLS\ capability\ supported\ by\ server\ */}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structimap__conn_a409ee6664f95ae2631ba41d5e2e16a26}{login\_disabled}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ LOGIN\ command\ disabled\ by\ server\ */}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structimap__conn_ac7e06fca7ab2f13f020fa5a5c15864a7}{ir\_supported}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Initial\ response\ supported\ by\ server\ */}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structimap__conn_a30046f4126be10473e114d3036027b85}{mailbox}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ last\ selected\ mailbox\ */}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structimap__conn_ab491adc78fa239cdd04f5cfb9e018a39}{mailbox\_uidvalidity}};\ \ \textcolor{comment}{/*\ UIDVALIDITY\ parsed\ from\ select\ response\ */}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdynbuf}{dynbuf}}\ \mbox{\hyperlink{structimap__conn_a08ece0e5a9eb71e1b83dfe303121f252}{dyn}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ for\ the\ IMAP\ commands\ */}}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ \mbox{\hyperlink{imap_8c_ae276e4e81c4afa813d9324d62421bff8}{Curl\_handler\_imap}};}
+\DoxyCodeLine{00091\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCurl__handler}{Curl\_handler}}\ \mbox{\hyperlink{imap_8h_aba3ad26835d0af88926a323546998304}{Curl\_handler\_imaps}};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ Authentication\ type\ flags\ */}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ IMAP\_TYPE\_CLEARTEXT\ (1\ <<\ 0)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ IMAP\_TYPE\_SASL\ \ \ \ \ \ (1\ <<\ 1)}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ Authentication\ type\ values\ */}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ IMAP\_TYPE\_NONE\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ IMAP\_TYPE\_ANY\ \ \ \ \ \ \ \string~0U}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_IMAP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

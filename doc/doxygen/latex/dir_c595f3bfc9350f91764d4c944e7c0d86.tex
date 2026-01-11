@@ -1,0 +1,84 @@
+\doxysection{gui/node\+\_\+modules/once Directory Reference}
+\hypertarget{dir_c595f3bfc9350f91764d4c944e7c0d86}{}\label{dir_c595f3bfc9350f91764d4c944e7c0d86}\index{gui/node\_modules/once Directory Reference@{gui/node\_modules/once Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_c595f3bfc9350f91764d4c944e7c0d86_autotoc_md1135}{}\doxysubsection{\texorpdfstring{once}{once}}\label{dir_c595f3bfc9350f91764d4c944e7c0d86_autotoc_md1135}
+Only call a function once.\hypertarget{dir_c595f3bfc9350f91764d4c944e7c0d86_autotoc_md1136}{}\doxysubsection{\texorpdfstring{usage}{usage}}\label{dir_c595f3bfc9350f91764d4c944e7c0d86_autotoc_md1136}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ once\ =\ require('once')}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ load\ (file,\ cb)\ \{}
+\DoxyCodeLine{\ \ cb\ =\ once(cb)}
+\DoxyCodeLine{\ \ loader.load('file')}
+\DoxyCodeLine{\ \ loader.once('load',\ cb)}
+\DoxyCodeLine{\ \ loader.once('error',\ cb)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Or add to the Function.\+prototype in a responsible way\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//\ only\ has\ to\ be\ done\ once}
+\DoxyCodeLine{require('once').proto()}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ load\ (file,\ cb)\ \{}
+\DoxyCodeLine{\ \ cb\ =\ cb.once()}
+\DoxyCodeLine{\ \ loader.load('file')}
+\DoxyCodeLine{\ \ loader.once('load',\ cb)}
+\DoxyCodeLine{\ \ loader.once('error',\ cb)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Ironically, the prototype feature makes this module twice as complicated as necessary.
+
+To check whether you function has been called, use {\ttfamily fn.\+called}. Once the function is called for the first time the return value of the original function is saved in {\ttfamily fn.\+value} and subsequent calls will continue to return this value.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{var\ once\ =\ require('once')}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ load\ (cb)\ \{}
+\DoxyCodeLine{\ \ cb\ =\ once(cb)}
+\DoxyCodeLine{\ \ var\ stream\ =\ createStream()}
+\DoxyCodeLine{\ \ stream.once('data',\ cb)}
+\DoxyCodeLine{\ \ stream.once('end',\ function\ ()\ \{}
+\DoxyCodeLine{\ \ \ \ if\ (!cb.called)\ cb(new\ Error('not\ found'))}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{dir_c595f3bfc9350f91764d4c944e7c0d86_autotoc_md1137}{}\doxysubsection{\texorpdfstring{{\ttfamily once.\+strict(func)}}{{\ttfamily once.\+strict(func)}}}\label{dir_c595f3bfc9350f91764d4c944e7c0d86_autotoc_md1137}
+Throw an error if the function is called twice.
+
+Some functions are expected to be called only once. Using {\ttfamily once} for them would potentially hide logical errors.
+
+In the example below, the {\ttfamily greet} function has to call the callback only once\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{function\ greet\ (name,\ cb)\ \{}
+\DoxyCodeLine{\ \ //\ return\ is\ missing\ from\ the\ if\ statement}
+\DoxyCodeLine{\ \ //\ when\ no\ name\ is\ passed,\ the\ callback\ is\ called\ twice}
+\DoxyCodeLine{\ \ if\ (!name)\ cb('Hello\ anonymous')}
+\DoxyCodeLine{\ \ cb('Hello\ '\ +\ name)}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{function\ log\ (msg)\ \{}
+\DoxyCodeLine{\ \ console.log(msg)}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ this\ will\ print\ 'Hello\ anonymous'\ but\ the\ logical\ error\ will\ be\ missed}
+\DoxyCodeLine{greet(null,\ once(msg))}
+\DoxyCodeLine{}
+\DoxyCodeLine{//\ once.strict\ will\ print\ 'Hello\ anonymous'\ and\ throw\ an\ error\ when\ the\ callback\ will\ be\ called\ the\ second\ time}
+\DoxyCodeLine{greet(null,\ once.strict(msg))}
+
+\end{DoxyCode}
+ 

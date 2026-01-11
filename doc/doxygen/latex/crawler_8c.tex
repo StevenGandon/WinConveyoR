@@ -1,0 +1,148 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/docs/examples/crawler.c File Reference}
+\hypertarget{crawler_8c}{}\label{crawler_8c}\index{lib/libwconr/build/\_deps/curl-\/src/docs/examples/crawler.c@{lib/libwconr/build/\_deps/curl-\/src/docs/examples/crawler.c}}
+{\ttfamily \#include $<$libxml/\+HTMLparser.\+h$>$}\newline
+{\ttfamily \#include $<$libxml/xpath.\+h$>$}\newline
+{\ttfamily \#include $<$libxml/uri.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmemory}{memory}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{crawler_8c_abb019eb4bedd1f2285c48234ca3c0111}{sighandler}} (int dummy)
+\item 
+size\+\_\+t \mbox{\hyperlink{crawler_8c_a8c30e6a107a460b44703f6d0e913beff}{grow\+\_\+buffer}} (void \texorpdfstring{$\ast$}{*}contents, size\+\_\+t sz, size\+\_\+t nmemb, void \texorpdfstring{$\ast$}{*}ctx)
+\item 
+\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crawler_8c_a6795b006a3de18c054ebddc088885dcc}{make\+\_\+handle}} (char \texorpdfstring{$\ast$}{*}url)
+\item 
+size\+\_\+t \mbox{\hyperlink{crawler_8c_a203d70c93af18c088fb0c4cd4a935a65}{follow\+\_\+links}} (\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}multi\+\_\+handle, \mbox{\hyperlink{structmemory}{memory}} \texorpdfstring{$\ast$}{*}mem, char \texorpdfstring{$\ast$}{*}url)
+\item 
+int \mbox{\hyperlink{crawler_8c_a7742aceedab4866a5c5dcc08928ba05d}{is\+\_\+html}} (char \texorpdfstring{$\ast$}{*}ctype)
+\item 
+int \mbox{\hyperlink{crawler_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{crawler_8c_ac629b97101274f9ad5b90efd9d111a29}{max\+\_\+con}} = 200
+\item 
+int \mbox{\hyperlink{crawler_8c_ac94b96efea403d8607e490f72256eb8d}{max\+\_\+total}} = 20000
+\item 
+int \mbox{\hyperlink{crawler_8c_a58a752d7abe970dd0d146ccbb97bcce1}{max\+\_\+requests}} = 500
+\item 
+int \mbox{\hyperlink{crawler_8c_acbcb7ad7b5944ec8aff97c1e71a088ec}{max\+\_\+link\+\_\+per\+\_\+page}} = 5
+\item 
+int \mbox{\hyperlink{crawler_8c_a7630285ba752ff356434985faec2c5ca}{follow\+\_\+relative\+\_\+links}} = 0
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crawler_8c_af9f8ead80492615bee23da31a4aee275}{start\+\_\+page}} = "{}https\+://www.\+reuters.\+com"{}
+\item 
+int \mbox{\hyperlink{crawler_8c_a9547c3d984efb1fc5d215ea189d38c3c}{pending\+\_\+interrupt}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{crawler_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{crawler_8c_a203d70c93af18c088fb0c4cd4a935a65}\index{crawler.c@{crawler.c}!follow\_links@{follow\_links}}
+\index{follow\_links@{follow\_links}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{follow\_links()}{follow\_links()}}
+{\footnotesize\ttfamily \label{crawler_8c_a203d70c93af18c088fb0c4cd4a935a65} 
+size\+\_\+t follow\+\_\+links (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{multi_8h_a5ad3a82c3de54ee92ce4ddb052d18036}{CURLM}} \texorpdfstring{$\ast$}{*}}]{multi\+\_\+handle}{, }\item[{\mbox{\hyperlink{structmemory}{memory}} \texorpdfstring{$\ast$}{*}}]{mem}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{url}{}\end{DoxyParamCaption})}
+
+\Hypertarget{crawler_8c_a8c30e6a107a460b44703f6d0e913beff}\index{crawler.c@{crawler.c}!grow\_buffer@{grow\_buffer}}
+\index{grow\_buffer@{grow\_buffer}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{grow\_buffer()}{grow\_buffer()}}
+{\footnotesize\ttfamily \label{crawler_8c_a8c30e6a107a460b44703f6d0e913beff} 
+size\+\_\+t grow\+\_\+buffer (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{contents}{, }\item[{size\+\_\+t}]{sz}{, }\item[{size\+\_\+t}]{nmemb}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+\Hypertarget{crawler_8c_a7742aceedab4866a5c5dcc08928ba05d}\index{crawler.c@{crawler.c}!is\_html@{is\_html}}
+\index{is\_html@{is\_html}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{is\_html()}{is\_html()}}
+{\footnotesize\ttfamily \label{crawler_8c_a7742aceedab4866a5c5dcc08928ba05d} 
+int is\+\_\+html (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{ctype}{}\end{DoxyParamCaption})}
+
+\Hypertarget{crawler_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{crawler.c@{crawler.c}!main@{main}}
+\index{main@{main}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{crawler_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{crawler_8c_a6795b006a3de18c054ebddc088885dcc}\index{crawler.c@{crawler.c}!make\_handle@{make\_handle}}
+\index{make\_handle@{make\_handle}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{make\_handle()}{make\_handle()}}
+{\footnotesize\ttfamily \label{crawler_8c_a6795b006a3de18c054ebddc088885dcc} 
+\mbox{\hyperlink{curl_8h_ace655e3633b6533591283994d6b5cdda}{CURL}} \texorpdfstring{$\ast$}{*} make\+\_\+handle (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{url}{}\end{DoxyParamCaption})}
+
+\Hypertarget{crawler_8c_abb019eb4bedd1f2285c48234ca3c0111}\index{crawler.c@{crawler.c}!sighandler@{sighandler}}
+\index{sighandler@{sighandler}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{sighandler()}{sighandler()}}
+{\footnotesize\ttfamily \label{crawler_8c_abb019eb4bedd1f2285c48234ca3c0111} 
+void sighandler (\begin{DoxyParamCaption}\item[{int}]{dummy}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{crawler_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{crawler_8c_a7630285ba752ff356434985faec2c5ca}\index{crawler.c@{crawler.c}!follow\_relative\_links@{follow\_relative\_links}}
+\index{follow\_relative\_links@{follow\_relative\_links}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{follow\_relative\_links}{follow\_relative\_links}}
+{\footnotesize\ttfamily \label{crawler_8c_a7630285ba752ff356434985faec2c5ca} 
+int follow\+\_\+relative\+\_\+links = 0}
+
+\Hypertarget{crawler_8c_ac629b97101274f9ad5b90efd9d111a29}\index{crawler.c@{crawler.c}!max\_con@{max\_con}}
+\index{max\_con@{max\_con}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{max\_con}{max\_con}}
+{\footnotesize\ttfamily \label{crawler_8c_ac629b97101274f9ad5b90efd9d111a29} 
+int max\+\_\+con = 200}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 2018 -\/ 2022 Jeroen Ooms \href{mailto:jeroenooms@gmail.com}{\texttt{jeroenooms@gmail.\+com}}
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl
+
+To compile\+: gcc \doxylink{crawler_8c}{crawler.\+c} \$(pkg-\/config --cflags --libs libxml-\/2.\+0 libcurl) \Hypertarget{crawler_8c_acbcb7ad7b5944ec8aff97c1e71a088ec}\index{crawler.c@{crawler.c}!max\_link\_per\_page@{max\_link\_per\_page}}
+\index{max\_link\_per\_page@{max\_link\_per\_page}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{max\_link\_per\_page}{max\_link\_per\_page}}
+{\footnotesize\ttfamily \label{crawler_8c_acbcb7ad7b5944ec8aff97c1e71a088ec} 
+int max\+\_\+link\+\_\+per\+\_\+page = 5}
+
+\Hypertarget{crawler_8c_a58a752d7abe970dd0d146ccbb97bcce1}\index{crawler.c@{crawler.c}!max\_requests@{max\_requests}}
+\index{max\_requests@{max\_requests}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{max\_requests}{max\_requests}}
+{\footnotesize\ttfamily \label{crawler_8c_a58a752d7abe970dd0d146ccbb97bcce1} 
+int max\+\_\+requests = 500}
+
+\Hypertarget{crawler_8c_ac94b96efea403d8607e490f72256eb8d}\index{crawler.c@{crawler.c}!max\_total@{max\_total}}
+\index{max\_total@{max\_total}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{max\_total}{max\_total}}
+{\footnotesize\ttfamily \label{crawler_8c_ac94b96efea403d8607e490f72256eb8d} 
+int max\+\_\+total = 20000}
+
+\Hypertarget{crawler_8c_a9547c3d984efb1fc5d215ea189d38c3c}\index{crawler.c@{crawler.c}!pending\_interrupt@{pending\_interrupt}}
+\index{pending\_interrupt@{pending\_interrupt}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{pending\_interrupt}{pending\_interrupt}}
+{\footnotesize\ttfamily \label{crawler_8c_a9547c3d984efb1fc5d215ea189d38c3c} 
+int pending\+\_\+interrupt = 0}
+
+\Hypertarget{crawler_8c_af9f8ead80492615bee23da31a4aee275}\index{crawler.c@{crawler.c}!start\_page@{start\_page}}
+\index{start\_page@{start\_page}!crawler.c@{crawler.c}}
+\doxysubsubsection{\texorpdfstring{start\_page}{start\_page}}
+{\footnotesize\ttfamily \label{crawler_8c_af9f8ead80492615bee23da31a4aee275} 
+char\texorpdfstring{$\ast$}{*} start\+\_\+page = "{}https\+://www.\+reuters.\+com"{}}
+

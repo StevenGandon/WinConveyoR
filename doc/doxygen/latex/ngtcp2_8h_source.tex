@@ -1,0 +1,78 @@
+\doxysection{ngtcp2.\+h}
+\hypertarget{ngtcp2_8h_source}{}\label{ngtcp2_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/vquic/ngtcp2.h@{lib/libwconr/build/\_deps/curl-\/src/lib/vquic/ngtcp2.h}}
+\mbox{\hyperlink{ngtcp2_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_CURL\_VQUIC\_NGTCP2\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_CURL\_VQUIC\_NGTCP2\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{curl__setup_8h}{curl\_setup.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifdef\ USE\_NGTCP2}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ HAVE\_NETINET\_UDP\_H}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <netinet/udp.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <ngtcp2/ngtcp2\_crypto.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <nghttp3/nghttp3.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ USE\_OPENSSL}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <openssl/ssl.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#elif\ defined(USE\_GNUTLS)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <gnutls/gnutls.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#elif\ defined(USE\_WOLFSSL)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <wolfssl/options.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <wolfssl/ssl.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <wolfssl/quic.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }blocked\_pkt\ \{}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *pkt;}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{size\_t}\ pktlen;}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ gsolen;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{struct\ }quicsocket\ \{}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{struct\ }connectdata\ *conn;\ \textcolor{comment}{/*\ point\ back\ to\ the\ connection\ */}}
+\DoxyCodeLine{00055\ \ \ ngtcp2\_conn\ *qconn;}
+\DoxyCodeLine{00056\ \ \ ngtcp2\_cid\ dcid;}
+\DoxyCodeLine{00057\ \ \ ngtcp2\_cid\ scid;}
+\DoxyCodeLine{00058\ \ \ uint32\_t\ version;}
+\DoxyCodeLine{00059\ \ \ ngtcp2\_settings\ \mbox{\hyperlink{namespacecore_1_1rate__limiter_ae88633dcea51ddae30544ad4ecaf3fb6}{settings}};}
+\DoxyCodeLine{00060\ \ \ ngtcp2\_transport\_params\ transport\_params;}
+\DoxyCodeLine{00061\ \ \ ngtcp2\_connection\_close\_error\ last\_error;}
+\DoxyCodeLine{00062\ \ \ ngtcp2\_crypto\_conn\_ref\ conn\_ref;}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#ifdef\ USE\_OPENSSL}}
+\DoxyCodeLine{00064\ \ \ SSL\_CTX\ *sslctx;}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{connect-to_8d_ab156b174a86e8671421f3a4f9e8eef71}{SSL}}\ *ssl;}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#elif\ defined(USE\_GNUTLS)}}
+\DoxyCodeLine{00067\ \ \ gnutls\_certificate\_credentials\_t\ cred;}
+\DoxyCodeLine{00068\ \ \ gnutls\_session\_t\ ssl;}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#elif\ defined(USE\_WOLFSSL)}}
+\DoxyCodeLine{00070\ \ \ WOLFSSL\_CTX\ *sslctx;}
+\DoxyCodeLine{00071\ \ \ WOLFSSL\ *ssl;}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{struct\ }sockaddr\_storage\ local\_addr;}
+\DoxyCodeLine{00074\ \ \ socklen\_t\ local\_addrlen;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{bool}\ no\_gso;}
+\DoxyCodeLine{00076\ \ \ uint8\_t\ *pktbuf;}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{size\_t}\ pktbuflen;}
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{/*\ the\ number\ of\ entries\ in\ blocked\_pkt\ */}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{size\_t}\ num\_blocked\_pkt;}
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{/*\ the\ number\ of\ processed\ entries\ in\ blocked\_pkt\ */}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{size\_t}\ num\_blocked\_pkt\_sent;}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{/*\ the\ packets\ blocked\ by\ sendmsg\ (EAGAIN\ or\ EWOULDBLOCK)\ */}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{struct\ }blocked\_pkt\ blocked\_pkt[2];}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ nghttp3\_conn\ *h3conn;}
+\DoxyCodeLine{00086\ \ \ nghttp3\_settings\ h3settings;}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{int}\ qlogfd;}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{urldata_8h}{urldata.h}}"{}}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_CURL\_VQUIC\_NGTCP2\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

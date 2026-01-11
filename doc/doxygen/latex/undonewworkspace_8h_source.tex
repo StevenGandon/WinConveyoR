@@ -1,0 +1,61 @@
+\doxysection{undonewworkspace.\+h}
+\hypertarget{undonewworkspace_8h_source}{}\label{undonewworkspace_8h_source}\index{Beamage/undonewworkspace.h@{Beamage/undonewworkspace.h}}
+\mbox{\hyperlink{undonewworkspace_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QUndoCommand>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <qobject.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classworkspaceController}{workspaceController}};}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classworkspace}{workspace}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAbstractImage}{AbstractImage}};}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }QComboBox;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classroiPolyItem}{roiPolyItem}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structUndoNewWorkspaceData}{UndoNewWorkspaceData}}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ QList<workspace*>\&\ \mbox{\hyperlink{structUndoNewWorkspaceData_ad533b1db1c794482c7c1470020b0b57d}{workspaceList}};}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{structUndoNewWorkspaceData_aa40fc0ce9a969328fb36e3e8aa64a043}{workspace}}\&\ \mbox{\hyperlink{structUndoNewWorkspaceData_aa40fc0ce9a969328fb36e3e8aa64a043}{workspace}};}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classworkspaceController}{workspaceController}}\&\ \mbox{\hyperlink{structUndoNewWorkspaceData_a610304bf6aeea26848cb3eedba54ce3b}{controller}};}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}\&\ \mbox{\hyperlink{structUndoNewWorkspaceData_a908396e187485e21cfe01be552d5060f}{img}};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\&\ \mbox{\hyperlink{structUndoNewWorkspaceData_a99a38217a057135ead4792160fd03729}{item}};}
+\DoxyCodeLine{00018\ \ \ \ \ QComboBox\&\ \mbox{\hyperlink{structUndoNewWorkspaceData_aa95f2168359021a040fd7fb88ce98bc2}{CB\_SwitchWorkspace}};}
+\DoxyCodeLine{00019\ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structUndoRemoveWorkspaceData}{UndoRemoveWorkspaceData}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ QList<workspace*>\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_a6592852b6729cdb63a616bed4028f769}{workspaceList}};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{structUndoRemoveWorkspaceData_adaffdc23ab233c5982437ed25fb34c6c}{workspace}}\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_adaffdc23ab233c5982437ed25fb34c6c}{workspace}};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classworkspaceController}{workspaceController}}\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_a831987df504c8cc361a90612296d59d3}{controller}};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classAbstractImage}{AbstractImage}}\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_a7cf819182c0dc01a53ec120c5a1f44df}{img}};}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classroiPolyItem}{roiPolyItem}}\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_a6fc4327a3ccd929708c87ed0e4e55d4a}{item}};}
+\DoxyCodeLine{00027\ \ \ \ \ QComboBox\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_a92f03b087b790f5c4477c8db08d84a93}{CB\_SwitchWorkspace}};}
+\DoxyCodeLine{00028\ \ \ \ \ QComboBox\&\ \mbox{\hyperlink{structUndoRemoveWorkspaceData_a7c5b44301ae7e15122a7e29079703a34}{CB\_SwitchItems}};}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUndoNewWorkspace_a0fa3c08c6bb361b1654b2b956e710289}{UndoNewWorkspace}}\ :\ \textcolor{keyword}{public}\ QObject,\ \textcolor{keyword}{public}\ QUndoCommand}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classUndoNewWorkspace_a0fa3c08c6bb361b1654b2b956e710289}{UndoNewWorkspace}}(\textcolor{keyword}{const}\ QString\&\ text,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structUndoNewWorkspaceData}{UndoNewWorkspaceData}}\&\ data,\ QUndoCommand*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classUndoNewWorkspace_a0fa3c08c6bb361b1654b2b956e710289}{UndoNewWorkspace}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structUndoNewWorkspaceData}{UndoNewWorkspaceData}}\&\ data,\ QUndoCommand*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUndoNewWorkspace_a0d73d1521514bfdca614d58a7636305c}{undo}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUndoNewWorkspace_a609147351858629db906f6e9d62ac25d}{redo}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{structUndoNewWorkspaceData}{UndoNewWorkspaceData}}\ d;}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUndoRemoveWorkspace_ae8c643cd3dfa091b1ef8a67941045371}{UndoRemoveWorkspace}}\ :\ \textcolor{keyword}{public}\ QObject,\ \textcolor{keyword}{public}\ QUndoCommand}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classUndoRemoveWorkspace_ae8c643cd3dfa091b1ef8a67941045371}{UndoRemoveWorkspace}}(\textcolor{keyword}{const}\ QString\&\ text,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structUndoRemoveWorkspaceData}{UndoRemoveWorkspaceData}}\&\ data,\ QUndoCommand*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classUndoRemoveWorkspace_ae8c643cd3dfa091b1ef8a67941045371}{UndoRemoveWorkspace}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structUndoRemoveWorkspaceData}{UndoRemoveWorkspaceData}}\&\ data,\ QUndoCommand*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUndoRemoveWorkspace_ae3d4d8e98ceb99c05a6a66361daa6f9c}{undo}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUndoRemoveWorkspace_af7d350a36fb7af9fcc4ede62f1e028e8}{redo}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{structUndoRemoveWorkspaceData}{UndoRemoveWorkspaceData}}\ d;}
+\DoxyCodeLine{00055\ \};}
+
+\end{DoxyCode}

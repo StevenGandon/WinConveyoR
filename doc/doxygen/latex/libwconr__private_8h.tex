@@ -1,0 +1,135 @@
+\doxysection{lib/libwconr/libwconr\+\_\+private.h File Reference}
+\hypertarget{libwconr__private_8h}{}\label{libwconr__private_8h}\index{lib/libwconr/libwconr\_private.h@{lib/libwconr/libwconr\_private.h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}src/platform\+\_\+types.\+h"{}}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{struct__http__header__s}{\+\_\+http\+\_\+header\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_a1b493a0d40882c0dcc78cf458090062f}{end\+\_\+http\+\_\+response\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*})
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_a60b3433e4b4e5abe8778a27af0534bf1}{end\+\_\+http\+\_\+request\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*})
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_a5dbcd6488caab70a7c861e97afbd6665}{end\+\_\+http\+\_\+connection}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*})
+\item 
+struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{libwconr__private_8h_a3a9c10a45637e08ccd570a8945ff24eb}{new\+\_\+http\+\_\+connection}} (const char \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+s, unsigned short \+\_\+\+\_\+p)
+\item 
+struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{libwconr__private_8h_ab3abea3a52fd660d838c3d4affdbbcc1}{new\+\_\+http\+\_\+response\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*})
+\item 
+struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{libwconr__private_8h_aab2f0f73f5bee8021a06a4908508df06}{new\+\_\+http\+\_\+request\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*})
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_a2194e4b470457ff38a27504166b98977}{set\+\_\+header}} (struct \mbox{\hyperlink{struct__http__header__s}{\+\_\+http\+\_\+header\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+\_\+\+\_\+h, const unsigned char \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+k, const unsigned char \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+v)
+\item 
+const unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{libwconr__private_8h_a56a0ea46a4e49690d525dfbd8a80e1ff}{get\+\_\+header}} (const struct \mbox{\hyperlink{struct__http__header__s}{\+\_\+http\+\_\+header\+\_\+s}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+h, const unsigned char \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+k)
+\item 
+ssize\+\_\+t \mbox{\hyperlink{libwconr__private_8h_a3aa4f5a06e5318844cb5d16e8a573cb6}{get\+\_\+chunk}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+c, size\+\_\+t \+\_\+\+\_\+s, unsigned char \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+d)
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_aa69cddcb85def714578918bb1d502a16}{request\+\_\+ressource}} (struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+r, const unsigned char \texorpdfstring{$\ast$}{*}http\+\_\+address)
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_a9b128de1da2c85ee0a7a7d15b448b5de}{fetch\+\_\+response}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+r)
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{libwconr__private_8h_a6bfadfd8ddd0dc3db6510db30bcc159b}{read\+\_\+http\+\_\+headers}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}client, size\+\_\+t \texorpdfstring{$\ast$}{*}total\+\_\+size)
+\item 
+int \mbox{\hyperlink{libwconr__private_8h_aef92122913d5fac352af325bec64f251}{parse\+\_\+status\+\_\+line}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}parser, unsigned char \texorpdfstring{$\ast$}{*}buffer)
+\item 
+void \mbox{\hyperlink{libwconr__private_8h_ad5341a6ffaf0849262bbd03af02c54f8}{parse\+\_\+headers}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}parser, unsigned char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t total\+\_\+size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{libwconr__private_8h_a5dbcd6488caab70a7c861e97afbd6665}\label{libwconr__private_8h_a5dbcd6488caab70a7c861e97afbd6665} 
+\index{libwconr\_private.h@{libwconr\_private.h}!end\_http\_connection@{end\_http\_connection}}
+\index{end\_http\_connection@{end\_http\_connection}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{end\_http\_connection()}{end\_http\_connection()}}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a60b3433e4b4e5abe8778a27af0534bf1}\label{libwconr__private_8h_a60b3433e4b4e5abe8778a27af0534bf1} 
+\index{libwconr\_private.h@{libwconr\_private.h}!end\_http\_request\_parser@{end\_http\_request\_parser}}
+\index{end\_http\_request\_parser@{end\_http\_request\_parser}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{end\_http\_request\_parser()}{end\_http\_request\_parser()}}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+parser }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a1b493a0d40882c0dcc78cf458090062f}\label{libwconr__private_8h_a1b493a0d40882c0dcc78cf458090062f} 
+\index{libwconr\_private.h@{libwconr\_private.h}!end\_http\_response\_parser@{end\_http\_response\_parser}}
+\index{end\_http\_response\_parser@{end\_http\_response\_parser}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{end\_http\_response\_parser()}{end\_http\_response\_parser()}}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+parser }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a9b128de1da2c85ee0a7a7d15b448b5de}\label{libwconr__private_8h_a9b128de1da2c85ee0a7a7d15b448b5de} 
+\index{libwconr\_private.h@{libwconr\_private.h}!fetch\_response@{fetch\_response}}
+\index{fetch\_response@{fetch\_response}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{fetch\_response()}{fetch\_response()}}
+{\footnotesize\ttfamily void fetch\+\_\+response (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+r }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a3aa4f5a06e5318844cb5d16e8a573cb6}\label{libwconr__private_8h_a3aa4f5a06e5318844cb5d16e8a573cb6} 
+\index{libwconr\_private.h@{libwconr\_private.h}!get\_chunk@{get\_chunk}}
+\index{get\_chunk@{get\_chunk}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{get\_chunk()}{get\_chunk()}}
+{\footnotesize\ttfamily ssize\+\_\+t get\+\_\+chunk (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+c,  }\item[{size\+\_\+t}]{\+\_\+\+\_\+s,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+d }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a56a0ea46a4e49690d525dfbd8a80e1ff}\label{libwconr__private_8h_a56a0ea46a4e49690d525dfbd8a80e1ff} 
+\index{libwconr\_private.h@{libwconr\_private.h}!get\_header@{get\_header}}
+\index{get\_header@{get\_header}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{get\_header()}{get\_header()}}
+{\footnotesize\ttfamily const unsigned char \texorpdfstring{$\ast$}{*} get\+\_\+header (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__http__header__s}{\+\_\+http\+\_\+header\+\_\+s}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+h,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+k }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a3a9c10a45637e08ccd570a8945ff24eb}\label{libwconr__private_8h_a3a9c10a45637e08ccd570a8945ff24eb} 
+\index{libwconr\_private.h@{libwconr\_private.h}!new\_http\_connection@{new\_http\_connection}}
+\index{new\_http\_connection@{new\_http\_connection}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{new\_http\_connection()}{new\_http\_connection()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+connection (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+s,  }\item[{unsigned short}]{\+\_\+\+\_\+p }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_aab2f0f73f5bee8021a06a4908508df06}\label{libwconr__private_8h_aab2f0f73f5bee8021a06a4908508df06} 
+\index{libwconr\_private.h@{libwconr\_private.h}!new\_http\_request\_parser@{new\_http\_request\_parser}}
+\index{new\_http\_request\_parser@{new\_http\_request\_parser}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{new\_http\_request\_parser()}{new\_http\_request\_parser()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_ab3abea3a52fd660d838c3d4affdbbcc1}\label{libwconr__private_8h_ab3abea3a52fd660d838c3d4affdbbcc1} 
+\index{libwconr\_private.h@{libwconr\_private.h}!new\_http\_response\_parser@{new\_http\_response\_parser}}
+\index{new\_http\_response\_parser@{new\_http\_response\_parser}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{new\_http\_response\_parser()}{new\_http\_response\_parser()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_ad5341a6ffaf0849262bbd03af02c54f8}\label{libwconr__private_8h_ad5341a6ffaf0849262bbd03af02c54f8} 
+\index{libwconr\_private.h@{libwconr\_private.h}!parse\_headers@{parse\_headers}}
+\index{parse\_headers@{parse\_headers}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{parse\_headers()}{parse\_headers()}}
+{\footnotesize\ttfamily void parse\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{total\+\_\+size }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_aef92122913d5fac352af325bec64f251}\label{libwconr__private_8h_aef92122913d5fac352af325bec64f251} 
+\index{libwconr\_private.h@{libwconr\_private.h}!parse\_status\_line@{parse\_status\_line}}
+\index{parse\_status\_line@{parse\_status\_line}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{parse\_status\_line()}{parse\_status\_line()}}
+{\footnotesize\ttfamily int parse\+\_\+status\+\_\+line (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a6bfadfd8ddd0dc3db6510db30bcc159b}\label{libwconr__private_8h_a6bfadfd8ddd0dc3db6510db30bcc159b} 
+\index{libwconr\_private.h@{libwconr\_private.h}!read\_http\_headers@{read\_http\_headers}}
+\index{read\_http\_headers@{read\_http\_headers}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{read\_http\_headers()}{read\_http\_headers()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} read\+\_\+http\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{client,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{total\+\_\+size }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_aa69cddcb85def714578918bb1d502a16}\label{libwconr__private_8h_aa69cddcb85def714578918bb1d502a16} 
+\index{libwconr\_private.h@{libwconr\_private.h}!request\_ressource@{request\_ressource}}
+\index{request\_ressource@{request\_ressource}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{request\_ressource()}{request\_ressource()}}
+{\footnotesize\ttfamily void request\+\_\+ressource (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+r,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{http\+\_\+address }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr__private_8h_a2194e4b470457ff38a27504166b98977}\label{libwconr__private_8h_a2194e4b470457ff38a27504166b98977} 
+\index{libwconr\_private.h@{libwconr\_private.h}!set\_header@{set\_header}}
+\index{set\_header@{set\_header}!libwconr\_private.h@{libwconr\_private.h}}
+\doxysubsubsection{\texorpdfstring{set\_header()}{set\_header()}}
+{\footnotesize\ttfamily void set\+\_\+header (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__header__s}{\+\_\+http\+\_\+header\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+h,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+k,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+v }\end{DoxyParamCaption})}
+

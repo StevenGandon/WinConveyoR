@@ -1,0 +1,67 @@
+\doxysection{gui/node\+\_\+modules/quick-\/lru Directory Reference}
+\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9}{}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9}\index{gui/node\_modules/quick-\/lru Directory Reference@{gui/node\_modules/quick-\/lru Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1186}{}\doxysubsection{\texorpdfstring{quick-\/lru \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.org/sindresorhus/quick-lru.svg?branch=master}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/quick-\/lru.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.org/sindresorhus/quick-lru}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/quick-\/lru}}) \mbox{[}!\mbox{[}Coverage Status\mbox{]}(\href{https://coveralls.io/repos/github/sindresorhus/quick-lru/badge.svg?branch=master}{\texttt{https\+://coveralls.\+io/repos/github/sindresorhus/quick-\/lru/badge.\+svg?branch=master}})\mbox{]}(\href{https://coveralls.io/github/sindresorhus/quick-lru?branch=master}{\texttt{https\+://coveralls.\+io/github/sindresorhus/quick-\/lru?branch=master}})}{quick-\/lru \mbox{[}!\mbox{[}Build Status\mbox{]}(\href{https://travis-ci.org/sindresorhus/quick-lru.svg?branch=master}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/quick-\/lru.\+svg?branch=master}})\mbox{]}(\href{https://travis-ci.org/sindresorhus/quick-lru}{\texttt{https\+://travis-\/ci.\+org/sindresorhus/quick-\/lru}}) \mbox{[}!\mbox{[}Coverage Status\mbox{]}(\href{https://coveralls.io/repos/github/sindresorhus/quick-lru/badge.svg?branch=master}{\texttt{https\+://coveralls.\+io/repos/github/sindresorhus/quick-\/lru/badge.\+svg?branch=master}})\mbox{]}(\href{https://coveralls.io/github/sindresorhus/quick-lru?branch=master}{\texttt{https\+://coveralls.\+io/github/sindresorhus/quick-\/lru?branch=master}})}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1186}
+\begin{quote}
+Simple \href{https://en.m.wikipedia.org/wiki/Cache_replacement_policies\#Least_Recently_Used_.28LRU.29}{\texttt{“\+Least Recently Used” (LRU) cache}} \end{quote}
+
+
+Useful when you need to cache something and limit memory usage.
+
+Inspired by the \href{https://github.com/dominictarr/hashlru\#algorithm}{\texttt{{\ttfamily hashlru} algorithm}}, but instead uses \href{https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Map}{\texttt{{\ttfamily Map}}} to support keys of any type, not just strings, and values can be {\ttfamily undefined}.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1187}{}\doxysubsection{\texorpdfstring{Install}{Install}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1187}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ npm\ install\ quick-\/lru}
+
+\end{DoxyCode}
+\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1188}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1188}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ QuickLRU\ =\ require('quick-\/lru');}
+\DoxyCodeLine{}
+\DoxyCodeLine{const\ lru\ =\ new\ QuickLRU(\{maxSize:\ 1000\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{lru.set('🦄',\ '🌈');}
+\DoxyCodeLine{}
+\DoxyCodeLine{lru.has('🦄');}
+\DoxyCodeLine{//=>\ true}
+\DoxyCodeLine{}
+\DoxyCodeLine{lru.get('🦄');}
+\DoxyCodeLine{//=>\ '🌈'}
+
+\end{DoxyCode}
+\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1189}{}\doxysubsection{\texorpdfstring{API}{API}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1189}
+\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1190}{}\doxysubsubsection{\texorpdfstring{new Quick\+LRU(options?)}{new Quick\+LRU(options?)}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1190}
+Returns a new instance.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1191}{}\doxysubsubsection{\texorpdfstring{options}{options}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1191}
+Type\+: {\ttfamily object}\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1192}{}\doxysubsubsubsection{\texorpdfstring{max\+Size}{max\+Size}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1192}
+{\itshape Required}\textbackslash{} Type\+: {\ttfamily number}
+
+The maximum number of items before evicting the least recently used items.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1193}{}\doxysubsubsubsection{\texorpdfstring{on\+Eviction}{on\+Eviction}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1193}
+{\itshape Optional}\textbackslash{} Type\+: {\ttfamily (key, value) =\texorpdfstring{$>$}{>} void}
+
+Called right before an item is evicted from the cache.
+
+Useful for side effects or for items like object URLs that need explicit cleanup ({\ttfamily revoke\+Object\+URL}).\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1194}{}\doxysubsubsection{\texorpdfstring{Instance}{Instance}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1194}
+The instance is \href{https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Iteration_protocols}{\texttt{{\ttfamily iterable}}} so you can use it directly in a \href{https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for...of}{\texttt{{\ttfamily for…of}}} loop.
+
+Both {\ttfamily key} and {\ttfamily value} can be of any type.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1195}{}\doxysubsubsubsection{\texorpdfstring{.set(key, value)}{.set(key, value)}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1195}
+Set an item. Returns the instance.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1196}{}\doxysubsubsubsection{\texorpdfstring{.get(key)}{.get(key)}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1196}
+Get an item.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1197}{}\doxysubsubsubsection{\texorpdfstring{.has(key)}{.has(key)}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1197}
+Check if an item exists.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1198}{}\doxysubsubsubsection{\texorpdfstring{.peek(key)}{.peek(key)}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1198}
+Get an item without marking it as recently used.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1199}{}\doxysubsubsubsection{\texorpdfstring{.delete(key)}{.delete(key)}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1199}
+Delete an item.
+
+Returns {\ttfamily true} if the item is removed or {\ttfamily false} if the item doesn\textquotesingle{}t exist.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1200}{}\doxysubsubsubsection{\texorpdfstring{.clear()}{.clear()}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1200}
+Delete all items.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1201}{}\doxysubsubsubsection{\texorpdfstring{.keys()}{.keys()}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1201}
+Iterable for all the keys.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1202}{}\doxysubsubsubsection{\texorpdfstring{.values()}{.values()}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1202}
+Iterable for all the values.\hypertarget{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1203}{}\doxysubsubsubsection{\texorpdfstring{.size}{.size}}\label{dir_df2cf159089f629bdfb5cb16b71bb5c9_autotoc_md1203}
+The stored item count.
+
+\DoxyHorRuler{0}
+
+
+ {\bfseries{ \href{https://tidelift.com/subscription/pkg/npm-quick-lru?utm_source=npm-quick-lru&utm_medium=referral&utm_campaign=readme}{\texttt{Get professional support for this package with a Tidelift subscription}} }} ~\newline
+ \textsubscript{ Tidelift helps make open source sustainable for maintainers while giving companies~\newline
+assurances about security, maintenance, and licensing for their dependencies. }  

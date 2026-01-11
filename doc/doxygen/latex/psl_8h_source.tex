@@ -1,0 +1,33 @@
+\doxysection{psl.\+h}
+\hypertarget{psl_8h_source}{}\label{psl_8h_source}\index{lib/libwconr/build/\_deps/curl-\/src/lib/psl.h@{lib/libwconr/build/\_deps/curl-\/src/lib/psl.h}}
+\mbox{\hyperlink{psl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADER\_PSL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ HEADER\_PSL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ USE\_LIBPSL}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <libpsl.h>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ PSL\_TTL\ (72\ *\ 3600)\ \ \ \ \ }\textcolor{comment}{/*\ PSL\ time\ to\ live\ before\ a\ refresh.\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }PslCache\ \{}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{const}\ psl\_ctx\_t\ *psl;\ \textcolor{comment}{/*\ The\ PSL.\ */}}
+\DoxyCodeLine{00034\ \ \ time\_t\ expires;\ \textcolor{comment}{/*\ Time\ this\ PSL\ life\ expires.\ */}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{bool}\ dynamic;\ \textcolor{comment}{/*\ PSL\ should\ be\ released\ when\ no\ longer\ needed.\ */}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{const}\ psl\_ctx\_t\ *\mbox{\hyperlink{psl_8h_a829f724809cd062e49e38c1f138c7bc1}{Curl\_psl\_use}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *easy);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{psl_8h_af771f7c26f84a57fff4fe3851532293a}{Curl\_psl\_release}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structCurl__easy}{Curl\_easy}}\ *easy);}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{psl_8h_ab188f302b40b6db9599e4d551581862d}{Curl\_psl\_destroy}}(\textcolor{keyword}{struct}\ PslCache\ *pslcache);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ Curl\_psl\_use(easy)\ NULL}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ Curl\_psl\_release(easy)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ Curl\_psl\_destroy(pslcache)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_LIBPSL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HEADER\_PSL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,198 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/ldap.c File Reference}
+\hypertarget{ldap_8c}{}\label{ldap_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/ldap.c@{lib/libwconr/build/\_deps/curl-\/src/lib/ldap.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$ldap.\+h$>$}\newline
+{\ttfamily \#include "{}urldata.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}sendf.\+h"{}}\newline
+{\ttfamily \#include "{}escape.\+h"{}}\newline
+{\ttfamily \#include "{}progress.\+h"{}}\newline
+{\ttfamily \#include "{}transfer.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}strtok.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+ldap.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+multibyte.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+base64.\+h"{}}\newline
+{\ttfamily \#include "{}connect.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structldap__urldesc}{ldap\+\_\+urldesc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ldap_8c_a773186efdfc921b5370ec02876fd69f5}{LDAP\+\_\+\+DEPRECATED}}~1      /\texorpdfstring{$\ast$}{*} Be sure \mbox{\hyperlink{setup-os400_8h_a27893953ce895e5a66dc2209d01ae59a}{ldap\+\_\+init}}() is defined. \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}}~struct \mbox{\hyperlink{structldap__urldesc}{ldap\+\_\+urldesc}}
+\item 
+\#define \mbox{\hyperlink{ldap_8c_acaa480fe588a3687fdbac0ec502d8c0a}{ldap\+\_\+free\+\_\+urldesc}}~\mbox{\hyperlink{ldap_8c_a7d7db9ca79d3b95f5abe19f1f2679b97}{\+\_\+ldap\+\_\+free\+\_\+urldesc}}
+\item 
+\#define \mbox{\hyperlink{ldap_8c_acbf296f815887ee0c2146ffaa4649c36}{LDAP\+\_\+\+TRACE}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\item 
+\#define \mbox{\hyperlink{ldap_8c_a53da99e0ff6c112c228bc411b7eaa1d8}{FREE\+\_\+\+ON\+\_\+\+WINLDAP}}(\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{ldap_8c_a4b7ac37e316aee84dbf92d92aac95f8d}{\+\_\+ldap\+\_\+url\+\_\+parse}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ludp)
+\item 
+static void \mbox{\hyperlink{ldap_8c_a7d7db9ca79d3b95f5abe19f1f2679b97}{\+\_\+ldap\+\_\+free\+\_\+urldesc}} (\mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}} \texorpdfstring{$\ast$}{*}ludp)
+\item 
+static \mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} \mbox{\hyperlink{ldap_8c_a5e304176ba138746a6648d97f7582040}{ldap\+\_\+do}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}done)
+\item 
+static int \mbox{\hyperlink{ldap_8c_affea41370883d8af122a1036a6c3351e}{str2scope}} (const char \texorpdfstring{$\ast$}{*}p)
+\item 
+static \mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \mbox{\hyperlink{ldap_8c_a431c7af9b05285f9da664157e6c4a756}{split\+\_\+str}} (char \texorpdfstring{$\ast$}{*}str, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}count)
+\item 
+static int \mbox{\hyperlink{ldap_8c_ab9a08e1ea14db37c7e1b1879490ebcd9}{\+\_\+ldap\+\_\+url\+\_\+parse2}} (struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, const struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}conn, \mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}} \texorpdfstring{$\ast$}{*}ludp)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} \mbox{\hyperlink{ldap_8c_aa1253b14602d68a70ca20be27d768594}{Curl\+\_\+handler\+\_\+ldap}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ldap_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ldap_8c_a53da99e0ff6c112c228bc411b7eaa1d8}\index{ldap.c@{ldap.c}!FREE\_ON\_WINLDAP@{FREE\_ON\_WINLDAP}}
+\index{FREE\_ON\_WINLDAP@{FREE\_ON\_WINLDAP}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{FREE\_ON\_WINLDAP}{FREE\_ON\_WINLDAP}}
+{\footnotesize\ttfamily \label{ldap_8c_a53da99e0ff6c112c228bc411b7eaa1d8} 
+\#define FREE\+\_\+\+ON\+\_\+\+WINLDAP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ldap_8c_a773186efdfc921b5370ec02876fd69f5}\index{ldap.c@{ldap.c}!LDAP\_DEPRECATED@{LDAP\_DEPRECATED}}
+\index{LDAP\_DEPRECATED@{LDAP\_DEPRECATED}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{LDAP\_DEPRECATED}{LDAP\_DEPRECATED}}
+{\footnotesize\ttfamily \label{ldap_8c_a773186efdfc921b5370ec02876fd69f5} 
+\#define LDAP\+\_\+\+DEPRECATED~1      /\texorpdfstring{$\ast$}{*} Be sure \mbox{\hyperlink{setup-os400_8h_a27893953ce895e5a66dc2209d01ae59a}{ldap\+\_\+init}}() is defined. \texorpdfstring{$\ast$}{*}/}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{ldap_8c_acaa480fe588a3687fdbac0ec502d8c0a}\index{ldap.c@{ldap.c}!ldap\_free\_urldesc@{ldap\_free\_urldesc}}
+\index{ldap\_free\_urldesc@{ldap\_free\_urldesc}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{ldap\_free\_urldesc}{ldap\_free\_urldesc}}
+{\footnotesize\ttfamily \label{ldap_8c_acaa480fe588a3687fdbac0ec502d8c0a} 
+\#define ldap\+\_\+free\+\_\+urldesc~\mbox{\hyperlink{ldap_8c_a7d7db9ca79d3b95f5abe19f1f2679b97}{\+\_\+ldap\+\_\+free\+\_\+urldesc}}}
+
+\Hypertarget{ldap_8c_acbf296f815887ee0c2146ffaa4649c36}\index{ldap.c@{ldap.c}!LDAP\_TRACE@{LDAP\_TRACE}}
+\index{LDAP\_TRACE@{LDAP\_TRACE}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{LDAP\_TRACE}{LDAP\_TRACE}}
+{\footnotesize\ttfamily \label{ldap_8c_acbf296f815887ee0c2146ffaa4649c36} 
+\#define LDAP\+\_\+\+TRACE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{ignore-content-length_8d_ae6d5859bca553d73e782e3f0d512ff08}{x}}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Curl\_nop\_stmt}
+
+\end{DoxyCode}
+\Hypertarget{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}\index{ldap.c@{ldap.c}!LDAPURLDesc@{LDAPURLDesc}}
+\index{LDAPURLDesc@{LDAPURLDesc}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{LDAPURLDesc}{LDAPURLDesc}}
+{\footnotesize\ttfamily \label{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195} 
+\#define LDAPURLDesc~struct \mbox{\hyperlink{structldap__urldesc}{ldap\+\_\+urldesc}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{ldap_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ldap_8c_a7d7db9ca79d3b95f5abe19f1f2679b97}\index{ldap.c@{ldap.c}!\_ldap\_free\_urldesc@{\_ldap\_free\_urldesc}}
+\index{\_ldap\_free\_urldesc@{\_ldap\_free\_urldesc}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{\_ldap\_free\_urldesc()}{\_ldap\_free\_urldesc()}}
+{\footnotesize\ttfamily \label{ldap_8c_a7d7db9ca79d3b95f5abe19f1f2679b97} 
+void \+\_\+ldap\+\_\+free\+\_\+urldesc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}} \texorpdfstring{$\ast$}{*}}]{ludp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ldap_8c_a4b7ac37e316aee84dbf92d92aac95f8d}\index{ldap.c@{ldap.c}!\_ldap\_url\_parse@{\_ldap\_url\_parse}}
+\index{\_ldap\_url\_parse@{\_ldap\_url\_parse}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{\_ldap\_url\_parse()}{\_ldap\_url\_parse()}}
+{\footnotesize\ttfamily \label{ldap_8c_a4b7ac37e316aee84dbf92d92aac95f8d} 
+int \+\_\+ldap\+\_\+url\+\_\+parse (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{ludp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ldap_8c_ab9a08e1ea14db37c7e1b1879490ebcd9}\index{ldap.c@{ldap.c}!\_ldap\_url\_parse2@{\_ldap\_url\_parse2}}
+\index{\_ldap\_url\_parse2@{\_ldap\_url\_parse2}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{\_ldap\_url\_parse2()}{\_ldap\_url\_parse2()}}
+{\footnotesize\ttfamily \label{ldap_8c_ab9a08e1ea14db37c7e1b1879490ebcd9} 
+int \+\_\+ldap\+\_\+url\+\_\+parse2 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{const struct \mbox{\hyperlink{structconnectdata}{connectdata}} \texorpdfstring{$\ast$}{*}}]{conn}{, }\item[{\mbox{\hyperlink{ldap_8c_aa334b56d2c4f63b26c0ab30339cae195}{LDAPURLDesc}} \texorpdfstring{$\ast$}{*}}]{ludp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ldap_8c_a5e304176ba138746a6648d97f7582040}\index{ldap.c@{ldap.c}!ldap\_do@{ldap\_do}}
+\index{ldap\_do@{ldap\_do}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{ldap\_do()}{ldap\_do()}}
+{\footnotesize\ttfamily \label{ldap_8c_a5e304176ba138746a6648d97f7582040} 
+\mbox{\hyperlink{curl_8h_af0691941698240652e0a391394217951}{CURLcode}} ldap\+\_\+do (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structCurl__easy}{Curl\+\_\+easy}} \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} \texorpdfstring{$\ast$}{*}}]{done}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ldap_8c_a431c7af9b05285f9da664157e6c4a756}\index{ldap.c@{ldap.c}!split\_str@{split\_str}}
+\index{split\_str@{split\_str}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{split\_str()}{split\_str()}}
+{\footnotesize\ttfamily \label{ldap_8c_a431c7af9b05285f9da664157e6c4a756} 
+\mbox{\hyperlink{multi-debugcallback_8c_ad5c9d4ba3dc37783a528b0925dc981a0}{bool}} split\+\_\+str (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{ldap_8c_affea41370883d8af122a1036a6c3351e}\index{ldap.c@{ldap.c}!str2scope@{str2scope}}
+\index{str2scope@{str2scope}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{str2scope()}{str2scope()}}
+{\footnotesize\ttfamily \label{ldap_8c_affea41370883d8af122a1036a6c3351e} 
+int str2scope (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\label{doc-var-members}
+\Hypertarget{ldap_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{ldap_8c_aa1253b14602d68a70ca20be27d768594}\index{ldap.c@{ldap.c}!Curl\_handler\_ldap@{Curl\_handler\_ldap}}
+\index{Curl\_handler\_ldap@{Curl\_handler\_ldap}!ldap.c@{ldap.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_handler\_ldap}{Curl\_handler\_ldap}}
+{\footnotesize\ttfamily \label{ldap_8c_aa1253b14602d68a70ca20be27d768594} 
+const struct \mbox{\hyperlink{structCurl__handler}{Curl\+\_\+handler}} Curl\+\_\+handler\+\_\+ldap}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \textcolor{stringliteral}{"{}LDAP"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{ldap_8c_a5e304176ba138746a6648d97f7582040}{ldap\_do}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl__setup__once_8h_af6458f5d187f1d7c82fb9ea7ef634b44}{ZERO\_NULL}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a4d9c4d843ff2d52be6c16d1fa1033184}{PORT\_LDAP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a5588596e963ddd108786b3e331eb09e4}{CURLPROTO\_LDAP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{curl_8h_a5588596e963ddd108786b3e331eb09e4}{CURLPROTO\_LDAP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \mbox{\hyperlink{urldata_8h_a06e40f8f1e2219fb5b519c74715c3537}{PROTOPT\_NONE}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl 

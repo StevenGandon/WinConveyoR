@@ -1,0 +1,127 @@
+\doxysection{lib/libwconr/build/\+\_\+deps/curl-\/src/lib/netrc.c File Reference}
+\hypertarget{netrc_8c}{}\label{netrc_8c}\index{lib/libwconr/build/\_deps/curl-\/src/lib/netrc.c@{lib/libwconr/build/\_deps/curl-\/src/lib/netrc.c}}
+{\ttfamily \#include "{}curl\+\_\+setup.\+h"{}}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include "{}netrc.\+h"{}}\newline
+{\ttfamily \#include "{}strtok.\+h"{}}\newline
+{\ttfamily \#include "{}strcase.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+get\+\_\+line.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+printf.\+h"{}}\newline
+{\ttfamily \#include "{}curl\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}memdebug.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{netrc_8c_ab2f3fe87719ea446d9ce24d255907aaa}{NETRC\+\_\+\+FILE\+\_\+\+MISSING}}~1
+\item 
+\#define \mbox{\hyperlink{netrc_8c_a33f487999e714b5ed8915a13972ce164}{NETRC\+\_\+\+FAILED}}~-\/1
+\item 
+\#define \mbox{\hyperlink{netrc_8c_a59274ce0e6195721a71db18a8f39706e}{NETRC\+\_\+\+SUCCESS}}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{netrc_8c_a6da21ec67471a61686de6c35094e360d}{host\+\_\+lookup\+\_\+state}} \{ \mbox{\hyperlink{netrc_8c_a6da21ec67471a61686de6c35094e360dacfe24a7b308a82835c8a9a9a89bc4ca2}{NOTHING}}
+, \mbox{\hyperlink{netrc_8c_a6da21ec67471a61686de6c35094e360da46e80a2a6548e893772f3ce0fbff9ad2}{HOSTFOUND}}
+, \mbox{\hyperlink{netrc_8c_a6da21ec67471a61686de6c35094e360da5a327b3e362c1ab61cda9b07d2266e2c}{HOSTVALID}}
+, \mbox{\hyperlink{netrc_8c_a6da21ec67471a61686de6c35094e360da74b744e902bcb9259a5b7d5ec557f760}{MACDEF}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{netrc_8c_a5b0414a772a063197969c2a563d5a30e}{parsenetrc}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}loginp, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}passwordp, char \texorpdfstring{$\ast$}{*}netrcfile)
+\item 
+int \mbox{\hyperlink{netrc_8c_a7d1587b5fa63018b69be6690eaec0688}{Curl\+\_\+parsenetrc}} (const char \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{location_8d_ad70f81568513d9cdc33d85b2763faf8a}{host}}, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}loginp, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}passwordp, char \texorpdfstring{$\ast$}{*}netrcfile)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{netrc_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{netrc_8c_a33f487999e714b5ed8915a13972ce164}\index{netrc.c@{netrc.c}!NETRC\_FAILED@{NETRC\_FAILED}}
+\index{NETRC\_FAILED@{NETRC\_FAILED}!netrc.c@{netrc.c}}
+\doxysubsubsection{\texorpdfstring{NETRC\_FAILED}{NETRC\_FAILED}}
+{\footnotesize\ttfamily \label{netrc_8c_a33f487999e714b5ed8915a13972ce164} 
+\#define NETRC\+\_\+\+FAILED~-\/1}
+
+\Hypertarget{netrc_8c_ab2f3fe87719ea446d9ce24d255907aaa}\index{netrc.c@{netrc.c}!NETRC\_FILE\_MISSING@{NETRC\_FILE\_MISSING}}
+\index{NETRC\_FILE\_MISSING@{NETRC\_FILE\_MISSING}!netrc.c@{netrc.c}}
+\doxysubsubsection{\texorpdfstring{NETRC\_FILE\_MISSING}{NETRC\_FILE\_MISSING}}
+{\footnotesize\ttfamily \label{netrc_8c_ab2f3fe87719ea446d9ce24d255907aaa} 
+\#define NETRC\+\_\+\+FILE\+\_\+\+MISSING~1}
+
+\Hypertarget{netrc_8c_a59274ce0e6195721a71db18a8f39706e}\index{netrc.c@{netrc.c}!NETRC\_SUCCESS@{NETRC\_SUCCESS}}
+\index{NETRC\_SUCCESS@{NETRC\_SUCCESS}!netrc.c@{netrc.c}}
+\doxysubsubsection{\texorpdfstring{NETRC\_SUCCESS}{NETRC\_SUCCESS}}
+{\footnotesize\ttfamily \label{netrc_8c_a59274ce0e6195721a71db18a8f39706e} 
+\#define NETRC\+\_\+\+SUCCESS~0}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{netrc_8c_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{netrc_8c_a6da21ec67471a61686de6c35094e360d}\index{netrc.c@{netrc.c}!host\_lookup\_state@{host\_lookup\_state}}
+\index{host\_lookup\_state@{host\_lookup\_state}!netrc.c@{netrc.c}}
+\doxysubsubsection{\texorpdfstring{host\_lookup\_state}{host\_lookup\_state}}
+{\footnotesize\ttfamily \label{netrc_8c_a6da21ec67471a61686de6c35094e360d} 
+enum \mbox{\hyperlink{netrc_8c_a6da21ec67471a61686de6c35094e360d}{host\+\_\+lookup\+\_\+state}}}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NOTHING@{NOTHING}!netrc.c@{netrc.c}}\index{netrc.c@{netrc.c}!NOTHING@{NOTHING}}}\Hypertarget{netrc_8c_a6da21ec67471a61686de6c35094e360dacfe24a7b308a82835c8a9a9a89bc4ca2}\label{netrc_8c_a6da21ec67471a61686de6c35094e360dacfe24a7b308a82835c8a9a9a89bc4ca2} 
+NOTHING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HOSTFOUND@{HOSTFOUND}!netrc.c@{netrc.c}}\index{netrc.c@{netrc.c}!HOSTFOUND@{HOSTFOUND}}}\Hypertarget{netrc_8c_a6da21ec67471a61686de6c35094e360da46e80a2a6548e893772f3ce0fbff9ad2}\label{netrc_8c_a6da21ec67471a61686de6c35094e360da46e80a2a6548e893772f3ce0fbff9ad2} 
+HOSTFOUND&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HOSTVALID@{HOSTVALID}!netrc.c@{netrc.c}}\index{netrc.c@{netrc.c}!HOSTVALID@{HOSTVALID}}}\Hypertarget{netrc_8c_a6da21ec67471a61686de6c35094e360da5a327b3e362c1ab61cda9b07d2266e2c}\label{netrc_8c_a6da21ec67471a61686de6c35094e360da5a327b3e362c1ab61cda9b07d2266e2c} 
+HOSTVALID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MACDEF@{MACDEF}!netrc.c@{netrc.c}}\index{netrc.c@{netrc.c}!MACDEF@{MACDEF}}}\Hypertarget{netrc_8c_a6da21ec67471a61686de6c35094e360da74b744e902bcb9259a5b7d5ec557f760}\label{netrc_8c_a6da21ec67471a61686de6c35094e360da74b744e902bcb9259a5b7d5ec557f760} 
+MACDEF&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{netrc_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{netrc_8c_a7d1587b5fa63018b69be6690eaec0688}\index{netrc.c@{netrc.c}!Curl\_parsenetrc@{Curl\_parsenetrc}}
+\index{Curl\_parsenetrc@{Curl\_parsenetrc}!netrc.c@{netrc.c}}
+\doxysubsubsection{\texorpdfstring{Curl\_parsenetrc()}{Curl\_parsenetrc()}}
+{\footnotesize\ttfamily \label{netrc_8c_a7d1587b5fa63018b69be6690eaec0688} 
+int Curl\+\_\+parsenetrc (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{loginp}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{passwordp}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{filename}{}\end{DoxyParamCaption})}
+
+\DoxyHorRuler{0}
+ Project {\itshape {\bfseries{\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ $|$ \texorpdfstring{$\vert$}{|} / \+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} (\+\_\+\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \+\_\+ \texorpdfstring{$<$}{<}\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}}}} \+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}\+\_\+\+\_\+\+\_\+/\texorpdfstring{$\vert$}{|}\+\_\+\texorpdfstring{$\vert$}{|} \+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\texorpdfstring{$\vert$}{|}
+
+Copyright (C) 1998 -\/ 2022, Daniel Stenberg, \href{mailto:daniel@haxx.se}{\texttt{daniel@haxx.\+se}}, et al.
+
+This software is licensed as described in the file COPYING, which you should have received as part of this distribution. The terms are also available at \href{https://curl.se/docs/copyright.html}{\texttt{https\+://curl.\+se/docs/copyright.\+html}}.
+
+You may opt to use, copy, modify, merge, publish, distribute and/or sell copies of the Software, and permit persons to whom the Software is furnished to do so, under the terms of the COPYING file.
+
+This software is distributed on an "{}\+AS IS"{} basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+
+SPDX-\/\+License-\/\+Identifier\+: curl \Hypertarget{netrc_8c_a5b0414a772a063197969c2a563d5a30e}\index{netrc.c@{netrc.c}!parsenetrc@{parsenetrc}}
+\index{parsenetrc@{parsenetrc}!netrc.c@{netrc.c}}
+\doxysubsubsection{\texorpdfstring{parsenetrc()}{parsenetrc()}}
+{\footnotesize\ttfamily \label{netrc_8c_a5b0414a772a063197969c2a563d5a30e} 
+int parsenetrc (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{host}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{loginp}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{passwordp}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{netrcfile}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
