@@ -69,7 +69,9 @@ var hierarchy =
       [ "wcrpackager.Dialog", "classwcrpackager_1_1Dialog.html", null ],
       [ "wcrpackager.PackageBuilder", "classwcrpackager_1_1PackageBuilder.html", null ],
       [ "wcrpackager.PackageInfo", "classwcrpackager_1_1PackageInfo.html", null ],
-      [ "wcrpackager.PackageWizard", "classwcrpackager_1_1PackageWizard.html", null ]
+      [ "wcrpackager.PackageWizard", "classwcrpackager_1_1PackageWizard.html", null ],
+      [ "wcrpackager.WizardSection", "classwcrpackager_1_1WizardSection.html", null ],
+      [ "wcrpackager.WizardStrndx", "classwcrpackager_1_1WizardStrndx.html", null ]
     ] ],
     [ "source_handler_s", "structsource__handler__s.html", null ],
     [ "source_mirror_s", "structsource__mirror__s.html", null ],

@@ -1,6 +1,8 @@
 var wcrpackager_8py =
 [
     [ "wcrpackager.PackageInfo", "classwcrpackager_1_1PackageInfo.html", "classwcrpackager_1_1PackageInfo" ],
+    [ "wcrpackager.WizardSection", "classwcrpackager_1_1WizardSection.html", "classwcrpackager_1_1WizardSection" ],
+    [ "wcrpackager.WizardStrndx", "classwcrpackager_1_1WizardStrndx.html", "classwcrpackager_1_1WizardStrndx" ],
     [ "wcrpackager.PackageWizard", "classwcrpackager_1_1PackageWizard.html", "classwcrpackager_1_1PackageWizard" ],
     [ "wcrpackager.PackageBuilder", "classwcrpackager_1_1PackageBuilder.html", "classwcrpackager_1_1PackageBuilder" ],
     [ "wcrpackager.Dialog", "classwcrpackager_1_1Dialog.html", "classwcrpackager_1_1Dialog" ],

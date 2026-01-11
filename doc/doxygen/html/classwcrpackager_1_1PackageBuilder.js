@@ -9,5 +9,6 @@ var classwcrpackager_1_1PackageBuilder =
     [ "asset_path", "classwcrpackager_1_1PackageBuilder.html#a29fd595be293fd881919546f6ebb60c7", null ],
     [ "hash", "classwcrpackager_1_1PackageBuilder.html#a9beb8493703a1d8e58fb23ebc12188f4", null ],
     [ "hashs", "classwcrpackager_1_1PackageBuilder.html#af811dca7bfa19a68dc311be1bdf02c46", null ],
-    [ "temp_dir", "classwcrpackager_1_1PackageBuilder.html#af69167a51adc6104c81a6c196c87890f", null ]
+    [ "temp_dir", "classwcrpackager_1_1PackageBuilder.html#af69167a51adc6104c81a6c196c87890f", null ],
+    [ "wizard", "classwcrpackager_1_1PackageBuilder.html#ad21536bd90cc3e9fe4bdabc7ab9e5043", null ]
 ];

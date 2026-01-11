@@ -159,7 +159,9 @@ var annotated_dup =
       [ "Dialog", "classwcrpackager_1_1Dialog.html", "classwcrpackager_1_1Dialog" ],
       [ "PackageBuilder", "classwcrpackager_1_1PackageBuilder.html", "classwcrpackager_1_1PackageBuilder" ],
       [ "PackageInfo", "classwcrpackager_1_1PackageInfo.html", "classwcrpackager_1_1PackageInfo" ],
-      [ "PackageWizard", "classwcrpackager_1_1PackageWizard.html", "classwcrpackager_1_1PackageWizard" ]
+      [ "PackageWizard", "classwcrpackager_1_1PackageWizard.html", "classwcrpackager_1_1PackageWizard" ],
+      [ "WizardSection", "classwcrpackager_1_1WizardSection.html", "classwcrpackager_1_1WizardSection" ],
+      [ "WizardStrndx", "classwcrpackager_1_1WizardStrndx.html", "classwcrpackager_1_1WizardStrndx" ]
     ] ],
     [ "_http_connection_s", "struct__http__connection__s.html", "struct__http__connection__s" ],
     [ "_http_header_s", "struct__http__header__s.html", "struct__http__header__s" ],

@@ -1,15 +1,26 @@
 var classwcrpackager_1_1PackageWizard =
 [
     [ "__init__", "classwcrpackager_1_1PackageWizard.html#aae7061405fde3aa9fa569c566dddacbf", null ],
+    [ "_compute_sections_size", "classwcrpackager_1_1PackageWizard.html#af2422e65308e4f24ece3e05ce22a3940", null ],
+    [ "add_section", "classwcrpackager_1_1PackageWizard.html#a2b433caaad6307acaab8e3bc999d37e9", null ],
     [ "add_strndx", "classwcrpackager_1_1PackageWizard.html#a3f7141034e12264ecce09f255d2b0848", null ],
     [ "get_strndex_at", "classwcrpackager_1_1PackageWizard.html#a2d83f5b75a7bc340875123dbc9088a92", null ],
-    [ "get_strndx", "classwcrpackager_1_1PackageWizard.html#a1456a073ba54d588bbe04578d01cbca0", null ],
+    [ "get_strndx", "classwcrpackager_1_1PackageWizard.html#a395f46384a387772f1acbc2fa2cdd4f2", null ],
     [ "write", "classwcrpackager_1_1PackageWizard.html#a42fec2218f4516abff0d3ef56e21539e", null ],
+    [ "_addresses_size", "classwcrpackager_1_1PackageWizard.html#a8ee9db8cd06e518dd8142b8e721157de", null ],
     [ "_byte_order", "classwcrpackager_1_1PackageWizard.html#a8e5c0d8f062c47bb5775e2d540b8e579", null ],
     [ "_file_header_size", "classwcrpackager_1_1PackageWizard.html#a4bfdf37cee42ce7ec507f4fc891d6806", null ],
     [ "_flags", "classwcrpackager_1_1PackageWizard.html#aaaacce54fad5f3a66ee44bab1afc1339", null ],
+    [ "_flags_size", "classwcrpackager_1_1PackageWizard.html#a5f020f583f92386415578ba8ae4de2b9", null ],
     [ "_magic", "classwcrpackager_1_1PackageWizard.html#aecaaea304dd664b1b79dee2e6ef98f1c", null ],
+    [ "_section_header_size_size", "classwcrpackager_1_1PackageWizard.html#a828c4cca4944d7d87e66bd50a4bfecc8", null ],
+    [ "_section_number_size", "classwcrpackager_1_1PackageWizard.html#a7ee459b77e783a41a834dab6d8e236f3", null ],
+    [ "_section_size_size", "classwcrpackager_1_1PackageWizard.html#a14024bec3d66023c26ac2127a8498b97", null ],
     [ "_sections", "classwcrpackager_1_1PackageWizard.html#ad07c783340d7fca26e53a0081c30b275", null ],
+    [ "_str_len_size", "classwcrpackager_1_1PackageWizard.html#aa9b47ff1aab374e46c85ca1c017d89da", null ],
     [ "_strndx", "classwcrpackager_1_1PackageWizard.html#a976085a1cd74cb52b40800fce97f0e70", null ],
-    [ "_version", "classwcrpackager_1_1PackageWizard.html#ae719129cbc4c34b7ba0ea0917a88f999", null ]
+    [ "_strndx_ref_size", "classwcrpackager_1_1PackageWizard.html#a1c3e3009226e0c29f065b7043e146d64", null ],
+    [ "_version", "classwcrpackager_1_1PackageWizard.html#ae719129cbc4c34b7ba0ea0917a88f999", null ],
+    [ "_version_size", "classwcrpackager_1_1PackageWizard.html#a447560f6efa0f8f2eb746c61703804d8", null ],
+    [ "FLAGS_DEFAULT", "classwcrpackager_1_1PackageWizard.html#a9cb3af73e74178d2d22083077cb0b40f", null ]
 ];
