@@ -31,26 +31,88 @@ class PackageInfo(object):
                 "machine": self.machine
             }, fp, indent=4)
 
+class WizardSection(object):
+    def __init__(self, name = "new_section"):
+        self.name = name
+    
+    def get_size(self):
+        return (0)
+
+    def to_bytes(self):
+        return b""
+
+class WizardStrndx(object):
+    def __init__(self, content: str, addr: int, /, encoding = "utf8"):
+        self.content = content.encode(encoding)
+
+        self.addr = addr
+
 class PackageWizard(object):
+    FLAGS_DEFAULT = 0x00
+
     def __init__(self):
-        self._magic = "\x42\xa4\x09\x67"
+        self._magic = b"\x42\xa4\x09\x67"
         self._sections = []
         self._strndx = []
 
         self._byte_order = "big"
         self._version = 0x0100
-        self._flags = 0x00
+        self._flags = PackageWizard.FLAGS_DEFAULT
 
-        self._file_header_size = len(self._magic) + 2 + 4 + 8 + 8
+        self._version_size = 2
+        self._flags_size = 4
+        self._str_len_size = 4
+        self._addresses_size = 8
+        self._strndx_ref_size = 4
+        self._section_header_size_size = 8
+        self._section_number_size = 8
+        self._section_size_size = 8
+        self._file_header_size = \
+            len(self._magic) + \
+            self._version_size + \
+            self._flags_size + \
+            self._addresses_size + \
+            self._addresses_size
+
+    def _compute_sections_size(self):
+        size: int = 0
+
+        for item in self._sections:
+            size += item.get_size()
+        return (size)
+
+    def add_section(self, section: WizardSection):
+        self._sections.append(section)
 
     def add_strndx(self, string: str):
-        pass
+        already_registered = self.get_strndx(string)
 
-    def get_strndx(self, string: str):
-        pass
+        if (already_registered is not None):
+            return (already_registered.addr)
+        if (self._strndx):
+            last_str = self._strndx[-1]
+            addr = last_str.addr + len(last_str.content) + self._str_len_size
+        else:
+            addr = 0
+        self._strndx.append(WizardStrndx(string, addr))
+
+        return (addr)
+
+    def get_strndx(self, string: str, /, encoding = "utf8"):
+        encoded_str = string.encode(encoding)
+
+        for item in self._strndx:
+            if (item.content == encoded_str):
+                return (item)
+        return (None)
 
     def get_strndex_at(self, addr: int):
-        pass
+        for item in self._strndx:
+            if (item.addr == addr):
+                return (item)
+            if (item.addr > addr):
+                break
+        return (None)
 
     def write(self, file_path) -> None:
         int_to_bytes = lambda number, size: int.to_bytes(number, size, byteorder=self._byte_order)
@@ -59,14 +121,32 @@ class PackageWizard(object):
         file_header = bytearray()
         section_header = bytearray()
 
-        file_header.extend(bytes_to_int(byte=self._magic))
-        file_header.extend(int_to_bytes(number=self._version, size=2))
-        file_header.extend(int_to_bytes(number=self._flags, size=4))
+        file_header.extend(self._magic)
+        file_header.extend(int_to_bytes(number=self._version, size=self._version_size))
+        file_header.extend(int_to_bytes(number=self._flags, size=self._flags_size))
+        file_header.extend(int_to_bytes(number=self._file_header_size, size=self._addresses_size))
+
+        section_header.extend(int_to_bytes(number=self._section_header_size_size + self._section_number_size + ((self._strndx_ref_size + self._addresses_size) * len(self._sections)), size=self._section_header_size_size))
+        section_header.extend(int_to_bytes(number=len(self._sections), size=self._section_number_size))
+
+        addr = 0
+        for item in self._sections:
+            section_header.extend(int_to_bytes(number=self.add_strndx(item.name), size=self._strndx_ref_size))
+            section_header.extend(int_to_bytes(number=addr, size=self._addresses_size))
+
+            addr += self._section_size_size + item.get_size()
+
+        file_header.extend(int_to_bytes(number=self._file_header_size + len(section_header) + self._compute_sections_size() + (self._section_size_size * len(self._sections)), size=self._addresses_size))
 
         with open(file_path, 'wb+') as fp:
             fp.write(file_header)
             fp.write(section_header)
-
+            for item in self._sections:
+                fp.write(int_to_bytes(number=item.get_size(), size=self._section_size_size))
+                fp.write(item.to_bytes())
+            for item in self._strndx:
+                fp.write(int_to_bytes(number=len(item.content), size=self._str_len_size))
+                fp.write(item.content)
 
 class PackageBuilder(object):
     def __init__(self, asset_path, pkg_info, temp_dir = "./temp"):
@@ -75,6 +155,8 @@ class PackageBuilder(object):
         self.temp_dir = temp_dir
         self.hashs = {}
         self.hash = ""
+
+        self.wizard = PackageWizard()
 
         if (not isdir(self.temp_dir)):
             mkdir(self.temp_dir)
@@ -122,8 +204,7 @@ class PackageBuilder(object):
 
         self.pack_assets(join(self.temp_dir, self.hash , "package.tar.gz"))
 
-        with open(join(self.temp_dir, self.hash, ".WIZARD"), "wb+") as fp:
-            pass
+        self.wizard.write(join(self.temp_dir, self.hash, ".WIZARD"))
 
         with open(join(self.temp_dir, self.hash, ".PACK"), "wb+") as fp:
             content = bytearray()
