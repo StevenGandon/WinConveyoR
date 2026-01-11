@@ -31,6 +31,43 @@ class PackageInfo(object):
                 "machine": self.machine
             }, fp, indent=4)
 
+class PackageWizard(object):
+    def __init__(self):
+        self._magic = "\x42\xa4\x09\x67"
+        self._sections = []
+        self._strndx = []
+
+        self._byte_order = "big"
+        self._version = 0x0100
+        self._flags = 0x00
+
+        self._file_header_size = len(self._magic) + 2 + 4 + 8 + 8
+
+    def add_strndx(self, string: str):
+        pass
+
+    def get_strndx(self, string: str):
+        pass
+
+    def get_strndex_at(self, addr: int):
+        pass
+
+    def write(self, file_path) -> None:
+        int_to_bytes = lambda number, size: int.to_bytes(number, size, byteorder=self._byte_order)
+        bytes_to_int = lambda byte: int.from_bytes(byte, byteorder=self._byte_order)
+
+        file_header = bytearray()
+        section_header = bytearray()
+
+        file_header.extend(bytes_to_int(byte=self._magic))
+        file_header.extend(int_to_bytes(number=self._version, size=2))
+        file_header.extend(int_to_bytes(number=self._flags, size=4))
+
+        with open(file_path, 'wb+') as fp:
+            fp.write(file_header)
+            fp.write(section_header)
+
+
 class PackageBuilder(object):
     def __init__(self, asset_path, pkg_info, temp_dir = "./temp"):
         self.asset_path = asset_path
@@ -85,13 +122,7 @@ class PackageBuilder(object):
 
         self.pack_assets(join(self.temp_dir, self.hash , "package.tar.gz"))
 
-        with open(join(self.temp_dir, self.hash, ".PKG_INFO"), "wb+") as fp:
-            pass
-
-        with open(join(self.temp_dir, self.hash, ".INSTALL"), "wb+") as fp:
-            pass
-
-        with open(join(self.temp_dir, self.hash, ".BUILD"), "wb+") as fp:
+        with open(join(self.temp_dir, self.hash, ".WIZARD"), "wb+") as fp:
             pass
 
         with open(join(self.temp_dir, self.hash, ".PACK"), "wb+") as fp:
