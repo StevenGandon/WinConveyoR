@@ -32,13 +32,18 @@ class PackageInfo(object):
             }, fp, indent=4)
 
 class WizardSection(object):
-    def __init__(self, name = "new_section"):
+    TYPE_GENERIC_SECTION = 0x00
+
+    FLAGS_DEFAULT = 0x00
+    def __init__(self, name = "new_section", section_type = 0x00, section_flags = 0x00):
         self.name = name
+        self.type = section_type
+        self.section_flags = section_flags
     
     def get_size(self):
         return (0)
 
-    def to_bytes(self):
+    def to_bytes(self, parent = None) -> bytes:
         return b""
 
 class WizardStrndx(object):
@@ -49,6 +54,8 @@ class WizardStrndx(object):
 
 class PackageWizard(object):
     FLAGS_DEFAULT = 0x00
+    FLAGS_ALIGNEMENT_8 = (1 << 0)
+    FLAGS_ALIGNEMENT_16 = (1 << 1)
 
     def __init__(self):
         self._magic = b"\x42\xa4\x09\x67"
@@ -60,6 +67,7 @@ class PackageWizard(object):
         self._flags = PackageWizard.FLAGS_DEFAULT
 
         self._version_size = 2
+        self._endianess_size = 1
         self._flags_size = 4
         self._str_len_size = 4
         self._addresses_size = 8
@@ -67,12 +75,11 @@ class PackageWizard(object):
         self._section_header_size_size = 8
         self._section_number_size = 8
         self._section_size_size = 8
-        self._file_header_size = \
-            len(self._magic) + \
-            self._version_size + \
-            self._flags_size + \
-            self._addresses_size + \
-            self._addresses_size
+        self._section_type_size = 4
+        self._section_flags_size = 4
+
+    def _align(value, alignment=8):
+        return (value + alignment - 1) & ~(alignment - 1)
 
     def _compute_sections_size(self):
         size: int = 0
@@ -115,35 +122,71 @@ class PackageWizard(object):
         return (None)
 
     def write(self, file_path) -> None:
-        int_to_bytes = lambda number, size: int.to_bytes(number, size, byteorder=self._byte_order)
-        bytes_to_int = lambda byte: int.from_bytes(byte, byteorder=self._byte_order)
-
         file_header = bytearray()
         section_header = bytearray()
 
-        file_header.extend(self._magic)
-        file_header.extend(int_to_bytes(number=self._version, size=self._version_size))
-        file_header.extend(int_to_bytes(number=self._flags, size=self._flags_size))
-        file_header.extend(int_to_bytes(number=self._file_header_size, size=self._addresses_size))
+        int_to_bytes = lambda number, size: int.to_bytes(number, size, byteorder=self._byte_order)
 
-        section_header.extend(int_to_bytes(number=self._section_header_size_size + self._section_number_size + ((self._strndx_ref_size + self._addresses_size) * len(self._sections)), size=self._section_header_size_size))
+        _file_header_size = (
+            len(self._magic) + 
+            self._endianess_size +
+            self._version_size +
+            self._flags_size +
+            self._addresses_size +
+            self._addresses_size
+        )
+
+        _section_header_off = (
+            _file_header_size
+        )
+
+        _section_header_entry = (
+            self._strndx_ref_size +
+            self._section_type_size +
+            self._section_flags_size +
+            self._section_size_size +
+            self._addresses_size
+        )
+
+        _section_header_size = (
+            self._section_header_size_size +
+            self._section_number_size +
+            (_section_header_entry * len(self._sections))
+        )
+
+        section_header.extend(int_to_bytes(number=_section_header_size, size=self._section_header_size_size))
         section_header.extend(int_to_bytes(number=len(self._sections), size=self._section_number_size))
 
-        addr = 0
+        addr = _section_header_off + _section_header_size
+
         for item in self._sections:
             section_header.extend(int_to_bytes(number=self.add_strndx(item.name), size=self._strndx_ref_size))
+            section_header.extend(int_to_bytes(number=item.type, size=self._section_type_size))
+            section_header.extend(int_to_bytes(number=item.flags, size=self._section_flags_size))
+            section_header.extend(int_to_bytes(number=item.get_size(), size=self._section_size_size))
             section_header.extend(int_to_bytes(number=addr, size=self._addresses_size))
 
-            addr += self._section_size_size + item.get_size()
+            addr += item.get_size()
 
-        file_header.extend(int_to_bytes(number=self._file_header_size + len(section_header) + self._compute_sections_size() + (self._section_size_size * len(self._sections)), size=self._addresses_size))
+
+        _strndx_off = (
+            _file_header_size +
+            len(section_header) +
+            self._compute_sections_size()
+        )
+
+        file_header.extend(self._magic)
+        file_header.extend(int_to_bytes(number=(0 if self._byte_order == "big" else 1), size=self._endianess_size))
+        file_header.extend(int_to_bytes(number=self._version, size=self._version_size))
+        file_header.extend(int_to_bytes(number=self._flags, size=self._flags_size))
+        file_header.extend(int_to_bytes(number=_section_header_off, size=self._addresses_size))
+        file_header.extend(int_to_bytes(number=_strndx_off, size=self._addresses_size))
 
         with open(file_path, 'wb+') as fp:
             fp.write(file_header)
             fp.write(section_header)
             for item in self._sections:
-                fp.write(int_to_bytes(number=item.get_size(), size=self._section_size_size))
-                fp.write(item.to_bytes())
+                fp.write(item.to_bytes(parent=self))
             for item in self._strndx:
                 fp.write(int_to_bytes(number=len(item.content), size=self._str_len_size))
                 fp.write(item.content)
@@ -281,15 +324,18 @@ def interactive_mode():
     package_architecture = Dialog.ask_with_default(f"package architecture (default: x64): ", "x64")
 
     pkg_info = PackageInfo(package_name, package_version, package_description, package_deps, package_machine, package_architecture)
+    pkg_builder = PackageBuilder(argv[1], pkg_info)
 
     print("-===========[ Installation ]===========-")
 
     package_type = Dialog.ask_enum("package installation type (nodefault) (static, compile, custom): ", ["static", "compile", "custom"])
 
+
+    pkg_builder.wizard.add_section(WizardSection())
+
     print("-===========[ Content ]===========-")
 
-    P = PackageBuilder(argv[1], pkg_info)
-    P.generate_package()
+    pkg_builder.generate_package()
 
     return (0)
 
@@ -297,7 +343,7 @@ def config_file_mode():
     with open(argv[2], "r") as fp:
         config = load(fp)
 
-    P = PackageBuilder(argv[1], PackageInfo(
+    pkg_builder = PackageBuilder(argv[1], PackageInfo(
         config["name"],
         config["version"],
         config["description"],
@@ -306,7 +352,7 @@ def config_file_mode():
         config["architecture"]
     ))
 
-    P.generate_package()
+    pkg_builder.generate_package()
 
     return (0)
 
