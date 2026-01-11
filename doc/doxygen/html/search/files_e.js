@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['user_2epy_0',['user.py',['../db_2models_2user_8py.html',1,'(Global Namespace)'],['../schemas_2user_8py.html',1,'(Global Namespace)']]],
-  ['users_2epy_1',['users.py',['../users_8py.html',1,'']]]
+  ['rate_5flimiter_2epy_0',['rate_limiter.py',['../rate__limiter_8py.html',1,'']]],
+  ['readme_2emd_1',['README.md',['../README_8md.html',1,'']]],
+  ['repository_2epy_2',['repository.py',['../repository_8py.html',1,'']]]
 ];

@@ -41,9 +41,9 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -64,9 +64,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CLI.html",
-"classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a20f2aba3248b69260c721c6375c68e00",
-"dir_6be4c07e098dacc91071118ce4f28ca8.html",
-"win_2http_8c.html"
+"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a9db218223666714b3e71df5383985f61",
+"classsrc_1_1network_1_1message_1_1Message.html#a1a9628cb7da77a4d79547fc8263149d5",
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html#aa9873c1e1163e42e3c0baad6f872332a",
+"classwcrpackager_1_1PackageWizard.html#aae7061405fde3aa9fa569c566dddacbf",
+"list__sessions_8py.html#a6eeb5cc83155de0b214db3dafdcb2388",
+"users_8py.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

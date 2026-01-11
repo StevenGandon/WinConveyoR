@@ -1,5 +1,8 @@
 var namespaces_dup =
 [
+    [ "__main__", "namespace____main____.html", [
+      [ "main", "namespace____main____.html#aa1e19bac8e6cbd7db574d389504d6c4c", null ]
+    ] ],
     [ "base", "namespacebase.html", [
       [ "Base", "namespacebase.html#a1117b2c83505ac017f9ae71b1169e659", null ]
     ] ],
@@ -22,5 +25,10 @@ var namespaces_dup =
       [ "SessionLocal", "namespacesession.html#a17f8bdfeb5aba531e4544d9cfa64d10d", null ],
       [ "settings", "namespacesession.html#a6e92074488e87ea7494d7d8f943c92c0", null ]
     ] ],
-    [ "src", "namespacesrc.html", "namespacesrc" ]
+    [ "src", "namespacesrc.html", "namespacesrc" ],
+    [ "wcmgr", "namespacewcmgr.html", [
+      [ "main", "namespacewcmgr.html#a5a50ddb608d45e369c6f5df6471b8d91", null ]
+    ] ],
+    [ "wcrmirror", "namespacewcrmirror.html", "namespacewcrmirror" ],
+    [ "wcrpackager", "namespacewcrpackager.html", "namespacewcrpackager" ]
 ];

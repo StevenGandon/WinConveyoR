@@ -4,6 +4,7 @@ var hierarchy =
     [ "_http_header_s", "struct__http__header__s.html", null ],
     [ "_http_request_parser_s", "struct__http__request__parser__s.html", null ],
     [ "_http_response_parser_s", "struct__http__response__parser__s.html", null ],
+    [ "cached_source_s", "structcached__source__s.html", null ],
     [ "core.config.Settings.Config", "classcore_1_1config_1_1Settings_1_1Config.html", null ],
     [ "schemas.user.UserOut.Config", "classschemas_1_1user_1_1UserOut_1_1Config.html", null ],
     [ "Exception", null, [
@@ -25,6 +26,11 @@ var hierarchy =
       [ "src.arghandler.ArgumentParserSettings", "classsrc_1_1arghandler_1_1ArgumentParserSettings.html", null ],
       [ "src.arghandler.GenericArgument", "classsrc_1_1arghandler_1_1GenericArgument.html", null ],
       [ "src.cli.cli.CLI", "classsrc_1_1cli_1_1cli_1_1CLI.html", null ],
+      [ "src.cli.cli_base.HandlerClient", "classsrc_1_1cli_1_1cli__base_1_1HandlerClient.html", null ],
+      [ "src.cli.cli_base.NetworkCLI", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html", null ],
+      [ "src.cli.cli_base.NetworkCLICommand", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLICommand.html", null ],
+      [ "src.cli.command.CLICommand", "classsrc_1_1cli_1_1command_1_1CLICommand.html", null ],
+      [ "src.cli.command.CLICommandArg", "classsrc_1_1cli_1_1command_1_1CLICommandArg.html", null ],
       [ "src.graphic.builtin.graphic_object.GraphicObject", "classsrc_1_1graphic_1_1builtin_1_1graphic__object_1_1GraphicObject.html", [
         [ "src.graphic.builtin.loading_bar.LoadingBar", "classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html", null ]
       ] ],
@@ -35,14 +41,38 @@ var hierarchy =
       [ "src.graphic.pattern.compiler.PatternCompiled", "classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiled.html", null ],
       [ "src.graphic.pattern.compiler.PatternCompiler", "classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html", null ],
       [ "src.graphic.pattern.loader.PatternLoader", "classsrc_1_1graphic_1_1pattern_1_1loader_1_1PatternLoader.html", null ],
+      [ "src.network.client.Client", "classsrc_1_1network_1_1client_1_1Client.html", null ],
+      [ "src.network.client.ClientSocket", "classsrc_1_1network_1_1client_1_1ClientSocket.html", null ],
+      [ "src.network.handler.Handler", "classsrc_1_1network_1_1handler_1_1Handler.html", null ],
+      [ "src.network.message.Message", "classsrc_1_1network_1_1message_1_1Message.html", [
+        [ "src.network.message_json.JSONMessage", "classsrc_1_1network_1_1message__json_1_1JSONMessage.html", null ]
+      ] ],
+      [ "src.network.server.Server", "classsrc_1_1network_1_1server_1_1Server.html", null ],
+      [ "src.network.session.Session", "classsrc_1_1network_1_1session_1_1Session.html", null ],
+      [ "src.package.mirror_server.MirrorServer", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html", null ],
+      [ "src.package.package.Package", "classsrc_1_1package_1_1package_1_1Package.html", null ],
+      [ "src.package.package_listing.PackageListing", "classsrc_1_1package_1_1package__listing_1_1PackageListing.html", null ],
       [ "src.thread.job.Job", "classsrc_1_1thread_1_1job_1_1Job.html", null ],
       [ "src.thread.job.JobResult", "classsrc_1_1thread_1_1job_1_1JobResult.html", null ],
       [ "src.thread.pool.Pool", "classsrc_1_1thread_1_1pool_1_1Pool.html", null ],
+      [ "src.undo.undo_action.UndoAction", "classsrc_1_1undo_1_1undo__action_1_1UndoAction.html", null ],
+      [ "src.undo.undo_action.UndoStepDelItem", "classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html", null ],
+      [ "src.undo.undo_action.UndoStepInsert", "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html", null ],
+      [ "src.undo.undo_action.UndoStepPop", "classsrc_1_1undo_1_1undo__action_1_1UndoStepPop.html", null ],
+      [ "src.undo.undo_action.UndoStepSetItem", "classsrc_1_1undo_1_1undo__action_1_1UndoStepSetItem.html", null ],
+      [ "src.undo.undo_stack.UndoStack", "classsrc_1_1undo_1_1undo__stack_1_1UndoStack.html", null ],
       [ "src.wrappers.dllloader.DLLoader", "classsrc_1_1wrappers_1_1dllloader_1_1DLLoader.html", null ],
       [ "src.wrappers.dllloader._SymbolRegister", "classsrc_1_1wrappers_1_1dllloader_1_1__SymbolRegister.html", null ],
       [ "src.wrappers.libwconr._libwconr.Mapper", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper.html", null ],
-      [ "src.wrappers.libwconr.libwconr.WCRState", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html", null ]
+      [ "src.wrappers.libwconr.libwconr.WCRState", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html", null ],
+      [ "wcrmirror.Router", "classwcrmirror_1_1Router.html", null ],
+      [ "wcrpackager.Dialog", "classwcrpackager_1_1Dialog.html", null ],
+      [ "wcrpackager.PackageBuilder", "classwcrpackager_1_1PackageBuilder.html", null ],
+      [ "wcrpackager.PackageInfo", "classwcrpackager_1_1PackageInfo.html", null ],
+      [ "wcrpackager.PackageWizard", "classwcrpackager_1_1PackageWizard.html", null ]
     ] ],
+    [ "source_handler_s", "structsource__handler__s.html", null ],
+    [ "source_mirror_s", "structsource__mirror__s.html", null ],
     [ "T", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],
@@ -66,6 +96,9 @@ var hierarchy =
     ] ],
     [ "Generic", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
+    ] ],
+    [ "Handler", null, [
+      [ "wcrmirror.WCRHandler", "classwcrmirror_1_1WCRHandler.html", null ]
     ] ],
     [ "Structure", null, [
       [ "src.wrappers.libwconr._libwconr.wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", null ],

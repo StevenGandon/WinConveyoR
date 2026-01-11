@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['send_5fdata_0',['send_data',['../http__request_8c.html#a1a5393251ba2299a1f888d8f22ef5892',1,'http_request.c']]]
+  ['initial_5fchunk_5fsize_0',['initial_chunk_size',['../http__parsing_8c.html#a3cf242d5a273bc0119ad5b7d66a93a52',1,'INITIAL_CHUNK_SIZE:&#160;http_parsing.c'],['../http__response_8c.html#a3cf242d5a273bc0119ad5b7d66a93a52',1,'INITIAL_CHUNK_SIZE:&#160;http_response.c']]]
 ];
