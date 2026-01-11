@@ -28,6 +28,8 @@ set(LIBWCONR_SOURCES
     src/http_request.c
     src/http_response.c
     src/wcr_state.c
+
+    src/modules/source/source_handler.c
 )
 
 if(WIN32)
