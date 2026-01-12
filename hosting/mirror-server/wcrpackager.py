@@ -31,10 +31,46 @@ class PackageInfo(object):
                 "machine": self.machine
             }, fp, indent=4)
 
+class WizardArgument(object):
+    ARG_UKN = 0x00
+    ARG_STR = 0x01
+    ARG_U8 = 0x02
+    ARG_U16 = 0x03
+    ARG_U32 = 0x04
+    ARG_U64 = 0x05
+
+    def __init__(self, arg_type, value = None):
+        self.type = arg_type
+        self.value = value
+
+class WizardInstruction(object):
+    OP_NOOP = 0x00
+    OP_MKDIR = 0x01
+    OP_COPY = 0x02
+    OP_RUN = 0x03
+    OP_CHMOD = 0x04
+    OP_REMOVE = 0x05
+    OP_REMOVE_TREE = 0x06
+    OP_COPY_TREE = 0x07
+    OP_RMDIR = 0x08
+    OP_CHMOD = 0x09
+    OP_MOVE = 0x0A
+    OP_MOVE_TREE = 0x0B
+
+    def __init__(self, opcode: int, args: list):
+        self.code = opcode
+        self.args = args
+
 class WizardSection(object):
     TYPE_GENERIC_SECTION = 0x00
+    TYPE_SECTION_INSTALL = 0x01
+    TYPE_SECTION_UNINSTALL = 0x02
+    TYPE_SECTION_PURGE = 0x03
+    TYPE_SECTION_BUILD = 0x04
+    TYPE_SECTION_METADATA = 0x05
 
     FLAGS_DEFAULT = 0x00
+
     def __init__(self, name = "new_section", section_type = 0x00, section_flags = 0x00):
         self.name = name
         self.type = section_type
