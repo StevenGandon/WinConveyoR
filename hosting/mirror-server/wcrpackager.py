@@ -8,6 +8,7 @@ from glob import glob
 from tarfile import open as open_tar
 from src.common import hash_file
 from hashlib import md5, sha256
+from yaml import safe_load
 
 from genericpath import isdir
 
@@ -39,9 +40,60 @@ class WizardArgument(object):
     ARG_U32 = 0x04
     ARG_U64 = 0x05
 
+    _SIZES = {
+        ARG_STR: 0x4,
+        ARG_U8: 0x1,
+        ARG_U16: 0x2,
+        ARG_U32: 0x4,
+        ARG_U64: 0x8
+    }
+
     def __init__(self, arg_type, value = None):
         self.type = arg_type
         self.value = value
+
+    def get_size(self):
+        assert self.type not in self._SIZES
+
+        return (self._SIZES[self.type])
+    
+    def to_bytes(self, parent):
+        assert self.type not in self._SIZES
+        assert self.value is not None
+
+        content = bytearray()
+
+        if (self.type == self.ARG_STR):
+            content.extend(int.to_bytes(parent.add_strndx(self.value), parent.get_str_offset_size(), byteorder=parent.get_endianess()))
+        else:
+            content.extend(int.to_bytes(self.value, self._SIZES[self.type], byteorder=parent.get_endianess()))
+
+        return (bytes(content))
+
+class WizardArgumentArray(WizardArgument):
+    _ARR_COUNT_SIZE = 0x4
+    
+    def __init__(self, arg_type, values=None):
+        super().__init__(arg_type, None)
+        self.values = values if values is not None else list()
+
+    def get_size(self):
+        return (super().get_size() * self.size)
+    
+    def to_bytes(self, parent):
+        assert self.value is None
+
+        content = bytearray()
+
+        content.extend(int.to_bytes(len(self.values), self._ARR_COUNT_SIZE, byteorder=parent.get_endianess()))
+
+        for item in self.values:
+            self.value = item
+            content.extend(super().to_bytes(parent))
+
+        self.value = None
+
+        return (bytes(content))
 
 class WizardInstruction(object):
     OP_NOOP = 0x00
@@ -53,13 +105,26 @@ class WizardInstruction(object):
     OP_REMOVE_TREE = 0x06
     OP_COPY_TREE = 0x07
     OP_RMDIR = 0x08
-    OP_CHMOD = 0x09
-    OP_MOVE = 0x0A
-    OP_MOVE_TREE = 0x0B
+    OP_MOVE = 0x09
+    OP_MOVE_TREE = 0x0A
+
+    _OP_SIZE = 0x2
 
     def __init__(self, opcode: int, args: list):
         self.code = opcode
         self.args = args
+
+    def get_size(self):
+        return (self._OP_SIZE + sum(map(lambda x: x.get_size(), self.args)))
+    
+    def to_bytes(self, parent):
+        content = bytearray()
+
+        content.extend(int.to_bytes(self.code, self._OP_SIZE, byteorder=parent.get_endianess()))
+        for item in self.args:
+            content.extend(item.to_bytes(parent))
+
+        return (bytes(content))
 
 class WizardSection(object):
     TYPE_GENERIC_SECTION = 0x00
@@ -79,8 +144,24 @@ class WizardSection(object):
     def get_size(self):
         return (0)
 
-    def to_bytes(self, parent = None) -> bytes:
+    def to_bytes(self, parent) -> bytes:
         return b""
+
+class WizardCodeSection(WizardSection):
+    def __init__(self, name="new_section", section_type=0, section_flags=0):
+        super().__init__(name, section_type, section_flags)
+
+        self.instructions = []
+
+    def get_size(self):
+        return sum(map(lambda x: x.get_size(), self.instructions))
+    
+    def to_bytes(self, parent):
+        content = bytearray()
+
+        for item in self.instructions:
+            content.extend(item.to_bytes(parent))
+        return bytes(content)
 
 class WizardStrndx(object):
     def __init__(self, content: str, addr: int, /, encoding = "utf8"):
@@ -123,6 +204,12 @@ class PackageWizard(object):
         for item in self._sections:
             size += item.get_size()
         return (size)
+    
+    def get_endianess(self):
+        return (self._byte_order)
+
+    def get_str_offset_size(self):
+        return (self._str_len_size)
 
     def add_section(self, section: WizardSection):
         self._sections.append(section)
@@ -307,6 +394,102 @@ class PackageBuilder(object):
             f"{self.pkg_info.name}_{self.pkg_info.architecture}_{self.pkg_info.machine}_{self.pkg_info.version.replace('.', '-')}.tar.gz"
         ))
 
+class ConfigSchema(object):
+    def __init__(self, content):
+        self.content = content
+
+class ConfigSchemaBank(object):
+    def __init__(self, **kwargs):
+        self.schemas = {**kwargs}
+
+class ConfigMessage(object):
+    def __init__(self, message: str):
+        self.message: str = message
+
+    def __str__(self):
+        return (f"{self.message}")
+
+    def __repr__(self):
+        return (self.__str__())
+
+class ConfigWarning(ConfigMessage):
+    pass
+
+class ConfigError(ConfigMessage):
+    pass
+
+class YAMLConfigReader(object):
+    _ROOT = "wizard"
+    _VERSION = "$root.version"
+    _LATEST = 1
+    _SCHEMA_BANK = {
+        1: ConfigSchemaBank(
+            metadata=ConfigSchema({
+                "$root.metadata.name": "new_package",
+                "$root.metadata.description": "new package.",
+                "$root.metadata.version": "1.0.0",
+                "$root.metadata.deps": [],
+                "$root.metadata.machine": "any",
+                "$root.metadata.architecture": "any"
+            }),
+            steps=ConfigSchema({
+                "$job.steps.mkdir": None
+            })
+        )
+    }
+
+    def __init__(self, file: str):
+        self.file: str = file
+        self.version: int = 0
+
+        with open(self.file, 'r') as fp:
+            self._raw_config: object = safe_load(fp)
+
+        self._output_message_stack = []
+
+    def _add_error(self, message):
+        self._output_message_stack.append(ConfigError(message))
+
+    def _add_warning(self, message):
+        self._output_message_stack.append(ConfigWarning(message))
+
+    def pop_message(self):
+        if (not self._output_message_stack):
+            return (None)
+        return self._output_message_stack.pop()
+
+    def has_message(self):
+        return (not (not self._output_message_stack))
+
+    def object_from_dot_ref(self, ref: str):
+        keys = map(lambda x: int(x) if x.isnumeric() else x, ref.replace('$root', self._ROOT).split('.'))
+        node = self._raw_config
+ 
+        for item in keys:
+            if (isinstance(item, int) and not isinstance(node, list)):
+                self._add_error(f"Expected list at {item} for {ref}.")
+            if (isinstance(item, str) and not isinstance(node, dict)):
+                self._add_error(f"Expected a dict {item} for {ref}.")
+
+            if (isinstance(item, int) and len(node) <= item):
+                return (None)
+            if (isinstance(item, str) and item not in node):
+                return (None)
+            node = node[item]
+        return (node)
+
+    def parse(self):
+        if (self._ROOT not in self._raw_config):
+            self._add_error(f"Missing configuration root '{self._ROOT}' in config file.")
+        if (self.object_from_dot_ref(self._VERSION) is None):
+            self._add_warning(f"Missing version key at {self._VERSION} using version {self._LATEST}.")
+            self.version = self._LATEST
+        else:
+            self.version = self.object_from_dot_ref(self._VERSION)
+
+    def to_package_builder(self) -> PackageBuilder:
+        pass
+
 class Dialog(object):
     @staticmethod
     def ask_until_given(text):
@@ -376,19 +559,33 @@ def interactive_mode():
     return (0)
 
 def config_file_mode():
-    with open(argv[2], "r") as fp:
-        config = load(fp)
+    config: YAMLConfigReader = YAMLConfigReader(argv[2])
+    # with open(argv[2], "r") as fp:
+    #     config = load(fp)
 
-    pkg_builder = PackageBuilder(argv[1], PackageInfo(
-        config["name"],
-        config["version"],
-        config["description"],
-        config["deps"],
-        config["machine"],
-        config["architecture"]
-    ))
+    config.parse()
 
-    pkg_builder.generate_package()
+    has_error = False
+    while (config.has_message()):
+        msg = config.pop_message()
+
+        if (not has_error and isinstance(msg, ConfigError)):
+            has_error = True
+        print(msg)
+
+    if (has_error):
+        return (1)
+
+    pkg_builder = config.to_package_builder() # PackageBuilder(argv[1], PackageInfo(
+    #     config["name"],
+    #     config["version"],
+    #     config["description"],
+    #     config["deps"],
+    #     config["machine"],
+    #     config["architecture"]
+    # ))
+
+    #pkg_builder.generate_package()
 
     return (0)
 
