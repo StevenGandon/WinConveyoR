@@ -418,6 +418,13 @@ class ConfigWarning(ConfigMessage):
 class ConfigError(ConfigMessage):
     pass
 
+class ConfigKey(object):
+    def __init__(self, content_type = str, /, required = True, default = None):
+        self.required = required
+        self.default = default
+
+        self.type = content_type
+
 class YAMLConfigReader(object):
     _ROOT = "wizard"
     _VERSION = "$root.version"
@@ -425,15 +432,42 @@ class YAMLConfigReader(object):
     _SCHEMA_BANK = {
         1: ConfigSchemaBank(
             metadata=ConfigSchema({
-                "$root.metadata.name": "new_package",
-                "$root.metadata.description": "new package.",
-                "$root.metadata.version": "1.0.0",
-                "$root.metadata.deps": [],
-                "$root.metadata.machine": "any",
-                "$root.metadata.architecture": "any"
+                "$root.metadata.name": ConfigKey(str, required=False, default="new_package"),
+                "$root.metadata.description": ConfigKey(str, required=False, default="new package."),
+                "$root.metadata.version": ConfigKey(str, required=False, default="1.0.0"),
+                "$root.metadata.deps": ConfigKey(list, required=False, default=[]),
+                "$root.metadata.machine": ConfigKey(str, required=False, default="any"),
+                "$root.metadata.architecture": ConfigKey(str, required=False, default="any")
+            }),
+            step=ConfigSchema({
+                "when.os": ConfigKey(str, required=False, default="any")
             }),
             steps=ConfigSchema({
-                "$job.steps.mkdir": None
+                "mkdir":  ConfigSchema({
+                    "path": ConfigKey(str, required=True)
+                }),
+                "run": ConfigSchema({
+                    "tool": ConfigKey(str, required=True),
+                    "args": ConfigKey(list, required=False, default=[])
+                }),
+                "chmod": ConfigSchema({
+                    "path": ConfigKey(str, required=True),
+                    "mode": ConfigKey(int, required=True)
+                }),
+                "remove": ConfigSchema({
+                    "path": ConfigKey(str, required=True)
+                }),
+                "remove_tree": ConfigSchema({
+                    "path": ConfigKey(str, required=True)
+                }),
+                "copy": ConfigSchema({
+                    "from": ConfigKey(str, required=True),
+                    "to": ConfigKey(str, required=True)
+                })
+            }),
+            job=ConfigSchema({
+                "$job.requires.tools": ConfigKey(list, required=False, default=[]),
+                "$job.steps": ConfigKey(list, required=False, default=[])
             })
         )
     }

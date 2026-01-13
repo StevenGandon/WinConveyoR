@@ -14,7 +14,8 @@ wizard:
     requires:
       tools: [make, gcc]
     steps:
-      - mkdir: build
+      - mkdir:
+        path: build
       - run:
           tool: make
           args:
@@ -28,19 +29,21 @@ wizard:
     steps:
       - copy:
           when:
-            os: linux
+            os: posix
           from: test_package
           to: ${MACHINE_BIN}/test_package
       - chmod:
           when:
-            os: linux
+            os: posix
           path: ${MACHINE_BIN}/test_package
           mode: 0755
 
   uninstall:
     steps:
-      - remove: ${MACHINE_BIN}/test_package
+      - remove:
+        path: "${MACHINE_BIN}/test_package"
 
   purge:
     steps:
-      - remove_tree: ${PREFIX}/var/test_package
+      - remove_tree:
+        path: "${PREFIX}/var/test_package"
