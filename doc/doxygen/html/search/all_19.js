@@ -1,4 +1,29 @@
 var searchData=
 [
-  ['x86_5f64_5farch_0',['x86_64_arch',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html#a06f04918cd693cce63c867a06ff0b00b',1,'src.wrappers.libwconr._libwconr.SUPPORTED_ARCHITECTURES.X86_64_ARCH'],['../libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baaf726b6d0fda3c473645d88380aba49ff',1,'X86_64_ARCH:&#160;libwconr.h']]]
+  ['object_0',['Right to Object',['../md_doc_2privacy__policy.html#autotoc_md96',1,'']]],
+  ['obligations_1',['Legal Obligations',['../md_doc_2privacy__policy.html#autotoc_md110',1,'']]],
+  ['of_20changes_2',['Notification of Changes',['../md_doc_2privacy__policy.html#autotoc_md122',1,'']]],
+  ['of_20conduct_3',['Code of Conduct',['../md_CONTRIBUTING.html#autotoc_md2',1,'']]],
+  ['of_20contents_4',['of contents',['../md_README.html#autotoc_md224',1,'Table of Contents'],['../md_CONTRIBUTING.html#autotoc_md1',1,'Table of Contents']]],
+  ['of_20ip_20logging_5',['Opt-Out of IP Logging',['../md_doc_2privacy__policy.html#autotoc_md100',1,'']]],
+  ['officer_6',['Data Protection Officer',['../md_doc_2privacy__policy.html#autotoc_md132',1,'']]],
+  ['official_20vs_20community_20repositories_7',['Official vs. Community Repositories',['../md_doc_2privacy__policy.html#autotoc_md87',1,'']]],
+  ['oflag_8',['OFLAG',['../namespacesrc_1_1common_1_1user__input.html#aeee37ca9c0f546c976851d1d0dcc884f',1,'src::common::user_input']]],
+  ['on_20your_20branch_9',['Working on Your Branch',['../md_CONTRIBUTING.html#autotoc_md16',1,'']]],
+  ['on_5fend_10',['on_end',['../classsrc_1_1thread_1_1job_1_1Job.html#a6285de0498e73824dd71a66e809d4bbd',1,'src::thread::job::Job']]],
+  ['open_20source_20transparency_11',['Open Source Transparency',['../md_doc_2privacy__policy.html#autotoc_md138',1,'']]],
+  ['opened_12',['opened',['../classsrc_1_1network_1_1session_1_1Session.html#a330dbf6445b6e517a31ac8e667c1dad9',1,'src::network::session::Session']]],
+  ['operators_13',['For Repository Operators',['../md_doc_2privacy__policy.html#autotoc_md89',1,'']]],
+  ['opt_20out_20of_20ip_20logging_14',['Opt-Out of IP Logging',['../md_doc_2privacy__policy.html#autotoc_md100',1,'']]],
+  ['option_5ftable_15',['OPTION_TABLE',['../classsrc_1_1cli_1_1cli_1_1CLI.html#aee7b2f34360fe31e3e95652c8e39632f',1,'src::cli::cli::CLI']]],
+  ['options_16',['options',['../classsrc_1_1arghandler_1_1ArgumentParser.html#aeda6e853561024c930ca22749e8ba6c5',1,'src::arghandler::ArgumentParser']]],
+  ['or_20concerns_17',['Privacy Questions or Concerns',['../md_doc_2privacy__policy.html#autotoc_md127',1,'']]],
+  ['organization_18',['Test Organization',['../md_CONTRIBUTING.html#autotoc_md35',1,'']]],
+  ['orm_5fmode_19',['orm_mode',['../classschemas_1_1user_1_1UserOut_1_1Config.html#a4af5f4d26778f32c4ec862d78484e57f',1,'schemas::user::UserOut::Config']]],
+  ['ospeed_20',['OSPEED',['../namespacesrc_1_1common_1_1user__input.html#a2b3e0b9a1bc1f3b315f539b5a63b9819',1,'src::common::user_input']]],
+  ['other_20jurisdictions_21',['Other Jurisdictions',['../md_doc_2privacy__policy.html#autotoc_md137',1,'']]],
+  ['our_20commitment_22',['Our Commitment',['../md_doc_2privacy__policy.html#autotoc_md139',1,'']]],
+  ['our_20discord_23',['Join Our Discord',['../md_CONTRIBUTING.html#autotoc_md41',1,'']]],
+  ['our_20practices_24',['Audit Our Practices',['../md_doc_2privacy__policy.html#autotoc_md140',1,'']]],
+  ['out_20of_20ip_20logging_25',['Opt-Out of IP Logging',['../md_doc_2privacy__policy.html#autotoc_md100',1,'']]]
 ];
