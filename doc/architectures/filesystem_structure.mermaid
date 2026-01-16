@@ -1,0 +1,60 @@
+graph TB
+    ROOT[mirror-example/]
+    
+    ROOT --> PKGLIST["pkgs.list<br/>Format: name,version,location,sha256<br/>Exemple: gcc,1.0.0,/register/gcc.list,49b282..."]
+    ROOT --> CHECKSUM["checksum.hsh<br/>SHA256 du pkgs.list<br/>Exemple: 6f79f3c9f4c5e6cc..."]
+    ROOT --> REGISTER["register/"]
+    ROOT --> PKGS["pkgs/"]
+    ROOT --> BACKUPS["backups/"]
+    
+    subgraph REGISTER_GROUP ["register/ - Métadonnées des packages"]
+        REG_GCC["gcc.list<br/>Architecture: x64<br/>Version: 1.0.0<br/>Machine: Windows<br/>Location: /pkgs/gcc_x64_windows_1-0-0.json"]
+    end
+    
+    REGISTER --> REG_GCC
+    
+    subgraph PKGS_GROUP ["pkgs/ - Packages et descripteurs"]
+        PKG_JSON["gcc_x64_windows_1-0-0.json<br/>Descripteur complet du package"]
+        PKG_TAR["gcc_x64_windows_1-0-0.tar.gz<br/>Archive binaire du package"]
+        
+        PKG_JSON -.->|Contenu| JSON_CONTENT["package: gcc<br/>version: 1.0.0<br/>architecture: x64<br/>machine: Windows<br/>depends: vide<br/>description: gcc<br/>address: /pkgs/gcc_x64_windows_1-0-0.tar.gz<br/>size: 272<br/>added_at: timestamp<br/>MD5sum: 126d5ea9ae0b4e6d0bd582116a4c0ef0<br/>SHA256: 12741fc196d19221fe56257534c765bb..."]
+    end
+    
+    PKGS --> PKG_JSON
+    PKGS --> PKG_TAR
+    
+    subgraph BACKUPS_GROUP ["backups/ - Sauvegardes versionnées"]
+        BACKUP_TIMESTAMPED["YYYYMMDD-HHMMSS/<br/>Copie des fichiers modifiés"]
+        BACKUP_DELETED["deleted/<br/>Fichiers supprimés avec hash MD5"]
+        
+        BACKUP_TIMESTAMPED --> BKP_PKGLIST["pkgs.list<br/>Version sauvegardée"]
+        BACKUP_TIMESTAMPED --> BKP_REGISTER["register/<br/>Copies des .list"]
+        BACKUP_TIMESTAMPED --> BKP_PKGS["pkgs/<br/>Copies des .json"]
+    end
+    
+    BACKUPS --> BACKUP_TIMESTAMPED
+    BACKUPS --> BACKUP_DELETED
+    
+    subgraph RELATIONS ["Relations entre fichiers"]
+        FLOW1["pkgs.list"] -->|Référence| FLOW2["register/gcc.list"]
+        FLOW2 -->|Référence| FLOW3["pkgs/gcc_x64_windows_1-0-0.json"]
+        FLOW3 -->|Référence| FLOW4["pkgs/gcc_x64_windows_1-0-0.tar.gz"]
+    end
+    
+    subgraph INTEGRITY ["Intégrité et Vérification"]
+        INT1["Checksum Global<br/>checksum.hsh"]
+        INT2["Hash par Package<br/>dans pkgs.list"]
+        INT3["SHA256 + MD5<br/>dans .json"]
+        
+        INT1 -.->|Vérifie| PKGLIST
+        INT2 -.->|Vérifie| REG_GCC
+        INT3 -.->|Vérifie| PKG_TAR
+    end
+    
+    style PKGLIST fill:#ffecb3
+    style CHECKSUM fill:#ffecb3
+    style REG_GCC fill:#c8e6c9
+    style PKG_JSON fill:#e1f5ff
+    style PKG_TAR fill:#f8bbd0
+    style TIMESTAMPED fill:#d1c4e9
+    style DELETED fill:#ffccbc
