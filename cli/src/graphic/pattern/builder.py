@@ -11,4 +11,6 @@ class PatternBuilder(object):
                 temp = temp.replace(f"$*{k}", ' ' * (v[1] - len(PatternBuilder(v[0]).build(**kwargs))))
             if (f"$?{k}" in temp):
                 temp = temp.replace(f"$?{k}", PatternBuilder(v[1]).build(**kwargs) if v[0] in kwargs and kwargs[v[0]] else '')
+            if (f"$;{k}" in temp):
+                temp = temp.replace(f"$;{k}", v[1] * (len(PatternBuilder(v[0]).build(**kwargs))))
         return (temp)
