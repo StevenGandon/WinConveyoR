@@ -617,6 +617,17 @@ class YAMLConfigReader(object):
         if (machine == "windows"):
             return (WizardCodeSection.FLAGS_WINDOWS)
 
+    def _section_type_from_job(self, job):
+        if (job == "install"):
+            return (WizardCodeSection.TYPE_SECTION_INSTALL)
+        if (job == "build"):
+            return (WizardCodeSection.TYPE_SECTION_BUILD)
+        if (job == "purge"):
+            return (WizardCodeSection.TYPE_SECTION_PURGE)
+        if (job == "uninstall"):
+            return (WizardCodeSection.TYPE_SECTION_UNINSTALL)
+        return (WizardCodeSection.TYPE_GENERIC_SECTION)
+
     def op_from_string(self, name: str, obj: dict):
         if (name == "mkdir"):
             return (WizardInstruction.OP_MKDIR, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
@@ -724,13 +735,13 @@ class YAMLConfigReader(object):
             code_sections = {}
 
             if (any_only):
-                code_sections["any"] = WizardCodeSection(f"{job}_any", WizardCodeSection.TYPE_GENERIC_SECTION, WizardCodeSection.FLAGS_POSIX & WizardCodeSection.FLAGS_WINDOWS)
+                code_sections["any"] = WizardCodeSection(f"{job}_any", self._section_type_from_job(job), WizardCodeSection.FLAGS_POSIX & WizardCodeSection.FLAGS_WINDOWS)
             elif (one_arch):
                 arch = self._encountered_machines[job][0]
-                code_sections[arch] = WizardCodeSection(f"{job}_{arch}", WizardCodeSection.TYPE_GENERIC_SECTION, self._machine_str_to_enum(arch))
+                code_sections[arch] = WizardCodeSection(f"{job}_{arch}", self._section_type_from_job(job), self._machine_str_to_enum(arch))
             else:
                 for item in self._encountered_machines[job]:
-                    code_sections[item] = WizardCodeSection(f"{job}_{item}", WizardCodeSection.TYPE_GENERIC_SECTION, self._machine_str_to_enum(item))
+                    code_sections[item] = WizardCodeSection(f"{job}_{item}", self._section_type_from_job(job), self._machine_str_to_enum(item))
 
             for item in self._parsed["jobs"][job]["steps"]:
                 k, v = tuple(item.keys())[0], item[tuple(item.keys())[0]]
