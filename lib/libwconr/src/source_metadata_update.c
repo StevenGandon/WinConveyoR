@@ -1,20 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <curl/curl.h>
-#include <openssl/sha.h>
-
-#ifdef _WIN32
-    #include <windows.h>
-    #include <sys/stat.h>
-    #define stat _stat
-    #define access _access
-    #define F_OK 0
-#else
-    #include <unistd.h>
-    #include <sys/stat.h>
-#endif
-
+#include "source_metadata_update.h"
 
 static char* get_cache_path(const char *filename)
 {
@@ -62,8 +46,6 @@ static char* get_cache_path(const char *filename)
     printf("[DEBUG] get_cache_path: result=%s\n", full_path);
     return full_path;
 }
-
-#define READ_BUFFER_SIZE 4096
 
 static char* calculate_sha256_file(const char *filepath)
 {
@@ -125,11 +107,6 @@ static char* calculate_sha256_file(const char *filepath)
     
     return hash_string;
 }
-
-struct memory_buffer_s {
-    unsigned char *data;
-    size_t size;
-};
 
 static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -247,76 +224,84 @@ static int download_to_file(const char *url, const char *filepath)
     return 0;
 }
 
+static int cleanup_sync_resources(struct sync_resources_s *res, int result)
+{
+    if (res->pkgs_list_url) free(res->pkgs_list_url);
+    if (res->checksum_url) free(res->checksum_url);
+    if (res->pkgs_list_path) free(res->pkgs_list_path);
+    if (res->remote_checksum) free(res->remote_checksum);
+    if (res->local_checksum) free(res->local_checksum);
+
+    curl_global_cleanup();
+
+    return result;
+}
+
 int sync_package_list(const char *source_uri)
 {
-    char *pkgs_list_url = NULL;
-    char *checksum_url = NULL;
-    char *pkgs_list_path = NULL;
-    char *remote_checksum = NULL;
-    char *local_checksum = NULL;
+    struct sync_resources_s res = {NULL, NULL, NULL, NULL, NULL};
     size_t uri_len;
     int needs_download = 0;
-    int result = -1;
-    
+
     printf("[INFO] sync_package_list: source_uri=%s\n", source_uri);
-    
+
     if (!source_uri) {
         fprintf(stderr, "[ERROR] sync_package_list: source_uri is NULL\n");
         return -1;
     }
-    
+
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
         fprintf(stderr, "[ERROR] sync_package_list: curl_global_init failed\n");
         return -1;
     }
-    
+
     uri_len = strlen(source_uri);
-    
-    pkgs_list_url = malloc(uri_len + strlen("/pkgs.list") + 1);
-    if (!pkgs_list_url) {
+
+    res.pkgs_list_url = malloc(uri_len + strlen("/pkgs.list") + 1);
+    if (!res.pkgs_list_url) {
         fprintf(stderr, "[ERROR] sync_package_list: malloc failed for pkgs_list_url\n");
-        goto cleanup;
+        return cleanup_sync_resources(&res, -1);
     }
-    
+
     if (source_uri[uri_len - 1] == '/') {
-        sprintf(pkgs_list_url, "%spkgs.list", source_uri);
+        sprintf(res.pkgs_list_url, "%spkgs.list", source_uri);
     } else {
-        sprintf(pkgs_list_url, "%s/pkgs.list", source_uri);
+        sprintf(res.pkgs_list_url, "%s/pkgs.list", source_uri);
     }
-    
-    checksum_url = malloc(uri_len + strlen("/checksum.hsh") + 1);
-    if (!checksum_url) {
+
+    res.checksum_url = malloc(uri_len + strlen("/checksum.hsh") + 1);
+    if (!res.checksum_url) {
         fprintf(stderr, "[ERROR] sync_package_list: malloc failed for checksum_url\n");
-        goto cleanup;
+        return cleanup_sync_resources(&res, -1);
     }
-    
+
     if (source_uri[uri_len - 1] == '/') {
-        sprintf(checksum_url, "%schecksum.hsh", source_uri);
+        sprintf(res.checksum_url, "%schecksum.hsh", source_uri);
     } else {
-        sprintf(checksum_url, "%s/checksum.hsh", source_uri);
+        sprintf(res.checksum_url, "%s/checksum.hsh", source_uri);
     }
-    
-    printf("[DEBUG] pkgs_list_url=%s\n", pkgs_list_url);
-    printf("[DEBUG] checksum_url=%s\n", checksum_url);
-    
-    pkgs_list_path = get_cache_path("pkgs.list");
-    if (!pkgs_list_path) {
+
+    printf("[DEBUG] pkgs_list_url=%s\n", res.pkgs_list_url);
+    printf("[DEBUG] checksum_url=%s\n", res.checksum_url);
+
+    res.pkgs_list_path = get_cache_path("pkgs.list");
+    if (!res.pkgs_list_path) {
         fprintf(stderr, "[ERROR] sync_package_list: failed to get cache path\n");
-        goto cleanup;
+        return cleanup_sync_resources(&res, -1);
     }
-    
-    if (access(pkgs_list_path, F_OK) != 0) {
+
+    if (access(res.pkgs_list_path, F_OK) != 0) {
         printf("[INFO] pkgs.list not found locally, downloading...\n");
         needs_download = 1;
     } else {
         printf("[INFO] pkgs.list found locally, checking integrity...\n");
-        
-        remote_checksum = download_to_string(checksum_url);
-        if (!remote_checksum) {
+
+        res.remote_checksum = download_to_string(res.checksum_url);
+        if (!res.remote_checksum) {
             fprintf(stderr, "[WARNING] Failed to download checksum.hsh, forcing re-download\n");
             needs_download = 1;
         } else {
-            char *p = remote_checksum;
+            char *p = res.remote_checksum;
             while (*p && (*p == ' ' || *p == '\n' || *p == '\r' || *p == '\t')) {
                 p++;
             }
@@ -325,78 +310,41 @@ int sync_package_list(const char *source_uri)
                 *end = '\0';
                 end--;
             }
-            
-            if (p != remote_checksum) {
-                memmove(remote_checksum, p, strlen(p) + 1);
+
+            if (p != res.remote_checksum) {
+                memmove(res.remote_checksum, p, strlen(p) + 1);
             }
-            
-            printf("[DEBUG] remote_checksum=%s\n", remote_checksum);
-            
-            local_checksum = calculate_sha256_file(pkgs_list_path);
-            if (!local_checksum) {
+
+            printf("[DEBUG] remote_checksum=%s\n", res.remote_checksum);
+
+            res.local_checksum = calculate_sha256_file(res.pkgs_list_path);
+            if (!res.local_checksum) {
                 fprintf(stderr, "[ERROR] Failed to calculate local checksum\n");
                 needs_download = 1;
             } else {
-                printf("[DEBUG] local_checksum=%s\n", local_checksum);
-                
-                if (strcmp(local_checksum, remote_checksum) != 0) {
+                printf("[DEBUG] local_checksum=%s\n", res.local_checksum);
+
+                if (strcmp(res.local_checksum, res.remote_checksum) != 0) {
                     printf("[INFO] Checksums differ, re-downloading pkgs.list...\n");
                     needs_download = 1;
                 } else {
                     printf("[INFO] Checksums match, pkgs.list is up to date\n");
-                    result = 0;
+                    return cleanup_sync_resources(&res, 0);
                 }
             }
         }
     }
-    
+
     if (needs_download) {
         printf("[INFO] Downloading pkgs.list...\n");
-        if (download_to_file(pkgs_list_url, pkgs_list_path) == 0) {
+        if (download_to_file(res.pkgs_list_url, res.pkgs_list_path) == 0) {
             printf("[INFO] Successfully downloaded pkgs.list\n");
-            result = 0;
+            return cleanup_sync_resources(&res, 0);
         } else {
             fprintf(stderr, "[ERROR] Failed to download pkgs.list\n");
-            result = -1;
+            return cleanup_sync_resources(&res, -1);
         }
     }
-    
-cleanup:
-    if (pkgs_list_url) free(pkgs_list_url);
-    if (checksum_url) free(checksum_url);
-    if (pkgs_list_path) free(pkgs_list_path);
-    if (remote_checksum) free(remote_checksum);
-    if (local_checksum) free(local_checksum);
-    
-    curl_global_cleanup();
-    
-    return result;
-}
 
-int main(int argc, char **argv)
-{
-    const char *source_uri;
-    int result;
-
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <source_uri>\n", argv[0]);
-        fprintf(stderr, "Example: %s http://localhost:80\n", argv[0]);
-        return 1;
-    }
-
-    source_uri = argv[1];
-
-    printf("=== WinConveyoR Source Synchronization Test ===\n");
-    printf("Source URI: %s\n\n", source_uri);
-
-    result = sync_package_list(source_uri);
-
-    printf("\n");
-    if (result == 0) {
-        printf("=== SUCCESS ===\n");
-        return 0;
-    } else {
-        fprintf(stderr, "=== FAILED ===\n");
-        return 1;
-    }
+    return cleanup_sync_resources(&res, 0);
 }
