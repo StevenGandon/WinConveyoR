@@ -40,7 +40,11 @@ class WizardArgument(object):
     ARG_U32 = 0x04
     ARG_U64 = 0x05
 
-    _SIZES = {
+    _STR_ARGS = [
+        ARG_STR
+    ]
+
+    _ARGS = {
         ARG_STR: 0x4,
         ARG_U8: 0x1,
         ARG_U16: 0x2,
@@ -53,20 +57,20 @@ class WizardArgument(object):
         self.value = value
 
     def get_size(self):
-        assert self.type in self._SIZES
+        assert self.type in self._ARGS
 
-        return (self._SIZES[self.type])
+        return (self._ARGS[self.type])
     
     def to_bytes(self, parent):
-        assert self.type in self._SIZES
+        assert self.type in self._ARGS
         assert self.value is not None
 
         content = bytearray()
 
-        if (self.type == self.ARG_STR):
+        if (self.type in self._STR_ARGS):
             content.extend(int.to_bytes(parent.add_strndx(self.value), parent.get_str_offset_size(), byteorder=parent.get_endianess()))
         else:
-            content.extend(int.to_bytes(self.value, self._SIZES[self.type], byteorder=parent.get_endianess()))
+            content.extend(int.to_bytes(self.value, self._ARGS[self.type], byteorder=parent.get_endianess()))
 
         return (bytes(content))
 
@@ -96,6 +100,7 @@ class WizardArgumentArray(WizardArgument):
         return (bytes(content))
 
 class WizardInstruction(object):
+    _OP_CODES = []
     OP_NOOP = 0x00
     OP_MKDIR = 0x01
     OP_COPY = 0x02
@@ -433,6 +438,7 @@ class YAMLConfigReader(object):
     _VERSION = "$root.version"
     _LATEST = 1
     _MIN_VER = 1
+    _OP_KEYS = {}
     _SCHEMA_BANK = {
         1: ConfigSchemaBank(
             metadata=ConfigSchema({
