@@ -1,4 +1,5 @@
 from ..common.user_input import init_terminal, uninit_terminal, non_blocking_read
+from ..common.clock import Clock
 from ..network.message_json import JSONMessage
 from ..network.message import Message
 from ..network.client import ClientSocket
@@ -30,7 +31,7 @@ class NetworkCLICommand(object):
         self.need_login: bool = need_login
 
 class NetworkCLI(object):
-    def __init__(self):
+    def __init__(self , /, clock = Clock(), fps = 60):
         self._old_attrs = init_terminal()
         
         self.client: ClientSocket = ClientSocket()
@@ -50,6 +51,11 @@ class NetworkCLI(object):
         self.history_cursor = 0
 
         self.commands = {}
+
+        self.clock = clock
+        self.tick = fps
+
+        self.delta_time = 0
 
     def add_command(self, command: CLICommand, need_login: bool = False):
         self.commands[command.name] = NetworkCLICommand(command, need_login=need_login)
@@ -214,6 +220,8 @@ class NetworkCLI(object):
                 break
             self.update()
             self.draw()
+
+            self.delta_time = self.clock.tick(self.tick)
 
     def close(self):
         if (hasattr(self, "client") and self.client):

@@ -6,12 +6,17 @@ from .message import Message
 from .client import Client
 from .handler import Handler
 
+from ..common.clock import Clock
+
 class Server(object):
-    def __init__(self, host = "0.0.0.0", port = 1674, *, socket_builder = lambda: socket(AF_INET, SOCK_STREAM)):
+    def __init__(self, host = "0.0.0.0", port = 1674, *, socket_builder = lambda: socket(AF_INET, SOCK_STREAM), clock=Clock(), tick=64):
         self.running = False
         self.clients = {}
         self.sessions = {}
         self.handler = Handler()
+        self.clock = clock
+        self.tick = tick
+        self.delta_time = 0
 
         try:
             self._socket: socket = socket_builder()
@@ -113,6 +118,13 @@ class Server(object):
             
             self.events()
             self.update()
+            self.delta_time = self.clock.tick(self.tick)
+
+            if (self.tick != 0):
+                if (1000.0 / self.tick > self.delta_time):
+                    print(f"warning {abs(self.tick / 1000.0 - self.delta_time) * 1000.0} ticks ahead.")
+                if (1000.0 / self.tick < self.delta_time):
+                    print(f"warning {abs(self.tick / 1000.0 - self.delta_time) * 1000.0} ticks behind.")
 
     def close(self):
         for item in self.clients.values():
