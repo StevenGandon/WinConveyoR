@@ -61,7 +61,7 @@ class InstructionLoader(object):
                     size = typedef.attrib.get("size", "0")
                     is_str = typedef.attrib.get("is_str", "no").lower()
 
-                    if (is_str != "yes" or is_str != "no"):
+                    if (is_str != "yes" and is_str != "no"):
                         raise ValueError(f"Invalid attribute, is_str should only be 'yes' or 'no', for typedef '{name}'.")
 
                     if ("[" in name or "]" in name):
@@ -87,12 +87,12 @@ class InstructionLoader(object):
                 self.instructions_set[set_name] = {}
 
                 for instruction in item:
-                    if (instruction.tag != "instruction"):
-                        raise ValueError(f"Invalid tag in instructions '{instruction.tag}'.")
-                    name = typedef.attrib.get("name", "")
-                    code = typedef.attrib.get("code", "-1")
+                    if (instruction.tag != "op"):
+                        raise ValueError(f"Invalid tag in instructions: '{instruction.tag}'.")
+                    name = instruction.attrib.get("name", "")
+                    code = instruction.attrib.get("code", "-1")
 
-                    if (not code.isnumeric()):
+                    if (not code.lstrip('-').isnumeric()):
                         raise ValueError(f"Invalid code in type, got '{code}', but expected a numeric value.")
 
                     if (int(code) == -1):

@@ -1,1 +1,1 @@
-from instruction_loader import InstructionLoader, InstructionArgumentDef
+from .instruction_loader import InstructionLoader, InstructionArgumentDef

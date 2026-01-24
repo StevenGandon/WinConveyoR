@@ -12,6 +12,8 @@ from yaml import safe_load
 
 from genericpath import isdir
 
+from src import InstructionLoader
+
 class PackageInfo(object):
     def __init__(self, name, version="1.0.0", description = "", depends = [], machine = "any", architecture = "x64"):
         self.name = name
@@ -838,6 +840,21 @@ def interactive_mode():
 
     return (0)
 
+def init_typedef():
+    instruction_loader: InstructionLoader = InstructionLoader()
+
+    try:
+        instruction_loader.load("../../assets/wizard/instructions.xml")
+    except Exception as e:
+        print(e)
+
+    for typedef in instruction_loader.data_types:
+        size, is_str = instruction_loader.data_types[typedef]
+        WizardArgument._ARGS[typedef] = size
+
+        if (is_str):
+            WizardArgument._STR_ARGS.append(typedef)
+
 def config_file_mode():
     config: YAMLConfigReader = YAMLConfigReader(argv[2])
     config.parse()
@@ -867,6 +884,8 @@ def main() -> int:
     if (not isdir(argv[1])):
         print(f"{argv[0]}: {argv[1]}: not a directory.")
         return (1)
+    
+    init_typedef()
     
     if (len(argv) < 3):
         print(f"{argv[0]} No config file provided.")
