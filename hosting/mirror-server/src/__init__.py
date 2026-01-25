@@ -3,3 +3,4 @@ from .package import *
 from .network import *
 from .cli import *
 from .wizard import *
+from .builder import *
