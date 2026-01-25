@@ -35,23 +35,10 @@ class PackageInfo(object):
             }, fp, indent=4)
 
 class WizardArgument(object):
-    ARG_UKN = 0x00
-    ARG_STR = 0x01
-    ARG_U8 = 0x02
-    ARG_U16 = 0x03
-    ARG_U32 = 0x04
-    ARG_U64 = 0x05
-
     _STR_ARGS = [
-        ARG_STR
     ]
 
     _ARGS = {
-        ARG_STR: 0x4,
-        ARG_U8: 0x1,
-        ARG_U16: 0x2,
-        ARG_U32: 0x4,
-        ARG_U64: 0x8
     }
 
     def __init__(self, arg_type, value = None):
@@ -102,19 +89,6 @@ class WizardArgumentArray(WizardArgument):
         return (bytes(content))
 
 class WizardInstruction(object):
-    _OP_CODES = []
-    OP_NOOP = 0x00
-    OP_MKDIR = 0x01
-    OP_COPY = 0x02
-    OP_RUN = 0x03
-    OP_CHMOD = 0x04
-    OP_REMOVE = 0x05
-    OP_REMOVE_TREE = 0x06
-    OP_COPY_TREE = 0x07
-    OP_RMDIR = 0x08
-    OP_MOVE = 0x09
-    OP_MOVE_TREE = 0x0A
-
     _OP_SIZE = 0x2
 
     def __init__(self, opcode: int, args: list):
@@ -300,7 +274,6 @@ class PackageWizard(object):
             section_header.extend(int_to_bytes(number=addr, size=self._addresses_size))
 
             addr += item.get_size()
-
 
         _strndx_off = (
             _file_header_size +
@@ -637,25 +610,40 @@ class YAMLConfigReader(object):
         return (WizardCodeSection.TYPE_GENERIC_SECTION)
 
     def op_from_string(self, name: str, obj: dict):
-        if (name == "mkdir"):
-            return (WizardInstruction.OP_MKDIR, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
+        if (name not in self._OP_KEYS):
+            raise (ValueError(f"Instruction '{name}' not found in instruction set for version '{self.version}'."))
 
-        if (name == "run"):
-            return (WizardInstruction.OP_RUN, [WizardArgument(WizardArgument.ARG_STR, obj["tool"]), WizardArgumentArray(WizardArgument.ARG_STR, obj["args"])])
+        code, args = self._OP_KEYS[name]
 
-        if (name == "chmod"):
-            return (WizardInstruction.OP_CHMOD, [WizardArgument(WizardArgument.ARG_STR, obj["path"]), WizardArgument(WizardArgument.ARG_U16, obj["mode"])])
+        return (code, [
+            WizardArgument(
+                item.name,
+                obj.get(item.label, None)
+            ) if not item.is_list else WizardArgumentArray(
+                item.name,
+                obj.get(item.label, [None] * item.list_size)
+            ) for item in args
+        ])
 
-        if (name == "remove"):
-            return (WizardInstruction.OP_REMOVE, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
+        # if (name == "mkdir"):
+        #     return (WizardInstruction.OP_MKDIR, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
 
-        if (name == "remove_tree"):
-            return (WizardInstruction.OP_REMOVE_TREE, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
+        # if (name == "run"):
+        #     return (WizardInstruction.OP_RUN, [WizardArgument(WizardArgument.ARG_STR, obj["tool"]), WizardArgumentArray(WizardArgument.ARG_STR, obj["args"])])
 
-        if (name == "copy"):
-            return (WizardInstruction.OP_COPY, [WizardArgument(WizardArgument.ARG_STR, obj["from"]), WizardArgument(WizardArgument.ARG_STR, obj["to"])])
+        # if (name == "chmod"):
+        #     return (WizardInstruction.OP_CHMOD, [WizardArgument(WizardArgument.ARG_STR, obj["path"]), WizardArgument(WizardArgument.ARG_U16, obj["mode"])])
+
+        # if (name == "remove"):
+        #     return (WizardInstruction.OP_REMOVE, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
+
+        # if (name == "remove_tree"):
+        #     return (WizardInstruction.OP_REMOVE_TREE, [WizardArgument(WizardArgument.ARG_STR, obj["path"])])
+
+        # if (name == "copy"):
+        #     return (WizardInstruction.OP_COPY, [WizardArgument(WizardArgument.ARG_STR, obj["from"]), WizardArgument(WizardArgument.ARG_STR, obj["to"])])
         
-        return (WizardInstruction.OP_NOOP, [])
+        # return (WizardInstruction.OP_NOOP, [])
 
     def pop_message(self):
         if (not self._output_message_stack):
@@ -855,6 +843,20 @@ def init_typedef():
         if (is_str):
             WizardArgument._STR_ARGS.append(typedef)
 
+def init_ops(version):
+    instruction_loader: InstructionLoader = InstructionLoader()
+
+    try:
+        instruction_loader.load("../../assets/wizard/instructions.xml")
+    except Exception as e:
+        print(e)
+
+    if (version not in instruction_loader.instructions_set):
+        print(f"Version '{version}' not found in xml instructions configurations.")
+
+    for item in instruction_loader.instructions_set[version]:
+        YAMLConfigReader._OP_KEYS[item] = instruction_loader.instructions_set[version][item]
+
 def config_file_mode():
     config: YAMLConfigReader = YAMLConfigReader(argv[2])
     config.parse()
@@ -869,6 +871,8 @@ def config_file_mode():
 
     if (has_error):
         return (1)
+    
+    init_ops(config.version)
 
     pkg_builder = config.to_package_builder(argv[1])
 
@@ -895,8 +899,8 @@ def main() -> int:
 
     try:
         return (config_file_mode())
-    except Exception:
-        print(f"{argv[0]}: Failed to generate package from config '{argv[2]}'.")
+    except Exception as e:
+        print(f"{argv[0]}: Failed to generate package from config '{argv[2]}'. ({e})")
         return (1)
 
 if (__name__ == "__main__"):

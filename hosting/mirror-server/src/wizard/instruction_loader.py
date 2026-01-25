@@ -1,10 +1,11 @@
 from xml.etree import ElementTree
 
 class InstructionArgumentDef(object):
-    def __init__(self, name, /, is_list = False, list_size = -1):
+    def __init__(self, name, /, is_list = False, list_size = -1, label =  None):
         self.name = name
         self.is_list = is_list
         self.list_size = list_size
+        self.label = label
 
     @staticmethod
     def from_string(string: str):
@@ -81,6 +82,11 @@ class InstructionLoader(object):
             if (item.tag == "instructions"):
                 set_name = item.attrib.get("version", "0")
 
+                if (not set_name.isnumeric()):
+                    raise ValueError(f"Version should be a numeric value for instruction set, got: '{set_name}'.")
+
+                set_name = int(set_name)
+
                 if (set_name in self.instructions_set):
                     print(f"warning: '{set_name}' already registered as an instruction set, overwritting.")
 
@@ -101,15 +107,22 @@ class InstructionLoader(object):
                     if (name in self.instructions_set[set_name]):
                         print(f"warning: '{name}' already registered as an instruction, overwritting.")
 
-                    self.instructions_set[set_name][name] = (code, [])
+                    self.instructions_set[set_name][name] = (int(code), [])
 
                     for arg in instruction:
                         if (arg.tag != "arg"):
                             raise ValueError(f"Invalid tag in instruction {name} '{arg.tag}'.")
                         
                         type_name = arg.attrib.get("type", "")
+                        label = arg.attrib.get("label", None)
 
-                        self.instructions_set[set_name][name][1].append(InstructionArgumentDef.from_string(type_name))
+                        if (label is None):
+                            print(f"warning: argument '{type_name}' of '{name}' has no label, it will cause an assertion if used to generate wizard.")
+
+                        temp = InstructionArgumentDef.from_string(type_name)
+                        temp.label = label
+
+                        self.instructions_set[set_name][name][1].append(temp)
 
                 continue
 
