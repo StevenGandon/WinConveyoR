@@ -11,7 +11,7 @@ class WizardInstruction(object):
     def to_bytes(self, parent):
         content = bytearray()
 
-        content.extend(int.to_bytes(self.code, self._OP_SIZE, byteorder=parent.get_endianess()))
+        content.extend(int.to_bytes(self.code, self._OP_SIZE, byteorder=parent.get_endianness()))
         for item in self.args:
             content.extend(item.to_bytes(parent))
 

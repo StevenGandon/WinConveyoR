@@ -21,9 +21,9 @@ class WizardArgument(object):
         content = bytearray()
 
         if (self.type in self._STR_ARGS):
-            content.extend(int.to_bytes(parent.add_strndx(self.value), parent.get_str_offset_size(), byteorder=parent.get_endianess()))
+            content.extend(int.to_bytes(parent.add_strndx(self.value), parent.get_str_offset_size(), byteorder=parent.get_endianness()))
         else:
-            content.extend(int.to_bytes(self.value, self._ARGS[self.type], byteorder=parent.get_endianess()))
+            content.extend(int.to_bytes(self.value, self._ARGS[self.type], byteorder=parent.get_endianness()))
 
         return (bytes(content))
 
@@ -42,7 +42,7 @@ class WizardArgumentArray(WizardArgument):
 
         content = bytearray()
 
-        content.extend(int.to_bytes(len(self.values), self._ARR_COUNT_SIZE, byteorder=parent.get_endianess()))
+        content.extend(int.to_bytes(len(self.values), self._ARR_COUNT_SIZE, byteorder=parent.get_endianness()))
 
         for item in self.values:
             self.value = item

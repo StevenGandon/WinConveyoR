@@ -3,8 +3,10 @@ from .strndx import WizardStrndx
 
 class PackageWizard(object):
     FLAGS_DEFAULT = 0x00
-    FLAGS_ALIGNEMENT_8 = (1 << 0)
-    FLAGS_ALIGNEMENT_16 = (1 << 1)
+    FLAGS_ALIGNMENT_8 = (1 << 0)
+    FLAGS_ALIGNMENT_16 = (1 << 1)
+
+    PADDING_BYTES = b"\xCD"
 
     def __init__(self):
         self._magic = b"\x42\xa4\x09\x67"
@@ -13,10 +15,10 @@ class PackageWizard(object):
 
         self._byte_order = "big"
         self._version = 0x0100
-        self._flags = PackageWizard.FLAGS_DEFAULT
+        self._flags = PackageWizard.FLAGS_DEFAULT | PackageWizard.FLAGS_ALIGNMENT_8
 
         self._version_size = 2
-        self._endianess_size = 1
+        self._endianness_size = 1
         self._flags_size = 4
         self._str_len_size = 4
         self._addresses_size = 8
@@ -27,17 +29,43 @@ class PackageWizard(object):
         self._section_type_size = 4
         self._section_flags_size = 4
 
+    def _get_alignment(self):
+        if ((self._flags & self.FLAGS_ALIGNMENT_8) > 0 and (self._flags & self.FLAGS_ALIGNMENT_16) > 0):
+            raise ValueError("Only one alignment flag may be set.")
+
+        if ((self._flags & self.FLAGS_ALIGNMENT_16) > 0):
+            return (16)
+        if ((self._flags & self.FLAGS_ALIGNMENT_8) > 0):
+            return (8)
+        return (1)
+
+    @staticmethod
     def _align(value, alignment=8):
         return (value + alignment - 1) & ~(alignment - 1)
 
-    def _compute_sections_size(self):
-        size: int = 0
+    @staticmethod
+    def _align_fp(alignment, fp):
+        if (alignment <= 1):
+            return
+        
+        cur_addr = fp.tell()
+        aligned_addr = PackageWizard._align(cur_addr, alignment)
+
+        if (aligned_addr <= cur_addr):
+            return
+        fp.write(PackageWizard.PADDING_BYTES * (aligned_addr - cur_addr))
+
+    def _compute_sections_size(self, offset):
+        size: int = offset
+        alignment: int = self._get_alignment()
 
         for item in self._sections:
+            if (alignment > 1):
+                size = self._align(size, alignment)
             size += item.get_size()
-        return (size)
+        return (size - offset)
     
-    def get_endianess(self):
+    def get_endianness(self):
         return (self._byte_order)
 
     def get_str_offset_size(self):
@@ -82,9 +110,11 @@ class PackageWizard(object):
 
         int_to_bytes = lambda number, size: int.to_bytes(number, size, byteorder=self._byte_order)
 
+        alignment = self._get_alignment()
+
         _file_header_size = (
             len(self._magic) + 
-            self._endianess_size +
+            self._endianness_size +
             self._version_size +
             self._flags_size +
             self._addresses_size +
@@ -115,6 +145,8 @@ class PackageWizard(object):
         addr = _section_header_off + _section_header_size
 
         for item in self._sections:
+            if (alignment > 1):
+                addr = self._align(addr, alignment)
             section_header.extend(int_to_bytes(number=self.add_strndx(item.name), size=self._strndx_ref_size))
             section_header.extend(int_to_bytes(number=item.type, size=self._section_type_size))
             section_header.extend(int_to_bytes(number=item.flags, size=self._section_flags_size))
@@ -123,14 +155,15 @@ class PackageWizard(object):
 
             addr += item.get_size()
 
+        _sections_off = _file_header_size + len(section_header)
+
         _strndx_off = (
-            _file_header_size +
-            len(section_header) +
-            self._compute_sections_size()
+            _sections_off +
+            self._compute_sections_size(_sections_off)
         )
 
         file_header.extend(self._magic)
-        file_header.extend(int_to_bytes(number=(0 if self._byte_order == "big" else 1), size=self._endianess_size))
+        file_header.extend(int_to_bytes(number=(0 if self._byte_order == "big" else 1), size=self._endianness_size))
         file_header.extend(int_to_bytes(number=self._version, size=self._version_size))
         file_header.extend(int_to_bytes(number=self._flags, size=self._flags_size))
         file_header.extend(int_to_bytes(number=_section_header_off, size=self._addresses_size))
@@ -140,7 +173,9 @@ class PackageWizard(object):
             fp.write(file_header)
             fp.write(section_header)
             for item in self._sections:
+                self._align_fp(alignment, fp)
                 fp.write(item.to_bytes(parent=self))
+            self._align_fp(alignment, fp)
             for item in self._strndx:
                 fp.write(int_to_bytes(number=len(item.content), size=self._str_len_size))
                 fp.write(item.content)

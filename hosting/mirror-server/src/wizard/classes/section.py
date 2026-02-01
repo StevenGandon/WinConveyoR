@@ -14,7 +14,6 @@ class WizardSection(object):
         self.name = name
         self.flags = section_flags
         self.type = section_type
-        self.section_flags = section_flags
     
     def get_size(self):
         return (0)
