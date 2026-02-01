@@ -8,14 +8,19 @@ class PackageWizard(object):
 
     PADDING_BYTES = b"\xCD"
 
-    def __init__(self):
+    def __init__(self, /, version = (0, 1), flags: int = None, byte_order = "big"):
+        assert (byte_order in ("big", "little")), "Byte order should be 'big' or 'little'."
+
         self._magic = b"\x42\xa4\x09\x67"
         self._sections = []
         self._strndx = []
 
-        self._byte_order = "big"
-        self._version = 0x0100
-        self._flags = PackageWizard.FLAGS_DEFAULT | PackageWizard.FLAGS_ALIGNMENT_8
+        self._byte_order = byte_order
+        self._version = (0xff00 & (version[0] << 8)) | (0xff & version[1])
+        self._flags = (
+            flags if (flags is not None)
+            else (PackageWizard.FLAGS_DEFAULT | PackageWizard.FLAGS_ALIGNMENT_8)
+        )
 
         self._version_size = 2
         self._endianness_size = 1
