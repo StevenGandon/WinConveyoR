@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from sys import exit
+from sys import exit, argv
 from string import hexdigits
 
 from src import *
@@ -8,6 +8,9 @@ from src.cli.commands import *
 from src.cli.middlewares import *
 
 def main():
+    if (len(argv) > 1):
+        Message.PUBLIC_KEY = PublicSecurityKey.from_file(argv[1])
+
     try:
         nc = NetworkCLI()
     except ConnectionError as e:
@@ -66,7 +69,11 @@ def main():
         []
     ))
 
-    nc.run()
+    try:
+        nc.run()
+    except Exception as e:
+        print(e)
+        return (1)
     nc.close()
     return (0)
 

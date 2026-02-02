@@ -192,10 +192,19 @@ def main():
         print("warning: no password set anyone can edit.")
     # if ("WCR_ACCESS" not in environ):
     #     print("warning: no access key set anyone can download packages.")
-    # if ("WCR_RSA" not in environ):
-    #     print("warning: no rsa encryption, requests are plain text.")
+    if ("WCR_RSA" not in environ):
+        print("warning: no rsa encryption, requests are plain text.")
+    if ("WCR_RSA_PASS" not in environ):
+        print("warning: no rsa key password, using 'None' as password.")
     if ("WCR_DIR" not in environ):
         print("warning: no directory path given for source server data using '.'.")
+
+    try:
+        if ("WCR_RSA" in environ):
+            Message.PRIVATE_KEY = PrivateSecurityKey.from_file(environ["WCR_RSA"], environ.get("WCR_RSA_PASS"))
+    except Exception as e:
+        print(f"failed to load rsa key. ({e})")
+        return (1)
 
     try:
         S = Server()

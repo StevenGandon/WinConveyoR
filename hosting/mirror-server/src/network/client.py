@@ -146,9 +146,9 @@ class Client(object):
         if (payload_size > Client.MAX_PAYLOAD_SIZE):
             raise BufferError("payload size received exceed max size.")
 
-        payload_content = self._socket.recv(payload_size).decode(encoding)
+        payload_content = self._socket.recv(payload_size)
 
-        return Message(payload_magic, payload_flags, payload_content)
+        return Message.from_recv(payload_magic, payload_flags, payload_content, encoding=encoding)
 
     def write(self, message: Message):
         if (not self.isopen()):
