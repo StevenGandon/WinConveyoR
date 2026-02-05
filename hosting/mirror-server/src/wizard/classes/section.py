@@ -16,10 +16,10 @@ class WizardSection(object):
         self.type = section_type
     
     def get_size(self):
-        return (0)
+        return (1)
 
     def to_bytes(self, parent) -> bytes:
-        return b""
+        return b"\00"
 
 class WizardCodeSection(WizardSection):
     def __init__(self, name="new_section", section_type=0, section_flags=0):

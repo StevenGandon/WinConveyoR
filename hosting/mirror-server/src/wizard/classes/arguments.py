@@ -35,7 +35,7 @@ class WizardArgumentArray(WizardArgument):
         self.values = values if values is not None else list()
 
     def get_size(self):
-        return (super().get_size() * len(self.values))
+        return (self._ARR_COUNT_SIZE + super().get_size() * len(self.values))
     
     def to_bytes(self, parent):
         assert self.value is None

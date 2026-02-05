@@ -127,7 +127,7 @@ class PackageWizard(object):
         )
 
         _section_header_off = (
-            _file_header_size
+            self._align(_file_header_size, alignment)
         )
 
         _section_header_entry = (
@@ -160,11 +160,13 @@ class PackageWizard(object):
 
             addr += item.get_size()
 
-        _sections_off = _file_header_size + len(section_header)
+        _sections_off = _section_header_off + len(section_header)
 
         _strndx_off = (
-            _sections_off +
-            self._compute_sections_size(_sections_off)
+            self._align(
+                _sections_off +
+                self._compute_sections_size(_sections_off)
+            , alignment)
         )
 
         file_header.extend(self._magic)
@@ -176,6 +178,7 @@ class PackageWizard(object):
 
         with open(file_path, 'wb+') as fp:
             fp.write(file_header)
+            self._align_fp(alignment, fp)
             fp.write(section_header)
             for item in self._sections:
                 self._align_fp(alignment, fp)
