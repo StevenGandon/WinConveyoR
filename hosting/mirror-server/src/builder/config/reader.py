@@ -12,6 +12,12 @@ class YAMLConfigReader(object):
     _LATEST = 1
     _MIN_VER = 1
     _OP_KEYS = {}
+    _MACHINES = [
+        "posix",
+        "windows",
+        "linux",
+        "macos"
+    ]
     _SCHEMA_BANK = {
         1: ConfigSchemaBank(
             metadata=ConfigSchema({
@@ -322,6 +328,8 @@ class YAMLConfigReader(object):
                 os = v["when"]["os"]
 
                 if (os == "any"):
+                    if ("any" not in code_sections):
+                        code_sections["any"] = WizardCodeSection(f"{job}_any", self._section_type_from_job(job), WizardCodeSection.FLAGS_POSIX & WizardCodeSection.FLAGS_WINDOWS)
                     for section in code_sections.values():
                         section.instructions.append(WizardInstruction(*self.op_from_string(k, v)))
                 else:
