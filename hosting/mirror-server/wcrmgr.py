@@ -31,6 +31,22 @@ def main():
     ))
 
     nc.add_command(CLICommand(
+        "user",
+        user_command,
+        [
+            CLICommandArg("password", CLICommandArg.ARG_MANDATORY)
+        ]
+    ))
+
+    nc.add_command(CLICommand(
+        "get_hash",
+        gh_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
         "disconnect",
         disconnect_command,
         [
