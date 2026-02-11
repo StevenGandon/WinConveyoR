@@ -1,6 +1,7 @@
 from select import select
 from socket import socket, AF_INET, SOCK_STREAM
 from signal import signal, SIGINT, SIGTERM
+from concurrent.futures import ThreadPoolExecutor
 
 from .message import Message
 from .client import Client
@@ -9,7 +10,7 @@ from .handler import Handler
 from ..common.clock import Clock
 
 class Server(object):
-    def __init__(self, host = "0.0.0.0", port = 1674, *, socket_builder = lambda: socket(AF_INET, SOCK_STREAM), clock=Clock(), tick=64):
+    def __init__(self, host = "0.0.0.0", port = 1674, *, socket_builder = lambda: socket(AF_INET, SOCK_STREAM), clock=Clock(), tick=64, max_workers = 16):
         self.running = False
         self.clients = {}
         self.sessions = {}
@@ -17,6 +18,7 @@ class Server(object):
         self.clock = clock
         self.tick = tick
         self.delta_time = 0
+        self._executor = ThreadPoolExecutor(max_workers=max_workers)
 
         try:
             self._socket: socket = socket_builder()
@@ -31,6 +33,7 @@ class Server(object):
             self._socket.bind((host, port))
         except Exception as e:
             raise ConnectionError(f"failed to bind socket on {host}:{port}. ({e})")
+
 
     def set_handler(self, handler):
         self.handler = handler
@@ -54,7 +57,7 @@ class Server(object):
             client.close()
             return
 
-        self.handler.message(client, self, message)
+        self._executor.submit(self.handler.message, client, self, message)
 
     def update(self):
         if (not self.isopen()):
@@ -127,6 +130,8 @@ class Server(object):
                     print(f"warning {abs(self.tick / 1000.0 - self.delta_time) * 1000.0} ticks behind.")
 
     def close(self):
+        self._executor.shutdown(cancel_futures=True)
+
         for item in self.clients.values():
             item.close()
 
