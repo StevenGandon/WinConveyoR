@@ -1,5 +1,5 @@
 from locale import getpreferredencoding
-from os import environ
+from os import environ, pipe, close
 from itertools import chain
 from signal import SIGINT, SIGTERM, signal
 from time import sleep
@@ -33,6 +33,11 @@ class CLI(object):
             PatternLoader(resource_path("assets/cli/graphic/patterns/pattern_loading.xml")),
             PatternLoader(resource_path("assets/cli/graphic/patterns/pattern_wizard.xml"))
         ]
+
+        self._pipes = list(pipe())
+
+        if (self._pipes[0] <= -1 or self._pipes[1] <= -1):
+            raise (OSError("Failed to open pipes."))
 
         self._set_argument_setting()
         self._parse_arguments()
@@ -161,30 +166,30 @@ Exemples:
         return (0)
 
     def download_package(self):
-        w = WizardGraphic()
-        lb = LoadingBar(100, 0, 1)
-        lb1 = LoadingBar(10, 0, 1)
-        lb2 = LoadingBar(1000, 0, 1)
-        lb3 = LoadingBar(75, 0, 1)
-        lb4 = LoadingBar(50, 0, 1)
-        self._graphic.add_elements(w)
-        self._graphic.add_elements(lb)
-        self._graphic.add_elements(lb1)
-        self._graphic.add_elements(lb2)
-        self._graphic.add_elements(lb3)
-        self._graphic.add_elements(lb4)
-        for i in range(1, 100):
-            if (not self.running):
-                return (1)
-            lb.push(f"item_{i}")
-            lb1.push(f"item_{i}")
-            lb2.push(f"item_{i}")
-            lb3.push(f"item_{i}")
-            lb4.push(f"item_{i}")
-            self._graphic.update()
-            self._graphic.draw()
-            sleep(0.1)
-        # self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
+        # w = WizardGraphic()
+        # lb = LoadingBar(100, 0, 1)
+        # lb1 = LoadingBar(10, 0, 1)
+        # lb2 = LoadingBar(1000, 0, 1)
+        # lb3 = LoadingBar(75, 0, 1)
+        # lb4 = LoadingBar(50, 0, 1)
+        # self._graphic.add_elements(w)
+        # self._graphic.add_elements(lb)
+        # self._graphic.add_elements(lb1)
+        # self._graphic.add_elements(lb2)
+        # self._graphic.add_elements(lb3)
+        # self._graphic.add_elements(lb4)
+        # for i in range(1, 100):
+        #     if (not self.running):
+        #         return (1)
+        #     lb.push(f"item_{i}")
+        #     lb1.push(f"item_{i}")
+        #     lb2.push(f"item_{i}")
+        #     lb3.push(f"item_{i}")
+        #     lb4.push(f"item_{i}")
+        #     self._graphic.update()
+        #     self._graphic.draw()
+        #     sleep(0.1)
+        self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
     def run(self) -> int:
@@ -202,8 +207,16 @@ Exemples:
 
     def close(self):
         self.running: bool = False
+
         if (self.wcr):
             self.wcr.close()
+
+        if (self._pipes[0] > -1):
+            close(self._pipes[0])
+            self._pipes[0] = -1
+        if (self._pipes[1] > -1):
+            close(self._pipes[1])
+            self._pipes[1] = -1
 
     def __del__(self):
         self.close()
