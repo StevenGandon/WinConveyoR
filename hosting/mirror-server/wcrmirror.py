@@ -94,6 +94,29 @@ def protected_route(route):
         return route(client, server, message, session=server.sessions[session_id])
     return (wrapper)
 
+def route_init_rsa(client: Client, server: Server, message: JSONMessage):
+    if ("key" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+
+    client.set_public_key(PublicSecurityKey.from_string(message.content["data"]["key"]))
+
+    client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ok"
+            },
+            "code": 0
+        }))
+
 def route_hello(client: Client, server: Server, message: JSONMessage):
     client.write(JSONMessage({
         "action": message.content["action"],
@@ -215,6 +238,7 @@ def main():
 
     R.add_route("hello", route_hello)
     R.add_route("connect", route_connect)
+    R.add_route("init_rsa", route_init_rsa)
     R.add_route("disconnect", route_disconnect)
     R.add_route("list_packages", route_list_packages)
     R.add_route("write", route_write)

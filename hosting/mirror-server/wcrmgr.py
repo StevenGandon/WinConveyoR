@@ -11,6 +11,11 @@ def main():
     if (len(argv) > 1):
         Message.PUBLIC_KEY = PublicSecurityKey.from_file(argv[1])
 
+    if (len(argv) > 2 and argv[2] == "secure"):
+        private_key = PrivateSecurityKey.generate()
+    else:
+        private_key = None
+
     try:
         nc = NetworkCLI()
     except ConnectionError as e:
@@ -70,7 +75,7 @@ def main():
     ))
 
     try:
-        nc.run()
+        nc.run(private_key)
     except Exception as e:
         print(e)
         return (1)
