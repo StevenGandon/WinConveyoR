@@ -5,3 +5,5 @@ from .list_sessions import list_sessions_command
 from .quit import quit_command
 from .switch_session import switch_session_command
 from .write import write_command
+from .user import user_command
+from .gh import gh_command

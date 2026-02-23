@@ -9,6 +9,13 @@ class Session(object):
         self.opened = True
         self.client = client
         self.session_instance = session_instance
+        self.flags = 0x00
+
+    def set_flags(self, flags):
+        self.flags = (self.flags | flags)
+
+    def has_flags(self, flags):
+        return ((self.flags & flags) > 0)
 
     def get_id(self):
         return (self._id)

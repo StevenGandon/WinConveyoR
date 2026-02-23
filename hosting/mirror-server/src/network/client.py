@@ -115,11 +115,15 @@ class ClientSocket(object):
 class Client(object):
     MAX_PAYLOAD_SIZE = 1024 * 1024 * 1024 * 2
 
-    def __init__(self, _socket, address = ("??.??.??.??", -1)):
+    def __init__(self, _socket, address = ("??.??.??.??", -1), /, public_key = None):
         self._id = uuid4().int
         self._socket: socket = _socket
 
         self.address = address
+        self._public_key = public_key
+
+    def set_public_key(self, public_key):
+        self._public_key = public_key
 
     def get_id(self):
         return (self._id)
@@ -146,15 +150,24 @@ class Client(object):
         if (payload_size > Client.MAX_PAYLOAD_SIZE):
             raise BufferError("payload size received exceed max size.")
 
-        payload_content = self._socket.recv(payload_size).decode(encoding)
+        payload_content = self._socket.recv(payload_size)
 
-        return Message(payload_magic, payload_flags, payload_content)
+        return Message.from_recv(payload_magic, payload_flags, payload_content, encoding=encoding)
 
     def write(self, message: Message):
         if (not self.isopen()):
             return
+        
+        has_key = hasattr(self, "_public_key") and self._public_key
+
+        if (has_key):
+            old = getattr(message, "PUBLIC_KEY", None)
+            setattr(message, "PUBLIC_KEY", self._public_key)
 
         self._socket.send(message.to_bytes())
+
+        if (has_key):
+            setattr(message, "PUBLIC_KEY", old)
 
     def close(self):
         if (not self.isopen()):

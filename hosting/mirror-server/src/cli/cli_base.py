@@ -1,4 +1,6 @@
 from ..common.user_input import init_terminal, uninit_terminal, non_blocking_read
+from ..common.clock import Clock
+from ..network.security import PublicSecurityKey, PrivateSecurityKey
 from ..network.message_json import JSONMessage
 from ..network.message import Message
 from ..network.client import ClientSocket
@@ -30,10 +32,10 @@ class NetworkCLICommand(object):
         self.need_login: bool = need_login
 
 class NetworkCLI(object):
-    def __init__(self):
+    def __init__(self , host = "127.0.0.1", port = 1674, /, clock = Clock(), fps = 60):
         self._old_attrs = init_terminal()
         
-        self.client: ClientSocket = ClientSocket()
+        self.client: ClientSocket = ClientSocket(host, port)
         self.client.set_handler(HandlerClient(self))
 
         self.active_session = None
@@ -50,6 +52,11 @@ class NetworkCLI(object):
         self.history_cursor = 0
 
         self.commands = {}
+
+        self.clock = clock
+        self.tick = fps
+
+        self.delta_time = 0
 
     def add_command(self, command: CLICommand, need_login: bool = False):
         self.commands[command.name] = NetworkCLICommand(command, need_login=need_login)
@@ -186,11 +193,28 @@ class NetworkCLI(object):
 
         return self.running
 
-    def run(self):
+    def run(self, private_key: PrivateSecurityKey = None):
         signal(SIGINT, lambda *args: self.close())
         signal(SIGTERM, lambda *args: self.close())
 
         self.running = True
+
+        if (private_key is not None):
+            self.client.write(JSONMessage({"action": "init_rsa", "data": {"key": PublicSecurityKey.generate(private_key).to_string()}}))
+            Message.PRIVATE_KEY = private_key
+
+            try:
+                message = JSONMessage.from_message(self.client.read())
+            except ConnectionError as e:
+                print(f"lost connection to server during security initialisation. ({e})")
+                return
+            except Exception as e:
+                print(f"failed to get and parse server security initialisation response. ({e})")
+                return
+    
+            if ("code" not in message.content or "action" not in message.content or "data" not in message.content or message.content["code"] != 0 or message.content["action"] != "init_rsa"):
+                raise ConnectionError("security initialisation with server failed")
+            
 
         self.client.write(JSONMessage({"action": "hello", "data": {}}))
 
@@ -214,6 +238,8 @@ class NetworkCLI(object):
                 break
             self.update()
             self.draw()
+
+            self.delta_time = self.clock.tick(self.tick)
 
     def close(self):
         if (hasattr(self, "client") and self.client):

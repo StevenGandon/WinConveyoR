@@ -6,19 +6,18 @@ from ...network.session import Session
 
 @network_command(
     JSONMessage({
-        "action": "connect",
+        "action": "user",
         "data": {"password": "$password"}
     }), default_json_payload_filler,
     [check_response, check_status]
 )
-def connect_command(cli, /, password, response):
+def user_command(cli, /, password, response):
     if ("session_id" not in response.content["data"]):
         print("missing session_id in response.")
         return
 
     session = response.content["data"]["session_id"]
     cli.client.sessions[session] = Session(cli.client, session_id=session)
-    cli.client.sessions[session].set_flags((1 << 0))
     cli.client.sessions[session].set_flags((1 << 1))
     cli.active_session = session
     cli.prompt = cli.prompt_session.replace("$session_id", hex(cli.active_session).split('0x')[-1])
