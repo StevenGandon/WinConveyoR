@@ -5,6 +5,9 @@ var annotated_dup =
         [ "Settings", "classcore_1_1config_1_1Settings.html", "classcore_1_1config_1_1Settings" ]
       ] ]
     ] ],
+    [ "main", "namespacemain.html", [
+      [ "Daemon", "classmain_1_1Daemon.html", "classmain_1_1Daemon" ]
+    ] ],
     [ "models", "namespacemodels.html", [
       [ "user", "namespacemodels_1_1user.html", [
         [ "User", "classmodels_1_1user_1_1User.html", "classmodels_1_1user_1_1User" ]
@@ -59,6 +62,13 @@ var annotated_dup =
         ] ],
         [ "package_info", "namespacesrc_1_1builder_1_1package__info.html", [
           [ "PackageInfo", "classsrc_1_1builder_1_1package__info_1_1PackageInfo.html", "classsrc_1_1builder_1_1package__info_1_1PackageInfo" ]
+        ] ]
+      ] ],
+      [ "cache", "namespacesrc_1_1cache.html", [
+        [ "cache", "namespacesrc_1_1cache_1_1cache.html", [
+          [ "Cache", "classsrc_1_1cache_1_1cache_1_1Cache.html", "classsrc_1_1cache_1_1cache_1_1Cache" ],
+          [ "CacheSchema", "classsrc_1_1cache_1_1cache_1_1CacheSchema.html", "classsrc_1_1cache_1_1cache_1_1CacheSchema" ],
+          [ "CacheService", "classsrc_1_1cache_1_1cache_1_1CacheService.html", "classsrc_1_1cache_1_1cache_1_1CacheService" ]
         ] ]
       ] ],
       [ "cli", "namespacesrc_1_1cli.html", [
@@ -150,6 +160,23 @@ var annotated_dup =
         ] ],
         [ "package_listing", "namespacesrc_1_1package_1_1package__listing.html", [
           [ "PackageListing", "classsrc_1_1package_1_1package__listing_1_1PackageListing.html", "classsrc_1_1package_1_1package__listing_1_1PackageListing" ]
+        ] ]
+      ] ],
+      [ "scheduler", "namespacesrc_1_1scheduler.html", [
+        [ "clock", "namespacesrc_1_1scheduler_1_1clock.html", [
+          [ "Clock", "classsrc_1_1scheduler_1_1clock_1_1Clock.html", "classsrc_1_1scheduler_1_1clock_1_1Clock" ]
+        ] ],
+        [ "job", "namespacesrc_1_1scheduler_1_1job.html", [
+          [ "Job", "classsrc_1_1scheduler_1_1job_1_1Job.html", "classsrc_1_1scheduler_1_1job_1_1Job" ],
+          [ "JobResult", "classsrc_1_1scheduler_1_1job_1_1JobResult.html", "classsrc_1_1scheduler_1_1job_1_1JobResult" ]
+        ] ],
+        [ "pool", "namespacesrc_1_1scheduler_1_1pool.html", [
+          [ "Pool", "classsrc_1_1scheduler_1_1pool_1_1Pool.html", "classsrc_1_1scheduler_1_1pool_1_1Pool" ]
+        ] ],
+        [ "task", "namespacesrc_1_1scheduler_1_1task.html", [
+          [ "Task", "classsrc_1_1scheduler_1_1task_1_1Task.html", "classsrc_1_1scheduler_1_1task_1_1Task" ],
+          [ "TaskScheduler", "classsrc_1_1scheduler_1_1task_1_1TaskScheduler.html", "classsrc_1_1scheduler_1_1task_1_1TaskScheduler" ],
+          [ "TextIOLocal", "classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html", "classsrc_1_1scheduler_1_1task_1_1TextIOLocal" ]
         ] ]
       ] ],
       [ "thread", "namespacesrc_1_1thread.html", [

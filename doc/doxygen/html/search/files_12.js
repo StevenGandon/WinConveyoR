@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['wcmgr_5fdocumentation_2emd_0',['wcmgr_documentation.md',['../wcmgr__documentation_8md.html',1,'']]],
-  ['wcr_5fstate_2ec_1',['wcr_state.c',['../wcr__state_8c.html',1,'']]],
-  ['wcrgenkey_2epy_2',['wcrgenkey.py',['../wcrgenkey_8py.html',1,'']]],
-  ['wcrmgr_2epy_3',['wcrmgr.py',['../wcrmgr_8py.html',1,'']]],
-  ['wcrmirror_2epy_4',['wcrmirror.py',['../wcrmirror_8py.html',1,'']]],
-  ['wcrpackager_2epy_5',['wcrpackager.py',['../wcrpackager_8py.html',1,'']]],
-  ['wizard_2epy_6',['wizard.py',['../wizard_8py.html',1,'']]],
-  ['write_2epy_7',['write.py',['../write_8py.html',1,'']]]
+  ['undo_5faction_2epy_0',['undo_action.py',['../undo__action_8py.html',1,'']]],
+  ['undo_5fstack_2epy_1',['undo_stack.py',['../undo__stack_8py.html',1,'']]],
+  ['user_2epy_2',['user.py',['../api_2db_2models_2user_8py.html',1,'(Global Namespace)'],['../api_2schemas_2user_8py.html',1,'(Global Namespace)'],['../hosting_2mirror-server_2src_2cli_2commands_2user_8py.html',1,'(Global Namespace)']]],
+  ['user_5finput_2epy_3',['user_input.py',['../user__input_8py.html',1,'']]],
+  ['users_2epy_4',['users.py',['../users_8py.html',1,'']]]
 ];

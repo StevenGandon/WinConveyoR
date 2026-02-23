@@ -64,14 +64,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CLI.html",
-"classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a923732091b8efd60b45841805b4a1407",
-"classsrc_1_1cli_1_1command_1_1CLICommandArg.html#aede6089057cc227881e98c2ee41f6897",
-"classsrc_1_1network_1_1security_1_1PrivateSecurityKey.html",
-"classsrc_1_1thread_1_1job_1_1JobResult.html#aff43f5ae57d217685e4bfd85064f032b",
-"classsrc_1_1wizard_1_1classes_1_1section_1_1WizardSection.html#a0c19e86b4fa06d81427b21ad904fa491",
-"files.html",
-"namespacesrc_1_1cli_1_1commands_1_1list__sessions.html",
-"wcrpackager_8py.html#a8a8fdc64c2f4c2c51ec3a6a93769673c"
+"classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a4518bebe45b07db6a00a9c60e9377552",
+"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ae0b7d20cdd15b9837587e59c68071b0f",
+"classsrc_1_1network_1_1client_1_1ClientSocket.html#aa90ea920b45436e8dc04fef3316c694a",
+"classsrc_1_1scheduler_1_1clock_1_1Clock.html#acad24d923d9cb251a248fc59f84362dc",
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a83f047018641811d2a6049a3613d1adc",
+"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html#a0cf418fd9fc3849e40cb1059cbc43d2d",
+"functions_m.html",
+"namespacesrc_1_1common_1_1user__input.html#aac972a4578fc8a5057d2ffa761000035"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -12,7 +12,7 @@ var searchData=
   ['patternloader_9',['PatternLoader',['../classsrc_1_1graphic_1_1pattern_1_1loader_1_1PatternLoader.html',1,'src::graphic::pattern::loader']]],
   ['patternloaderexception_10',['PatternLoaderException',['../classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternLoaderException.html',1,'src::graphic::pattern::exceptions']]],
   ['patternxmlparseerror_11',['PatternXMLParseError',['../classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html',1,'src::graphic::pattern::exceptions']]],
-  ['pool_12',['Pool',['../classsrc_1_1thread_1_1pool_1_1Pool.html',1,'src::thread::pool']]],
+  ['pool_12',['pool',['../classsrc_1_1scheduler_1_1pool_1_1Pool.html',1,'src.scheduler.pool.Pool'],['../classsrc_1_1thread_1_1pool_1_1Pool.html',1,'src.thread.pool.Pool']]],
   ['privatesecuritykey_13',['PrivateSecurityKey',['../classsrc_1_1network_1_1security_1_1PrivateSecurityKey.html',1,'src::network::security']]],
   ['publicsecuritykey_14',['PublicSecurityKey',['../classsrc_1_1network_1_1security_1_1PublicSecurityKey.html',1,'src::network::security']]]
 ];
