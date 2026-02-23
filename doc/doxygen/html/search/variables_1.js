@@ -1,7 +1,7 @@
 var searchData=
 [
   ['active_5fsession_0',['active_session',['../classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ad3362ffb2bb9002b3fdc2e5b94fb4fe5',1,'src::cli::cli_base::NetworkCLI']]],
-  ['addr_1',['addr',['../classwcrpackager_1_1WizardStrndx.html#a75ffcb168fa1d92cb88b5f9b4687f24c',1,'wcrpackager::WizardStrndx']]],
+  ['addr_1',['addr',['../classsrc_1_1wizard_1_1classes_1_1strndx_1_1WizardStrndx.html#affa5a7f7be786a0c04193c94c28600f4',1,'src::wizard::classes::strndx::WizardStrndx']]],
   ['address_2',['address',['../classsrc_1_1network_1_1client_1_1Client.html#aae66c5ab3c022128dcbb81bbf895b6af',1,'src.network.client.Client.address'],['../struct__http__connection__s.html#a8052294e0362a3e1e73333638d3286ab',1,'_http_connection_s::address']]],
   ['allocated_5fpos_3',['allocated_pos',['../classsrc_1_1graphic_1_1graphic_1_1GraphicElement.html#a43c82f62d4b916b7b71ad7b7c6602c18',1,'src::graphic::graphic::GraphicElement']]],
   ['ansi_4',['ansi',['../classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html#a7ef50d25d56a0c474872231f31fb1b59',1,'src::graphic::graphic::GraphicSettings']]],
@@ -11,14 +11,14 @@ var searchData=
   ['api_5frouter_8',['api_router',['../namespacesrc.html#aa351e58fc8b72a0ecbe757ba64d16475',1,'src.api_router'],['../namespacemain.html#a07dc19a957de3365d7a1ac8b010206c3',1,'main.api_router']]],
   ['app_9',['app',['../namespacemain.html#a5fa94f0581009434c7a63791944d6ff4',1,'main']]],
   ['arch_10',['arch',['../structwcr__system__s.html#af05bdffe075cbd31a970d58923491aa1',1,'wcr_system_s']]],
-  ['architecture_11',['architecture',['../classwcrpackager_1_1PackageInfo.html#a468fed9336ee614d9484a36f11b6772f',1,'wcrpackager.PackageInfo.architecture'],['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a42dbcf18ee1f1dbc52eaf281a69422bc',1,'src.package.package_listing.PackageListing.architecture']]],
+  ['architecture_11',['architecture',['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a42dbcf18ee1f1dbc52eaf281a69422bc',1,'src.package.package_listing.PackageListing.architecture'],['../classsrc_1_1builder_1_1package__info_1_1PackageInfo.html#a6e0bda0519d1447769e84ab6671f07c9',1,'src.builder.package_info.PackageInfo.architecture']]],
   ['arg_5fmandatory_12',['ARG_MANDATORY',['../classsrc_1_1cli_1_1command_1_1CLICommandArg.html#a007f74c0aceefb0fcd40eb6ec7854927',1,'src::cli::command::CLICommandArg']]],
   ['arg_5foptional_13',['ARG_OPTIONAL',['../classsrc_1_1cli_1_1command_1_1CLICommandArg.html#aede6089057cc227881e98c2ee41f6897',1,'src::cli::command::CLICommandArg']]],
   ['argparser_14',['argparser',['../classsrc_1_1cli_1_1cli_1_1CLI.html#a0cdd7a423a950984505ce95294ccaace',1,'src::cli::cli::CLI']]],
-  ['args_15',['args',['../classsrc_1_1cli_1_1command_1_1CLICommand.html#af2e7eb4bf6ebf798d506531ad25d60ea',1,'src::cli::command::CLICommand']]],
+  ['args_15',['args',['../classsrc_1_1cli_1_1command_1_1CLICommand.html#af2e7eb4bf6ebf798d506531ad25d60ea',1,'src.cli.command.CLICommand.args'],['../classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html#a3eff1a51e8365cb1d0c96b5f6f730712',1,'src.wizard.classes.instruction.WizardInstruction.args']]],
   ['args_5fafter_16',['args_after',['../classsrc_1_1arghandler_1_1GenericArgument.html#a7cd27b7672194ff2fe5716ae82d41cc8',1,'src::arghandler::GenericArgument']]],
   ['argsettings_17',['argsettings',['../classsrc_1_1cli_1_1cli_1_1CLI.html#aeb2f49e0d4e0dd889c4df7a8fdd90a36',1,'src::cli::cli::CLI']]],
   ['arguments_18',['arguments',['../classsrc_1_1arghandler_1_1ArgumentParserSettings.html#a9538db94193f720f814f3fdc75c21fac',1,'src.arghandler.ArgumentParserSettings.arguments'],['../classsrc_1_1arghandler_1_1ArgumentParser.html#a223b7c37f6e61e2bbe417beea8e2fca8',1,'src.arghandler.ArgumentParser.arguments'],['../classsrc_1_1wrappers_1_1dllloader_1_1__SymbolRegister.html#a7f993697447ae6b2e415ffd07199f322',1,'src.wrappers.dllloader._SymbolRegister.arguments']]],
   ['arm64_5farch_19',['ARM64_ARCH',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html#af596effb25a89bb32dd7c4b14c9940fe',1,'src::wrappers::libwconr::_libwconr::SUPPORTED_ARCHITECTURES']]],
-  ['asset_5fpath_20',['asset_path',['../classwcrpackager_1_1PackageBuilder.html#a29fd595be293fd881919546f6ebb60c7',1,'wcrpackager::PackageBuilder']]]
+  ['asset_5fpath_20',['asset_path',['../classsrc_1_1builder_1_1package__builder_1_1PackageBuilder.html#a9db232bb82c4f17ee2098f95c98ed5e4',1,'src::builder::package_builder::PackageBuilder']]]
 ];

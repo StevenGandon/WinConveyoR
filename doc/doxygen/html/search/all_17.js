@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['machine_0',['machine',['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a7a0e5381872174a3a2ac00deb5891fc8',1,'src.package.package_listing.PackageListing.machine'],['../classwcrpackager_1_1PackageInfo.html#acf0229128c27a87c9cc1587bb7867cbb',1,'wcrpackager.PackageInfo.machine']]],
+  ['machine_0',['machine',['../classsrc_1_1builder_1_1package__info_1_1PackageInfo.html#ab8cdd3a184cd475a23eece24d89ad9a2',1,'src.builder.package_info.PackageInfo.machine'],['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a7a0e5381872174a3a2ac00deb5891fc8',1,'src.package.package_listing.PackageListing.machine']]],
   ['magic_1',['MAGIC',['../classsrc_1_1network_1_1message_1_1Message.html#adbfadea87950431d6e41e71e81d98bbd',1,'src::network::message::Message']]],
-  ['main_2',['main',['../namespacemain.html',1,'main'],['../namespacemain.html#a8753795ee6fca0c99b1903404b3c3b35',1,'main.main()'],['../namespace____main____.html#aa1e19bac8e6cbd7db574d389504d6c4c',1,'__main__.main()'],['../namespacewcrpackager.html#af2301a666888c9d6a138ca4ed291bf93',1,'wcrpackager.main()'],['../namespacewcmgr.html#a5a50ddb608d45e369c6f5df6471b8d91',1,'wcmgr.main()'],['../namespacewcrmirror.html#acfda2bd786da45037a4530abfedb332c',1,'wcrmirror.main()']]],
+  ['main_2',['main',['../namespacewcrmgr.html#adc5ef3e5cbee618ba6668cbccc307665',1,'wcrmgr.main()'],['../namespacemain.html',1,'main'],['../namespacewcrgenkey.html#a19b735e5ca665b55e262d4b65d5f8088',1,'wcrgenkey.main()'],['../namespacemain.html#a8753795ee6fca0c99b1903404b3c3b35',1,'main.main()'],['../namespace____main____.html#aa1e19bac8e6cbd7db574d389504d6c4c',1,'__main__.main()'],['../namespacewcrpackager.html#af2301a666888c9d6a138ca4ed291bf93',1,'wcrpackager.main()'],['../namespacewcrmirror.html#acfda2bd786da45037a4530abfedb332c',1,'wcrmirror.main()']]],
   ['main_2epy_3',['main.py',['../api_2main_8py.html',1,'(Global Namespace)'],['../cli_2main_8py.html',1,'(Global Namespace)']]],
   ['managed_20repositories_4',['Community-Managed Repositories',['../md_doc_2privacy__policy.html#autotoc_md85',1,'']]],
   ['management_5',['management',['../md_doc_2privacy__policy.html#autotoc_md62',1,'Account Management'],['../md_doc_2privacy__policy.html#autotoc_md98',1,'Local Data Management']]],
@@ -18,7 +18,7 @@ var searchData=
   ['merged_15',['After Your PR is Merged',['../md_CONTRIBUTING.html#autotoc_md27',1,'']]],
   ['message_16',['message',['../md_doc_2protocol__rfc.html#autotoc_md152',1,'2.2.1 Champs du Message'],['../classsrc_1_1network_1_1handler_1_1Handler.html#a9dc1842ff1f1e3469ebb2f5a7844448f',1,'src.network.handler.Handler.message()'],['../classwcrmirror_1_1WCRHandler.html#a156071a27355e5d8a44090aead60cf77',1,'wcrmirror.WCRHandler.message()'],['../classsrc_1_1cli_1_1cli__base_1_1HandlerClient.html#a4785a22fcb98f11efbbed39c4484ada0',1,'src.cli.cli_base.HandlerClient.message()'],['../classsrc_1_1network_1_1message_1_1Message.html',1,'src.network.message.Message']]],
   ['message_20format_17',['Commit Message Format',['../md_CONTRIBUTING.html#autotoc_md18',1,'']]],
-  ['message_2epy_18',['message.py',['../message_8py.html',1,'']]],
+  ['message_2epy_18',['message.py',['../network_2message_8py.html',1,'(Global Namespace)'],['../builder_2config_2message_8py.html',1,'(Global Namespace)']]],
   ['message_5fjson_2epy_19',['message_json.py',['../message__json_8py.html',1,'']]],
   ['messages_20',['messages',['../md_doc_2protocol__rfc.html#autotoc_md151',1,'2.2 Format des Messages'],['../md_CONTRIBUTING.html#autotoc_md20',1,'Writing Good Commit Messages']]],
   ['messages_20d_20erreur_20standard_21',['5.2 Messages d&apos;Erreur Standard',['../md_doc_2protocol__rfc.html#autotoc_md169',1,'']]],

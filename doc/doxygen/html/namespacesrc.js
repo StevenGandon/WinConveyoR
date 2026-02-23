@@ -1,6 +1,7 @@
 var namespacesrc =
 [
     [ "arghandler", "namespacesrc_1_1arghandler.html", "namespacesrc_1_1arghandler" ],
+    [ "builder", "namespacesrc_1_1builder.html", "namespacesrc_1_1builder" ],
     [ "cli", "namespacesrc_1_1cli.html", "namespacesrc_1_1cli" ],
     [ "common", "namespacesrc_1_1common.html", "namespacesrc_1_1common" ],
     [ "graphic", "namespacesrc_1_1graphic.html", "namespacesrc_1_1graphic" ],
@@ -12,6 +13,7 @@ var namespacesrc =
     [ "thread", "namespacesrc_1_1thread.html", "namespacesrc_1_1thread" ],
     [ "undo", "namespacesrc_1_1undo.html", "namespacesrc_1_1undo" ],
     [ "v1", "namespacesrc_1_1v1.html", "namespacesrc_1_1v1" ],
+    [ "wizard", "namespacesrc_1_1wizard.html", "namespacesrc_1_1wizard" ],
     [ "wrappers", "namespacesrc_1_1wrappers.html", "namespacesrc_1_1wrappers" ],
     [ "api_router", "namespacesrc.html#aa351e58fc8b72a0ecbe757ba64d16475", null ],
     [ "prefix", "namespacesrc.html#a8465542176e20146d784c2bec8084203", null ],

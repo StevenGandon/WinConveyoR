@@ -1,5 +1,6 @@
 var namespacesrc_1_1common =
 [
+    [ "clock", "namespacesrc_1_1common_1_1clock.html", "namespacesrc_1_1common_1_1clock" ],
     [ "hash_file", "namespacesrc_1_1common_1_1hash__file.html", [
       [ "hash_file", "namespacesrc_1_1common_1_1hash__file.html#a8fcef709055399a3bc90437713694201", null ]
     ] ],

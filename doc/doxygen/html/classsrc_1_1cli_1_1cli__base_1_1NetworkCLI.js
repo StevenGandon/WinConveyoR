@@ -1,6 +1,6 @@
 var classsrc_1_1cli_1_1cli__base_1_1NetworkCLI =
 [
-    [ "__init__", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a9816864ac48693d8ff826ca5d0eb8ef9", null ],
+    [ "__init__", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#acc5b52e6dadf03782661009abe6a4763", null ],
     [ "__del__", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#aafc86655630ffdb9d640a78981467ffa", null ],
     [ "add_command", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#adac2ea95e3b46edee9f6c71439d5dd94", null ],
     [ "close", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a9db218223666714b3e71df5383985f61", null ],
@@ -8,19 +8,22 @@ var classsrc_1_1cli_1_1cli__base_1_1NetworkCLI =
     [ "draw", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a44276af75910505f57aa7616c7b0296a", null ],
     [ "events", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a80c4a4bd47f51b2bfa096234ea95b688", null ],
     [ "handle_input", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a7d8787cd3f3e9af23d5336551de7d29b", null ],
-    [ "run", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ab461c6c4c4452ebfe583d19a82b5e748", null ],
+    [ "run", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a179af31879108e3a2d660dfd90f4b142", null ],
     [ "update", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a738ddaec63047be04ad14b41ad58cb6c", null ],
     [ "user_input", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#aff9325154de9c6a52a6547023132c22f", null ],
     [ "_old_attrs", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a550dd39a6e2309ae35310089673a78d5", null ],
     [ "active_session", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ad3362ffb2bb9002b3fdc2e5b94fb4fe5", null ],
     [ "buffer", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a3a205a9613c62f97f74ad6600e59c440", null ],
     [ "client", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a9a53c7666ba35399f6e0e3b4cb079877", null ],
+    [ "clock", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a8f3393b6a2dabcc2d3bdbb4498e53bd5", null ],
     [ "commands", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a34600cca978a6e84de87fb9e5a07233a", null ],
     [ "cursor", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#abbff51dbf5f012c4106b73506beef73e", null ],
+    [ "delta_time", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#acf4cc409cab1a5e09ae42fd9d10588ba", null ],
     [ "history", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a4fa1dbe59a256b7bc7dd3202ed5a48a2", null ],
     [ "history_cursor", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a282b27d5aa7171a13794ffd13d793d94", null ],
     [ "prompt", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ae39983a71bea3d817ee283f6177a4c55", null ],
     [ "prompt_base", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a516138b84182c8bc5eac8dc7c6b8d2fb", null ],
     [ "prompt_session", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a650a106e2779e2b3e7a70643bd941844", null ],
-    [ "running", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a43330590d0f7752d73c55388acc00988", null ]
+    [ "running", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a43330590d0f7752d73c55388acc00988", null ],
+    [ "tick", "classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#aa62ebc390385c872c04a7306b5a23748", null ]
 ];

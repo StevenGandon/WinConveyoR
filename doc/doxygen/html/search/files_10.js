@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['undo_5faction_2epy_0',['undo_action.py',['../undo__action_8py.html',1,'']]],
-  ['undo_5fstack_2epy_1',['undo_stack.py',['../undo__stack_8py.html',1,'']]],
-  ['user_2epy_2',['user.py',['../db_2models_2user_8py.html',1,'(Global Namespace)'],['../schemas_2user_8py.html',1,'(Global Namespace)']]],
-  ['user_5finput_2epy_3',['user_input.py',['../user__input_8py.html',1,'']]],
-  ['users_2epy_4',['users.py',['../users_8py.html',1,'']]]
+  ['schema_2epy_0',['schema.py',['../schema_8py.html',1,'']]],
+  ['section_2epy_1',['section.py',['../section_8py.html',1,'']]],
+  ['security_2epy_2',['security.py',['../security_8py.html',1,'']]],
+  ['server_2epy_3',['server.py',['../server_8py.html',1,'']]],
+  ['session_2epy_4',['session.py',['../api_2db_2session_8py.html',1,'(Global Namespace)'],['../hosting_2mirror-server_2src_2network_2session_8py.html',1,'(Global Namespace)']]],
+  ['source_5fhandler_2ec_5',['source_handler.c',['../source__handler_8c.html',1,'']]],
+  ['strndx_2epy_6',['strndx.py',['../strndx_8py.html',1,'']]],
+  ['switch_5fsession_2epy_7',['switch_session.py',['../switch__session_8py.html',1,'']]]
 ];

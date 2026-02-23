@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['machine_0',['machine',['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a7a0e5381872174a3a2ac00deb5891fc8',1,'src.package.package_listing.PackageListing.machine'],['../classwcrpackager_1_1PackageInfo.html#acf0229128c27a87c9cc1587bb7867cbb',1,'wcrpackager.PackageInfo.machine']]],
+  ['machine_0',['machine',['../classsrc_1_1builder_1_1package__info_1_1PackageInfo.html#ab8cdd3a184cd475a23eece24d89ad9a2',1,'src.builder.package_info.PackageInfo.machine'],['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a7a0e5381872174a3a2ac00deb5891fc8',1,'src.package.package_listing.PackageListing.machine']]],
   ['magic_1',['MAGIC',['../classsrc_1_1network_1_1message_1_1Message.html#adbfadea87950431d6e41e71e81d98bbd',1,'src::network::message::Message']]],
   ['max_2',['max',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#a52dccc8681b584aca8bb570a07821e78',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
   ['max_5fargv_3',['max_argv',['../classsrc_1_1arghandler_1_1ArgumentParserSettings.html#a4868056a27747f7e955642e9e24ca388',1,'src::arghandler::ArgumentParserSettings']]],
