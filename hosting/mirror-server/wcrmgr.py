@@ -6,18 +6,55 @@ from string import hexdigits
 from src import *
 from src.cli.commands import *
 from src.cli.middlewares import *
+from src.arghandler import *
+
+import sys
 
 def main():
-    if (len(argv) > 1):
-        Message.PUBLIC_KEY = PublicSecurityKey.from_file(argv[1])
+    argsettings = ArgumentParserSettings(2, 2)
 
-    if (len(argv) > 2 and argv[2] == "secure"):
+    argsettings.define_argument(str, "program")
+    argsettings.define_argument(str, "host")
+
+    argsettings.define_parameter("--port", int)
+    argsettings.define_parameter("--key", str)
+
+    argsettings.define_option("--secure")
+
+    argsettings.define_option("-h", is_help=True)
+    argsettings.define_option("--help", is_help=True)
+    argsettings.define_option("-?", is_help=True)
+
+    argsettings.validate()
+
+
+    try:
+        argparser = ArgumentParser(sys.argv, argsettings)
+    except ArgumentHandlerException as e:
+        sys.stderr.write(f"{sys.argv[0]}: {e}\n")
+        return (1)
+
+    if ("-h" in argparser.options or "--help" in argparser.options or "-?" in argparser.options):
+        help_message = f"Usage: $prgm_name [options] $args\nOptions:\n$options"
+        args = ''.join(str(item.name) if i < argsettings.min_argv - 1 else f"({item.name})" for i, item in enumerate(argsettings.arguments[1:]))
+        options = '  ' + '\n  '.join(item.name for item in (list(argsettings.parameters.values()) + list(argsettings.options.values())))
+
+        print(help_message.replace("$prgm_name", str(argparser.arguments[0].value)).replace("$args", args).replace("$options", options))
+        return (0)
+
+    if ("--key" in argparser.parameters):
+        Message.PUBLIC_KEY = PublicSecurityKey.from_file(argparser.parameters["--key"].value)
+    else:
+        print("warning: no client side encryption, use --key to provide a server public key.")
+
+    if ("--secure" in argparser.options):
         private_key = PrivateSecurityKey.generate()
     else:
+        print("warning: no server message encryption, use --secure to enable it.")
         private_key = None
 
     try:
-        nc = NetworkCLI()
+        nc = NetworkCLI(argparser.arguments[1].value, 1674 if "--port" not in argparser.parameters else argparser.parameters["--port"].value)
     except ConnectionError as e:
         print(f"failed to connect to server. ({e})")
         return (1)

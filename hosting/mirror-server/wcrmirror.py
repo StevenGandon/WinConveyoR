@@ -4,7 +4,10 @@ from sys import exit
 from sys import argv
 from os import environ
 from src import *
+from src.arghandler import *
 from dotenv import load_dotenv, find_dotenv
+
+import sys
 
 load_dotenv(find_dotenv())
 
@@ -273,6 +276,33 @@ def route_disconnect(client: Client, server: Server, message: JSONMessage, /, se
 
 
 def main():
+    argsettings = ArgumentParserSettings(1, 1)
+
+    argsettings.define_argument(str, "program")
+
+    argsettings.define_parameter("--port", int)
+    argsettings.define_parameter("--host", str)
+
+    argsettings.define_option("-h", is_help=True)
+    argsettings.define_option("--help", is_help=True)
+    argsettings.define_option("-?", is_help=True)
+
+    argsettings.validate()
+
+    try:
+        argparser = ArgumentParser(argv, argsettings)
+    except ArgumentHandlerException as e:
+        sys.stderr.write(f"{argv[0]}: {e}\n")
+        return (1)
+
+    if ("-h" in argparser.options or "--help" in argparser.options or "-?" in argparser.options):
+        help_message = f"Usage: $prgm_name [options] $args\nOptions:\n$options"
+        args = ''.join(str(item.name) if i < argsettings.min_argv - 1 else f"({item.name})" for i, item in enumerate(argsettings.arguments[1:]))
+        options = '  ' + '\n  '.join(item.name for item in (list(argsettings.parameters.values()) + list(argsettings.options.values())))
+
+        print(help_message.replace("$prgm_name", str(argparser.arguments[0].value)).replace("$args", args).replace("$options", options))
+        return (0)
+
     if ("WCR_PASSWORD" not in environ):
         print("warning: no password set anyone can edit.")
     if ("WCR_ACCESS" not in environ):
@@ -292,7 +322,7 @@ def main():
         return (1)
 
     try:
-        S = Server()
+        S = Server("0.0.0.0" if "--host" not in argparser.parameters else argparser.parameters["--host"].value, 1674 if "--port" not in argparser.parameters else argparser.parameters["--port"].value)
     except ConnectionError as e:
         print(f"failed to create server. ({e})")
         return (1)

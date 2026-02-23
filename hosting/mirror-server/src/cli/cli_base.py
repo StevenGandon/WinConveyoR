@@ -32,10 +32,10 @@ class NetworkCLICommand(object):
         self.need_login: bool = need_login
 
 class NetworkCLI(object):
-    def __init__(self , /, clock = Clock(), fps = 60):
+    def __init__(self , host = "127.0.0.1", port = 1674, /, clock = Clock(), fps = 60):
         self._old_attrs = init_terminal()
         
-        self.client: ClientSocket = ClientSocket()
+        self.client: ClientSocket = ClientSocket(host, port)
         self.client.set_handler(HandlerClient(self))
 
         self.active_session = None
