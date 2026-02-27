@@ -71,7 +71,8 @@ var NAVTREEINDEX =
 "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a83f047018641811d2a6049a3613d1adc",
 "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html#a0cf418fd9fc3849e40cb1059cbc43d2d",
 "functions_m.html",
-"namespacesrc_1_1common_1_1user__input.html#aac972a4578fc8a5057d2ffa761000035"
+"namespacesrc_1_1common_1_1clock.html",
+"win_2http_8c.html#aeb3aa6a9b9fadb2018760a469d61bca2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

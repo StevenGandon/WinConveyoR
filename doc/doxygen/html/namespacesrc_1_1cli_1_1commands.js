@@ -9,6 +9,15 @@ var namespacesrc_1_1cli_1_1commands =
     [ "gh", "namespacesrc_1_1cli_1_1commands_1_1gh.html", [
       [ "gh_command", "namespacesrc_1_1cli_1_1commands_1_1gh.html#aa8875cc10cce27e04778d5b31f945bfe", null ]
     ] ],
+    [ "gl", "namespacesrc_1_1cli_1_1commands_1_1gl.html", [
+      [ "gl_command", "namespacesrc_1_1cli_1_1commands_1_1gl.html#a6109b81051966007649a641b2b1fe47a", null ]
+    ] ],
+    [ "gpkl", "namespacesrc_1_1cli_1_1commands_1_1gpkl.html", [
+      [ "gpkl_command", "namespacesrc_1_1cli_1_1commands_1_1gpkl.html#a8a75f782fa1b9dc2301aa75288997a23", null ]
+    ] ],
+    [ "gpkm", "namespacesrc_1_1cli_1_1commands_1_1gpkm.html", [
+      [ "gpkm_command", "namespacesrc_1_1cli_1_1commands_1_1gpkm.html#a51f78a5567cdd3f1087000f6527ef112", null ]
+    ] ],
     [ "list_packages", "namespacesrc_1_1cli_1_1commands_1_1list__packages.html", [
       [ "list_packages_command", "namespacesrc_1_1cli_1_1commands_1_1list__packages.html#a327734f637bc4fb6d7b109f85254b0f1", null ]
     ] ],
