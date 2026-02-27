@@ -84,6 +84,33 @@ def main():
     ), True)
 
     nc.add_command(CLICommand(
+        "get_listing",
+        gl_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "get_pkg_listing",
+        gpkl_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "get_pkg_metadata",
+        gpkm_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY),
+            CLICommandArg("location_hash", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
         "disconnect",
         disconnect_command,
         [

@@ -6,6 +6,8 @@ from os import environ
 from src import *
 from src.arghandler import *
 from dotenv import load_dotenv, find_dotenv
+from json import dumps
+from hashlib import sha256
 
 import sys
 
@@ -58,7 +60,11 @@ class WCRHandler(Handler):
         if ("action" not in message.content or "data" not in message.content):
             return self.error(client, server, "missing fields in json.")
         
-        self._router.route(message.content["action"], client, server, message)
+        try:
+            self._router.route(message.content["action"], client, server, message)
+        except Exception as e:
+            print(f"error: {e}")
+            return self.error(client, server, f"server error: {e}.")
 
 def protected_route(flags = FLAG_ADMIN):
     def protected_route_wrapper(route):
@@ -246,6 +252,110 @@ def route_get_hash(client: Client, server: Server, message: JSONMessage, /, sess
 
     client.write(Message(Message.MAGIC, 0x00, session.session_instance.checksum))
 
+@protected_route(FLAG_USER)
+def route_get_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    session.session_instance.load()
+
+    client.write(Message(Message.MAGIC, 0x00, '\r\n'.join(f"{item.name} {item.latest} {item.hash}" for item in session.session_instance.packages.values())))
+
+@protected_route(FLAG_USER)
+def route_get_package_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    session.session_instance.load()
+
+    if (message.content["data"]["package_name"] not in session.session_instance.packages):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+
+    package_name = message.content["data"]["package_name"]
+    package = session.session_instance.packages[package_name]
+
+    package.load()
+
+    client.write(Message(Message.MAGIC, 0x00, '\r\n'.join(f"{item.version} {item.architecture} {item.machine} {sha256(str(item.location).encode(errors="replace")).hexdigest()}" for item in package.listing.values())))
+
+@protected_route(FLAG_USER)
+def route_get_package_metadata(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    if ("location_hash" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    session.session_instance.load()
+
+    if (message.content["data"]["package_name"] not in session.session_instance.packages):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+
+    package_name = message.content["data"]["package_name"]
+    location_hash = int(message.content["data"]["location_hash"], base=16)
+    package = session.session_instance.packages[package_name]
+    package_listing = None
+
+    package.load()
+
+    for item in package.listing.values():
+        if (int.from_bytes(sha256(str(item.location).encode(errors="replace")).digest(), "big") != location_hash):
+            continue
+        package_listing = item
+        break
+
+    if (not package_listing):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    package_listing.load()
+
+    client.write(Message(Message.MAGIC, 0x00, dumps(package_listing.package_data)))
+
 @protected_route(FLAG_ADMIN)
 def route_write(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.session_instance.write()
@@ -336,6 +446,9 @@ def main():
     R.add_route("write", route_write)
     R.add_route("user", route_user)
     R.add_route("get_hash", route_get_hash)
+    R.add_route("get_listing", route_get_listing)
+    R.add_route("get_package_listing", route_get_package_listing)
+    R.add_route("get_package_metadata", route_get_package_metadata)
     R.add_route("goodbye", route_goodbye)
 
     S.set_handler(WCRHandler(R))
