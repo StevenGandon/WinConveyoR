@@ -5,45 +5,26 @@
     #include <stdint.h>
     #include <stdlib.h>
     #include <string.h>
-    #include <sys/mman.h>
-    #include <sys/stat.h>
-    #include <fcntl.h>
-    #include <unistd.h>
 
-    #define WIZARD_MAGIC_0 0x42
-    #define WIZARD_MAGIC_1 0xa4
-    #define WIZARD_MAGIC_2 0x09
-    #define WIZARD_MAGIC_3 0x67
+    #ifndef _WIN32
+    #    include <sys/mman.h>
+    #    include <sys/stat.h>
+    #    include <fcntl.h>
+    #    include <unistd.h>
+    #endif
+
+    #define WIZARD_MAGIC "\x42\xa4\x09\x67"
+    #define WIZARD_MAGIC_SIZE 4
 
     #define WIZARD_HEADER_SIZE              27
     #define WIZARD_SECTION_HEADER_PREFIX    16
     #define WIZARD_SECTION_ENTRY_SIZE       28
     #define WIZARD_STRING_LENGTH_SIZE       4
+    #define WIZARD_MAX_SECTIONS             1000
 
-    static inline uint16_t wizard_be16(const unsigned char *p)
-    {
-        return (uint16_t)(((uint16_t)p[0] << 8) | (uint16_t)p[1]);
-    }
-
-    static inline uint32_t wizard_be32(const unsigned char *p)
-    {
-        return ((uint32_t)p[0] << 24) |
-               ((uint32_t)p[1] << 16) |
-               ((uint32_t)p[2] << 8)  |
-               ((uint32_t)p[3]);
-    }
-
-    static inline uint64_t wizard_be64(const unsigned char *p)
-    {
-        return ((uint64_t)p[0] << 56) |
-               ((uint64_t)p[1] << 48) |
-               ((uint64_t)p[2] << 40) |
-               ((uint64_t)p[3] << 32) |
-               ((uint64_t)p[4] << 24) |
-               ((uint64_t)p[5] << 16) |
-               ((uint64_t)p[6] << 8)  |
-               ((uint64_t)p[7]);
-    }
+    uint16_t wizard_be16(const unsigned char *p);
+    uint32_t wizard_be32(const unsigned char *p);
+    uint64_t wizard_be64(const unsigned char *p);
 
     struct _wizard_file_header_raw_s {
         unsigned char magic[4];
