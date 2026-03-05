@@ -450,7 +450,7 @@ static int vm_run_section(const struct vm_iset_s *iset,
             }
         }
 
-        handler = vm_find_handler(def->name);
+        handler = vm_find_handler(iset->version, def->name);
         ret = handler ? handler(args, def->arg_count) : -1;
 
         vm_free_args(args, def->arg_count);

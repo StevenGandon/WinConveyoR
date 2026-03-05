@@ -26,6 +26,6 @@ struct vm_arg_value {
 
 typedef int (*vm_handler_t)(struct vm_arg_value *args, uint32_t count);
 
-vm_handler_t vm_find_handler(const char *name);
+vm_handler_t vm_find_handler(uint16_t version, const char *name);
 
 #endif /* !VM_INTERNAL_H_ */

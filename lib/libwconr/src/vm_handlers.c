@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <errno.h>
 
+#define VM_BUF_SIZE 4096
+
 #ifdef _WIN32
 #    include <windows.h>
 #else
@@ -15,49 +17,15 @@
 
 static int vm_copy_file(const char *from, const char *to)
 {
-    HANDLE hfrom;
-    HANDLE hto;
-    BYTE buf[4096];
-    DWORD nread;
-    DWORD nwritten;
-    DWORD written;
-
-    hfrom = CreateFileA(from, GENERIC_READ, FILE_SHARE_READ, NULL,
-                        OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (hfrom == INVALID_HANDLE_VALUE)
-        return (-1);
-
-    hto = CreateFileA(to, GENERIC_WRITE, 0, NULL,
-                      CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (hto == INVALID_HANDLE_VALUE) {
-        CloseHandle(hfrom);
-        return (-1);
-    }
-
-    while (ReadFile(hfrom, buf, sizeof(buf), &nread, NULL) && nread > 0) {
-        written = 0;
-        while (written < nread) {
-            if (!WriteFile(hto, buf + written, nread - written,
-                           &nwritten, NULL)) {
-                CloseHandle(hfrom);
-                CloseHandle(hto);
-                return (-1);
-            }
-            written += nwritten;
-        }
-    }
-
-    CloseHandle(hfrom);
-    CloseHandle(hto);
-    return (0);
+    return (CopyFileA(from, to, FALSE) ? 0 : -1);
 }
 
 static int vm_remove_tree_recursive(const char *path)
 {
     WIN32_FIND_DATAA fd;
     HANDLE h;
-    char pattern[4096];
-    char child[4096];
+    char pattern[VM_BUF_SIZE];
+    char child[VM_BUF_SIZE];
     DWORD attrs;
 
     attrs = GetFileAttributesA(path);
@@ -90,9 +58,9 @@ static int vm_copy_tree_recursive(const char *from, const char *to)
 {
     WIN32_FIND_DATAA fd;
     HANDLE h;
-    char pattern[4096];
-    char src_child[4096];
-    char dst_child[4096];
+    char pattern[VM_BUF_SIZE];
+    char src_child[VM_BUF_SIZE];
+    char dst_child[VM_BUF_SIZE];
     DWORD attrs;
 
     attrs = GetFileAttributesA(from);
@@ -131,7 +99,7 @@ static int vm_copy_file(const char *from, const char *to)
 {
     int fd_from;
     int fd_to;
-    unsigned char buf[4096];
+    unsigned char buf[VM_BUF_SIZE];
     ssize_t nread;
     ssize_t nwritten;
     ssize_t w;
@@ -169,7 +137,7 @@ static int vm_remove_tree_recursive(const char *path)
     DIR *dir;
     struct dirent *entry;
     struct stat st;
-    char child[4096];
+    char child[VM_BUF_SIZE];
 
     if (lstat(path, &st) != 0)
         return (-1);
@@ -200,8 +168,8 @@ static int vm_copy_tree_recursive(const char *from, const char *to)
     DIR *dir;
     struct dirent *entry;
     struct stat st;
-    char src_child[4096];
-    char dst_child[4096];
+    char src_child[VM_BUF_SIZE];
+    char dst_child[VM_BUF_SIZE];
 
     if (lstat(from, &st) != 0)
         return (-1);
@@ -266,7 +234,7 @@ static int vm_handle_run(struct vm_arg_value *args, uint32_t count)
     STARTUPINFOA si;
     PROCESS_INFORMATION pi;
     DWORD exit_code;
-    char cmdline[4096];
+    char cmdline[VM_BUF_SIZE];
     uint32_t i;
     int len;
 
@@ -377,10 +345,17 @@ static int vm_handle_move(struct vm_arg_value *args, uint32_t count)
 #endif
 }
 
-static const struct {
+struct vm_handler_entry {
     const char *name;
     vm_handler_t handler;
-} vm_handler_table[] = {
+};
+
+struct vm_handler_version {
+    uint16_t version;
+    const struct vm_handler_entry *table;
+};
+
+static const struct vm_handler_entry vm_handler_table_v0[] = {
     { "noop",        vm_handle_noop },
     { "mkdir",       vm_handle_mkdir },
     { "copy",        vm_handle_copy },
@@ -395,13 +370,27 @@ static const struct {
     { NULL,          NULL }
 };
 
-vm_handler_t vm_find_handler(const char *name)
-{
-    int i;
+static const struct vm_handler_version vm_handler_versions[] = {
+    { 0, vm_handler_table_v0 },
+    { 0, NULL }
+};
 
-    for (i = 0; vm_handler_table[i].name != NULL; i++) {
-        if (strcmp(vm_handler_table[i].name, name) == 0)
-            return (vm_handler_table[i].handler);
+vm_handler_t vm_find_handler(uint16_t version, const char *name)
+{
+    const struct vm_handler_entry *table = NULL;
+    size_t i;
+
+    for (i = 0; vm_handler_versions[i].table != NULL; i++) {
+        if (vm_handler_versions[i].version <= version)
+            table = vm_handler_versions[i].table;
+    }
+
+    if (!table)
+        return (NULL);
+
+    for (i = 0; table[i].name != NULL; i++) {
+        if (strcmp(table[i].name, name) == 0)
+            return (table[i].handler);
     }
 
     return (NULL);
