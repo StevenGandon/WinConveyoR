@@ -1,5 +1,55 @@
 #include "wizard_private.h"
 
+#ifdef _WIN32
+
+static int wizard_mmap_file(struct _wizard_ctx_s *ctx, const char *path)
+{
+    HANDLE hFile;
+    HANDLE hMapping;
+    LARGE_INTEGER size;
+    void *base;
+
+    if (!ctx || !path)
+        return (-1);
+
+    hFile = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
+                        OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile == INVALID_HANDLE_VALUE)
+        return (-1);
+
+    if (!GetFileSizeEx(hFile, &size) || size.QuadPart == 0) {
+        CloseHandle(hFile);
+        return (-1);
+    }
+
+    hMapping = CreateFileMappingA(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
+    CloseHandle(hFile);
+    if (!hMapping)
+        return (-1);
+
+    base = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0);
+    CloseHandle(hMapping);
+    if (!base)
+        return (-1);
+
+    ctx->file_size = (size_t)size.QuadPart;
+    ctx->base = (unsigned char *)base;
+    return (0);
+}
+
+static void wizard_munmap_file(struct _wizard_ctx_s *ctx)
+{
+    if (!ctx)
+        return;
+
+    if (ctx->base) {
+        UnmapViewOfFile(ctx->base);
+        ctx->base = NULL;
+    }
+}
+
+#else /* POSIX */
+
 static int wizard_mmap_file(struct _wizard_ctx_s *ctx, const char *path)
 {
     struct stat st;
@@ -25,14 +75,8 @@ static int wizard_mmap_file(struct _wizard_ctx_s *ctx, const char *path)
         return (-1);
     }
 
-    ctx->base = (unsigned char *)mmap(
-        NULL,
-        ctx->file_size,
-        PROT_READ,
-        MAP_PRIVATE,
-        ctx->fd,
-        0);
-
+    ctx->base = (unsigned char *)mmap(NULL, ctx->file_size, PROT_READ,
+                                      MAP_PRIVATE, ctx->fd, 0);
     if (ctx->base == MAP_FAILED) {
         ctx->base = NULL;
         (void)close(ctx->fd);
@@ -58,6 +102,8 @@ static void wizard_munmap_file(struct _wizard_ctx_s *ctx)
         ctx->fd = -1;
     }
 }
+
+#endif /* _WIN32 */
 
 static int wizard_validate_magic(const struct _wizard_file_header_raw_s *header)
 {
@@ -105,7 +151,9 @@ struct _wizard_ctx_s *wizard_open(const char *path)
         return (NULL);
 
     memset(ctx, 0, sizeof(*ctx));
+#ifndef _WIN32
     ctx->fd = -1;
+#endif
 
     if (wizard_mmap_file(ctx, path) != 0) {
         (void)free(ctx);

@@ -7,11 +7,23 @@
     #include <string.h>
     #include <stdio.h>
 
-    #ifndef _WIN32
+    #ifdef _WIN32
+    #    include <windows.h>
+    #else
     #    include <fcntl.h>
     #    include <sys/mman.h>
     #    include <sys/stat.h>
     #    include <unistd.h>
+    #endif
+
+    #ifdef _MSC_VER
+    #    define WIZARD_PACK_BEGIN __pragma(pack(push, 1))
+    #    define WIZARD_PACK_END   __pragma(pack(pop))
+    #    define WIZARD_PACKED
+    #else
+    #    define WIZARD_PACK_BEGIN
+    #    define WIZARD_PACK_END
+    #    define WIZARD_PACKED     __attribute__((packed))
     #endif
 
     #define WIZARD_MAGIC "\x42\xa4\x09\x67"
@@ -27,6 +39,8 @@
     uint32_t wizard_be32(const unsigned char *p);
     uint64_t wizard_be64(const unsigned char *p);
 
+    WIZARD_PACK_BEGIN
+
     struct _wizard_file_header_raw_s {
         unsigned char magic[4];
         unsigned char endianness[1];
@@ -34,12 +48,12 @@
         unsigned char flags[4];
         unsigned char section_header_offset[8];
         unsigned char strndx_offset[8];
-    } __attribute__((packed));
+    } WIZARD_PACKED;
 
     struct _wizard_section_header_raw_s {
         unsigned char section_header_size[8];
         unsigned char section_count[8];
-    } __attribute__((packed));
+    } WIZARD_PACKED;
 
     struct _wizard_section_entry_raw_s {
         unsigned char name_strndx[4];
@@ -47,11 +61,13 @@
         unsigned char section_flags[4];
         unsigned char section_size[8];
         unsigned char section_offset[8];
-    } __attribute__((packed));
+    } WIZARD_PACKED;
 
     struct _wizard_strndx_entry_raw_s {
         unsigned char length[4];
-    } __attribute__((packed));
+    } WIZARD_PACKED;
+
+    WIZARD_PACK_END
 
     struct _wizard_ctx_s {
         unsigned char *base;
@@ -66,7 +82,9 @@
         uint32_t flags;
         uint64_t section_count;
 
+#ifndef _WIN32
         int fd;
+#endif
     };
 
     struct _wizard_ctx_s *wizard_open(const char *path);
