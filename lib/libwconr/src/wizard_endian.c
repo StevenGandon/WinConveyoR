@@ -1,5 +1,10 @@
 #ifdef _WIN32
 #    include <stdlib.h>
+#elif defined(__APPLE__)
+#    include <libkern/OSByteOrder.h>
+#    define be16toh(x) OSSwapBigToHostInt16(x)
+#    define be32toh(x) OSSwapBigToHostInt32(x)
+#    define be64toh(x) OSSwapBigToHostInt64(x)
 #else
 #    include <endian.h>
 #endif
