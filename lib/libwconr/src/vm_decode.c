@@ -20,6 +20,17 @@ static int vm_decode_str(const struct _wizard_ctx_s *ctx,
     return (0);
 }
 
+static void vm_free_str_array_partial(char **data, uint32_t *lens,
+                                      uint32_t count)
+{
+    uint32_t j;
+
+    for (j = 0; j < count; j++)
+        (void)free(data[j]);
+    (void)free(data);
+    (void)free(lens);
+}
+
 static int vm_decode_str_array(const struct _wizard_ctx_s *ctx,
                                const unsigned char *data, uint64_t size,
                                uint64_t *ip, struct vm_arg_value *out)
@@ -29,7 +40,6 @@ static int vm_decode_str_array(const struct _wizard_ctx_s *ctx,
     uint32_t strndx;
     uint32_t count;
     uint32_t i;
-    uint32_t j;
 
     if (*ip + 4 > size) return (-1);
     count = wizard_be32(data + *ip);
@@ -51,22 +61,27 @@ static int vm_decode_str_array(const struct _wizard_ctx_s *ctx,
     }
 
     for (i = 0; i < count; i++) {
-        if (*ip + 4 > size) goto fail;
+        if (*ip + 4 > size) {
+            vm_free_str_array_partial(out->v.str_array.data,
+                                      out->v.str_array.lens, i);
+            return (-1);
+        }
         strndx = wizard_be32(data + *ip);
         *ip += 4;
-        if (wizard_get_string(ctx, strndx, &s, &slen) != 0) goto fail;
+        if (wizard_get_string(ctx, strndx, &s, &slen) != 0) {
+            vm_free_str_array_partial(out->v.str_array.data,
+                                      out->v.str_array.lens, i);
+            return (-1);
+        }
         out->v.str_array.data[i] = (char *)malloc(slen + 1);
-        if (!out->v.str_array.data[i]) goto fail;
+        if (!out->v.str_array.data[i]) {
+            vm_free_str_array_partial(out->v.str_array.data,
+                                      out->v.str_array.lens, i);
+            return (-1);
+        }
         memcpy(out->v.str_array.data[i], s, slen);
         out->v.str_array.data[i][slen] = '\0';
         out->v.str_array.lens[i] = slen;
-        continue;
-    fail:
-        for (j = 0; j < i; j++)
-            (void)free(out->v.str_array.data[j]);
-        (void)free(out->v.str_array.data);
-        (void)free(out->v.str_array.lens);
-        return (-1);
     }
     return (0);
 }
