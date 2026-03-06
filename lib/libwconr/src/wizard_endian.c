@@ -1,26 +1,49 @@
+#ifdef _WIN32
+#    include <stdlib.h>
+#else
+#    include <endian.h>
+#endif
+
 #include "wizard_private.h"
 
 uint16_t wizard_be16(const unsigned char *p)
 {
-    return (uint16_t)(((uint16_t)p[0] << 8) | (uint16_t)p[1]);
+    uint16_t v;
+
+    if (!p)
+        return (0);
+    memcpy(&v, p, sizeof(v));
+#ifdef _WIN32
+    return _byteswap_ushort(v);
+#else
+    return be16toh(v);
+#endif
 }
 
 uint32_t wizard_be32(const unsigned char *p)
 {
-    return ((uint32_t)p[0] << 24) |
-           ((uint32_t)p[1] << 16) |
-           ((uint32_t)p[2] << 8)  |
-           ((uint32_t)p[3]);
+    uint32_t v;
+
+    if (!p)
+        return (0);
+    memcpy(&v, p, sizeof(v));
+#ifdef _WIN32
+    return _byteswap_ulong(v);
+#else
+    return be32toh(v);
+#endif
 }
 
 uint64_t wizard_be64(const unsigned char *p)
 {
-    return ((uint64_t)p[0] << 56) |
-           ((uint64_t)p[1] << 48) |
-           ((uint64_t)p[2] << 40) |
-           ((uint64_t)p[3] << 32) |
-           ((uint64_t)p[4] << 24) |
-           ((uint64_t)p[5] << 16) |
-           ((uint64_t)p[6] << 8)  |
-           ((uint64_t)p[7]);
+    uint64_t v;
+
+    if (!p)
+        return (0);
+    memcpy(&v, p, sizeof(v));
+#ifdef _WIN32
+    return _byteswap_uint64(v);
+#else
+    return be64toh(v);
+#endif
 }

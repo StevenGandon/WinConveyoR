@@ -1,17 +1,15 @@
-#include "vm_internal.h"
-
-#include <stdio.h>
 #include <errno.h>
-
-#define VM_BUF_SIZE 4096
+#include <stdio.h>
 
 #ifdef _WIN32
 #    include <windows.h>
 #else
+#    include <dirent.h>
 #    include <sys/stat.h>
 #    include <sys/wait.h>
-#    include <dirent.h>
 #endif
+
+#include "vm_internal.h"
 
 #ifdef _WIN32
 
