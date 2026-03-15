@@ -209,11 +209,11 @@ static int vm_handle_mkdir(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
 #ifdef _WIN32
-    if (!CreateDirectoryA(args[0].v.str.data, NULL) &&
+    if (!CreateDirectoryA(args[0].v.str.data[0], NULL) &&
         GetLastError() != ERROR_ALREADY_EXISTS)
         return (-1);
 #else
-    if (mkdir(args[0].v.str.data, 0755) != 0 && errno != EEXIST)
+    if (mkdir(args[0].v.str.data[0], 0755) != 0 && errno != EEXIST)
         return (-1);
 #endif
     return (0);
@@ -222,7 +222,7 @@ static int vm_handle_mkdir(struct vm_arg_value *args, uint32_t count)
 static int vm_handle_copy(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
-    return vm_copy_file(args[0].v.str.data, args[1].v.str.data);
+    return vm_copy_file(args[0].v.str.data[0], args[1].v.str.data[0]);
 }
 
 static int vm_handle_run(struct vm_arg_value *args, uint32_t count)
@@ -239,10 +239,10 @@ static int vm_handle_run(struct vm_arg_value *args, uint32_t count)
     memset(&si, 0, sizeof(si));
     si.cb = sizeof(si);
 
-    len = snprintf(cmdline, sizeof(cmdline), "%s", args[0].v.str.data);
-    for (i = 0; i < args[1].v.str_array.count && len < (int)sizeof(cmdline) - 1; i++)
+    len = snprintf(cmdline, sizeof(cmdline), "%s", args[0].v.str.data[0]);
+    for (i = 0; i < args[1].count && len < (int)sizeof(cmdline) - 1; i++)
         len += snprintf(cmdline + len, sizeof(cmdline) - len,
-                        " %s", args[1].v.str_array.data[i]);
+                        " %s", args[1].v.str.data[i]);
 
     if (!CreateProcessA(NULL, cmdline, NULL, NULL, FALSE, 0, NULL, NULL,
                         &si, &pi))
@@ -260,14 +260,14 @@ static int vm_handle_run(struct vm_arg_value *args, uint32_t count)
     pid_t pid;
     int status;
 
-    argc = args[1].v.str_array.count;
+    argc = args[1].count;
     argv = (char **)malloc(sizeof(char *) * (argc + 2));
     if (!argv)
         return (-1);
 
-    argv[0] = args[0].v.str.data;
+    argv[0] = args[0].v.str.data[0];
     for (i = 0; i < argc; i++)
-        argv[i + 1] = args[1].v.str_array.data[i];
+        argv[i + 1] = args[1].v.str.data[i];
     argv[argc + 1] = NULL;
 
     pid = fork();
@@ -287,17 +287,17 @@ static int vm_handle_chmod(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
 #ifdef _WIN32
-    DWORD attrs = GetFileAttributesA(args[0].v.str.data);
+    DWORD attrs = GetFileAttributesA(args[0].v.str.data[0]);
 
     if (attrs == INVALID_FILE_ATTRIBUTES)
         return (-1);
-    if (args[1].v.u16_val & 0200)
+    if (args[1].v.u16[0] & 0200)
         attrs &= ~FILE_ATTRIBUTE_READONLY;
     else
         attrs |= FILE_ATTRIBUTE_READONLY;
-    return (SetFileAttributesA(args[0].v.str.data, attrs) ? 0 : -1);
+    return (SetFileAttributesA(args[0].v.str.data[0], attrs) ? 0 : -1);
 #else
-    return chmod(args[0].v.str.data, (mode_t)args[1].v.u16_val);
+    return chmod(args[0].v.str.data[0], (mode_t)args[1].v.u16[0]);
 #endif
 }
 
@@ -305,31 +305,31 @@ static int vm_handle_remove(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
 #ifdef _WIN32
-    return (DeleteFileA(args[0].v.str.data) ? 0 : -1);
+    return (DeleteFileA(args[0].v.str.data[0]) ? 0 : -1);
 #else
-    return unlink(args[0].v.str.data);
+    return unlink(args[0].v.str.data[0]);
 #endif
 }
 
 static int vm_handle_remove_tree(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
-    return vm_remove_tree_recursive(args[0].v.str.data);
+    return vm_remove_tree_recursive(args[0].v.str.data[0]);
 }
 
 static int vm_handle_copy_tree(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
-    return vm_copy_tree_recursive(args[0].v.str.data, args[1].v.str.data);
+    return vm_copy_tree_recursive(args[0].v.str.data[0], args[1].v.str.data[0]);
 }
 
 static int vm_handle_rmdir(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
 #ifdef _WIN32
-    return (RemoveDirectoryA(args[0].v.str.data) ? 0 : -1);
+    return (RemoveDirectoryA(args[0].v.str.data[0]) ? 0 : -1);
 #else
-    return rmdir(args[0].v.str.data);
+    return rmdir(args[0].v.str.data[0]);
 #endif
 }
 
@@ -337,50 +337,44 @@ static int vm_handle_move(struct vm_arg_value *args, uint32_t count)
 {
     (void)count;
 #ifdef _WIN32
-    return (MoveFileA(args[0].v.str.data, args[1].v.str.data) ? 0 : -1);
+    return (MoveFileA(args[0].v.str.data[0], args[1].v.str.data[0]) ? 0 : -1);
 #else
-    return rename(args[0].v.str.data, args[1].v.str.data);
+    return rename(args[0].v.str.data[0], args[1].v.str.data[0]);
 #endif
 }
 
-struct vm_handler_entry {
-    const char *name;
-    vm_handler_t handler;
-};
-
-struct vm_handler_version {
-    uint16_t version;
-    const struct vm_handler_entry *table;
-};
-
-static const struct vm_handler_entry vm_handler_table_v0[] = {
-    { "noop",        vm_handle_noop },
-    { "mkdir",       vm_handle_mkdir },
-    { "copy",        vm_handle_copy },
-    { "run",         vm_handle_run },
-    { "chmod",       vm_handle_chmod },
-    { "remove",      vm_handle_remove },
-    { "remove_tree", vm_handle_remove_tree },
-    { "copy_tree",   vm_handle_copy_tree },
-    { "rmdir",       vm_handle_rmdir },
-    { "move",        vm_handle_move },
-    { "move_tree",   vm_handle_move },
-    { NULL,          NULL }
-};
-
-static const struct vm_handler_version vm_handler_versions[] = {
-    { 0, vm_handler_table_v0 },
-    { 0, NULL }
-};
+static const struct vm_handler_version *vm_get_versions(void)
+{
+    static const struct vm_handler_entry table_v0[] = {
+        { "noop",        vm_handle_noop },
+        { "mkdir",       vm_handle_mkdir },
+        { "copy",        vm_handle_copy },
+        { "run",         vm_handle_run },
+        { "chmod",       vm_handle_chmod },
+        { "remove",      vm_handle_remove },
+        { "remove_tree", vm_handle_remove_tree },
+        { "copy_tree",   vm_handle_copy_tree },
+        { "rmdir",       vm_handle_rmdir },
+        { "move",        vm_handle_move },
+        { "move_tree",   vm_handle_move },
+        { NULL,          NULL }
+    };
+    static const struct vm_handler_version versions[] = {
+        { 0, table_v0 },
+        { 0, NULL }
+    };
+    return (versions);
+}
 
 vm_handler_t vm_find_handler(uint16_t version, const char *name)
 {
+    const struct vm_handler_version *versions = vm_get_versions();
     const struct vm_handler_entry *table = NULL;
     size_t i;
 
-    for (i = 0; vm_handler_versions[i].table != NULL; i++) {
-        if (vm_handler_versions[i].version <= version)
-            table = vm_handler_versions[i].table;
+    for (i = 0; versions[i].table != NULL; i++) {
+        if (versions[i].version <= version)
+            table = versions[i].table;
     }
 
     if (!table)

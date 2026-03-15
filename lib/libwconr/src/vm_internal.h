@@ -3,44 +3,50 @@
 
     #include "wizard_private.h"
 
-    enum vm_arg_type {
-        VM_TYPE_STR,
-        VM_TYPE_STR_ARRAY,
-        VM_TYPE_U8,
-        VM_TYPE_U16,
-        VM_TYPE_U32,
-        VM_TYPE_U64,
-        VM_TYPE_U8_ARRAY,
-        VM_TYPE_U16_ARRAY,
-        VM_TYPE_U32_ARRAY,
-        VM_TYPE_U64_ARRAY
+    enum vm_base_type {
+        VM_BASE_STR,
+        VM_BASE_U8,
+        VM_BASE_U16,
+        VM_BASE_U32,
+        VM_BASE_U64
+    };
+
+    struct vm_arg_type {
+        enum vm_base_type base;
+        int               is_array;
     };
 
     struct vm_arg_value {
-        enum vm_arg_type type;
+        struct vm_arg_type type;
+        uint32_t           count;
         union {
-            struct { char    *data; uint32_t len; }                   str;
-            struct { char   **data; uint32_t *lens; uint32_t count; } str_array;
-            struct { uint8_t  *data; uint32_t count; }                u8_array;
-            struct { uint16_t *data; uint32_t count; }                u16_array;
-            struct { uint32_t *data; uint32_t count; }                u32_array;
-            struct { uint64_t *data; uint32_t count; }                u64_array;
-            uint8_t  u8_val;
-            uint16_t u16_val;
-            uint32_t u32_val;
-            uint64_t u64_val;
+            struct { char **data; uint32_t *lens; } str;
+            uint8_t  *u8;
+            uint16_t *u16;
+            uint32_t *u32;
+            uint64_t *u64;
         } v;
     };
 
     typedef int (*vm_handler_t)(struct vm_arg_value *args, uint32_t count);
+
+    struct vm_handler_entry {
+        const char *name;
+        vm_handler_t handler;
+    };
+
+    struct vm_handler_version {
+        uint16_t version;
+        const struct vm_handler_entry *table;
+    };
 
     vm_handler_t vm_find_handler(uint16_t version, const char *name);
 
     #define VM_BUF_SIZE 4096
 
     struct vm_arg_def {
-        enum vm_arg_type type;
-        char *label;
+        struct vm_arg_type type;
+        char              *label;
     };
 
     struct vm_op_def {
@@ -67,7 +73,7 @@
     /* vm_decode.c */
     int  vm_decode_arg(const struct _wizard_ctx_s *ctx,
                     const unsigned char *data, uint64_t size,
-                    uint64_t *ip, enum vm_arg_type type,
+                    uint64_t *ip, struct vm_arg_type type,
                     struct vm_arg_value *out);
     void vm_free_args(struct vm_arg_value *args, uint32_t count);
 

@@ -181,15 +181,15 @@ int wizard_vm_exec(struct _wizard_vm_s *vm,
     return vm_run_section(iset, ctx, section);
 }
 
-static const char *vm_type_name(enum vm_arg_type type)
+static const char *vm_type_name(struct vm_arg_type type)
 {
-    static const char *names[] = {
-        "str", "str[]", "u8", "u16", "u32", "u64",
-        "u8[]", "u16[]", "u32[]", "u64[]"
-    };
-
-    if (type <= VM_TYPE_U64_ARRAY)
-        return (names[type]);
+    switch (type.base) {
+        case VM_BASE_STR:  return (type.is_array ? "str[]"  : "str");
+        case VM_BASE_U8:   return (type.is_array ? "u8[]"   : "u8");
+        case VM_BASE_U16:  return (type.is_array ? "u16[]"  : "u16");
+        case VM_BASE_U32:  return (type.is_array ? "u32[]"  : "u32");
+        case VM_BASE_U64:  return (type.is_array ? "u64[]"  : "u64");
+    }
     return ("?");
 }
 
@@ -238,30 +238,29 @@ static void vm_disasm_print_arg(const struct vm_arg_def *adef,
     if (!adef || !aval)
         return;
 
-    switch (aval->type) {
-        case VM_TYPE_STR:
-            printf(" %s=\"%s\"", adef->label, aval->v.str.data);
+    switch (aval->type.base) {
+        case VM_BASE_STR:
+            if (aval->type.is_array) {
+                printf(" %s=[", adef->label);
+                for (j = 0; j < aval->count; j++)
+                    printf("%s\"%s\"", j > 0 ? ", " : "",
+                           aval->v.str.data[j]);
+                printf("]");
+            } else {
+                printf(" %s=\"%s\"", adef->label, aval->v.str.data[0]);
+            }
             break;
-        case VM_TYPE_STR_ARRAY:
-            printf(" %s=[", adef->label);
-            for (j = 0; j < aval->v.str_array.count; j++)
-                printf("%s\"%s\"", j > 0 ? ", " : "",
-                       aval->v.str_array.data[j]);
-            printf("]");
+        case VM_BASE_U8:
+            printf(" %s=%u", adef->label, aval->v.u8[0]);
             break;
-        case VM_TYPE_U8:
-            printf(" %s=%u", adef->label, aval->v.u8_val);
+        case VM_BASE_U16:
+            printf(" %s=0%03o", adef->label, aval->v.u16[0]);
             break;
-        case VM_TYPE_U16:
-            printf(" %s=0%03o", adef->label, aval->v.u16_val);
+        case VM_BASE_U32:
+            printf(" %s=%u", adef->label, aval->v.u32[0]);
             break;
-        case VM_TYPE_U32:
-            printf(" %s=%u", adef->label, aval->v.u32_val);
-            break;
-        case VM_TYPE_U64:
-            printf(" %s=%lu", adef->label, (unsigned long)aval->v.u64_val);
-            break;
-        default:
+        case VM_BASE_U64:
+            printf(" %s=%lu", adef->label, (unsigned long)aval->v.u64[0]);
             break;
     }
 }

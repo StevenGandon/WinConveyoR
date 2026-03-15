@@ -3,20 +3,28 @@
 
 #include "vm_internal.h"
 
-static enum vm_arg_type vm_parse_type(const char *type_str)
+static struct vm_arg_type vm_parse_type(const char *type_str)
 {
-    if (!type_str) return (VM_TYPE_U8);
-    if (strcmp(type_str, "str[]")  == 0) return (VM_TYPE_STR_ARRAY);
-    if (strcmp(type_str, "str")    == 0) return (VM_TYPE_STR);
-    if (strcmp(type_str, "u8[]")   == 0) return (VM_TYPE_U8_ARRAY);
-    if (strcmp(type_str, "u16[]")  == 0) return (VM_TYPE_U16_ARRAY);
-    if (strcmp(type_str, "u32[]")  == 0) return (VM_TYPE_U32_ARRAY);
-    if (strcmp(type_str, "u64[]")  == 0) return (VM_TYPE_U64_ARRAY);
-    if (strcmp(type_str, "u8")     == 0) return (VM_TYPE_U8);
-    if (strcmp(type_str, "u16")    == 0) return (VM_TYPE_U16);
-    if (strcmp(type_str, "u32")    == 0) return (VM_TYPE_U32);
-    if (strcmp(type_str, "u64")    == 0) return (VM_TYPE_U64);
-    return (VM_TYPE_U8);
+    struct vm_arg_type t;
+    size_t len;
+
+    t.base     = VM_BASE_U8;
+    t.is_array = 0;
+    if (!type_str)
+        return (t);
+
+    len = strlen(type_str);
+    if (len > 2 && type_str[len - 2] == '[' && type_str[len - 1] == ']') {
+        t.is_array = 1;
+        len -= 2;
+    }
+
+    if (len == 3 && strncmp(type_str, "str", 3) == 0) { t.base = VM_BASE_STR; return (t); }
+    if (len == 2 && strncmp(type_str, "u8",  2) == 0) { t.base = VM_BASE_U8;  return (t); }
+    if (len == 3 && strncmp(type_str, "u16", 3) == 0) { t.base = VM_BASE_U16; return (t); }
+    if (len == 3 && strncmp(type_str, "u32", 3) == 0) { t.base = VM_BASE_U32; return (t); }
+    if (len == 3 && strncmp(type_str, "u64", 3) == 0) { t.base = VM_BASE_U64; return (t); }
+    return (t);
 }
 
 static int vm_parse_op_arg(struct vm_op_def *def, xmlNodePtr arg_node)
