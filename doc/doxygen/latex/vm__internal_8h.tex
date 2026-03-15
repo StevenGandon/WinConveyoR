@@ -1,0 +1,131 @@
+\doxysection{lib/libwconr/vm\+\_\+internal.h File Reference}
+\hypertarget{vm__internal_8h}{}\label{vm__internal_8h}\index{lib/libwconr/vm\_internal.h@{lib/libwconr/vm\_internal.h}}
+{\ttfamily \#include "{}wizard\+\_\+private.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}
+\item 
+struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}}
+\item 
+struct \mbox{\hyperlink{structvm__handler__entry}{vm\+\_\+handler\+\_\+entry}}
+\item 
+struct \mbox{\hyperlink{structvm__handler__version}{vm\+\_\+handler\+\_\+version}}
+\item 
+struct \mbox{\hyperlink{structvm__arg__def}{vm\+\_\+arg\+\_\+def}}
+\item 
+struct \mbox{\hyperlink{structvm__op__def}{vm\+\_\+op\+\_\+def}}
+\item 
+struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{vm__internal_8h_afd8036776ff52e66b67544391c5edde8}{VM\+\_\+\+BUF\+\_\+\+SIZE}}~4096
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef int(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}}) (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\+\_\+base\+\_\+type}} \{ \newline
+\mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e}{VM\+\_\+\+BASE\+\_\+\+STR}}
+, \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b}{VM\+\_\+\+BASE\+\_\+\+U8}}
+, \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2}{VM\+\_\+\+BASE\+\_\+\+U16}}
+, \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086}{VM\+\_\+\+BASE\+\_\+\+U32}}
+, \newline
+\mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf}{VM\+\_\+\+BASE\+\_\+\+U64}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} \mbox{\hyperlink{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4}{vm\+\_\+find\+\_\+handler}} (uint16\+\_\+t version, const char \texorpdfstring{$\ast$}{*}name)
+\item 
+int \mbox{\hyperlink{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f}{vm\+\_\+parse\+\_\+xml}} (const char \texorpdfstring{$\ast$}{*}path, struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset)
+\item 
+int \mbox{\hyperlink{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1}{vm\+\_\+decode\+\_\+arg}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}} type, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out)
+\item 
+void \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+free\+\_\+args}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{vm__internal_8h_afd8036776ff52e66b67544391c5edde8}\label{vm__internal_8h_afd8036776ff52e66b67544391c5edde8} 
+\index{vm\_internal.h@{vm\_internal.h}!VM\_BUF\_SIZE@{VM\_BUF\_SIZE}}
+\index{VM\_BUF\_SIZE@{VM\_BUF\_SIZE}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{VM\_BUF\_SIZE}{VM\_BUF\_SIZE}}
+{\footnotesize\ttfamily \#define VM\+\_\+\+BUF\+\_\+\+SIZE~4096}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}\label{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951} 
+\index{vm\_internal.h@{vm\_internal.h}!vm\_handler\_t@{vm\_handler\_t}}
+\index{vm\_handler\_t@{vm\_handler\_t}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{vm\_handler\_t}{vm\_handler\_t}}
+{\footnotesize\ttfamily typedef int(\texorpdfstring{$\ast$}{*} vm\+\_\+handler\+\_\+t) (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a} 
+\index{vm\_internal.h@{vm\_internal.h}!vm\_base\_type@{vm\_base\_type}}
+\index{vm\_base\_type@{vm\_base\_type}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{vm\_base\_type}{vm\_base\_type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\+\_\+base\+\_\+type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_STR@{VM\_BASE\_STR}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_STR@{VM\_BASE\_STR}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e} 
+VM\+\_\+\+BASE\+\_\+\+STR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U8@{VM\_BASE\_U8}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U8@{VM\_BASE\_U8}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b} 
+VM\+\_\+\+BASE\+\_\+\+U8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U16@{VM\_BASE\_U16}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U16@{VM\_BASE\_U16}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2} 
+VM\+\_\+\+BASE\+\_\+\+U16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U32@{VM\_BASE\_U32}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U32@{VM\_BASE\_U32}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086} 
+VM\+\_\+\+BASE\+\_\+\+U32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U64@{VM\_BASE\_U64}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U64@{VM\_BASE\_U64}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf} 
+VM\+\_\+\+BASE\+\_\+\+U64&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1}\label{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1} 
+\index{vm\_internal.h@{vm\_internal.h}!vm\_decode\_arg@{vm\_decode\_arg}}
+\index{vm\_decode\_arg@{vm\_decode\_arg}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_arg()}{vm\_decode\_arg()}}
+{\footnotesize\ttfamily int vm\+\_\+decode\+\_\+arg (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}}]{type,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
+\Hypertarget{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4}\label{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4} 
+\index{vm\_internal.h@{vm\_internal.h}!vm\_find\_handler@{vm\_find\_handler}}
+\index{vm\_find\_handler@{vm\_find\_handler}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{vm\_find\_handler()}{vm\_find\_handler()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} vm\+\_\+find\+\_\+handler (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{version,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+\Hypertarget{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}\label{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a} 
+\index{vm\_internal.h@{vm\_internal.h}!vm\_free\_args@{vm\_free\_args}}
+\index{vm\_free\_args@{vm\_free\_args}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{vm\_free\_args()}{vm\_free\_args()}}
+{\footnotesize\ttfamily void vm\+\_\+free\+\_\+args (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\Hypertarget{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f}\label{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f} 
+\index{vm\_internal.h@{vm\_internal.h}!vm\_parse\_xml@{vm\_parse\_xml}}
+\index{vm\_parse\_xml@{vm\_parse\_xml}!vm\_internal.h@{vm\_internal.h}}
+\doxysubsubsection{\texorpdfstring{vm\_parse\_xml()}{vm\_parse\_xml()}}
+{\footnotesize\ttfamily int vm\+\_\+parse\+\_\+xml (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{iset }\end{DoxyParamCaption})}
+

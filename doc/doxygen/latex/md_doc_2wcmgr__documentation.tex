@@ -1,0 +1,410 @@
+\chapter{Documentation wcmgr -\/ Win\+ConveyoR Manager CLI}
+\hypertarget{md_doc_2wcmgr__documentation}{}\label{md_doc_2wcmgr__documentation}\index{Documentation wcmgr -\/ WinConveyoR Manager CLI@{Documentation wcmgr -\/ WinConveyoR Manager CLI}}
+\label{md_doc_2wcmgr__documentation_autotoc_md182}%
+\Hypertarget{md_doc_2wcmgr__documentation_autotoc_md182}%
+ \hypertarget{md_doc_2wcmgr__documentation_autotoc_md183}{}\doxysection{\texorpdfstring{Vue d\textquotesingle{}ensemble}{Vue d'ensemble}}\label{md_doc_2wcmgr__documentation_autotoc_md183}
+{\ttfamily wcmgr} est l\textquotesingle{}outil en ligne de commande pour gérer un serveur miroir Win\+ConveyoR. Il permet de se connecter au serveur, gérer les packages et effectuer des opérations administratives.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md184}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_doc_2wcmgr__documentation_autotoc_md184}
+Le client est disponible dans le container {\ttfamily custom-\/server} \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Depuis\ l'intérieur\ du\ container}
+\DoxyCodeLine{wcmgr}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md185}{}\doxysection{\texorpdfstring{Architecture}{Architecture}}\label{md_doc_2wcmgr__documentation_autotoc_md185}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌─────────────────────────────────────────────┐}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ NetworkCLI\ (Interface)\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Gestion\ du\ terminal\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Historique\ des\ commandes\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Prompt\ interactif\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└──────────────────┬──────────────────────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{┌──────────────────▼──────────────────────────┐}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ ClientSocket\ (Network)\ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Connexion\ TCP\ au\ serveur\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Protocole\ WCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Gestion\ des\ sessions\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└──────────────────┬──────────────────────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{┌──────────────────▼──────────────────────────┐}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ wcrmirror\ Server\ (Port\ 1674)\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Authentification\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Gestion\ des\ packages\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ -\/\ Opérations\ CRUD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└─────────────────────────────────────────────┘}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md186}{}\doxysection{\texorpdfstring{Commandes}{Commandes}}\label{md_doc_2wcmgr__documentation_autotoc_md186}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md187}{}\doxysubsection{\texorpdfstring{connect}{connect}}\label{md_doc_2wcmgr__documentation_autotoc_md187}
+Authentifie l\textquotesingle{}utilisateur et crée une nouvelle session.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{connect\ <password>}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+:
+\begin{DoxyItemize}
+\item {\ttfamily password} (obligatoire) \+: Mot de passe du serveur
+\end{DoxyItemize}
+
+{\bfseries{Exemple}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{>>>\ connect\ mypassword}
+
+\end{DoxyCode}
+
+
+{\bfseries{Réponse}} \+:
+\begin{DoxyItemize}
+\item Succès \+: Le prompt change pour afficher l\textquotesingle{}ID de session {\ttfamily \mbox{[}\texorpdfstring{$<$}{<}session\+\_\+id\texorpdfstring{$>$}{>}\mbox{]}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}
+\item Échec \+: Affiche un message d\textquotesingle{}erreur
+\end{DoxyItemize}
+
+{\bfseries{Comportement}} \+:
+\begin{DoxyEnumerate}
+\item Envoie la requête d\textquotesingle{}authentification au serveur
+\item Reçoit un {\ttfamily session\+\_\+id} en cas de succès
+\item Crée une session locale
+\item Change le prompt pour inclure l\textquotesingle{}ID de session
+\item Rend disponibles les commandes protégées
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md189}{}\doxysubsection{\texorpdfstring{disconnect}{disconnect}}\label{md_doc_2wcmgr__documentation_autotoc_md189}
+Ferme une session active.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{disconnect\ <session\_id>}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+:
+\begin{DoxyItemize}
+\item {\ttfamily session\+\_\+id} (obligatoire) \+: ID numérique de la session à fermer
+\end{DoxyItemize}
+
+{\bfseries{Exemple}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[a1b2c3]>>>\ disconnect\ 12345}
+
+\end{DoxyCode}
+
+
+{\bfseries{Comportement}} \+:
+\begin{DoxyEnumerate}
+\item Envoie la requête de déconnexion au serveur
+\item Supprime la session côté serveur
+\item Supprime la session locale
+\item Si c\textquotesingle{}était la session active, réinitialise le prompt à {\ttfamily \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}}
+\end{DoxyEnumerate}
+
+{\bfseries{Note}} \+: Commande protégée -\/ nécessite d\textquotesingle{}être dans une session
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md191}{}\doxysubsection{\texorpdfstring{list\+\_\+sessions}{list\_sessions}}\label{md_doc_2wcmgr__documentation_autotoc_md191}
+Affiche toutes les sessions locales actives.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{list\_sessions}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+: Aucun
+
+{\bfseries{Exemple}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{>>>\ list\_sessions}
+\DoxyCodeLine{a1b2c3}
+\DoxyCodeLine{d4e5f6}
+\DoxyCodeLine{g7h8i9}
+
+\end{DoxyCode}
+
+
+{\bfseries{Sortie}} \+: Liste des IDs de session en hexadécimal, un par ligne.
+
+{\bfseries{Note}} \+: N\textquotesingle{}affiche que les sessions locales, pas celles du serveur
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md193}{}\doxysubsection{\texorpdfstring{switch\+\_\+session}{switch\_session}}\label{md_doc_2wcmgr__documentation_autotoc_md193}
+Change la session active ou revient au mode sans session.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{switch\_session\ [session\_id]}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+:
+\begin{DoxyItemize}
+\item {\ttfamily session\+\_\+id} (optionnel) \+: ID hexadécimal de la session
+\end{DoxyItemize}
+
+{\bfseries{Exemples}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{>>>\ switch\_session\ a1b2c3}
+\DoxyCodeLine{[a1b2c3]>>>}
+\DoxyCodeLine{}
+\DoxyCodeLine{[a1b2c3]>>>\ switch\_session}
+\DoxyCodeLine{>>>}
+
+\end{DoxyCode}
+
+
+{\bfseries{Comportement}} \+:
+\begin{DoxyItemize}
+\item Avec argument \+: Active la session spécifiée et change le prompt
+\item Sans argument \+: Désactive la session active et revient au prompt de base
+\item La session doit exister localement
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md195}{}\doxysubsection{\texorpdfstring{list\+\_\+packages}{list\_packages}}\label{md_doc_2wcmgr__documentation_autotoc_md195}
+Liste tous les packages disponibles dans le dépôt.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{list\_packages\ <session\_id>}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+:
+\begin{DoxyItemize}
+\item {\ttfamily session\+\_\+id} (obligatoire) \+: ID numérique de la session
+\end{DoxyItemize}
+
+{\bfseries{Exemple}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[a1b2c3]>>>\ list\_packages\ 12345}
+\DoxyCodeLine{['gcc',\ 'python',\ 'nodejs',\ 'docker']}
+
+\end{DoxyCode}
+
+
+{\bfseries{Sortie}} \+: Liste Python des noms de packages disponibles.
+
+{\bfseries{Note}} \+: Commande protégée -\/ nécessite une session valide
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md197}{}\doxysubsection{\texorpdfstring{write}{write}}\label{md_doc_2wcmgr__documentation_autotoc_md197}
+Sauvegarde toutes les modifications dans le système de fichiers.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{write\ <session\_id>}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+:
+\begin{DoxyItemize}
+\item {\ttfamily session\+\_\+id} (obligatoire) \+: ID numérique de la session
+\end{DoxyItemize}
+
+{\bfseries{Exemple}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[a1b2c3]>>>\ write\ 12345}
+\DoxyCodeLine{3\ PACKAGE\ INSTANCE\ IN\ 2\ PACKAGE\ WRITTEN}
+
+\end{DoxyCode}
+
+
+{\bfseries{Sortie}} \+: Affiche le nombre d\textquotesingle{}instances de packages et de packages écrits.
+
+{\bfseries{Comportement}} \+:
+\begin{DoxyEnumerate}
+\item Demande au serveur de persister les modifications
+\item Le serveur crée un backup timestampé
+\item Écrit tous les fichiers modifiés (pkgs.\+list, register/, pkgs/)
+\item Recalcule le checksum global
+\item Retourne les statistiques
+\end{DoxyEnumerate}
+
+{\bfseries{Note}} \+: Commande protégée -\/ nécessite une session valide
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md199}{}\doxysubsection{\texorpdfstring{quit}{quit}}\label{md_doc_2wcmgr__documentation_autotoc_md199}
+Quitte l\textquotesingle{}application proprement.
+
+{\bfseries{Syntaxe}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{quit}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arguments}} \+: Aucun
+
+{\bfseries{Exemple}} \+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{>>>\ quit}
+
+\end{DoxyCode}
+
+
+{\bfseries{Comportement}} \+:
+\begin{DoxyEnumerate}
+\item Envoie un message {\ttfamily goodbye} au serveur
+\item Ferme toutes les sessions locales
+\item Ferme la connexion TCP
+\item Restaure les paramètres du terminal
+\item Quitte l\textquotesingle{}application
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md201}{}\doxysection{\texorpdfstring{Fonctionnalités Avancées}{Fonctionnalités Avancées}}\label{md_doc_2wcmgr__documentation_autotoc_md201}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md202}{}\doxysubsection{\texorpdfstring{Historique des Commandes}{Historique des Commandes}}\label{md_doc_2wcmgr__documentation_autotoc_md202}
+L\textquotesingle{}interface conserve un historique des commandes saisies \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Flèche Haut / Flèche Bas}} \+: Naviguer dans l\textquotesingle{}historique
+\item {\bfseries{Ctrl+C / Ctrl+Z}} \+: Quitter l\textquotesingle{}application
+\item Historique persistant durant toute la session
+\end{DoxyItemize}\hypertarget{md_doc_2wcmgr__documentation_autotoc_md203}{}\doxysubsection{\texorpdfstring{Navigation dans la Ligne}{Navigation dans la Ligne}}\label{md_doc_2wcmgr__documentation_autotoc_md203}
+
+\begin{DoxyItemize}
+\item {\bfseries{Flèche Gauche / Flèche Droite}} \+: Déplacer le curseur
+\item {\bfseries{Backspace / Delete}} \+: Supprimer des caractères
+\item {\bfseries{Home}} \+: Début de ligne
+\item {\bfseries{End}} \+: Fin de ligne
+\end{DoxyItemize}\hypertarget{md_doc_2wcmgr__documentation_autotoc_md204}{}\doxysubsection{\texorpdfstring{Prompts}{Prompts}}\label{md_doc_2wcmgr__documentation_autotoc_md204}
+
+\begin{DoxyItemize}
+\item {\bfseries{Base}} \+: {\ttfamily \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}} -\/ Mode sans session
+\item {\bfseries{Session}} \+: {\ttfamily \mbox{[}\texorpdfstring{$<$}{<}session\+\_\+id\texorpdfstring{$>$}{>}\mbox{]}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}} -\/ Mode avec session active
+\end{DoxyItemize}\hypertarget{md_doc_2wcmgr__documentation_autotoc_md205}{}\doxysubsection{\texorpdfstring{Middlewares}{Middlewares}}\label{md_doc_2wcmgr__documentation_autotoc_md205}
+Toutes les commandes réseau passent par des middlewares de validation \+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{check\+\_\+response}} \+: Vérifie que la réponse est du JSON valide
+\item {\bfseries{check\+\_\+status}} \+: Vérifie le code de statut (0 = succès, 1 = erreur)
+\end{DoxyEnumerate}
+
+En cas d\textquotesingle{}échec, un message d\textquotesingle{}erreur descriptif est affiché.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md206}{}\doxysection{\texorpdfstring{Gestion des Erreurs}{Gestion des Erreurs}}\label{md_doc_2wcmgr__documentation_autotoc_md206}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md207}{}\doxysubsection{\texorpdfstring{Erreurs de Connexion}{Erreurs de Connexion}}\label{md_doc_2wcmgr__documentation_autotoc_md207}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{failed\ to\ connect\ to\ server.\ (Connection\ refused)}
+
+\end{DoxyCode}
+ Le serveur n\textquotesingle{}est pas accessible ou n\textquotesingle{}écoute pas sur le port.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md208}{}\doxysubsection{\texorpdfstring{Erreurs d\textquotesingle{}\+Authentification}{Erreurs d'Authentification}}\label{md_doc_2wcmgr__documentation_autotoc_md208}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{command\ failed:\ invalid\_password}
+
+\end{DoxyCode}
+ Le mot de passe fourni est incorrect.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md209}{}\doxysubsection{\texorpdfstring{Erreurs de Session}{Erreurs de Session}}\label{md_doc_2wcmgr__documentation_autotoc_md209}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{command\ need\ to\ be\ executed\ in\ a\ session.}
+
+\end{DoxyCode}
+ La commande nécessite d\textquotesingle{}être dans une session active.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{command\ failed:\ invalid\_session\_id}
+
+\end{DoxyCode}
+ L\textquotesingle{}ID de session n\textquotesingle{}existe pas sur le serveur.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{command\ failed:\ unauthorized\_session}
+
+\end{DoxyCode}
+ La session appartient à un autre client.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md210}{}\doxysubsection{\texorpdfstring{Erreurs de Commande}{Erreurs de Commande}}\label{md_doc_2wcmgr__documentation_autotoc_md210}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{command\ not\ found\ 'xyz'.}
+
+\end{DoxyCode}
+ La commande saisie n\textquotesingle{}existe pas.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{not\ enough\ arguments,\ mandatory\ arguments\ are:\ ('password',)}
+
+\end{DoxyCode}
+ Des arguments obligatoires sont manquants.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{too\ much\ arguments\ argument\ list\ is:\ ('password',)}
+
+\end{DoxyCode}
+ Trop d\textquotesingle{}arguments ont été fournis.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md211}{}\doxysection{\texorpdfstring{Variables d\textquotesingle{}\+Environnement}{Variables d'Environnement}}\label{md_doc_2wcmgr__documentation_autotoc_md211}
+Le client se connecte par défaut à \+:
+\begin{DoxyItemize}
+\item {\bfseries{Host}} \+: 127.\+0.\+0.\+1
+\item {\bfseries{Port}} \+: 1674
+\end{DoxyItemize}
+
+Ces valeurs sont codées en dur dans {\ttfamily Client\+Socket}.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md212}{}\doxysection{\texorpdfstring{Exemple de Session Complète}{Exemple de Session Complète}}\label{md_doc_2wcmgr__documentation_autotoc_md212}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Démarrage\ du\ client}
+\DoxyCodeLine{\$\ wcmgr}
+\DoxyCodeLine{}
+\DoxyCodeLine{******************************}
+\DoxyCodeLine{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}
+\DoxyCodeLine{*\ \ \ \ \ \ wcr\ source\ server\ \ \ \ \ *}
+\DoxyCodeLine{*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}
+\DoxyCodeLine{******************************}
+\DoxyCodeLine{}
+\DoxyCodeLine{>>>\ connect\ mypassword}
+\DoxyCodeLine{[a1b2c3]>>>\ list\_packages\ 171234567}
+\DoxyCodeLine{['gcc',\ 'python',\ 'nodejs']}
+\DoxyCodeLine{}
+\DoxyCodeLine{[a1b2c3]>>>\ write\ 171234567}
+\DoxyCodeLine{3\ PACKAGE\ INSTANCE\ IN\ 3\ PACKAGE\ WRITTEN}
+\DoxyCodeLine{}
+\DoxyCodeLine{[a1b2c3]>>>\ list\_sessions}
+\DoxyCodeLine{a1b2c3}
+\DoxyCodeLine{}
+\DoxyCodeLine{[a1b2c3]>>>\ switch\_session}
+\DoxyCodeLine{>>>\ disconnect\ 171234567}
+\DoxyCodeLine{}
+\DoxyCodeLine{>>>\ quit}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md213}{}\doxysection{\texorpdfstring{Notes Techniques}{Notes Techniques}}\label{md_doc_2wcmgr__documentation_autotoc_md213}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md214}{}\doxysubsection{\texorpdfstring{Format des Session IDs}{Format des Session IDs}}\label{md_doc_2wcmgr__documentation_autotoc_md214}
+
+\begin{DoxyItemize}
+\item Générés via {\ttfamily uuid4().int} (UUID version 4 converti en entier)
+\item Affichés en hexadécimal sans le préfixe {\ttfamily 0x}
+\item Exemple \+: {\ttfamily a1b2c3d4e5f6} au lieu de {\ttfamily 0xa1b2c3d4e5f6}
+\end{DoxyItemize}\hypertarget{md_doc_2wcmgr__documentation_autotoc_md215}{}\doxysubsection{\texorpdfstring{Terminal}{Terminal}}\label{md_doc_2wcmgr__documentation_autotoc_md215}
+
+\begin{DoxyItemize}
+\item Mode raw activé pour capturer toutes les touches
+\item Compatible Linux/mac\+OS (termios) et Windows (msvcrt)
+\item Restauration automatique des paramètres à la sortie
+\end{DoxyItemize}\hypertarget{md_doc_2wcmgr__documentation_autotoc_md216}{}\doxysubsection{\texorpdfstring{Réseau}{Réseau}}\label{md_doc_2wcmgr__documentation_autotoc_md216}
+
+\begin{DoxyItemize}
+\item Protocole personnalisé (WCR) sur TCP
+\item Messages binaires avec magic number {\ttfamily 0xffc407ec}
+\item Payload JSON encodé en UTF-\/8
+\item Timeout implicite sur les opérations réseau
+\end{DoxyItemize}\hypertarget{md_doc_2wcmgr__documentation_autotoc_md217}{}\doxysection{\texorpdfstring{Dépannage}{Dépannage}}\label{md_doc_2wcmgr__documentation_autotoc_md217}
+\hypertarget{md_doc_2wcmgr__documentation_autotoc_md218}{}\doxysubsection{\texorpdfstring{Le prompt ne s\textquotesingle{}affiche pas correctement}{Le prompt ne s'affiche pas correctement}}\label{md_doc_2wcmgr__documentation_autotoc_md218}
+Vérifiez que le terminal supporte les séquences ANSI.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md219}{}\doxysubsection{\texorpdfstring{Les flèches ne fonctionnent pas sous Windows}{Les flèches ne fonctionnent pas sous Windows}}\label{md_doc_2wcmgr__documentation_autotoc_md219}
+Utilisez les alternatives Windows \+: Flèche Haut = Ctrl+P, Flèche Bas = Ctrl+N\hypertarget{md_doc_2wcmgr__documentation_autotoc_md220}{}\doxysubsection{\texorpdfstring{"{}\+Lost connection to the server"{}}{"Lost connection to the server"}}\label{md_doc_2wcmgr__documentation_autotoc_md220}
+Le serveur a fermé la connexion. Redémarrez wcmgr et reconnectez-\/vous.\hypertarget{md_doc_2wcmgr__documentation_autotoc_md221}{}\doxysubsection{\texorpdfstring{Les commandes protégées ne fonctionnent pas}{Les commandes protégées ne fonctionnent pas}}\label{md_doc_2wcmgr__documentation_autotoc_md221}
+Assurez-\/vous d\textquotesingle{}être dans une session active (prompt avec {\ttfamily \mbox{[}session\+\_\+id\mbox{]}}). 

@@ -5,6 +5,9 @@ var annotated_dup =
         [ "Settings", "classcore_1_1config_1_1Settings.html", "classcore_1_1config_1_1Settings" ]
       ] ]
     ] ],
+    [ "main", "namespacemain.html", [
+      [ "Daemon", "classmain_1_1Daemon.html", "classmain_1_1Daemon" ]
+    ] ],
     [ "models", "namespacemodels.html", [
       [ "user", "namespacemodels_1_1user.html", [
         [ "User", "classmodels_1_1user_1_1User.html", "classmodels_1_1user_1_1User" ]
@@ -33,6 +36,41 @@ var annotated_dup =
         [ "TooFewArguments", "classsrc_1_1arghandler_1_1TooFewArguments.html", null ],
         [ "TooMuchArguments", "classsrc_1_1arghandler_1_1TooMuchArguments.html", null ]
       ] ],
+      [ "builder", "namespacesrc_1_1builder.html", [
+        [ "config", "namespacesrc_1_1builder_1_1config.html", [
+          [ "message", "namespacesrc_1_1builder_1_1config_1_1message.html", [
+            [ "ConfigError", "classsrc_1_1builder_1_1config_1_1message_1_1ConfigError.html", null ],
+            [ "ConfigMessage", "classsrc_1_1builder_1_1config_1_1message_1_1ConfigMessage.html", "classsrc_1_1builder_1_1config_1_1message_1_1ConfigMessage" ],
+            [ "ConfigWarning", "classsrc_1_1builder_1_1config_1_1message_1_1ConfigWarning.html", null ]
+          ] ],
+          [ "reader", "namespacesrc_1_1builder_1_1config_1_1reader.html", [
+            [ "YAMLConfigReader", "classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html", "classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader" ]
+          ] ],
+          [ "schema", "namespacesrc_1_1builder_1_1config_1_1schema.html", [
+            [ "ConfigKey", "classsrc_1_1builder_1_1config_1_1schema_1_1ConfigKey.html", "classsrc_1_1builder_1_1config_1_1schema_1_1ConfigKey" ],
+            [ "ConfigSchema", "classsrc_1_1builder_1_1config_1_1schema_1_1ConfigSchema.html", "classsrc_1_1builder_1_1config_1_1schema_1_1ConfigSchema" ],
+            [ "ConfigSchemaBank", "classsrc_1_1builder_1_1config_1_1schema_1_1ConfigSchemaBank.html", "classsrc_1_1builder_1_1config_1_1schema_1_1ConfigSchemaBank" ]
+          ] ]
+        ] ],
+        [ "interaction", "namespacesrc_1_1builder_1_1interaction.html", [
+          [ "dialog", "namespacesrc_1_1builder_1_1interaction_1_1dialog.html", [
+            [ "Dialog", "classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html", "classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog" ]
+          ] ]
+        ] ],
+        [ "package_builder", "namespacesrc_1_1builder_1_1package__builder.html", [
+          [ "PackageBuilder", "classsrc_1_1builder_1_1package__builder_1_1PackageBuilder.html", "classsrc_1_1builder_1_1package__builder_1_1PackageBuilder" ]
+        ] ],
+        [ "package_info", "namespacesrc_1_1builder_1_1package__info.html", [
+          [ "PackageInfo", "classsrc_1_1builder_1_1package__info_1_1PackageInfo.html", "classsrc_1_1builder_1_1package__info_1_1PackageInfo" ]
+        ] ]
+      ] ],
+      [ "cache", "namespacesrc_1_1cache.html", [
+        [ "cache", "namespacesrc_1_1cache_1_1cache.html", [
+          [ "Cache", "classsrc_1_1cache_1_1cache_1_1Cache.html", "classsrc_1_1cache_1_1cache_1_1Cache" ],
+          [ "CacheSchema", "classsrc_1_1cache_1_1cache_1_1CacheSchema.html", "classsrc_1_1cache_1_1cache_1_1CacheSchema" ],
+          [ "CacheService", "classsrc_1_1cache_1_1cache_1_1CacheService.html", "classsrc_1_1cache_1_1cache_1_1CacheService" ]
+        ] ]
+      ] ],
       [ "cli", "namespacesrc_1_1cli.html", [
         [ "cli", "namespacesrc_1_1cli_1_1cli.html", [
           [ "CLI", "classsrc_1_1cli_1_1cli_1_1CLI.html", "classsrc_1_1cli_1_1cli_1_1CLI" ]
@@ -47,6 +85,11 @@ var annotated_dup =
           [ "CLICommandArg", "classsrc_1_1cli_1_1command_1_1CLICommandArg.html", "classsrc_1_1cli_1_1command_1_1CLICommandArg" ]
         ] ]
       ] ],
+      [ "common", "namespacesrc_1_1common.html", [
+        [ "clock", "namespacesrc_1_1common_1_1clock.html", [
+          [ "Clock", "classsrc_1_1common_1_1clock_1_1Clock.html", "classsrc_1_1common_1_1clock_1_1Clock" ]
+        ] ]
+      ] ],
       [ "graphic", "namespacesrc_1_1graphic.html", [
         [ "builtin", "namespacesrc_1_1graphic_1_1builtin.html", [
           [ "graphic_object", "namespacesrc_1_1graphic_1_1builtin_1_1graphic__object.html", [
@@ -54,6 +97,9 @@ var annotated_dup =
           ] ],
           [ "loading_bar", "namespacesrc_1_1graphic_1_1builtin_1_1loading__bar.html", [
             [ "LoadingBar", "classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html", "classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar" ]
+          ] ],
+          [ "wizard", "namespacesrc_1_1graphic_1_1builtin_1_1wizard.html", [
+            [ "WizardGraphic", "classsrc_1_1graphic_1_1builtin_1_1wizard_1_1WizardGraphic.html", "classsrc_1_1graphic_1_1builtin_1_1wizard_1_1WizardGraphic" ]
           ] ]
         ] ],
         [ "graphic", "namespacesrc_1_1graphic_1_1graphic.html", [
@@ -93,6 +139,11 @@ var annotated_dup =
         [ "message_json", "namespacesrc_1_1network_1_1message__json.html", [
           [ "JSONMessage", "classsrc_1_1network_1_1message__json_1_1JSONMessage.html", "classsrc_1_1network_1_1message__json_1_1JSONMessage" ]
         ] ],
+        [ "security", "namespacesrc_1_1network_1_1security.html", [
+          [ "PrivateSecurityKey", "classsrc_1_1network_1_1security_1_1PrivateSecurityKey.html", "classsrc_1_1network_1_1security_1_1PrivateSecurityKey" ],
+          [ "PublicSecurityKey", "classsrc_1_1network_1_1security_1_1PublicSecurityKey.html", "classsrc_1_1network_1_1security_1_1PublicSecurityKey" ],
+          [ "SecurityKey", "classsrc_1_1network_1_1security_1_1SecurityKey.html", "classsrc_1_1network_1_1security_1_1SecurityKey" ]
+        ] ],
         [ "server", "namespacesrc_1_1network_1_1server.html", [
           [ "Server", "classsrc_1_1network_1_1server_1_1Server.html", "classsrc_1_1network_1_1server_1_1Server" ]
         ] ],
@@ -109,6 +160,23 @@ var annotated_dup =
         ] ],
         [ "package_listing", "namespacesrc_1_1package_1_1package__listing.html", [
           [ "PackageListing", "classsrc_1_1package_1_1package__listing_1_1PackageListing.html", "classsrc_1_1package_1_1package__listing_1_1PackageListing" ]
+        ] ]
+      ] ],
+      [ "scheduler", "namespacesrc_1_1scheduler.html", [
+        [ "clock", "namespacesrc_1_1scheduler_1_1clock.html", [
+          [ "Clock", "classsrc_1_1scheduler_1_1clock_1_1Clock.html", "classsrc_1_1scheduler_1_1clock_1_1Clock" ]
+        ] ],
+        [ "job", "namespacesrc_1_1scheduler_1_1job.html", [
+          [ "Job", "classsrc_1_1scheduler_1_1job_1_1Job.html", "classsrc_1_1scheduler_1_1job_1_1Job" ],
+          [ "JobResult", "classsrc_1_1scheduler_1_1job_1_1JobResult.html", "classsrc_1_1scheduler_1_1job_1_1JobResult" ]
+        ] ],
+        [ "pool", "namespacesrc_1_1scheduler_1_1pool.html", [
+          [ "Pool", "classsrc_1_1scheduler_1_1pool_1_1Pool.html", "classsrc_1_1scheduler_1_1pool_1_1Pool" ]
+        ] ],
+        [ "task", "namespacesrc_1_1scheduler_1_1task.html", [
+          [ "Task", "classsrc_1_1scheduler_1_1task_1_1Task.html", "classsrc_1_1scheduler_1_1task_1_1Task" ],
+          [ "TaskScheduler", "classsrc_1_1scheduler_1_1task_1_1TaskScheduler.html", "classsrc_1_1scheduler_1_1task_1_1TaskScheduler" ],
+          [ "TextIOLocal", "classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html", "classsrc_1_1scheduler_1_1task_1_1TextIOLocal" ]
         ] ]
       ] ],
       [ "thread", "namespacesrc_1_1thread.html", [
@@ -130,6 +198,31 @@ var annotated_dup =
         ] ],
         [ "undo_stack", "namespacesrc_1_1undo_1_1undo__stack.html", [
           [ "UndoStack", "classsrc_1_1undo_1_1undo__stack_1_1UndoStack.html", "classsrc_1_1undo_1_1undo__stack_1_1UndoStack" ]
+        ] ]
+      ] ],
+      [ "wizard", "namespacesrc_1_1wizard.html", [
+        [ "classes", "namespacesrc_1_1wizard_1_1classes.html", [
+          [ "arguments", "namespacesrc_1_1wizard_1_1classes_1_1arguments.html", [
+            [ "WizardArgument", "classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgument.html", "classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgument" ],
+            [ "WizardArgumentArray", "classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgumentArray.html", "classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgumentArray" ]
+          ] ],
+          [ "instruction", "namespacesrc_1_1wizard_1_1classes_1_1instruction.html", [
+            [ "WizardInstruction", "classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html", "classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction" ]
+          ] ],
+          [ "package", "namespacesrc_1_1wizard_1_1classes_1_1package.html", [
+            [ "PackageWizard", "classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html", "classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard" ]
+          ] ],
+          [ "section", "namespacesrc_1_1wizard_1_1classes_1_1section.html", [
+            [ "WizardCodeSection", "classsrc_1_1wizard_1_1classes_1_1section_1_1WizardCodeSection.html", "classsrc_1_1wizard_1_1classes_1_1section_1_1WizardCodeSection" ],
+            [ "WizardSection", "classsrc_1_1wizard_1_1classes_1_1section_1_1WizardSection.html", "classsrc_1_1wizard_1_1classes_1_1section_1_1WizardSection" ]
+          ] ],
+          [ "strndx", "namespacesrc_1_1wizard_1_1classes_1_1strndx.html", [
+            [ "WizardStrndx", "classsrc_1_1wizard_1_1classes_1_1strndx_1_1WizardStrndx.html", "classsrc_1_1wizard_1_1classes_1_1strndx_1_1WizardStrndx" ]
+          ] ]
+        ] ],
+        [ "instruction_loader", "namespacesrc_1_1wizard_1_1instruction__loader.html", [
+          [ "InstructionArgumentDef", "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html", "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef" ],
+          [ "InstructionLoader", "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html", "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader" ]
         ] ]
       ] ],
       [ "wrappers", "namespacesrc_1_1wrappers.html", [
@@ -155,21 +248,26 @@ var annotated_dup =
       [ "Router", "classwcrmirror_1_1Router.html", "classwcrmirror_1_1Router" ],
       [ "WCRHandler", "classwcrmirror_1_1WCRHandler.html", "classwcrmirror_1_1WCRHandler" ]
     ] ],
-    [ "wcrpackager", "namespacewcrpackager.html", [
-      [ "Dialog", "classwcrpackager_1_1Dialog.html", "classwcrpackager_1_1Dialog" ],
-      [ "PackageBuilder", "classwcrpackager_1_1PackageBuilder.html", "classwcrpackager_1_1PackageBuilder" ],
-      [ "PackageInfo", "classwcrpackager_1_1PackageInfo.html", "classwcrpackager_1_1PackageInfo" ],
-      [ "PackageWizard", "classwcrpackager_1_1PackageWizard.html", "classwcrpackager_1_1PackageWizard" ],
-      [ "WizardSection", "classwcrpackager_1_1WizardSection.html", "classwcrpackager_1_1WizardSection" ],
-      [ "WizardStrndx", "classwcrpackager_1_1WizardStrndx.html", "classwcrpackager_1_1WizardStrndx" ]
-    ] ],
     [ "_http_connection_s", "struct__http__connection__s.html", "struct__http__connection__s" ],
     [ "_http_header_s", "struct__http__header__s.html", "struct__http__header__s" ],
     [ "_http_request_parser_s", "struct__http__request__parser__s.html", "struct__http__request__parser__s" ],
     [ "_http_response_parser_s", "struct__http__response__parser__s.html", "struct__http__response__parser__s" ],
+    [ "_wizard_ctx_s", "struct__wizard__ctx__s.html", "struct__wizard__ctx__s" ],
+    [ "_wizard_file_header_raw_s", "struct__wizard__file__header__raw__s.html", "struct__wizard__file__header__raw__s" ],
+    [ "_wizard_section_entry_raw_s", "struct__wizard__section__entry__raw__s.html", "struct__wizard__section__entry__raw__s" ],
+    [ "_wizard_section_header_raw_s", "struct__wizard__section__header__raw__s.html", "struct__wizard__section__header__raw__s" ],
+    [ "_wizard_strndx_entry_raw_s", "struct__wizard__strndx__entry__raw__s.html", "struct__wizard__strndx__entry__raw__s" ],
+    [ "_wizard_vm_s", "struct__wizard__vm__s.html", "struct__wizard__vm__s" ],
     [ "cached_source_s", "structcached__source__s.html", "structcached__source__s" ],
     [ "source_handler_s", "structsource__handler__s.html", "structsource__handler__s" ],
     [ "source_mirror_s", "structsource__mirror__s.html", "structsource__mirror__s" ],
+    [ "vm_arg_def", "structvm__arg__def.html", "structvm__arg__def" ],
+    [ "vm_arg_type", "structvm__arg__type.html", "structvm__arg__type" ],
+    [ "vm_arg_value", "structvm__arg__value.html", "structvm__arg__value" ],
+    [ "vm_handler_entry", "structvm__handler__entry.html", "structvm__handler__entry" ],
+    [ "vm_handler_version", "structvm__handler__version.html", "structvm__handler__version" ],
+    [ "vm_iset_s", "structvm__iset__s.html", "structvm__iset__s" ],
+    [ "vm_op_def", "structvm__op__def.html", "structvm__op__def" ],
     [ "wcr_state_s", "structwcr__state__s.html", "structwcr__state__s" ],
     [ "wcr_system_s", "structwcr__system__s.html", "structwcr__system__s" ]
 ];

@@ -1,10 +1,20 @@
 var searchData=
 [
-  ['cached_5fsource_5fs_0',['cached_source_s',['../structcached__source__s.html',1,'']]],
-  ['cli_1',['CLI',['../classsrc_1_1cli_1_1cli_1_1CLI.html',1,'src::cli::cli']]],
-  ['clicommand_2',['CLICommand',['../classsrc_1_1cli_1_1command_1_1CLICommand.html',1,'src::cli::command']]],
-  ['clicommandarg_3',['CLICommandArg',['../classsrc_1_1cli_1_1command_1_1CLICommandArg.html',1,'src::cli::command']]],
-  ['client_4',['Client',['../classsrc_1_1network_1_1client_1_1Client.html',1,'src::network::client']]],
-  ['clientsocket_5',['ClientSocket',['../classsrc_1_1network_1_1client_1_1ClientSocket.html',1,'src::network::client']]],
-  ['config_6',['config',['../classcore_1_1config_1_1Settings_1_1Config.html',1,'core.config.Settings.Config'],['../classschemas_1_1user_1_1UserOut_1_1Config.html',1,'schemas.user.UserOut.Config']]]
+  ['cache_0',['Cache',['../classsrc_1_1cache_1_1cache_1_1Cache.html',1,'src::cache::cache']]],
+  ['cached_5fsource_5fs_1',['cached_source_s',['../structcached__source__s.html',1,'']]],
+  ['cacheschema_2',['CacheSchema',['../classsrc_1_1cache_1_1cache_1_1CacheSchema.html',1,'src::cache::cache']]],
+  ['cacheservice_3',['CacheService',['../classsrc_1_1cache_1_1cache_1_1CacheService.html',1,'src::cache::cache']]],
+  ['cli_4',['CLI',['../classsrc_1_1cli_1_1cli_1_1CLI.html',1,'src::cli::cli']]],
+  ['clicommand_5',['CLICommand',['../classsrc_1_1cli_1_1command_1_1CLICommand.html',1,'src::cli::command']]],
+  ['clicommandarg_6',['CLICommandArg',['../classsrc_1_1cli_1_1command_1_1CLICommandArg.html',1,'src::cli::command']]],
+  ['client_7',['Client',['../classsrc_1_1network_1_1client_1_1Client.html',1,'src::network::client']]],
+  ['clientsocket_8',['ClientSocket',['../classsrc_1_1network_1_1client_1_1ClientSocket.html',1,'src::network::client']]],
+  ['clock_9',['clock',['../classsrc_1_1common_1_1clock_1_1Clock.html',1,'src.common.clock.Clock'],['../classsrc_1_1scheduler_1_1clock_1_1Clock.html',1,'src.scheduler.clock.Clock']]],
+  ['config_10',['config',['../classcore_1_1config_1_1Settings_1_1Config.html',1,'core.config.Settings.Config'],['../classschemas_1_1user_1_1UserOut_1_1Config.html',1,'schemas.user.UserOut.Config']]],
+  ['configerror_11',['ConfigError',['../classsrc_1_1builder_1_1config_1_1message_1_1ConfigError.html',1,'src::builder::config::message']]],
+  ['configkey_12',['ConfigKey',['../classsrc_1_1builder_1_1config_1_1schema_1_1ConfigKey.html',1,'src::builder::config::schema']]],
+  ['configmessage_13',['ConfigMessage',['../classsrc_1_1builder_1_1config_1_1message_1_1ConfigMessage.html',1,'src::builder::config::message']]],
+  ['configschema_14',['ConfigSchema',['../classsrc_1_1builder_1_1config_1_1schema_1_1ConfigSchema.html',1,'src::builder::config::schema']]],
+  ['configschemabank_15',['ConfigSchemaBank',['../classsrc_1_1builder_1_1config_1_1schema_1_1ConfigSchemaBank.html',1,'src::builder::config::schema']]],
+  ['configwarning_16',['ConfigWarning',['../classsrc_1_1builder_1_1config_1_1message_1_1ConfigWarning.html',1,'src::builder::config::message']]]
 ];

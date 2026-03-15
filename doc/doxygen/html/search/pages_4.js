@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['winconveyor_0',['winconveyor',['../md_CONTRIBUTING.html',1,'Contributing to WinConveyoR'],['../md_README.html',1,'WinConveyoR'],['../index.html',1,'WinConveyoR']]],
-  ['winconveyor_20privacy_20policy_1',['WinConveyoR Privacy Policy',['../md_doc_2privacy__policy.html',1,'']]]
+  ['policy_0',['WinConveyoR Privacy Policy',['../md_doc_2privacy__policy.html',1,'']]],
+  ['privacy_20policy_1',['WinConveyoR Privacy Policy',['../md_doc_2privacy__policy.html',1,'']]],
+  ['protocol_20wcp_2',['RFC - WinConveyoR Communication Protocol (WCP)',['../md_doc_2protocol__rfc.html',1,'']]]
 ];

@@ -18,5 +18,7 @@ def connect_command(cli, /, password, response):
 
     session = response.content["data"]["session_id"]
     cli.client.sessions[session] = Session(cli.client, session_id=session)
+    cli.client.sessions[session].set_flags((1 << 0))
+    cli.client.sessions[session].set_flags((1 << 1))
     cli.active_session = session
     cli.prompt = cli.prompt_session.replace("$session_id", hex(cli.active_session).split('0x')[-1])

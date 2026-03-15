@@ -64,12 +64,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CLI.html",
-"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a9db218223666714b3e71df5383985f61",
-"classsrc_1_1network_1_1message_1_1Message.html#a1a9628cb7da77a4d79547fc8263149d5",
-"classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html#aa9873c1e1163e42e3c0baad6f872332a",
-"classwcrpackager_1_1PackageWizard.html#a447560f6efa0f8f2eb746c61703804d8",
-"libwconr_8h.html#a1815617a622e3776dc61ecf67def9157",
-"struct__http__request__parser__s.html#a6889a09ce8eb0233b7b83c547450ffcf"
+"classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a4518bebe45b07db6a00a9c60e9377552",
+"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ae0b7d20cdd15b9837587e59c68071b0f",
+"classsrc_1_1network_1_1client_1_1ClientSocket.html#aa90ea920b45436e8dc04fef3316c694a",
+"classsrc_1_1scheduler_1_1clock_1_1Clock.html#acad24d923d9cb251a248fc59f84362dc",
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a83f047018641811d2a6049a3613d1adc",
+"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html#a0cf418fd9fc3849e40cb1059cbc43d2d",
+"functions_m.html",
+"namespacesrc_1_1common_1_1clock.html",
+"structvm__iset__s.html#a26f8f596270f058f7cb58524cf9ef4ed"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

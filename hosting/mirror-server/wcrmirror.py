@@ -4,9 +4,17 @@ from sys import exit
 from sys import argv
 from os import environ
 from src import *
+from src.arghandler import *
 from dotenv import load_dotenv, find_dotenv
+from json import dumps
+from hashlib import sha256
+
+import sys
 
 load_dotenv(find_dotenv())
+
+FLAG_ADMIN = (1 << 0)
+FLAG_USER = (1 << 1)
 
 class Router(object):
     def __init__(self):
@@ -52,47 +60,87 @@ class WCRHandler(Handler):
         if ("action" not in message.content or "data" not in message.content):
             return self.error(client, server, "missing fields in json.")
         
-        self._router.route(message.content["action"], client, server, message)
+        try:
+            self._router.route(message.content["action"], client, server, message)
+        except Exception as e:
+            print(f"error: {e}")
+            return self.error(client, server, f"server error: {e}.")
 
-def protected_route(route):
-    def wrapper(client: Client, server: Server, message: JSONMessage):
-        if ("session_id" not in message.content["data"]):
-            client.write(JSONMessage({
-                "action": message.content["action"],
-                "data": {
-                    "msg": "ko"
-                },
-                "code": 1
-            }))
+def protected_route(flags = FLAG_ADMIN):
+    def protected_route_wrapper(route):
+        def wrapper(client: Client, server: Server, message: JSONMessage):
+            if ("session_id" not in message.content["data"]):
+                client.write(JSONMessage({
+                    "action": message.content["action"],
+                    "data": {
+                        "msg": "ko"
+                    },
+                    "code": 1
+                }))
 
-            return
-        
-        session_id = message.content["data"]["session_id"]
+                return
+            
+            session_id = message.content["data"]["session_id"]
 
-        if (session_id not in server.sessions):
-            client.write(JSONMessage({
-                "action": message.content["action"],
-                "data": {
-                    "msg": "invalid_session_id"
-                },
-                "code": 1
-            }))
+            if (session_id not in server.sessions):
+                client.write(JSONMessage({
+                    "action": message.content["action"],
+                    "data": {
+                        "msg": "invalid_session_id"
+                    },
+                    "code": 1
+                }))
 
-            return
+                return
 
-        if (server.sessions[session_id].client != client):
-            client.write(JSONMessage({
-                "action": message.content["action"],
-                "data": {
-                    "msg": "unauthorized_session"
-                },
-                "code": 1
-            }))
+            if (server.sessions[session_id].client != client):
+                client.write(JSONMessage({
+                    "action": message.content["action"],
+                    "data": {
+                        "msg": "unauthorized_session"
+                    },
+                    "code": 1
+                }))
 
-            return
+                return
+            
+            if (not server.sessions[session_id].has_flags(flags)):
+                client.write(JSONMessage({
+                    "action": message.content["action"],
+                    "data": {
+                        "msg": "permission_not_match"
+                    },
+                    "code": 1
+                }))
 
-        return route(client, server, message, session=server.sessions[session_id])
-    return (wrapper)
+                return
+
+            return route(client, server, message, session=server.sessions[session_id])
+        return (wrapper)
+    return (protected_route_wrapper)
+
+def route_init_rsa(client: Client, server: Server, message: JSONMessage):
+    if ("key" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+
+    client.set_public_key(PublicSecurityKey.from_string(message.content["data"]["key"]))
+
+    client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ok"
+            },
+            "code": 0
+        }))
 
 def route_hello(client: Client, server: Server, message: JSONMessage):
     client.write(JSONMessage({
@@ -114,7 +162,7 @@ def route_goodbye(client: Client, server: Server, message: JSONMessage):
 
     server.clients[client.get_id()].close()
 
-@protected_route
+@protected_route(FLAG_ADMIN)
 def route_list_packages(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     client.write(JSONMessage({
         "action": message.content["action"],
@@ -148,6 +196,7 @@ def route_connect(client: Client, server: Server, message: JSONMessage):
         return
 
     S = Session(client, session_instance=MirrorServer("." if "WCR_DIR" not in environ else environ["WCR_DIR"], load=True))
+    S.set_flags(FLAG_ADMIN | FLAG_USER)
 
     server.sessions[S.get_id()] = S
 
@@ -160,7 +209,154 @@ def route_connect(client: Client, server: Server, message: JSONMessage):
         "code": 0
     }))
 
-@protected_route
+def route_user(client: Client, server: Server, message: JSONMessage):
+    if ("password" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    if ("WCR_ACCESS" in environ and message.content["data"]["password"] != environ["WCR_ACCESS"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "invalid_password"
+            },
+            "code": 1
+        }))
+
+        return
+
+    S = Session(client, session_instance=MirrorServer("." if "WCR_DIR" not in environ else environ["WCR_DIR"], load=True))
+    S.set_flags(FLAG_USER)
+
+    server.sessions[S.get_id()] = S
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok",
+            "session_id": S.get_id()
+        },
+        "code": 0
+    }))
+
+@protected_route(FLAG_USER)
+def route_get_hash(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    session.session_instance.load()
+
+    client.write(Message(Message.MAGIC, 0x00, session.session_instance.checksum))
+
+@protected_route(FLAG_USER)
+def route_get_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    session.session_instance.load()
+
+    client.write(Message(Message.MAGIC, 0x00, '\r\n'.join(f"{item.name} {item.latest} {item.hash}" for item in session.session_instance.packages.values())))
+
+@protected_route(FLAG_USER)
+def route_get_package_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    session.session_instance.load()
+
+    if (message.content["data"]["package_name"] not in session.session_instance.packages):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+
+    package_name = message.content["data"]["package_name"]
+    package = session.session_instance.packages[package_name]
+
+    package.load()
+
+    client.write(Message(Message.MAGIC, 0x00, '\r\n'.join(f"{item.version} {item.architecture} {item.machine} {sha256(str(item.location).encode(errors="replace")).hexdigest()}" for item in package.listing.values())))
+
+@protected_route(FLAG_USER)
+def route_get_package_metadata(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    if ("location_hash" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    session.session_instance.load()
+
+    if (message.content["data"]["package_name"] not in session.session_instance.packages):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+
+    package_name = message.content["data"]["package_name"]
+    location_hash = int(message.content["data"]["location_hash"], base=16)
+    package = session.session_instance.packages[package_name]
+    package_listing = None
+
+    package.load()
+
+    for item in package.listing.values():
+        if (int.from_bytes(sha256(str(item.location).encode(errors="replace")).digest(), "big") != location_hash):
+            continue
+        package_listing = item
+        break
+
+    if (not package_listing):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    package_listing.load()
+
+    client.write(Message(Message.MAGIC, 0x00, dumps(package_listing.package_data)))
+
+@protected_route(FLAG_ADMIN)
 def route_write(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.session_instance.write()
 
@@ -174,7 +370,7 @@ def route_write(client: Client, server: Server, message: JSONMessage, /, session
         "code": 0
     }))
 
-@protected_route
+@protected_route(FLAG_ADMIN)
 def route_disconnect(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.close()
     del server.sessions[session.get_id()]
@@ -187,18 +383,56 @@ def route_disconnect(client: Client, server: Server, message: JSONMessage, /, se
         "code": 0
     }))
 
+
+
 def main():
+    argsettings = ArgumentParserSettings(1, 1)
+
+    argsettings.define_argument(str, "program")
+
+    argsettings.define_parameter("--port", int)
+    argsettings.define_parameter("--host", str)
+
+    argsettings.define_option("-h", is_help=True)
+    argsettings.define_option("--help", is_help=True)
+    argsettings.define_option("-?", is_help=True)
+
+    argsettings.validate()
+
+    try:
+        argparser = ArgumentParser(argv, argsettings)
+    except ArgumentHandlerException as e:
+        sys.stderr.write(f"{argv[0]}: {e}\n")
+        return (1)
+
+    if ("-h" in argparser.options or "--help" in argparser.options or "-?" in argparser.options):
+        help_message = f"Usage: $prgm_name [options] $args\nOptions:\n$options"
+        args = ''.join(str(item.name) if i < argsettings.min_argv - 1 else f"({item.name})" for i, item in enumerate(argsettings.arguments[1:]))
+        options = '  ' + '\n  '.join(item.name for item in (list(argsettings.parameters.values()) + list(argsettings.options.values())))
+
+        print(help_message.replace("$prgm_name", str(argparser.arguments[0].value)).replace("$args", args).replace("$options", options))
+        return (0)
+
     if ("WCR_PASSWORD" not in environ):
         print("warning: no password set anyone can edit.")
-    # if ("WCR_ACCESS" not in environ):
-    #     print("warning: no access key set anyone can download packages.")
-    # if ("WCR_RSA" not in environ):
-    #     print("warning: no rsa encryption, requests are plain text.")
+    if ("WCR_ACCESS" not in environ):
+        print("warning: no access key set anyone can download packages.")
+    if ("WCR_RSA" not in environ):
+        print("warning: no rsa encryption, requests are plain text.")
+    if ("WCR_RSA_PASS" not in environ):
+        print("warning: no rsa key password, using 'None' as password.")
     if ("WCR_DIR" not in environ):
         print("warning: no directory path given for source server data using '.'.")
 
     try:
-        S = Server()
+        if ("WCR_RSA" in environ):
+            Message.PRIVATE_KEY = PrivateSecurityKey.from_file(environ["WCR_RSA"], environ.get("WCR_RSA_PASS"))
+    except Exception as e:
+        print(f"failed to load rsa key. ({e})")
+        return (1)
+
+    try:
+        S = Server("0.0.0.0" if "--host" not in argparser.parameters else argparser.parameters["--host"].value, 1674 if "--port" not in argparser.parameters else argparser.parameters["--port"].value)
     except ConnectionError as e:
         print(f"failed to create server. ({e})")
         return (1)
@@ -206,9 +440,15 @@ def main():
 
     R.add_route("hello", route_hello)
     R.add_route("connect", route_connect)
+    R.add_route("init_rsa", route_init_rsa)
     R.add_route("disconnect", route_disconnect)
     R.add_route("list_packages", route_list_packages)
     R.add_route("write", route_write)
+    R.add_route("user", route_user)
+    R.add_route("get_hash", route_get_hash)
+    R.add_route("get_listing", route_get_listing)
+    R.add_route("get_package_listing", route_get_package_listing)
+    R.add_route("get_package_metadata", route_get_package_metadata)
     R.add_route("goodbye", route_goodbye)
 
     S.set_handler(WCRHandler(R))

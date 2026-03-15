@@ -3,7 +3,14 @@ SRC	=	./src/wcr_state.c	\
 		./src/http_headers.c	\
 		./src/http_request.c \
 		./src/http_response.c \
-		./src/download_package.c
+		./src/download_package.c \
+		./src/pars_wizard.c \
+		./src/wizard_endian.c \
+		./src/wizard_section.c \
+		./src/vm.c \
+		./src/vm_parse.c \
+		./src/vm_decode.c \
+		./src/vm_handlers.c
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -13,8 +20,8 @@ EXT		?=	so
 CC		?=	gcc
 CFLAGS	+=	-Wall -Wshadow -Wextra -Wdouble-promotion -Waggregate-return -Wstrict-prototypes \
 			-pedantic -Werror -Wformat -Wcast-qual -Wconversion -Winit-self	\
-			-I ./ -fPIC -O2
-LDFLAGS	+=	-lm
+			-I ./ -I /usr/include/libxml2 -fPIC -O2
+LDFLAGS	+=	-lm -lxml2
 
 ifeq ($(OS), Windows_NT)
 	SRC += ./src/win/http.c

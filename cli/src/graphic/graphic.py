@@ -1,5 +1,6 @@
 from os import get_terminal_size
 from re import compile as compile_regex
+from os import write
 
 import sys
 
@@ -26,12 +27,19 @@ class Graphic(object):
 
         self._display = []
         self._elements = []
-        self._prev_sz = []
+        self._prev_sz = 0
 
         if (self._settings.mode == MODE_DISPLAY_NO_ANIMATION):
             self.size = (0, 0)
         else:
             self.size = get_terminal_size(sys.stdout.fileno())
+
+    def clear_state(self):
+        self._display.clear()
+        self._elements.clear()
+        self._prev_sz = 0
+
+        print('\r')
 
     def add_elements(self, element):
         self._elements.append(GraphicElement(element, len(self._elements)))
@@ -61,14 +69,17 @@ class Graphic(object):
         return (text)
 
     def draw(self, clear=True):
-        strings = ""
+        strings = bytearray()
 
         if (self._settings.ansi and self._settings.mode != MODE_DISPLAY_NO_ANIMATION):
-            if (len(self._prev_sz) > 1):
-                strings += (f"\033[{len(self._prev_sz) - 1}A\r")
-            if (clear and len(self._prev_sz)):
-                strings += ('\r\n'.join(map(lambda x: x[1] * ' ' if x[0] != (len(self._prev_sz) - 1) else ' ' * self.size[0], enumerate(self._prev_sz))))
-                strings += (f"\033[{len(self._prev_sz) - 1 if len(self._prev_sz) > 1 else 1}A\r")
+            if (self._prev_sz > 1):
+                strings.extend(f"\033[{self._prev_sz - 1}A\r".encode())
+            if (clear and self._prev_sz):
+                strings.extend(b'\r')
+                strings.extend(b'\033[0K\r\n' * (self._prev_sz - 1))
+                strings.extend(b"\033[0K")
+                if (self._prev_sz > 1):
+                    strings.extend((f"\033[{self._prev_sz - 1}A\r").encode())
 
         for item in self._elements:
             if (not hasattr(item.element, "build")):
@@ -78,17 +89,16 @@ class Graphic(object):
             if (self._settings.mode != MODE_DISPLAY_NO_ANIMATION):
                 while (item.allocated_pos >= len(self._display)):
                     self._display.append("")
-
                 self._display[item.allocated_pos] = item.element.build()
             else:
                 self._display.insert(item.allocated_pos, item.element.build())
 
-        self._prev_sz = list(map(lambda x: len(self.remove_ansi(x)), self._display))
+        self._prev_sz = sum(map(lambda x: len(self.remove_ansi(x).split('\n')), self._display))
 
-        strings += ('\n'.join(map(self._lex_string, self._display)))
+        strings.extend('\n'.join(map(self._lex_string, self._display)).encode())
 
         if (self._settings.mode == MODE_DISPLAY_NO_ANIMATION):
-            strings += '\n'
+            strings.extend(b'\n')
             self._display.clear()
-        sys.stdout.write(strings)
+        write(sys.stdout.fileno(), bytes(strings))
         sys.stdout.flush()

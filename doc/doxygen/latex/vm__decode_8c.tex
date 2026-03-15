@@ -1,0 +1,73 @@
+\doxysection{lib/libwconr/src/vm\+\_\+decode.c File Reference}
+\hypertarget{vm__decode_8c}{}\label{vm__decode_8c}\index{lib/libwconr/src/vm\_decode.c@{lib/libwconr/src/vm\_decode.c}}
+{\ttfamily \#include "{}vm\+\_\+internal.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{vm__decode_8c_a38886aa39c451f7f87db4032b6794ded}{vm\+\_\+free\+\_\+str\+\_\+partial}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data, uint32\+\_\+t \texorpdfstring{$\ast$}{*}lens, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__decode_8c_a8e1acfbe021cbdd1fe04531520ac5823}{vm\+\_\+decode\+\_\+str}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out, int is\+\_\+array)
+\item 
+static int \mbox{\hyperlink{vm__decode_8c_a240bd696fc20d21f3146eb735c28eba0}{vm\+\_\+decode\+\_\+u8}} (const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out, int is\+\_\+array)
+\item 
+static int \mbox{\hyperlink{vm__decode_8c_ac58dcc0eafd8451e32aa984ca97b8c9d}{vm\+\_\+decode\+\_\+u16}} (const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out, int is\+\_\+array)
+\item 
+static int \mbox{\hyperlink{vm__decode_8c_a3c1195b333dc77a4ab7b5d550e6962e7}{vm\+\_\+decode\+\_\+u32}} (const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out, int is\+\_\+array)
+\item 
+static int \mbox{\hyperlink{vm__decode_8c_af150eaf7632c6f5afcb392ab324a3f35}{vm\+\_\+decode\+\_\+u64}} (const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out, int is\+\_\+array)
+\item 
+int \mbox{\hyperlink{vm__decode_8c_a91cdd473adaf6e69f1b93cb126a63de1}{vm\+\_\+decode\+\_\+arg}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}} type, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out)
+\item 
+void \mbox{\hyperlink{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+free\+\_\+args}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{vm__decode_8c_a91cdd473adaf6e69f1b93cb126a63de1}\label{vm__decode_8c_a91cdd473adaf6e69f1b93cb126a63de1} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_arg@{vm\_decode\_arg}}
+\index{vm\_decode\_arg@{vm\_decode\_arg}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_arg()}{vm\_decode\_arg()}}
+{\footnotesize\ttfamily int vm\+\_\+decode\+\_\+arg (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}}]{type,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
+\Hypertarget{vm__decode_8c_a8e1acfbe021cbdd1fe04531520ac5823}\label{vm__decode_8c_a8e1acfbe021cbdd1fe04531520ac5823} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_str@{vm\_decode\_str}}
+\index{vm\_decode\_str@{vm\_decode\_str}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_str()}{vm\_decode\_str()}}
+{\footnotesize\ttfamily static int vm\+\_\+decode\+\_\+str (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out,  }\item[{int}]{is\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__decode_8c_ac58dcc0eafd8451e32aa984ca97b8c9d}\label{vm__decode_8c_ac58dcc0eafd8451e32aa984ca97b8c9d} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_u16@{vm\_decode\_u16}}
+\index{vm\_decode\_u16@{vm\_decode\_u16}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_u16()}{vm\_decode\_u16()}}
+{\footnotesize\ttfamily static int vm\+\_\+decode\+\_\+u16 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out,  }\item[{int}]{is\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__decode_8c_a3c1195b333dc77a4ab7b5d550e6962e7}\label{vm__decode_8c_a3c1195b333dc77a4ab7b5d550e6962e7} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_u32@{vm\_decode\_u32}}
+\index{vm\_decode\_u32@{vm\_decode\_u32}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_u32()}{vm\_decode\_u32()}}
+{\footnotesize\ttfamily static int vm\+\_\+decode\+\_\+u32 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out,  }\item[{int}]{is\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__decode_8c_af150eaf7632c6f5afcb392ab324a3f35}\label{vm__decode_8c_af150eaf7632c6f5afcb392ab324a3f35} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_u64@{vm\_decode\_u64}}
+\index{vm\_decode\_u64@{vm\_decode\_u64}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_u64()}{vm\_decode\_u64()}}
+{\footnotesize\ttfamily static int vm\+\_\+decode\+\_\+u64 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out,  }\item[{int}]{is\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__decode_8c_a240bd696fc20d21f3146eb735c28eba0}\label{vm__decode_8c_a240bd696fc20d21f3146eb735c28eba0} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_u8@{vm\_decode\_u8}}
+\index{vm\_decode\_u8@{vm\_decode\_u8}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_decode\_u8()}{vm\_decode\_u8()}}
+{\footnotesize\ttfamily static int vm\+\_\+decode\+\_\+u8 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out,  }\item[{int}]{is\+\_\+array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}\label{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_free\_args@{vm\_free\_args}}
+\index{vm\_free\_args@{vm\_free\_args}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_free\_args()}{vm\_free\_args()}}
+{\footnotesize\ttfamily void vm\+\_\+free\+\_\+args (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\Hypertarget{vm__decode_8c_a38886aa39c451f7f87db4032b6794ded}\label{vm__decode_8c_a38886aa39c451f7f87db4032b6794ded} 
+\index{vm\_decode.c@{vm\_decode.c}!vm\_free\_str\_partial@{vm\_free\_str\_partial}}
+\index{vm\_free\_str\_partial@{vm\_free\_str\_partial}!vm\_decode.c@{vm\_decode.c}}
+\doxysubsubsection{\texorpdfstring{vm\_free\_str\_partial()}{vm\_free\_str\_partial()}}
+{\footnotesize\ttfamily static void vm\+\_\+free\+\_\+str\+\_\+partial (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{lens,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+

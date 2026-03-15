@@ -15,6 +15,7 @@ var classsrc_1_1cli_1_1cli_1_1CLI =
     [ "run", "classsrc_1_1cli_1_1cli_1_1CLI.html#a7c7f7f4c15235aa1bbb933a5958165a8", null ],
     [ "show_help", "classsrc_1_1cli_1_1cli_1_1CLI.html#a9db353fcd675457e0a0487857ea275a8", null ],
     [ "_graphic", "classsrc_1_1cli_1_1cli_1_1CLI.html#ac6286154b4090bf6aa26362b0fac34c9", null ],
+    [ "_pipes", "classsrc_1_1cli_1_1cli_1_1CLI.html#a4aca4e8ced588b0c86efe8cdc94102c3", null ],
     [ "argparser", "classsrc_1_1cli_1_1cli_1_1CLI.html#a0cdd7a423a950984505ce95294ccaace", null ],
     [ "argsettings", "classsrc_1_1cli_1_1cli_1_1CLI.html#aeb2f49e0d4e0dd889c4df7a8fdd90a36", null ],
     [ "OPTION_TABLE", "classsrc_1_1cli_1_1cli_1_1CLI.html#aee7b2f34360fe31e3e95652c8e39632f", null ],

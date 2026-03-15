@@ -12,9 +12,8 @@ class MirrorServer(object):
     def __init__(self, location: str = None, backup_path: str = None, /, load: bool = False, recursive_load: bool = False, register_path = "register", packages_path = "pkgs", metadata_path = "pkgs"):
         if (location):
             location = abspath(location)
-            self.checksum: str = hash_file(join(location, "pkgs.list"))
-        else:
-            self.checksum = 0
+
+        self.checksum = "CD" * 32
         self.packages: dict = {}
 
         self.register_path = register_path.replace('\\', '/')
@@ -76,6 +75,8 @@ class MirrorServer(object):
     def load(self):
         if (not self.location):
             return
+        
+        self.checksum: str = hash_file(join(self.location, "pkgs.list"))
 
         if (isfile(join(self.location, "pkgs.list"))):
             with open(join(self.location, "pkgs.list"), 'r') as fp:
