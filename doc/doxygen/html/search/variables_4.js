@@ -1,7 +1,7 @@
 var searchData=
 [
   ['darwin_5fpltf_0',['DARWIN_PLTF',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html#ac2d0629cef1f28bd89834b8b31c3c300',1,'src::wrappers::libwconr::_libwconr::SUPPORTED_PLATFORMS']]],
-  ['data_1',['data',['../classsrc_1_1cache_1_1cache_1_1CacheService.html#a8c2e32e2742288c3609e991ea749ca5a',1,'src.cache.cache.CacheService.data'],['../structvm__arg__value.html#ae63bcb4758602cfe136421f00b79b9e0',1,'vm_arg_value::data']]],
+  ['data_1',['data',['../classsrc_1_1cache_1_1cache_1_1CacheService.html#a8c2e32e2742288c3609e991ea749ca5a',1,'src.cache.cache.CacheService.data'],['../structmemory__buffer__s.html#a846e690a530ccd4f691d027d94af4936',1,'memory_buffer_s::data'],['../structvm__arg__value.html#ae63bcb4758602cfe136421f00b79b9e0',1,'vm_arg_value::data']]],
   ['data_5ftypes_2',['data_types',['../classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html#a8762681a40c6fd5f635f3640376f8b0d',1,'src::wizard::instruction_loader::InstructionLoader']]],
   ['database_5furl_3',['DATABASE_URL',['../classcore_1_1config_1_1Settings.html#a9b3bbdad8d4185c4f35d9025c91b6f6f',1,'core::config::Settings']]],
   ['db_4',['db',['../classrepository_1_1Repository.html#a38ef35e0cc5c2fc7f16a0c6bbca30561',1,'repository::Repository']]],

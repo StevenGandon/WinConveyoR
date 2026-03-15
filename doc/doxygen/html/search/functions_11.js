@@ -8,5 +8,6 @@ var searchData=
   ['show_5fhelp_5',['show_help',['../classsrc_1_1cli_1_1cli_1_1CLI.html#a9db353fcd675457e0a0487857ea275a8',1,'src::cli::cli::CLI']]],
   ['start_5fregisering_5fundo_6',['start_regisering_undo',['../classsrc_1_1undo_1_1undo__stack_1_1UndoStack.html#a6b0ff515fc8b101182df1e3c21e482bf',1,'src::undo::undo_stack::UndoStack']]],
   ['store_7',['store',['../classsrc_1_1cache_1_1cache_1_1CacheService.html#af8d63ff2743a40afbbf43c1afbe1a687',1,'src::cache::cache::CacheService']]],
-  ['switch_5fsession_5fcommand_8',['switch_session_command',['../namespacesrc_1_1cli_1_1commands_1_1switch__session.html#a46e4ad47f8029f06eced82eeb0935199',1,'src::cli::commands::switch_session']]]
+  ['switch_5fsession_5fcommand_8',['switch_session_command',['../namespacesrc_1_1cli_1_1commands_1_1switch__session.html#a46e4ad47f8029f06eced82eeb0935199',1,'src::cli::commands::switch_session']]],
+  ['sync_5fpackage_5flist_9',['sync_package_list',['../source__metadata__update_8c.html#adb4ebdc3e5adf83dc33a1378e59ef0c0',1,'sync_package_list(const char *source_uri):&#160;source_metadata_update.c'],['../source__metadata__update_8h.html#adb4ebdc3e5adf83dc33a1378e59ef0c0',1,'sync_package_list(const char *source_uri):&#160;source_metadata_update.c']]]
 ];

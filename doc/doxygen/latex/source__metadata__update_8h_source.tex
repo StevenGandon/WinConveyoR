@@ -1,0 +1,50 @@
+\doxysection{source\+\_\+metadata\+\_\+update.\+h}
+\hypertarget{source__metadata__update_8h_source}{}\label{source__metadata__update_8h_source}\index{lib/libwconr/src/source\_metadata\_update.h@{lib/libwconr/src/source\_metadata\_update.h}}
+\mbox{\hyperlink{source__metadata__update_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SOURCE\_METADATA\_UPDATE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ SOURCE\_METADATA\_UPDATE\_H}}
+\DoxyCodeLine{00003\ \ \ \ \ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdio.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdlib.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\ \ \ \ \#include\ <string.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ \#include\ <curl/curl.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \#include\ <openssl/sha.h>}}
+\DoxyCodeLine{00009\ \ \ \ \ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <windows.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <sys/stat.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ stat\ \_stat}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ access\ \_access}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#define\ F\_OK\ 0}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <unistd.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <sys/stat.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \#define\ READ\_BUFFER\_SIZE\ 4096}}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmemory__buffer__s}{memory\_buffer\_s}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmemory__buffer__s_a846e690a530ccd4f691d027d94af4936}{data}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structmemory__buffer__s_a594c50aec585b08aac468af825d9c38a}{size}};}
+\DoxyCodeLine{00026\ \ \ \ \ \};}
+\DoxyCodeLine{00027\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsync__resources__s}{sync\_resources\_s}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsync__resources__s_a9c7f2159da7bf00daa1c54826e42d5c1}{pkgs\_list\_url}};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsync__resources__s_a3f118e8b0183413c8145ff39823eaaab}{checksum\_url}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsync__resources__s_aa04ac06aa3e17dbf985c15d641a3dd87}{pkgs\_list\_path}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsync__resources__s_a0c835dd6a215bcfe13150f34aabb90ca}{remote\_checksum}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structsync__resources__s_a7071b44e53858568ef78c15284c1a1c8}{local\_checksum}};}
+\DoxyCodeLine{00034\ \ \ \ \ \};}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{source__metadata__update_8h_aa3bb8f34848fa4f54f46489e5c9a88f4}{get\_cache\_path}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{source__metadata__update_8h_a5d46b3afc54723ad21fbcfbfebd197c8}{calculate\_sha256\_file}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filepath);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{source__metadata__update_8h_a4d7f67ad225ca3212923c19479803b98}{write\_memory\_callback}}(\textcolor{keywordtype}{void}\ *contents,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ nmemb,\ \textcolor{keywordtype}{void}\ *userp);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{source__metadata__update_8h_aabc99aeb4554e6f7353c248e368a54c5}{download\_to\_string}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{source__metadata__update_8h_ab0b444a8ac5ad5275397e4b4de6842da}{download\_to\_file}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filepath);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{source__metadata__update_8h_ae0675c0cef2da2915e79c1338848cab7}{cleanup\_sync\_resources}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structsync__resources__s}{sync\_resources\_s}}\ *res,\ \textcolor{keywordtype}{int}\ result);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{source__metadata__update_8h_adb4ebdc3e5adf83dc33a1378e59ef0c0}{sync\_package\_list}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source\_uri);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOURCE\_METADATA\_UPDATE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

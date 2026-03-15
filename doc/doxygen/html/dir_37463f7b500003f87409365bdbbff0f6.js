@@ -10,6 +10,8 @@ var dir_37463f7b500003f87409365bdbbff0f6 =
     [ "http_response.c", "http__response_8c.html", "http__response_8c" ],
     [ "pars_wizard.c", "pars__wizard_8c.html", "pars__wizard_8c" ],
     [ "platform_types.h", "platform__types_8h.html", null ],
+    [ "source_metadata_update.c", "source__metadata__update_8c.html", "source__metadata__update_8c" ],
+    [ "source_metadata_update.h", "source__metadata__update_8h.html", "source__metadata__update_8h" ],
     [ "vm.c", "vm_8c.html", "vm_8c" ],
     [ "vm_decode.c", "vm__decode_8c.html", "vm__decode_8c" ],
     [ "vm_handlers.c", "vm__handlers_8c.html", "vm__handlers_8c" ],

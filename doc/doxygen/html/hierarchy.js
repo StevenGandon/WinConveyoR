@@ -34,6 +34,7 @@ var hierarchy =
         [ "src.graphic.pattern.exceptions.PatternXMLParseError", "classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html", null ]
       ] ]
     ] ],
+    [ "memory_buffer_s", "structmemory__buffer__s.html", null ],
     [ "object", null, [
       [ "main.Daemon", "classmain_1_1Daemon.html", null ],
       [ "src.arghandler.ArgumentParser", "classsrc_1_1arghandler_1_1ArgumentParser.html", null ],
@@ -124,6 +125,7 @@ var hierarchy =
     ] ],
     [ "source_handler_s", "structsource__handler__s.html", null ],
     [ "source_mirror_s", "structsource__mirror__s.html", null ],
+    [ "sync_resources_s", "structsync__resources__s.html", null ],
     [ "T", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],

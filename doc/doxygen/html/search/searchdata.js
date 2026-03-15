@@ -9,7 +9,7 @@ var indexSectionsWithContent =
   6: "vw",
   7: "sv",
   8: "adginuvx",
-  9: "chisvw",
+  9: "chirsvw",
   10: "cdgmprtw"
 };
 
