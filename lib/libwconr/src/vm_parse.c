@@ -19,11 +19,21 @@ static struct vm_arg_type vm_parse_type(const char *type_str)
         len -= 2;
     }
 
-    if (len == 3 && strncmp(type_str, "str", 3) == 0) { t.base = VM_BASE_STR; return (t); }
-    if (len == 2 && strncmp(type_str, "u8",  2) == 0) { t.base = VM_BASE_U8;  return (t); }
-    if (len == 3 && strncmp(type_str, "u16", 3) == 0) { t.base = VM_BASE_U16; return (t); }
-    if (len == 3 && strncmp(type_str, "u32", 3) == 0) { t.base = VM_BASE_U32; return (t); }
-    if (len == 3 && strncmp(type_str, "u64", 3) == 0) { t.base = VM_BASE_U64; return (t); }
+    unsigned int bits = 0;
+    size_t       j;
+
+    if (strstr(type_str, "str") != NULL) { t.base = VM_BASE_STR; return (t); }
+
+    for (j = 0; j < len; j++) {
+        if (type_str[j] >= '0' && type_str[j] <= '9')
+            bits = bits * 10 + (unsigned int)(type_str[j] - '0');
+    }
+    switch (bits / 8) {
+        case 1: t.base = VM_BASE_U8;  return (t);
+        case 2: t.base = VM_BASE_U16; return (t);
+        case 4: t.base = VM_BASE_U32; return (t);
+        case 8: t.base = VM_BASE_U64; return (t);
+    }
     return (t);
 }
 
