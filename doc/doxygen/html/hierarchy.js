@@ -4,6 +4,12 @@ var hierarchy =
     [ "_http_header_s", "struct__http__header__s.html", null ],
     [ "_http_request_parser_s", "struct__http__request__parser__s.html", null ],
     [ "_http_response_parser_s", "struct__http__response__parser__s.html", null ],
+    [ "_wizard_ctx_s", "struct__wizard__ctx__s.html", null ],
+    [ "_wizard_file_header_raw_s", "struct__wizard__file__header__raw__s.html", null ],
+    [ "_wizard_section_entry_raw_s", "struct__wizard__section__entry__raw__s.html", null ],
+    [ "_wizard_section_header_raw_s", "struct__wizard__section__header__raw__s.html", null ],
+    [ "_wizard_strndx_entry_raw_s", "struct__wizard__strndx__entry__raw__s.html", null ],
+    [ "_wizard_vm_s", "struct__wizard__vm__s.html", null ],
     [ "cached_source_s", "structcached__source__s.html", null ],
     [ "core.config.Settings.Config", "classcore_1_1config_1_1Settings_1_1Config.html", null ],
     [ "schemas.user.UserOut.Config", "classschemas_1_1user_1_1UserOut_1_1Config.html", null ],
@@ -121,6 +127,13 @@ var hierarchy =
     [ "T", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],
+    [ "vm_arg_def", "structvm__arg__def.html", null ],
+    [ "vm_arg_type", "structvm__arg__type.html", null ],
+    [ "vm_arg_value", "structvm__arg__value.html", null ],
+    [ "vm_handler_entry", "structvm__handler__entry.html", null ],
+    [ "vm_handler_version", "structvm__handler__version.html", null ],
+    [ "vm_iset_s", "structvm__iset__s.html", null ],
+    [ "vm_op_def", "structvm__op__def.html", null ],
     [ "wcr_state_s", "structwcr__state__s.html", null ],
     [ "wcr_system_s", "structwcr__system__s.html", null ],
     [ "Base", null, [

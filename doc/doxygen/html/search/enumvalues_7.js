@@ -1,26 +1,4 @@
 var searchData=
 [
-  ['hcache_5fmulti_0',['HCACHE_MULTI',['../structNames.html#a44d9ed06e1acf9fb593eadaf373dcaeba9a1270ccdd4884357434ecb335a6ec33',1,'Names']]],
-  ['hcache_5fnone_1',['HCACHE_NONE',['../structNames.html#a44d9ed06e1acf9fb593eadaf373dcaebac87e61eecf719a87b4bc9ea09a38dea4',1,'Names']]],
-  ['hcache_5fshared_2',['HCACHE_SHARED',['../structNames.html#a44d9ed06e1acf9fb593eadaf373dcaeba0003954404754f4516221ecdda9f42d4',1,'Names']]],
-  ['header_5fallbad_3',['HEADER_ALLBAD',['../structSingleRequest.html#a6bcefdda7c99b06ae58b0c6b383b826ca6a1237a08b80b653a99c1db76b8fbd30',1,'SingleRequest']]],
-  ['header_5fconnect_4',['HEADER_CONNECT',['../build_2__deps_2curl-src_2lib_2http_8c.html#ab0c856a8320e36a478b5fd2422ef023aac767d19d173d1415044b28924e5b77bf',1,'http.c']]],
-  ['header_5fnormal_5',['HEADER_NORMAL',['../structSingleRequest.html#a6bcefdda7c99b06ae58b0c6b383b826cab59914b6ef45864cb1a968f19fdf4588',1,'SingleRequest']]],
-  ['header_5fpartheader_6',['HEADER_PARTHEADER',['../structSingleRequest.html#a6bcefdda7c99b06ae58b0c6b383b826ca2f41dfd2516fec41c456bb75df75a805',1,'SingleRequest']]],
-  ['header_5fproxy_7',['HEADER_PROXY',['../build_2__deps_2curl-src_2lib_2http_8c.html#ab0c856a8320e36a478b5fd2422ef023aa438fe9dc3e5064d4ea041361fe94e4ac',1,'http.c']]],
-  ['header_5fserver_8',['HEADER_SERVER',['../build_2__deps_2curl-src_2lib_2http_8c.html#ab0c856a8320e36a478b5fd2422ef023aab7de5afd8b165fdeccb65768c449b064',1,'http.c']]],
-  ['hostfound_9',['HOSTFOUND',['../netrc_8c.html#a6da21ec67471a61686de6c35094e360da46e80a2a6548e893772f3ce0fbff9ad2',1,'netrc.c']]],
-  ['hostvalid_10',['HOSTVALID',['../netrc_8c.html#a6da21ec67471a61686de6c35094e360da5a327b3e362c1ab61cda9b07d2266e2c',1,'netrc.c']]],
-  ['httpreq_5fget_11',['HTTPREQ_GET',['../http_8h.html#ac67e77846b7b67d5808da8f1dfa2eab8ae4322de705c516b61756f9874183ef05',1,'HTTPREQ_GET:&#160;http.h'],['../tool__sdecls_8h.html#ae61fdc45d6c635cc61c2f4c3f62bcfbcae4322de705c516b61756f9874183ef05',1,'HTTPREQ_GET:&#160;tool_sdecls.h']]],
-  ['httpreq_5fhead_12',['HTTPREQ_HEAD',['../http_8h.html#ac67e77846b7b67d5808da8f1dfa2eab8aca19517adc74c705bb46cd5f505f3456',1,'HTTPREQ_HEAD:&#160;http.h'],['../tool__sdecls_8h.html#ae61fdc45d6c635cc61c2f4c3f62bcfbcaca19517adc74c705bb46cd5f505f3456',1,'HTTPREQ_HEAD:&#160;tool_sdecls.h']]],
-  ['httpreq_5fmimepost_13',['HTTPREQ_MIMEPOST',['../tool__sdecls_8h.html#ae61fdc45d6c635cc61c2f4c3f62bcfbcaaef5b19917c34226ecf3446e1fe4ea25',1,'tool_sdecls.h']]],
-  ['httpreq_5fpost_14',['HTTPREQ_POST',['../http_8h.html#ac67e77846b7b67d5808da8f1dfa2eab8aae19a0f63b68ec93cabbd9f3074fb496',1,'http.h']]],
-  ['httpreq_5fpost_5fform_15',['HTTPREQ_POST_FORM',['../http_8h.html#ac67e77846b7b67d5808da8f1dfa2eab8ae11eeb30f15276332563390b730fd389',1,'http.h']]],
-  ['httpreq_5fpost_5fmime_16',['HTTPREQ_POST_MIME',['../http_8h.html#ac67e77846b7b67d5808da8f1dfa2eab8a34d2478b945364d0d1bc6cb5f2845f71',1,'http.h']]],
-  ['httpreq_5fput_17',['HTTPREQ_PUT',['../http_8h.html#ac67e77846b7b67d5808da8f1dfa2eab8a4b328e0aa83f04505b21057059a9715f',1,'HTTPREQ_PUT:&#160;http.h'],['../tool__sdecls_8h.html#ae61fdc45d6c635cc61c2f4c3f62bcfbca4b328e0aa83f04505b21057059a9715f',1,'HTTPREQ_PUT:&#160;tool_sdecls.h']]],
-  ['httpreq_5fsimplepost_18',['HTTPREQ_SIMPLEPOST',['../tool__sdecls_8h.html#ae61fdc45d6c635cc61c2f4c3f62bcfbcafc02ba37f9a43ffb8bdc06228498e5b9',1,'tool_sdecls.h']]],
-  ['httpreq_5funspec_19',['HTTPREQ_UNSPEC',['../tool__sdecls_8h.html#ae61fdc45d6c635cc61c2f4c3f62bcfbca33aa937c57d5919c4749e380718c6485',1,'tool_sdecls.h']]],
-  ['httpsend_5fbody_20',['HTTPSEND_BODY',['../structHTTP.html#a0c375eec2037876e848d90b1bf318441a2d7e73a6f2680c507a7cc05dc974e1e4',1,'HTTP']]],
-  ['httpsend_5fnada_21',['HTTPSEND_NADA',['../structHTTP.html#a0c375eec2037876e848d90b1bf318441a9c4f4c394107f4dc1d3e14954f6d585f',1,'HTTP']]],
-  ['httpsend_5frequest_22',['HTTPSEND_REQUEST',['../structHTTP.html#a0c375eec2037876e848d90b1bf318441a9d8155c9496f897f08cfcfbdd42a3cd0',1,'HTTP']]]
+  ['x86_5f64_5farch_0',['X86_64_ARCH',['../libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baaf726b6d0fda3c473645d88380aba49ff',1,'libwconr.h']]]
 ];

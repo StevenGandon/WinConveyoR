@@ -1,0 +1,111 @@
+\doxysection{lib/libwconr/src/vm.c File Reference}
+\hypertarget{vm_8c}{}\label{vm_8c}\index{lib/libwconr/src/vm.c@{lib/libwconr/src/vm.c}}
+{\ttfamily \#include "{}vm\+\_\+internal.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a5abb552099529c789882a3bb62b019f2}{wizard\+\_\+vm\+\_\+init}} (const char \texorpdfstring{$\ast$}{*}instructions\+\_\+dir)
+\item 
+void \mbox{\hyperlink{vm_8c_af6f4b516ccd34e127a746af68ff8982d}{wizard\+\_\+vm\+\_\+close}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm)
+\item 
+static const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a125d3c2010ab89125ae42dcea210c7e2}{vm\+\_\+resolve\+\_\+iset}} (const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, uint16\+\_\+t version)
+\item 
+static const struct \mbox{\hyperlink{structvm__op__def}{vm\+\_\+op\+\_\+def}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a2523a860924465044b642dc9875efeda}{vm\+\_\+find\+\_\+op}} (const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset, uint16\+\_\+t code)
+\item 
+static int \mbox{\hyperlink{vm_8c_abecc97abfba565aa1cb7096e609d9458}{vm\+\_\+run\+\_\+section}} (const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
+\item 
+int \mbox{\hyperlink{vm_8c_ae0754f1b2cb7f485b5371349607eb496}{wizard\+\_\+vm\+\_\+exec}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a7f12c8aff443a93192013743069679be}{vm\+\_\+type\+\_\+name}} (struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}} type)
+\item 
+void \mbox{\hyperlink{vm_8c_aa1bba13f29a0a9d6623f95901f4fce4c}{wizard\+\_\+vm\+\_\+dump\+\_\+instructions}} (const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm)
+\item 
+static void \mbox{\hyperlink{vm_8c_ae3e5d12f58dedd91f7ec2079893e706e}{vm\+\_\+disasm\+\_\+print\+\_\+arg}} (const struct \mbox{\hyperlink{structvm__arg__def}{vm\+\_\+arg\+\_\+def}} \texorpdfstring{$\ast$}{*}adef, const struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}aval)
+\item 
+int \mbox{\hyperlink{vm_8c_a893f6b791add77894395a3ade9cfcc21}{wizard\+\_\+vm\+\_\+disasm}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{vm_8c_ab1ccce05028de94346c73b3911976cbf}{vm\+\_\+xml\+\_\+files}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{vm_8c_ae3e5d12f58dedd91f7ec2079893e706e}\label{vm_8c_ae3e5d12f58dedd91f7ec2079893e706e} 
+\index{vm.c@{vm.c}!vm\_disasm\_print\_arg@{vm\_disasm\_print\_arg}}
+\index{vm\_disasm\_print\_arg@{vm\_disasm\_print\_arg}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{vm\_disasm\_print\_arg()}{vm\_disasm\_print\_arg()}}
+{\footnotesize\ttfamily static void vm\+\_\+disasm\+\_\+print\+\_\+arg (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structvm__arg__def}{vm\+\_\+arg\+\_\+def}} \texorpdfstring{$\ast$}{*}}]{adef,  }\item[{const struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{aval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm_8c_a2523a860924465044b642dc9875efeda}\label{vm_8c_a2523a860924465044b642dc9875efeda} 
+\index{vm.c@{vm.c}!vm\_find\_op@{vm\_find\_op}}
+\index{vm\_find\_op@{vm\_find\_op}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{vm\_find\_op()}{vm\_find\_op()}}
+{\footnotesize\ttfamily static const struct \mbox{\hyperlink{structvm__op__def}{vm\+\_\+op\+\_\+def}} \texorpdfstring{$\ast$}{*} vm\+\_\+find\+\_\+op (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{iset,  }\item[{uint16\+\_\+t}]{code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm_8c_a125d3c2010ab89125ae42dcea210c7e2}\label{vm_8c_a125d3c2010ab89125ae42dcea210c7e2} 
+\index{vm.c@{vm.c}!vm\_resolve\_iset@{vm\_resolve\_iset}}
+\index{vm\_resolve\_iset@{vm\_resolve\_iset}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{vm\_resolve\_iset()}{vm\_resolve\_iset()}}
+{\footnotesize\ttfamily static const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*} vm\+\_\+resolve\+\_\+iset (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{uint16\+\_\+t}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm_8c_abecc97abfba565aa1cb7096e609d9458}\label{vm_8c_abecc97abfba565aa1cb7096e609d9458} 
+\index{vm.c@{vm.c}!vm\_run\_section@{vm\_run\_section}}
+\index{vm\_run\_section@{vm\_run\_section}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{vm\_run\_section()}{vm\_run\_section()}}
+{\footnotesize\ttfamily static int vm\+\_\+run\+\_\+section (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{iset,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm_8c_a7f12c8aff443a93192013743069679be}\label{vm_8c_a7f12c8aff443a93192013743069679be} 
+\index{vm.c@{vm.c}!vm\_type\_name@{vm\_type\_name}}
+\index{vm\_type\_name@{vm\_type\_name}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{vm\_type\_name()}{vm\_type\_name()}}
+{\footnotesize\ttfamily static const char \texorpdfstring{$\ast$}{*} vm\+\_\+type\+\_\+name (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm_8c_af6f4b516ccd34e127a746af68ff8982d}\label{vm_8c_af6f4b516ccd34e127a746af68ff8982d} 
+\index{vm.c@{vm.c}!wizard\_vm\_close@{wizard\_vm\_close}}
+\index{wizard\_vm\_close@{wizard\_vm\_close}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{wizard\_vm\_close()}{wizard\_vm\_close()}}
+{\footnotesize\ttfamily void wizard\+\_\+vm\+\_\+close (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm }\end{DoxyParamCaption})}
+
+\Hypertarget{vm_8c_a893f6b791add77894395a3ade9cfcc21}\label{vm_8c_a893f6b791add77894395a3ade9cfcc21} 
+\index{vm.c@{vm.c}!wizard\_vm\_disasm@{wizard\_vm\_disasm}}
+\index{wizard\_vm\_disasm@{wizard\_vm\_disasm}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{wizard\_vm\_disasm()}{wizard\_vm\_disasm()}}
+{\footnotesize\ttfamily int wizard\+\_\+vm\+\_\+disasm (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
+
+\Hypertarget{vm_8c_aa1bba13f29a0a9d6623f95901f4fce4c}\label{vm_8c_aa1bba13f29a0a9d6623f95901f4fce4c} 
+\index{vm.c@{vm.c}!wizard\_vm\_dump\_instructions@{wizard\_vm\_dump\_instructions}}
+\index{wizard\_vm\_dump\_instructions@{wizard\_vm\_dump\_instructions}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{wizard\_vm\_dump\_instructions()}{wizard\_vm\_dump\_instructions()}}
+{\footnotesize\ttfamily void wizard\+\_\+vm\+\_\+dump\+\_\+instructions (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm }\end{DoxyParamCaption})}
+
+\Hypertarget{vm_8c_ae0754f1b2cb7f485b5371349607eb496}\label{vm_8c_ae0754f1b2cb7f485b5371349607eb496} 
+\index{vm.c@{vm.c}!wizard\_vm\_exec@{wizard\_vm\_exec}}
+\index{wizard\_vm\_exec@{wizard\_vm\_exec}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{wizard\_vm\_exec()}{wizard\_vm\_exec()}}
+{\footnotesize\ttfamily int wizard\+\_\+vm\+\_\+exec (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
+
+\Hypertarget{vm_8c_a5abb552099529c789882a3bb62b019f2}\label{vm_8c_a5abb552099529c789882a3bb62b019f2} 
+\index{vm.c@{vm.c}!wizard\_vm\_init@{wizard\_vm\_init}}
+\index{wizard\_vm\_init@{wizard\_vm\_init}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{wizard\_vm\_init()}{wizard\_vm\_init()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+vm\+\_\+init (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{instructions\+\_\+dir }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{vm_8c_ab1ccce05028de94346c73b3911976cbf}\label{vm_8c_ab1ccce05028de94346c73b3911976cbf} 
+\index{vm.c@{vm.c}!vm\_xml\_files@{vm\_xml\_files}}
+\index{vm\_xml\_files@{vm\_xml\_files}!vm.c@{vm.c}}
+\doxysubsubsection{\texorpdfstring{vm\_xml\_files}{vm\_xml\_files}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} const vm\+\_\+xml\+\_\+files\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}instructions\_v0.xml"{}},}
+\DoxyCodeLine{\ \ \ \ NULL}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

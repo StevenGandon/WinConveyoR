@@ -1,0 +1,134 @@
+\doxysection{lib/libwconr/src/vm\+\_\+handlers.c File Reference}
+\hypertarget{vm__handlers_8c}{}\label{vm__handlers_8c}\index{lib/libwconr/src/vm\_handlers.c@{lib/libwconr/src/vm\_handlers.c}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include "{}vm\+\_\+internal.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a942252a8b7286a494bb6b19471fc90a5}{vm\+\_\+copy\+\_\+file}} (const char \texorpdfstring{$\ast$}{*}from, const char \texorpdfstring{$\ast$}{*}to)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a5769d12ec893e2a930432739fca62d05}{vm\+\_\+remove\+\_\+tree\+\_\+recursive}} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a8127ac629a68eb7660f003f7ce54062f}{vm\+\_\+copy\+\_\+tree\+\_\+recursive}} (const char \texorpdfstring{$\ast$}{*}from, const char \texorpdfstring{$\ast$}{*}to)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a205031e2871384366b79b1dafe1a2c74}{vm\+\_\+handle\+\_\+noop}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a9c04c7051e942fb1f733b79a7128dedd}{vm\+\_\+handle\+\_\+mkdir}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a78cc4ddeca234e88268efa28e102ff8c}{vm\+\_\+handle\+\_\+copy}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a93f33f60a47c598c6ca1c9aacf985d3a}{vm\+\_\+handle\+\_\+run}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a437ef03372da475d6bd9a6291f8c144b}{vm\+\_\+handle\+\_\+chmod}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a30b874f107ac2a7c9d1e06d002749f30}{vm\+\_\+handle\+\_\+remove}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a6bd153c1c438b90a810654d0d25e40ac}{vm\+\_\+handle\+\_\+remove\+\_\+tree}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_afb17d64659ca44a46e6a422d57a8f822}{vm\+\_\+handle\+\_\+copy\+\_\+tree}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_ad5500b63bb4ea2932d87d2844c56000c}{vm\+\_\+handle\+\_\+rmdir}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static int \mbox{\hyperlink{vm__handlers_8c_a817f6e7c4ed33d5dce1fa6f8a51efada}{vm\+\_\+handle\+\_\+move}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
+\item 
+static const struct \mbox{\hyperlink{structvm__handler__version}{vm\+\_\+handler\+\_\+version}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm__handlers_8c_aba0a16500d25071025d4c58977d561c2}{vm\+\_\+get\+\_\+versions}} (void)
+\item 
+\mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} \mbox{\hyperlink{vm__handlers_8c_a27df2945da6df5b68eae1baf79372ad4}{vm\+\_\+find\+\_\+handler}} (uint16\+\_\+t version, const char \texorpdfstring{$\ast$}{*}name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{vm__handlers_8c_a942252a8b7286a494bb6b19471fc90a5}\label{vm__handlers_8c_a942252a8b7286a494bb6b19471fc90a5} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_copy\_file@{vm\_copy\_file}}
+\index{vm\_copy\_file@{vm\_copy\_file}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_copy\_file()}{vm\_copy\_file()}}
+{\footnotesize\ttfamily static int vm\+\_\+copy\+\_\+file (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{from,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{to }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a8127ac629a68eb7660f003f7ce54062f}\label{vm__handlers_8c_a8127ac629a68eb7660f003f7ce54062f} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_copy\_tree\_recursive@{vm\_copy\_tree\_recursive}}
+\index{vm\_copy\_tree\_recursive@{vm\_copy\_tree\_recursive}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_copy\_tree\_recursive()}{vm\_copy\_tree\_recursive()}}
+{\footnotesize\ttfamily static int vm\+\_\+copy\+\_\+tree\+\_\+recursive (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{from,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{to }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a27df2945da6df5b68eae1baf79372ad4}\label{vm__handlers_8c_a27df2945da6df5b68eae1baf79372ad4} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_find\_handler@{vm\_find\_handler}}
+\index{vm\_find\_handler@{vm\_find\_handler}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_find\_handler()}{vm\_find\_handler()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} vm\+\_\+find\+\_\+handler (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{version,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+\Hypertarget{vm__handlers_8c_aba0a16500d25071025d4c58977d561c2}\label{vm__handlers_8c_aba0a16500d25071025d4c58977d561c2} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_get\_versions@{vm\_get\_versions}}
+\index{vm\_get\_versions@{vm\_get\_versions}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_get\_versions()}{vm\_get\_versions()}}
+{\footnotesize\ttfamily static const struct \mbox{\hyperlink{structvm__handler__version}{vm\+\_\+handler\+\_\+version}} \texorpdfstring{$\ast$}{*} vm\+\_\+get\+\_\+versions (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a437ef03372da475d6bd9a6291f8c144b}\label{vm__handlers_8c_a437ef03372da475d6bd9a6291f8c144b} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_chmod@{vm\_handle\_chmod}}
+\index{vm\_handle\_chmod@{vm\_handle\_chmod}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_chmod()}{vm\_handle\_chmod()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+chmod (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a78cc4ddeca234e88268efa28e102ff8c}\label{vm__handlers_8c_a78cc4ddeca234e88268efa28e102ff8c} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_copy@{vm\_handle\_copy}}
+\index{vm\_handle\_copy@{vm\_handle\_copy}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_copy()}{vm\_handle\_copy()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+copy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_afb17d64659ca44a46e6a422d57a8f822}\label{vm__handlers_8c_afb17d64659ca44a46e6a422d57a8f822} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_copy\_tree@{vm\_handle\_copy\_tree}}
+\index{vm\_handle\_copy\_tree@{vm\_handle\_copy\_tree}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_copy\_tree()}{vm\_handle\_copy\_tree()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+copy\+\_\+tree (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a9c04c7051e942fb1f733b79a7128dedd}\label{vm__handlers_8c_a9c04c7051e942fb1f733b79a7128dedd} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_mkdir@{vm\_handle\_mkdir}}
+\index{vm\_handle\_mkdir@{vm\_handle\_mkdir}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_mkdir()}{vm\_handle\_mkdir()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+mkdir (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a817f6e7c4ed33d5dce1fa6f8a51efada}\label{vm__handlers_8c_a817f6e7c4ed33d5dce1fa6f8a51efada} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_move@{vm\_handle\_move}}
+\index{vm\_handle\_move@{vm\_handle\_move}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_move()}{vm\_handle\_move()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+move (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a205031e2871384366b79b1dafe1a2c74}\label{vm__handlers_8c_a205031e2871384366b79b1dafe1a2c74} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_noop@{vm\_handle\_noop}}
+\index{vm\_handle\_noop@{vm\_handle\_noop}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_noop()}{vm\_handle\_noop()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+noop (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a30b874f107ac2a7c9d1e06d002749f30}\label{vm__handlers_8c_a30b874f107ac2a7c9d1e06d002749f30} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_remove@{vm\_handle\_remove}}
+\index{vm\_handle\_remove@{vm\_handle\_remove}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_remove()}{vm\_handle\_remove()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+remove (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a6bd153c1c438b90a810654d0d25e40ac}\label{vm__handlers_8c_a6bd153c1c438b90a810654d0d25e40ac} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_remove\_tree@{vm\_handle\_remove\_tree}}
+\index{vm\_handle\_remove\_tree@{vm\_handle\_remove\_tree}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_remove\_tree()}{vm\_handle\_remove\_tree()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+remove\+\_\+tree (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_ad5500b63bb4ea2932d87d2844c56000c}\label{vm__handlers_8c_ad5500b63bb4ea2932d87d2844c56000c} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_rmdir@{vm\_handle\_rmdir}}
+\index{vm\_handle\_rmdir@{vm\_handle\_rmdir}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_rmdir()}{vm\_handle\_rmdir()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+rmdir (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a93f33f60a47c598c6ca1c9aacf985d3a}\label{vm__handlers_8c_a93f33f60a47c598c6ca1c9aacf985d3a} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_handle\_run@{vm\_handle\_run}}
+\index{vm\_handle\_run@{vm\_handle\_run}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_handle\_run()}{vm\_handle\_run()}}
+{\footnotesize\ttfamily static int vm\+\_\+handle\+\_\+run (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{vm__handlers_8c_a5769d12ec893e2a930432739fca62d05}\label{vm__handlers_8c_a5769d12ec893e2a930432739fca62d05} 
+\index{vm\_handlers.c@{vm\_handlers.c}!vm\_remove\_tree\_recursive@{vm\_remove\_tree\_recursive}}
+\index{vm\_remove\_tree\_recursive@{vm\_remove\_tree\_recursive}!vm\_handlers.c@{vm\_handlers.c}}
+\doxysubsubsection{\texorpdfstring{vm\_remove\_tree\_recursive()}{vm\_remove\_tree\_recursive()}}
+{\footnotesize\ttfamily static int vm\+\_\+remove\+\_\+tree\+\_\+recursive (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
