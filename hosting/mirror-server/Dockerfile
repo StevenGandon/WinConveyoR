@@ -19,4 +19,4 @@ RUN chmod +x /var/wcr/wcrpackager.py && ln -sn /var/wcr/wcrpackager.py /bin/wcrp
 
 EXPOSE 1674
 
-CMD ["/bin/wcrmirror"]
+CMD ["python3", "/var/wcr/wcrmirror.py"]

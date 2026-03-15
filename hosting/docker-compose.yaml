@@ -16,6 +16,9 @@ services:
       context: http
     ports:
       - "${HTTP_MIRROR_PORT}:80"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     restart: on-failure
 
   custom-server:
@@ -25,6 +28,9 @@ services:
       context: mirror-server
     ports:
       - "${CUSTOM_MIRROR_PORT}:1674"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     environment:
       WCR_DIR: "/mnt/mirror"
     restart: on-failure
