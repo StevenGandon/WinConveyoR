@@ -21,6 +21,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(curl)
 
+find_package(LibXml2 REQUIRED)
+
 set(LIBWCONR_SOURCES
     src/download_package.c
     src/http_headers.c
@@ -30,6 +32,14 @@ set(LIBWCONR_SOURCES
     src/wcr_state.c
 
     src/modules/source/source_handler.c
+
+    src/pars_wizard.c
+    src/wizard_endian.c
+    src/wizard_section.c
+    src/vm.c
+    src/vm_parse.c
+    src/vm_decode.c
+    src/vm_handlers.c
 )
 
 if(WIN32)
@@ -40,7 +50,7 @@ endif()
 
 add_library(wconr SHARED ${LIBWCONR_SOURCES})
 
-target_link_libraries(wconr PRIVATE CURL::libcurl)
+target_link_libraries(wconr PRIVATE CURL::libcurl LibXml2::LibXml2)
 if(WIN32)
     target_link_libraries(wconr PRIVATE ws2_32)
 endif()
