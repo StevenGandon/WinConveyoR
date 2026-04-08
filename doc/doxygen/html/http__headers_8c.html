@@ -115,8 +115,10 @@ $(document).ready(function(){initNavTree('http__headers_8c.html',''); initResiza
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:adc2652caef29a26a3edb67d4b3d3e4f0" id="r_adc2652caef29a26a3edb67d4b3d3e4f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="http__headers_8c.html#adc2652caef29a26a3edb67d4b3d3e4f0">set_header</a> (struct <a class="el" href="struct__http__header__s.html">_http_header_s</a> ***headers, const unsigned char *key, const unsigned char *value)</td></tr>
+<tr class="memdesc:adc2652caef29a26a3edb67d4b3d3e4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds or updates a header in a NULL-terminated header array.  <br /></td></tr>
 <tr class="separator:adc2652caef29a26a3edb67d4b3d3e4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a021b36fe7ca799344b68605065ea7c" id="r_a6a021b36fe7ca799344b68605065ea7c"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="http__headers_8c.html#a6a021b36fe7ca799344b68605065ea7c">get_header</a> (const struct <a class="el" href="struct__http__header__s.html">_http_header_s</a> *const *headers, const unsigned char *key)</td></tr>
+<tr class="memdesc:a6a021b36fe7ca799344b68605065ea7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up a header value by key in a NULL-terminated header array.  <br /></td></tr>
 <tr class="separator:a6a021b36fe7ca799344b68605065ea7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -130,13 +132,13 @@ Functions</h2></td></tr>
           <td class="memname">const unsigned char * get_header </td>
           <td>(</td>
           <td class="paramtype">const struct <a class="el" href="struct__http__header__s.html">_http_header_s</a> *const *&#160;</td>
-          <td class="paramname"><em>headers</em>, </td>
+          <td class="paramname"><em>__h</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned char *&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
+          <td class="paramname"><em>__k</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -145,6 +147,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Looks up a header value by key in a NULL-terminated header array. </p>
+<p>The comparison is case-sensitive.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">__h</td><td>NULL-terminated array of header pairs. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">__k</td><td>Header field name to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the header value string (owned by the array), or NULL if not found or if <code>__h</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -158,19 +171,19 @@ Functions</h2></td></tr>
           <td class="memname">void set_header </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="struct__http__header__s.html">_http_header_s</a> ***&#160;</td>
-          <td class="paramname"><em>headers</em>, </td>
+          <td class="paramname"><em>__h</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned char *&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
+          <td class="paramname"><em>__k</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned char *&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
+          <td class="paramname"><em>__v</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -179,6 +192,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Adds or updates a header in a NULL-terminated header array. </p>
+<p>If a header with the same key already exists (case-sensitive), its value is replaced. Otherwise a new entry is appended and the array is reallocated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">__h</td><td>Address of the NULL-terminated header array pointer. The array may be reallocated; the pointer is updated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">__k</td><td>Header field name. The string is duplicated internally. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">__v</td><td>Header field value. The string is duplicated internally. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

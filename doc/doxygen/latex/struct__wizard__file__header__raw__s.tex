@@ -2,6 +2,11 @@
 \hypertarget{struct__wizard__file__header__raw__s}{}\label{struct__wizard__file__header__raw__s}\index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}}
 
 
+On-\/disk layout of the .WIZARD file header (27 bytes, big-\/endian fields).  
+
+
+
+
 {\ttfamily \#include $<$wizard\+\_\+private.\+h$>$}
 
 \doxysubsubsection*{Public Attributes}
@@ -21,6 +26,11 @@ unsigned char \mbox{\hyperlink{struct__wizard__file__header__raw__s_a0ebf928f647
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+On-\/disk layout of the .WIZARD file header (27 bytes, big-\/endian fields). 
+
+Always located at offset 0 of the file. All integer fields must be read through the {\ttfamily wizard\+\_\+be\texorpdfstring{$\ast$}{*}} helpers to handle endianness correctly. 
+
 \doxysubsection{Member Data Documentation}
 \Hypertarget{struct__wizard__file__header__raw__s_a4147caca394ff210c1d478d516083a41}\label{struct__wizard__file__header__raw__s_a4147caca394ff210c1d478d516083a41} 
 \index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}!endianness@{endianness}}
@@ -28,37 +38,37 @@ unsigned char \mbox{\hyperlink{struct__wizard__file__header__raw__s_a0ebf928f647
 \doxysubsubsection{\texorpdfstring{endianness}{endianness}}
 {\footnotesize\ttfamily unsigned char \+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s\+::endianness\mbox{[}1\mbox{]}}
 
-\Hypertarget{struct__wizard__file__header__raw__s_ad00f0865a46c5860a6938f976a48c2dc}\label{struct__wizard__file__header__raw__s_ad00f0865a46c5860a6938f976a48c2dc} 
+0 = big-\/endian file, 1 = little-\/endian file. \Hypertarget{struct__wizard__file__header__raw__s_ad00f0865a46c5860a6938f976a48c2dc}\label{struct__wizard__file__header__raw__s_ad00f0865a46c5860a6938f976a48c2dc} 
 \index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}!flags@{flags}}
 \index{flags@{flags}!\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}}
 \doxysubsubsection{\texorpdfstring{flags}{flags}}
 {\footnotesize\ttfamily unsigned char \+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s\+::flags\mbox{[}4\mbox{]}}
 
-\Hypertarget{struct__wizard__file__header__raw__s_a48b77056c70cb2184fbce6bd4a094be9}\label{struct__wizard__file__header__raw__s_a48b77056c70cb2184fbce6bd4a094be9} 
+Format flags\+: bit 0 = 8-\/byte alignment, bit 1 = 16-\/byte alignment. \Hypertarget{struct__wizard__file__header__raw__s_a48b77056c70cb2184fbce6bd4a094be9}\label{struct__wizard__file__header__raw__s_a48b77056c70cb2184fbce6bd4a094be9} 
 \index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}!magic@{magic}}
 \index{magic@{magic}!\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}}
 \doxysubsubsection{\texorpdfstring{magic}{magic}}
 {\footnotesize\ttfamily unsigned char \+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s\+::magic\mbox{[}4\mbox{]}}
 
-\Hypertarget{struct__wizard__file__header__raw__s_a0724b435167cd151ff3ec219f430bdab}\label{struct__wizard__file__header__raw__s_a0724b435167cd151ff3ec219f430bdab} 
+Magic number\+: must equal \doxylink{wizard__private_8h_a33f181a6f88624ff29487e649f50a8b0}{WIZARD\+\_\+\+MAGIC}. \Hypertarget{struct__wizard__file__header__raw__s_a0724b435167cd151ff3ec219f430bdab}\label{struct__wizard__file__header__raw__s_a0724b435167cd151ff3ec219f430bdab} 
 \index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}!section\_header\_offset@{section\_header\_offset}}
 \index{section\_header\_offset@{section\_header\_offset}!\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}}
 \doxysubsubsection{\texorpdfstring{section\_header\_offset}{section\_header\_offset}}
 {\footnotesize\ttfamily unsigned char \+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s\+::section\+\_\+header\+\_\+offset\mbox{[}8\mbox{]}}
 
-\Hypertarget{struct__wizard__file__header__raw__s_a0ebf928f647208b8191b5725b3a3a564}\label{struct__wizard__file__header__raw__s_a0ebf928f647208b8191b5725b3a3a564} 
+Absolute file offset to \doxylink{struct__wizard__section__header__raw__s}{\+\_\+wizard\+\_\+section\+\_\+header\+\_\+raw\+\_\+s}. \Hypertarget{struct__wizard__file__header__raw__s_a0ebf928f647208b8191b5725b3a3a564}\label{struct__wizard__file__header__raw__s_a0ebf928f647208b8191b5725b3a3a564} 
 \index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}!strndx\_offset@{strndx\_offset}}
 \index{strndx\_offset@{strndx\_offset}!\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}}
 \doxysubsubsection{\texorpdfstring{strndx\_offset}{strndx\_offset}}
 {\footnotesize\ttfamily unsigned char \+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s\+::strndx\+\_\+offset\mbox{[}8\mbox{]}}
 
-\Hypertarget{struct__wizard__file__header__raw__s_a2891cf957842a52826cfe96e388044c0}\label{struct__wizard__file__header__raw__s_a2891cf957842a52826cfe96e388044c0} 
+Absolute file offset to the string table. \Hypertarget{struct__wizard__file__header__raw__s_a2891cf957842a52826cfe96e388044c0}\label{struct__wizard__file__header__raw__s_a2891cf957842a52826cfe96e388044c0} 
 \index{\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}!version@{version}}
 \index{version@{version}!\_wizard\_file\_header\_raw\_s@{\_wizard\_file\_header\_raw\_s}}
 \doxysubsubsection{\texorpdfstring{version}{version}}
 {\footnotesize\ttfamily unsigned char \+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s\+::version\mbox{[}2\mbox{]}}
 
-
+Format version\+: high byte = major, low byte = minor. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

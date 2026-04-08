@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_3a_0',[':',['../md_README.html#autotoc_md230',1,'For linux :'],['../md_README.html#autotoc_md231',1,'For windows :']]]
+  ['9_20exemple_20de_20session_20complète_0',['9. Exemple de Session Complète',['../md_doc_2protocol__rfc.html#autotoc_md210',1,'']]]
 ];

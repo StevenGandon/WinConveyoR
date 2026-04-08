@@ -2,6 +2,11 @@
 \hypertarget{struct__wizard__ctx__s}{}\label{struct__wizard__ctx__s}\index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 
 
+Runtime context for an open .WIZARD file.  
+
+
+
+
 {\ttfamily \#include $<$wizard\+\_\+private.\+h$>$}
 
 \doxysubsubsection*{Public Attributes}
@@ -12,13 +17,13 @@ unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct__wizard__ctx__s
 size\+\_\+t \mbox{\hyperlink{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d}{file\+\_\+size}}
 \item 
 struct \mbox{\hyperlink{struct__wizard__file__header__raw__s}{\+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f}{header}}
-\item 
+\begin{DoxyCompactList}\small\item\em Pointer into {\ttfamily base} at offset 0 (file header view). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__section__header__raw__s}{\+\_\+wizard\+\_\+section\+\_\+header\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a}{section\+\_\+header}}
-\item 
+\begin{DoxyCompactList}\small\item\em Pointer into {\ttfamily base} at {\ttfamily section\+\_\+header\+\_\+offset} (section header view). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct__wizard__ctx__s_a5c92b91203f42ae04b75d906b2d4bb9f}{sections}}
-\item 
+\begin{DoxyCompactList}\small\item\em Pointer to the first section entry, immediately after {\ttfamily section\+\_\+header}. \end{DoxyCompactList}\item 
 unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct__wizard__ctx__s_a092ebc70fb5e961caae739da2f2596be}{strndx\+\_\+base}}
-\item 
+\begin{DoxyCompactList}\small\item\em Pointer into {\ttfamily base} at {\ttfamily strndx\+\_\+offset} (string table base). \end{DoxyCompactList}\item 
 uint16\+\_\+t \mbox{\hyperlink{struct__wizard__ctx__s_a10c64c0719acb9cca1b7114e720c40f8}{version}}
 \item 
 uint32\+\_\+t \mbox{\hyperlink{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b}{flags}}
@@ -29,6 +34,11 @@ int \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{f
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Runtime context for an open .WIZARD file. 
+
+Created by \doxylink{wizard__private_8h_a8da5c6a7c3523dd6ad3477b2451d22bc}{wizard\+\_\+open} and destroyed by \doxylink{wizard__private_8h_a56d2c1efb439f13289c395826d6893b7}{wizard\+\_\+close}. The file is memory-\/mapped for the lifetime of the context; all raw struct pointers are views into the mapped region and must not be freed individually. 
+
 \doxysubsection{Member Data Documentation}
 \Hypertarget{struct__wizard__ctx__s_a1a4696c87d875937706cf50ec89c4da4}\label{struct__wizard__ctx__s_a1a4696c87d875937706cf50ec89c4da4} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!base@{base}}
@@ -36,29 +46,33 @@ int \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{f
 \doxysubsubsection{\texorpdfstring{base}{base}}
 {\footnotesize\ttfamily unsigned char\texorpdfstring{$\ast$}{*} \+\_\+wizard\+\_\+ctx\+\_\+s\+::base}
 
-\Hypertarget{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}\label{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e} 
+Base address of the memory-\/mapped file. \Hypertarget{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}\label{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!fd@{fd}}
 \index{fd@{fd}!\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 \doxysubsubsection{\texorpdfstring{fd}{fd}}
 {\footnotesize\ttfamily int \+\_\+wizard\+\_\+ctx\+\_\+s\+::fd}
 
-\Hypertarget{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d}\label{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d} 
+File descriptor kept open for the duration of the mmap (POSIX only). \Hypertarget{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d}\label{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!file\_size@{file\_size}}
 \index{file\_size@{file\_size}!\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 \doxysubsubsection{\texorpdfstring{file\_size}{file\_size}}
 {\footnotesize\ttfamily size\+\_\+t \+\_\+wizard\+\_\+ctx\+\_\+s\+::file\+\_\+size}
 
-\Hypertarget{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b}\label{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b} 
+Total size of the mapped file in bytes. \Hypertarget{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b}\label{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!flags@{flags}}
 \index{flags@{flags}!\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 \doxysubsubsection{\texorpdfstring{flags}{flags}}
 {\footnotesize\ttfamily uint32\+\_\+t \+\_\+wizard\+\_\+ctx\+\_\+s\+::flags}
 
-\Hypertarget{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f}\label{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f} 
+Decoded format flags (from file header). \Hypertarget{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f}\label{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!header@{header}}
 \index{header@{header}!\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 \doxysubsubsection{\texorpdfstring{header}{header}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__file__header__raw__s}{\+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s}}\texorpdfstring{$\ast$}{*} \+\_\+wizard\+\_\+ctx\+\_\+s\+::header}
+
+
+
+Pointer into {\ttfamily base} at offset 0 (file header view). 
 
 \Hypertarget{struct__wizard__ctx__s_acccde2b0411ba8f695bd99091ddfe0b6}\label{struct__wizard__ctx__s_acccde2b0411ba8f695bd99091ddfe0b6} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!section\_count@{section\_count}}
@@ -66,11 +80,15 @@ int \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{f
 \doxysubsubsection{\texorpdfstring{section\_count}{section\_count}}
 {\footnotesize\ttfamily uint64\+\_\+t \+\_\+wizard\+\_\+ctx\+\_\+s\+::section\+\_\+count}
 
-\Hypertarget{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a}\label{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a} 
+Decoded number of sections (from section header). \Hypertarget{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a}\label{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!section\_header@{section\_header}}
 \index{section\_header@{section\_header}!\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 \doxysubsubsection{\texorpdfstring{section\_header}{section\_header}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__section__header__raw__s}{\+\_\+wizard\+\_\+section\+\_\+header\+\_\+raw\+\_\+s}}\texorpdfstring{$\ast$}{*} \+\_\+wizard\+\_\+ctx\+\_\+s\+::section\+\_\+header}
+
+
+
+Pointer into {\ttfamily base} at {\ttfamily section\+\_\+header\+\_\+offset} (section header view). 
 
 \Hypertarget{struct__wizard__ctx__s_a5c92b91203f42ae04b75d906b2d4bb9f}\label{struct__wizard__ctx__s_a5c92b91203f42ae04b75d906b2d4bb9f} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!sections@{sections}}
@@ -78,11 +96,19 @@ int \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{f
 \doxysubsubsection{\texorpdfstring{sections}{sections}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}}\texorpdfstring{$\ast$}{*} \+\_\+wizard\+\_\+ctx\+\_\+s\+::sections}
 
+
+
+Pointer to the first section entry, immediately after {\ttfamily section\+\_\+header}. 
+
 \Hypertarget{struct__wizard__ctx__s_a092ebc70fb5e961caae739da2f2596be}\label{struct__wizard__ctx__s_a092ebc70fb5e961caae739da2f2596be} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!strndx\_base@{strndx\_base}}
 \index{strndx\_base@{strndx\_base}!\_wizard\_ctx\_s@{\_wizard\_ctx\_s}}
 \doxysubsubsection{\texorpdfstring{strndx\_base}{strndx\_base}}
 {\footnotesize\ttfamily unsigned char\texorpdfstring{$\ast$}{*} \+\_\+wizard\+\_\+ctx\+\_\+s\+::strndx\+\_\+base}
+
+
+
+Pointer into {\ttfamily base} at {\ttfamily strndx\+\_\+offset} (string table base). 
 
 \Hypertarget{struct__wizard__ctx__s_a10c64c0719acb9cca1b7114e720c40f8}\label{struct__wizard__ctx__s_a10c64c0719acb9cca1b7114e720c40f8} 
 \index{\_wizard\_ctx\_s@{\_wizard\_ctx\_s}!version@{version}}
@@ -90,7 +116,7 @@ int \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{f
 \doxysubsubsection{\texorpdfstring{version}{version}}
 {\footnotesize\ttfamily uint16\+\_\+t \+\_\+wizard\+\_\+ctx\+\_\+s\+::version}
 
-
+Decoded format version (from file header). 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

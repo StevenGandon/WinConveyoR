@@ -1,16 +1,15 @@
 var searchData=
 [
-  ['2_201_20couche_20transport_0',['2.1 Couche Transport',['../md_doc_2protocol__rfc.html#autotoc_md150',1,'']]],
-  ['2_202_201_20champs_20du_20message_1',['2.2.1 Champs du Message',['../md_doc_2protocol__rfc.html#autotoc_md152',1,'']]],
-  ['2_202_202_20limites_2',['2.2.2 Limites',['../md_doc_2protocol__rfc.html#autotoc_md153',1,'']]],
-  ['2_202_20format_20des_20messages_3',['2.2 Format des Messages',['../md_doc_2protocol__rfc.html#autotoc_md151',1,'']]],
-  ['2_203_201_20champs_20json_4',['2.3.1 Champs JSON',['../md_doc_2protocol__rfc.html#autotoc_md155',1,'']]],
-  ['2_203_20format_20json_20du_20payload_5',['2.3 Format JSON du Payload',['../md_doc_2protocol__rfc.html#autotoc_md154',1,'']]],
-  ['2_20architecture_20du_20protocole_6',['2. Architecture du Protocole',['../md_doc_2protocol__rfc.html#autotoc_md149',1,'']]],
-  ['2_20connect_20authentification_7',['4.2 connect - Authentification',['../md_doc_2protocol__rfc.html#autotoc_md162',1,'']]],
-  ['2_20flags_20réservés_8',['8.2 Flags Réservés',['../md_doc_2protocol__rfc.html#autotoc_md179',1,'']]],
-  ['2_20messages_20d_20erreur_20standard_9',['5.2 Messages d&apos;Erreur Standard',['../md_doc_2protocol__rfc.html#autotoc_md169',1,'']]],
-  ['2_20serveurs_10',['7.2 Serveurs',['../md_doc_2protocol__rfc.html#autotoc_md176',1,'']]],
-  ['2_20session_11',['3.2 Session',['../md_doc_2protocol__rfc.html#autotoc_md158',1,'']]],
-  ['2_20sessions_12',['6.2 Sessions',['../md_doc_2protocol__rfc.html#autotoc_md172',1,'']]]
+  ['1_20établissement_20de_20connexion_0',['3.1 Établissement de Connexion',['../md_doc_2protocol__rfc.html#autotoc_md187',1,'']]],
+  ['1_201_20conventions_1',['1.1 Conventions',['../md_doc_2protocol__rfc.html#autotoc_md178',1,'']]],
+  ['1_20authentification_2',['6.1 Authentification',['../md_doc_2protocol__rfc.html#autotoc_md201',1,'']]],
+  ['1_20champs_20du_20message_3',['2.2.1 Champs du Message',['../md_doc_2protocol__rfc.html#autotoc_md182',1,'']]],
+  ['1_20champs_20json_4',['2.3.1 Champs JSON',['../md_doc_2protocol__rfc.html#autotoc_md185',1,'']]],
+  ['1_20clients_5',['7.1 Clients',['../md_doc_2protocol__rfc.html#autotoc_md205',1,'']]],
+  ['1_20codes_20de_20statut_6',['5.1 Codes de Statut',['../md_doc_2protocol__rfc.html#autotoc_md198',1,'']]],
+  ['1_20couche_20transport_7',['2.1 Couche Transport',['../md_doc_2protocol__rfc.html#autotoc_md180',1,'']]],
+  ['1_20hello_20handshake_20initial_8',['4.1 hello - Handshake Initial',['../md_doc_2protocol__rfc.html#autotoc_md191',1,'']]],
+  ['1_20introduction_9',['1. Introduction',['../md_doc_2protocol__rfc.html#autotoc_md177',1,'']]],
+  ['1_20propositions_10',['8.1 Propositions',['../md_doc_2protocol__rfc.html#autotoc_md208',1,'']]],
+  ['10_20références_11',['10. Références',['../md_doc_2protocol__rfc.html#autotoc_md211',1,'']]]
 ];

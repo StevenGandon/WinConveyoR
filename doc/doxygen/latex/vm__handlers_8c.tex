@@ -38,7 +38,7 @@ static int \mbox{\hyperlink{vm__handlers_8c_a817f6e7c4ed33d5dce1fa6f8a51efada}{v
 static const struct \mbox{\hyperlink{structvm__handler__version}{vm\+\_\+handler\+\_\+version}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm__handlers_8c_aba0a16500d25071025d4c58977d561c2}{vm\+\_\+get\+\_\+versions}} (void)
 \item 
 \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} \mbox{\hyperlink{vm__handlers_8c_a27df2945da6df5b68eae1baf79372ad4}{vm\+\_\+find\+\_\+handler}} (uint16\+\_\+t version, const char \texorpdfstring{$\ast$}{*}name)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Looks up the handler for the given instruction name and format version. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -60,6 +60,22 @@ static const struct \mbox{\hyperlink{structvm__handler__version}{vm\+\_\+handler
 \doxysubsubsection{\texorpdfstring{vm\_find\_handler()}{vm\_find\_handler()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} vm\+\_\+find\+\_\+handler (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{version,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
 
+
+
+Looks up the handler for the given instruction name and format version. 
+
+Selects the most recent handler table whose version does not exceed {\ttfamily version}, then searches linearly for a matching name.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em version} & Format version of the .WIZARD file being executed. \\
+\hline
+\mbox{\texttt{ in}}  & {\em name} & NUL-\/terminated instruction mnemonic to look up. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the handler function, or NULL if not found. 
+\end{DoxyReturn}
 \Hypertarget{vm__handlers_8c_aba0a16500d25071025d4c58977d561c2}\label{vm__handlers_8c_aba0a16500d25071025d4c58977d561c2} 
 \index{vm\_handlers.c@{vm\_handlers.c}!vm\_get\_versions@{vm\_get\_versions}}
 \index{vm\_get\_versions@{vm\_get\_versions}!vm\_handlers.c@{vm\_handlers.c}}

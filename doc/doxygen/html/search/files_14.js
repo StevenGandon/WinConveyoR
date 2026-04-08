@@ -8,7 +8,8 @@ var searchData=
   ['wcrpackager_2epy_5',['wcrpackager.py',['../wcrpackager_8py.html',1,'']]],
   ['wizard_2epy_6',['wizard.py',['../wizard_8py.html',1,'']]],
   ['wizard_5fendian_2ec_7',['wizard_endian.c',['../wizard__endian_8c.html',1,'']]],
-  ['wizard_5fprivate_2eh_8',['wizard_private.h',['../wizard__private_8h.html',1,'']]],
-  ['wizard_5fsection_2ec_9',['wizard_section.c',['../wizard__section_8c.html',1,'']]],
-  ['write_2epy_10',['write.py',['../write_8py.html',1,'']]]
+  ['wizard_5ffile_5fformat_2emd_8',['wizard_file_format.md',['../wizard__file__format_8md.html',1,'']]],
+  ['wizard_5fprivate_2eh_9',['wizard_private.h',['../wizard__private_8h.html',1,'']]],
+  ['wizard_5fsection_2ec_10',['wizard_section.c',['../wizard__section_8c.html',1,'']]],
+  ['write_2epy_11',['write.py',['../write_8py.html',1,'']]]
 ];

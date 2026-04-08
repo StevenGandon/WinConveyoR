@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['5_201_20codes_20de_20statut_0',['5.1 Codes de Statut',['../md_doc_2protocol__rfc.html#autotoc_md168',1,'']]],
-  ['5_202_20messages_20d_20erreur_20standard_1',['5.2 Messages d&apos;Erreur Standard',['../md_doc_2protocol__rfc.html#autotoc_md169',1,'']]],
-  ['5_20codes_20d_20erreur_2',['5. Codes d&apos;Erreur',['../md_doc_2protocol__rfc.html#autotoc_md167',1,'']]],
-  ['5_20disconnect_20fermer_20une_20session_3',['4.5 disconnect - Fermer une Session',['../md_doc_2protocol__rfc.html#autotoc_md165',1,'']]]
+  ['4_201_20hello_20handshake_20initial_0',['4.1 hello - Handshake Initial',['../md_doc_2protocol__rfc.html#autotoc_md191',1,'']]],
+  ['4_202_20connect_20authentification_1',['4.2 connect - Authentification',['../md_doc_2protocol__rfc.html#autotoc_md192',1,'']]],
+  ['4_203_20list_5fpackages_20lister_20les_20packages_2',['4.3 list_packages - Lister les Packages',['../md_doc_2protocol__rfc.html#autotoc_md193',1,'']]],
+  ['4_204_20write_20sauvegarder_20les_20modifications_3',['4.4 write - Sauvegarder les Modifications',['../md_doc_2protocol__rfc.html#autotoc_md194',1,'']]],
+  ['4_205_20disconnect_20fermer_20une_20session_4',['4.5 disconnect - Fermer une Session',['../md_doc_2protocol__rfc.html#autotoc_md195',1,'']]],
+  ['4_206_20goodbye_20terminer_20la_20connexion_5',['4.6 goodbye - Terminer la Connexion',['../md_doc_2protocol__rfc.html#autotoc_md196',1,'']]],
+  ['4_20actions_20du_20protocole_6',['4. Actions du Protocole',['../md_doc_2protocol__rfc.html#autotoc_md190',1,'']]]
 ];

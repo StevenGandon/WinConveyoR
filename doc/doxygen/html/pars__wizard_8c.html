@@ -121,8 +121,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a2518130dc364c1eb1bbfaab0785fb4d6" id="r_a2518130dc364c1eb1bbfaab0785fb4d6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pars__wizard_8c.html#a2518130dc364c1eb1bbfaab0785fb4d6">wizard_validate_bounds</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx)</td></tr>
 <tr class="separator:a2518130dc364c1eb1bbfaab0785fb4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8da5c6a7c3523dd6ad3477b2451d22bc" id="r_a8da5c6a7c3523dd6ad3477b2451d22bc"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pars__wizard_8c.html#a8da5c6a7c3523dd6ad3477b2451d22bc">wizard_open</a> (const char *path)</td></tr>
+<tr class="memdesc:a8da5c6a7c3523dd6ad3477b2451d22bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens and memory-maps a .WIZARD file, returning a validated context.  <br /></td></tr>
 <tr class="separator:a8da5c6a7c3523dd6ad3477b2451d22bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56d2c1efb439f13289c395826d6893b7" id="r_a56d2c1efb439f13289c395826d6893b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pars__wizard_8c.html#a56d2c1efb439f13289c395826d6893b7">wizard_close</a> (struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx)</td></tr>
+<tr class="memdesc:a56d2c1efb439f13289c395826d6893b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a .WIZARD context and releases all associated resources.  <br /></td></tr>
 <tr class="separator:a56d2c1efb439f13289c395826d6893b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -141,6 +143,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Closes a .WIZARD context and releases all associated resources. </p>
+<p>Unmaps the file, closes the file descriptor (POSIX), and frees the context.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Context to close. No-op if NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -221,6 +232,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Opens and memory-maps a .WIZARD file, returning a validated context. </p>
+<p>Validates the magic number, version range, and section table bounds before returning. The file remains mapped until <a class="el" href="pars__wizard_8c.html#a56d2c1efb439f13289c395826d6893b7">wizard_close</a> is called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>Path to the .WIZARD file on disk. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a new context, or NULL on any failure (file not found, invalid magic, bounds violation, allocation error, etc.). </dd></dl>
 
 </div>
 </div>

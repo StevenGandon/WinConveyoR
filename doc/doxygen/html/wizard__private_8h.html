@@ -111,6 +111,9 @@ $(document).ready(function(){initNavTree('wizard__private_8h.html',''); initResi
   <div class="headertitle"><div class="title">wizard_private.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Internal structures and API for parsing and executing .WIZARD binary files.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
@@ -126,14 +129,19 @@ $(document).ready(function(){initNavTree('wizard__private_8h.html',''); initResi
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__wizard__file__header__raw__s.html">_wizard_file_header_raw_s</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk layout of the .WIZARD file header (27 bytes, big-endian fields).  <a href="struct__wizard__file__header__raw__s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__wizard__section__header__raw__s.html">_wizard_section_header_raw_s</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk layout of the section header prefix (16 bytes, big-endian fields).  <a href="struct__wizard__section__header__raw__s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk layout of a single section table entry (28 bytes, big-endian fields).  <a href="struct__wizard__section__entry__raw__s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__wizard__strndx__entry__raw__s.html">_wizard_strndx_entry_raw_s</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk layout of a string table entry header (4 bytes).  <a href="struct__wizard__strndx__entry__raw__s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime context for an open .WIZARD file.  <a href="struct__wizard__ctx__s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -145,61 +153,88 @@ Macros</h2></td></tr>
 <tr class="memitem:a09b3ea0a9cf84eb2b4d709413824699d" id="r_a09b3ea0a9cf84eb2b4d709413824699d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a09b3ea0a9cf84eb2b4d709413824699d">WIZARD_PACKED</a>&#160;&#160;&#160;__attribute__((packed))</td></tr>
 <tr class="separator:a09b3ea0a9cf84eb2b4d709413824699d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f181a6f88624ff29487e649f50a8b0" id="r_a33f181a6f88624ff29487e649f50a8b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a33f181a6f88624ff29487e649f50a8b0">WIZARD_MAGIC</a>&#160;&#160;&#160;&quot;\x42\xa4\x09\x67&quot;</td></tr>
+<tr class="memdesc:a33f181a6f88624ff29487e649f50a8b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected magic bytes at offset 0 of every .WIZARD file.  <br /></td></tr>
 <tr class="separator:a33f181a6f88624ff29487e649f50a8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e16c0e65366e2a196d1fff7d060fac" id="r_a53e16c0e65366e2a196d1fff7d060fac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a53e16c0e65366e2a196d1fff7d060fac">WIZARD_MAGIC_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a53e16c0e65366e2a196d1fff7d060fac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the magic field in bytes.  <br /></td></tr>
 <tr class="separator:a53e16c0e65366e2a196d1fff7d060fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ababf842bd1cc96ac3407b522a5aa8046" id="r_ababf842bd1cc96ac3407b522a5aa8046"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#ababf842bd1cc96ac3407b522a5aa8046">WIZARD_HEADER_SIZE</a>&#160;&#160;&#160;27</td></tr>
+<tr class="memdesc:ababf842bd1cc96ac3407b522a5aa8046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total size of the on-disk file header in bytes.  <br /></td></tr>
 <tr class="separator:ababf842bd1cc96ac3407b522a5aa8046"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa13991dfbec37b5d5fe71cace84e5b9" id="r_afa13991dfbec37b5d5fe71cace84e5b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#afa13991dfbec37b5d5fe71cace84e5b9">WIZARD_SECTION_HEADER_PREFIX</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:afa13991dfbec37b5d5fe71cace84e5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the fixed prefix of the section header (size + count fields).  <br /></td></tr>
 <tr class="separator:afa13991dfbec37b5d5fe71cace84e5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a149e5bced05cef4b86d8ab80592c4e11" id="r_a149e5bced05cef4b86d8ab80592c4e11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a149e5bced05cef4b86d8ab80592c4e11">WIZARD_SECTION_ENTRY_SIZE</a>&#160;&#160;&#160;28</td></tr>
+<tr class="memdesc:a149e5bced05cef4b86d8ab80592c4e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of a single section entry in the section header table.  <br /></td></tr>
 <tr class="separator:a149e5bced05cef4b86d8ab80592c4e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbea4c030baa8a9edd494fbdcfc6b454" id="r_afbea4c030baa8a9edd494fbdcfc6b454"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#afbea4c030baa8a9edd494fbdcfc6b454">WIZARD_STRING_LENGTH_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:afbea4c030baa8a9edd494fbdcfc6b454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the length field that precedes each string in the strndx.  <br /></td></tr>
 <tr class="separator:afbea4c030baa8a9edd494fbdcfc6b454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa18ec7c8407da092f7d6ac6def29e36" id="r_aaa18ec7c8407da092f7d6ac6def29e36"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#aaa18ec7c8407da092f7d6ac6def29e36">WIZARD_MAX_SECTIONS</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:aaa18ec7c8407da092f7d6ac6def29e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of sections accepted during bounds validation.  <br /></td></tr>
 <tr class="separator:aaa18ec7c8407da092f7d6ac6def29e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a95b755c46cac3073d41aaf45a8a694dd" id="r_a95b755c46cac3073d41aaf45a8a694dd"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a95b755c46cac3073d41aaf45a8a694dd">wizard_be16</a> (const unsigned char *p)</td></tr>
+<tr class="memdesc:a95b755c46cac3073d41aaf45a8a694dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a big-endian 16-bit unsigned integer from an unaligned buffer.  <br /></td></tr>
 <tr class="separator:a95b755c46cac3073d41aaf45a8a694dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f89649b4d0fb6d29dd8ba4ababba0bf" id="r_a9f89649b4d0fb6d29dd8ba4ababba0bf"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a9f89649b4d0fb6d29dd8ba4ababba0bf">wizard_be32</a> (const unsigned char *p)</td></tr>
+<tr class="memdesc:a9f89649b4d0fb6d29dd8ba4ababba0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a big-endian 32-bit unsigned integer from an unaligned buffer.  <br /></td></tr>
 <tr class="separator:a9f89649b4d0fb6d29dd8ba4ababba0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf2771cf2e6d20663969852eab8a7d0a" id="r_abf2771cf2e6d20663969852eab8a7d0a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#abf2771cf2e6d20663969852eab8a7d0a">wizard_be64</a> (const unsigned char *p)</td></tr>
+<tr class="memdesc:abf2771cf2e6d20663969852eab8a7d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a big-endian 64-bit unsigned integer from an unaligned buffer.  <br /></td></tr>
 <tr class="separator:abf2771cf2e6d20663969852eab8a7d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8da5c6a7c3523dd6ad3477b2451d22bc" id="r_a8da5c6a7c3523dd6ad3477b2451d22bc"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a8da5c6a7c3523dd6ad3477b2451d22bc">wizard_open</a> (const char *path)</td></tr>
+<tr class="memdesc:a8da5c6a7c3523dd6ad3477b2451d22bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens and memory-maps a .WIZARD file, returning a validated context.  <br /></td></tr>
 <tr class="separator:a8da5c6a7c3523dd6ad3477b2451d22bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56d2c1efb439f13289c395826d6893b7" id="r_a56d2c1efb439f13289c395826d6893b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a56d2c1efb439f13289c395826d6893b7">wizard_close</a> (struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx)</td></tr>
+<tr class="memdesc:a56d2c1efb439f13289c395826d6893b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a .WIZARD context and releases all associated resources.  <br /></td></tr>
 <tr class="separator:a56d2c1efb439f13289c395826d6893b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60b0c2b0f52c19eecdaf9133e457503f" id="r_a60b0c2b0f52c19eecdaf9133e457503f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a60b0c2b0f52c19eecdaf9133e457503f">wizard_get_version</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx)</td></tr>
+<tr class="memdesc:a60b0c2b0f52c19eecdaf9133e457503f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the format version stored in the file header.  <br /></td></tr>
 <tr class="separator:a60b0c2b0f52c19eecdaf9133e457503f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afebead9a7afafd7a1122774266b1788a" id="r_afebead9a7afafd7a1122774266b1788a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#afebead9a7afafd7a1122774266b1788a">wizard_get_flags</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx)</td></tr>
+<tr class="memdesc:afebead9a7afafd7a1122774266b1788a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the flags field stored in the file header.  <br /></td></tr>
 <tr class="separator:afebead9a7afafd7a1122774266b1788a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9b7fe665a1bcb3a6de7140379e7ed9b" id="r_af9b7fe665a1bcb3a6de7140379e7ed9b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#af9b7fe665a1bcb3a6de7140379e7ed9b">wizard_get_section_count</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx)</td></tr>
+<tr class="memdesc:af9b7fe665a1bcb3a6de7140379e7ed9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of sections in the file.  <br /></td></tr>
 <tr class="separator:af9b7fe665a1bcb3a6de7140379e7ed9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43cd014a5b535eaf99d939c7c73f517e" id="r_a43cd014a5b535eaf99d939c7c73f517e"><td class="memItemLeft" align="right" valign="top">const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a43cd014a5b535eaf99d939c7c73f517e">wizard_get_section</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, uint64_t index)</td></tr>
+<tr class="memdesc:a43cd014a5b535eaf99d939c7c73f517e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the Nth section entry.  <br /></td></tr>
 <tr class="separator:a43cd014a5b535eaf99d939c7c73f517e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a980c16c5ed3cf1c1c4f43478a14dcf64" id="r_a980c16c5ed3cf1c1c4f43478a14dcf64"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a980c16c5ed3cf1c1c4f43478a14dcf64">wizard_get_section_type</a> (const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *section)</td></tr>
+<tr class="memdesc:a980c16c5ed3cf1c1c4f43478a14dcf64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes the type field of a section entry.  <br /></td></tr>
 <tr class="separator:a980c16c5ed3cf1c1c4f43478a14dcf64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a921c0d16e5205480aca56ef1ea7659" id="r_a7a921c0d16e5205480aca56ef1ea7659"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a7a921c0d16e5205480aca56ef1ea7659">wizard_get_section_flags</a> (const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *section)</td></tr>
+<tr class="memdesc:a7a921c0d16e5205480aca56ef1ea7659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes the flags field of a section entry.  <br /></td></tr>
 <tr class="separator:a7a921c0d16e5205480aca56ef1ea7659"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99dd036cf92e8dd502fa16aaf0b0b3fd" id="r_a99dd036cf92e8dd502fa16aaf0b0b3fd"><td class="memItemLeft" align="right" valign="top">const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a99dd036cf92e8dd502fa16aaf0b0b3fd">wizard_get_section_by_name</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, const char *name)</td></tr>
+<tr class="memdesc:a99dd036cf92e8dd502fa16aaf0b0b3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first section whose name matches <code>name</code>.  <br /></td></tr>
 <tr class="separator:a99dd036cf92e8dd502fa16aaf0b0b3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12ad1cba47f6c35b7fc3d7fbe27878e1" id="r_a12ad1cba47f6c35b7fc3d7fbe27878e1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a12ad1cba47f6c35b7fc3d7fbe27878e1">wizard_get_section_data</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *section, const unsigned char **data_out, uint64_t *size_out)</td></tr>
+<tr class="memdesc:a12ad1cba47f6c35b7fc3d7fbe27878e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the raw content bytes of a section.  <br /></td></tr>
 <tr class="separator:a12ad1cba47f6c35b7fc3d7fbe27878e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d0ec7ad1f0e8b1eda600f81c280bb21" id="r_a7d0ec7ad1f0e8b1eda600f81c280bb21"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a7d0ec7ad1f0e8b1eda600f81c280bb21">wizard_get_string</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, uint32_t strndx_offset, const char **str_out, uint32_t *len_out)</td></tr>
+<tr class="memdesc:a7d0ec7ad1f0e8b1eda600f81c280bb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves a string table entry by its byte offset.  <br /></td></tr>
 <tr class="separator:a7d0ec7ad1f0e8b1eda600f81c280bb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55626fef3538a4ae7d790098fdadfcbd" id="r_a55626fef3538a4ae7d790098fdadfcbd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a55626fef3538a4ae7d790098fdadfcbd">wizard_get_section_name</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *section, const char **name_out, uint32_t *len_out)</td></tr>
+<tr class="memdesc:a55626fef3538a4ae7d790098fdadfcbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves the name of a section through the string table.  <br /></td></tr>
 <tr class="separator:a55626fef3538a4ae7d790098fdadfcbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5abb552099529c789882a3bb62b019f2" id="r_a5abb552099529c789882a3bb62b019f2"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__wizard__vm__s.html">_wizard_vm_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a5abb552099529c789882a3bb62b019f2">wizard_vm_init</a> (const char *instructions_dir)</td></tr>
+<tr class="memdesc:a5abb552099529c789882a3bb62b019f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and initialises a wizard VM by loading instruction XML files from <code>instructions_dir</code>.  <br /></td></tr>
 <tr class="separator:a5abb552099529c789882a3bb62b019f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6f4b516ccd34e127a746af68ff8982d" id="r_af6f4b516ccd34e127a746af68ff8982d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#af6f4b516ccd34e127a746af68ff8982d">wizard_vm_close</a> (struct <a class="el" href="struct__wizard__vm__s.html">_wizard_vm_s</a> *vm)</td></tr>
+<tr class="memdesc:af6f4b516ccd34e127a746af68ff8982d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys a wizard VM and frees all associated instruction data.  <br /></td></tr>
 <tr class="separator:af6f4b516ccd34e127a746af68ff8982d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0754f1b2cb7f485b5371349607eb496" id="r_ae0754f1b2cb7f485b5371349607eb496"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#ae0754f1b2cb7f485b5371349607eb496">wizard_vm_exec</a> (struct <a class="el" href="struct__wizard__vm__s.html">_wizard_vm_s</a> *vm, struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *section)</td></tr>
+<tr class="memdesc:ae0754f1b2cb7f485b5371349607eb496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the bytecode contained in a section using the wizard VM.  <br /></td></tr>
 <tr class="separator:ae0754f1b2cb7f485b5371349607eb496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1bba13f29a0a9d6623f95901f4fce4c" id="r_aa1bba13f29a0a9d6623f95901f4fce4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#aa1bba13f29a0a9d6623f95901f4fce4c">wizard_vm_dump_instructions</a> (const struct <a class="el" href="struct__wizard__vm__s.html">_wizard_vm_s</a> *vm)</td></tr>
+<tr class="memdesc:aa1bba13f29a0a9d6623f95901f4fce4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints all loaded instruction sets and their opcodes to stdout.  <br /></td></tr>
 <tr class="separator:aa1bba13f29a0a9d6623f95901f4fce4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893f6b791add77894395a3ade9cfcc21" id="r_a893f6b791add77894395a3ade9cfcc21"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a893f6b791add77894395a3ade9cfcc21">wizard_vm_disasm</a> (struct <a class="el" href="struct__wizard__vm__s.html">_wizard_vm_s</a> *vm, struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, const struct <a class="el" href="struct__wizard__section__entry__raw__s.html">_wizard_section_entry_raw_s</a> *section)</td></tr>
+<tr class="memdesc:a893f6b791add77894395a3ade9cfcc21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disassembles a section's bytecode and prints it to stdout.  <br /></td></tr>
 <tr class="separator:a893f6b791add77894395a3ade9cfcc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -207,7 +242,11 @@ Variables</h2></td></tr>
 <tr class="memitem:a09b3ea0a9cf84eb2b4d709413824699d" id="r_a09b3ea0a9cf84eb2b4d709413824699d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="wizard__private_8h.html#aa3345a9689de09613ad50d8636ac0cc4">WIZARD_PACK_BEGIN</a> struct <a class="el" href="struct__wizard__file__header__raw__s.html">_wizard_file_header_raw_s</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wizard__private_8h.html#a09b3ea0a9cf84eb2b4d709413824699d">WIZARD_PACKED</a></td></tr>
 <tr class="separator:a09b3ea0a9cf84eb2b4d709413824699d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Internal structures and API for parsing and executing .WIZARD binary files. </p>
+<p>A .WIZARD file is a structured binary package script. It contains a file header, a section header table, a variable number of sections (metadata, build, install, uninstall, purge), and a string table (strndx).</p>
+<p>All multi-byte integer fields in the on-disk structs are big-endian. Use the <code>wizard_be*</code> helpers to read them portably. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ababf842bd1cc96ac3407b522a5aa8046" name="ababf842bd1cc96ac3407b522a5aa8046"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ababf842bd1cc96ac3407b522a5aa8046">&#9670;&#160;</a></span>WIZARD_HEADER_SIZE</h2>
 
@@ -219,6 +258,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Total size of the on-disk file header in bytes. </p>
 
 </div>
 </div>
@@ -234,6 +275,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Expected magic bytes at offset 0 of every .WIZARD file. </p>
+
 </div>
 </div>
 <a id="a53e16c0e65366e2a196d1fff7d060fac" name="a53e16c0e65366e2a196d1fff7d060fac"></a>
@@ -248,6 +291,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Length of the magic field in bytes. </p>
+
 </div>
 </div>
 <a id="aaa18ec7c8407da092f7d6ac6def29e36" name="aaa18ec7c8407da092f7d6ac6def29e36"></a>
@@ -261,6 +306,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Maximum number of sections accepted during bounds validation. </p>
 
 </div>
 </div>
@@ -318,6 +365,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Size of a single section entry in the section header table. </p>
+
 </div>
 </div>
 <a id="afa13991dfbec37b5d5fe71cace84e5b9" name="afa13991dfbec37b5d5fe71cace84e5b9"></a>
@@ -332,6 +381,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Size of the fixed prefix of the section header (size + count fields). </p>
+
 </div>
 </div>
 <a id="afbea4c030baa8a9edd494fbdcfc6b454" name="afbea4c030baa8a9edd494fbdcfc6b454"></a>
@@ -345,6 +396,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Size of the length field that precedes each string in the strndx. </p>
 
 </div>
 </div>
@@ -365,6 +418,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Reads a big-endian 16-bit unsigned integer from an unaligned buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>Pointer to at least 2 bytes of data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Host-endian value, or 0 if <code>p</code> is NULL. </dd></dl>
+
 </div>
 </div>
 <a id="a9f89649b4d0fb6d29dd8ba4ababba0bf" name="a9f89649b4d0fb6d29dd8ba4ababba0bf"></a>
@@ -382,6 +444,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reads a big-endian 32-bit unsigned integer from an unaligned buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>Pointer to at least 4 bytes of data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Host-endian value, or 0 if <code>p</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -401,6 +472,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Reads a big-endian 64-bit unsigned integer from an unaligned buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>Pointer to at least 8 bytes of data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Host-endian value, or 0 if <code>p</code> is NULL. </dd></dl>
+
 </div>
 </div>
 <a id="a56d2c1efb439f13289c395826d6893b7" name="a56d2c1efb439f13289c395826d6893b7"></a>
@@ -419,6 +499,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Closes a .WIZARD context and releases all associated resources. </p>
+<p>Unmaps the file, closes the file descriptor (POSIX), and frees the context.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Context to close. No-op if NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="afebead9a7afafd7a1122774266b1788a" name="afebead9a7afafd7a1122774266b1788a"></a>
@@ -436,6 +525,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the flags field stored in the file header. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Flags bitmask, or 0 if <code>ctx</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -465,6 +563,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns a pointer to the Nth section entry. </p>
+<p>The returned pointer is a view into the memory-mapped file; do not free it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>Zero-based section index. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the section entry, or NULL if out of range or <code>ctx</code> is NULL. </dd></dl>
+
 </div>
 </div>
 <a id="a99dd036cf92e8dd502fa16aaf0b0b3fd" name="a99dd036cf92e8dd502fa16aaf0b0b3fd"></a>
@@ -493,6 +602,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Finds the first section whose name matches <code>name</code>. </p>
+<p>Comparison is by byte-exact match of the raw string data; no NUL terminator is assumed in the string table.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>NUL-terminated name to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the matching section entry, or NULL if not found. </dd></dl>
+
 </div>
 </div>
 <a id="af9b7fe665a1bcb3a6de7140379e7ed9b" name="af9b7fe665a1bcb3a6de7140379e7ed9b"></a>
@@ -510,6 +630,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the total number of sections in the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Section count, or 0 if <code>ctx</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -551,6 +680,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns a pointer to the raw content bytes of a section. </p>
+<p>The pointer is a view into the memory-mapped file; do not free it. Validates that the section data lies within the mapped file bounds.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">section</td><td>Section entry to query. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">data_out</td><td>Set to the start of the section content on success. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">size_out</td><td>Set to the section size in bytes on success. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 if any argument is NULL or bounds are violated. </dd></dl>
+
 </div>
 </div>
 <a id="a7a921c0d16e5205480aca56ef1ea7659" name="a7a921c0d16e5205480aca56ef1ea7659"></a>
@@ -568,6 +710,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Decodes the flags field of a section entry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">section</td><td>Section entry to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Section flags bitmask, or 0 if <code>section</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -609,6 +760,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Resolves the name of a section through the string table. </p>
+<p>Reads the <code>name_strndx</code> field of <code>section</code> and calls <a class="el" href="wizard__section_8c.html#a7d0ec7ad1f0e8b1eda600f81c280bb21">wizard_get_string</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">section</td><td>Section entry whose name to resolve. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">name_out</td><td>Set to the start of the name bytes on success. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len_out</td><td>Set to the name length in bytes on success. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on any failure. </dd></dl>
+
 </div>
 </div>
 <a id="a980c16c5ed3cf1c1c4f43478a14dcf64" name="a980c16c5ed3cf1c1c4f43478a14dcf64"></a>
@@ -626,6 +790,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Decodes the type field of a section entry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">section</td><td>Section entry to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Section type value, or 0 if <code>section</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -667,6 +840,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Resolves a string table entry by its byte offset. </p>
+<p>The returned pointer is a non-owning view into the memory-mapped file. The string is not NUL-terminated on disk; use <code>len_out</code> to bound reads.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">strndx_offset</td><td>Byte offset from <code>strndx_base</code> to the desired entry. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">str_out</td><td>Set to the start of the string bytes on success. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len_out</td><td>Set to the string length in bytes on success. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 if any argument is NULL or bounds are violated. </dd></dl>
+
 </div>
 </div>
 <a id="a60b0c2b0f52c19eecdaf9133e457503f" name="a60b0c2b0f52c19eecdaf9133e457503f"></a>
@@ -684,6 +870,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the format version stored in the file header. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Format version, or 0 if <code>ctx</code> is NULL. </dd></dl>
 
 </div>
 </div>
@@ -703,6 +898,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Opens and memory-maps a .WIZARD file, returning a validated context. </p>
+<p>Validates the magic number, version range, and section table bounds before returning. The file remains mapped until <a class="el" href="pars__wizard_8c.html#a56d2c1efb439f13289c395826d6893b7">wizard_close</a> is called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>Path to the .WIZARD file on disk. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a new context, or NULL on any failure (file not found, invalid magic, bounds violation, allocation error, etc.). </dd></dl>
+
 </div>
 </div>
 <a id="af6f4b516ccd34e127a746af68ff8982d" name="af6f4b516ccd34e127a746af68ff8982d"></a>
@@ -720,6 +925,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Destroys a wizard VM and frees all associated instruction data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vm</td><td>VM to destroy. No-op if NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -755,6 +968,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Disassembles a section's bytecode and prints it to stdout. </p>
+<p>Decodes each instruction in order, printing its file offset, index, mnemonic name, and decoded argument values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vm</td><td>Initialised wizard VM. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">section</td><td>Section to disassemble. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on any decode failure. </dd></dl>
+
 </div>
 </div>
 <a id="aa1bba13f29a0a9d6623f95901f4fce4c" name="aa1bba13f29a0a9d6623f95901f4fce4c"></a>
@@ -772,6 +997,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Prints all loaded instruction sets and their opcodes to stdout. </p>
+<p>Intended for debugging. Prints each version's opcode list with name and argument types.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vm</td><td>Initialised wizard VM. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -807,6 +1041,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Executes the bytecode contained in a section using the wizard VM. </p>
+<p>Selects the instruction set whose version matches the file's format version, then interprets each instruction sequentially. Execution stops on the first unrecognised opcode or handler error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vm</td><td>Initialised wizard VM. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context providing the string table and file data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">section</td><td>Section entry whose content will be executed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on any failure. </dd></dl>
+
 </div>
 </div>
 <a id="a5abb552099529c789882a3bb62b019f2" name="a5abb552099529c789882a3bb62b019f2"></a>
@@ -824,6 +1070,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Creates and initialises a wizard VM by loading instruction XML files from <code>instructions_dir</code>. </p>
+<p>Loads every XML file listed in the internal <code>vm_xml_files</code> table. At least one instruction set must load successfully; otherwise NULL is returned.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">instructions_dir</td><td>Directory containing instruction XML files. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a new VM, or NULL on failure. </dd></dl>
 
 </div>
 </div>

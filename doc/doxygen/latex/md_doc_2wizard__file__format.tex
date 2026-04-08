@@ -1,0 +1,226 @@
+\chapter{.WIZARD — Format de fichier binaire}
+\hypertarget{md_doc_2wizard__file__format}{}\label{md_doc_2wizard__file__format}\index{.WIZARD — Format de fichier binaire@{.WIZARD — Format de fichier binaire}}
+\label{md_doc_2wizard__file__format_autotoc_md252}%
+\Hypertarget{md_doc_2wizard__file__format_autotoc_md252}%
+ \DoxyHorRuler{0}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md254}{}\doxysection{\texorpdfstring{File Header}{File Header}}\label{md_doc_2wizard__file__format_autotoc_md254}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily magic}   &4   &{\ttfamily 0x42 0xa4 0x09 0x67}   &Magic number identifiant le fichier    \\\cline{1-4}
+{\ttfamily endianness}   &1   &{\ttfamily 0} = big / {\ttfamily 1} = little   &Ordre des octets utilisé dans tout le fichier    \\\cline{1-4}
+{\ttfamily version}   &2   &hi = major, lo = minor   &Octet haut = version majeure, octet bas = version mineure    \\\cline{1-4}
+{\ttfamily flags}   &4   &bitmask   &bit 0 = align 8 $|$ bit 1 = align 16 (mutuellement exclusifs)    \\\cline{1-4}
+{\ttfamily section\+\_\+header\+\_\+off}   &8   &adresse absolue   &Offset vers le section header depuis le début du fichier    \\\cline{1-4}
+{\ttfamily strndx\+\_\+off}   &8   &adresse absolue   &Offset vers la string table depuis le début du fichier   \\\cline{1-4}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+ \begin{quote}
+{\bfseries{Alignement}} \end{quote}
+---\hypertarget{md_doc_2wizard__file__format_autotoc_md256}{}\doxysection{\texorpdfstring{Section Header}{Section Header}}\label{md_doc_2wizard__file__format_autotoc_md256}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily header\+\_\+size}   &8   &entier   &Taille totale du section header    \\\cline{1-4}
+{\ttfamily section\+\_\+count}   &8   &entier   &Nombre de sections dans le fichier   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md257}{}\doxysubsection{\texorpdfstring{Entry × section\+\_\+count — 28 octets chacune}{Entry × section\_count — 28 octets chacune}}\label{md_doc_2wizard__file__format_autotoc_md257}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily name\+\_\+ref}   &4   &offset strndx   &Référence vers le nom de la section dans la string table    \\\cline{1-4}
+{\ttfamily type}   &4   &enum {\ttfamily 0x00}–{\ttfamily 0x05}   &Type de la section (voir Types \& Flags)    \\\cline{1-4}
+{\ttfamily flags}   &4   &bitmask   &Plateforme cible \+: bit 0 = windows, bit 1 = posix    \\\cline{1-4}
+{\ttfamily size}   &8   &entier   &Taille en octets du contenu de la section    \\\cline{1-4}
+{\ttfamily offset}   &8   &adresse absolue   &Offset vers le contenu de la section depuis le début du fichier   \\\cline{1-4}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+ \begin{quote}
+{\bfseries{Alignement}} \end{quote}
+---\hypertarget{md_doc_2wizard__file__format_autotoc_md259}{}\doxysection{\texorpdfstring{Sections × N}{Sections × N}}\label{md_doc_2wizard__file__format_autotoc_md259}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md260}{}\doxysubsection{\texorpdfstring{Section — metadata (type $<$tt$>$0x05$<$/tt$>$)}{Section — metadata (type <tt>0x05</tt>)}}\label{md_doc_2wizard__file__format_autotoc_md260}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily données}   &variable   &—   &Métadonnées du paquet (nom, version, description, dépendances, architecture, machine)   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md261}{}\doxysubsection{\texorpdfstring{Section — build (type $<$tt$>$0x04$<$/tt$>$)}{Section — build (type <tt>0x04</tt>)}}\label{md_doc_2wizard__file__format_autotoc_md261}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily instructions}   &variable   &séquence   &Script de compilation, exécuté avant installation   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md262}{}\doxysubsection{\texorpdfstring{Section — install (type $<$tt$>$0x01$<$/tt$>$)}{Section — install (type <tt>0x01</tt>)}}\label{md_doc_2wizard__file__format_autotoc_md262}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily instructions}   &variable   &séquence   &Script d\textquotesingle{}installation des fichiers du paquet   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md263}{}\doxysubsection{\texorpdfstring{Section — uninstall (type $<$tt$>$0x02$<$/tt$>$)}{Section — uninstall (type <tt>0x02</tt>)}}\label{md_doc_2wizard__file__format_autotoc_md263}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily instructions}   &variable   &séquence   &Script de suppression des fichiers installés   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md264}{}\doxysubsection{\texorpdfstring{Section — purge (type $<$tt$>$0x03$<$/tt$>$)}{Section — purge (type <tt>0x03</tt>)}}\label{md_doc_2wizard__file__format_autotoc_md264}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily instructions}   &variable   &séquence   &Script de suppression complète, y compris les données utilisateur   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md265}{}\doxysubsection{\texorpdfstring{Instruction — répétée dans chaque section de code}{Instruction — répétée dans chaque section de code}}\label{md_doc_2wizard__file__format_autotoc_md265}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily opcode}   &2   &entier   &Code de l\textquotesingle{}opération (défini dans {\ttfamily typedef\+\_\+x64.\+xml} / {\ttfamily instructions\+\_\+v0.\+xml})    \\\cline{1-4}
+arg scalaire   &N (fixe)   &entier   &Taille fixe définie par le typedef associé à l\textquotesingle{}opcode    \\\cline{1-4}
+arg string   &4   &offset strndx   &Référence vers une chaîne dans la string table    \\\cline{1-4}
+arg tableau   &4 + N×M   &count + items   &Nombre d\textquotesingle{}éléments (4 octets) suivi des éléments de taille M chacun   \\\cline{1-4}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+ \begin{quote}
+{\bfseries{Alignement}} \end{quote}
+---\hypertarget{md_doc_2wizard__file__format_autotoc_md267}{}\doxysection{\texorpdfstring{String Table}{String Table}}\label{md_doc_2wizard__file__format_autotoc_md267}
+Adressée par {\ttfamily strndx\+\_\+off}. Entrée répétée pour chaque chaîne unique, référencée par offset depuis le début de la table.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Champ   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur / Encodage   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+{\ttfamily len}   &4   &entier   &Longueur en octets de la chaîne suivante    \\\cline{1-4}
+{\ttfamily string bytes}   &len   &variable   &Contenu brut de la chaîne (noms de sections, valeurs d\textquotesingle{}arguments)   \\\cline{1-4}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md269}{}\doxysection{\texorpdfstring{Types \& Flags}{Types \& Flags}}\label{md_doc_2wizard__file__format_autotoc_md269}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md270}{}\doxysubsection{\texorpdfstring{Section types}{Section types}}\label{md_doc_2wizard__file__format_autotoc_md270}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Constante   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Constante   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endhead
+{\ttfamily TYPE\+\_\+\+GENERIC\+\_\+\+SECTION}   &{\ttfamily 0x00}   &Section générique    \\\cline{1-3}
+{\ttfamily TYPE\+\_\+\+SECTION\+\_\+\+INSTALL}   &{\ttfamily 0x01}   &Script d\textquotesingle{}installation    \\\cline{1-3}
+{\ttfamily TYPE\+\_\+\+SECTION\+\_\+\+UNINSTALL}   &{\ttfamily 0x02}   &Script de désinstallation    \\\cline{1-3}
+{\ttfamily TYPE\+\_\+\+SECTION\+\_\+\+PURGE}   &{\ttfamily 0x03}   &Suppression complète    \\\cline{1-3}
+{\ttfamily TYPE\+\_\+\+SECTION\+\_\+\+BUILD}   &{\ttfamily 0x04}   &Script de compilation    \\\cline{1-3}
+{\ttfamily TYPE\+\_\+\+SECTION\+\_\+\+METADATA}   &{\ttfamily 0x05}   &Métadonnées du paquet   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md271}{}\doxysubsection{\texorpdfstring{Section flags}{Section flags}}\label{md_doc_2wizard__file__format_autotoc_md271}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Constante   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Bit   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Constante   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Bit   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endhead
+{\ttfamily FLAGS\+\_\+\+DEFAULT}   &—   &Aucune plateforme spécifique ({\ttfamily 0x00})    \\\cline{1-3}
+{\ttfamily FLAGS\+\_\+\+WINDOWS}   &bit 0   &Section destinée à Windows    \\\cline{1-3}
+{\ttfamily FLAGS\+\_\+\+POSIX}   &bit 1   &Section destinée à POSIX / Linux / mac\+OS   \\\cline{1-3}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2wizard__file__format_autotoc_md273}{}\doxysection{\texorpdfstring{Arguments d\textquotesingle{}instruction}{Arguments d'instruction}}\label{md_doc_2wizard__file__format_autotoc_md273}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Classe Python   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Classe Python   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Taille   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+Scalaire   &{\ttfamily Wizard\+Argument}   &N (fixe)   &Entier de taille fixe définie par le typedef. Encodé selon l\textquotesingle{}endianness du fichier.    \\\cline{1-4}
+String ref   &{\ttfamily Wizard\+Argument} (str)   &4   &Offset dans la string table. La chaîne est enregistrée par {\ttfamily add\+\_\+strndx()} lors de la sérialisation.    \\\cline{1-4}
+Tableau   &{\ttfamily Wizard\+Argument\+Array}   &4 + N×M   &count (4 octets) suivi de N éléments de taille M. Les éléments peuvent être des scalaires ou des string refs.   \\\cline{1-4}
+\end{longtabu}
+
+
+\begin{quote}
+{\ttfamily \+\_\+\+ARR\+\_\+\+COUNT\+\_\+\+SIZE = 4} — {\ttfamily get\+\_\+size()} d\textquotesingle{}un tableau = {\ttfamily 4 + nb\+\_\+items × taille\+\_\+item} \end{quote}

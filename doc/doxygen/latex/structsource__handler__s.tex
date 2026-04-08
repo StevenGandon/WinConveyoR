@@ -2,6 +2,11 @@
 \hypertarget{structsource__handler__s}{}\label{structsource__handler__s}\index{source\_handler\_s@{source\_handler\_s}}
 
 
+Aggregates all mirrors and cached sources for a package source.  
+
+
+
+
 {\ttfamily \#include $<$libwconr\+\_\+private\+\_\+source.\+h$>$}
 
 \doxysubsubsection*{Public Attributes}
@@ -17,6 +22,13 @@ size\+\_\+t \mbox{\hyperlink{structsource__handler__s_a20019d742ddb89efb975ec694
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Aggregates all mirrors and cached sources for a package source. 
+
+The source handler is the top-\/level object used by the package manager to resolve where to fetch packages from and whether a local cache is still valid.
+
+Mirrors are tried in insertion order. Cached sources are keyed by path and validated against their stored checksum before use. 
+
 \doxysubsection{Member Data Documentation}
 \Hypertarget{structsource__handler__s_a515edb24d1e1e215ae907d277108661f}\label{structsource__handler__s_a515edb24d1e1e215ae907d277108661f} 
 \index{source\_handler\_s@{source\_handler\_s}!cached\_sources@{cached\_sources}}
@@ -24,25 +36,25 @@ size\+\_\+t \mbox{\hyperlink{structsource__handler__s_a20019d742ddb89efb975ec694
 \doxysubsubsection{\texorpdfstring{cached\_sources}{cached\_sources}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{structcached__source__s}{cached\+\_\+source\+\_\+s}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} source\+\_\+handler\+\_\+s\+::cached\+\_\+sources}
 
-\Hypertarget{structsource__handler__s_a20019d742ddb89efb975ec694b08fd19}\label{structsource__handler__s_a20019d742ddb89efb975ec694b08fd19} 
+Heap-\/allocated array of cached source pointers. \Hypertarget{structsource__handler__s_a20019d742ddb89efb975ec694b08fd19}\label{structsource__handler__s_a20019d742ddb89efb975ec694b08fd19} 
 \index{source\_handler\_s@{source\_handler\_s}!cached\_sources\_size@{cached\_sources\_size}}
 \index{cached\_sources\_size@{cached\_sources\_size}!source\_handler\_s@{source\_handler\_s}}
 \doxysubsubsection{\texorpdfstring{cached\_sources\_size}{cached\_sources\_size}}
 {\footnotesize\ttfamily size\+\_\+t source\+\_\+handler\+\_\+s\+::cached\+\_\+sources\+\_\+size}
 
-\Hypertarget{structsource__handler__s_a2b6e801d0beae7f4581ec5b576346b5d}\label{structsource__handler__s_a2b6e801d0beae7f4581ec5b576346b5d} 
+Number of entries in {\ttfamily cached\+\_\+sources}. \Hypertarget{structsource__handler__s_a2b6e801d0beae7f4581ec5b576346b5d}\label{structsource__handler__s_a2b6e801d0beae7f4581ec5b576346b5d} 
 \index{source\_handler\_s@{source\_handler\_s}!mirrors@{mirrors}}
 \index{mirrors@{mirrors}!source\_handler\_s@{source\_handler\_s}}
 \doxysubsubsection{\texorpdfstring{mirrors}{mirrors}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{structsource__mirror__s}{source\+\_\+mirror\+\_\+s}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} source\+\_\+handler\+\_\+s\+::mirrors}
 
-\Hypertarget{structsource__handler__s_a0a4c22fdf3031296219776422aa86994}\label{structsource__handler__s_a0a4c22fdf3031296219776422aa86994} 
+Heap-\/allocated array of mirror pointers. \Hypertarget{structsource__handler__s_a0a4c22fdf3031296219776422aa86994}\label{structsource__handler__s_a0a4c22fdf3031296219776422aa86994} 
 \index{source\_handler\_s@{source\_handler\_s}!mirrors\_size@{mirrors\_size}}
 \index{mirrors\_size@{mirrors\_size}!source\_handler\_s@{source\_handler\_s}}
 \doxysubsubsection{\texorpdfstring{mirrors\_size}{mirrors\_size}}
 {\footnotesize\ttfamily size\+\_\+t source\+\_\+handler\+\_\+s\+::mirrors\+\_\+size}
 
-
+Number of entries in {\ttfamily mirrors}. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['8_201_20propositions_0',['8.1 Propositions',['../md_doc_2protocol__rfc.html#autotoc_md178',1,'']]],
-  ['8_202_20flags_20réservés_1',['8.2 Flags Réservés',['../md_doc_2protocol__rfc.html#autotoc_md179',1,'']]],
-  ['8_20extensions_20futures_2',['8. Extensions Futures',['../md_doc_2protocol__rfc.html#autotoc_md177',1,'']]]
+  ['7_201_20clients_0',['7.1 Clients',['../md_doc_2protocol__rfc.html#autotoc_md205',1,'']]],
+  ['7_202_20serveurs_1',['7.2 Serveurs',['../md_doc_2protocol__rfc.html#autotoc_md206',1,'']]],
+  ['7_20recommandations_20d_20implémentation_2',['7. Recommandations d&apos;Implémentation',['../md_doc_2protocol__rfc.html#autotoc_md204',1,'']]]
 ];

@@ -10,11 +10,11 @@
 \begin{DoxyCompactItemize}
 \item 
 ssize\+\_\+t \mbox{\hyperlink{posix_2http_8c_a0cd1cbdab12555a26b17c307b7b55a66}{get\+\_\+chunk}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}connection, size\+\_\+t size, unsigned char \texorpdfstring{$\ast$}{*}buffer)
-\item 
+\begin{DoxyCompactList}\small\item\em Reads raw bytes from a connection into a caller-\/supplied buffer. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{posix_2http_8c_a45da846e6c2ba9d4a0212d474ade16e1}{end\+\_\+http\+\_\+connection}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+connection)
-\item 
+\begin{DoxyCompactList}\small\item\em Closes and frees an HTTP connection. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{posix_2http_8c_ac16c71f53c5204afa141816bb9cd83f9}{new\+\_\+http\+\_\+connection}} (const char \texorpdfstring{$\ast$}{*}ip, unsigned short port)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates and connects a new HTTP connection to the given host. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -24,15 +24,60 @@ struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\
 \doxysubsubsection{\texorpdfstring{end\_http\_connection()}{end\_http\_connection()}}
 {\footnotesize\ttfamily void end\+\_\+http\+\_\+connection (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
 
+
+
+Closes and frees an HTTP connection. 
+
+Closes the socket, frees the address string, and frees the struct. On Windows, decrements the WSA reference counter and calls WSACleanup() when the last connection is closed.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em http\+\_\+connection} & Connection to destroy. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{posix_2http_8c_a0cd1cbdab12555a26b17c307b7b55a66}\label{posix_2http_8c_a0cd1cbdab12555a26b17c307b7b55a66} 
 \index{http.c@{http.c}!get\_chunk@{get\_chunk}}
 \index{get\_chunk@{get\_chunk}!http.c@{http.c}}
 \doxysubsubsection{\texorpdfstring{get\_chunk()}{get\_chunk()}}
-{\footnotesize\ttfamily ssize\+\_\+t get\+\_\+chunk (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{connection,  }\item[{size\+\_\+t}]{size,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily ssize\+\_\+t get\+\_\+chunk (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+c,  }\item[{size\+\_\+t}]{\+\_\+\+\_\+s,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+d }\end{DoxyParamCaption})}
 
+
+
+Reads raw bytes from a connection into a caller-\/supplied buffer. 
+
+Wraps {\ttfamily read()} (POSIX) or {\ttfamily recv()} (Windows) for a single non-\/blocking chunk of up to {\ttfamily \+\_\+\+\_\+s} bytes.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em \+\_\+\+\_\+c} & Connection to read from. \\
+\hline
+\mbox{\texttt{ in}}  & {\em \+\_\+\+\_\+s} & Maximum number of bytes to read. \\
+\hline
+\mbox{\texttt{ out}}  & {\em \+\_\+\+\_\+d} & Destination buffer of at least {\ttfamily \+\_\+\+\_\+s} bytes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes read on success, -\/1 on error or if any argument is NULL / zero. 
+\end{DoxyReturn}
 \Hypertarget{posix_2http_8c_ac16c71f53c5204afa141816bb9cd83f9}\label{posix_2http_8c_ac16c71f53c5204afa141816bb9cd83f9} 
 \index{http.c@{http.c}!new\_http\_connection@{new\_http\_connection}}
 \index{new\_http\_connection@{new\_http\_connection}!http.c@{http.c}}
 \doxysubsubsection{\texorpdfstring{new\_http\_connection()}{new\_http\_connection()}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+connection (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{unsigned short}]{port }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+connection (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+s,  }\item[{unsigned short}]{\+\_\+\+\_\+p }\end{DoxyParamCaption})}
 
+
+
+Creates and connects a new HTTP connection to the given host. 
+
+Allocates an \doxylink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}, opens a TCP socket, and connects it to {\ttfamily \+\_\+\+\_\+s} on port {\ttfamily \+\_\+\+\_\+p}. On Windows, initialises WSA on the first call.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em \+\_\+\+\_\+s} & Remote IP address string (dotted-\/decimal). \\
+\hline
+\mbox{\texttt{ in}}  & {\em \+\_\+\+\_\+p} & Remote TCP port number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the new connection, or NULL on any failure. 
+\end{DoxyReturn}

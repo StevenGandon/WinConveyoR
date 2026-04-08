@@ -13,7 +13,7 @@ static int \mbox{\hyperlink{vm__parse_8c_aeb7b5e941ee34792d8f77c8427f4083f}{vm\+
 static int \mbox{\hyperlink{vm__parse_8c_aab1e605d2a34203737e495736a5a36c5}{vm\+\_\+parse\+\_\+op}} (struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset, xml\+Node\+Ptr op\+\_\+node)
 \item 
 int \mbox{\hyperlink{vm__parse_8c_a611b107c0e6604a3a354c524aeb5a15f}{vm\+\_\+parse\+\_\+xml}} (const char \texorpdfstring{$\ast$}{*}path, struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses a wizard instruction XML file and fills an instruction set. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -41,3 +41,19 @@ int \mbox{\hyperlink{vm__parse_8c_a611b107c0e6604a3a354c524aeb5a15f}{vm\+\_\+par
 \doxysubsubsection{\texorpdfstring{vm\_parse\_xml()}{vm\_parse\_xml()}}
 {\footnotesize\ttfamily int vm\+\_\+parse\+\_\+xml (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{iset }\end{DoxyParamCaption})}
 
+
+
+Parses a wizard instruction XML file and fills an instruction set. 
+
+Accepts either a root {\ttfamily \texorpdfstring{$<$}{<}wizard\texorpdfstring{$>$}{>}} element (with a nested {\ttfamily \texorpdfstring{$<$}{<}instructions\texorpdfstring{$>$}{>}} child) or a bare {\ttfamily \texorpdfstring{$<$}{<}instructions\texorpdfstring{$>$}{>}} root. The {\ttfamily version} attribute of the {\ttfamily \texorpdfstring{$<$}{<}instructions\texorpdfstring{$>$}{>}} element is required.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & Path to the XML file on disk. \\
+\hline
+\mbox{\texttt{ out}}  & {\em iset} & Instruction set struct to populate. Must be pre-\/allocated by the caller; its fields will be initialised here. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success (at least one opcode loaded), -\/1 on any parse or allocation failure. 
+\end{DoxyReturn}

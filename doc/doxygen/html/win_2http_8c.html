@@ -117,10 +117,13 @@ $(document).ready(function(){initNavTree('win_2http_8c.html',''); initResizable(
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0cd1cbdab12555a26b17c307b7b55a66" id="r_a0cd1cbdab12555a26b17c307b7b55a66"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_2http_8c.html#a0cd1cbdab12555a26b17c307b7b55a66">get_chunk</a> (struct <a class="el" href="struct__http__connection__s.html">_http_connection_s</a> *connection, size_t size, unsigned char *buffer)</td></tr>
+<tr class="memdesc:a0cd1cbdab12555a26b17c307b7b55a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads raw bytes from a connection into a caller-supplied buffer.  <br /></td></tr>
 <tr class="separator:a0cd1cbdab12555a26b17c307b7b55a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45da846e6c2ba9d4a0212d474ade16e1" id="r_a45da846e6c2ba9d4a0212d474ade16e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_2http_8c.html#a45da846e6c2ba9d4a0212d474ade16e1">end_http_connection</a> (struct <a class="el" href="struct__http__connection__s.html">_http_connection_s</a> *http_connection)</td></tr>
+<tr class="memdesc:a45da846e6c2ba9d4a0212d474ade16e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes and frees an HTTP connection.  <br /></td></tr>
 <tr class="separator:a45da846e6c2ba9d4a0212d474ade16e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac16c71f53c5204afa141816bb9cd83f9" id="r_ac16c71f53c5204afa141816bb9cd83f9"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__http__connection__s.html">_http_connection_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9">new_http_connection</a> (const char *ip, unsigned short port)</td></tr>
+<tr class="memdesc:ac16c71f53c5204afa141816bb9cd83f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and connects a new HTTP connection to the given host.  <br /></td></tr>
 <tr class="separator:ac16c71f53c5204afa141816bb9cd83f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -147,6 +150,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Closes and frees an HTTP connection. </p>
+<p>Closes the socket, frees the address string, and frees the struct. On Windows, decrements the WSA reference counter and calls WSACleanup() when the last connection is closed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">http_connection</td><td>Connection to destroy. No-op if NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a0cd1cbdab12555a26b17c307b7b55a66" name="a0cd1cbdab12555a26b17c307b7b55a66"></a>
@@ -159,19 +171,19 @@ Variables</h2></td></tr>
           <td class="memname">ssize_t get_chunk </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="struct__http__connection__s.html">_http_connection_s</a> *&#160;</td>
-          <td class="paramname"><em>connection</em>, </td>
+          <td class="paramname"><em>__c</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramname"><em>__s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
+          <td class="paramname"><em>__d</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -180,6 +192,18 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reads raw bytes from a connection into a caller-supplied buffer. </p>
+<p>Wraps <code>read()</code> (POSIX) or <code>recv()</code> (Windows) for a single non-blocking chunk of up to <code>__s</code> bytes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">__c</td><td>Connection to read from. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">__s</td><td>Maximum number of bytes to read. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">__d</td><td>Destination buffer of at least <code>__s</code> bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes read on success, -1 on error or if any argument is NULL / zero. </dd></dl>
 
 </div>
 </div>
@@ -193,13 +217,13 @@ Variables</h2></td></tr>
           <td class="memname">struct <a class="el" href="struct__http__connection__s.html">_http_connection_s</a> * new_http_connection </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>ip</em>, </td>
+          <td class="paramname"><em>__s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned short&#160;</td>
-          <td class="paramname"><em>port</em>&#160;</td>
+          <td class="paramname"><em>__p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -208,6 +232,17 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Creates and connects a new HTTP connection to the given host. </p>
+<p>Allocates an <a class="el" href="struct__http__connection__s.html">_http_connection_s</a>, opens a TCP socket, and connects it to <code>__s</code> on port <code>__p</code>. On Windows, initialises WSA on the first call.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">__s</td><td>Remote IP address string (dotted-decimal). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">__p</td><td>Remote TCP port number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the new connection, or NULL on any failure. </dd></dl>
 
 </div>
 </div>

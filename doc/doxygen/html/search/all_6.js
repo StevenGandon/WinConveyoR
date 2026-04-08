@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['7_201_20clients_0',['7.1 Clients',['../md_doc_2protocol__rfc.html#autotoc_md175',1,'']]],
-  ['7_202_20serveurs_1',['7.2 Serveurs',['../md_doc_2protocol__rfc.html#autotoc_md176',1,'']]],
-  ['7_20recommandations_20d_20implémentation_2',['7. Recommandations d&apos;Implémentation',['../md_doc_2protocol__rfc.html#autotoc_md174',1,'']]]
+  ['6_201_20authentification_0',['6.1 Authentification',['../md_doc_2protocol__rfc.html#autotoc_md201',1,'']]],
+  ['6_202_20sessions_1',['6.2 Sessions',['../md_doc_2protocol__rfc.html#autotoc_md202',1,'']]],
+  ['6_203_20routes_20protégées_2',['6.3 Routes Protégées',['../md_doc_2protocol__rfc.html#autotoc_md203',1,'']]],
+  ['6_20goodbye_20terminer_20la_20connexion_3',['4.6 goodbye - Terminer la Connexion',['../md_doc_2protocol__rfc.html#autotoc_md196',1,'']]],
+  ['6_20sécurité_4',['6. Sécurité',['../md_doc_2protocol__rfc.html#autotoc_md200',1,'']]]
 ];
