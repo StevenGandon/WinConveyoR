@@ -13,6 +13,8 @@ class CLI(object):
     OPTION_TABLE: dict = {
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
+        "install": {"opt": ("install", "-i", "--install"), "exc": ()},
+        "update": {"opt": ("update", "-u", "--update"), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -192,6 +194,20 @@ Exemples:
         self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
+    def install_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_name):
+            sys.stdout.write(f"{sys.argv[0]} install: stub - no package name provided.\n")
+            return (1)
+
+        sys.stdout.write(f"{sys.argv[0]} install: stub - would install '{package_name}' (not implemented yet).\n")
+        return (0)
+
+    def update_sources(self):
+        sys.stdout.write(f"{sys.argv[0]} update: stub - would sync package list (not implemented yet).\n")
+        return (0)
+
     def run(self) -> int:
         if (not self.wcr):
             self.wcr = WCRState()
@@ -201,6 +217,12 @@ Exemples:
 
         if (self.has_opt("download")):
             return self.download_package()
+
+        if (self.has_opt("install")):
+            return self.install_package()
+
+        if (self.has_opt("update")):
+            return self.update_sources()
 
         sys.stderr.write(f"{sys.argv[0]}: no operation specified (use -h for help).\n")
         return (1)

@@ -22,9 +22,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(curl)
 
 find_package(LibXml2 REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 set(LIBWCONR_SOURCES
     src/download_package.c
+    src/source_metadata_update.c
     src/http_headers.c
     src/http_parsing.c
     src/http_request.c
@@ -50,7 +52,7 @@ endif()
 
 add_library(wconr SHARED ${LIBWCONR_SOURCES})
 
-target_link_libraries(wconr PRIVATE CURL::libcurl LibXml2::LibXml2)
+target_link_libraries(wconr PRIVATE CURL::libcurl LibXml2::LibXml2 OpenSSL::Crypto)
 if(WIN32)
     target_link_libraries(wconr PRIVATE ws2_32)
 endif()
