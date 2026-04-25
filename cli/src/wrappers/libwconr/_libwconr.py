@@ -1,4 +1,4 @@
-from ctypes import Structure, POINTER, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t, c_ssize_t
+from ctypes import Structure, POINTER, c_short, c_ushort, c_int, c_uint, c_long, c_ulong, c_double, c_float, c_size_t, c_ssize_t, c_char_p
 from ctypes import c_byte as c_char
 from ctypes import c_ubyte as c_uchar
 from enum import Enum
@@ -78,4 +78,5 @@ class Mapper(object):
         self._dll.register_function("new_state", POINTER(wcr_state_s))
         self._dll.register_function("close_state", None, POINTER(wcr_state_s))
         self._dll.register_function("download_package", c_int, POINTER(None), POINTER(None))
+        self._dll.register_function("sync_package_list", c_int, c_char_p)
 

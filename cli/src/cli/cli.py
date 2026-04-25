@@ -205,7 +205,16 @@ Exemples:
         return (0)
 
     def update_sources(self):
-        sys.stdout.write(f"{sys.argv[0]} update: stub - would sync package list (not implemented yet).\n")
+        source_uri = "http://localhost:8080"
+
+        sys.stdout.write(f"{sys.argv[0]} update: syncing package list from {source_uri}...\n")
+        rc = self.wcr.sync_package_list(source_uri)
+
+        if (rc != 0):
+            sys.stderr.write(f"{sys.argv[0]} update: sync_package_list failed (rc={rc}).\n")
+            return (1)
+
+        sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
         return (0)
 
     def run(self) -> int:
