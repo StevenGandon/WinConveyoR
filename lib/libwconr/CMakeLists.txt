@@ -26,7 +26,11 @@ find_package(OpenSSL REQUIRED)
 
 set(LIBWCONR_SOURCES
     src/download_package.c
-    src/source_metadata_update.c
+    src/pkg_downloader.c
+    src/file_utils.c
+    src/pkg_parsing.c
+    src/sync_package_list.c
+    src/install_package.c
     src/http_headers.c
     src/http_parsing.c
     src/http_request.c
