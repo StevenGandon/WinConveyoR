@@ -43,6 +43,7 @@
     void close_state(struct wcr_state_s *__s);
     int download_package(const unsigned char *http_address, const unsigned char *location);
     int sync_package_list(const char *source_uri);
+    int install_package(const char *source_uri, const char *package_name);
 
     /* ==== low level interfaces ==== */
 

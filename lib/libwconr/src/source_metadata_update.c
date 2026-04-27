@@ -237,6 +237,376 @@ static int cleanup_sync_resources(struct sync_resources_s *res, int result)
     return result;
 }
 
+static int find_package_in_list(const char *pkgs_list_path, const char *package_name,
+                                 char **out_register_path, char **out_checksum)
+{
+    FILE *fp;
+    char line[1024];
+    size_t name_len;
+
+    *out_register_path = NULL;
+    *out_checksum = NULL;
+
+    fp = fopen(pkgs_list_path, "r");
+    if (!fp) {
+        fprintf(stderr, "[ERROR] find_package_in_list: cannot open %s\n", pkgs_list_path);
+        return -1;
+    }
+
+    name_len = strlen(package_name);
+
+    while (fgets(line, sizeof(line), fp)) {
+        char *end = line + strlen(line);
+        while (end > line && (*(end - 1) == '\n' || *(end - 1) == '\r')) {
+            *(--end) = '\0';
+        }
+
+        if (strncmp(line, package_name, name_len) != 0 || line[name_len] != ',') {
+            continue;
+        }
+
+        char *p = line + name_len + 1;
+        char *version = p;
+        char *comma1 = strchr(version, ',');
+        if (!comma1) continue;
+        *comma1 = '\0';
+
+        char *register_path = comma1 + 1;
+        char *comma2 = strchr(register_path, ',');
+        if (!comma2) continue;
+        *comma2 = '\0';
+
+        char *checksum = comma2 + 1;
+
+        *out_register_path = strdup(register_path);
+        *out_checksum = strdup(checksum);
+
+        printf("[DEBUG] find_package_in_list: %s version=%s register=%s checksum=%s\n",
+               package_name, version, *out_register_path, *out_checksum);
+
+        fclose(fp);
+
+        if (!*out_register_path || !*out_checksum) {
+            if (*out_register_path) free(*out_register_path);
+            if (*out_checksum) free(*out_checksum);
+            *out_register_path = NULL;
+            *out_checksum = NULL;
+            return -1;
+        }
+
+        return 0;
+    }
+
+    fclose(fp);
+    fprintf(stderr, "[ERROR] find_package_in_list: package '%s' not found in %s\n", package_name, pkgs_list_path);
+    return -1;
+}
+
+static int json_extract_string(const char *json, const char *key, char **out_value)
+{
+    char needle[128];
+    const char *p;
+    const char *value_start;
+    const char *value_end;
+    size_t value_len;
+
+    *out_value = NULL;
+
+    if (snprintf(needle, sizeof(needle), "\"%s\"", key) >= (int)sizeof(needle)) {
+        fprintf(stderr, "[ERROR] json_extract_string: key too long: %s\n", key);
+        return -1;
+    }
+
+    p = strstr(json, needle);
+    if (!p) {
+        fprintf(stderr, "[ERROR] json_extract_string: key '%s' not found\n", key);
+        return -1;
+    }
+
+    p += strlen(needle);
+
+    while (*p && *p != ':') p++;
+    if (*p != ':') {
+        fprintf(stderr, "[ERROR] json_extract_string: missing ':' after key '%s'\n", key);
+        return -1;
+    }
+    p++;
+
+    while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') p++;
+
+    if (*p != '"') {
+        fprintf(stderr, "[ERROR] json_extract_string: value for key '%s' is not a string\n", key);
+        return -1;
+    }
+    p++;
+    value_start = p;
+
+    value_end = strchr(value_start, '"');
+    if (!value_end) {
+        fprintf(stderr, "[ERROR] json_extract_string: unterminated string for key '%s'\n", key);
+        return -1;
+    }
+
+    value_len = (size_t)(value_end - value_start);
+
+    *out_value = malloc(value_len + 1);
+    if (!*out_value) {
+        fprintf(stderr, "[ERROR] json_extract_string: malloc failed\n");
+        return -1;
+    }
+    memcpy(*out_value, value_start, value_len);
+    (*out_value)[value_len] = '\0';
+
+    return 0;
+}
+
+static int parse_first_location(const char *register_content, char **out_location)
+{
+    const char *p = register_content;
+    const char *key = "Location:";
+    size_t key_len = strlen(key);
+
+    *out_location = NULL;
+
+    while (*p) {
+        const char *line_end = strchr(p, '\n');
+        size_t line_len = line_end ? (size_t)(line_end - p) : strlen(p);
+
+        if (line_len >= key_len && strncmp(p, key, key_len) == 0) {
+            const char *value = p + key_len;
+            const char *value_end = p + line_len;
+
+            while (value < value_end && (*value == ' ' || *value == '\t')) value++;
+            while (value_end > value && (*(value_end - 1) == ' ' || *(value_end - 1) == '\t' || *(value_end - 1) == '\r')) value_end--;
+
+            size_t value_len = (size_t)(value_end - value);
+            if (value_len == 0) {
+                fprintf(stderr, "[ERROR] parse_first_location: empty Location value\n");
+                return -1;
+            }
+
+            *out_location = malloc(value_len + 1);
+            if (!*out_location) {
+                fprintf(stderr, "[ERROR] parse_first_location: malloc failed\n");
+                return -1;
+            }
+            memcpy(*out_location, value, value_len);
+            (*out_location)[value_len] = '\0';
+
+            printf("[DEBUG] parse_first_location: found Location=%s\n", *out_location);
+            return 0;
+        }
+
+        if (!line_end) break;
+        p = line_end + 1;
+    }
+
+    fprintf(stderr, "[ERROR] parse_first_location: no Location field found in register\n");
+    return -1;
+}
+
+int install_package(const char *source_uri, const char *package_name)
+{
+    char *pkgs_list_path = NULL;
+    char *register_path = NULL;
+    char *checksum = NULL;
+    char *register_url = NULL;
+    char *register_content = NULL;
+    char *variant_location = NULL;
+    size_t uri_len, register_path_len;
+    int rc;
+
+    printf("[INFO] install_package: source_uri=%s package=%s\n", source_uri, package_name);
+
+    if (!source_uri || !package_name) {
+        fprintf(stderr, "[ERROR] install_package: source_uri or package_name is NULL\n");
+        return -1;
+    }
+
+    if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
+        fprintf(stderr, "[ERROR] install_package: curl_global_init failed\n");
+        return -1;
+    }
+
+    pkgs_list_path = get_cache_path("pkgs.list");
+    if (!pkgs_list_path) {
+        fprintf(stderr, "[ERROR] install_package: failed to get cache path\n");
+        curl_global_cleanup();
+        return -1;
+    }
+
+    rc = find_package_in_list(pkgs_list_path, package_name, &register_path, &checksum);
+    if (rc != 0) {
+        free(pkgs_list_path);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    uri_len = strlen(source_uri);
+    register_path_len = strlen(register_path);
+    register_url = malloc(uri_len + register_path_len + 1);
+    if (!register_url) {
+        fprintf(stderr, "[ERROR] install_package: malloc failed for register_url\n");
+        free(pkgs_list_path); free(register_path); free(checksum);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    if (source_uri[uri_len - 1] == '/' && register_path[0] == '/') {
+        sprintf(register_url, "%s%s", source_uri, register_path + 1);
+    } else if (source_uri[uri_len - 1] != '/' && register_path[0] != '/') {
+        sprintf(register_url, "%s/%s", source_uri, register_path);
+    } else {
+        sprintf(register_url, "%s%s", source_uri, register_path);
+    }
+
+    printf("[DEBUG] install_package: register_url=%s\n", register_url);
+
+    register_content = download_to_string(register_url);
+    if (!register_content) {
+        fprintf(stderr, "[ERROR] install_package: failed to download register file\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    rc = parse_first_location(register_content, &variant_location);
+    if (rc != 0) {
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    char *json_url = NULL;
+    char *json_content = NULL;
+    char *archive_address = NULL;
+    char *archive_sha256 = NULL;
+    size_t variant_location_len = strlen(variant_location);
+
+    json_url = malloc(uri_len + variant_location_len + 1);
+    if (!json_url) {
+        fprintf(stderr, "[ERROR] install_package: malloc failed for json_url\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    if (source_uri[uri_len - 1] == '/' && variant_location[0] == '/') {
+        sprintf(json_url, "%s%s", source_uri, variant_location + 1);
+    } else if (source_uri[uri_len - 1] != '/' && variant_location[0] != '/') {
+        sprintf(json_url, "%s/%s", source_uri, variant_location);
+    } else {
+        sprintf(json_url, "%s%s", source_uri, variant_location);
+    }
+
+    printf("[DEBUG] install_package: json_url=%s\n", json_url);
+
+    json_content = download_to_string(json_url);
+    if (!json_content) {
+        fprintf(stderr, "[ERROR] install_package: failed to download metadata JSON\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    rc = json_extract_string(json_content, "address", &archive_address);
+    if (rc != 0) {
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    rc = json_extract_string(json_content, "SHA256", &archive_sha256);
+    if (rc != 0) {
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content); free(archive_address);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    printf("[DEBUG] install_package: archive_address=%s\n", archive_address);
+    printf("[DEBUG] install_package: archive_sha256=%s\n", archive_sha256);
+
+    char *archive_url = NULL;
+    char *archive_basename = NULL;
+    char *archive_path = NULL;
+    char *local_archive_sha256 = NULL;
+    size_t archive_address_len = strlen(archive_address);
+
+    archive_url = malloc(uri_len + archive_address_len + 1);
+    if (!archive_url) {
+        fprintf(stderr, "[ERROR] install_package: malloc failed for archive_url\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content); free(archive_address); free(archive_sha256);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    if (source_uri[uri_len - 1] == '/' && archive_address[0] == '/') {
+        sprintf(archive_url, "%s%s", source_uri, archive_address + 1);
+    } else if (source_uri[uri_len - 1] != '/' && archive_address[0] != '/') {
+        sprintf(archive_url, "%s/%s", source_uri, archive_address);
+    } else {
+        sprintf(archive_url, "%s%s", source_uri, archive_address);
+    }
+
+    archive_basename = strrchr(archive_address, '/');
+    archive_basename = archive_basename ? archive_basename + 1 : archive_address;
+
+    archive_path = get_cache_path(archive_basename);
+    if (!archive_path) {
+        fprintf(stderr, "[ERROR] install_package: failed to get archive cache path\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content); free(archive_address); free(archive_sha256); free(archive_url);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    printf("[DEBUG] install_package: archive_url=%s\n", archive_url);
+    printf("[DEBUG] install_package: archive_path=%s\n", archive_path);
+
+    rc = download_to_file(archive_url, archive_path);
+    if (rc != 0) {
+        fprintf(stderr, "[ERROR] install_package: failed to download archive\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content); free(archive_address); free(archive_sha256); free(archive_url); free(archive_path);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    local_archive_sha256 = calculate_sha256_file(archive_path);
+    if (!local_archive_sha256) {
+        fprintf(stderr, "[ERROR] install_package: failed to compute SHA256 of downloaded archive\n");
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content); free(archive_address); free(archive_sha256); free(archive_url); free(archive_path);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    if (strcmp(local_archive_sha256, archive_sha256) != 0) {
+        fprintf(stderr, "[ERROR] install_package: SHA256 mismatch\n");
+        fprintf(stderr, "  expected: %s\n", archive_sha256);
+        fprintf(stderr, "  got:      %s\n", local_archive_sha256);
+        free(pkgs_list_path); free(register_path); free(checksum); free(register_url); free(register_content); free(variant_location); free(json_url); free(json_content); free(archive_address); free(archive_sha256); free(archive_url); free(archive_path); free(local_archive_sha256);
+        curl_global_cleanup();
+        return -1;
+    }
+
+    printf("[INFO] install_package: archive downloaded and SHA256 verified ok (%s)\n", archive_path);
+    printf("[INFO] install_package: stub - would now extract and run install wizard\n");
+
+    free(pkgs_list_path);
+    free(register_path);
+    free(checksum);
+    free(register_url);
+    free(register_content);
+    free(variant_location);
+    free(json_url);
+    free(json_content);
+    free(archive_address);
+    free(archive_sha256);
+    free(archive_url);
+    free(archive_path);
+    free(local_archive_sha256);
+    curl_global_cleanup();
+    return 0;
+}
+
 int sync_package_list(const char *source_uri)
 {
     struct sync_resources_s res = {NULL, NULL, NULL, NULL, NULL};

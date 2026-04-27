@@ -39,6 +39,10 @@
     static char* download_to_string(const char *url);
     static int download_to_file(const char *url, const char *filepath);
     static int cleanup_sync_resources(struct sync_resources_s *res, int result);
+    static int find_package_in_list(const char *pkgs_list_path, const char *package_name, char **out_register_path, char **out_checksum);
+    static int parse_first_location(const char *register_content, char **out_location);
+    static int json_extract_string(const char *json, const char *key, char **out_value);
     int sync_package_list(const char *source_uri);
+    int install_package(const char *source_uri, const char *package_name);
 
 #endif /* SOURCE_METADATA_UPDATE_H */

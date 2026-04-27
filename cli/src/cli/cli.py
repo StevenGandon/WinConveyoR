@@ -198,10 +198,19 @@ Exemples:
         package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
 
         if (not package_name):
-            sys.stdout.write(f"{sys.argv[0]} install: stub - no package name provided.\n")
+            sys.stderr.write(f"{sys.argv[0]} install: no package name provided.\n")
             return (1)
 
-        sys.stdout.write(f"{sys.argv[0]} install: stub - would install '{package_name}' (not implemented yet).\n")
+        source_uri = "http://localhost:8080"
+
+        sys.stdout.write(f"{sys.argv[0]} install: installing '{package_name}' from {source_uri}...\n")
+        rc = self.wcr.install_package(source_uri, package_name)
+
+        if (rc != 0):
+            sys.stderr.write(f"{sys.argv[0]} install: install_package failed (rc={rc}).\n")
+            return (1)
+
+        sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
         return (0)
 
     def update_sources(self):

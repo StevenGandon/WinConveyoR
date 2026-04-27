@@ -21,6 +21,9 @@ class WCRState(object):
     def sync_package_list(self, source_uri) -> int:
         return int(self.__mapper.call_function("sync_package_list", source_uri.encode('utf-8')))
 
+    def install_package(self, source_uri, package_name) -> int:
+        return int(self.__mapper.call_function("install_package", source_uri.encode('utf-8'), package_name.encode('utf-8')))
+
     def close(self):
         if (not self._cstate):
             return
