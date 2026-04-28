@@ -5,6 +5,37 @@
 #include <string.h>
 #include <curl/curl.h>
 
+char *build_url(const char *source_uri, const char *path)
+{
+    size_t uri_len;
+    size_t path_len;
+    char *url;
+
+    if (!source_uri || !path) {
+        fprintf(stderr, "[ERROR] build_url: source_uri or path is NULL\n");
+        return NULL;
+    }
+
+    uri_len = strlen(source_uri);
+    path_len = strlen(path);
+
+    url = malloc(uri_len + path_len + 2);
+    if (!url) {
+        fprintf(stderr, "[ERROR] build_url: malloc failed\n");
+        return NULL;
+    }
+
+    if (uri_len > 0 && source_uri[uri_len - 1] == '/' && path[0] == '/') {
+        sprintf(url, "%s%s", source_uri, path + 1);
+    } else if ((uri_len == 0 || source_uri[uri_len - 1] != '/') && path[0] != '/') {
+        sprintf(url, "%s/%s", source_uri, path);
+    } else {
+        sprintf(url, "%s%s", source_uri, path);
+    }
+
+    return url;
+}
+
 static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, void *userp)
 {
     size_t realsize = size * nmemb;
