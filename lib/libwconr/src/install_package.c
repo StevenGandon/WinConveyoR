@@ -75,8 +75,9 @@ static int fetch_metadata(const char *source_uri, const char *variant_location,
     return 0;
 }
 
-static int fetch_and_verify_archive(const char *source_uri, const char *archive_address,
-                                     const char *expected_sha256, char **out_path)
+static int fetch_and_verify_archive(const wcr_state *state, const char *source_uri,
+                                     const char *archive_address, const char *expected_sha256,
+                                     char **out_path)
 {
     char *url = NULL;
     char *path = NULL;
@@ -94,7 +95,7 @@ static int fetch_and_verify_archive(const char *source_uri, const char *archive_
     basename = strrchr(archive_address, '/');
     basename = basename ? basename + 1 : archive_address;
 
-    path = get_cache_path(basename);
+    path = get_cache_path(state, basename);
     if (!path) {
         free(url);
         return -1;
@@ -131,7 +132,7 @@ static int fetch_and_verify_archive(const char *source_uri, const char *archive_
     return 0;
 }
 
-int install_package(const char *source_uri, const char *package_name)
+int install_package(const wcr_state *state, const char *source_uri, const char *package_name)
 {
     char *pkgs_list_path = NULL;
     char *register_path = NULL;
@@ -145,8 +146,8 @@ int install_package(const char *source_uri, const char *package_name)
 
     printf("[INFO] install_package: source_uri=%s package=%s\n", source_uri, package_name);
 
-    if (!source_uri || !package_name) {
-        fprintf(stderr, "[ERROR] install_package: source_uri or package_name is NULL\n");
+    if (!state || !source_uri || !package_name) {
+        fprintf(stderr, "[ERROR] install_package: state, source_uri or package_name is NULL\n");
         return -1;
     }
 
@@ -155,7 +156,7 @@ int install_package(const char *source_uri, const char *package_name)
         return -1;
     }
 
-    pkgs_list_path = get_cache_path("pkgs.list");
+    pkgs_list_path = get_cache_path(state, "pkgs.list");
     if (!pkgs_list_path) {
         goto cleanup;
     }
@@ -176,7 +177,7 @@ int install_package(const char *source_uri, const char *package_name)
         goto cleanup;
     }
 
-    if (fetch_and_verify_archive(source_uri, archive_address, archive_sha256, &archive_path) != 0) {
+    if (fetch_and_verify_archive(state, source_uri, archive_address, archive_sha256, &archive_path) != 0) {
         goto cleanup;
     }
 

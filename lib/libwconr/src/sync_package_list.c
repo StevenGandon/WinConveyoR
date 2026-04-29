@@ -36,7 +36,7 @@ static int cleanup_sync_resources(struct sync_resources_s *res, int result)
     return result;
 }
 
-int sync_package_list(const char *source_uri)
+int sync_package_list(const wcr_state *state, const char *source_uri)
 {
     struct sync_resources_s res = {NULL, NULL, NULL, NULL, NULL};
     size_t uri_len;
@@ -44,8 +44,8 @@ int sync_package_list(const char *source_uri)
 
     printf("[INFO] sync_package_list: source_uri=%s\n", source_uri);
 
-    if (!source_uri) {
-        fprintf(stderr, "[ERROR] sync_package_list: source_uri is NULL\n");
+    if (!state || !source_uri) {
+        fprintf(stderr, "[ERROR] sync_package_list: state or source_uri is NULL\n");
         return -1;
     }
 
@@ -83,7 +83,7 @@ int sync_package_list(const char *source_uri)
     printf("[DEBUG] pkgs_list_url=%s\n", res.pkgs_list_url);
     printf("[DEBUG] checksum_url=%s\n", res.checksum_url);
 
-    res.pkgs_list_path = get_cache_path("pkgs.list");
+    res.pkgs_list_path = get_cache_path(state, "pkgs.list");
     if (!res.pkgs_list_path) {
         fprintf(stderr, "[ERROR] sync_package_list: failed to get cache path\n");
         return cleanup_sync_resources(&res, -1);

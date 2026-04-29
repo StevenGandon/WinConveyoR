@@ -1,6 +1,8 @@
 #ifndef LIBWCONR_H_
     #define LIBWCONR_H_
 
+    #include <stddef.h>
+
     /* ==== enums ==== */
 
     /* architectures */
@@ -19,6 +21,11 @@
         GEN_LINUX_PLTF = (1 << 2)
     };
 
+    /* transport protocols (PROT_WCR + dispatch added in a later base) */
+    typedef enum {
+        PROT_HTTP = 0
+    } protocol_type;
+
     /* ==== structs definition ==== */
 
     /* current system infos */
@@ -27,23 +34,36 @@
         short platform; // system operating system
     };
 
+    /* a single configured source (mirror) */
+    struct wcr_source_s {
+        char *url;            // mirror URL
+        protocol_type proto;  // transport protocol
+    };
+
     /* current state datas of the program */
     struct wcr_state_s {
         struct wcr_system_s system_informations; // system information about current machine / target machine
+        char *cache_path;                        // user-configured cache directory
+        struct wcr_source_s **sources;           // configured mirrors
+        size_t sources_count;                    // number of configured mirrors
     };
 
     /* ==== types definition ==== */
 
     typedef struct wcr_state_s wcr_state;
     typedef struct wcr_system_s wcr_system;
+    typedef struct wcr_source_s wcr_source;
 
     /* ==== high level interfaces ====  */
 
     struct wcr_state_s *new_state(void);
     void close_state(struct wcr_state_s *__s);
     int download_package(const unsigned char *http_address, const unsigned char *location);
-    int sync_package_list(const char *source_uri);
-    int install_package(const char *source_uri, const char *package_name);
+    int write_state(const struct wcr_state_s *state, const char *filepath);
+    struct wcr_state_s *load_state(const char *filepath);
+    int wcr_state_add_source(struct wcr_state_s *state, protocol_type proto, const char *url);
+    int sync_package_list(const struct wcr_state_s *state, const char *source_uri);
+    int install_package(const struct wcr_state_s *state, const char *source_uri, const char *package_name);
 
     /* ==== low level interfaces ==== */
 

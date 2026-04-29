@@ -201,34 +201,53 @@ Exemples:
             sys.stderr.write(f"{sys.argv[0]} install: no package name provided.\n")
             return (1)
 
-        source_uri = "http://localhost:8080"
-
-        sys.stdout.write(f"{sys.argv[0]} install: installing '{package_name}' from {source_uri}...\n")
-        rc = self.wcr.install_package(source_uri, package_name)
-
-        if (rc != 0):
-            sys.stderr.write(f"{sys.argv[0]} install: install_package failed (rc={rc}).\n")
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} install: no sources configured.\n")
             return (1)
 
-        sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
-        return (0)
+        for src in sources:
+            sys.stdout.write(f"{sys.argv[0]} install: trying '{package_name}' from {src['url']}...\n")
+            rc = self.wcr.install_package(src['url'], package_name)
+            if (rc == 0):
+                sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
+                return (0)
+
+        sys.stderr.write(f"{sys.argv[0]} install: failed from all sources.\n")
+        return (1)
 
     def update_sources(self):
-        source_uri = "http://localhost:8080"
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} update: no sources configured.\n")
+            return (1)
 
-        sys.stdout.write(f"{sys.argv[0]} update: syncing package list from {source_uri}...\n")
-        rc = self.wcr.sync_package_list(source_uri)
+        failed = 0
+        for src in sources:
+            sys.stdout.write(f"{sys.argv[0]} update: syncing from {src['url']}...\n")
+            rc = self.wcr.sync_package_list(src['url'])
+            if (rc != 0):
+                sys.stderr.write(f"{sys.argv[0]} update: sync failed for {src['url']} (rc={rc}).\n")
+                failed += 1
 
-        if (rc != 0):
-            sys.stderr.write(f"{sys.argv[0]} update: sync_package_list failed (rc={rc}).\n")
+        if (failed == len(sources)):
+            sys.stderr.write(f"{sys.argv[0]} update: all sources failed.\n")
             return (1)
 
         sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
         return (0)
 
+    def _load_state(self):
+        state = WCRState.load("~/.config/wcr/config")
+        if state is not None:
+            return state
+        state = WCRState()
+        state.add_source(0, "http://localhost:8080")
+        return state
+
     def run(self) -> int:
         if (not self.wcr):
-            self.wcr = WCRState()
+            self.wcr = self._load_state()
 
         if (self.has_opt("help")):
             return self.show_help()

@@ -4,45 +4,62 @@
 #include <stdlib.h>
 #include <string.h>
 #include <openssl/sha.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #ifdef _WIN32
     #include <windows.h>
+    #include <direct.h>
+    #define MKDIR(p) _mkdir(p)
 #else
     #include <unistd.h>
+    #define MKDIR(p) mkdir(p, 0755)
 #endif
 
-char *get_cache_path(const char *filename)
+static int mkdir_p(const char *path)
+{
+    char tmp[1024];
+    char *p;
+    size_t len;
+
+    len = strlen(path);
+    if (len >= sizeof(tmp)) {
+        return -1;
+    }
+    memcpy(tmp, path, len + 1);
+
+    for (p = tmp + 1; *p; p++) {
+        if (*p == '/' || *p == '\\') {
+            char saved = *p;
+            *p = '\0';
+            (void)MKDIR(tmp);
+            *p = saved;
+        }
+    }
+    (void)MKDIR(tmp);
+    return 0;
+}
+
+char *get_cache_path(const struct wcr_state_s *state, const char *filename)
 {
     char *full_path = NULL;
+    const char *cache_base;
     size_t path_len;
 
+    if (!state || !state->cache_path) {
+        fprintf(stderr, "[ERROR] get_cache_path: state or state->cache_path is NULL\n");
+        return NULL;
+    }
     if (!filename) {
         fprintf(stderr, "[ERROR] get_cache_path: filename is NULL\n");
         return NULL;
     }
 
-#ifdef _WIN32
-    const char *appdata = getenv("LOCALAPPDATA");
-    if (!appdata) {
-        fprintf(stderr, "[ERROR] get_cache_path: LOCALAPPDATA not found\n");
-        return NULL;
+    cache_base = state->cache_path;
+
+    if (mkdir_p(cache_base) != 0) {
+        fprintf(stderr, "[WARNING] get_cache_path: failed to ensure cache dir %s exists\n", cache_base);
     }
-
-    printf("[DEBUG] get_cache_path: LOCALAPPDATA=%s\n", appdata);
-
-    path_len = strlen(appdata) + strlen("/cache/wcr/") + strlen(filename) + 1;
-    full_path = malloc(path_len);
-    if (!full_path) {
-        fprintf(stderr, "[ERROR] get_cache_path: malloc failed\n");
-        return NULL;
-    }
-
-    snprintf(full_path, path_len, "%s/cache/wcr/%s", appdata, filename);
-
-#else
-    const char *cache_base = "/mnt/c/Users/thoma/Documents/GitHub/WinConveyoR/lib/libwconr/src/test";
-
-    printf("[DEBUG] get_cache_path: Using cache_base=%s\n", cache_base);
 
     path_len = strlen(cache_base) + 1 + strlen(filename) + 1;
     full_path = malloc(path_len);
@@ -52,7 +69,6 @@ char *get_cache_path(const char *filename)
     }
 
     snprintf(full_path, path_len, "%s/%s", cache_base, filename);
-#endif
 
     printf("[DEBUG] get_cache_path: result=%s\n", full_path);
     return full_path;
