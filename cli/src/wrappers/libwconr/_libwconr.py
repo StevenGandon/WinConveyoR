@@ -22,6 +22,7 @@ class SUPPORTED_PLATFORMS(Enum):
 
 class protocol_type(Enum):
     PROT_HTTP = 0
+    PROT_WCR = 1
 
 
 # ==== Structs ==== #
@@ -92,8 +93,8 @@ class Mapper(object):
         self._dll.register_function("new_state", POINTER(wcr_state_s))
         self._dll.register_function("close_state", None, POINTER(wcr_state_s))
         self._dll.register_function("download_package", c_int, POINTER(None), POINTER(None))
-        self._dll.register_function("sync_package_list", c_int, POINTER(wcr_state_s), c_char_p)
-        self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_char_p, c_char_p)
+        self._dll.register_function("sync_package_list", c_int, POINTER(wcr_state_s), c_int, c_char_p)
+        self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p)
         self._dll.register_function("load_state", POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("write_state", c_int, POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("wcr_state_add_source", c_int, POINTER(wcr_state_s), c_int, c_char_p)

@@ -21,9 +21,10 @@
         GEN_LINUX_PLTF = (1 << 2)
     };
 
-    /* transport protocols (PROT_WCR + dispatch added in a later base) */
+    /* transport protocols */
     typedef enum {
-        PROT_HTTP = 0
+        PROT_HTTP = 0,
+        PROT_WCR = 1
     } protocol_type;
 
     /* ==== structs definition ==== */
@@ -62,8 +63,8 @@
     int write_state(const struct wcr_state_s *state, const char *filepath);
     struct wcr_state_s *load_state(const char *filepath);
     int wcr_state_add_source(struct wcr_state_s *state, protocol_type proto, const char *url);
-    int sync_package_list(const struct wcr_state_s *state, const char *source_uri);
-    int install_package(const struct wcr_state_s *state, const char *source_uri, const char *package_name);
+    int sync_package_list(const struct wcr_state_s *state, protocol_type proto, const char *source_uri);
+    int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
 
     /* ==== low level interfaces ==== */
 

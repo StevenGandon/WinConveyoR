@@ -55,7 +55,7 @@ static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, v
     return realsize;
 }
 
-char *download_to_string(const char *url)
+char *download_to_string(protocol_type proto, const char *url)
 {
     CURL *curl;
     CURLcode res;
@@ -66,6 +66,11 @@ char *download_to_string(const char *url)
 
     if (!url) {
         fprintf(stderr, "[ERROR] download_to_string: url is NULL\n");
+        return NULL;
+    }
+
+    if (proto == PROT_WCR) {
+        fprintf(stderr, "[ERROR] download_to_string: PROT_WCR not implemented yet\n");
         return NULL;
     }
 
@@ -105,7 +110,7 @@ char *download_to_string(const char *url)
     return result;
 }
 
-int download_to_file(const char *url, const char *filepath)
+int download_to_file(protocol_type proto, const char *url, const char *filepath)
 {
     CURL *curl;
     CURLcode res;
@@ -115,6 +120,11 @@ int download_to_file(const char *url, const char *filepath)
 
     if (!url || !filepath) {
         fprintf(stderr, "[ERROR] download_to_file: url or filepath is NULL\n");
+        return -1;
+    }
+
+    if (proto == PROT_WCR) {
+        fprintf(stderr, "[ERROR] download_to_file: PROT_WCR not implemented yet\n");
         return -1;
     }
 

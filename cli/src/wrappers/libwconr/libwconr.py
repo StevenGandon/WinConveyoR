@@ -45,11 +45,11 @@ class WCRState(object):
         if int(self.__mapper.call_function("download_package", cast(create_string_buffer(url.encode('utf-8')), POINTER(c_ubyte)), cast(create_string_buffer(location.encode('utf-8')), POINTER(c_ubyte))) < 0):
             raise RuntimeError("failed to download")
 
-    def sync_package_list(self, source_uri) -> int:
-        return int(self.__mapper.call_function("sync_package_list", self._cstate, source_uri.encode('utf-8')))
+    def sync_package_list(self, proto: int, source_uri: str) -> int:
+        return int(self.__mapper.call_function("sync_package_list", self._cstate, proto, source_uri.encode('utf-8')))
 
-    def install_package(self, source_uri, package_name) -> int:
-        return int(self.__mapper.call_function("install_package", self._cstate, source_uri.encode('utf-8'), package_name.encode('utf-8')))
+    def install_package(self, proto: int, source_uri: str, package_name: str) -> int:
+        return int(self.__mapper.call_function("install_package", self._cstate, proto, source_uri.encode('utf-8'), package_name.encode('utf-8')))
 
     def close(self):
         if (not self._cstate):

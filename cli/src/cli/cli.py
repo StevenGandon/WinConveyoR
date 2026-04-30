@@ -208,7 +208,7 @@ Exemples:
 
         for src in sources:
             sys.stdout.write(f"{sys.argv[0]} install: trying '{package_name}' from {src['url']}...\n")
-            rc = self.wcr.install_package(src['url'], package_name)
+            rc = self.wcr.install_package(src['proto'], src['url'], package_name)
             if (rc == 0):
                 sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
                 return (0)
@@ -225,7 +225,7 @@ Exemples:
         failed = 0
         for src in sources:
             sys.stdout.write(f"{sys.argv[0]} update: syncing from {src['url']}...\n")
-            rc = self.wcr.sync_package_list(src['url'])
+            rc = self.wcr.sync_package_list(src['proto'], src['url'])
             if (rc != 0):
                 sys.stderr.write(f"{sys.argv[0]} update: sync failed for {src['url']} (rc={rc}).\n")
                 failed += 1

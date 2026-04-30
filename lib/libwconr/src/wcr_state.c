@@ -36,6 +36,7 @@ static const char *proto_to_string(protocol_type proto)
 {
     switch (proto) {
         case PROT_HTTP: return "http";
+        case PROT_WCR:  return "wcr";
         default:        return NULL;
     }
 }
@@ -43,6 +44,7 @@ static const char *proto_to_string(protocol_type proto)
 static int proto_from_string(const char *s, protocol_type *out)
 {
     if (strcmp(s, "http") == 0) { *out = PROT_HTTP; return 0; }
+    if (strcmp(s, "wcr") == 0)  { *out = PROT_WCR;  return 0; }
     return -1;
 }
 

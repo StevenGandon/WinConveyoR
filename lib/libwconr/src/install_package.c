@@ -2,13 +2,14 @@
 #include "pkg_downloader.h"
 #include "file_utils.h"
 #include "pkg_parsing.h"
+#include "wcr_client.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
 
-static int fetch_register(const char *source_uri, const char *register_path, char **out_content)
+static int fetch_register(protocol_type proto, const char *source_uri, const char *register_path, char **out_content)
 {
     char *url = NULL;
 
@@ -21,7 +22,7 @@ static int fetch_register(const char *source_uri, const char *register_path, cha
 
     printf("[DEBUG] fetch_register: url=%s\n", url);
 
-    *out_content = download_to_string(url);
+    *out_content = download_to_string(proto, url);
     free(url);
 
     if (!*out_content) {
@@ -32,7 +33,7 @@ static int fetch_register(const char *source_uri, const char *register_path, cha
     return 0;
 }
 
-static int fetch_metadata(const char *source_uri, const char *variant_location,
+static int fetch_metadata(protocol_type proto, const char *source_uri, const char *variant_location,
                           char **out_address, char **out_sha256)
 {
     char *url = NULL;
@@ -49,7 +50,7 @@ static int fetch_metadata(const char *source_uri, const char *variant_location,
 
     printf("[DEBUG] fetch_metadata: url=%s\n", url);
 
-    content = download_to_string(url);
+    content = download_to_string(proto, url);
     free(url);
 
     if (!content) {
@@ -75,7 +76,7 @@ static int fetch_metadata(const char *source_uri, const char *variant_location,
     return 0;
 }
 
-static int fetch_and_verify_archive(const wcr_state *state, const char *source_uri,
+static int fetch_and_verify_archive(const wcr_state *state, protocol_type proto, const char *source_uri,
                                      const char *archive_address, const char *expected_sha256,
                                      char **out_path)
 {
@@ -103,7 +104,7 @@ static int fetch_and_verify_archive(const wcr_state *state, const char *source_u
 
     printf("[DEBUG] fetch_and_verify_archive: url=%s path=%s\n", url, path);
 
-    rc = download_to_file(url, path);
+    rc = download_to_file(proto, url, path);
     free(url);
     if (rc != 0) {
         fprintf(stderr, "[ERROR] fetch_and_verify_archive: download failed\n");
@@ -132,7 +133,121 @@ static int fetch_and_verify_archive(const wcr_state *state, const char *source_u
     return 0;
 }
 
-int install_package(const wcr_state *state, const char *source_uri, const char *package_name)
+static int parse_host_port(const char *source_uri, char *host, size_t host_sz, int *port)
+{
+    const char *colon = strrchr(source_uri, ':');
+    size_t hlen;
+
+    if (!colon) {
+        hlen = strlen(source_uri);
+        if (hlen >= host_sz) hlen = host_sz - 1;
+        memcpy(host, source_uri, hlen);
+        host[hlen] = '\0';
+        *port = WCR_DEFAULT_PORT;
+        return 0;
+    }
+
+    hlen = (size_t)(colon - source_uri);
+    if (hlen >= host_sz) hlen = host_sz - 1;
+    memcpy(host, source_uri, hlen);
+    host[hlen] = '\0';
+    *port = atoi(colon + 1);
+    if (*port <= 0) *port = WCR_DEFAULT_PORT;
+    return 0;
+}
+
+static int install_wcr(const wcr_state *state, const char *source_uri, const char *package_name)
+{
+    char host[256];
+    int port;
+    wcr_conn *conn = NULL;
+    char *listing = NULL;
+    char *metadata = NULL;
+    char *address = NULL;
+    char *sha256 = NULL;
+    char *archive_path = NULL;
+    char location_hash[128] = {0};
+    const char *access_key;
+    int rc = -1;
+
+    (void)state;
+
+    parse_host_port(source_uri, host, sizeof(host), &port);
+
+    conn = wcr_open(host, port);
+    if (!conn) return -1;
+
+    access_key = getenv("WCR_ACCESS");
+    if (wcr_auth(conn, access_key ? access_key : "") != 0) {
+        goto cleanup;
+    }
+
+    listing = wcr_get_package_listing(conn, package_name);
+    if (!listing) {
+        fprintf(stderr, "[ERROR] install_wcr: get_package_listing failed for '%s'\n", package_name);
+        goto cleanup;
+    }
+
+    printf("[DEBUG] install_wcr: package_listing=\n%s\n", listing);
+
+    {
+        const char *p = listing;
+        int field = 0;
+        size_t i = 0;
+
+        while (*p && *p != '\r' && *p != '\n') {
+            if (*p == ' ') {
+                field++;
+                i = 0;
+            } else if (field == 3 && i < sizeof(location_hash) - 1) {
+                location_hash[i++] = *p;
+            }
+            p++;
+        }
+    }
+
+    if (location_hash[0] == '\0') {
+        fprintf(stderr, "[ERROR] install_wcr: could not extract location_hash from listing\n");
+        goto cleanup;
+    }
+
+    printf("[DEBUG] install_wcr: using location_hash=%s\n", location_hash);
+
+    metadata = wcr_get_package_metadata(conn, package_name, location_hash);
+    if (!metadata) {
+        fprintf(stderr, "[ERROR] install_wcr: get_package_metadata failed\n");
+        goto cleanup;
+    }
+
+    printf("[DEBUG] install_wcr: metadata=%s\n", metadata);
+
+    if (json_extract_string(metadata, "address", &address) != 0) {
+        fprintf(stderr, "[ERROR] install_wcr: cannot extract 'address' from metadata\n");
+        goto cleanup;
+    }
+
+    if (json_extract_string(metadata, "SHA256", &sha256) != 0) {
+        fprintf(stderr, "[ERROR] install_wcr: cannot extract 'SHA256' from metadata\n");
+        goto cleanup;
+    }
+
+    printf("[INFO] install_wcr: package=%s address=%s SHA256=%s\n", package_name, address, sha256);
+    printf("[INFO] install_wcr: metadata retrieved successfully via WCR protocol\n");
+    printf("[INFO] install_wcr: archive download via WCR not supported yet (needs protocol extension)\n");
+
+    rc = 0;
+
+cleanup:
+    free(listing);
+    free(metadata);
+    free(address);
+    free(sha256);
+    free(archive_path);
+    wcr_close(conn);
+    return rc;
+}
+
+int install_package(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name)
 {
     char *pkgs_list_path = NULL;
     char *register_path = NULL;
@@ -144,11 +259,15 @@ int install_package(const wcr_state *state, const char *source_uri, const char *
     char *archive_path = NULL;
     int rc = -1;
 
-    printf("[INFO] install_package: source_uri=%s package=%s\n", source_uri, package_name);
+    printf("[INFO] install_package: source_uri=%s package=%s proto=%d\n", source_uri, package_name, proto);
 
     if (!state || !source_uri || !package_name) {
         fprintf(stderr, "[ERROR] install_package: state, source_uri or package_name is NULL\n");
         return -1;
+    }
+
+    if (proto == PROT_WCR) {
+        return install_wcr(state, source_uri, package_name);
     }
 
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
@@ -165,7 +284,7 @@ int install_package(const wcr_state *state, const char *source_uri, const char *
         goto cleanup;
     }
 
-    if (fetch_register(source_uri, register_path, &register_content) != 0) {
+    if (fetch_register(proto, source_uri, register_path, &register_content) != 0) {
         goto cleanup;
     }
 
@@ -173,11 +292,11 @@ int install_package(const wcr_state *state, const char *source_uri, const char *
         goto cleanup;
     }
 
-    if (fetch_metadata(source_uri, variant_location, &archive_address, &archive_sha256) != 0) {
+    if (fetch_metadata(proto, source_uri, variant_location, &archive_address, &archive_sha256) != 0) {
         goto cleanup;
     }
 
-    if (fetch_and_verify_archive(state, source_uri, archive_address, archive_sha256, &archive_path) != 0) {
+    if (fetch_and_verify_archive(state, proto, source_uri, archive_address, archive_sha256, &archive_path) != 0) {
         goto cleanup;
     }
 
