@@ -85,17 +85,62 @@ static int convert_listing_to_pkgs_list(const char *listing, const char *filepat
     return 0;
 }
 
+static int is_pkgs_list_current(const char *pkgs_list_path, const char *remote_hash)
+{
+    char *local_hash;
+    size_t len;
+    int current;
+
+    if (!remote_hash || access(pkgs_list_path, F_OK) != 0)
+        return 0;
+
+    local_hash = calculate_sha256_file(pkgs_list_path);
+    if (!local_hash)
+        return 0;
+
+    len = strlen(remote_hash);
+    while (len > 0 && (remote_hash[len-1] == '\n' || remote_hash[len-1] == '\r' || remote_hash[len-1] == ' '))
+        len--;
+
+    current = (strncmp(remote_hash, local_hash, len) == 0 && local_hash[len] == '\0');
+    printf("[DEBUG] sync_wcr: remote_hash=%.*s local_hash=%s\n", (int)len, remote_hash, local_hash);
+    free(local_hash);
+    return current;
+}
+
+static int wcr_download_listing(wcr_conn *conn, const char *pkgs_list_path)
+{
+    char *listing;
+
+    printf("[INFO] sync_wcr: fetching listing via WCR protocol...\n");
+
+    listing = wcr_get_listing(conn);
+    if (!listing) {
+        fprintf(stderr, "[ERROR] sync_wcr: get_listing failed\n");
+        return -1;
+    }
+
+    printf("[DEBUG] sync_wcr: listing received (%zu bytes)\n", strlen(listing));
+
+    if (convert_listing_to_pkgs_list(listing, pkgs_list_path) != 0) {
+        free(listing);
+        return -1;
+    }
+
+    free(listing);
+    printf("[INFO] sync_wcr: pkgs.list updated from WCR source\n");
+    return 0;
+}
+
 static int sync_wcr(const wcr_state *state, const char *source_uri)
 {
     char host[256];
     int port;
-    wcr_conn *conn = NULL;
-    char *pkgs_list_path = NULL;
-    char *remote_hash = NULL;
-    char *local_hash = NULL;
-    char *listing = NULL;
+    wcr_conn *conn;
+    char *pkgs_list_path;
+    char *remote_hash;
     const char *access_key;
-    int rc = -1;
+    int rc;
 
     parse_host_port(source_uri, host, sizeof(host), &port);
 
@@ -104,85 +149,144 @@ static int sync_wcr(const wcr_state *state, const char *source_uri)
 
     access_key = getenv("WCR_ACCESS");
     if (wcr_auth(conn, access_key ? access_key : "") != 0) {
-        goto cleanup;
+        wcr_close(conn);
+        return -1;
     }
 
     pkgs_list_path = get_cache_path(state, "pkgs.list");
-    if (!pkgs_list_path) goto cleanup;
+    if (!pkgs_list_path) {
+        wcr_close(conn);
+        return -1;
+    }
 
     remote_hash = wcr_get_hash(conn);
-    if (!remote_hash) {
+    if (!remote_hash)
         fprintf(stderr, "[WARNING] sync_wcr: get_hash failed, forcing download\n");
+
+    if (is_pkgs_list_current(pkgs_list_path, remote_hash)) {
+        printf("[INFO] sync_wcr: pkgs.list is up to date\n");
+        free(remote_hash);
+        free(pkgs_list_path);
+        wcr_close(conn);
+        return 0;
     }
-
-    if (remote_hash && access(pkgs_list_path, F_OK) == 0) {
-        local_hash = calculate_sha256_file(pkgs_list_path);
-        if (local_hash) {
-            char *trimmed = remote_hash;
-            size_t len = strlen(trimmed);
-            while (len > 0 && (trimmed[len-1] == '\n' || trimmed[len-1] == '\r' || trimmed[len-1] == ' '))
-                trimmed[--len] = '\0';
-
-            printf("[DEBUG] sync_wcr: remote_hash=%s local_hash=%s\n", trimmed, local_hash);
-            if (strcmp(trimmed, local_hash) == 0) {
-                printf("[INFO] sync_wcr: pkgs.list is up to date\n");
-                rc = 0;
-                goto cleanup;
-            }
-        }
-    }
-
-    printf("[INFO] sync_wcr: fetching listing via WCR protocol...\n");
-    listing = wcr_get_listing(conn);
-    if (!listing) {
-        fprintf(stderr, "[ERROR] sync_wcr: get_listing failed\n");
-        goto cleanup;
-    }
-
-    printf("[DEBUG] sync_wcr: listing received (%zu bytes)\n", strlen(listing));
-
-    if (convert_listing_to_pkgs_list(listing, pkgs_list_path) != 0) {
-        goto cleanup;
-    }
-
-    printf("[INFO] sync_wcr: pkgs.list updated from WCR source\n");
-    rc = 0;
-
-cleanup:
-    free(pkgs_list_path);
     free(remote_hash);
-    free(local_hash);
-    free(listing);
+
+    rc = wcr_download_listing(conn, pkgs_list_path);
+    free(pkgs_list_path);
     wcr_close(conn);
     return rc;
 }
 
-struct sync_resources_s {
+static void trim_whitespace(char *s)
+{
+    char *start = s;
+    char *end;
+
+    while (*start == ' ' || *start == '\n' || *start == '\r' || *start == '\t')
+        start++;
+
+    if (start != s)
+        memmove(s, start, strlen(start) + 1);
+
+    end = s + strlen(s) - 1;
+    while (end > s && (*end == ' ' || *end == '\n' || *end == '\r' || *end == '\t'))
+        *end-- = '\0';
+}
+
+static int http_needs_download(protocol_type proto, const char *checksum_url, const char *pkgs_list_path)
+{
+    char *remote_checksum;
+    char *local_checksum;
+    int result;
+
+    if (access(pkgs_list_path, F_OK) != 0) {
+        printf("[INFO] pkgs.list not found locally, downloading...\n");
+        return 1;
+    }
+
+    printf("[INFO] pkgs.list found locally, checking integrity...\n");
+
+    remote_checksum = download_to_string(proto, checksum_url);
+    if (!remote_checksum) {
+        fprintf(stderr, "[WARNING] Failed to download checksum.hsh, forcing re-download\n");
+        return 1;
+    }
+
+    trim_whitespace(remote_checksum);
+    printf("[DEBUG] remote_checksum=%s\n", remote_checksum);
+
+    local_checksum = calculate_sha256_file(pkgs_list_path);
+    if (!local_checksum) {
+        fprintf(stderr, "[ERROR] Failed to calculate local checksum\n");
+        free(remote_checksum);
+        return 1;
+    }
+
+    printf("[DEBUG] local_checksum=%s\n", local_checksum);
+    result = (strcmp(local_checksum, remote_checksum) != 0);
+
+    if (result)
+        printf("[INFO] Checksums differ, re-downloading pkgs.list...\n");
+    else
+        printf("[INFO] Checksums match, pkgs.list is up to date\n");
+
+    free(remote_checksum);
+    free(local_checksum);
+    return result;
+}
+
+static int sync_http(const wcr_state *state, protocol_type proto, const char *source_uri)
+{
     char *pkgs_list_url;
     char *checksum_url;
     char *pkgs_list_path;
-    char *remote_checksum;
-    char *local_checksum;
-};
+    int rc;
 
-static int cleanup_sync_resources(struct sync_resources_s *res, int result)
-{
-    if (res->pkgs_list_url) free(res->pkgs_list_url);
-    if (res->checksum_url) free(res->checksum_url);
-    if (res->pkgs_list_path) free(res->pkgs_list_path);
-    if (res->remote_checksum) free(res->remote_checksum);
-    if (res->local_checksum) free(res->local_checksum);
+    pkgs_list_url = build_url(source_uri, "pkgs.list");
+    if (!pkgs_list_url)
+        return -1;
 
-    curl_global_cleanup();
+    checksum_url = build_url(source_uri, "checksum.hsh");
+    if (!checksum_url) {
+        free(pkgs_list_url);
+        return -1;
+    }
 
-    return result;
+    printf("[DEBUG] pkgs_list_url=%s\n", pkgs_list_url);
+    printf("[DEBUG] checksum_url=%s\n", checksum_url);
+
+    pkgs_list_path = get_cache_path(state, "pkgs.list");
+    if (!pkgs_list_path) {
+        free(pkgs_list_url);
+        free(checksum_url);
+        return -1;
+    }
+
+    if (!http_needs_download(proto, checksum_url, pkgs_list_path)) {
+        free(pkgs_list_url);
+        free(checksum_url);
+        free(pkgs_list_path);
+        return 0;
+    }
+    free(checksum_url);
+
+    printf("[INFO] Downloading pkgs.list...\n");
+    rc = download_to_file(proto, pkgs_list_url, pkgs_list_path);
+    free(pkgs_list_url);
+    free(pkgs_list_path);
+
+    if (rc == 0)
+        printf("[INFO] Successfully downloaded pkgs.list\n");
+    else
+        fprintf(stderr, "[ERROR] Failed to download pkgs.list\n");
+
+    return rc;
 }
 
 int sync_package_list(const wcr_state *state, protocol_type proto, const char *source_uri)
 {
-    struct sync_resources_s res = {NULL, NULL, NULL, NULL, NULL};
-    size_t uri_len;
-    int needs_download = 0;
+    int rc;
 
     printf("[INFO] sync_package_list: source_uri=%s proto=%d\n", source_uri, proto);
 
@@ -191,105 +295,15 @@ int sync_package_list(const wcr_state *state, protocol_type proto, const char *s
         return -1;
     }
 
-    if (proto == PROT_WCR) {
+    if (proto == PROT_WCR)
         return sync_wcr(state, source_uri);
-    }
 
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
         fprintf(stderr, "[ERROR] sync_package_list: curl_global_init failed\n");
         return -1;
     }
 
-    uri_len = strlen(source_uri);
-
-    res.pkgs_list_url = malloc(uri_len + strlen("/pkgs.list") + 1);
-    if (!res.pkgs_list_url) {
-        fprintf(stderr, "[ERROR] sync_package_list: malloc failed for pkgs_list_url\n");
-        return cleanup_sync_resources(&res, -1);
-    }
-
-    if (source_uri[uri_len - 1] == '/') {
-        sprintf(res.pkgs_list_url, "%spkgs.list", source_uri);
-    } else {
-        sprintf(res.pkgs_list_url, "%s/pkgs.list", source_uri);
-    }
-
-    res.checksum_url = malloc(uri_len + strlen("/checksum.hsh") + 1);
-    if (!res.checksum_url) {
-        fprintf(stderr, "[ERROR] sync_package_list: malloc failed for checksum_url\n");
-        return cleanup_sync_resources(&res, -1);
-    }
-
-    if (source_uri[uri_len - 1] == '/') {
-        sprintf(res.checksum_url, "%schecksum.hsh", source_uri);
-    } else {
-        sprintf(res.checksum_url, "%s/checksum.hsh", source_uri);
-    }
-
-    printf("[DEBUG] pkgs_list_url=%s\n", res.pkgs_list_url);
-    printf("[DEBUG] checksum_url=%s\n", res.checksum_url);
-
-    res.pkgs_list_path = get_cache_path(state, "pkgs.list");
-    if (!res.pkgs_list_path) {
-        fprintf(stderr, "[ERROR] sync_package_list: failed to get cache path\n");
-        return cleanup_sync_resources(&res, -1);
-    }
-
-    if (access(res.pkgs_list_path, F_OK) != 0) {
-        printf("[INFO] pkgs.list not found locally, downloading...\n");
-        needs_download = 1;
-    } else {
-        printf("[INFO] pkgs.list found locally, checking integrity...\n");
-
-        res.remote_checksum = download_to_string(proto, res.checksum_url);
-        if (!res.remote_checksum) {
-            fprintf(stderr, "[WARNING] Failed to download checksum.hsh, forcing re-download\n");
-            needs_download = 1;
-        } else {
-            char *p = res.remote_checksum;
-            while (*p && (*p == ' ' || *p == '\n' || *p == '\r' || *p == '\t')) {
-                p++;
-            }
-            char *end = p + strlen(p) - 1;
-            while (end > p && (*end == ' ' || *end == '\n' || *end == '\r' || *end == '\t')) {
-                *end = '\0';
-                end--;
-            }
-
-            if (p != res.remote_checksum) {
-                memmove(res.remote_checksum, p, strlen(p) + 1);
-            }
-
-            printf("[DEBUG] remote_checksum=%s\n", res.remote_checksum);
-
-            res.local_checksum = calculate_sha256_file(res.pkgs_list_path);
-            if (!res.local_checksum) {
-                fprintf(stderr, "[ERROR] Failed to calculate local checksum\n");
-                needs_download = 1;
-            } else {
-                printf("[DEBUG] local_checksum=%s\n", res.local_checksum);
-
-                if (strcmp(res.local_checksum, res.remote_checksum) != 0) {
-                    printf("[INFO] Checksums differ, re-downloading pkgs.list...\n");
-                    needs_download = 1;
-                } else {
-                    printf("[INFO] Checksums match, pkgs.list is up to date\n");
-                    return cleanup_sync_resources(&res, 0);
-                }
-            }
-        }
-    }
-
-    if (needs_download) {
-        printf("[INFO] Downloading pkgs.list...\n");
-        if (download_to_file(proto, res.pkgs_list_url, res.pkgs_list_path) == 0) {
-            printf("[INFO] Successfully downloaded pkgs.list\n");
-            return cleanup_sync_resources(&res, 0);
-        } else {
-            fprintf(stderr, "[ERROR] Failed to download pkgs.list\n");
-            return cleanup_sync_resources(&res, -1);
-        }
-    }
-
-    return cleanup_sync_resources(&res, 0);
+    rc = sync_http(state, proto, source_uri);
+    curl_global_cleanup();
+    return rc;
 }
