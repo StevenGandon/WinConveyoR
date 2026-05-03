@@ -4,6 +4,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+
+wcr_conn *wcr_open(const char *host, int port)
+{
+    (void)host; (void)port;
+    fprintf(stderr, "[ERROR] wcr_open: WCR protocol not supported on Windows yet\n");
+    return NULL;
+}
+
+void wcr_close(wcr_conn *conn) { free(conn); }
+
+char *wcr_send_recv(wcr_conn *conn, const char *json_payload)
+{
+    (void)conn; (void)json_payload;
+    return NULL;
+}
+
+int wcr_auth(wcr_conn *conn, const char *access_key)
+{
+    (void)conn; (void)access_key;
+    fprintf(stderr, "[ERROR] wcr_auth: WCR protocol not supported on Windows yet\n");
+    return -1;
+}
+
+char *wcr_get_listing(wcr_conn *conn) { (void)conn; return NULL; }
+char *wcr_get_hash(wcr_conn *conn) { (void)conn; return NULL; }
+char *wcr_get_package_listing(wcr_conn *conn, const char *package_name) { (void)conn; (void)package_name; return NULL; }
+char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const char *location_hash) { (void)conn; (void)package_name; (void)location_hash; return NULL; }
+
+#else
+
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -284,3 +316,5 @@ char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const c
 
     return wcr_send_recv(conn, payload);
 }
+
+#endif
