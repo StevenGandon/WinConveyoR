@@ -36,6 +36,7 @@ set(LIBWCONR_SOURCES
     src/http_request.c
     src/http_response.c
     src/wcr_state.c
+    src/wcr_client.c
 
     src/modules/source/source_handler.c
 
