@@ -20,6 +20,8 @@ FetchContent_Declare(
   URL https://curl.se/download/curl-7.86.0.tar.gz
 )
 
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5 CACHE STRING "" FORCE)
+
 FetchContent_Declare(
   cjson
   GIT_REPOSITORY https://github.com/DaveGamble/cJSON.git
