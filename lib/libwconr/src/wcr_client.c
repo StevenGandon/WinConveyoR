@@ -1,4 +1,5 @@
 #include "wcr_client.h"
+#include "wcr_crypt.h"
 #include "pkg_parsing.h"
 
 #include <stdio.h>
@@ -15,6 +16,13 @@ wcr_conn *wcr_open(const char *host, int port)
 }
 
 void wcr_close(wcr_conn *conn) { free(conn); }
+
+int wcr_handshake(wcr_conn *conn, const char *server_pubkey_pem)
+{
+    (void)conn; (void)server_pubkey_pem;
+    fprintf(stderr, "[ERROR] wcr_handshake: WCR protocol not supported on Windows yet\n");
+    return -1;
+}
 
 char *wcr_send_recv(wcr_conn *conn, const char *json_payload)
 {
@@ -42,6 +50,8 @@ char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const c
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <openssl/evp.h>
+#include <cJSON.h>
 
 static void write_be64(unsigned char *buf, uint64_t val)
 {
@@ -63,7 +73,7 @@ static uint64_t read_be64(const unsigned char *buf)
            ((uint64_t)buf[6] << 8)  | (uint64_t)buf[7];
 }
 
-static int wcr_send_raw(int sockfd, const char *payload)
+static int wcr_send_raw(wcr_conn *conn, const char *payload)
 {
     unsigned char header[WCR_HEADER_SIZE];
     size_t payload_len = strlen(payload);
@@ -75,13 +85,13 @@ static int wcr_send_raw(int sockfd, const char *payload)
     header[5] = 0;
     write_be64(header + 6, (uint64_t)payload_len);
 
-    sent = send(sockfd, header, WCR_HEADER_SIZE, 0);
+    sent = send(conn->sockfd, header, WCR_HEADER_SIZE, 0);
     if (sent != WCR_HEADER_SIZE) {
         fprintf(stderr, "[ERROR] wcr_send_raw: failed to send header\n");
         return -1;
     }
 
-    sent = send(sockfd, payload, payload_len, 0);
+    sent = send(conn->sockfd, payload, payload_len, 0);
     if (sent != (ssize_t)payload_len) {
         fprintf(stderr, "[ERROR] wcr_send_raw: failed to send payload\n");
         return -1;
@@ -90,15 +100,15 @@ static int wcr_send_raw(int sockfd, const char *payload)
     return 0;
 }
 
-static char *wcr_recv_raw(int sockfd)
+static char *wcr_recv_raw(wcr_conn *conn)
 {
     unsigned char header[WCR_HEADER_SIZE];
     size_t payload_size;
     size_t total_read = 0;
-    char *content;
+    unsigned char *raw;
     ssize_t n;
 
-    n = recv(sockfd, header, WCR_HEADER_SIZE, MSG_WAITALL);
+    n = recv(conn->sockfd, header, WCR_HEADER_SIZE, MSG_WAITALL);
     if (n != WCR_HEADER_SIZE) {
         fprintf(stderr, "[ERROR] wcr_recv_raw: failed to read header (got %zd)\n", n);
         return NULL;
@@ -116,29 +126,40 @@ static char *wcr_recv_raw(int sockfd)
     payload_size = read_be64(header + 6);
 
     if (payload_size == 0) {
-        content = malloc(1);
-        if (content) content[0] = '\0';
-        return content;
+        char *empty = malloc(1);
+        if (empty) empty[0] = '\0';
+        return empty;
     }
 
-    content = malloc(payload_size + 1);
-    if (!content) {
+    raw = malloc(payload_size + 1);
+    if (!raw) {
         fprintf(stderr, "[ERROR] wcr_recv_raw: malloc failed for %zu bytes\n", payload_size);
         return NULL;
     }
 
     while (total_read < payload_size) {
-        n = recv(sockfd, content + total_read, payload_size - total_read, 0);
+        n = recv(conn->sockfd, raw + total_read, payload_size - total_read, 0);
         if (n <= 0) {
             fprintf(stderr, "[ERROR] wcr_recv_raw: recv failed at %zu/%zu\n", total_read, payload_size);
-            free(content);
+            free(raw);
             return NULL;
         }
         total_read += (size_t)n;
     }
 
-    content[payload_size] = '\0';
-    return content;
+    if (conn->encrypted && conn->client_privkey) {
+        size_t decrypted_len;
+        unsigned char *decrypted = wcr_decrypt(conn->client_privkey, raw, payload_size, &decrypted_len);
+        free(raw);
+        if (!decrypted) {
+            fprintf(stderr, "[ERROR] wcr_recv_raw: decryption failed\n");
+            return NULL;
+        }
+        return (char *)decrypted;
+    }
+
+    raw[payload_size] = '\0';
+    return (char *)raw;
 }
 
 wcr_conn *wcr_open(const char *host, int port)
@@ -198,13 +219,106 @@ void wcr_close(wcr_conn *conn)
         return;
 
     if (conn->sockfd >= 0) {
-        wcr_send_raw(conn->sockfd, "{\"action\":\"goodbye\",\"data\":{}}");
-        char *resp = wcr_recv_raw(conn->sockfd);
+        wcr_send_raw(conn, "{\"action\":\"goodbye\",\"data\":{}}");
+        char *resp = wcr_recv_raw(conn);
         free(resp);
         close(conn->sockfd);
     }
 
+    if (conn->client_privkey)
+        EVP_PKEY_free(conn->client_privkey);
+    if (conn->server_pubkey)
+        EVP_PKEY_free(conn->server_pubkey);
+
     free(conn);
+}
+
+static char *build_init_rsa_payload(const char *escaped_pem)
+{
+    size_t payload_size = strlen(escaped_pem) + WCR_JSON_OVERHEAD;
+    char *payload = malloc(payload_size);
+
+    if (!payload)
+        return NULL;
+    snprintf(payload, payload_size,
+        "{\"action\":\"init_rsa\",\"data\":{\"key\":\"%s\"}}",
+        escaped_pem);
+    return payload;
+}
+
+static int check_response_code(const char *response)
+{
+    cJSON *root = cJSON_Parse(response);
+    cJSON *code = root ? cJSON_GetObjectItemCaseSensitive(root, "code") : NULL;
+    int ok = code && cJSON_IsNumber(code) && code->valueint == 0;
+
+    cJSON_Delete(root);
+    return ok ? 0 : -1;
+}
+
+int wcr_handshake(wcr_conn *conn, const char *server_pubkey_pem)
+{
+    EVP_PKEY *client_key;
+    char *escaped_pem;
+    char *init_payload;
+    char *response;
+
+    if (!conn) {
+        fprintf(stderr, "[ERROR] wcr_handshake: NULL argument\n");
+        return -1;
+    }
+
+    if (server_pubkey_pem) {
+        conn->server_pubkey = parse_pubkey_pem(server_pubkey_pem);
+        if (!conn->server_pubkey) {
+            fprintf(stderr, "[ERROR] wcr_handshake: failed to parse server public key\n");
+            return -1;
+        }
+    }
+
+    client_key = generate_rsa_keypair();
+    if (!client_key) {
+        fprintf(stderr, "[ERROR] wcr_handshake: RSA keygen failed\n");
+        return -1;
+    }
+
+    escaped_pem = serialize_pubkey_pem(client_key);
+    if (!escaped_pem) {
+        fprintf(stderr, "[ERROR] wcr_handshake: failed to serialize client pubkey\n");
+        EVP_PKEY_free(client_key);
+        return -1;
+    }
+
+    conn->client_privkey = client_key;
+    conn->encrypted = 1;
+
+    init_payload = build_init_rsa_payload(escaped_pem);
+    free(escaped_pem);
+    if (!init_payload)
+        return -1;
+
+    if (wcr_send_raw(conn, init_payload) != 0) {
+        fprintf(stderr, "[ERROR] wcr_handshake: failed to send init_rsa\n");
+        free(init_payload);
+        return -1;
+    }
+    free(init_payload);
+
+    response = wcr_recv_raw(conn);
+    if (!response) {
+        fprintf(stderr, "[ERROR] wcr_handshake: no response to init_rsa\n");
+        return -1;
+    }
+
+    if (check_response_code(response) != 0) {
+        fprintf(stderr, "[ERROR] wcr_handshake: init_rsa rejected: %s\n", response);
+        free(response);
+        return -1;
+    }
+
+    free(response);
+    printf("[DEBUG] wcr_handshake: encryption established\n");
+    return 0;
 }
 
 char *wcr_send_recv(wcr_conn *conn, const char *json_payload)
@@ -214,11 +328,11 @@ char *wcr_send_recv(wcr_conn *conn, const char *json_payload)
         return NULL;
     }
 
-    if (wcr_send_raw(conn->sockfd, json_payload) != 0) {
+    if (wcr_send_raw(conn, json_payload) != 0) {
         return NULL;
     }
 
-    return wcr_recv_raw(conn->sockfd);
+    return wcr_recv_raw(conn);
 }
 
 static int extract_session_id(const char *json, char *out, size_t out_sz)
@@ -227,16 +341,14 @@ static int extract_session_id(const char *json, char *out, size_t out_sz)
     const char *p = strstr(json, key);
     size_t i = 0;
 
-    if (!p) return -1;
+    if (!p)
+        return -1;
     p += strlen(key);
-
-    while (*p == ' ' || *p == ':') p++;
-
-    while (*p && *p != ',' && *p != '}' && *p != ' ' && i < out_sz - 1) {
+    while (*p == ' ' || *p == ':' || *p == '\t')
+        p++;
+    while (*p && *p != ',' && *p != '}' && *p != ' ' && i < out_sz - 1)
         out[i++] = *p++;
-    }
     out[i] = '\0';
-
     return (i > 0) ? 0 : -1;
 }
 
