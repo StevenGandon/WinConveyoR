@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <cJSON.h>
 
 int find_package_in_list(const char *pkgs_list_path, const char *package_name,
                           char **out_register_path, char **out_checksum)
@@ -116,58 +117,25 @@ int parse_first_location(const char *register_content, char **out_location)
 
 int json_extract_string(const char *json, const char *key, char **out_value)
 {
-    char needle[128];
-    const char *p;
-    const char *value_start;
-    const char *value_end;
-    size_t value_len;
+    cJSON *root = cJSON_Parse(json);
+    cJSON *item;
 
     *out_value = NULL;
-
-    if (snprintf(needle, sizeof(needle), "\"%s\"", key) >= (int)sizeof(needle)) {
-        fprintf(stderr, "[ERROR] json_extract_string: key too long: %s\n", key);
+    if (!root) {
+        fprintf(stderr, "[ERROR] json_extract_string: invalid JSON\n");
         return -1;
     }
-
-    p = strstr(json, needle);
-    if (!p) {
-        fprintf(stderr, "[ERROR] json_extract_string: key '%s' not found\n", key);
+    item = cJSON_GetObjectItemCaseSensitive(root, key);
+    if (!cJSON_IsString(item) || !item->valuestring) {
+        fprintf(stderr, "[ERROR] json_extract_string: key '%s' not found or not a string\n", key);
+        cJSON_Delete(root);
         return -1;
     }
-
-    p += strlen(needle);
-
-    while (*p && *p != ':') p++;
-    if (*p != ':') {
-        fprintf(stderr, "[ERROR] json_extract_string: missing ':' after key '%s'\n", key);
-        return -1;
-    }
-    p++;
-
-    while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') p++;
-
-    if (*p != '"') {
-        fprintf(stderr, "[ERROR] json_extract_string: value for key '%s' is not a string\n", key);
-        return -1;
-    }
-    p++;
-    value_start = p;
-
-    value_end = strchr(value_start, '"');
-    if (!value_end) {
-        fprintf(stderr, "[ERROR] json_extract_string: unterminated string for key '%s'\n", key);
-        return -1;
-    }
-
-    value_len = (size_t)(value_end - value_start);
-
-    *out_value = malloc(value_len + 1);
+    *out_value = strdup(item->valuestring);
+    cJSON_Delete(root);
     if (!*out_value) {
         fprintf(stderr, "[ERROR] json_extract_string: malloc failed\n");
         return -1;
     }
-    memcpy(*out_value, value_start, value_len);
-    (*out_value)[value_len] = '\0';
-
     return 0;
 }

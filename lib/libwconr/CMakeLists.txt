@@ -19,7 +19,16 @@ FetchContent_Declare(
   curl
   URL https://curl.se/download/curl-7.86.0.tar.gz
 )
-FetchContent_MakeAvailable(curl)
+
+FetchContent_Declare(
+  cjson
+  GIT_REPOSITORY https://github.com/DaveGamble/cJSON.git
+  GIT_TAG v1.7.18
+)
+set(ENABLE_CJSON_TEST OFF CACHE BOOL "" FORCE)
+set(BUILD_SHARED_AND_STATIC_LIBS OFF CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(curl cjson)
 
 find_package(LibXml2 REQUIRED)
 find_package(OpenSSL REQUIRED)
@@ -57,7 +66,7 @@ endif()
 
 add_library(wconr SHARED ${LIBWCONR_SOURCES})
 
-target_link_libraries(wconr PRIVATE CURL::libcurl LibXml2::LibXml2 OpenSSL::Crypto)
+target_link_libraries(wconr PRIVATE CURL::libcurl LibXml2::LibXml2 OpenSSL::Crypto cjson)
 if(WIN32)
     target_link_libraries(wconr PRIVATE ws2_32)
 endif()
@@ -66,6 +75,8 @@ target_include_directories(wconr
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    PRIVATE
+        ${cjson_SOURCE_DIR}
 )
 
 message(STATUS "Library output directory: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")

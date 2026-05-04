@@ -3,6 +3,9 @@
 
     #define WCR_MAGIC 0xffc407ec
     #define WCR_DEFAULT_PORT 1674
+    #define WCR_HEADER_SIZE 14
+    #define WCR_PAYLOAD_SMALL 256
+    #define WCR_PAYLOAD_LARGE 512
 
     typedef struct wcr_conn_s {
         int sockfd;
