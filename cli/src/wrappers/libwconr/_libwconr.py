@@ -49,6 +49,7 @@ class wcr_state_s(Structure):
 wcr_state_s._fields_ = [
     ("system_informations", wcr_system_s),
     ("cache_path", c_char_p),
+    ("config_path", c_char_p),
     ("sources", POINTER(POINTER(wcr_source_s))),
     ("sources_count", c_size_t)
 ]

@@ -48,6 +48,42 @@ static int proto_from_string(const char *s, protocol_type *out)
     return -1;
 }
 
+static void wcr_mutex_init(wcr_mutex *m)
+{
+#ifdef _WIN32
+    InitializeCriticalSection(m);
+#else
+    pthread_mutex_init(m, NULL);
+#endif
+}
+
+static void wcr_mutex_destroy(wcr_mutex *m)
+{
+#ifdef _WIN32
+    DeleteCriticalSection(m);
+#else
+    pthread_mutex_destroy(m);
+#endif
+}
+
+static void wcr_mutex_lock(wcr_mutex *m)
+{
+#ifdef _WIN32
+    EnterCriticalSection(m);
+#else
+    pthread_mutex_lock(m);
+#endif
+}
+
+static void wcr_mutex_unlock(wcr_mutex *m)
+{
+#ifdef _WIN32
+    LeaveCriticalSection(m);
+#else
+    pthread_mutex_unlock(m);
+#endif
+}
+
 wcr_state *new_state(void)
 {
     wcr_state *state = (wcr_state *)calloc(1, sizeof(wcr_state));
@@ -55,9 +91,12 @@ wcr_state *new_state(void)
     if (!state)
         return NULL;
 
+    wcr_mutex_init(&state->lock);
+
     state->cache_path = default_cache_path();
     if (!state->cache_path) {
         fprintf(stderr, "[ERROR] new_state: failed to compute default cache_path\n");
+        wcr_mutex_destroy(&state->lock);
         free(state);
         return NULL;
     }
@@ -86,7 +125,17 @@ void close_state(wcr_state *state)
     }
 
     free(state->cache_path);
+    free(state->config_path);
+    wcr_mutex_destroy(&state->lock);
     free(state);
+}
+
+static void state_auto_save(const wcr_state *state)
+{
+    if (!state->config_path)
+        return;
+    if (write_state(state, state->config_path) != 0)
+        fprintf(stderr, "[WARNING] state_auto_save: failed to write %s\n", state->config_path);
 }
 
 int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
@@ -99,9 +148,12 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
         return -1;
     }
 
+    wcr_mutex_lock(&state->lock);
+
     source = (wcr_source *)calloc(1, sizeof(wcr_source));
     if (!source) {
         fprintf(stderr, "[ERROR] wcr_state_add_source: calloc failed\n");
+        wcr_mutex_unlock(&state->lock);
         return -1;
     }
 
@@ -110,6 +162,7 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
     if (!source->url) {
         fprintf(stderr, "[ERROR] wcr_state_add_source: strdup failed\n");
         free(source);
+        wcr_mutex_unlock(&state->lock);
         return -1;
     }
 
@@ -118,6 +171,7 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
         fprintf(stderr, "[ERROR] wcr_state_add_source: realloc failed\n");
         free(source->url);
         free(source);
+        wcr_mutex_unlock(&state->lock);
         return -1;
     }
 
@@ -125,6 +179,8 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
     state->sources[state->sources_count] = source;
     state->sources_count++;
 
+    state_auto_save(state);
+    wcr_mutex_unlock(&state->lock);
     return 0;
 }
 
@@ -233,6 +289,8 @@ wcr_state *load_state(const char *filepath)
             continue;
         }
     }
+
+    state->config_path = strdup(filepath);
 
     fclose(file);
     return state;

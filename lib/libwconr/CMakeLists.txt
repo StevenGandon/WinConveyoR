@@ -72,6 +72,8 @@ add_library(wconr SHARED ${LIBWCONR_SOURCES})
 target_link_libraries(wconr PRIVATE CURL::libcurl LibXml2::LibXml2 OpenSSL::Crypto cjson)
 if(WIN32)
     target_link_libraries(wconr PRIVATE ws2_32)
+else()
+    target_link_libraries(wconr PRIVATE pthread)
 endif()
 
 target_include_directories(wconr

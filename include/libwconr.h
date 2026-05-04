@@ -3,6 +3,14 @@
 
     #include <stddef.h>
 
+    #ifdef _WIN32
+        #include <windows.h>
+        typedef CRITICAL_SECTION wcr_mutex;
+    #else
+        #include <pthread.h>
+        typedef pthread_mutex_t wcr_mutex;
+    #endif
+
     /* ==== enums ==== */
 
     /* architectures */
@@ -45,8 +53,10 @@
     struct wcr_state_s {
         struct wcr_system_s system_informations; // system information about current machine / target machine
         char *cache_path;                        // user-configured cache directory
+        char *config_path;                       // path to config file for auto-save
         struct wcr_source_s **sources;           // configured mirrors
         size_t sources_count;                    // number of configured mirrors
+        wcr_mutex lock;                          // mutex for thread-safe access
     };
 
     /* ==== types definition ==== */

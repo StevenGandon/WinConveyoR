@@ -24,6 +24,11 @@ int wcr_handshake(wcr_conn *conn, const char *server_pubkey_pem)
     return -1;
 }
 
+wcr_msg *wcr_msg_new(const char *payload, uint16_t flags) { (void)payload; (void)flags; return NULL; }
+void wcr_msg_free(wcr_msg *msg) { (void)msg; }
+int wcr_send(wcr_conn *conn, const wcr_msg *msg) { (void)conn; (void)msg; return -1; }
+wcr_msg *wcr_recv(wcr_conn *conn) { (void)conn; return NULL; }
+
 char *wcr_send_recv(wcr_conn *conn, const char *json_payload)
 {
     (void)conn; (void)json_payload;
@@ -73,93 +78,145 @@ static uint64_t read_be64(const unsigned char *buf)
            ((uint64_t)buf[6] << 8)  | (uint64_t)buf[7];
 }
 
-static int wcr_send_raw(wcr_conn *conn, const char *payload)
+wcr_msg *wcr_msg_new(const char *payload, uint16_t flags)
+{
+    wcr_msg *msg = calloc(1, sizeof(wcr_msg));
+
+    if (!msg)
+        return NULL;
+    msg->magic = WCR_MAGIC;
+    msg->flags = flags;
+    if (payload) {
+        msg->payload_len = strlen(payload);
+        msg->payload = malloc(msg->payload_len + 1);
+        if (!msg->payload) {
+            free(msg);
+            return NULL;
+        }
+        memcpy(msg->payload, payload, msg->payload_len + 1);
+    }
+    return msg;
+}
+
+void wcr_msg_free(wcr_msg *msg)
+{
+    if (!msg)
+        return;
+    free(msg->payload);
+    free(msg);
+}
+
+int wcr_send(wcr_conn *conn, const wcr_msg *msg)
 {
     unsigned char header[WCR_HEADER_SIZE];
-    size_t payload_len = strlen(payload);
-    uint32_t magic_be = htonl(WCR_MAGIC);
+    uint32_t magic_be = htonl(msg->magic);
+    uint16_t flags_be = htons(msg->flags);
     ssize_t sent;
 
     memcpy(header, &magic_be, 4);
-    header[4] = 0;
-    header[5] = 0;
-    write_be64(header + 6, (uint64_t)payload_len);
+    memcpy(header + 4, &flags_be, 2);
+    write_be64(header + 6, (uint64_t)msg->payload_len);
 
     sent = send(conn->sockfd, header, WCR_HEADER_SIZE, 0);
     if (sent != WCR_HEADER_SIZE) {
-        fprintf(stderr, "[ERROR] wcr_send_raw: failed to send header\n");
+        fprintf(stderr, "[ERROR] wcr_send: failed to send header\n");
         return -1;
     }
 
-    sent = send(conn->sockfd, payload, payload_len, 0);
-    if (sent != (ssize_t)payload_len) {
-        fprintf(stderr, "[ERROR] wcr_send_raw: failed to send payload\n");
-        return -1;
+    if (msg->payload_len > 0) {
+        sent = send(conn->sockfd, msg->payload, msg->payload_len, 0);
+        if (sent != (ssize_t)msg->payload_len) {
+            fprintf(stderr, "[ERROR] wcr_send: failed to send payload\n");
+            return -1;
+        }
     }
 
     return 0;
 }
 
-static char *wcr_recv_raw(wcr_conn *conn)
+static char *recv_payload(int sockfd, size_t payload_size)
 {
-    unsigned char header[WCR_HEADER_SIZE];
-    size_t payload_size;
+    char *raw;
     size_t total_read = 0;
-    unsigned char *raw;
     ssize_t n;
 
-    n = recv(conn->sockfd, header, WCR_HEADER_SIZE, MSG_WAITALL);
-    if (n != WCR_HEADER_SIZE) {
-        fprintf(stderr, "[ERROR] wcr_recv_raw: failed to read header (got %zd)\n", n);
-        return NULL;
-    }
-
-    uint32_t magic_be;
-    memcpy(&magic_be, header, 4);
-    unsigned int magic = ntohl(magic_be);
-
-    if (magic != WCR_MAGIC) {
-        fprintf(stderr, "[ERROR] wcr_recv_raw: invalid magic 0x%08x\n", magic);
-        return NULL;
-    }
-
-    payload_size = read_be64(header + 6);
-
     if (payload_size == 0) {
-        char *empty = malloc(1);
-        if (empty) empty[0] = '\0';
-        return empty;
+        raw = malloc(1);
+        if (raw) raw[0] = '\0';
+        return raw;
     }
 
     raw = malloc(payload_size + 1);
     if (!raw) {
-        fprintf(stderr, "[ERROR] wcr_recv_raw: malloc failed for %zu bytes\n", payload_size);
+        fprintf(stderr, "[ERROR] recv_payload: malloc failed for %zu bytes\n", payload_size);
         return NULL;
     }
 
     while (total_read < payload_size) {
-        n = recv(conn->sockfd, raw + total_read, payload_size - total_read, 0);
+        n = recv(sockfd, raw + total_read, payload_size - total_read, 0);
         if (n <= 0) {
-            fprintf(stderr, "[ERROR] wcr_recv_raw: recv failed at %zu/%zu\n", total_read, payload_size);
+            fprintf(stderr, "[ERROR] recv_payload: recv failed at %zu/%zu\n", total_read, payload_size);
             free(raw);
             return NULL;
         }
         total_read += (size_t)n;
     }
+    raw[payload_size] = '\0';
+    return raw;
+}
 
-    if (conn->encrypted && conn->client_privkey) {
-        size_t decrypted_len;
-        unsigned char *decrypted = wcr_decrypt(conn->client_privkey, raw, payload_size, &decrypted_len);
-        free(raw);
-        if (!decrypted) {
-            fprintf(stderr, "[ERROR] wcr_recv_raw: decryption failed\n");
-            return NULL;
-        }
-        return (char *)decrypted;
+wcr_msg *wcr_recv(wcr_conn *conn)
+{
+    unsigned char header[WCR_HEADER_SIZE];
+    uint32_t magic_be;
+    uint16_t flags_be;
+    size_t payload_size;
+    char *raw;
+    wcr_msg *msg;
+    ssize_t n;
+
+    n = recv(conn->sockfd, header, WCR_HEADER_SIZE, MSG_WAITALL);
+    if (n != WCR_HEADER_SIZE) {
+        fprintf(stderr, "[ERROR] wcr_recv: failed to read header (got %zd)\n", n);
+        return NULL;
     }
 
-    raw[payload_size] = '\0';
-    return (char *)raw;
+    memcpy(&magic_be, header, 4);
+    memcpy(&flags_be, header + 4, 2);
+
+    if (ntohl(magic_be) != WCR_MAGIC) {
+        fprintf(stderr, "[ERROR] wcr_recv: invalid magic 0x%08x\n", ntohl(magic_be));
+        return NULL;
+    }
+
+    payload_size = read_be64(header + 6);
+    raw = recv_payload(conn->sockfd, payload_size);
+    if (!raw)
+        return NULL;
+
+    if (conn->encrypted && conn->client_privkey && payload_size > 0) {
+        size_t decrypted_len;
+        unsigned char *decrypted = wcr_decrypt(conn->client_privkey,
+            (unsigned char *)raw, payload_size, &decrypted_len);
+        free(raw);
+        if (!decrypted) {
+            fprintf(stderr, "[ERROR] wcr_recv: decryption failed\n");
+            return NULL;
+        }
+        raw = (char *)decrypted;
+        payload_size = decrypted_len;
+    }
+
+    msg = calloc(1, sizeof(wcr_msg));
+    if (!msg) {
+        free(raw);
+        return NULL;
+    }
+    msg->magic = WCR_MAGIC;
+    msg->flags = ntohs(flags_be);
+    msg->payload = raw;
+    msg->payload_len = payload_size;
+    return msg;
 }
 
 wcr_conn *wcr_open(const char *host, int port)
@@ -219,9 +276,13 @@ void wcr_close(wcr_conn *conn)
         return;
 
     if (conn->sockfd >= 0) {
-        wcr_send_raw(conn, "{\"action\":\"goodbye\",\"data\":{}}");
-        char *resp = wcr_recv_raw(conn);
-        free(resp);
+        wcr_msg *goodbye = wcr_msg_new("{\"action\":\"goodbye\",\"data\":{}}", 0);
+        if (goodbye) {
+            wcr_send(conn, goodbye);
+            wcr_msg_free(goodbye);
+        }
+        wcr_msg *resp = wcr_recv(conn);
+        wcr_msg_free(resp);
         close(conn->sockfd);
     }
 
@@ -261,7 +322,8 @@ int wcr_handshake(wcr_conn *conn, const char *server_pubkey_pem)
     EVP_PKEY *client_key;
     char *escaped_pem;
     char *init_payload;
-    char *response;
+    wcr_msg *req;
+    wcr_msg *resp;
 
     if (!conn) {
         fprintf(stderr, "[ERROR] wcr_handshake: NULL argument\n");
@@ -297,42 +359,62 @@ int wcr_handshake(wcr_conn *conn, const char *server_pubkey_pem)
     if (!init_payload)
         return -1;
 
-    if (wcr_send_raw(conn, init_payload) != 0) {
-        fprintf(stderr, "[ERROR] wcr_handshake: failed to send init_rsa\n");
-        free(init_payload);
-        return -1;
-    }
+    req = wcr_msg_new(init_payload, 0);
     free(init_payload);
+    if (!req)
+        return -1;
+    if (wcr_send(conn, req) != 0) {
+        fprintf(stderr, "[ERROR] wcr_handshake: failed to send init_rsa\n");
+        wcr_msg_free(req);
+        return -1;
+    }
+    wcr_msg_free(req);
 
-    response = wcr_recv_raw(conn);
-    if (!response) {
+    resp = wcr_recv(conn);
+    if (!resp || !resp->payload) {
         fprintf(stderr, "[ERROR] wcr_handshake: no response to init_rsa\n");
+        wcr_msg_free(resp);
         return -1;
     }
 
-    if (check_response_code(response) != 0) {
-        fprintf(stderr, "[ERROR] wcr_handshake: init_rsa rejected: %s\n", response);
-        free(response);
+    if (check_response_code(resp->payload) != 0) {
+        fprintf(stderr, "[ERROR] wcr_handshake: init_rsa rejected: %s\n", resp->payload);
+        wcr_msg_free(resp);
         return -1;
     }
 
-    free(response);
+    wcr_msg_free(resp);
     printf("[DEBUG] wcr_handshake: encryption established\n");
     return 0;
 }
 
 char *wcr_send_recv(wcr_conn *conn, const char *json_payload)
 {
+    wcr_msg *req;
+    wcr_msg *resp;
+    char *result;
+
     if (!conn || !json_payload) {
         fprintf(stderr, "[ERROR] wcr_send_recv: NULL argument\n");
         return NULL;
     }
 
-    if (wcr_send_raw(conn, json_payload) != 0) {
+    req = wcr_msg_new(json_payload, 0);
+    if (!req)
+        return NULL;
+    if (wcr_send(conn, req) != 0) {
+        wcr_msg_free(req);
         return NULL;
     }
+    wcr_msg_free(req);
 
-    return wcr_recv_raw(conn);
+    resp = wcr_recv(conn);
+    if (!resp)
+        return NULL;
+    result = resp->payload;
+    resp->payload = NULL;
+    wcr_msg_free(resp);
+    return result;
 }
 
 static int extract_session_id(const char *json, char *out, size_t out_sz)
@@ -352,52 +434,101 @@ static int extract_session_id(const char *json, char *out, size_t out_sz)
     return (i > 0) ? 0 : -1;
 }
 
-static int wcr_build_payload(char *buf, size_t buf_size, const char *action,
-                             const char *session_id, const char *fmt, ...)
+static char *wcr_build_payload_va(const char *action,
+                                  const char *session_id,
+                                  const char *fmt, va_list args)
 {
+    int needed;
     int offset;
-    int written;
-    va_list args;
+    char *buf;
+    va_list args_copy;
+
+    if (fmt) {
+        va_copy(args_copy, args);
+        needed = vsnprintf(NULL, 0, fmt, args_copy);
+        va_end(args_copy);
+        if (needed < 0)
+            return NULL;
+    } else {
+        needed = 0;
+    }
+
+    needed += WCR_JSON_OVERHEAD + (int)strlen(action)
+            + (session_id ? (int)strlen(session_id) : 0);
+
+    buf = malloc((size_t)needed);
+    if (!buf)
+        return NULL;
 
     if (session_id) {
-        offset = snprintf(buf, buf_size,
+        offset = snprintf(buf, (size_t)needed,
             "{\"action\":\"%s\",\"data\":{\"session_id\":%s", action, session_id);
     } else {
-        offset = snprintf(buf, buf_size,
+        offset = snprintf(buf, (size_t)needed,
             "{\"action\":\"%s\",\"data\":{", action);
     }
-    if (offset < 0 || (size_t)offset >= buf_size)
-        return -1;
     if (fmt) {
         if (session_id)
             buf[offset++] = ',';
-        va_start(args, fmt);
-        written = vsnprintf(buf + offset, buf_size - (size_t)offset, fmt, args);
-        va_end(args);
-        if (written < 0 || (size_t)(offset + written) >= buf_size)
-            return -1;
-        offset += written;
+        va_copy(args_copy, args);
+        offset += vsnprintf(buf + offset, (size_t)(needed - offset), fmt, args_copy);
+        va_end(args_copy);
     }
-    if ((size_t)(offset + 2) >= buf_size)
-        return -1;
     buf[offset++] = '}';
     buf[offset++] = '}';
     buf[offset] = '\0';
-    return 0;
+    return buf;
+}
+
+static char *wcr_build_payload(const char *action,
+                               const char *session_id, const char *fmt, ...)
+{
+    char *result;
+    va_list args;
+
+    va_start(args, fmt);
+    result = wcr_build_payload_va(action, session_id, fmt, args);
+    va_end(args);
+    return result;
+}
+
+static char *wcr_request(wcr_conn *conn, const char *action, const char *fmt, ...)
+{
+    char *payload;
+    char *result;
+    va_list args;
+
+    if (!conn || conn->session_id[0] == '\0')
+        return NULL;
+
+    if (fmt) {
+        va_start(args, fmt);
+        payload = wcr_build_payload_va(action, conn->session_id, fmt, args);
+        va_end(args);
+    } else {
+        payload = wcr_build_payload(action, conn->session_id, NULL);
+    }
+    if (!payload)
+        return NULL;
+    result = wcr_send_recv(conn, payload);
+    free(payload);
+    return result;
 }
 
 int wcr_auth(wcr_conn *conn, const char *access_key)
 {
-    char payload[WCR_PAYLOAD_LARGE];
+    char *payload;
     char *response;
 
     if (!conn) return -1;
     if (!access_key) access_key = "";
 
-    wcr_build_payload(payload, sizeof(payload), "user", NULL,
+    payload = wcr_build_payload("user", NULL,
         "\"password\":\"%s\"", access_key);
+    if (!payload) return -1;
 
     response = wcr_send_recv(conn, payload);
+    free(payload);
     if (!response) {
         fprintf(stderr, "[ERROR] wcr_auth: no response\n");
         return -1;
@@ -416,51 +547,27 @@ int wcr_auth(wcr_conn *conn, const char *access_key)
 
 char *wcr_get_listing(wcr_conn *conn)
 {
-    char payload[WCR_PAYLOAD_SMALL];
-
-    if (!conn || conn->session_id[0] == '\0') return NULL;
-
-    wcr_build_payload(payload, sizeof(payload), "get_listing",
-        conn->session_id, NULL);
-
-    return wcr_send_recv(conn, payload);
+    return wcr_request(conn, "get_listing", NULL);
 }
 
 char *wcr_get_hash(wcr_conn *conn)
 {
-    char payload[WCR_PAYLOAD_SMALL];
-
-    if (!conn || conn->session_id[0] == '\0') return NULL;
-
-    wcr_build_payload(payload, sizeof(payload), "get_hash",
-        conn->session_id, NULL);
-
-    return wcr_send_recv(conn, payload);
+    return wcr_request(conn, "get_hash", NULL);
 }
 
 char *wcr_get_package_listing(wcr_conn *conn, const char *package_name)
 {
-    char payload[WCR_PAYLOAD_LARGE];
-
-    if (!conn || !package_name || conn->session_id[0] == '\0') return NULL;
-
-    wcr_build_payload(payload, sizeof(payload), "get_package_listing",
-        conn->session_id, "\"package_name\":\"%s\"", package_name);
-
-    return wcr_send_recv(conn, payload);
+    if (!package_name) return NULL;
+    return wcr_request(conn, "get_package_listing",
+        "\"package_name\":\"%s\"", package_name);
 }
 
 char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const char *location_hash)
 {
-    char payload[WCR_PAYLOAD_LARGE];
-
-    if (!conn || !package_name || !location_hash || conn->session_id[0] == '\0') return NULL;
-
-    wcr_build_payload(payload, sizeof(payload), "get_package_metadata",
-        conn->session_id, "\"package_name\":\"%s\",\"location_hash\":\"%s\"",
+    if (!package_name || !location_hash) return NULL;
+    return wcr_request(conn, "get_package_metadata",
+        "\"package_name\":\"%s\",\"location_hash\":\"%s\"",
         package_name, location_hash);
-
-    return wcr_send_recv(conn, payload);
 }
 
 #endif
