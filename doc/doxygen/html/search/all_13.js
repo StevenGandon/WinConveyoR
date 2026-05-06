@@ -14,7 +14,7 @@ var searchData=
   ['hashs_11',['hashs',['../classsrc_1_1builder_1_1package__builder_1_1PackageBuilder.html#aaae0f44a79b35065d46d88f96850403c',1,'src::builder::package_builder::PackageBuilder']]],
   ['header_12',['header',['../md_doc_2wizard__file__format.html#autotoc_md254',1,'File Header'],['../struct__wizard__ctx__s.html#a6cb25e537caa8878f09fab648715ef4f',1,'_wizard_ctx_s::header'],['../md_doc_2wizard__file__format.html#autotoc_md256',1,'Section Header']]],
   ['header_5fend_13',['header_end',['../http__parsing_8c.html#a0a0de0a7fd18f12498baa360bd95b046',1,'HEADER_END:&#160;http_parsing.c'],['../http__response_8c.html#a0a0de0a7fd18f12498baa360bd95b046',1,'HEADER_END:&#160;http_response.c']]],
-  ['header_5fend_5flen_14',['header_end_len',['../http__response_8c.html#a80a9418bb8c99d8ea6efd25e628af2b3',1,'HEADER_END_LEN:&#160;http_response.c'],['../http__parsing_8c.html#a80a9418bb8c99d8ea6efd25e628af2b3',1,'HEADER_END_LEN:&#160;http_parsing.c']]],
+  ['header_5fend_5flen_14',['header_end_len',['../http__parsing_8c.html#a80a9418bb8c99d8ea6efd25e628af2b3',1,'HEADER_END_LEN:&#160;http_parsing.c'],['../http__response_8c.html#a80a9418bb8c99d8ea6efd25e628af2b3',1,'HEADER_END_LEN:&#160;http_response.c']]],
   ['header_5fsize_15',['header_size',['../struct__http__request__parser__s.html#a3050d77541f56acd0eb63412f8296c17',1,'_http_request_parser_s::header_size'],['../struct__http__response__parser__s.html#a3c722711d00c82214b0f906846978210',1,'_http_response_parser_s::header_size']]],
   ['headers_16',['headers',['../struct__http__request__parser__s.html#a3fbd1fda6528e76a0c25742b46406c95',1,'_http_request_parser_s::headers'],['../struct__http__response__parser__s.html#ad67007db4b7937799d4d516a7f6ccc59',1,'_http_response_parser_s::headers']]],
   ['hello_20handshake_20initial_17',['4.1 hello - Handshake Initial',['../md_doc_2protocol__rfc.html#autotoc_md191',1,'']]],
@@ -26,11 +26,12 @@ var searchData=
   ['how_20long_20we_20keep_20your_20data_23',['How Long We Keep Your Data',['../md_doc_2privacy__policy.html#autotoc_md142',1,'']]],
   ['how_20we_20notify_20you_24',['How We Notify You',['../md_doc_2privacy__policy.html#autotoc_md153',1,'']]],
   ['how_20we_20use_20your_20information_25',['How We Use Your Information',['../md_doc_2privacy__policy.html#autotoc_md90',1,'']]],
-  ['http_2ec_26',['http.c',['../posix_2http_8c.html',1,'(Global Namespace)'],['../win_2http_8c.html',1,'(Global Namespace)']]],
+  ['http_2ec_26',['http.c',['../win_2http_8c.html',1,'(Global Namespace)'],['../posix_2http_8c.html',1,'(Global Namespace)']]],
   ['http_5fheaders_2ec_27',['http_headers.c',['../http__headers_8c.html',1,'']]],
-  ['http_5fparsing_2ec_28',['http_parsing.c',['../http__parsing_8c.html',1,'']]],
-  ['http_5frequest_2ec_29',['http_request.c',['../http__request_8c.html',1,'']]],
-  ['http_5fresponse_2ec_30',['http_response.c',['../http__response_8c.html',1,'']]],
-  ['hub_20account_20deletion_31',['Community Hub Account Deletion',['../md_doc_2privacy__policy.html#autotoc_md129',1,'']]],
-  ['hub_20account_20information_32',['Community Hub Account Information',['../md_doc_2privacy__policy.html#autotoc_md84',1,'']]]
+  ['http_5fneeds_5fdownload_28',['http_needs_download',['../sync__package__list_8c.html#aed4cd443ea548514000c714a3fcc3197',1,'sync_package_list.c']]],
+  ['http_5fparsing_2ec_29',['http_parsing.c',['../http__parsing_8c.html',1,'']]],
+  ['http_5frequest_2ec_30',['http_request.c',['../http__request_8c.html',1,'']]],
+  ['http_5fresponse_2ec_31',['http_response.c',['../http__response_8c.html',1,'']]],
+  ['hub_20account_20deletion_32',['Community Hub Account Deletion',['../md_doc_2privacy__policy.html#autotoc_md129',1,'']]],
+  ['hub_20account_20information_33',['Community Hub Account Information',['../md_doc_2privacy__policy.html#autotoc_md84',1,'']]]
 ];

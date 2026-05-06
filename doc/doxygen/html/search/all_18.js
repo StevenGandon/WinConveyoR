@@ -1,9 +1,9 @@
 var searchData=
 [
   ['machine_0',['machine',['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a7a0e5381872174a3a2ac00deb5891fc8',1,'src.package.package_listing.PackageListing.machine'],['../classsrc_1_1builder_1_1package__info_1_1PackageInfo.html#ab8cdd3a184cd475a23eece24d89ad9a2',1,'src.builder.package_info.PackageInfo.machine']]],
-  ['magic_1',['magic',['../struct__wizard__file__header__raw__s.html#a48b77056c70cb2184fbce6bd4a094be9',1,'_wizard_file_header_raw_s::magic'],['../classsrc_1_1network_1_1message_1_1Message.html#adbfadea87950431d6e41e71e81d98bbd',1,'src.network.message.Message.MAGIC']]],
-  ['main_2',['main',['../namespacewcrpackager.html#af2301a666888c9d6a138ca4ed291bf93',1,'wcrpackager.main()'],['../namespacemain.html',1,'main'],['../namespacewcrmirror.html#acfda2bd786da45037a4530abfedb332c',1,'wcrmirror.main()'],['../namespacewcrmgr.html#adc5ef3e5cbee618ba6668cbccc307665',1,'wcrmgr.main()'],['../namespacemain.html#a5fff7802745dbe2e749cf165bceb63eb',1,'main.main()'],['../namespacewcrgenkey.html#a19b735e5ca665b55e262d4b65d5f8088',1,'wcrgenkey.main()'],['../namespace____main____.html#aa1e19bac8e6cbd7db574d389504d6c4c',1,'__main__.main()']]],
-  ['main_2epy_3',['main.py',['../cli_2main_8py.html',1,'(Global Namespace)'],['../daemon_2main_8py.html',1,'(Global Namespace)'],['../api_2main_8py.html',1,'(Global Namespace)']]],
+  ['magic_1',['magic',['../struct__wizard__file__header__raw__s.html#a48b77056c70cb2184fbce6bd4a094be9',1,'_wizard_file_header_raw_s::magic'],['../classsrc_1_1network_1_1message_1_1Message.html#adbfadea87950431d6e41e71e81d98bbd',1,'src.network.message.Message.MAGIC'],['../structwcr__msg__s.html#a74fa25b5cf3a944f3129c0b25ad6c9d6',1,'wcr_msg_s::magic']]],
+  ['main_2',['main',['../namespacewcrpackager.html#af2301a666888c9d6a138ca4ed291bf93',1,'wcrpackager.main()'],['../namespacemain.html',1,'main'],['../namespacewcrmirror.html#acfda2bd786da45037a4530abfedb332c',1,'wcrmirror.main()'],['../namespacewcrmgr.html#adc5ef3e5cbee618ba6668cbccc307665',1,'wcrmgr.main()'],['../namespacewcrgenkey.html#a19b735e5ca665b55e262d4b65d5f8088',1,'wcrgenkey.main()'],['../namespace____main____.html#aa1e19bac8e6cbd7db574d389504d6c4c',1,'__main__.main()'],['../namespacemain.html#a5fff7802745dbe2e749cf165bceb63eb',1,'main.main()']]],
+  ['main_2epy_3',['main.py',['../daemon_2main_8py.html',1,'(Global Namespace)'],['../cli_2main_8py.html',1,'(Global Namespace)'],['../api_2main_8py.html',1,'(Global Namespace)']]],
   ['managed_20repositories_4',['Community-Managed Repositories',['../md_doc_2privacy__policy.html#autotoc_md115',1,'']]],
   ['management_5',['management',['../md_doc_2privacy__policy.html#autotoc_md92',1,'Account Management'],['../md_doc_2privacy__policy.html#autotoc_md128',1,'Local Data Management']]],
   ['manager_20cli_6',['Documentation wcmgr - WinConveyoR Manager CLI',['../md_doc_2wcmgr__documentation.html',1,'']]],
@@ -35,13 +35,15 @@ var searchData=
   ['mirrors_32',['mirrors',['../structsource__handler__s.html#a2b6e801d0beae7f4581ec5b576346b5d',1,'source_handler_s']]],
   ['mirrors_5fsize_33',['mirrors_size',['../structsource__handler__s.html#a0a4c22fdf3031296219776422aa86994',1,'source_handler_s']]],
   ['mirrorserver_34',['MirrorServer',['../classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html',1,'src::package::mirror_server']]],
-  ['mkdir_20tt_20—_20créer_20un_20répertoire_35',['&lt;tt&gt;mkdir&lt;/tt&gt; — créer un répertoire',['../md_doc_2config__documentation.html#autotoc_md63',1,'']]],
-  ['mode_36',['mode',['../classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html#a7cb6030c56af84a94f79dd4ff29c39c8',1,'src.graphic.graphic.GraphicSettings.mode'],['../classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#ac25749b7235bed0b950dabc17f29ccdc',1,'src.scheduler.task.TextIOLocal.mode']]],
-  ['mode_5fdisplay_5fno_5fanimation_37',['MODE_DISPLAY_NO_ANIMATION',['../namespacesrc_1_1graphic_1_1graphic.html#a989b7e344a3a46bc77a19473095bef74',1,'src::graphic::graphic']]],
-  ['mode_5fdisplay_5fsimple_38',['MODE_DISPLAY_SIMPLE',['../namespacesrc_1_1graphic_1_1graphic.html#abf8f5e68fe3d225854613488ae0b5479',1,'src::graphic::graphic']]],
-  ['model_39',['model',['../classrepository_1_1Repository.html#ae4d40227550c8c763a85493ffaf6ab9f',1,'repository::Repository']]],
-  ['models_40',['models',['../namespacemodels.html',1,'']]],
-  ['models_3a_3auser_41',['user',['../namespacemodels_1_1user.html',1,'models']]],
-  ['modifications_42',['4.4 write - Sauvegarder les Modifications',['../md_doc_2protocol__rfc.html#autotoc_md194',1,'']]],
-  ['modifier_20les_20permissions_20d_20un_20fichier_43',['&lt;tt&gt;chmod&lt;/tt&gt; — modifier les permissions d&apos;un fichier',['../md_doc_2config__documentation.html#autotoc_md69',1,'']]]
+  ['mkdir_35',['MKDIR',['../file__utils_8c.html#a17cda852a890b03845a49ff1a8ae7f6d',1,'file_utils.c']]],
+  ['mkdir_20tt_20—_20créer_20un_20répertoire_36',['&lt;tt&gt;mkdir&lt;/tt&gt; — créer un répertoire',['../md_doc_2config__documentation.html#autotoc_md63',1,'']]],
+  ['mkdir_5fp_37',['mkdir_p',['../file__utils_8c.html#a43a5e95e87c1b7da2dc67a3efe868706',1,'file_utils.c']]],
+  ['mode_38',['mode',['../classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html#a7cb6030c56af84a94f79dd4ff29c39c8',1,'src.graphic.graphic.GraphicSettings.mode'],['../classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#ac25749b7235bed0b950dabc17f29ccdc',1,'src.scheduler.task.TextIOLocal.mode']]],
+  ['mode_5fdisplay_5fno_5fanimation_39',['MODE_DISPLAY_NO_ANIMATION',['../namespacesrc_1_1graphic_1_1graphic.html#a989b7e344a3a46bc77a19473095bef74',1,'src::graphic::graphic']]],
+  ['mode_5fdisplay_5fsimple_40',['MODE_DISPLAY_SIMPLE',['../namespacesrc_1_1graphic_1_1graphic.html#abf8f5e68fe3d225854613488ae0b5479',1,'src::graphic::graphic']]],
+  ['model_41',['model',['../classrepository_1_1Repository.html#ae4d40227550c8c763a85493ffaf6ab9f',1,'repository::Repository']]],
+  ['models_42',['models',['../namespacemodels.html',1,'']]],
+  ['models_3a_3auser_43',['user',['../namespacemodels_1_1user.html',1,'models']]],
+  ['modifications_44',['4.4 write - Sauvegarder les Modifications',['../md_doc_2protocol__rfc.html#autotoc_md194',1,'']]],
+  ['modifier_20les_20permissions_20d_20un_20fichier_45',['&lt;tt&gt;chmod&lt;/tt&gt; — modifier les permissions d&apos;un fichier',['../md_doc_2config__documentation.html#autotoc_md69',1,'']]]
 ];

@@ -8,5 +8,7 @@ var searchData=
   ['error_5',['error',['../classwcrmirror_1_1WCRHandler.html#a634071b2b7b2ecdfaec7a4e8803ffbf1',1,'wcrmirror.WCRHandler.error()'],['../classsrc_1_1network_1_1handler_1_1Handler.html#a3fb292f2c732eebc6f5c7b72045446a1',1,'src.network.handler.Handler.error()'],['../classsrc_1_1cli_1_1cli__base_1_1HandlerClient.html#aead550787aabd3b172e5faba885eab4b',1,'src.cli.cli_base.HandlerClient.error()']]],
   ['events_6',['events',['../classsrc_1_1network_1_1server_1_1Server.html#ac42d47958df854f246fc9be80412798c',1,'src.network.server.Server.events()'],['../classsrc_1_1network_1_1client_1_1ClientSocket.html#aed31239fb64364f8fa1affcf8d02490d',1,'src.network.client.ClientSocket.events()'],['../classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a80c4a4bd47f51b2bfa096234ea95b688',1,'src.cli.cli_base.NetworkCLI.events()']]],
   ['execute_5fredo_7',['execute_redo',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#a03deb093cc98154e297936d9f7abc4d6',1,'src::undo::undo_action::UndoAction']]],
-  ['execute_5fundo_8',['execute_undo',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#a72e5d5c450abb38efd592edf9b4ba0ff',1,'src::undo::undo_action::UndoAction']]]
+  ['execute_5fundo_8',['execute_undo',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#a72e5d5c450abb38efd592edf9b4ba0ff',1,'src::undo::undo_action::UndoAction']]],
+  ['extract_5flocation_5fhash_9',['extract_location_hash',['../install__package_8c.html#a78b990a52a7f751872c6242748cc25d4',1,'install_package.c']]],
+  ['extract_5fsession_5fid_10',['extract_session_id',['../wcr__client_8c.html#a5a5ccdd5da21e3b7cbad7edf0536f7a6',1,'wcr_client.c']]]
 ];

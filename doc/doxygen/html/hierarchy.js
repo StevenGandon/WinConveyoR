@@ -125,7 +125,6 @@ var hierarchy =
     ] ],
     [ "source_handler_s", "structsource__handler__s.html", null ],
     [ "source_mirror_s", "structsource__mirror__s.html", null ],
-    [ "sync_resources_s", "structsync__resources__s.html", null ],
     [ "T", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],
@@ -136,6 +135,9 @@ var hierarchy =
     [ "vm_handler_version", "structvm__handler__version.html", null ],
     [ "vm_iset_s", "structvm__iset__s.html", null ],
     [ "vm_op_def", "structvm__op__def.html", null ],
+    [ "wcr_conn_s", "structwcr__conn__s.html", null ],
+    [ "wcr_msg_s", "structwcr__msg__s.html", null ],
+    [ "wcr_source_s", "structwcr__source__s.html", null ],
     [ "wcr_state_s", "structwcr__state__s.html", null ],
     [ "wcr_system_s", "structwcr__system__s.html", null ],
     [ "Base", null, [
@@ -152,7 +154,8 @@ var hierarchy =
     ] ],
     [ "Enum", null, [
       [ "src.wrappers.libwconr._libwconr.SUPPORTED_ARCHITECTURES", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html", null ],
-      [ "src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", null ]
+      [ "src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", null ],
+      [ "src.wrappers.libwconr._libwconr.protocol_type", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1protocol__type.html", null ]
     ] ],
     [ "Generic", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
@@ -161,6 +164,7 @@ var hierarchy =
       [ "wcrmirror.WCRHandler", "classwcrmirror_1_1WCRHandler.html", null ]
     ] ],
     [ "Structure", null, [
+      [ "src.wrappers.libwconr._libwconr.wcr_source_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__source__s.html", null ],
       [ "src.wrappers.libwconr._libwconr.wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", null ],
       [ "src.wrappers.libwconr._libwconr.wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", null ]
     ] ]

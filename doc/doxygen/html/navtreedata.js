@@ -49,8 +49,8 @@ var NAVTREE =
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
+        [ "Functions", "globals_func.html", "globals_func" ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -65,14 +65,15 @@ var NAVTREEINDEX =
 [
 "CLI.html",
 "classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a4518bebe45b07db6a00a9c60e9377552",
-"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ae0b7d20cdd15b9837587e59c68071b0f",
-"classsrc_1_1network_1_1client_1_1ClientSocket.html#aa90ea920b45436e8dc04fef3316c694a",
-"classsrc_1_1scheduler_1_1clock_1_1Clock.html#acad24d923d9cb251a248fc59f84362dc",
-"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a83f047018641811d2a6049a3613d1adc",
-"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html#a0cf418fd9fc3849e40cb1059cbc43d2d",
-"functions_m.html",
-"namespacesrc_1_1common_1_1clock.html",
-"structsync__resources__s.html#a7071b44e53858568ef78c15284c1a1c8"
+"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#acf4cc409cab1a5e09ae42fd9d10588ba",
+"classsrc_1_1network_1_1client_1_1ClientSocket.html#a71f424d9e76939acb87866bac745d4ce",
+"classsrc_1_1scheduler_1_1clock_1_1Clock.html",
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html",
+"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#aafe04a0037d46984894e87e430914a9a",
+"file__utils_8h.html#a49b0cfcb3c0cb040f6753e3538c42072",
+"list__sessions_8py.html#a6eeb5cc83155de0b214db3dafdcb2388",
+"pkg__parsing_8h.html#a4aa644f97491bdb488b4112d6e31c876",
+"wcr__client_8c.html#a939e4a3bf655697562130a936c4cd7ad"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

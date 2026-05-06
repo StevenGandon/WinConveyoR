@@ -9,12 +9,15 @@ var searchData=
   ['add_5fpattern_6',['add_pattern',['../classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html#af42a0c892a86f147c821305eecfaa92b',1,'src::graphic::pattern::compiler::PatternCompiler']]],
   ['add_5froute_7',['add_route',['../classwcrmirror_1_1Router.html#a1abdd784d61e715bedae902d707ef3a4',1,'wcrmirror::Router']]],
   ['add_5fsection_8',['add_section',['../classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#a4c18a3320676b6c90a4e372a61741c9b',1,'src::wizard::classes::package::PackageWizard']]],
-  ['add_5fstep_9',['add_step',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#adc2fc3578b38c364a52107c2199a9f57',1,'src::undo::undo_action::UndoAction']]],
-  ['add_5fstrndx_10',['add_strndx',['../classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#a8c1bfd616f659ee04a3301d224083736',1,'src::wizard::classes::package::PackageWizard']]],
-  ['add_5ftask_11',['add_task',['../classsrc_1_1scheduler_1_1task_1_1TaskScheduler.html#a47ce744afd145d553b5a6a6208843f86',1,'src::scheduler::task::TaskScheduler']]],
-  ['apply_12',['apply',['../classsrc_1_1cache_1_1cache_1_1CacheService.html#a50d42f2bcd784d9233c7bd57a4384818',1,'src::cache::cache::CacheService']]],
-  ['ask_5fenum_13',['ask_enum',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#a986dc41c546366a9db14154c8a83c1bc',1,'src::builder::interaction::dialog::Dialog']]],
-  ['ask_5funtil_5fempty_14',['ask_until_empty',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#ab2e2612dafd8950c7e03a46eff6f2803',1,'src::builder::interaction::dialog::Dialog']]],
-  ['ask_5funtil_5fgiven_15',['ask_until_given',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#a154bfacf534ce0870a1d847145ea19a8',1,'src::builder::interaction::dialog::Dialog']]],
-  ['ask_5fwith_5fdefault_16',['ask_with_default',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#ab27ef45cfcf16531ca81bafaf3c191a1',1,'src::builder::interaction::dialog::Dialog']]]
+  ['add_5fsource_9',['add_source',['../classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#ad3441b453f1bcd1b2e3a1a200ab9226d',1,'src::wrappers::libwconr::libwconr::WCRState']]],
+  ['add_5fstep_10',['add_step',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#adc2fc3578b38c364a52107c2199a9f57',1,'src::undo::undo_action::UndoAction']]],
+  ['add_5fstrndx_11',['add_strndx',['../classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#a8c1bfd616f659ee04a3301d224083736',1,'src::wizard::classes::package::PackageWizard']]],
+  ['add_5ftask_12',['add_task',['../classsrc_1_1scheduler_1_1task_1_1TaskScheduler.html#a47ce744afd145d553b5a6a6208843f86',1,'src::scheduler::task::TaskScheduler']]],
+  ['aes_5fdecrypt_5fdata_13',['aes_decrypt_data',['../wcr__crypt_8c.html#a334c8e31ebf7388abbad57bcbbd79b42',1,'wcr_crypt.c']]],
+  ['aes_5fencrypt_5fdata_14',['aes_encrypt_data',['../wcr__crypt_8c.html#ac3d63459ae1f06b3e35690199a7f329d',1,'wcr_crypt.c']]],
+  ['apply_15',['apply',['../classsrc_1_1cache_1_1cache_1_1CacheService.html#a50d42f2bcd784d9233c7bd57a4384818',1,'src::cache::cache::CacheService']]],
+  ['ask_5fenum_16',['ask_enum',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#a986dc41c546366a9db14154c8a83c1bc',1,'src::builder::interaction::dialog::Dialog']]],
+  ['ask_5funtil_5fempty_17',['ask_until_empty',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#ab2e2612dafd8950c7e03a46eff6f2803',1,'src::builder::interaction::dialog::Dialog']]],
+  ['ask_5funtil_5fgiven_18',['ask_until_given',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#a154bfacf534ce0870a1d847145ea19a8',1,'src::builder::interaction::dialog::Dialog']]],
+  ['ask_5fwith_5fdefault_19',['ask_with_default',['../classsrc_1_1builder_1_1interaction_1_1dialog_1_1Dialog.html#ab27ef45cfcf16531ca81bafaf3c191a1',1,'src::builder::interaction::dialog::Dialog']]]
 ];

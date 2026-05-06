@@ -8,6 +8,7 @@ var searchData=
   ['join_20our_20discord_5',['Join Our Discord',['../md_CONTRIBUTING.html#autotoc_md41',1,'']]],
   ['json_6',['2.3.1 Champs JSON',['../md_doc_2protocol__rfc.html#autotoc_md185',1,'']]],
   ['json_20du_20payload_7',['2.3 Format JSON du Payload',['../md_doc_2protocol__rfc.html#autotoc_md184',1,'']]],
-  ['jsonmessage_8',['JSONMessage',['../classsrc_1_1network_1_1message__json_1_1JSONMessage.html',1,'src::network::message_json']]],
-  ['jurisdictions_9',['Other Jurisdictions',['../md_doc_2privacy__policy.html#autotoc_md167',1,'']]]
+  ['json_5fextract_5fstring_8',['json_extract_string',['../pkg__parsing_8h.html#ac7f79d7af8f8f57818630ab1e8d10c4e',1,'json_extract_string(const char *json, const char *key, char **out_value):&#160;pkg_parsing.c'],['../pkg__parsing_8c.html#ac7f79d7af8f8f57818630ab1e8d10c4e',1,'json_extract_string(const char *json, const char *key, char **out_value):&#160;pkg_parsing.c']]],
+  ['jsonmessage_9',['JSONMessage',['../classsrc_1_1network_1_1message__json_1_1JSONMessage.html',1,'src::network::message_json']]],
+  ['jurisdictions_10',['Other Jurisdictions',['../md_doc_2privacy__policy.html#autotoc_md167',1,'']]]
 ];

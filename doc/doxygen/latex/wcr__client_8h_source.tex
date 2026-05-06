@@ -1,0 +1,54 @@
+\doxysection{wcr\+\_\+client.\+h}
+\hypertarget{wcr__client_8h_source}{}\label{wcr__client_8h_source}\index{lib/libwconr/wcr\_client.h@{lib/libwconr/wcr\_client.h}}
+\mbox{\hyperlink{wcr__client_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WCR\_CLIENT\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_CLIENT\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stddef.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\ \ \ \ \#include\ <openssl/evp.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_MAGIC\ 0xffc407ec}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_DEFAULT\_PORT\ 1674}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_HEADER\_SIZE\ 14}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_RSA\_KEY\_SIZE\ 2048}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_RSA\_KEY\_BYTES\ (WCR\_RSA\_KEY\_SIZE\ /\ 8)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_AES\_KEY\_SIZE\ 32}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_AES\_IV\_SIZE\ 16}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \#define\ WCR\_JSON\_OVERHEAD\ 128}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__msg__s}{wcr\_msg\_s}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structwcr__msg__s_a74fa25b5cf3a944f3129c0b25ad6c9d6}{magic}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structwcr__msg__s_a24e03c2d5355b73d832662f508ef3d08}{flags}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__msg__s_ad5c4f38ad28b5e17a0a5040b0188136f}{payload}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structwcr__msg__s_a479741c39ea9d52126fc8428858e50da}{payload\_len}};}
+\DoxyCodeLine{00022\ \ \ \ \ \}\ \mbox{\hyperlink{wcr__client_8h_a2923e1aa9a8fb6f3fc379b282a179e98}{wcr\_msg}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structwcr__msg__s}{wcr\_msg}}\ *\mbox{\hyperlink{wcr__client_8h_a939e4a3bf655697562130a936c4cd7ad}{wcr\_msg\_new}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *payload,\ uint16\_t\ flags);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wcr__client_8h_a67b36c31af7b0da3937d11fe6858c13a}{wcr\_msg\_free}}(\mbox{\hyperlink{structwcr__msg__s}{wcr\_msg}}\ *msg);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn\_s}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structwcr__conn__s_aae1b771e4b1d54e7747544d891fe5f86}{sockfd}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structwcr__conn__s_a2656105fffd8ad315107a53b6d1cf7ea}{session\_id}}[64];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ EVP\_PKEY\ *\mbox{\hyperlink{structwcr__conn__s_a495466f0e3ee8dde20b9ece1c349d227}{client\_privkey}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ EVP\_PKEY\ *\mbox{\hyperlink{structwcr__conn__s_aa8b5b8e6a656664c28586d2f4a8a3468}{server\_pubkey}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structwcr__conn__s_aafcca6fafc59d427e0af19783a7b728f}{encrypted}};}
+\DoxyCodeLine{00033\ \ \ \ \ \}\ \mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\_conn}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *\mbox{\hyperlink{wcr__client_8h_ab2af38b744882c13b570ba3c50bcbd24}{wcr\_open}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wcr__client_8h_a9ced6f3727ffc0dbe614c1c94e5908ef}{wcr\_close}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wcr__client_8h_aff24042e4dd8a1fd882d08557a46ac57}{wcr\_handshake}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server\_pubkey\_pem);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wcr__client_8h_ac846ad724fbe771080bfa1db01aa9778}{wcr\_auth}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *access\_key);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wcr__client_8h_af77a05910969d413ae5c7718039d0d31}{wcr\_send}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structwcr__msg__s}{wcr\_msg}}\ *msg);}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{structwcr__msg__s}{wcr\_msg}}\ *\mbox{\hyperlink{wcr__client_8h_a86b9cfe7f61f4a22ec38007d4a383f51}{wcr\_recv}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{wcr__client_8h_aa1fb69d5598a5bae07cafc25d823e3b5}{wcr\_send\_recv}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *json\_payload);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{wcr__client_8h_adeecb10306bba9f36c88cbd5f10d0f67}{wcr\_get\_listing}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{wcr__client_8h_a021f52a7579c7b309e0c915f4b987bdd}{wcr\_get\_hash}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{wcr__client_8h_a45652000f6de45422dc7171dfd2cf684}{wcr\_get\_package\_listing}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *package\_name);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{wcr__client_8h_a45d71d766e6187f8aef5db52ea25fd64}{wcr\_get\_package\_metadata}}(\mbox{\hyperlink{structwcr__conn__s}{wcr\_conn}}\ *conn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *package\_name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *location\_hash);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !WCR\_CLIENT\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

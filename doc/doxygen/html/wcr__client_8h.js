@@ -1,0 +1,28 @@
+var wcr__client_8h =
+[
+    [ "wcr_msg_s", "structwcr__msg__s.html", "structwcr__msg__s" ],
+    [ "wcr_conn_s", "structwcr__conn__s.html", "structwcr__conn__s" ],
+    [ "WCR_AES_IV_SIZE", "wcr__client_8h.html#aa64cdb4cfed7c306de81da8b660221b4", null ],
+    [ "WCR_AES_KEY_SIZE", "wcr__client_8h.html#acab04f8cb11aa32220c2274015553673", null ],
+    [ "WCR_DEFAULT_PORT", "wcr__client_8h.html#a9b45c990a3ba3b274253f8dc9e06b119", null ],
+    [ "WCR_HEADER_SIZE", "wcr__client_8h.html#a40d271869789b6be6af71cfef128b35b", null ],
+    [ "WCR_JSON_OVERHEAD", "wcr__client_8h.html#a4130e023dd524bbaa8243d0cf7518d46", null ],
+    [ "WCR_MAGIC", "wcr__client_8h.html#ad0a364a0b6c4f0ec86f86e4a57ad0173", null ],
+    [ "WCR_RSA_KEY_BYTES", "wcr__client_8h.html#a48cde361a5d7ce66a7e05a63b01a8815", null ],
+    [ "WCR_RSA_KEY_SIZE", "wcr__client_8h.html#a15ae5f50496a5bb650173db16d66aac6", null ],
+    [ "wcr_conn", "wcr__client_8h.html#a127c5c071b7b38452871e2afa1910de5", null ],
+    [ "wcr_msg", "wcr__client_8h.html#a2923e1aa9a8fb6f3fc379b282a179e98", null ],
+    [ "wcr_auth", "wcr__client_8h.html#ac846ad724fbe771080bfa1db01aa9778", null ],
+    [ "wcr_close", "wcr__client_8h.html#a9ced6f3727ffc0dbe614c1c94e5908ef", null ],
+    [ "wcr_get_hash", "wcr__client_8h.html#a021f52a7579c7b309e0c915f4b987bdd", null ],
+    [ "wcr_get_listing", "wcr__client_8h.html#adeecb10306bba9f36c88cbd5f10d0f67", null ],
+    [ "wcr_get_package_listing", "wcr__client_8h.html#a45652000f6de45422dc7171dfd2cf684", null ],
+    [ "wcr_get_package_metadata", "wcr__client_8h.html#a45d71d766e6187f8aef5db52ea25fd64", null ],
+    [ "wcr_handshake", "wcr__client_8h.html#aff24042e4dd8a1fd882d08557a46ac57", null ],
+    [ "wcr_msg_free", "wcr__client_8h.html#a67b36c31af7b0da3937d11fe6858c13a", null ],
+    [ "wcr_msg_new", "wcr__client_8h.html#a939e4a3bf655697562130a936c4cd7ad", null ],
+    [ "wcr_open", "wcr__client_8h.html#ab2af38b744882c13b570ba3c50bcbd24", null ],
+    [ "wcr_recv", "wcr__client_8h.html#a86b9cfe7f61f4a22ec38007d4a383f51", null ],
+    [ "wcr_send", "wcr__client_8h.html#af77a05910969d413ae5c7718039d0d31", null ],
+    [ "wcr_send_recv", "wcr__client_8h.html#aa1fb69d5598a5bae07cafc25d823e3b5", null ]
+];

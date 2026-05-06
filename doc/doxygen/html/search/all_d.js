@@ -5,7 +5,7 @@ var searchData=
   ['base_2',['base',['../namespacebase.html#a1117b2c83505ac017f9ae71b1169e659',1,'base.Base'],['../namespacebase.html',1,'base'],['../structvm__arg__type.html#ab3c0f933fdc781385ef884b9213bc2b7',1,'vm_arg_type::base'],['../struct__wizard__ctx__s.html#a1a4696c87d875937706cf50ec89c4da4',1,'_wizard_ctx_s::base']]],
   ['base_2epy_3',['base.py',['../base_8py.html',1,'']]],
   ['base_5fdir_4',['BASE_DIR',['../namespacecore_1_1config.html#aaa3f43c45775b3a666afcd11a9f05b1b',1,'core::config']]],
-  ['base_5fpath_5',['base_path',['../classsrc_1_1package_1_1package_1_1Package.html#af078e149bd242c4706cc467cea522564',1,'src.package.package.Package.base_path'],['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a96a0a35c6d04a48510b2ae4838c8449d',1,'src.package.package_listing.PackageListing.base_path']]],
+  ['base_5fpath_5',['base_path',['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a96a0a35c6d04a48510b2ae4838c8449d',1,'src.package.package_listing.PackageListing.base_path'],['../classsrc_1_1package_1_1package_1_1Package.html#af078e149bd242c4706cc467cea522564',1,'src.package.package.Package.base_path']]],
   ['basis_20for_20processing_20gdpr_6',['Legal Basis for Processing (GDPR)',['../md_doc_2privacy__policy.html#autotoc_md136',1,'']]],
   ['binaire_7',['.WIZARD — Format de fichier binaire',['../md_doc_2wizard__file__format.html',1,'']]],
   ['blockquote_8',['&lt;/blockquote&gt;',['../md_doc_2config__documentation.html#autotoc_md59',1,'']]],
@@ -23,7 +23,9 @@ var searchData=
   ['build_20uniquement_20',['&lt;tt&gt;requires&lt;/tt&gt; (build uniquement)',['../md_doc_2config__documentation.html#autotoc_md57',1,'']]],
   ['build_3a_21',['To Build:',['../md_README.html#autotoc_md279',1,'']]],
   ['build_5farguments_22',['build_arguments',['../classsrc_1_1arghandler_1_1GenericArgument.html#adb764d7b316580bd507b4330a6466719',1,'src.arghandler.GenericArgument.build_arguments(self)'],['../classsrc_1_1arghandler_1_1GenericArgument.html#adb764d7b316580bd507b4330a6466719',1,'src.arghandler.GenericArgument.build_arguments(self)']]],
-  ['build_5frequest_23',['build_request',['../http__request_8c.html#aefd35d36dc9af5cc71e2cc13a1422388',1,'http_request.c']]],
-  ['builder_2epy_24',['builder.py',['../builder_8py.html',1,'']]],
-  ['business_20transfers_25',['Business Transfers',['../md_doc_2privacy__policy.html#autotoc_md112',1,'']]]
+  ['build_5finit_5frsa_5fpayload_23',['build_init_rsa_payload',['../wcr__client_8c.html#aa5cf339153c8791d99df50155eeb757c',1,'wcr_client.c']]],
+  ['build_5frequest_24',['build_request',['../http__request_8c.html#aefd35d36dc9af5cc71e2cc13a1422388',1,'http_request.c']]],
+  ['build_5furl_25',['build_url',['../pkg__downloader_8c.html#a5817451f7676afdbdaa69eb2fe95d355',1,'build_url(const char *source_uri, const char *path):&#160;pkg_downloader.c'],['../pkg__downloader_8h.html#a5817451f7676afdbdaa69eb2fe95d355',1,'build_url(const char *source_uri, const char *path):&#160;pkg_downloader.c']]],
+  ['builder_2epy_26',['builder.py',['../builder_8py.html',1,'']]],
+  ['business_20transfers_27',['Business Transfers',['../md_doc_2privacy__policy.html#autotoc_md112',1,'']]]
 ];

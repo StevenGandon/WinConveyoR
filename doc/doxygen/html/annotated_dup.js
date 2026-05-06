@@ -233,8 +233,10 @@ var annotated_dup =
         [ "libwconr", "namespacesrc_1_1wrappers_1_1libwconr.html", [
           [ "_libwconr", "namespacesrc_1_1wrappers_1_1libwconr_1_1__libwconr.html", [
             [ "Mapper", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1Mapper" ],
+            [ "protocol_type", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1protocol__type.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1protocol__type" ],
             [ "SUPPORTED_ARCHITECTURES", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES" ],
             [ "SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS" ],
+            [ "wcr_source_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__source__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__source__s" ],
             [ "wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s" ],
             [ "wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s" ]
           ] ],
@@ -262,7 +264,6 @@ var annotated_dup =
     [ "memory_buffer_s", "structmemory__buffer__s.html", "structmemory__buffer__s" ],
     [ "source_handler_s", "structsource__handler__s.html", "structsource__handler__s" ],
     [ "source_mirror_s", "structsource__mirror__s.html", "structsource__mirror__s" ],
-    [ "sync_resources_s", "structsync__resources__s.html", "structsync__resources__s" ],
     [ "vm_arg_def", "structvm__arg__def.html", "structvm__arg__def" ],
     [ "vm_arg_type", "structvm__arg__type.html", "structvm__arg__type" ],
     [ "vm_arg_value", "structvm__arg__value.html", "structvm__arg__value" ],
@@ -270,6 +271,9 @@ var annotated_dup =
     [ "vm_handler_version", "structvm__handler__version.html", "structvm__handler__version" ],
     [ "vm_iset_s", "structvm__iset__s.html", "structvm__iset__s" ],
     [ "vm_op_def", "structvm__op__def.html", "structvm__op__def" ],
+    [ "wcr_conn_s", "structwcr__conn__s.html", "structwcr__conn__s" ],
+    [ "wcr_msg_s", "structwcr__msg__s.html", "structwcr__msg__s" ],
+    [ "wcr_source_s", "structwcr__source__s.html", "structwcr__source__s" ],
     [ "wcr_state_s", "structwcr__state__s.html", "structwcr__state__s" ],
     [ "wcr_system_s", "structwcr__system__s.html", "structwcr__system__s" ]
 ];

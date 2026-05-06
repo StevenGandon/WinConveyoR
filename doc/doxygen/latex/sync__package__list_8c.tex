@@ -1,0 +1,89 @@
+\doxysection{lib/libwconr/src/sync\+\_\+package\+\_\+list.c File Reference}
+\hypertarget{sync__package__list_8c}{}\label{sync__package__list_8c}\index{lib/libwconr/src/sync\_package\_list.c@{lib/libwconr/src/sync\_package\_list.c}}
+{\ttfamily \#include "{}libwconr.\+h"{}}\newline
+{\ttfamily \#include "{}pkg\+\_\+downloader.\+h"{}}\newline
+{\ttfamily \#include "{}file\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}wcr\+\_\+client.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$curl/curl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_a455c04e93b32de27b81ed2c505063ccd}{parse\+\_\+host\+\_\+port}} (const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, char \texorpdfstring{$\ast$}{*}host, size\+\_\+t host\+\_\+sz, int \texorpdfstring{$\ast$}{*}port)
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_a52e765c3a0e823a0a30e460ed14e6afd}{convert\+\_\+listing\+\_\+to\+\_\+pkgs\+\_\+list}} (const char \texorpdfstring{$\ast$}{*}listing, const char \texorpdfstring{$\ast$}{*}filepath)
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_ae678405f6849e76df1b51b94546c2554}{is\+\_\+pkgs\+\_\+list\+\_\+current}} (const char \texorpdfstring{$\ast$}{*}pkgs\+\_\+list\+\_\+path, const char \texorpdfstring{$\ast$}{*}remote\+\_\+hash)
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_a80157f0b5bca116061e2d1edf3c1c41f}{wcr\+\_\+download\+\_\+listing}} (\mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}conn, const char \texorpdfstring{$\ast$}{*}pkgs\+\_\+list\+\_\+path)
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_afe791e6f6a9c39592cbc0aaf2eba744c}{sync\+\_\+wcr}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri)
+\item 
+static void \mbox{\hyperlink{sync__package__list_8c_aa4c0f77e8100e7a297278a89126f6657}{trim\+\_\+whitespace}} (char \texorpdfstring{$\ast$}{*}s)
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_aed4cd443ea548514000c714a3fcc3197}{http\+\_\+needs\+\_\+download}} (\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}checksum\+\_\+url, const char \texorpdfstring{$\ast$}{*}pkgs\+\_\+list\+\_\+path)
+\item 
+static int \mbox{\hyperlink{sync__package__list_8c_aaccc9b20aa57d4f034719d236f24f1c9}{sync\+\_\+http}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri)
+\item 
+int \mbox{\hyperlink{sync__package__list_8c_abb3ec2f26542ef62268dfbe198bab132}{sync\+\_\+package\+\_\+list}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{sync__package__list_8c_a52e765c3a0e823a0a30e460ed14e6afd}\label{sync__package__list_8c_a52e765c3a0e823a0a30e460ed14e6afd} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!convert\_listing\_to\_pkgs\_list@{convert\_listing\_to\_pkgs\_list}}
+\index{convert\_listing\_to\_pkgs\_list@{convert\_listing\_to\_pkgs\_list}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{convert\_listing\_to\_pkgs\_list()}{convert\_listing\_to\_pkgs\_list()}}
+{\footnotesize\ttfamily static int convert\+\_\+listing\+\_\+to\+\_\+pkgs\+\_\+list (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{listing,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{filepath }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_aed4cd443ea548514000c714a3fcc3197}\label{sync__package__list_8c_aed4cd443ea548514000c714a3fcc3197} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!http\_needs\_download@{http\_needs\_download}}
+\index{http\_needs\_download@{http\_needs\_download}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{http\_needs\_download()}{http\_needs\_download()}}
+{\footnotesize\ttfamily static int http\+\_\+needs\+\_\+download (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{checksum\+\_\+url,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{pkgs\+\_\+list\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_ae678405f6849e76df1b51b94546c2554}\label{sync__package__list_8c_ae678405f6849e76df1b51b94546c2554} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!is\_pkgs\_list\_current@{is\_pkgs\_list\_current}}
+\index{is\_pkgs\_list\_current@{is\_pkgs\_list\_current}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{is\_pkgs\_list\_current()}{is\_pkgs\_list\_current()}}
+{\footnotesize\ttfamily static int is\+\_\+pkgs\+\_\+list\+\_\+current (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{pkgs\+\_\+list\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{remote\+\_\+hash }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_a455c04e93b32de27b81ed2c505063ccd}\label{sync__package__list_8c_a455c04e93b32de27b81ed2c505063ccd} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!parse\_host\_port@{parse\_host\_port}}
+\index{parse\_host\_port@{parse\_host\_port}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{parse\_host\_port()}{parse\_host\_port()}}
+{\footnotesize\ttfamily static int parse\+\_\+host\+\_\+port (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{char \texorpdfstring{$\ast$}{*}}]{host,  }\item[{size\+\_\+t}]{host\+\_\+sz,  }\item[{int \texorpdfstring{$\ast$}{*}}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_aaccc9b20aa57d4f034719d236f24f1c9}\label{sync__package__list_8c_aaccc9b20aa57d4f034719d236f24f1c9} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!sync\_http@{sync\_http}}
+\index{sync\_http@{sync\_http}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{sync\_http()}{sync\_http()}}
+{\footnotesize\ttfamily static int sync\+\_\+http (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_abb3ec2f26542ef62268dfbe198bab132}\label{sync__package__list_8c_abb3ec2f26542ef62268dfbe198bab132} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!sync\_package\_list@{sync\_package\_list}}
+\index{sync\_package\_list@{sync\_package\_list}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{sync\_package\_list()}{sync\_package\_list()}}
+{\footnotesize\ttfamily int sync\+\_\+package\+\_\+list (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri }\end{DoxyParamCaption})}
+
+\Hypertarget{sync__package__list_8c_afe791e6f6a9c39592cbc0aaf2eba744c}\label{sync__package__list_8c_afe791e6f6a9c39592cbc0aaf2eba744c} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!sync\_wcr@{sync\_wcr}}
+\index{sync\_wcr@{sync\_wcr}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{sync\_wcr()}{sync\_wcr()}}
+{\footnotesize\ttfamily static int sync\+\_\+wcr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_aa4c0f77e8100e7a297278a89126f6657}\label{sync__package__list_8c_aa4c0f77e8100e7a297278a89126f6657} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!trim\_whitespace@{trim\_whitespace}}
+\index{trim\_whitespace@{trim\_whitespace}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{trim\_whitespace()}{trim\_whitespace()}}
+{\footnotesize\ttfamily static void trim\+\_\+whitespace (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{sync__package__list_8c_a80157f0b5bca116061e2d1edf3c1c41f}\label{sync__package__list_8c_a80157f0b5bca116061e2d1edf3c1c41f} 
+\index{sync\_package\_list.c@{sync\_package\_list.c}!wcr\_download\_listing@{wcr\_download\_listing}}
+\index{wcr\_download\_listing@{wcr\_download\_listing}!sync\_package\_list.c@{sync\_package\_list.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_download\_listing()}{wcr\_download\_listing()}}
+{\footnotesize\ttfamily static int wcr\+\_\+download\+\_\+listing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}}]{conn,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{pkgs\+\_\+list\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
