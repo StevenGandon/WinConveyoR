@@ -13,6 +13,8 @@ class CLI(object):
     OPTION_TABLE: dict = {
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
+        "install": {"opt": ("install", "-i", "--install"), "exc": ()},
+        "update": {"opt": ("update", "-u", "--update"), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -192,15 +194,72 @@ Exemples:
         self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
+    def install_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_name):
+            sys.stderr.write(f"{sys.argv[0]} install: no package name provided.\n")
+            return (1)
+
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} install: no sources configured.\n")
+            return (1)
+
+        for src in sources:
+            sys.stdout.write(f"{sys.argv[0]} install: trying '{package_name}' from {src['url']}...\n")
+            rc = self.wcr.install_package(src['proto'], src['url'], package_name)
+            if (rc == 0):
+                sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
+                return (0)
+
+        sys.stderr.write(f"{sys.argv[0]} install: failed from all sources.\n")
+        return (1)
+
+    def update_sources(self):
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} update: no sources configured.\n")
+            return (1)
+
+        failed = 0
+        for src in sources:
+            sys.stdout.write(f"{sys.argv[0]} update: syncing from {src['url']}...\n")
+            rc = self.wcr.sync_package_list(src['proto'], src['url'])
+            if (rc != 0):
+                sys.stderr.write(f"{sys.argv[0]} update: sync failed for {src['url']} (rc={rc}).\n")
+                failed += 1
+
+        if (failed == len(sources)):
+            sys.stderr.write(f"{sys.argv[0]} update: all sources failed.\n")
+            return (1)
+
+        sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
+        return (0)
+
+    def _load_state(self):
+        state = WCRState.load("~/.config/wcr/config")
+        if state is not None:
+            return state
+        state = WCRState()
+        state.add_source(0, "http://localhost:8080")
+        return state
+
     def run(self) -> int:
         if (not self.wcr):
-            self.wcr = WCRState()
+            self.wcr = self._load_state()
 
         if (self.has_opt("help")):
             return self.show_help()
 
         if (self.has_opt("download")):
             return self.download_package()
+
+        if (self.has_opt("install")):
+            return self.install_package()
+
+        if (self.has_opt("update")):
+            return self.update_sources()
 
         sys.stderr.write(f"{sys.argv[0]}: no operation specified (use -h for help).\n")
         return (1)

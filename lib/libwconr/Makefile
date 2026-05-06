@@ -4,6 +4,12 @@ SRC	=	./src/wcr_state.c	\
 		./src/http_request.c \
 		./src/http_response.c \
 		./src/download_package.c \
+		./src/pkg_downloader.c \
+		./src/file_utils.c \
+		./src/pkg_parsing.c \
+		./src/sync_package_list.c \
+		./src/install_package.c \
+		./src/wcr_client.c \
 		./src/pars_wizard.c \
 		./src/wizard_endian.c \
 		./src/wizard_section.c \
