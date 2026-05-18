@@ -2,6 +2,7 @@
     #define LIBWCONR_H_
 
     #include <stddef.h>
+    #include "wcr_event.h"
 
     #ifdef _WIN32
         #ifndef WIN32_LEAN_AND_MEAN
@@ -60,6 +61,8 @@
         struct wcr_source_s **sources;           // configured mirrors
         size_t sources_count;                    // number of configured mirrors
         wcr_mutex lock;                          // mutex for thread-safe access
+        wcr_event_callback_t event_callback;     // user-registered event callback (or NULL)
+        void *event_user_data;                   // opaque pointer passed to callback
     };
 
     /* ==== types definition ==== */
