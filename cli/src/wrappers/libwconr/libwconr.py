@@ -1,6 +1,6 @@
 from ._libwconr import *
 
-from ctypes import c_char_p, pointer, cast, POINTER, c_ubyte, create_string_buffer
+from ctypes import c_char_p, pointer, cast, POINTER, c_ubyte, c_void_p, create_string_buffer
 import os
 
 _MAPPER = Mapper()
@@ -12,6 +12,7 @@ class WCRState(object):
     __mapper: Mapper = _MAPPER
 
     def __init__(self, _raw_ptr=None) -> None:
+        self._event_cb_ref = None
         if _raw_ptr is not None:
             self._cstate = _raw_ptr
         else:
@@ -51,11 +52,21 @@ class WCRState(object):
     def install_package(self, proto: int, source_uri: str, package_name: str) -> int:
         return int(self.__mapper.call_function("install_package", self._cstate, proto, source_uri.encode('utf-8'), package_name.encode('utf-8')))
 
+    def set_event_callback(self, callback):
+        def _c_callback(event_ptr, user_data):
+            ev = event_ptr.contents
+            msg = ev.message.decode('utf-8', errors='replace') if ev.message else ""
+            callback(wcr_event_type(ev.type), msg, ev.bytes_done, ev.bytes_total)
+
+        self._event_cb_ref = wcr_event_callback_t(_c_callback)
+        self.__mapper.call_function("wcr_set_event_callback", self._cstate, self._event_cb_ref, None)
+
     def close(self):
         if (not self._cstate):
             return
         self.__mapper.call_function("close_state", self._cstate)
         self._cstate = None
+        self._event_cb_ref = None
 
     def __del__(self):
         self.close()

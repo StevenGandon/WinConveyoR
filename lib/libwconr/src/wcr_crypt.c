@@ -1,4 +1,5 @@
 #include "wcr_crypt.h"
+#include "wcr_event_internal.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -205,7 +206,7 @@ unsigned char *wcr_decrypt(EVP_PKEY *privkey,
     *out_len = 0;
 
     if (cipher_len < WCR_RSA_KEY_BYTES + WCR_AES_IV_SIZE + 1) {
-        fprintf(stderr, "[ERROR] wcr_decrypt: ciphertext too short\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_decrypt: ciphertext too short");
         return NULL;
     }
 

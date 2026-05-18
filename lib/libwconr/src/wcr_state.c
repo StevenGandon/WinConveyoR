@@ -1,4 +1,5 @@
 #include "libwconr.h"
+#include "wcr_event_internal.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,7 +96,7 @@ wcr_state *new_state(void)
 
     state->cache_path = default_cache_path();
     if (!state->cache_path) {
-        fprintf(stderr, "[ERROR] new_state: failed to compute default cache_path\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] new_state: failed to compute default cache_path");
         wcr_mutex_destroy(&state->lock);
         free(state);
         return NULL;
@@ -135,7 +136,7 @@ static void state_auto_save(const wcr_state *state)
     if (!state->config_path)
         return;
     if (write_state(state, state->config_path) != 0)
-        fprintf(stderr, "[WARNING] state_auto_save: failed to write %s\n", state->config_path);
+        wcr_emit(state, WCR_EVENT_WARNING, "[WARNING] state_auto_save: failed to write %s", state->config_path);
 }
 
 int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
@@ -144,7 +145,7 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
     wcr_source *source;
 
     if (!state || !url) {
-        fprintf(stderr, "[ERROR] wcr_state_add_source: state or url is NULL\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_state_add_source: state or url is NULL");
         return -1;
     }
 
@@ -152,7 +153,7 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
 
     source = (wcr_source *)calloc(1, sizeof(wcr_source));
     if (!source) {
-        fprintf(stderr, "[ERROR] wcr_state_add_source: calloc failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_state_add_source: calloc failed");
         wcr_mutex_unlock(&state->lock);
         return -1;
     }
@@ -160,7 +161,7 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
     source->proto = proto;
     source->url = strdup(url);
     if (!source->url) {
-        fprintf(stderr, "[ERROR] wcr_state_add_source: strdup failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_state_add_source: strdup failed");
         free(source);
         wcr_mutex_unlock(&state->lock);
         return -1;
@@ -168,7 +169,7 @@ int wcr_state_add_source(wcr_state *state, protocol_type proto, const char *url)
 
     new_sources = realloc(state->sources, sizeof(wcr_source *) * (state->sources_count + 1));
     if (!new_sources) {
-        fprintf(stderr, "[ERROR] wcr_state_add_source: realloc failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_state_add_source: realloc failed");
         free(source->url);
         free(source);
         wcr_mutex_unlock(&state->lock);
@@ -194,7 +195,7 @@ int write_state(const wcr_state *state, const char *filepath)
 
     file = fopen(filepath, "w");
     if (!file) {
-        fprintf(stderr, "[ERROR] write_state: cannot open %s for writing\n", filepath);
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] write_state: cannot open %s for writing", filepath);
         return -1;
     }
 
@@ -211,7 +212,7 @@ int write_state(const wcr_state *state, const char *filepath)
 
         proto_name = proto_to_string(src->proto);
         if (!proto_name) {
-            fprintf(stderr, "[WARNING] write_state: skipping source with unknown proto %d\n", src->proto);
+            wcr_emit(state, WCR_EVENT_WARNING, "[WARNING] write_state: skipping source with unknown proto %d", src->proto);
             continue;
         }
 
@@ -233,7 +234,7 @@ wcr_state *load_state(const char *filepath)
 
     file = fopen(filepath, "r");
     if (!file) {
-        fprintf(stderr, "[ERROR] load_state: cannot open %s for reading\n", filepath);
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] load_state: cannot open %s for reading", filepath);
         return NULL;
     }
 
@@ -257,7 +258,7 @@ wcr_state *load_state(const char *filepath)
             free(state->cache_path);
             state->cache_path = strdup(line + 11);
             if (!state->cache_path) {
-                fprintf(stderr, "[ERROR] load_state: strdup failed for cache_path\n");
+                wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] load_state: strdup failed for cache_path");
                 close_state(state);
                 fclose(file);
                 return NULL;
@@ -271,13 +272,13 @@ wcr_state *load_state(const char *filepath)
             protocol_type proto;
 
             if (!space) {
-                fprintf(stderr, "[WARNING] load_state: malformed source line (no space): %s\n", value);
+                wcr_emit(state, WCR_EVENT_WARNING, "[WARNING] load_state: malformed source line (no space): %s", value);
                 continue;
             }
 
             *space = '\0';
             if (proto_from_string(value, &proto) != 0) {
-                fprintf(stderr, "[WARNING] load_state: unknown proto '%s', skipping\n", value);
+                wcr_emit(state, WCR_EVENT_WARNING, "[WARNING] load_state: unknown proto '%s', skipping", value);
                 continue;
             }
 

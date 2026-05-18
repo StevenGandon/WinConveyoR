@@ -1,4 +1,5 @@
 #include "pkg_parsing.h"
+#include "wcr_event_internal.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +18,7 @@ int find_package_in_list(const char *pkgs_list_path, const char *package_name,
 
     fp = fopen(pkgs_list_path, "r");
     if (!fp) {
-        fprintf(stderr, "[ERROR] find_package_in_list: cannot open %s\n", pkgs_list_path);
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] find_package_in_list: cannot open %s", pkgs_list_path);
         return -1;
     }
 
@@ -49,7 +50,7 @@ int find_package_in_list(const char *pkgs_list_path, const char *package_name,
         *out_register_path = strdup(register_path);
         *out_checksum = strdup(checksum);
 
-        printf("[DEBUG] find_package_in_list: %s version=%s register=%s checksum=%s\n",
+        wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] find_package_in_list: %s version=%s register=%s checksum=%s",
                package_name, version, *out_register_path, *out_checksum);
 
         fclose(fp);
@@ -66,7 +67,7 @@ int find_package_in_list(const char *pkgs_list_path, const char *package_name,
     }
 
     fclose(fp);
-    fprintf(stderr, "[ERROR] find_package_in_list: package '%s' not found in %s\n", package_name, pkgs_list_path);
+    wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] find_package_in_list: package '%s' not found in %s", package_name, pkgs_list_path);
     return -1;
 }
 
@@ -91,19 +92,19 @@ int parse_first_location(const char *register_content, char **out_location)
 
             size_t value_len = (size_t)(value_end - value);
             if (value_len == 0) {
-                fprintf(stderr, "[ERROR] parse_first_location: empty Location value\n");
+                wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] parse_first_location: empty Location value");
                 return -1;
             }
 
             *out_location = malloc(value_len + 1);
             if (!*out_location) {
-                fprintf(stderr, "[ERROR] parse_first_location: malloc failed\n");
+                wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] parse_first_location: malloc failed");
                 return -1;
             }
             memcpy(*out_location, value, value_len);
             (*out_location)[value_len] = '\0';
 
-            printf("[DEBUG] parse_first_location: found Location=%s\n", *out_location);
+            wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] parse_first_location: found Location=%s", *out_location);
             return 0;
         }
 
@@ -111,7 +112,7 @@ int parse_first_location(const char *register_content, char **out_location)
         p = line_end + 1;
     }
 
-    fprintf(stderr, "[ERROR] parse_first_location: no Location field found in register\n");
+    wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] parse_first_location: no Location field found in register");
     return -1;
 }
 
@@ -122,19 +123,19 @@ int json_extract_string(const char *json, const char *key, char **out_value)
 
     *out_value = NULL;
     if (!root) {
-        fprintf(stderr, "[ERROR] json_extract_string: invalid JSON\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] json_extract_string: invalid JSON");
         return -1;
     }
     item = cJSON_GetObjectItemCaseSensitive(root, key);
     if (!cJSON_IsString(item) || !item->valuestring) {
-        fprintf(stderr, "[ERROR] json_extract_string: key '%s' not found or not a string\n", key);
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] json_extract_string: key '%s' not found or not a string", key);
         cJSON_Delete(root);
         return -1;
     }
     *out_value = strdup(item->valuestring);
     cJSON_Delete(root);
     if (!*out_value) {
-        fprintf(stderr, "[ERROR] json_extract_string: malloc failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] json_extract_string: malloc failed");
         return -1;
     }
     return 0;

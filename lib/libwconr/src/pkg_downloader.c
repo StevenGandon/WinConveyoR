@@ -1,4 +1,5 @@
 #include "pkg_downloader.h"
+#include "wcr_event_internal.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +13,7 @@ char *build_url(const char *source_uri, const char *path)
     char *url;
 
     if (!source_uri || !path) {
-        fprintf(stderr, "[ERROR] build_url: source_uri or path is NULL\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] build_url: source_uri or path is NULL");
         return NULL;
     }
 
@@ -21,7 +22,7 @@ char *build_url(const char *source_uri, const char *path)
 
     url = malloc(uri_len + path_len + 2);
     if (!url) {
-        fprintf(stderr, "[ERROR] build_url: malloc failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] build_url: malloc failed");
         return NULL;
     }
 
@@ -43,7 +44,7 @@ static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, v
 
     unsigned char *ptr = realloc(mem->data, mem->size + realsize + 1);
     if (!ptr) {
-        fprintf(stderr, "[ERROR] write_memory_callback: realloc failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] write_memory_callback: realloc failed");
         return 0;
     }
 
@@ -62,15 +63,15 @@ char *download_to_string(protocol_type proto, const char *url)
     struct memory_buffer_s buffer;
     char *result = NULL;
 
-    printf("[DEBUG] download_to_string: url=%s\n", url);
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] download_to_string: url=%s", url);
 
     if (!url) {
-        fprintf(stderr, "[ERROR] download_to_string: url is NULL\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_string: url is NULL");
         return NULL;
     }
 
     if (proto == PROT_WCR) {
-        fprintf(stderr, "[ERROR] download_to_string: PROT_WCR not implemented yet\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_string: PROT_WCR not implemented yet");
         return NULL;
     }
 
@@ -78,13 +79,13 @@ char *download_to_string(protocol_type proto, const char *url)
     buffer.size = 0;
 
     if (!buffer.data) {
-        fprintf(stderr, "[ERROR] download_to_string: initial malloc failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_string: initial malloc failed");
         return NULL;
     }
 
     curl = curl_easy_init();
     if (!curl) {
-        fprintf(stderr, "[ERROR] download_to_string: curl_easy_init failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_string: curl_easy_init failed");
         free(buffer.data);
         return NULL;
     }
@@ -99,12 +100,12 @@ char *download_to_string(protocol_type proto, const char *url)
     curl_easy_cleanup(curl);
 
     if (res != CURLE_OK) {
-        fprintf(stderr, "[ERROR] download_to_string: curl failed: %s\n", curl_easy_strerror(res));
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_string: curl failed: %s", curl_easy_strerror(res));
         free(buffer.data);
         return NULL;
     }
 
-    printf("[DEBUG] download_to_string: downloaded %zu bytes\n", buffer.size);
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] download_to_string: downloaded %zu bytes", buffer.size);
 
     result = (char *)buffer.data;
     return result;
@@ -116,27 +117,27 @@ int download_to_file(protocol_type proto, const char *url, const char *filepath)
     CURLcode res;
     FILE *fp;
 
-    printf("[DEBUG] download_to_file: url=%s, filepath=%s\n", url, filepath);
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] download_to_file: url=%s, filepath=%s", url, filepath);
 
     if (!url || !filepath) {
-        fprintf(stderr, "[ERROR] download_to_file: url or filepath is NULL\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_file: url or filepath is NULL");
         return -1;
     }
 
     if (proto == PROT_WCR) {
-        fprintf(stderr, "[ERROR] download_to_file: PROT_WCR not implemented yet\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_file: PROT_WCR not implemented yet");
         return -1;
     }
 
     fp = fopen(filepath, "wb");
     if (!fp) {
-        fprintf(stderr, "[ERROR] download_to_file: cannot open file %s for writing\n", filepath);
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_file: cannot open file %s for writing", filepath);
         return -1;
     }
 
     curl = curl_easy_init();
     if (!curl) {
-        fprintf(stderr, "[ERROR] download_to_file: curl_easy_init failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_file: curl_easy_init failed");
         fclose(fp);
         return -1;
     }
@@ -152,12 +153,12 @@ int download_to_file(protocol_type proto, const char *url, const char *filepath)
     fclose(fp);
 
     if (res != CURLE_OK) {
-        fprintf(stderr, "[ERROR] download_to_file: curl failed: %s\n", curl_easy_strerror(res));
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] download_to_file: curl failed: %s", curl_easy_strerror(res));
         remove(filepath);
         return -1;
     }
 
-    printf("[DEBUG] download_to_file: success\n");
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] download_to_file: success");
 
     return 0;
 }
