@@ -81,6 +81,7 @@
     int wcr_state_add_source(struct wcr_state_s *state, protocol_type proto, const char *url);
     int sync_package_list(const struct wcr_state_s *state, protocol_type proto, const char *source_uri);
     int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
+    void wcr_set_event_callback(struct wcr_state_s *state, wcr_event_callback_t callback, void *user_data);
 
     /* ==== low level interfaces ==== */
 

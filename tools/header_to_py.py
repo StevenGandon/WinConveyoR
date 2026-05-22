@@ -23,7 +23,7 @@ class Token(object):
     regex = None
 
 class Symbol(Token):
-    regex = compile_regex(r"(((struct *[a-z0-9_]+)|(const |)(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+\((void|((((struct *[a-z0-9_]+)|(const |)(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)(, ((struct *[a-z0-9_]+)|(const |)(|unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)*))\))")
+    regex = compile_regex(r"((((const +)?struct *[a-z0-9_]+)|(const |)(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+\((void|(((((const +)?struct *[a-z0-9_]+)|(const |)(unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)(, (((const +)?struct *[a-z0-9_]+)|(const |)(|unsigned |signed |)[a-z0-9_]+) *[*a-z0-9_]+)*))\))")
 
     def __init__(self, name: str, return_value: str, arguments: list):
         self.name = name
@@ -63,7 +63,7 @@ class Struct(Token):
         return f"<Struct name={self.name} fields={self.fields}>"
 
 class Enum(Token):
-    regex = compile_regex(r"(typedef\s+)?(?P<PACKED>\w+)?\s*(?P<TYPE>enum)\s+(?P<NAME2>\w+)\s*\{(?P<FIELDS>.*?(?:\{.*?\}.*?)*?)\}(?P<NAME>[^;]*);", RegexFlag.S)
+    regex = compile_regex(r"(typedef\s+)?(?P<PACKED>\w+)?\s*(?P<TYPE>enum)\s+(?P<NAME2>\w+)?\s*\{(?P<FIELDS>.*?(?:\{.*?\}.*?)*?)\}(?P<NAME>[^;]*);", RegexFlag.S)
 
     def __init__(self, name: str, values: list):
         self.name = name
@@ -95,9 +95,11 @@ class HeaderFile(object):
             arg_name = None
 
         if (arg_name):
-            arg_type = raw_str.replace('*', '').strip().split(arg_name)[0].replace("unsigned", '').replace('signed', '').strip()
+            arg_type = raw_str.replace('*', '').strip().rsplit(arg_name, 1)[0].replace("unsigned", '').replace('signed', '').strip()
         else:
             arg_type = raw_str.replace('*', '').strip().replace("unsigned", '').replace('signed', '').strip()
+        if (arg_type.startswith("const ")):
+            arg_type = arg_type[6:].strip()
         arg_signed = None
 
         if raw_str.startswith("signed"):
@@ -136,6 +138,8 @@ class HeaderFile(object):
             raw = (item.string[item.start():item.end()])
             raw = ''.join(map(lambda x: x.split('//')[0].strip(), sub(r'\/\*(.+)\*\/', '', raw, flags=RegexFlag.S).split("\n")))
             name = raw.split("enum")[1].split('{')[0].strip()
+            if (not name):
+                name = raw.split('}')[1].replace(';', '').strip()
             arguments = list(map(lambda n: tuple(map(lambda v: v.strip(), n.split('='))), list(filter(lambda x: x.strip(), '}'.join('{'.join(raw.split('{')[1:]).split('}')[:-1]).split(',')))))
 
             self.enums.append(Enum(name, arguments))

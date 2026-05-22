@@ -1,7 +1,25 @@
 from ._libwconr import *
 
-from ctypes import c_char_p, pointer, cast, POINTER, c_ubyte, c_void_p, create_string_buffer
+from ctypes import c_char_p, pointer, cast, POINTER, c_ubyte, c_void_p, c_int, c_size_t, create_string_buffer, CFUNCTYPE, Structure
+from enum import Enum
 import os
+
+class wcr_event_type(Enum):
+    WCR_EVENT_DEBUG = 0
+    WCR_EVENT_INFO = 1
+    WCR_EVENT_WARNING = 2
+    WCR_EVENT_ERROR = 3
+    WCR_EVENT_PROGRESS = 4
+
+class wcr_event(Structure):
+    _fields_ = [
+        ("type", c_int),
+        ("message", c_char_p),
+        ("bytes_done", c_size_t),
+        ("bytes_total", c_size_t)
+    ]
+
+wcr_event_callback_t = CFUNCTYPE(None, POINTER(wcr_event), c_void_p)
 
 _MAPPER = Mapper()
 

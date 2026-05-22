@@ -22,6 +22,12 @@
             ctype = "None"
         elif (type_value.type_name.startswith("struct ")):
             ctype = type_value.type_name.split("struct ")[1]
+        elif (type_value.type_name == "protocol_type"):
+            ctype = "c_int"
+        elif (type_value.type_name == "wcr_mutex"):
+            ctype = "c_char * 64"
+        elif (type_value.type_name == "wcr_event_callback_t"):
+            ctype = "c_void_p"
         elif (("c_" + ('u' if type_value.signed == False else '') + type_value.type_name) in ("c_char", "c_uchar", "c_short", "c_ushort", "c_int", "c_uint", "c_long", "c_ulong", "c_double", "c_float", "c_size_t", "c_ssize_t")):
             ctype = "c_" + ('u' if type_value.signed == False else '') + (type_value.type_name if type_value.type_name else "int")
         else:
