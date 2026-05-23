@@ -8,5 +8,7 @@ var dir_038b11ea331834bac576710fcf2fc87c =
     [ "pkg_parsing.h", "pkg__parsing_8h.html", "pkg__parsing_8h" ],
     [ "vm_internal.h", "vm__internal_8h.html", "vm__internal_8h" ],
     [ "wcr_client.h", "wcr__client_8h.html", "wcr__client_8h" ],
+    [ "wcr_event.h", "wcr__event_8h.html", "wcr__event_8h" ],
+    [ "wcr_event_internal.h", "wcr__event__internal_8h.html", "wcr__event__internal_8h" ],
     [ "wizard_private.h", "wizard__private_8h.html", "wizard__private_8h" ]
 ];

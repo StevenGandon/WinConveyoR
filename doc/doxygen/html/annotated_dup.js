@@ -241,6 +241,8 @@ var annotated_dup =
             [ "wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s" ]
           ] ],
           [ "libwconr", "namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html", [
+            [ "wcr_event", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event.html", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event" ],
+            [ "wcr_event_type", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event__type.html", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event__type" ],
             [ "WCRState", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState" ]
           ] ]
         ] ]
@@ -272,6 +274,7 @@ var annotated_dup =
     [ "vm_iset_s", "structvm__iset__s.html", "structvm__iset__s" ],
     [ "vm_op_def", "structvm__op__def.html", "structvm__op__def" ],
     [ "wcr_conn_s", "structwcr__conn__s.html", "structwcr__conn__s" ],
+    [ "wcr_event", "structwcr__event.html", "structwcr__event" ],
     [ "wcr_msg_s", "structwcr__msg__s.html", "structwcr__msg__s" ],
     [ "wcr_source_s", "structwcr__source__s.html", "structwcr__source__s" ],
     [ "wcr_state_s", "structwcr__state__s.html", "structwcr__state__s" ],

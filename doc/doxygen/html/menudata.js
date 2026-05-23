@@ -86,7 +86,8 @@ var menudata={children:[
 {text:"r",url:"namespacemembers_vars.html#index_r"},
 {text:"s",url:"namespacemembers_vars.html#index_s"},
 {text:"t",url:"namespacemembers_vars.html#index_t"},
-{text:"v",url:"namespacemembers_vars.html#index_v"}]}]}]},
+{text:"v",url:"namespacemembers_vars.html#index_v"},
+{text:"w",url:"namespacemembers_vars.html#index_w"}]}]}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
@@ -213,4 +214,12 @@ var menudata={children:[
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html"},
-{text:"Macros",url:"globals_defs.html"}]}]}]}
+{text:"Macros",url:"globals_defs.html",children:[
+{text:"c",url:"globals_defs.html#index_c"},
+{text:"h",url:"globals_defs.html#index_h"},
+{text:"i",url:"globals_defs.html#index_i"},
+{text:"m",url:"globals_defs.html#index_m"},
+{text:"r",url:"globals_defs.html#index_r"},
+{text:"s",url:"globals_defs.html#index_s"},
+{text:"v",url:"globals_defs.html#index_v"},
+{text:"w",url:"globals_defs.html#index_w"}]}]}]}]}

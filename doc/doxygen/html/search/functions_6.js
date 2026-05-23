@@ -2,8 +2,8 @@ var searchData=
 [
   ['fetch_5fand_5fverify_5farchive_0',['fetch_and_verify_archive',['../install__package_8c.html#a058ed2020bbdec2d887dc265d0d4f30f',1,'install_package.c']]],
   ['fetch_5ffinish_1',['fetch_finish',['../classsrc_1_1scheduler_1_1pool_1_1Pool.html#ad5a0f5de5ccb34e8f69e5d1a6dd19a7d',1,'src::scheduler::pool::Pool']]],
-  ['fetch_5fmetadata_2',['fetch_metadata',['../install__package_8c.html#a9410cd2262c7fbaa40441202c069f83d',1,'install_package.c']]],
-  ['fetch_5fregister_3',['fetch_register',['../install__package_8c.html#a9a938a24e9e1e9082d22c83747e6791d',1,'install_package.c']]],
+  ['fetch_5fmetadata_2',['fetch_metadata',['../install__package_8c.html#a112ff63877168b2108065138647a6d4b',1,'install_package.c']]],
+  ['fetch_5fregister_3',['fetch_register',['../install__package_8c.html#a5ecffebf65b5eed27ba6375f92d72967',1,'install_package.c']]],
   ['fetch_5fresponse_4',['fetch_response',['../http__response_8c.html#a44c7a9712eaa9f2dcc3315ff6c8bb992',1,'fetch_response(struct _http_response_parser_s *response_parser):&#160;http_response.c'],['../libwconr__private_8h.html#a9b128de1da2c85ee0a7a7d15b448b5de',1,'fetch_response(struct _http_response_parser_s *__r):&#160;http_response.c']]],
   ['fileno_5',['fileno',['../classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#ae7ac1884391ddba2290b5aa9fa32571f',1,'src::scheduler::task::TextIOLocal']]],
   ['find_5fdll_6',['find_dll',['../namespacesrc_1_1wrappers_1_1dllloader.html#a3aae4c12fa516fd7da82e711b108944b',1,'src::wrappers::dllloader']]],

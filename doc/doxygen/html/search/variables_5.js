@@ -11,5 +11,7 @@ var searchData=
   ['errors_8',['errors',['../classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#a33f15f11aa5fa8c849ae0c9888a28fe0',1,'src::scheduler::task::TextIOLocal']]],
   ['eta_5fstack_9',['eta_stack',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#a113de621424dbcd18b446b31deabe256',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
   ['eta_5fstack_5fsize_10',['eta_stack_size',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#a03af62c6b6f370735db069aef61a6a7c',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
-  ['exclusion_11',['exclusion',['../classsrc_1_1arghandler_1_1GenericArgument.html#ae1e0b5a2696399fa8cee041f3431c2b7',1,'src::arghandler::GenericArgument']]]
+  ['event_5fcallback_11',['event_callback',['../structwcr__state__s.html#aad459bcee69f524680ac4ff2d76bbba9',1,'wcr_state_s']]],
+  ['event_5fuser_5fdata_12',['event_user_data',['../structwcr__state__s.html#ac38adb638f7d4ecb32adc60b74f1b0fe',1,'wcr_state_s']]],
+  ['exclusion_13',['exclusion',['../classsrc_1_1arghandler_1_1GenericArgument.html#ae1e0b5a2696399fa8cee041f3431c2b7',1,'src::arghandler::GenericArgument']]]
 ];

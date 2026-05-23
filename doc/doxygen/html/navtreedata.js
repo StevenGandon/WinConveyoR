@@ -70,10 +70,10 @@ var NAVTREEINDEX =
 "classsrc_1_1scheduler_1_1clock_1_1Clock.html",
 "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html",
 "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#aafe04a0037d46984894e87e430914a9a",
-"file__utils_8h.html#a49b0cfcb3c0cb040f6753e3538c42072",
-"list__sessions_8py.html#a6eeb5cc83155de0b214db3dafdcb2388",
-"pkg__parsing_8h.html#a4aa644f97491bdb488b4112d6e31c876",
-"wcr__client_8c.html#a939e4a3bf655697562130a936c4cd7ad"
+"dir_f87708c65a0ef0950ed1fcf18b5ba1d6.html",
+"libwconr__private_8h.html#a3a9c10a45637e08ccd570a8945ff24eb",
+"pages.html",
+"vm__handlers_8c.html#aba0a16500d25071025d4c58977d561c2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

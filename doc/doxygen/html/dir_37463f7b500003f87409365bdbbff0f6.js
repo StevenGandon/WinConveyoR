@@ -22,6 +22,7 @@ var dir_37463f7b500003f87409365bdbbff0f6 =
     [ "wcr_client.c", "wcr__client_8c.html", "wcr__client_8c" ],
     [ "wcr_crypt.c", "wcr__crypt_8c.html", "wcr__crypt_8c" ],
     [ "wcr_crypt.h", "wcr__crypt_8h.html", "wcr__crypt_8h" ],
+    [ "wcr_event.c", "wcr__event_8c.html", "wcr__event_8c" ],
     [ "wcr_state.c", "wcr__state_8c.html", "wcr__state_8c" ],
     [ "wizard_endian.c", "wizard__endian_8c.html", "wizard__endian_8c" ],
     [ "wizard_section.c", "wizard__section_8c.html", "wizard__section_8c" ]

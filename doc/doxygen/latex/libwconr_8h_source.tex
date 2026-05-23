@@ -6,85 +6,89 @@
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ LIBWCONR\_H\_}}
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stddef.h>}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifndef\ WIN32\_LEAN\_AND\_MEAN}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ WIN32\_LEAN\_AND\_MEAN}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <windows.h>}}
-\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ CRITICAL\_SECTION\ \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\_mutex}};}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#else}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <pthread.h>}}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ pthread\_mutex\_t\ \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\_mutex}};}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{/*\ ====\ enums\ ====\ */}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{/*\ architectures\ */}}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404ba}{SUPPORTED\_ARCHITECTURES}}\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baa29a1490027475f7c98a99e53a7800f0b}{UNSUPPORTED\_ARCH}}\ =\ -\/(1\ <<\ 0),}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baaf726b6d0fda3c473645d88380aba49ff}{X86\_64\_ARCH}}\ =\ (1\ <<\ 0),}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baac2eee78710183dbe133b31cb29f19f3f}{ARM64\_ARCH}}\ =\ (1\ <<\ 1),}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baaea2de3e3a070ad7ca1ef755abd4e4fe2}{I686\_ARCH}}\ =\ (1\ <<\ 2)}
-\DoxyCodeLine{00025\ \ \ \ \ \};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{/*\ os\ */}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20}{SUPPORTED\_PLATFORMS}}\ \{}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20ae84ab986664f292d608dab9a5c8d08f0}{UNSUPPORTED\_PLTF}}\ =\ -\/(1\ <<\ 0),}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20a09444a9096859f1abf7f55681c94dc71}{NT\_PLTF}}\ =\ (1\ <<\ 0),}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20a619aa767a9b48853525b9869689cb174}{DARWIN\_PLTF}}\ =\ (1\ <<\ 1),}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20aa8288df48951f058a829ac9f1c8d8853}{GEN\_LINUX\_PLTF}}\ =\ (1\ <<\ 2)}
-\DoxyCodeLine{00033\ \ \ \ \ \};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{/*\ transport\ protocols\ */}}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396a629bfdbe57c73dc474b005b5f86c68ff}{PROT\_HTTP}}\ =\ 0,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396a09c01c8676dae0d06d018ccd74a02ff9}{PROT\_WCR}}\ =\ 1}
-\DoxyCodeLine{00039\ \ \ \ \ \}\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{/*\ ====\ structs\ definition\ ====\ */}}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{/*\ current\ system\ infos\ */}}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__system__s}{wcr\_system\_s}}\ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structwcr__system__s_af05bdffe075cbd31a970d58923491aa1}{arch}};\ \ \ \ \ \textcolor{comment}{//\ system\ architecture}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structwcr__system__s_a21fdfd872e85f93d62b30dfd973affaa}{platform}};\ \textcolor{comment}{//\ system\ operating\ system}}
-\DoxyCodeLine{00047\ \ \ \ \ \};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{/*\ a\ single\ configured\ source\ (mirror)\ */}}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__source__s}{wcr\_source\_s}}\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__source__s_a5b621d453128e4751350b5cd5aeabdfc}{url}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mirror\ URL}}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ \mbox{\hyperlink{structwcr__source__s_a77856e802ade3be4cb29423d68014972}{proto}};\ \ \textcolor{comment}{//\ transport\ protocol}}
-\DoxyCodeLine{00053\ \ \ \ \ \};}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{/*\ current\ state\ datas\ of\ the\ program\ */}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__system__s}{wcr\_system\_s}}\ \mbox{\hyperlink{structwcr__state__s_ab9aa18243a600387ef5da06f15098498}{system\_informations}};\ \textcolor{comment}{//\ system\ information\ about\ current\ machine\ /\ target\ machine}}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__state__s_af51e79504ceaf55fac78cf9c2ba332ae}{cache\_path}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ user-\/configured\ cache\ directory}}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__state__s_a1be193498b7b121f1b57dbb1f341c29b}{config\_path}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ path\ to\ config\ file\ for\ auto-\/save}}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__source__s}{wcr\_source\_s}}\ **\mbox{\hyperlink{structwcr__state__s_a83b87f8fd3de2f5cd750b7135123df30}{sources}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ configured\ mirrors}}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structwcr__state__s_a50b9c985aae2523469f3662bc4b96294}{sources\_count}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ configured\ mirrors}}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\_mutex}}\ \mbox{\hyperlink{structwcr__state__s_a70289e91374fc35baf8ab97ddeecf293}{lock}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mutex\ for\ thread-\/safe\ access}}
-\DoxyCodeLine{00063\ \ \ \ \ \};}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{/*\ ====\ types\ definition\ ====\ */}}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state}};}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__system__s}{wcr\_system\_s}}\ \mbox{\hyperlink{structwcr__system__s}{wcr\_system}};}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__source__s}{wcr\_source\_s}}\ \mbox{\hyperlink{structwcr__source__s}{wcr\_source}};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{/*\ ====\ high\ level\ interfaces\ ====\ \ */}}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *\mbox{\hyperlink{libwconr_8h_a1815617a622e3776dc61ecf67def9157}{new\_state}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libwconr_8h_a1db192117e8a2c2dbdd0cb17de414991}{close\_state}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *\_\_s);}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_a61f955cf2993a9658c6381ec5ad9aad6}{download\_package}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *http\_address,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *location);}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_afb2e55496f2db23dcf3ef5695a403531}{write\_state}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filepath);}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *\mbox{\hyperlink{libwconr_8h_a8bd2041a67bb12dd529190e75320243b}{load\_state}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filepath);}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_a2a72d0139b22dbceaa725fe267afa51c}{wcr\_state\_add\_source}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url);}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_aed8a7d2f660f1149f7f5a4a27a1d54db}{sync\_package\_list}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source\_uri);}
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_a3def8bce8faff61f9b6fcf926a4c7be6}{install\_package}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source\_uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *package\_name);}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{/*\ ====\ low\ level\ interfaces\ ====\ */}}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !LIBWCONR\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}\mbox{\hyperlink{wcr__event_8h}{wcr\_event.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifndef\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#define\ WIN32\_LEAN\_AND\_MEAN}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <windows.h>}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ CRITICAL\_SECTION\ \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\_mutex}};}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#include\ <pthread.h>}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ pthread\_mutex\_t\ \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\_mutex}};}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{/*\ ====\ enums\ ====\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{/*\ architectures\ */}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404ba}{SUPPORTED\_ARCHITECTURES}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baa29a1490027475f7c98a99e53a7800f0b}{UNSUPPORTED\_ARCH}}\ =\ -\/(1\ <<\ 0),}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baaf726b6d0fda3c473645d88380aba49ff}{X86\_64\_ARCH}}\ =\ (1\ <<\ 0),}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baac2eee78710183dbe133b31cb29f19f3f}{ARM64\_ARCH}}\ =\ (1\ <<\ 1),}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ae6dde93a74135c5083f3106ffdb404baaea2de3e3a070ad7ca1ef755abd4e4fe2}{I686\_ARCH}}\ =\ (1\ <<\ 2)}
+\DoxyCodeLine{00026\ \ \ \ \ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{/*\ os\ */}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20}{SUPPORTED\_PLATFORMS}}\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20ae84ab986664f292d608dab9a5c8d08f0}{UNSUPPORTED\_PLTF}}\ =\ -\/(1\ <<\ 0),}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20a09444a9096859f1abf7f55681c94dc71}{NT\_PLTF}}\ =\ (1\ <<\ 0),}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20a619aa767a9b48853525b9869689cb174}{DARWIN\_PLTF}}\ =\ (1\ <<\ 1),}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_abbdf98254bbf4981a8bf233c6d0d2a20aa8288df48951f058a829ac9f1c8d8853}{GEN\_LINUX\_PLTF}}\ =\ (1\ <<\ 2)}
+\DoxyCodeLine{00034\ \ \ \ \ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{/*\ transport\ protocols\ */}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396a629bfdbe57c73dc474b005b5f86c68ff}{PROT\_HTTP}}\ =\ 0,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396a09c01c8676dae0d06d018ccd74a02ff9}{PROT\_WCR}}\ =\ 1}
+\DoxyCodeLine{00040\ \ \ \ \ \}\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{/*\ ====\ structs\ definition\ ====\ */}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{/*\ current\ system\ infos\ */}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__system__s}{wcr\_system\_s}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structwcr__system__s_af05bdffe075cbd31a970d58923491aa1}{arch}};\ \ \ \ \ \textcolor{comment}{//\ system\ architecture}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{structwcr__system__s_a21fdfd872e85f93d62b30dfd973affaa}{platform}};\ \textcolor{comment}{//\ system\ operating\ system}}
+\DoxyCodeLine{00048\ \ \ \ \ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{/*\ a\ single\ configured\ source\ (mirror)\ */}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__source__s}{wcr\_source\_s}}\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__source__s_a5b621d453128e4751350b5cd5aeabdfc}{url}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mirror\ URL}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ \mbox{\hyperlink{structwcr__source__s_a77856e802ade3be4cb29423d68014972}{proto}};\ \ \textcolor{comment}{//\ transport\ protocol}}
+\DoxyCodeLine{00054\ \ \ \ \ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{/*\ current\ state\ datas\ of\ the\ program\ */}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__system__s}{wcr\_system\_s}}\ \mbox{\hyperlink{structwcr__state__s_ab9aa18243a600387ef5da06f15098498}{system\_informations}};\ \textcolor{comment}{//\ system\ information\ about\ current\ machine\ /\ target\ machine}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__state__s_af51e79504ceaf55fac78cf9c2ba332ae}{cache\_path}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ user-\/configured\ cache\ directory}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structwcr__state__s_a1be193498b7b121f1b57dbb1f341c29b}{config\_path}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ path\ to\ config\ file\ for\ auto-\/save}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__source__s}{wcr\_source\_s}}\ **\mbox{\hyperlink{structwcr__state__s_a83b87f8fd3de2f5cd750b7135123df30}{sources}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ configured\ mirrors}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structwcr__state__s_a50b9c985aae2523469f3662bc4b96294}{sources\_count}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ configured\ mirrors}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\_mutex}}\ \mbox{\hyperlink{structwcr__state__s_a70289e91374fc35baf8ab97ddeecf293}{lock}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mutex\ for\ thread-\/safe\ access}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{wcr__event_8h_ae3bd66ac9b9e02f381391333a9817da5}{wcr\_event\_callback\_t}}\ \mbox{\hyperlink{structwcr__state__s_aad459bcee69f524680ac4ff2d76bbba9}{event\_callback}};\ \ \ \ \ \textcolor{comment}{//\ user-\/registered\ event\ callback\ (or\ NULL)}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structwcr__state__s_ac38adb638f7d4ecb32adc60b74f1b0fe}{event\_user\_data}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ opaque\ pointer\ passed\ to\ callback}}
+\DoxyCodeLine{00066\ \ \ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{/*\ ====\ types\ definition\ ====\ */}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state}};}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__system__s}{wcr\_system\_s}}\ \mbox{\hyperlink{structwcr__system__s}{wcr\_system}};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__source__s}{wcr\_source\_s}}\ \mbox{\hyperlink{structwcr__source__s}{wcr\_source}};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{/*\ ====\ high\ level\ interfaces\ ====\ \ */}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *\mbox{\hyperlink{libwconr_8h_a1815617a622e3776dc61ecf67def9157}{new\_state}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libwconr_8h_a1db192117e8a2c2dbdd0cb17de414991}{close\_state}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *\_\_s);}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_a61f955cf2993a9658c6381ec5ad9aad6}{download\_package}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *http\_address,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *location);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_afb2e55496f2db23dcf3ef5695a403531}{write\_state}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filepath);}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *\mbox{\hyperlink{libwconr_8h_a8bd2041a67bb12dd529190e75320243b}{load\_state}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filepath);}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_a2a72d0139b22dbceaa725fe267afa51c}{wcr\_state\_add\_source}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_aed8a7d2f660f1149f7f5a4a27a1d54db}{sync\_package\_list}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source\_uri);}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{libwconr_8h_a3def8bce8faff61f9b6fcf926a4c7be6}{install\_package}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\_type}}\ proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *source\_uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *package\_name);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{libwconr_8h_a3a71e273e4e005ab38ddd005cd87a4a0}{wcr\_set\_event\_callback}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structwcr__state__s}{wcr\_state\_s}}\ *state,\ \mbox{\hyperlink{wcr__event_8h_ae3bd66ac9b9e02f381391333a9817da5}{wcr\_event\_callback\_t}}\ callback,\ \textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{/*\ ====\ low\ level\ interfaces\ ====\ */}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !LIBWCONR\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

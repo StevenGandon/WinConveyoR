@@ -49,7 +49,7 @@ var searchData=
   ['user_5finput_2epy_46',['user_input.py',['../user__input_8py.html',1,'']]],
   ['userbase_47',['UserBase',['../classschemas_1_1user_1_1UserBase.html',1,'schemas::user']]],
   ['userin_48',['UserIn',['../classschemas_1_1user_1_1UserIn.html',1,'schemas::user']]],
-  ['username_49',['username',['../classmodels_1_1user_1_1User.html#a148982a1232126e74965e6441a6351a9',1,'models.user.User.username'],['../classschemas_1_1user_1_1UserBase.html#a0ecf02f58d6907c195a1dddd51cca2ce',1,'schemas.user.UserBase.username']]],
+  ['username_49',['username',['../classschemas_1_1user_1_1UserBase.html#a0ecf02f58d6907c195a1dddd51cca2ce',1,'schemas.user.UserBase.username'],['../classmodels_1_1user_1_1User.html#a148982a1232126e74965e6441a6351a9',1,'models.user.User.username']]],
   ['userout_50',['UserOut',['../classschemas_1_1user_1_1UserOut.html',1,'schemas::user']]],
   ['users_2epy_51',['users.py',['../users_8py.html',1,'']]],
   ['uses_52',['Primary Uses',['../md_doc_2privacy__policy.html#autotoc_md91',1,'']]]
