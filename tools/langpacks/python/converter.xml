@@ -18,6 +18,8 @@
     </schemas>
 
     <type-conversion strategy="code">
+        if (type_value.type_name == "char" and type_value.ptr_count == 1 and type_value.signed is None):
+            return ("c_char_p")
         if (type_value.type_name == "void"):
             ctype = "None"
         elif (type_value.type_name.startswith("struct ")):

@@ -237,6 +237,26 @@ Exemples:
         sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
         return (0)
 
+    def _make_event_callback(self):
+        use_color = hasattr(self, '_graphic') and self._graphic._settings.color
+
+        colors = {
+            0: "\033[90m",
+            1: "\033[34m",
+            2: "\033[33m",
+            3: "\033[31m",
+            4: "\033[36m",
+        }
+        reset = "\033[0m"
+
+        def _cb(event_type, message, bytes_done, bytes_total):
+            if (use_color and event_type.value in colors):
+                sys.stdout.write(f"{colors[event_type.value]}{message}{reset}\n")
+            else:
+                sys.stdout.write(f"{message}\n")
+
+        return (_cb)
+
     def _load_state(self):
         state = WCRState.load("~/.config/wcr/config")
         if state is not None:
@@ -248,6 +268,7 @@ Exemples:
     def run(self) -> int:
         if (not self.wcr):
             self.wcr = self._load_state()
+            self.wcr.set_event_callback(self._make_event_callback())
 
         if (self.has_opt("help")):
             return self.show_help()
