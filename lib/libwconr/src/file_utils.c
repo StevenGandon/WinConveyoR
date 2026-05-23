@@ -1,4 +1,5 @@
 #include "file_utils.h"
+#include "wcr_event_internal.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,30 +50,30 @@ char *get_cache_path(const struct wcr_state_s *state, const char *filename)
     size_t path_len;
 
     if (!state || !state->cache_path) {
-        fprintf(stderr, "[ERROR] get_cache_path: state or state->cache_path is NULL\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] get_cache_path: state or state->cache_path is NULL");
         return NULL;
     }
     if (!filename) {
-        fprintf(stderr, "[ERROR] get_cache_path: filename is NULL\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] get_cache_path: filename is NULL");
         return NULL;
     }
 
     cache_base = state->cache_path;
 
     if (mkdir_p(cache_base) != 0) {
-        fprintf(stderr, "[WARNING] get_cache_path: failed to ensure cache dir %s exists\n", cache_base);
+        wcr_emit(state, WCR_EVENT_WARNING, "[WARNING] get_cache_path: failed to ensure cache dir %s exists", cache_base);
     }
 
     path_len = strlen(cache_base) + 1 + strlen(filename) + 1;
     full_path = malloc(path_len);
     if (!full_path) {
-        fprintf(stderr, "[ERROR] get_cache_path: malloc failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] get_cache_path: malloc failed");
         return NULL;
     }
 
     snprintf(full_path, path_len, "%s/%s", cache_base, filename);
 
-    printf("[DEBUG] get_cache_path: result=%s\n", full_path);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] get_cache_path: result=%s", full_path);
     return full_path;
 }
 
@@ -87,28 +88,28 @@ char *calculate_sha256_file(const char *filepath)
     unsigned char i;
     memset(buffer, 0, READ_BUFFER_SIZE);
 
-    printf("[DEBUG] calculate_sha256_file: filepath=%s\n", filepath);
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] calculate_sha256_file: filepath=%s", filepath);
 
     if (!filepath) {
-        fprintf(stderr, "[ERROR] calculate_sha256_file: filepath is NULL\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] calculate_sha256_file: filepath is NULL");
         return NULL;
     }
 
     fp = fopen(filepath, "rb");
     if (!fp) {
-        fprintf(stderr, "[ERROR] calculate_sha256_file: cannot open file %s\n", filepath);
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] calculate_sha256_file: cannot open file %s", filepath);
         return NULL;
     }
 
     if (!SHA256_Init(&sha256_ctx)) {
-        fprintf(stderr, "[ERROR] calculate_sha256_file: SHA256_Init failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] calculate_sha256_file: SHA256_Init failed");
         fclose(fp);
         return NULL;
     }
 
     while ((bytes_read = fread(buffer, 1, READ_BUFFER_SIZE, fp)) > 0) {
         if (!SHA256_Update(&sha256_ctx, buffer, bytes_read)) {
-            fprintf(stderr, "[ERROR] calculate_sha256_file: SHA256_Update failed\n");
+            wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] calculate_sha256_file: SHA256_Update failed");
             fclose(fp);
             return NULL;
         }
@@ -117,13 +118,13 @@ char *calculate_sha256_file(const char *filepath)
     fclose(fp);
 
     if (!SHA256_Final(hash, &sha256_ctx)) {
-        fprintf(stderr, "[ERROR] calculate_sha256_file: SHA256_Final failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] calculate_sha256_file: SHA256_Final failed");
         return NULL;
     }
 
     hash_string = malloc(SHA256_DIGEST_LENGTH * 2 + 1);
     if (!hash_string) {
-        fprintf(stderr, "[ERROR] calculate_sha256_file: malloc failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] calculate_sha256_file: malloc failed");
         return NULL;
     }
 
@@ -132,7 +133,7 @@ char *calculate_sha256_file(const char *filepath)
     }
     hash_string[SHA256_DIGEST_LENGTH * 2] = '\0';
 
-    printf("[DEBUG] calculate_sha256_file: hash=%s\n", hash_string);
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] calculate_sha256_file: hash=%s", hash_string);
 
     return hash_string;
 }

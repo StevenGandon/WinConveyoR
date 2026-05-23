@@ -36,6 +36,7 @@ find_package(LibXml2 REQUIRED)
 find_package(OpenSSL REQUIRED)
 
 set(LIBWCONR_SOURCES
+    src/wcr_event.c
     src/download_package.c
     src/pkg_downloader.c
     src/file_utils.c

@@ -1,5 +1,6 @@
 #include "libwconr.h"
 #include "libwconr_private.h"
+#include "wcr_event_internal.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -45,7 +46,7 @@ int download_package(const unsigned char *http_address, const unsigned char *loc
     }
     strcat(full_path, filename);
 
-    printf("Downloading to: %s\n", full_path);
+    wcr_emit(NULL, WCR_EVENT_INFO, "Downloading to: %s", full_path);
 
     CURL *curl;
     CURLcode res;
@@ -53,14 +54,14 @@ int download_package(const unsigned char *http_address, const unsigned char *loc
 
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0)
     {
-        fprintf(stderr, "curl_global_init() failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "curl_global_init() failed");
         free(full_path);
         return -1;
     }
 
     curl = curl_easy_init();
     if (!curl) {
-        fprintf(stderr, "curl_easy_init() failed\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "curl_easy_init() failed");
         free(full_path);
         curl_global_cleanup();
         return -1;
@@ -68,7 +69,7 @@ int download_package(const unsigned char *http_address, const unsigned char *loc
 
     file = fopen(full_path, "wb");
     if (!file) {
-        fprintf(stderr, "fopen() failed for file: %s\n", full_path);
+        wcr_emit(NULL, WCR_EVENT_ERROR, "fopen() failed for file: %s", full_path);
         free(full_path);
         curl_easy_cleanup(curl);
         curl_global_cleanup();
@@ -88,7 +89,7 @@ int download_package(const unsigned char *http_address, const unsigned char *loc
     free(full_path);
 
     if (res != CURLE_OK) {
-        fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        wcr_emit(NULL, WCR_EVENT_ERROR, "curl_easy_perform() failed: %s", curl_easy_strerror(res));
         return -1;
     }
 

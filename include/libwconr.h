@@ -2,6 +2,7 @@
     #define LIBWCONR_H_
 
     #include <stddef.h>
+    #include "wcr_event.h"
 
     #ifdef _WIN32
         #ifndef WIN32_LEAN_AND_MEAN
@@ -60,6 +61,8 @@
         struct wcr_source_s **sources;           // configured mirrors
         size_t sources_count;                    // number of configured mirrors
         wcr_mutex lock;                          // mutex for thread-safe access
+        wcr_event_callback_t event_callback;     // user-registered event callback (or NULL)
+        void *event_user_data;                   // opaque pointer passed to callback
     };
 
     /* ==== types definition ==== */
@@ -78,6 +81,7 @@
     int wcr_state_add_source(struct wcr_state_s *state, protocol_type proto, const char *url);
     int sync_package_list(const struct wcr_state_s *state, protocol_type proto, const char *source_uri);
     int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
+    void wcr_set_event_callback(struct wcr_state_s *state, wcr_event_callback_t callback, void *user_data);
 
     /* ==== low level interfaces ==== */
 

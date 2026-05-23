@@ -1,4 +1,5 @@
 #include "libwconr.h"
+#include "wcr_event_internal.h"
 #include "pkg_downloader.h"
 #include "file_utils.h"
 #include "pkg_parsing.h"
@@ -9,7 +10,7 @@
 #include <string.h>
 #include <curl/curl.h>
 
-static int fetch_register(protocol_type proto, const char *source_uri, const char *register_path, char **out_content)
+static int fetch_register(const wcr_state *state, protocol_type proto, const char *source_uri, const char *register_path, char **out_content)
 {
     char *url = NULL;
 
@@ -20,20 +21,20 @@ static int fetch_register(protocol_type proto, const char *source_uri, const cha
         return -1;
     }
 
-    printf("[DEBUG] fetch_register: url=%s\n", url);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] fetch_register: url=%s", url);
 
     *out_content = download_to_string(proto, url);
     free(url);
 
     if (!*out_content) {
-        fprintf(stderr, "[ERROR] fetch_register: download failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] fetch_register: download failed");
         return -1;
     }
 
     return 0;
 }
 
-static int fetch_metadata(protocol_type proto, const char *source_uri, const char *variant_location,
+static int fetch_metadata(const wcr_state *state, protocol_type proto, const char *source_uri, const char *variant_location,
                           char **out_address, char **out_sha256)
 {
     char *url = NULL;
@@ -48,13 +49,13 @@ static int fetch_metadata(protocol_type proto, const char *source_uri, const cha
         return -1;
     }
 
-    printf("[DEBUG] fetch_metadata: url=%s\n", url);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] fetch_metadata: url=%s", url);
 
     content = download_to_string(proto, url);
     free(url);
 
     if (!content) {
-        fprintf(stderr, "[ERROR] fetch_metadata: download failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] fetch_metadata: download failed");
         return -1;
     }
 
@@ -72,7 +73,7 @@ static int fetch_metadata(protocol_type proto, const char *source_uri, const cha
         return -1;
     }
 
-    printf("[DEBUG] fetch_metadata: address=%s sha256=%s\n", *out_address, *out_sha256);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] fetch_metadata: address=%s sha256=%s", *out_address, *out_sha256);
     return 0;
 }
 
@@ -102,27 +103,25 @@ static int fetch_and_verify_archive(const wcr_state *state, protocol_type proto,
         return -1;
     }
 
-    printf("[DEBUG] fetch_and_verify_archive: url=%s path=%s\n", url, path);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] fetch_and_verify_archive: url=%s path=%s", url, path);
 
     rc = download_to_file(proto, url, path);
     free(url);
     if (rc != 0) {
-        fprintf(stderr, "[ERROR] fetch_and_verify_archive: download failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] fetch_and_verify_archive: download failed");
         free(path);
         return -1;
     }
 
     local_sha256 = calculate_sha256_file(path);
     if (!local_sha256) {
-        fprintf(stderr, "[ERROR] fetch_and_verify_archive: SHA256 computation failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] fetch_and_verify_archive: SHA256 computation failed");
         free(path);
         return -1;
     }
 
     if (strcmp(local_sha256, expected_sha256) != 0) {
-        fprintf(stderr, "[ERROR] fetch_and_verify_archive: SHA256 mismatch\n");
-        fprintf(stderr, "  expected: %s\n", expected_sha256);
-        fprintf(stderr, "  got:      %s\n", local_sha256);
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] fetch_and_verify_archive: SHA256 mismatch (expected: %s, got: %s)", expected_sha256, local_sha256);
         free(path);
         free(local_sha256);
         return -1;
@@ -176,7 +175,7 @@ static int extract_location_hash(const char *listing, char *out, size_t out_sz)
     return (i > 0) ? 0 : -1;
 }
 
-static int wcr_fetch_metadata(wcr_conn *conn, const char *package_name,
+static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char *package_name,
                               char **out_address, char **out_sha256)
 {
     char *listing;
@@ -188,37 +187,37 @@ static int wcr_fetch_metadata(wcr_conn *conn, const char *package_name,
 
     listing = wcr_get_package_listing(conn, package_name);
     if (!listing) {
-        fprintf(stderr, "[ERROR] wcr_fetch_metadata: get_package_listing failed for '%s'\n", package_name);
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: get_package_listing failed for '%s'", package_name);
         return -1;
     }
 
-    printf("[DEBUG] wcr_fetch_metadata: package_listing=\n%s\n", listing);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: package_listing=\n%s", listing);
 
     if (extract_location_hash(listing, location_hash, sizeof(location_hash)) != 0) {
-        fprintf(stderr, "[ERROR] wcr_fetch_metadata: could not extract location_hash\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: could not extract location_hash");
         free(listing);
         return -1;
     }
     free(listing);
 
-    printf("[DEBUG] wcr_fetch_metadata: using location_hash=%s\n", location_hash);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: using location_hash=%s", location_hash);
 
     metadata = wcr_get_package_metadata(conn, package_name, location_hash);
     if (!metadata) {
-        fprintf(stderr, "[ERROR] wcr_fetch_metadata: get_package_metadata failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: get_package_metadata failed");
         return -1;
     }
 
-    printf("[DEBUG] wcr_fetch_metadata: metadata=%s\n", metadata);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: metadata=%s", metadata);
 
     if (json_extract_string(metadata, "address", out_address) != 0) {
-        fprintf(stderr, "[ERROR] wcr_fetch_metadata: cannot extract 'address'\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: cannot extract 'address'");
         free(metadata);
         return -1;
     }
 
     if (json_extract_string(metadata, "SHA256", out_sha256) != 0) {
-        fprintf(stderr, "[ERROR] wcr_fetch_metadata: cannot extract 'SHA256'\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: cannot extract 'SHA256'");
         free(*out_address);
         *out_address = NULL;
         free(metadata);
@@ -252,15 +251,15 @@ static int install_wcr(const wcr_state *state, const char *source_uri, const cha
         return -1;
     }
 
-    rc = wcr_fetch_metadata(conn, package_name, &address, &sha256);
+    rc = wcr_fetch_metadata(state, conn, package_name, &address, &sha256);
     wcr_close(conn);
 
     if (rc != 0)
         return -1;
 
-    printf("[INFO] install_wcr: package=%s address=%s SHA256=%s\n", package_name, address, sha256);
-    printf("[INFO] install_wcr: metadata retrieved successfully via WCR protocol\n");
-    printf("[INFO] install_wcr: archive download via WCR not supported yet (needs protocol extension)\n");
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: package=%s address=%s SHA256=%s", package_name, address, sha256);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: metadata retrieved successfully via WCR protocol");
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: archive download via WCR not supported yet (needs protocol extension)");
 
     free(address);
     free(sha256);
@@ -289,7 +288,7 @@ static int install_http(const wcr_state *state, protocol_type proto, const char 
     free(pkgs_list_path);
     free(checksum);
 
-    if (fetch_register(proto, source_uri, register_path, &register_content) != 0) {
+    if (fetch_register(state, proto, source_uri, register_path, &register_content) != 0) {
         free(register_path);
         return -1;
     }
@@ -301,7 +300,7 @@ static int install_http(const wcr_state *state, protocol_type proto, const char 
     }
     free(register_content);
 
-    if (fetch_metadata(proto, source_uri, variant_location, &archive_address, &archive_sha256) != 0) {
+    if (fetch_metadata(state, proto, source_uri, variant_location, &archive_address, &archive_sha256) != 0) {
         free(variant_location);
         return -1;
     }
@@ -315,8 +314,8 @@ static int install_http(const wcr_state *state, protocol_type proto, const char 
     free(archive_address);
     free(archive_sha256);
 
-    printf("[INFO] install_package: archive downloaded and SHA256 verified ok (%s)\n", archive_path);
-    printf("[INFO] install_package: stub - would now extract and run install wizard\n");
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_package: archive downloaded and SHA256 verified ok (%s)", archive_path);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_package: stub - would now extract and run install wizard");
 
     free(archive_path);
     return 0;
@@ -326,10 +325,10 @@ int install_package(const wcr_state *state, protocol_type proto, const char *sou
 {
     int rc;
 
-    printf("[INFO] install_package: source_uri=%s package=%s proto=%d\n", source_uri, package_name, proto);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_package: source_uri=%s package=%s proto=%d", source_uri, package_name, proto);
 
     if (!state || !source_uri || !package_name) {
-        fprintf(stderr, "[ERROR] install_package: state, source_uri or package_name is NULL\n");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] install_package: state, source_uri or package_name is NULL");
         return -1;
     }
 
@@ -337,7 +336,7 @@ int install_package(const wcr_state *state, protocol_type proto, const char *sou
         return install_wcr(state, source_uri, package_name);
 
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
-        fprintf(stderr, "[ERROR] install_package: curl_global_init failed\n");
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_package: curl_global_init failed");
         return -1;
     }
 
