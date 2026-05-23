@@ -7,6 +7,7 @@ var classsrc_1_1cli_1_1cli_1_1CLI =
     [ "_determine_charset", "classsrc_1_1cli_1_1cli_1_1CLI.html#a221470a3a1dbf970d36035a837e05d90", null ],
     [ "_determine_term_support", "classsrc_1_1cli_1_1cli_1_1CLI.html#a14d70ff6abce21f5ce024aa63fcf6d2f", null ],
     [ "_load_state", "classsrc_1_1cli_1_1cli_1_1CLI.html#af2392c662129380ac5a3530adc27dbb9", null ],
+    [ "_make_event_callback", "classsrc_1_1cli_1_1cli_1_1CLI.html#a3cbaf427dc687a040468b999bcd008d1", null ],
     [ "_parse_arguments", "classsrc_1_1cli_1_1cli_1_1CLI.html#aa4abb46c9ad039a169e3cec3ed02470b", null ],
     [ "_set_argument_setting", "classsrc_1_1cli_1_1cli_1_1CLI.html#a28dc43d4e7870c5047a798d614c1b1dd", null ],
     [ "close", "classsrc_1_1cli_1_1cli_1_1CLI.html#a8d27970119b6af65e763889efb71d7ed", null ],

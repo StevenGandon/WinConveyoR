@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html#ad94436e1c6660b344b88e9979c85e8a2":[3,0,9,11,0,1,3],
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html":[3,0,9,11,0,2],
 "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html":[4,0,5,10,0,2],
 "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a13207575b54dc3bffe34e17df95d51ba":[4,0,5,10,0,2,3],
 "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a13207575b54dc3bffe34e17df95d51ba":[3,0,9,11,0,2,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a482155fa2b07a7f75b50b5ae326ad11a":[4,0,5,11,1,0,3],
 "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a5f7eae2de394ea2e61c9cc4d4b07a5e2":[3,0,9,13,1,0,5],
 "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a5f7eae2de394ea2e61c9cc4d4b07a5e2":[4,0,5,11,1,0,5],
-"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a7e840e2085fd3c4d371a81830bfcbe32":[4,0,5,11,1,0,0],
-"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a7e840e2085fd3c4d371a81830bfcbe32":[3,0,9,13,1,0,0],
-"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#aafe04a0037d46984894e87e430914a9a":[4,0,5,11,1,0,1]
+"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a7e840e2085fd3c4d371a81830bfcbe32":[4,0,5,11,1,0,0]
 };

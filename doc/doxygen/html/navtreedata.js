@@ -65,15 +65,15 @@ var NAVTREEINDEX =
 [
 "CLI.html",
 "classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a4518bebe45b07db6a00a9c60e9377552",
-"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#acf4cc409cab1a5e09ae42fd9d10588ba",
-"classsrc_1_1network_1_1client_1_1ClientSocket.html#a71f424d9e76939acb87866bac745d4ce",
-"classsrc_1_1scheduler_1_1clock_1_1Clock.html",
-"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html",
-"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#aafe04a0037d46984894e87e430914a9a",
-"dir_f87708c65a0ef0950ed1fcf18b5ba1d6.html",
-"libwconr__private_8h.html#a3a9c10a45637e08ccd570a8945ff24eb",
-"pages.html",
-"vm__handlers_8c.html#aba0a16500d25071025d4c58977d561c2"
+"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#acc5b52e6dadf03782661009abe6a4763",
+"classsrc_1_1network_1_1client_1_1ClientSocket.html#a6482377961c1d3f07aefd3a6a04419c3",
+"classsrc_1_1package_1_1package__listing_1_1PackageListing.html#ae8e50892ddad4845fa07aa511313ac7e",
+"classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html#ad94436e1c6660b344b88e9979c85e8a2",
+"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a7e840e2085fd3c4d371a81830bfcbe32",
+"dir_eda5b8bd44bd84f87642920ea6529a8c.html",
+"libwconr__private_8h.html",
+"package__info_8py.html",
+"vm__handlers_8c.html#a942252a8b7286a494bb6b19471fc90a5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
