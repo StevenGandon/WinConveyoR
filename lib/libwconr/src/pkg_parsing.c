@@ -140,3 +140,73 @@ int json_extract_string(const char *json, const char *key, char **out_value)
     }
     return 0;
 }
+
+void free_string_array(char **values, size_t count)
+{
+    size_t i;
+
+    if (!values)
+        return;
+    for (i = 0; i < count; i++)
+        free(values[i]);
+    free(values);
+}
+
+int json_extract_string_array(const char *json, const char *key,
+                              char ***out_values, size_t *out_count)
+{
+    cJSON *root;
+    cJSON *item;
+    cJSON *elem;
+    char **values;
+    size_t count;
+    size_t i;
+
+    *out_values = NULL;
+    *out_count = 0;
+
+    root = cJSON_Parse(json);
+    if (!root) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] json_extract_string_array: invalid JSON");
+        return -1;
+    }
+
+    item = cJSON_GetObjectItemCaseSensitive(root, key);
+    if (!cJSON_IsArray(item)) {
+        cJSON_Delete(root);
+        return 0;
+    }
+
+    count = (size_t)cJSON_GetArraySize(item);
+    if (count == 0) {
+        cJSON_Delete(root);
+        return 0;
+    }
+
+    values = calloc(count, sizeof(char *));
+    if (!values) {
+        cJSON_Delete(root);
+        return -1;
+    }
+
+    i = 0;
+    cJSON_ArrayForEach(elem, item) {
+        if (!cJSON_IsString(elem) || !elem->valuestring) {
+            free_string_array(values, i);
+            cJSON_Delete(root);
+            return -1;
+        }
+        values[i] = strdup(elem->valuestring);
+        if (!values[i]) {
+            free_string_array(values, i);
+            cJSON_Delete(root);
+            return -1;
+        }
+        i++;
+    }
+
+    cJSON_Delete(root);
+    *out_values = values;
+    *out_count = count;
+    return 0;
+}
