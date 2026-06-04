@@ -275,6 +275,7 @@ var annotated_dup =
     [ "vm_op_def", "structvm__op__def.html", "structvm__op__def" ],
     [ "wcr_conn_s", "structwcr__conn__s.html", "structwcr__conn__s" ],
     [ "wcr_event", "structwcr__event.html", "structwcr__event" ],
+    [ "wcr_install_ctx", "structwcr__install__ctx.html", "structwcr__install__ctx" ],
     [ "wcr_msg_s", "structwcr__msg__s.html", "structwcr__msg__s" ],
     [ "wcr_source_s", "structwcr__source__s.html", "structwcr__source__s" ],
     [ "wcr_state_s", "structwcr__state__s.html", "structwcr__state__s" ],

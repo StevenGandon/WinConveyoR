@@ -137,6 +137,7 @@ var hierarchy =
     [ "vm_op_def", "structvm__op__def.html", null ],
     [ "wcr_conn_s", "structwcr__conn__s.html", null ],
     [ "wcr_event", "structwcr__event.html", null ],
+    [ "wcr_install_ctx", "structwcr__install__ctx.html", null ],
     [ "wcr_msg_s", "structwcr__msg__s.html", null ],
     [ "wcr_source_s", "structwcr__source__s.html", null ],
     [ "wcr_state_s", "structwcr__state__s.html", null ],

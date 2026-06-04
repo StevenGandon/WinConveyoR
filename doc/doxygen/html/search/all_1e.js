@@ -65,7 +65,7 @@ var searchData=
   ['sharing_62',['Limited Data Sharing',['../md_doc_2privacy__policy.html#autotoc_md109',1,'']]],
   ['sharing_20and_20disclosure_63',['Data Sharing and Disclosure',['../md_doc_2privacy__policy.html#autotoc_md107',1,'']]],
   ['show_5fhelp_64',['show_help',['../classsrc_1_1cli_1_1cli_1_1CLI.html#a9db353fcd675457e0a0487857ea275a8',1,'src::cli::cli::CLI']]],
-  ['size_65',['size',['../classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a94a3f27ea4eba85db1e1c9d3389e89a4',1,'src.graphic.graphic.Graphic.size'],['../structmemory__buffer__s.html#a594c50aec585b08aac468af825d9c38a',1,'memory_buffer_s::size']]],
+  ['size_65',['size',['../structmemory__buffer__s.html#a594c50aec585b08aac468af825d9c38a',1,'memory_buffer_s::size'],['../classsrc_1_1graphic_1_1graphic_1_1Graphic.html#a94a3f27ea4eba85db1e1c9d3389e89a4',1,'src.graphic.graphic.Graphic.size']]],
   ['sockfd_66',['sockfd',['../structwcr__conn__s.html#aae1b771e4b1d54e7747544d891fe5f86',1,'wcr_conn_s']]],
   ['source_20transparency_67',['Open Source Transparency',['../md_doc_2privacy__policy.html#autotoc_md168',1,'']]],
   ['source_5fhandler_2ec_68',['source_handler.c',['../source__handler_8c.html',1,'']]],

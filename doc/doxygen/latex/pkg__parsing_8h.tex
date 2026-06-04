@@ -1,5 +1,6 @@
 \doxysection{lib/libwconr/pkg\+\_\+parsing.h File Reference}
 \hypertarget{pkg__parsing_8h}{}\label{pkg__parsing_8h}\index{lib/libwconr/pkg\_parsing.h@{lib/libwconr/pkg\_parsing.h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -8,6 +9,10 @@ int \mbox{\hyperlink{pkg__parsing_8h_a60f13ad3f9c85a55d715a7280c04e96d}{find\+\_
 int \mbox{\hyperlink{pkg__parsing_8h_a4aa644f97491bdb488b4112d6e31c876}{parse\+\_\+first\+\_\+location}} (const char \texorpdfstring{$\ast$}{*}register\+\_\+content, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+location)
 \item 
 int \mbox{\hyperlink{pkg__parsing_8h_ac7f79d7af8f8f57818630ab1e8d10c4e}{json\+\_\+extract\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}json, const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+value)
+\item 
+int \mbox{\hyperlink{pkg__parsing_8h_a60aa1bfae1e55f75140e4d129fe1c613}{json\+\_\+extract\+\_\+string\+\_\+array}} (const char \texorpdfstring{$\ast$}{*}json, const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+values, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+void \mbox{\hyperlink{pkg__parsing_8h_a6e708a02a2099651837c2b02f60cba89}{free\+\_\+string\+\_\+array}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}values, size\+\_\+t count)
 \end{DoxyCompactItemize}
 
 
@@ -18,11 +23,23 @@ int \mbox{\hyperlink{pkg__parsing_8h_ac7f79d7af8f8f57818630ab1e8d10c4e}{json\+\_
 \doxysubsubsection{\texorpdfstring{find\_package\_in\_list()}{find\_package\_in\_list()}}
 {\footnotesize\ttfamily int find\+\_\+package\+\_\+in\+\_\+list (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{pkgs\+\_\+list\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+register\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+checksum }\end{DoxyParamCaption})}
 
+\Hypertarget{pkg__parsing_8h_a6e708a02a2099651837c2b02f60cba89}\label{pkg__parsing_8h_a6e708a02a2099651837c2b02f60cba89} 
+\index{pkg\_parsing.h@{pkg\_parsing.h}!free\_string\_array@{free\_string\_array}}
+\index{free\_string\_array@{free\_string\_array}!pkg\_parsing.h@{pkg\_parsing.h}}
+\doxysubsubsection{\texorpdfstring{free\_string\_array()}{free\_string\_array()}}
+{\footnotesize\ttfamily void free\+\_\+string\+\_\+array (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{values,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
 \Hypertarget{pkg__parsing_8h_ac7f79d7af8f8f57818630ab1e8d10c4e}\label{pkg__parsing_8h_ac7f79d7af8f8f57818630ab1e8d10c4e} 
 \index{pkg\_parsing.h@{pkg\_parsing.h}!json\_extract\_string@{json\_extract\_string}}
 \index{json\_extract\_string@{json\_extract\_string}!pkg\_parsing.h@{pkg\_parsing.h}}
 \doxysubsubsection{\texorpdfstring{json\_extract\_string()}{json\_extract\_string()}}
 {\footnotesize\ttfamily int json\+\_\+extract\+\_\+string (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{json,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+value }\end{DoxyParamCaption})}
+
+\Hypertarget{pkg__parsing_8h_a60aa1bfae1e55f75140e4d129fe1c613}\label{pkg__parsing_8h_a60aa1bfae1e55f75140e4d129fe1c613} 
+\index{pkg\_parsing.h@{pkg\_parsing.h}!json\_extract\_string\_array@{json\_extract\_string\_array}}
+\index{json\_extract\_string\_array@{json\_extract\_string\_array}!pkg\_parsing.h@{pkg\_parsing.h}}
+\doxysubsubsection{\texorpdfstring{json\_extract\_string\_array()}{json\_extract\_string\_array()}}
+{\footnotesize\ttfamily int json\+\_\+extract\+\_\+string\+\_\+array (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{json,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+values,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
 
 \Hypertarget{pkg__parsing_8h_a4aa644f97491bdb488b4112d6e31c876}\label{pkg__parsing_8h_a4aa644f97491bdb488b4112d6e31c876} 
 \index{pkg\_parsing.h@{pkg\_parsing.h}!parse\_first\_location@{parse\_first\_location}}

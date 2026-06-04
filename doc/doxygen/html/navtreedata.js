@@ -71,9 +71,9 @@ var NAVTREEINDEX =
 "classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html#ad94436e1c6660b344b88e9979c85e8a2",
 "classsrc_1_1wizard_1_1instruction__loader_1_1InstructionArgumentDef.html#a7e840e2085fd3c4d371a81830bfcbe32",
 "dir_eda5b8bd44bd84f87642920ea6529a8c.html",
-"libwconr__private_8h.html",
-"package__info_8py.html",
-"vm__handlers_8c.html#a942252a8b7286a494bb6b19471fc90a5"
+"libwconr_8h_source.html",
+"network__command__wrapper_8py.html#a2846fcaa629b787640944334f432bdad",
+"vm__decode_8c.html#af150eaf7632c6f5afcb392ab324a3f35"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
