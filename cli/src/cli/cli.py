@@ -263,6 +263,7 @@ Exemples:
             return state
         state = WCRState()
         state.add_source(0, "http://localhost:8080")
+        state.add_source(1, "localhost:1674")
         return state
 
     def run(self) -> int:
