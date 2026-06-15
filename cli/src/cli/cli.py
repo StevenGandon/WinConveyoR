@@ -8,6 +8,7 @@ from ..arghandler import *
 from ..wrappers import *
 from ..graphic import *
 from ..packaging import resource_path
+from .. import api_client
 
 class CLI(object):
     OPTION_TABLE: dict = {
@@ -15,6 +16,8 @@ class CLI(object):
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
         "install": {"opt": ("install", "-i", "--install"), "exc": ()},
         "update": {"opt": ("update", "-u", "--update"), "exc": ()},
+        "register": {"opt": ("register",), "exc": ()},
+        "login": {"opt": ("login",), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -237,6 +240,50 @@ Exemples:
         sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
         return (0)
 
+    def register_user(self):
+        from getpass import getpass
+
+        sys.stdout.write("Username: ")
+        sys.stdout.flush()
+        username = input()
+        sys.stdout.write("Email: ")
+        sys.stdout.flush()
+        email = input()
+        password = getpass("Password: ")
+        confirm = getpass("Confirm password: ")
+
+        if (password != confirm):
+            sys.stderr.write(f"{sys.argv[0]} register: passwords do not match.\n")
+            return (1)
+
+        sys.stdout.write("Full name (optional): ")
+        sys.stdout.flush()
+        full_name = input() or None
+
+        try:
+            user = api_client.register(username, email, password, full_name)
+            sys.stdout.write(f"{sys.argv[0]} register: account created ({user['username']}).\n")
+            return (0)
+        except RuntimeError as e:
+            sys.stderr.write(f"{sys.argv[0]} register: {e}\n")
+            return (1)
+
+    def login_user(self):
+        from getpass import getpass
+
+        sys.stdout.write("Email: ")
+        sys.stdout.flush()
+        email = input()
+        password = getpass("Password: ")
+
+        try:
+            api_client.login(email, password)
+            sys.stdout.write(f"{sys.argv[0]} login: ok.\n")
+            return (0)
+        except RuntimeError as e:
+            sys.stderr.write(f"{sys.argv[0]} login: {e}\n")
+            return (1)
+
     def _make_event_callback(self):
         use_color = hasattr(self, '_graphic') and self._graphic._settings.color
 
@@ -282,6 +329,12 @@ Exemples:
 
         if (self.has_opt("update")):
             return self.update_sources()
+
+        if (self.has_opt("register")):
+            return self.register_user()
+
+        if (self.has_opt("login")):
+            return self.login_user()
 
         sys.stderr.write(f"{sys.argv[0]}: no operation specified (use -h for help).\n")
         return (1)
