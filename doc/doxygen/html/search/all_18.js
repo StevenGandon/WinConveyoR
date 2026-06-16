@@ -1,7 +1,7 @@
 var searchData=
 [
   ['machine_0',['machine',['../classsrc_1_1package_1_1package__listing_1_1PackageListing.html#a7a0e5381872174a3a2ac00deb5891fc8',1,'src.package.package_listing.PackageListing.machine'],['../classsrc_1_1builder_1_1package__info_1_1PackageInfo.html#ab8cdd3a184cd475a23eece24d89ad9a2',1,'src.builder.package_info.PackageInfo.machine']]],
-  ['magic_1',['magic',['../structwcr__msg__s.html#a74fa25b5cf3a944f3129c0b25ad6c9d6',1,'wcr_msg_s::magic'],['../struct__wizard__file__header__raw__s.html#a48b77056c70cb2184fbce6bd4a094be9',1,'_wizard_file_header_raw_s::magic'],['../classsrc_1_1network_1_1message_1_1Message.html#adbfadea87950431d6e41e71e81d98bbd',1,'src.network.message.Message.MAGIC']]],
+  ['magic_1',['magic',['../struct__wizard__file__header__raw__s.html#a48b77056c70cb2184fbce6bd4a094be9',1,'_wizard_file_header_raw_s::magic'],['../classsrc_1_1network_1_1message_1_1Message.html#adbfadea87950431d6e41e71e81d98bbd',1,'src.network.message.Message.MAGIC'],['../structwcr__msg__s.html#a74fa25b5cf3a944f3129c0b25ad6c9d6',1,'wcr_msg_s::magic']]],
   ['main_2',['main',['../namespacewcrpackager.html#af2301a666888c9d6a138ca4ed291bf93',1,'wcrpackager.main()'],['../namespacemain.html',1,'main'],['../namespacewcrmirror.html#acfda2bd786da45037a4530abfedb332c',1,'wcrmirror.main()'],['../namespacewcrmgr.html#adc5ef3e5cbee618ba6668cbccc307665',1,'wcrmgr.main()'],['../namespacewcrgenkey.html#a19b735e5ca665b55e262d4b65d5f8088',1,'wcrgenkey.main()'],['../namespace____main____.html#aa1e19bac8e6cbd7db574d389504d6c4c',1,'__main__.main()'],['../namespacemain.html#a5fff7802745dbe2e749cf165bceb63eb',1,'main.main()']]],
   ['main_2epy_3',['main.py',['../daemon_2main_8py.html',1,'(Global Namespace)'],['../cli_2main_8py.html',1,'(Global Namespace)'],['../api_2main_8py.html',1,'(Global Namespace)']]],
   ['managed_20repositories_4',['Community-Managed Repositories',['../md_doc_2privacy__policy.html#autotoc_md115',1,'']]],
@@ -42,8 +42,9 @@ var searchData=
   ['mode_5fdisplay_5fno_5fanimation_39',['MODE_DISPLAY_NO_ANIMATION',['../namespacesrc_1_1graphic_1_1graphic.html#a989b7e344a3a46bc77a19473095bef74',1,'src::graphic::graphic']]],
   ['mode_5fdisplay_5fsimple_40',['MODE_DISPLAY_SIMPLE',['../namespacesrc_1_1graphic_1_1graphic.html#abf8f5e68fe3d225854613488ae0b5479',1,'src::graphic::graphic']]],
   ['model_41',['model',['../classrepository_1_1Repository.html#ae4d40227550c8c763a85493ffaf6ab9f',1,'repository::Repository']]],
-  ['models_42',['models',['../namespacemodels.html',1,'']]],
-  ['models_3a_3auser_43',['user',['../namespacemodels_1_1user.html',1,'models']]],
-  ['modifications_44',['4.4 write - Sauvegarder les Modifications',['../md_doc_2protocol__rfc.html#autotoc_md194',1,'']]],
-  ['modifier_20les_20permissions_20d_20un_20fichier_45',['&lt;tt&gt;chmod&lt;/tt&gt; — modifier les permissions d&apos;un fichier',['../md_doc_2config__documentation.html#autotoc_md69',1,'']]]
+  ['model_5fconfig_42',['model_config',['../classschemas_1_1user_1_1UserOut.html#afce99e492b7fa6931f814c650be44f61',1,'schemas::user::UserOut']]],
+  ['models_43',['models',['../namespacemodels.html',1,'']]],
+  ['models_3a_3auser_44',['user',['../namespacemodels_1_1user.html',1,'models']]],
+  ['modifications_45',['4.4 write - Sauvegarder les Modifications',['../md_doc_2protocol__rfc.html#autotoc_md194',1,'']]],
+  ['modifier_20les_20permissions_20d_20un_20fichier_46',['&lt;tt&gt;chmod&lt;/tt&gt; — modifier les permissions d&apos;un fichier',['../md_doc_2config__documentation.html#autotoc_md69',1,'']]]
 ];
