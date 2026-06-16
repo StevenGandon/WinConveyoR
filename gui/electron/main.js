@@ -21,7 +21,7 @@ function createWindow() {
     },
     titleBarStyle: 'hidden',
     frame: false,
-    show: false
+    show: true
   });
 
   const startURL = isDev
@@ -29,10 +29,6 @@ function createWindow() {
   : `file://${path.join(__dirname, '../dist/index.html')}`;
 
   mainWindow.loadURL(startURL);
-
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
 
   if (isDev) {
     mainWindow.webContents.openDevTools();

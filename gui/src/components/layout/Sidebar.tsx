@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePackages } from '../../context/PackageContext';
-import { Package as PackageIcon, Download, RefreshCw, Settings, Home, Layers, Search } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { Package as PackageIcon, Download, RefreshCw, Settings, Home, Layers, Search, LogOut, User } from 'lucide-react';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -55,6 +56,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
   const { installedPackages, updatablePackages, categories, setSelectedCategory, selectedCategory } = usePackages();
+  const { user, logout } = useAuth();
 
   return (
     <div className="w-64 h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col">
@@ -110,13 +112,28 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
         </SidebarSection>
       </div>
       
-      <div className="p-3 border-t border-gray-200 dark:border-gray-800">
+      <div className="p-3 border-t border-gray-200 dark:border-gray-800 space-y-1">
         <SidebarItem
           icon={<Settings size={18} />}
           label="Settings"
           isActive={activePage === 'settings'}
           onClick={() => onNavigate('settings')}
         />
+        {user && (
+          <div className="flex items-center justify-between px-3 py-2 mt-2 rounded-md bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center min-w-0">
+              <User size={16} className="text-gray-500 dark:text-gray-400 mr-2 flex-shrink-0" />
+              <span className="text-sm text-gray-700 dark:text-gray-300 truncate">{user.username}</span>
+            </div>
+            <button
+              onClick={logout}
+              className="ml-2 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 flex-shrink-0"
+              title="Sign out"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

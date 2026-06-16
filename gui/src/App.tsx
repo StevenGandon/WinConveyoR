@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { SettingsProvider } from './context/SettingsContext';
 import { PackageProvider } from './context/PackageContext';
 import TitleBar from './components/layout/TitleBar';
@@ -8,10 +9,46 @@ import DiscoverPage from './pages/DiscoverPage';
 import InstalledPage from './pages/InstalledPage';
 import UpdatesPage from './pages/UpdatesPage';
 import SettingsPage from './pages/SettingsPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
-function App() {
+function AuthGate() {
+  const { token, isLoading } = useAuth();
+  const [authPage, setAuthPage] = useState<'login' | 'register'>('login');
+
+  useEffect(() => {
+    if (!token) setAuthPage('login');
+  }, [token]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
+        <TitleBar />
+        <div className="flex items-center justify-center flex-1">
+          <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!token) {
+    const page = authPage === 'login'
+      ? <LoginPage onSwitchToRegister={() => setAuthPage('register')} />
+      : <RegisterPage onSwitchToLogin={() => setAuthPage('login')} />;
+    return (
+      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
+        <TitleBar />
+        <div className="flex-1 overflow-auto">{page}</div>
+      </div>
+    );
+  }
+
+  return <MainApp />;
+}
+
+function MainApp() {
   const [activePage, setActivePage] = useState('home');
-  
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && !isNaN(Number(e.key))) {
@@ -23,7 +60,7 @@ function App() {
         }
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
@@ -46,18 +83,26 @@ function App() {
   };
 
   return (
-    <SettingsProvider>
-      <PackageProvider>
-        <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-          <TitleBar />
-          <div className="flex flex-1 overflow-hidden">
-            <Sidebar activePage={activePage} onNavigate={setActivePage} />
-            <main className="flex-1 flex flex-col overflow-hidden">
-              {renderPage()}
-            </main>
-          </div>
+    <PackageProvider>
+      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+        <TitleBar />
+        <div className="flex flex-1 overflow-hidden">
+          <Sidebar activePage={activePage} onNavigate={setActivePage} />
+          <main className="flex-1 flex flex-col overflow-hidden">
+            {renderPage()}
+          </main>
         </div>
-      </PackageProvider>
+      </div>
+    </PackageProvider>
+  );
+}
+
+function App() {
+  return (
+    <SettingsProvider>
+      <AuthProvider>
+        <AuthGate />
+      </AuthProvider>
     </SettingsProvider>
   );
 }
