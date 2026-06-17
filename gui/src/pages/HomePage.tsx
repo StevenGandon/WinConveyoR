@@ -6,7 +6,7 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
 const HomePage: React.FC = () => {
-  const { installedPackages, updatablePackages } = usePackages();
+  const { installedPackages, updatablePackages, addInstalled } = usePackages();
   const [installName, setInstallName] = useState('');
   const [log, setLog] = useState('');
   const [busy, setBusy] = useState(false);
@@ -37,8 +37,19 @@ const HomePage: React.FC = () => {
     if (!window.electronAPI || !installName.trim()) return;
     setBusy(true);
     setLog('');
-    const result = await window.electronAPI.runInstall(installName.trim());
-    if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
+    const pkg = installName.trim();
+    const result = await window.electronAPI.runInstall(pkg);
+    if (result.code === 0) {
+      const resolved = result.output.match(/install: resolving '([^']+)'/g);
+      if (resolved) {
+        resolved.forEach(m => {
+          const name = m.match(/'([^']+)'/)?.[1];
+          if (name) addInstalled(name);
+        });
+      }
+    } else {
+      setLog(prev => prev + `\nExited with code ${result.code}`);
+    }
     setBusy(false);
     setInstallName('');
   };
@@ -77,10 +88,13 @@ const HomePage: React.FC = () => {
         </Card>
         <Card>
           <CardContent className="flex items-center space-x-3 p-4">
-            <Download className="text-green-500" size={24} />
+            <Download className={busy ? 'text-orange-500' : 'text-green-500'} size={24} />
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Status</p>
-              <p className="text-2xl font-semibold text-green-600">{busy ? '...' : 'OK'}</p>
+              <div className="flex items-center space-x-2">
+                <span className={`inline-block w-2 h-2 rounded-full ${busy ? 'bg-orange-500 animate-pulse' : 'bg-green-500'}`} />
+                <p className="text-2xl font-semibold">{busy ? '...' : 'OK'}</p>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -99,7 +113,7 @@ const HomePage: React.FC = () => {
               disabled={busy}
               isLoading={busy}
             >
-              wcr update
+              Update
             </Button>
           </CardContent>
         </Card>

@@ -20,6 +20,9 @@ function AuthGate() {
     if (!token) setAuthPage('login');
   }, [token]);
 
+  // AUTH BYPASS — remove this block to re-enable auth
+  return <MainApp />;
+
   if (isLoading) {
     return (
       <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">

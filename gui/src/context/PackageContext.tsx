@@ -6,21 +6,27 @@ interface PackageContextType {
   installedPackages: Package[];
   updatablePackages: Package[];
   isLoading: boolean;
-  setPackages: (pkgs: Package[]) => void;
+  addInstalled: (name: string, version?: string) => void;
 }
 
 const PackageContext = createContext<PackageContextType | undefined>(undefined);
 
 export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [packages, setPackages] = useState<Package[]>([]);
-  const [isLoading] = useState(false);
 
   const installedPackages = packages.filter(pkg => pkg.isInstalled);
   const updatablePackages = packages.filter(pkg => pkg.isInstalled && pkg.isUpdatable);
 
+  const addInstalled = (name: string, version?: string) => {
+    setPackages(prev => {
+      if (prev.some(p => p.name === name)) return prev;
+      return [...prev, { name, version: version ?? 'unknown', isInstalled: true, isUpdatable: false }];
+    });
+  };
+
   return (
     <PackageContext.Provider
-      value={{ packages, installedPackages, updatablePackages, isLoading, setPackages }}
+      value={{ packages, installedPackages, updatablePackages, isLoading: false, addInstalled }}
     >
       {children}
     </PackageContext.Provider>

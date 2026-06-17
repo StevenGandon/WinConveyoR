@@ -9,7 +9,7 @@ export default defineConfig({
     include: ['react', 'react-dom', 'lucide-react'],
   },
   server: {
-    watch: { usePolling: false },
+    watch: { usePolling: true, interval: 500 },
     warmup: { clientFiles: ['./src/App.tsx', './src/main.tsx'] },
   },
   cacheDir: '/tmp/vite-cache-wcr',
