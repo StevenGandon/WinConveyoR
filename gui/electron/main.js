@@ -1,10 +1,20 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { spawn } from 'child_process';
 import isDev from 'electron-is-dev';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+const CLI_ENTRY = path.join(PROJECT_ROOT, 'cli', 'main.py');
+const LIB_PATH = [
+  '.',
+  path.join(PROJECT_ROOT, 'cli', 'build'),
+  path.join(PROJECT_ROOT, 'lib', 'libwconr', 'build'),
+  path.join(PROJECT_ROOT, 'lib', 'libwconr'),
+].join(':');
 
 let mainWindow;
 
@@ -39,6 +49,39 @@ function createWindow() {
   });
 }
 
+function runCli(args) {
+  return new Promise((resolve) => {
+    const wslRoot = PROJECT_ROOT.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
+    const wslCli = `${wslRoot}/cli/main.py`;
+    const wslLib = ['.', `${wslRoot}/cli/build`, `${wslRoot}/lib/libwconr/build`, `${wslRoot}/lib/libwconr`].join(':');
+    const child = spawn('wsl', ['bash', '-c', `LD_LIBRARY_PATH="${wslLib}" python3 "${wslCli}" --no-ansi ${args.join(' ')}`], {
+      cwd: PROJECT_ROOT,
+    });
+
+    let output = '';
+
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      output += text;
+      mainWindow?.webContents.send('cli-output', text);
+    });
+
+    child.stderr.on('data', (data) => {
+      const text = data.toString();
+      output += text;
+      mainWindow?.webContents.send('cli-output', text);
+    });
+
+    child.on('close', (code) => {
+      resolve({ code, output });
+    });
+
+    child.on('error', (err) => {
+      resolve({ code: -1, output: err.message });
+    });
+  });
+}
+
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
@@ -68,3 +111,6 @@ ipcMain.on('maximize-window', () => {
 ipcMain.on('close-window', () => {
   mainWindow?.close();
 });
+
+ipcMain.handle('cli-update', () => runCli(['update']));
+ipcMain.handle('cli-install', (_event, packageName) => runCli(['install', packageName]));

@@ -38,7 +38,7 @@ function AuthGate() {
     return (
       <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
         <TitleBar />
-        <div className="flex-1 overflow-auto">{page}</div>
+        <div className="flex-1 flex items-center justify-center overflow-hidden">{page}</div>
       </div>
     );
   }
@@ -88,7 +88,7 @@ function MainApp() {
         <TitleBar />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar activePage={activePage} onNavigate={setActivePage} />
-          <main className="flex-1 flex flex-col overflow-hidden">
+          <main className="flex-1 flex flex-col overflow-auto">
             {renderPage()}
           </main>
         </div>

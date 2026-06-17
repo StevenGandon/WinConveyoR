@@ -1,24 +1,9 @@
 export interface Package {
-  id: string;
   name: string;
   version: string;
-  description: string;
-  category: string;
-  publisher: string;
-  downloadCount: number;
-  rating: number;
-  size: string;
-  installDate?: string;
+  description?: string;
   isInstalled: boolean;
   isUpdatable: boolean;
-  lastUpdated: string;
-  iconUrl: string;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  count: number;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'system';
