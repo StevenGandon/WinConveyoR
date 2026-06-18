@@ -15,6 +15,7 @@ class CLI(object):
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
         "install": {"opt": ("install", "-i", "--install"), "exc": ()},
+        "uninstall": {"opt": ("uninstall", "--uninstall"), "exc": ()},
         "update": {"opt": ("update", "-u", "--update"), "exc": ()},
         "register": {"opt": ("register",), "exc": ()},
         "login": {"opt": ("login",), "exc": ()},
@@ -219,6 +220,21 @@ Exemples:
         sys.stderr.write(f"{sys.argv[0]} install: failed from all sources.\n")
         return (1)
 
+    def uninstall_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_name):
+            sys.stderr.write(f"{sys.argv[0]} uninstall: no package name provided.\n")
+            return (1)
+
+        rc = self.wcr.uninstall_package(package_name)
+        if (rc == 0):
+            sys.stdout.write(f"{sys.argv[0]} uninstall: ok.\n")
+            return (0)
+
+        sys.stderr.write(f"{sys.argv[0]} uninstall: failed.\n")
+        return (1)
+
     def update_sources(self):
         sources = self.wcr.get_sources()
         if (not sources):
@@ -326,6 +342,9 @@ Exemples:
 
         if (self.has_opt("install")):
             return self.install_package()
+
+        if (self.has_opt("uninstall")):
+            return self.uninstall_package()
 
         if (self.has_opt("update")):
             return self.update_sources()

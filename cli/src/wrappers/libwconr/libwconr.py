@@ -70,6 +70,9 @@ class WCRState(object):
     def install_package(self, proto: int, source_uri: str, package_name: str) -> int:
         return int(self.__mapper.call_function("install_package", self._cstate, proto, source_uri.encode('utf-8'), package_name.encode('utf-8')))
 
+    def uninstall_package(self, package_name: str) -> int:
+        return int(self.__mapper.call_function("uninstall_package", self._cstate, package_name.encode('utf-8')))
+
     def set_event_callback(self, callback):
         def _c_callback(event_ptr, user_data):
             ev = event_ptr.contents
