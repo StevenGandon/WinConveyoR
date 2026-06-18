@@ -75,7 +75,7 @@ class Mapper(object):
         self._dll = None
 
     def init_mapper(self):
-        self.dll_location: str = self.base_dll_path # find_dll(self.base_dll_path, 'nt' if platform.startswith("win") else 'posix')
+        self.dll_location: str = find_dll(self.base_dll_path, 'nt' if platform.startswith("win") else 'posix') or self.base_dll_path
 
         if (not self.dll_location):
             raise OSError(f"DLL {self.base_dll_path} not found in any $PATH or registered path via `add_dll_registry_path` nor cwd and cwd/lib.")
@@ -102,5 +102,6 @@ class Mapper(object):
         self._dll.register_function("wcr_state_add_source", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("sync_package_list", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p)
+        self._dll.register_function("uninstall_package", c_int, POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("wcr_set_event_callback", None, POINTER(wcr_state_s), c_void_p, POINTER(None))
 
