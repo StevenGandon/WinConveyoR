@@ -1,10 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
+interface InstallResult {
+  code: number;
+  version?: string;
+}
+
 interface CliContextType {
   log: string;
   busy: boolean;
   runUpdate: () => Promise<void>;
-  runInstall: (packageName: string) => Promise<number>;
+  runInstall: (packageName: string) => Promise<InstallResult>;
   runUninstall: (packageName: string) => Promise<number>;
 }
 
@@ -30,14 +35,15 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBusy(false);
   }, [busy]);
 
-  const runInstall = useCallback(async (packageName: string) => {
-    if (!window.electronAPI || busy) return -1;
+  const runInstall = useCallback(async (packageName: string): Promise<InstallResult> => {
+    if (!window.electronAPI || busy) return { code: -1 };
     setBusy(true);
     setLog('');
     const result = await window.electronAPI.runInstall(packageName);
     if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
     setBusy(false);
-    return result.code;
+    const versionMatch = result.output.match(/version=(\S+)/);
+    return { code: result.code, version: versionMatch?.[1] };
   }, [busy]);
 
   const runUninstall = useCallback(async (packageName: string) => {

@@ -15,9 +15,9 @@ const HomePage: React.FC = () => {
     e.preventDefault();
     if (!installName.trim()) return;
     const pkg = installName.trim();
-    const code = await runInstall(pkg);
-    if (code === 0) {
-      addInstalled(pkg);
+    const result = await runInstall(pkg);
+    if (result.code === 0) {
+      addInstalled(pkg, result.version);
     }
     setInstallName('');
   };
