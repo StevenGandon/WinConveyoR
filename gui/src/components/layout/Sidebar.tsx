@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePackages } from '../../context/PackageContext';
 import { useAuth } from '../../context/AuthContext';
-import { Package as PackageIcon, Download, RefreshCw, Settings, Home, Search, LogOut, User } from 'lucide-react';
+import { Package as PackageIcon, Download, RefreshCw, Settings, Home, Search, LogOut, User, Terminal } from 'lucide-react';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -75,6 +75,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
           isActive={activePage === 'updates'}
           count={updatablePackages.length}
           onClick={() => onNavigate('updates')}
+        />
+        <SidebarItem
+          icon={<Terminal size={18} />}
+          label="Output"
+          isActive={activePage === 'output'}
+          onClick={() => onNavigate('output')}
         />
       </div>
 

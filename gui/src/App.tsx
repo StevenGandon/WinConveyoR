@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SettingsProvider } from './context/SettingsContext';
 import { PackageProvider } from './context/PackageContext';
+import { CliProvider } from './context/CliContext';
 import TitleBar from './components/layout/TitleBar';
 import Sidebar from './components/layout/Sidebar';
 import HomePage from './pages/HomePage';
@@ -9,6 +10,7 @@ import DiscoverPage from './pages/DiscoverPage';
 import InstalledPage from './pages/InstalledPage';
 import UpdatesPage from './pages/UpdatesPage';
 import SettingsPage from './pages/SettingsPage';
+import OutputPage from './pages/OutputPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -56,7 +58,7 @@ function MainApp() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && !isNaN(Number(e.key))) {
         e.preventDefault();
-        const pages = ['home', 'discover', 'installed', 'updates', 'settings'];
+        const pages = ['home', 'discover', 'installed', 'updates', 'output', 'settings'];
         const index = Number(e.key) - 1;
         if (index >= 0 && index < pages.length) {
           setActivePage(pages[index]);
@@ -78,6 +80,8 @@ function MainApp() {
         return <InstalledPage />;
       case 'updates':
         return <UpdatesPage />;
+      case 'output':
+        return <OutputPage />;
       case 'settings':
         return <SettingsPage />;
       default:
@@ -87,6 +91,7 @@ function MainApp() {
 
   return (
     <PackageProvider>
+      <CliProvider>
       <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <TitleBar />
         <div className="flex flex-1 overflow-hidden">
@@ -96,6 +101,7 @@ function MainApp() {
           </main>
         </div>
       </div>
+      </CliProvider>
     </PackageProvider>
   );
 }

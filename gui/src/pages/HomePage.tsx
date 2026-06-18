@@ -1,56 +1,24 @@
-import { useState, useEffect, useRef } from 'react';
-import { Package as PackageIcon, Download, RefreshCw, Terminal } from 'lucide-react';
+import { useState } from 'react';
+import { Package as PackageIcon, Download, RefreshCw } from 'lucide-react';
 import { usePackages } from '../context/PackageContext';
+import { useCli } from '../context/CliContext';
 import Card, { CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
 const HomePage: React.FC = () => {
   const { installedPackages, updatablePackages, addInstalled } = usePackages();
+  const { busy, runUpdate, runInstall } = useCli();
   const [installName, setInstallName] = useState('');
-  const [log, setLog] = useState('');
-  const [busy, setBusy] = useState(false);
-  const logRef = useRef<HTMLPreElement>(null);
-
-  useEffect(() => {
-    const cleanup = window.electronAPI?.onCliOutput((text) => {
-      setLog(prev => prev + text);
-    });
-    return () => cleanup?.();
-  }, []);
-
-  useEffect(() => {
-    if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
-  }, [log]);
-
-  const handleUpdate = async () => {
-    if (!window.electronAPI) return;
-    setBusy(true);
-    setLog('');
-    const result = await window.electronAPI.runUpdate();
-    if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
-    setBusy(false);
-  };
 
   const handleInstall = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!window.electronAPI || !installName.trim()) return;
-    setBusy(true);
-    setLog('');
+    if (!installName.trim()) return;
     const pkg = installName.trim();
-    const result = await window.electronAPI.runInstall(pkg);
-    if (result.code === 0) {
-      const resolved = result.output.match(/install: resolving '([^']+)'/g);
-      if (resolved) {
-        resolved.forEach(m => {
-          const name = m.match(/'([^']+)'/)?.[1];
-          if (name) addInstalled(name);
-        });
-      }
-    } else {
-      setLog(prev => prev + `\nExited with code ${result.code}`);
+    const code = await runInstall(pkg);
+    if (code === 0) {
+      addInstalled(pkg);
     }
-    setBusy(false);
     setInstallName('');
   };
 
@@ -109,7 +77,7 @@ const HomePage: React.FC = () => {
             <Button
               variant="primary"
               leftIcon={<RefreshCw size={18} />}
-              onClick={handleUpdate}
+              onClick={runUpdate}
               disabled={busy}
               isLoading={busy}
             >
@@ -144,24 +112,6 @@ const HomePage: React.FC = () => {
         </Card>
       </div>
 
-      {log && (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-2">
-              <Terminal size={18} className="text-gray-500" />
-              <CardTitle>Output</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <pre
-              ref={logRef}
-              className="bg-gray-950 text-green-400 text-sm font-mono p-4 rounded-lg max-h-64 overflow-auto whitespace-pre-wrap"
-            >
-              {log}
-            </pre>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 };

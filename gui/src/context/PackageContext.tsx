@@ -7,6 +7,7 @@ interface PackageContextType {
   updatablePackages: Package[];
   isLoading: boolean;
   addInstalled: (name: string, version?: string) => void;
+  removeInstalled: (name: string) => void;
 }
 
 const PackageContext = createContext<PackageContextType | undefined>(undefined);
@@ -24,9 +25,13 @@ export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ child
     });
   };
 
+  const removeInstalled = (name: string) => {
+    setPackages(prev => prev.filter(p => p.name !== name));
+  };
+
   return (
     <PackageContext.Provider
-      value={{ packages, installedPackages, updatablePackages, isLoading: false, addInstalled }}
+      value={{ packages, installedPackages, updatablePackages, isLoading: false, addInstalled, removeInstalled }}
     >
       {children}
     </PackageContext.Provider>

@@ -1,12 +1,21 @@
-import { Package as PackageIcon, RefreshCw } from 'lucide-react';
+import { Package as PackageIcon, RefreshCw, Trash2 } from 'lucide-react';
 import { usePackages } from '../context/PackageContext';
+import { useCli } from '../context/CliContext';
 import Header from '../components/layout/Header';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 
 const InstalledPage: React.FC = () => {
-  const { installedPackages } = usePackages();
+  const { installedPackages, removeInstalled } = usePackages();
+  const { busy, runUninstall } = useCli();
+
+  const handleUninstall = async (name: string) => {
+    const code = await runUninstall(name);
+    if (code === 0) {
+      removeInstalled(name);
+    }
+  };
 
   return (
     <>
@@ -56,13 +65,22 @@ const InstalledPage: React.FC = () => {
                       )}
                     </div>
                   </div>
-                  {pkg.isUpdatable && (
-                    <div className="mt-auto px-4 pb-4 flex justify-end">
+                  <div className="mt-auto px-4 pb-4 flex justify-end space-x-2">
+                    {pkg.isUpdatable && (
                       <Button variant="secondary" size="sm" leftIcon={<RefreshCw size={14} />}>
                         Update
                       </Button>
-                    </div>
-                  )}
+                    )}
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      leftIcon={<Trash2 size={14} />}
+                      onClick={() => handleUninstall(pkg.name)}
+                      disabled={busy}
+                    >
+                      Uninstall
+                    </Button>
+                  </div>
                 </Card>
               ))}
             </div>
