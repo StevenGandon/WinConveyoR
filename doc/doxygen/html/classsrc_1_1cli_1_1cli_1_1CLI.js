@@ -19,6 +19,7 @@ var classsrc_1_1cli_1_1cli_1_1CLI =
     [ "register_user", "classsrc_1_1cli_1_1cli_1_1CLI.html#aad3ad1515fbb540b403610f5161cf505", null ],
     [ "run", "classsrc_1_1cli_1_1cli_1_1CLI.html#a7c7f7f4c15235aa1bbb933a5958165a8", null ],
     [ "show_help", "classsrc_1_1cli_1_1cli_1_1CLI.html#a9db353fcd675457e0a0487857ea275a8", null ],
+    [ "uninstall_package", "classsrc_1_1cli_1_1cli_1_1CLI.html#a6a947195ad772024ff468e308427579c", null ],
     [ "update_sources", "classsrc_1_1cli_1_1cli_1_1CLI.html#aba24de68e21148bc436302054ab0eb04", null ],
     [ "_graphic", "classsrc_1_1cli_1_1cli_1_1CLI.html#ac6286154b4090bf6aa26362b0fac34c9", null ],
     [ "_pipes", "classsrc_1_1cli_1_1cli_1_1CLI.html#a4aca4e8ced588b0c86efe8cdc94102c3", null ],

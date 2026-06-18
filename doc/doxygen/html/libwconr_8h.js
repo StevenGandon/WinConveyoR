@@ -29,6 +29,7 @@ var libwconr_8h =
     [ "load_state", "libwconr_8h.html#a8bd2041a67bb12dd529190e75320243b", null ],
     [ "new_state", "libwconr_8h.html#a1815617a622e3776dc61ecf67def9157", null ],
     [ "sync_package_list", "libwconr_8h.html#aed8a7d2f660f1149f7f5a4a27a1d54db", null ],
+    [ "uninstall_package", "libwconr_8h.html#a5de9bebf15d197d58616754b5c82419d", null ],
     [ "wcr_set_event_callback", "libwconr_8h.html#a3a71e273e4e005ab38ddd005cd87a4a0", null ],
     [ "wcr_state_add_source", "libwconr_8h.html#a2a72d0139b22dbceaa725fe267afa51c", null ],
     [ "write_state", "libwconr_8h.html#afb2e55496f2db23dcf3ef5695a403531", null ]

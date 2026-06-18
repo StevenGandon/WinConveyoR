@@ -64,17 +64,17 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CLI.html",
-"classsrc_1_1arghandler_1_1GenericArgument.html#adb764d7b316580bd507b4330a6466719",
-"classsrc_1_1cli_1_1cli_1_1CLI.html#aee7b2f34360fe31e3e95652c8e39632f",
-"classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html#afa12a68c20a9f165f5ca773735c08f00",
-"classsrc_1_1package_1_1package_1_1Package.html",
-"classsrc_1_1thread_1_1job_1_1Job.html#afda0472b28f197954738484aced70c7c",
-"classsrc_1_1wizard_1_1classes_1_1section_1_1WizardCodeSection.html",
-"daemon_2main_8py.html",
-"http__parsing_8c.html#a80a9418bb8c99d8ea6efd25e628af2b3",
-"namespacesrc_1_1package_1_1package__listing.html",
-"structwcr__conn__s.html#aa8b5b8e6a656664c28586d2f4a8a3468",
-"win_2http_8c.html#aeb3aa6a9b9fadb2018760a469d61bca2"
+"classsrc_1_1arghandler_1_1GenericArgument.html#a9ad0cd00296cb54b6abf32d6fc95de15",
+"classsrc_1_1cli_1_1cli_1_1CLI.html#adc6113eb465c47e7b89e86bbf40a78ac",
+"classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiler.html",
+"classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#ada3793cc54dfa5d10fd8ac68723cd2ee",
+"classsrc_1_1thread_1_1job_1_1Job.html#ab1882d966998ec6a1e48f3db4ba680f7",
+"classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#aebb9294058b448800bea853e89c6aeac",
+"client_8py.html",
+"http__headers_8c.html",
+"namespacesrc_1_1graphic_1_1pattern_1_1loader.html",
+"structvm__handler__version.html#a0f7989a91a7962ccc2b92eb30e18a1bc",
+"wcrmirror_8py.html#acfda2bd786da45037a4530abfedb332c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

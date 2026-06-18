@@ -15,6 +15,7 @@ var dir_37463f7b500003f87409365bdbbff0f6 =
     [ "pkg_parsing.c", "pkg__parsing_8c.html", "pkg__parsing_8c" ],
     [ "platform_types.h", "platform__types_8h.html", null ],
     [ "sync_package_list.c", "sync__package__list_8c.html", "sync__package__list_8c" ],
+    [ "uninstall_package.c", "uninstall__package_8c.html", "uninstall__package_8c" ],
     [ "vm.c", "vm_8c.html", "vm_8c" ],
     [ "vm_decode.c", "vm__decode_8c.html", "vm__decode_8c" ],
     [ "vm_handlers.c", "vm__handlers_8c.html", "vm__handlers_8c" ],
