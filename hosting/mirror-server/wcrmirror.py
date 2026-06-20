@@ -356,6 +356,48 @@ def route_get_package_metadata(client: Client, server: Server, message: JSONMess
 
     client.write(Message(Message.MAGIC, 0x00, dumps(package_listing.package_data)))
 
+@protected_route(FLAG_USER)
+def route_get_file(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    from base64 import b64encode
+    from os.path import isfile, join
+
+    if ("file_path" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "ko"},
+            "code": 1
+        }))
+        return
+
+    file_path = message.content["data"]["file_path"]
+
+    if (".." in file_path):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "invalid_path"},
+            "code": 1
+        }))
+        return
+
+    if (file_path.startswith("/")):
+        file_path = file_path[1:]
+
+    wcr_dir = "." if "WCR_DIR" not in environ else environ["WCR_DIR"]
+    full_path = join(wcr_dir, file_path)
+
+    if (not isfile(full_path)):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    with open(full_path, "rb") as f:
+        content = b64encode(f.read()).decode("ascii")
+
+    client.write(Message(Message.MAGIC, 0x00, content))
+
 @protected_route(FLAG_ADMIN)
 def route_write(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.session_instance.write()
@@ -449,6 +491,7 @@ def main():
     R.add_route("get_listing", route_get_listing)
     R.add_route("get_package_listing", route_get_package_listing)
     R.add_route("get_package_metadata", route_get_package_metadata)
+    R.add_route("get_file", route_get_file)
     R.add_route("goodbye", route_goodbye)
 
     S.set_handler(WCRHandler(R))

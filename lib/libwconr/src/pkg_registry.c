@@ -6,6 +6,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+static int is_already_installed(const char *path, const char *name)
+{
+    FILE *fp;
+    char line[REGISTRY_LINE_MAX];
+    size_t name_len;
+
+    fp = fopen(path, "r");
+    if (!fp)
+        return 0;
+
+    name_len = strlen(name);
+
+    while (fgets(line, sizeof(line), fp)) {
+        if (strncmp(line, name, name_len) == 0 && line[name_len] == ',') {
+            fclose(fp);
+            return 1;
+        }
+    }
+
+    fclose(fp);
+    return 0;
+}
+
 int record_installed(const wcr_state *state, const char *name, const char *version)
 {
     char *path;
@@ -14,6 +37,12 @@ int record_installed(const wcr_state *state, const char *name, const char *versi
     path = get_cache_path(state, INSTALLED_LIST_FILE);
     if (!path)
         return -1;
+
+    if (is_already_installed(path, name)) {
+        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] record_installed: '%s' already registered, skipping", name);
+        free(path);
+        return 0;
+    }
 
     fp = fopen(path, "a");
     if (!fp) {

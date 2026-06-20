@@ -295,18 +295,32 @@ static int install_ctx_add(const wcr_state *state, wcr_install_ctx *ctx, const c
     return 0;
 }
 
-static int install_wcr(const wcr_state *state, const char *source_uri, const char *package_name)
+static int install_wcr_single(const wcr_state *state, const char *source_uri,
+                              const char *package_name, wcr_install_ctx *ctx)
 {
     char host[256];
     int port;
     wcr_conn *conn;
     char *address = NULL;
-    char *sha256 = NULL;
+    char *sha256_expected = NULL;
+    char *sha256_local = NULL;
+    char *local_path = NULL;
+    char *version = NULL;
     char **depends = NULL;
     size_t depends_count = 0;
     size_t i;
     const char *access_key;
-    int rc;
+    const char *basename;
+
+    if (install_ctx_has(ctx, package_name)) {
+        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] install_wcr: skipping already-visited '%s'", package_name);
+        return 0;
+    }
+
+    if (install_ctx_add(state, ctx, package_name) != 0)
+        return -1;
+
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: resolving '%s'", package_name);
 
     parse_host_port(source_uri, host, sizeof(host), &port);
 
@@ -319,27 +333,102 @@ static int install_wcr(const wcr_state *state, const char *source_uri, const cha
         return -1;
     }
 
-    rc = wcr_fetch_metadata(state, conn, package_name, &address, &sha256, &depends, &depends_count);
-    wcr_close(conn);
-
-    if (rc != 0)
+    if (wcr_fetch_metadata(state, conn, package_name, &address, &sha256_expected, &depends, &depends_count) != 0) {
+        wcr_close(conn);
         return -1;
-
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: package=%s address=%s SHA256=%s", package_name, address, sha256);
-
-    if (depends_count > 0) {
-        wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: package has %zu dependencies:", depends_count);
-        for (i = 0; i < depends_count; i++)
-            wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr:   - %s", depends[i]);
     }
 
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: metadata retrieved successfully via WCR protocol");
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: archive download via WCR not supported yet (needs protocol extension)");
-
-    free(address);
-    free(sha256);
+    for (i = 0; i < depends_count; i++) {
+        wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: dependency '%s' required by '%s'",
+                 depends[i], package_name);
+        wcr_close(conn);
+        if (install_wcr_single(state, source_uri, depends[i], ctx) != 0) {
+            wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: failed to install dependency '%s'", depends[i]);
+            free(address);
+            free(sha256_expected);
+            free_string_array(depends, depends_count);
+            return -1;
+        }
+        conn = wcr_open(host, port);
+        if (!conn || wcr_auth(conn, access_key ? access_key : "") != 0) {
+            free(address);
+            free(sha256_expected);
+            free_string_array(depends, depends_count);
+            return -1;
+        }
+    }
     free_string_array(depends, depends_count);
+
+    basename = strrchr(address, '/');
+    basename = basename ? basename + 1 : address;
+
+    local_path = get_cache_path(state, basename);
+    if (!local_path) {
+        wcr_close(conn);
+        free(address);
+        free(sha256_expected);
+        return -1;
+    }
+
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: downloading %s", address);
+
+    if (wcr_download_file(conn, address, local_path) != 0) {
+        wcr_close(conn);
+        free(address);
+        free(sha256_expected);
+        free(local_path);
+        return -1;
+    }
+    wcr_close(conn);
+    free(address);
+
+    sha256_local = calculate_sha256_file(local_path);
+    if (!sha256_local || strcmp(sha256_local, sha256_expected) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: SHA256 mismatch (expected=%s got=%s)",
+                 sha256_expected, sha256_local ? sha256_local : "null");
+        free(sha256_expected);
+        free(sha256_local);
+        free(local_path);
+        return -1;
+    }
+    free(sha256_expected);
+    free(sha256_local);
+
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: SHA256 verified ok");
+
+    if (extract_archive(state, local_path, package_name) != 0) {
+        free(local_path);
+        return -1;
+    }
+    free(local_path);
+
+    {
+        char *pkgs_list_path = get_cache_path(state, "pkgs.list");
+        char *reg_path = NULL;
+        char *chk = NULL;
+
+        if (pkgs_list_path && find_package_in_list(pkgs_list_path, package_name, &reg_path, &chk, &version) == 0) {
+            free(reg_path);
+            free(chk);
+        }
+        free(pkgs_list_path);
+    }
+
+    record_installed(state, package_name, version ? version : "unknown");
+    free(version);
+
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: '%s' installed successfully", package_name);
     return 0;
+}
+
+static int install_wcr(const wcr_state *state, const char *source_uri, const char *package_name)
+{
+    wcr_install_ctx ctx = {0};
+    int rc;
+
+    rc = install_wcr_single(state, source_uri, package_name, &ctx);
+    install_ctx_cleanup(&ctx);
+    return rc;
 }
 
 static int install_http_with_deps(const wcr_state *state, protocol_type proto, const char *source_uri,

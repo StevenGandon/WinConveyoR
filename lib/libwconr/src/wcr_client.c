@@ -47,6 +47,7 @@ char *wcr_get_listing(wcr_conn *conn) { (void)conn; return NULL; }
 char *wcr_get_hash(wcr_conn *conn) { (void)conn; return NULL; }
 char *wcr_get_package_listing(wcr_conn *conn, const char *package_name) { (void)conn; (void)package_name; return NULL; }
 char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const char *location_hash) { (void)conn; (void)package_name; (void)location_hash; return NULL; }
+int wcr_download_file(wcr_conn *conn, const char *remote_path, const char *local_path) { (void)conn; (void)remote_path; (void)local_path; return -1; }
 
 #else
 
@@ -569,6 +570,62 @@ char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const c
     return wcr_request(conn, "get_package_metadata",
         "\"package_name\":\"%s\",\"location_hash\":\"%s\"",
         package_name, location_hash);
+}
+
+int wcr_download_file(wcr_conn *conn, const char *remote_path, const char *local_path)
+{
+    char *response;
+    unsigned char *decoded;
+    int decoded_len;
+    size_t resp_len;
+    int padding;
+    FILE *fp;
+
+    if (!conn || !remote_path || !local_path)
+        return -1;
+
+    response = wcr_request(conn, "get_file",
+        "\"file_path\":\"%s\"", remote_path);
+    if (!response) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_download_file: no response for '%s'", remote_path);
+        return -1;
+    }
+
+    resp_len = strlen(response);
+
+    padding = 0;
+    if (resp_len > 0 && response[resp_len - 1] == '=') padding++;
+    if (resp_len > 1 && response[resp_len - 2] == '=') padding++;
+
+    decoded = malloc(resp_len);
+    if (!decoded) {
+        free(response);
+        return -1;
+    }
+
+    decoded_len = EVP_DecodeBlock(decoded, (unsigned char *)response, (int)resp_len);
+    free(response);
+
+    if (decoded_len < 0) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_download_file: base64 decode failed");
+        free(decoded);
+        return -1;
+    }
+    decoded_len -= padding;
+
+    fp = fopen(local_path, "wb");
+    if (!fp) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_download_file: cannot open %s", local_path);
+        free(decoded);
+        return -1;
+    }
+
+    fwrite(decoded, 1, (size_t)decoded_len, fp);
+    fclose(fp);
+    free(decoded);
+
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] wcr_download_file: saved %d bytes to %s", decoded_len, local_path);
+    return 0;
 }
 
 #endif

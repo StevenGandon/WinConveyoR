@@ -44,5 +44,6 @@
     char *wcr_get_hash(wcr_conn *conn);
     char *wcr_get_package_listing(wcr_conn *conn, const char *package_name);
     char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const char *location_hash);
+    int wcr_download_file(wcr_conn *conn, const char *remote_path, const char *local_path);
 
 #endif /* !WCR_CLIENT_H_ */
