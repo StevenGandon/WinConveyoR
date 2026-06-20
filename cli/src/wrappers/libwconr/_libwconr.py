@@ -58,6 +58,16 @@ wcr_state_s._fields_ = [
 ]
 
 
+class wcr_installed_pkg_s(Structure):
+    pass
+
+wcr_installed_pkg_s._fields_ = [
+    ("name", c_char_p),
+    ("version", c_char_p),
+    ("is_dependency", c_int)
+]
+
+
 # ==== Interfaces ==== #
 
 class Mapper(object):
@@ -103,5 +113,7 @@ class Mapper(object):
         self._dll.register_function("sync_package_list", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p)
         self._dll.register_function("uninstall_package", c_int, POINTER(wcr_state_s), c_char_p)
+        self._dll.register_function("list_installed", c_int, POINTER(wcr_state_s), POINTER(POINTER(wcr_installed_pkg_s)), POINTER(c_size_t))
+        self._dll.register_function("free_installed_list", None, POINTER(wcr_installed_pkg_s), c_size_t)
         self._dll.register_function("wcr_set_event_callback", None, POINTER(wcr_state_s), c_void_p, POINTER(None))
 

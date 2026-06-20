@@ -73,6 +73,21 @@ class WCRState(object):
     def uninstall_package(self, package_name: str) -> int:
         return int(self.__mapper.call_function("uninstall_package", self._cstate, package_name.encode('utf-8')))
 
+    def list_installed(self) -> list:
+        out = POINTER(wcr_installed_pkg_s)()
+        count = c_size_t(0)
+        rc = int(self.__mapper.call_function("list_installed", self._cstate, pointer(out), pointer(count)))
+        if (rc != 0):
+            return []
+        result = []
+        for i in range(count.value):
+            name = out[i].name.decode('utf-8', errors='replace') if out[i].name else ""
+            version = out[i].version.decode('utf-8', errors='replace') if out[i].version else ""
+            result.append({"name": name, "version": version, "is_dependency": bool(out[i].is_dependency)})
+        if (count.value > 0):
+            self.__mapper.call_function("free_installed_list", out, count)
+        return result
+
     def set_event_callback(self, callback):
         def _c_callback(event_ptr, user_data):
             ev = event_ptr.contents

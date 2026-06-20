@@ -29,7 +29,7 @@ static int is_already_installed(const char *path, const char *name)
     return 0;
 }
 
-int record_installed(const wcr_state *state, const char *name, const char *version)
+int record_installed(const wcr_state *state, const char *name, const char *version, int is_dependency)
 {
     char *path;
     FILE *fp;
@@ -51,11 +51,11 @@ int record_installed(const wcr_state *state, const char *name, const char *versi
         return -1;
     }
 
-    fprintf(fp, "%s,%s\n", name, version);
+    fprintf(fp, "%s,%s,%d\n", name, version, is_dependency ? 1 : 0);
     fclose(fp);
     free(path);
 
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] record_installed: registered '%s' v%s", name, version);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] record_installed: registered '%s' v%s (dep=%d)", name, version, is_dependency);
     return 0;
 }
 
@@ -172,7 +172,20 @@ int list_installed(const wcr_state *state, wcr_installed_pkg **out, size_t *out_
         }
 
         list[count].name = strdup(line);
-        list[count].version = strdup(comma + 1);
+
+        {
+            char *second_comma = strchr(comma + 1, ',');
+
+            if (second_comma) {
+                *second_comma = '\0';
+                list[count].version = strdup(comma + 1);
+                list[count].is_dependency = atoi(second_comma + 1);
+            } else {
+                list[count].version = strdup(comma + 1);
+                list[count].is_dependency = 0;
+            }
+        }
+
         count++;
     }
 

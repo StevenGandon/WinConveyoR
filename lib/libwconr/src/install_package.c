@@ -296,7 +296,8 @@ static int install_ctx_add(const wcr_state *state, wcr_install_ctx *ctx, const c
 }
 
 static int install_wcr_single(const wcr_state *state, const char *source_uri,
-                              const char *package_name, wcr_install_ctx *ctx)
+                              const char *package_name, wcr_install_ctx *ctx,
+                              int is_dep)
 {
     char host[256];
     int port;
@@ -342,7 +343,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: dependency '%s' required by '%s'",
                  depends[i], package_name);
         wcr_close(conn);
-        if (install_wcr_single(state, source_uri, depends[i], ctx) != 0) {
+        if (install_wcr_single(state, source_uri, depends[i], ctx, 1) != 0) {
             wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: failed to install dependency '%s'", depends[i]);
             free(address);
             free(sha256_expected);
@@ -414,7 +415,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         free(pkgs_list_path);
     }
 
-    record_installed(state, package_name, version ? version : "unknown");
+    record_installed(state, package_name, version ? version : "unknown", is_dep);
     free(version);
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: '%s' installed successfully", package_name);
@@ -426,13 +427,14 @@ static int install_wcr(const wcr_state *state, const char *source_uri, const cha
     wcr_install_ctx ctx = {0};
     int rc;
 
-    rc = install_wcr_single(state, source_uri, package_name, &ctx);
+    rc = install_wcr_single(state, source_uri, package_name, &ctx, 0);
     install_ctx_cleanup(&ctx);
     return rc;
 }
 
 static int install_http_with_deps(const wcr_state *state, protocol_type proto, const char *source_uri,
-                                  const char *package_name, wcr_install_ctx *ctx)
+                                  const char *package_name, wcr_install_ctx *ctx,
+                                  int is_dep)
 {
     char *pkgs_list_path;
     char *register_path = NULL;
@@ -490,7 +492,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     for (i = 0; i < depends_count; i++) {
         wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: dependency '%s' required by '%s'",
                  depends[i], package_name);
-        if (install_http_with_deps(state, proto, source_uri, depends[i], ctx) != 0) {
+        if (install_http_with_deps(state, proto, source_uri, depends[i], ctx, 1) != 0) {
             wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: failed to install dependency '%s'",
                      depends[i]);
             free_string_array(depends, depends_count);
@@ -518,7 +520,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     }
 
     free(archive_path);
-    record_installed(state, package_name, version ? version : "unknown");
+    record_installed(state, package_name, version ? version : "unknown", is_dep);
     free(version);
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: '%s' installed successfully", package_name);
     return 0;
@@ -529,7 +531,7 @@ static int install_http(const wcr_state *state, protocol_type proto, const char 
     wcr_install_ctx ctx = {0};
     int rc;
 
-    rc = install_http_with_deps(state, proto, source_uri, package_name, &ctx);
+    rc = install_http_with_deps(state, proto, source_uri, package_name, &ctx, 0);
     install_ctx_cleanup(&ctx);
     return rc;
 }

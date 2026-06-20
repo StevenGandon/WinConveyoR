@@ -3,6 +3,7 @@ from os import environ, pipe, close
 from itertools import chain
 from signal import SIGINT, SIGTERM, signal
 from time import sleep
+from json import dumps
 
 from ..arghandler import *
 from ..wrappers import *
@@ -16,6 +17,7 @@ class CLI(object):
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
         "install": {"opt": ("install", "-i", "--install"), "exc": ()},
         "uninstall": {"opt": ("uninstall", "--uninstall"), "exc": ()},
+        "list": {"opt": ("list", "--list"), "exc": ()},
         "update": {"opt": ("update", "-u", "--update"), "exc": ()},
         "register": {"opt": ("register",), "exc": ()},
         "login": {"opt": ("login",), "exc": ()},
@@ -235,6 +237,23 @@ Exemples:
         sys.stderr.write(f"{sys.argv[0]} uninstall: failed.\n")
         return (1)
 
+    def list_packages(self):
+        packages = [p for p in self.wcr.list_installed() if not p.get("is_dependency")]
+
+        if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
+            sys.stdout.write(dumps(packages) + "\n")
+            return (0)
+
+        if (not packages):
+            sys.stdout.write("No packages installed.\n")
+            return (0)
+
+        for p in packages:
+            sys.stdout.write(f"{p['name']} {p['version']}\n")
+
+        sys.stdout.write(f"\n{len(packages)} package(s) installed.\n")
+        return (0)
+
     def update_sources(self):
         sources = self.wcr.get_sources()
         if (not sources):
@@ -345,6 +364,9 @@ Exemples:
 
         if (self.has_opt("uninstall")):
             return self.uninstall_package()
+
+        if (self.has_opt("list")):
+            return self.list_packages()
 
         if (self.has_opt("update")):
             return self.update_sources()
