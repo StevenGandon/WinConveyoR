@@ -289,7 +289,7 @@ def route_get_package_listing(client: Client, server: Server, message: JSONMessa
 
     package.load()
 
-    client.write(Message(Message.MAGIC, 0x00, '\r\n'.join(f"{item.version} {item.architecture} {item.machine} {sha256(str(item.location).encode(errors="replace")).hexdigest()}" for item in package.listing.values())))
+    client.write(Message(Message.MAGIC, 0x00, '\r\n'.join(f"{item.version} {item.architecture} {item.machine} {sha256(str(item.location).encode(errors='replace')).hexdigest()}" for item in package.listing.values())))
 
 @protected_route(FLAG_USER)
 def route_get_package_metadata(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
@@ -336,7 +336,7 @@ def route_get_package_metadata(client: Client, server: Server, message: JSONMess
     package.load()
 
     for item in package.listing.values():
-        if (int.from_bytes(sha256(str(item.location).encode(errors="replace")).digest(), "big") != location_hash):
+        if (int.from_bytes(sha256(str(item.location).encode(errors='replace')).digest(), "big") != location_hash):
             continue
         package_listing = item
         break
