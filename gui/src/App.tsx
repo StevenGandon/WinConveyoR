@@ -22,8 +22,9 @@ function AuthGate() {
     if (!token) setAuthPage('login');
   }, [token]);
 
-  // AUTH BYPASS — remove this block to re-enable auth
-  return <MainApp />;
+  if (token === 'anonymous') {
+    return <MainApp />;
+  }
 
   if (isLoading) {
     return (
