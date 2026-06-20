@@ -7,6 +7,7 @@ import sys
 
 def main() -> int:
     add_dll_registry_path("./lib/libwconr/")
+    add_dll_registry_path("./lib/libwconr/build/")
 
     status = 0
 

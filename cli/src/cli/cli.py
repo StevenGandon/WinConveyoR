@@ -8,13 +8,17 @@ from ..arghandler import *
 from ..wrappers import *
 from ..graphic import *
 from ..packaging import resource_path
+from .. import api_client
 
 class CLI(object):
     OPTION_TABLE: dict = {
         "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
         "install": {"opt": ("install", "-i", "--install"), "exc": ()},
+        "uninstall": {"opt": ("uninstall", "--uninstall"), "exc": ()},
         "update": {"opt": ("update", "-u", "--update"), "exc": ()},
+        "register": {"opt": ("register",), "exc": ()},
+        "login": {"opt": ("login",), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -216,6 +220,21 @@ Exemples:
         sys.stderr.write(f"{sys.argv[0]} install: failed from all sources.\n")
         return (1)
 
+    def uninstall_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_name):
+            sys.stderr.write(f"{sys.argv[0]} uninstall: no package name provided.\n")
+            return (1)
+
+        rc = self.wcr.uninstall_package(package_name)
+        if (rc == 0):
+            sys.stdout.write(f"{sys.argv[0]} uninstall: ok.\n")
+            return (0)
+
+        sys.stderr.write(f"{sys.argv[0]} uninstall: failed.\n")
+        return (1)
+
     def update_sources(self):
         sources = self.wcr.get_sources()
         if (not sources):
@@ -236,6 +255,50 @@ Exemples:
 
         sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
         return (0)
+
+    def register_user(self):
+        from getpass import getpass
+
+        sys.stdout.write("Username: ")
+        sys.stdout.flush()
+        username = input()
+        sys.stdout.write("Email: ")
+        sys.stdout.flush()
+        email = input()
+        password = getpass("Password: ")
+        confirm = getpass("Confirm password: ")
+
+        if (password != confirm):
+            sys.stderr.write(f"{sys.argv[0]} register: passwords do not match.\n")
+            return (1)
+
+        sys.stdout.write("Full name (optional): ")
+        sys.stdout.flush()
+        full_name = input() or None
+
+        try:
+            user = api_client.register(username, email, password, full_name)
+            sys.stdout.write(f"{sys.argv[0]} register: account created ({user['username']}).\n")
+            return (0)
+        except RuntimeError as e:
+            sys.stderr.write(f"{sys.argv[0]} register: {e}\n")
+            return (1)
+
+    def login_user(self):
+        from getpass import getpass
+
+        sys.stdout.write("Email: ")
+        sys.stdout.flush()
+        email = input()
+        password = getpass("Password: ")
+
+        try:
+            api_client.login(email, password)
+            sys.stdout.write(f"{sys.argv[0]} login: ok.\n")
+            return (0)
+        except RuntimeError as e:
+            sys.stderr.write(f"{sys.argv[0]} login: {e}\n")
+            return (1)
 
     def _make_event_callback(self):
         use_color = hasattr(self, '_graphic') and self._graphic._settings.color
@@ -280,8 +343,17 @@ Exemples:
         if (self.has_opt("install")):
             return self.install_package()
 
+        if (self.has_opt("uninstall")):
+            return self.uninstall_package()
+
         if (self.has_opt("update")):
             return self.update_sources()
+
+        if (self.has_opt("register")):
+            return self.register_user()
+
+        if (self.has_opt("login")):
+            return self.login_user()
 
         sys.stderr.write(f"{sys.argv[0]}: no operation specified (use -h for help).\n")
         return (1)

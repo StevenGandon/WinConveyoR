@@ -73,14 +73,14 @@ jobs:
     if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Dependencies (Linux/Mac)
-        if: ${{ matrix.os != 'windows-latest' }}
+        if: ${{ matrix.os != 'windows-2022' }}
         run: |
           if [ "$(uname)" = "Darwin" ]; then
             brew update || true;
@@ -91,14 +91,14 @@ jobs:
           fi
 
       - name: Setup Dependencies (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ matrix.os == 'windows-2022' }}
         run: |
           choco install cmake -y
           choco install make -y
           vcpkg install libxml2:x64-windows
 
       - name: Set up Python version (Windows)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2022'
 
         uses: actions/setup-python@v4
         with:
@@ -109,7 +109,7 @@ jobs:
         run: |
           cd lib/libwconr
           rm -rf build || true
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+          if [ "${{ matrix.os }}" = "windows-2022" ]; then
             cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake \
               -DVCPKG_TARGET_TRIPLET=x64-windows
@@ -137,7 +137,7 @@ jobs:
           fi
 
       - name: Verify Binaries on Windows
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ matrix.os == 'windows-2022' }}
         shell: powershell
         run: |
           foreach ($f in ${{ env.BINARIES_NT }}) {
@@ -148,7 +148,7 @@ jobs:
           }
 
       - name: Verify Binaries on Linux/Mac
-        if: ${{ matrix.os != 'windows-latest' }}
+        if: ${{ matrix.os != 'windows-2022' }}
         shell: bash
         run: |
           for binary in $(echo "${{ env.BINARIES_POSIX }}" | tr ' ' '\n'); do
@@ -184,13 +184,13 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-2022]
         include:
           - os: ubuntu-latest
             release_suffix: ubuntu
           - os: macos-latest
             release_suffix: mac
-          - os: windows-latest
+          - os: windows-2022
             release_suffix: windows
     runs-on: ${{ matrix.os }}
     steps:
@@ -198,7 +198,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup dependencies (Linux/Mac - Release)
-        if: ${{ matrix.os != 'windows-latest' }}
+        if: ${{ matrix.os != 'windows-2022' }}
         run: |
           if [ "$(uname)" = "Darwin" ]; then
             brew update
@@ -210,7 +210,7 @@ jobs:
           fi
 
       - name: Setup dependencies (Windows - Release)
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ matrix.os == 'windows-2022' }}
         run: |
           choco install cmake -y
           choco install make -y
@@ -218,7 +218,7 @@ jobs:
           vcpkg install libxml2:x64-windows
 
       - name: Set up Python version (Windows - Release)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2022'
 
         uses: actions/setup-python@v4
         with:
@@ -229,7 +229,7 @@ jobs:
         run: |
           cd lib/libwconr
           rm -rf build || true
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+          if [ "${{ matrix.os }}" = "windows-2022" ]; then
             cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake \
               -DVCPKG_TARGET_TRIPLET=x64-windows
@@ -253,13 +253,13 @@ jobs:
           fi
 
       - name: Package release (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ matrix.os == 'windows-2022' }}
         shell: powershell
         run: |
           Compress-Archive -Path ${{ env.BINARIES_NT }} -DestinationPath release_windows.zip
 
       - name: Package release (Linux/macOS)
-        if: ${{ matrix.os != 'windows-latest' }}
+        if: ${{ matrix.os != 'windows-2022' }}
         shell: bash
         run: |
           zip -j release_${{ matrix.release_suffix }}.zip ${{ env.BINARIES_POSIX }}
@@ -273,4 +273,4 @@ jobs:
           files: |
             ${{ matrix.os == 'ubuntu-latest' && 'release_ubuntu.zip' || '' }}
             ${{ matrix.os == 'macos-latest' && 'release_mac.zip' || '' }}
-            ${{ matrix.os == 'windows-latest' && 'release_windows.zip' || '' }}
+            ${{ matrix.os == 'windows-2022' && 'release_windows.zip' || '' }}

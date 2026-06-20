@@ -15,5 +15,6 @@ var searchData=
   ['mode_12',['mode',['../classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html#a7cb6030c56af84a94f79dd4ff29c39c8',1,'src.graphic.graphic.GraphicSettings.mode'],['../classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#ac25749b7235bed0b950dabc17f29ccdc',1,'src.scheduler.task.TextIOLocal.mode']]],
   ['mode_5fdisplay_5fno_5fanimation_13',['MODE_DISPLAY_NO_ANIMATION',['../namespacesrc_1_1graphic_1_1graphic.html#a989b7e344a3a46bc77a19473095bef74',1,'src::graphic::graphic']]],
   ['mode_5fdisplay_5fsimple_14',['MODE_DISPLAY_SIMPLE',['../namespacesrc_1_1graphic_1_1graphic.html#abf8f5e68fe3d225854613488ae0b5479',1,'src::graphic::graphic']]],
-  ['model_15',['model',['../classrepository_1_1Repository.html#ae4d40227550c8c763a85493ffaf6ab9f',1,'repository::Repository']]]
+  ['model_15',['model',['../classrepository_1_1Repository.html#ae4d40227550c8c763a85493ffaf6ab9f',1,'repository::Repository']]],
+  ['model_5fconfig_16',['model_config',['../classschemas_1_1user_1_1UserOut.html#afce99e492b7fa6931f814c650be44f61',1,'schemas::user::UserOut']]]
 ];

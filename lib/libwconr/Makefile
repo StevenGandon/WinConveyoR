@@ -9,7 +9,10 @@ SRC	=	./src/wcr_state.c	\
 		./src/pkg_parsing.c \
 		./src/sync_package_list.c \
 		./src/install_package.c \
+		./src/uninstall_package.c \
 		./src/wcr_client.c \
+		./src/wcr_crypt.c \
+		./src/wcr_event.c \
 		./src/pars_wizard.c \
 		./src/wizard_endian.c \
 		./src/wizard_section.c \
@@ -26,8 +29,8 @@ EXT		?=	so
 CC		?=	gcc
 CFLAGS	+=	-Wall -Wshadow -Wextra -Wdouble-promotion -Waggregate-return -Wstrict-prototypes \
 			-pedantic -Werror -Wformat -Wcast-qual -Wconversion -Winit-self	\
-			-I ./ -I /usr/include/libxml2 -fPIC -O2
-LDFLAGS	+=	-lm -lxml2
+			-I ./ -I /usr/include/libxml2 -I /usr/include/cjson -fPIC -O2
+LDFLAGS	+=	-lm -lxml2 -lcjson -lcurl -lssl -lcrypto
 
 ifeq ($(OS), Windows_NT)
 	SRC += ./src/win/http.c

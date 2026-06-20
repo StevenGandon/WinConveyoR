@@ -6,5 +6,6 @@ var dir_79b6dccc634a0e640565b87a866d8ba9 =
     [ "packaging", "dir_1dd077c108f96646dcb4ab138b1a741f.html", "dir_1dd077c108f96646dcb4ab138b1a741f" ],
     [ "thread", "dir_ffb9786941e8e44bdd918e18ebff4f8f.html", "dir_ffb9786941e8e44bdd918e18ebff4f8f" ],
     [ "wrappers", "dir_102de9fbb1d5015940e59c7cb5462e06.html", "dir_102de9fbb1d5015940e59c7cb5462e06" ],
-    [ "__init__.py", "cli_2src_2____init_____8py.html", null ]
+    [ "__init__.py", "cli_2src_2____init_____8py.html", null ],
+    [ "api_client.py", "api__client_8py.html", "api__client_8py" ]
 ];

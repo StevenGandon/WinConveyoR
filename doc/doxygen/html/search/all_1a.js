@@ -25,12 +25,11 @@ var searchData=
   ['options_22',['options',['../classsrc_1_1arghandler_1_1ArgumentParser.html#aeda6e853561024c930ca22749e8ba6c5',1,'src::arghandler::ArgumentParser']]],
   ['or_20concerns_23',['Privacy Questions or Concerns',['../md_doc_2privacy__policy.html#autotoc_md157',1,'']]],
   ['organization_24',['Test Organization',['../md_CONTRIBUTING.html#autotoc_md35',1,'']]],
-  ['orm_5fmode_25',['orm_mode',['../classschemas_1_1user_1_1UserOut_1_1Config.html#a4af5f4d26778f32c4ec862d78484e57f',1,'schemas::user::UserOut::Config']]],
-  ['ospeed_26',['OSPEED',['../namespacesrc_1_1common_1_1user__input.html#a2b3e0b9a1bc1f3b315f539b5a63b9819',1,'src::common::user_input']]],
-  ['other_20jurisdictions_27',['Other Jurisdictions',['../md_doc_2privacy__policy.html#autotoc_md167',1,'']]],
-  ['our_20commitment_28',['Our Commitment',['../md_doc_2privacy__policy.html#autotoc_md169',1,'']]],
-  ['our_20discord_29',['Join Our Discord',['../md_CONTRIBUTING.html#autotoc_md41',1,'']]],
-  ['our_20practices_30',['Audit Our Practices',['../md_doc_2privacy__policy.html#autotoc_md170',1,'']]],
-  ['out_20of_20ip_20logging_31',['Opt-Out of IP Logging',['../md_doc_2privacy__policy.html#autotoc_md130',1,'']]],
-  ['outil_32',['&lt;tt&gt;run&lt;/tt&gt; — exécuter un outil',['../md_doc_2config__documentation.html#autotoc_md65',1,'']]]
+  ['ospeed_25',['OSPEED',['../namespacesrc_1_1common_1_1user__input.html#a2b3e0b9a1bc1f3b315f539b5a63b9819',1,'src::common::user_input']]],
+  ['other_20jurisdictions_26',['Other Jurisdictions',['../md_doc_2privacy__policy.html#autotoc_md167',1,'']]],
+  ['our_20commitment_27',['Our Commitment',['../md_doc_2privacy__policy.html#autotoc_md169',1,'']]],
+  ['our_20discord_28',['Join Our Discord',['../md_CONTRIBUTING.html#autotoc_md41',1,'']]],
+  ['our_20practices_29',['Audit Our Practices',['../md_doc_2privacy__policy.html#autotoc_md170',1,'']]],
+  ['out_20of_20ip_20logging_30',['Opt-Out of IP Logging',['../md_doc_2privacy__policy.html#autotoc_md130',1,'']]],
+  ['outil_31',['&lt;tt&gt;run&lt;/tt&gt; — exécuter un outil',['../md_doc_2config__documentation.html#autotoc_md65',1,'']]]
 ];

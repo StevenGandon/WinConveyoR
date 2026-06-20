@@ -12,7 +12,6 @@ var hierarchy =
     [ "_wizard_vm_s", "struct__wizard__vm__s.html", null ],
     [ "cached_source_s", "structcached__source__s.html", null ],
     [ "core.config.Settings.Config", "classcore_1_1config_1_1Settings_1_1Config.html", null ],
-    [ "schemas.user.UserOut.Config", "classschemas_1_1user_1_1UserOut_1_1Config.html", null ],
     [ "Exception", null, [
       [ "src.arghandler.ArgumentHandlerException", "classsrc_1_1arghandler_1_1ArgumentHandlerException.html", [
         [ "src.arghandler.ArgumentExclusionMatch", "classsrc_1_1arghandler_1_1ArgumentExclusionMatch.html", null ],
@@ -146,10 +145,13 @@ var hierarchy =
       [ "models.user.User", "classmodels_1_1user_1_1User.html", null ]
     ] ],
     [ "BaseModel", null, [
+      [ "schemas.user.TokenOut", "classschemas_1_1user_1_1TokenOut.html", null ],
       [ "schemas.user.UserBase", "classschemas_1_1user_1_1UserBase.html", [
         [ "schemas.user.UserIn", "classschemas_1_1user_1_1UserIn.html", null ],
         [ "schemas.user.UserOut", "classschemas_1_1user_1_1UserOut.html", null ]
-      ] ]
+      ] ],
+      [ "schemas.user.UserLogin", "classschemas_1_1user_1_1UserLogin.html", null ],
+      [ "schemas.user.UserRegister", "classschemas_1_1user_1_1UserRegister.html", null ]
     ] ],
     [ "BaseSettings", null, [
       [ "core.config.Settings", "classcore_1_1config_1_1Settings.html", null ]

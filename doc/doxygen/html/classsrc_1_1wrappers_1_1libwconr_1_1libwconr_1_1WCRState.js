@@ -11,6 +11,7 @@ var classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState =
     [ "save", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#a7040ad8906ea8ca1ef7100d39bac57bc", null ],
     [ "set_event_callback", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#a927974148f5f61a5c49790b286d71114", null ],
     [ "sync_package_list", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#a7ca1594f610d23742f1e9141fdb69ba3", null ],
+    [ "uninstall_package", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#a0f96ef02452d1322cd5f8fe0d6186f75", null ],
     [ "_cstate", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#a490510d2bea24ba67cc1b7f109ddc06b", null ],
     [ "_event_cb_ref", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#a1b43bf3da1315ac9e14c462a0f949968", null ]
 ];
