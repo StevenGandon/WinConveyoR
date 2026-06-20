@@ -12,8 +12,23 @@ interface PackageContextType {
 
 const PackageContext = createContext<PackageContextType | undefined>(undefined);
 
+const STORAGE_KEY = 'wcr_packages';
+
+const loadPackages = (): Package[] => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+const savePackages = (pkgs: Package[]) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(pkgs));
+};
+
 export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [packages, setPackages] = useState<Package[]>([]);
+  const [packages, setPackages] = useState<Package[]>(loadPackages);
 
   const installedPackages = packages.filter(pkg => pkg.isInstalled);
   const updatablePackages = packages.filter(pkg => pkg.isInstalled && pkg.isUpdatable);
@@ -21,12 +36,18 @@ export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const addInstalled = (name: string, version?: string) => {
     setPackages(prev => {
       if (prev.some(p => p.name === name)) return prev;
-      return [...prev, { name, version: version ?? 'unknown', isInstalled: true, isUpdatable: false }];
+      const next = [...prev, { name, version: version ?? 'unknown', isInstalled: true, isUpdatable: false }];
+      savePackages(next);
+      return next;
     });
   };
 
   const removeInstalled = (name: string) => {
-    setPackages(prev => prev.filter(p => p.name !== name));
+    setPackages(prev => {
+      const next = prev.filter(p => p.name !== name);
+      savePackages(next);
+      return next;
+    });
   };
 
   return (

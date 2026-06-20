@@ -419,9 +419,14 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     free(archive_sha256);
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: archive downloaded and SHA256 verified ok (%s)", archive_path);
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: stub - would now extract and run install wizard");
+
+    if (extract_archive(state, archive_path, package_name) != 0) {
+        free(archive_path);
+        return -1;
+    }
 
     free(archive_path);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: '%s' installed successfully", package_name);
     return 0;
 }
 
