@@ -3,6 +3,7 @@
 #include "pkg_downloader.h"
 #include "file_utils.h"
 #include "pkg_parsing.h"
+#include "pkg_registry.h"
 #include "wcr_client.h"
 
 #include <stdio.h>
@@ -347,6 +348,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     char *pkgs_list_path;
     char *register_path = NULL;
     char *checksum = NULL;
+    char *version = NULL;
     char *register_content = NULL;
     char *variant_location = NULL;
     char *archive_address = NULL;
@@ -370,7 +372,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     if (!pkgs_list_path)
         return -1;
 
-    if (find_package_in_list(pkgs_list_path, package_name, &register_path, &checksum) != 0) {
+    if (find_package_in_list(pkgs_list_path, package_name, &register_path, &checksum, &version) != 0) {
         free(pkgs_list_path);
         return -1;
     }
@@ -422,10 +424,13 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
 
     if (extract_archive(state, archive_path, package_name) != 0) {
         free(archive_path);
+        free(version);
         return -1;
     }
 
     free(archive_path);
+    record_installed(state, package_name, version ? version : "unknown");
+    free(version);
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: '%s' installed successfully", package_name);
     return 0;
 }

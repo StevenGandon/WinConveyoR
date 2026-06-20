@@ -44,6 +44,7 @@ set(LIBWCONR_SOURCES
     src/sync_package_list.c
     src/install_package.c
     src/uninstall_package.c
+    src/pkg_registry.c
     src/http_headers.c
     src/http_parsing.c
     src/http_request.c

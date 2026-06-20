@@ -7,7 +7,8 @@
 #include <cJSON.h>
 
 int find_package_in_list(const char *pkgs_list_path, const char *package_name,
-                          char **out_register_path, char **out_checksum)
+                          char **out_register_path, char **out_checksum,
+                          char **out_version)
 {
     FILE *fp;
     char line[1024];
@@ -15,6 +16,8 @@ int find_package_in_list(const char *pkgs_list_path, const char *package_name,
 
     *out_register_path = NULL;
     *out_checksum = NULL;
+    if (out_version)
+        *out_version = NULL;
 
     fp = fopen(pkgs_list_path, "r");
     if (!fp) {
@@ -49,6 +52,8 @@ int find_package_in_list(const char *pkgs_list_path, const char *package_name,
 
         *out_register_path = strdup(register_path);
         *out_checksum = strdup(checksum);
+        if (out_version)
+            *out_version = strdup(version);
 
         wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] find_package_in_list: %s version=%s register=%s checksum=%s",
                package_name, version, *out_register_path, *out_checksum);
@@ -60,6 +65,7 @@ int find_package_in_list(const char *pkgs_list_path, const char *package_name,
             if (*out_checksum) free(*out_checksum);
             *out_register_path = NULL;
             *out_checksum = NULL;
+            if (out_version) { free(*out_version); *out_version = NULL; }
             return -1;
         }
 

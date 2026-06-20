@@ -67,9 +67,16 @@
 
     /* ==== types definition ==== */
 
+    /* installed package entry */
+    struct wcr_installed_pkg_s {
+        char *name;
+        char *version;
+    };
+
     typedef struct wcr_state_s wcr_state;
     typedef struct wcr_system_s wcr_system;
     typedef struct wcr_source_s wcr_source;
+    typedef struct wcr_installed_pkg_s wcr_installed_pkg;
 
     /* ==== high level interfaces ====  */
 
@@ -82,6 +89,10 @@
     int sync_package_list(const struct wcr_state_s *state, protocol_type proto, const char *source_uri);
     int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
     int uninstall_package(const struct wcr_state_s *state, const char *package_name);
+    int record_installed(const struct wcr_state_s *state, const char *name, const char *version);
+    int remove_installed(const struct wcr_state_s *state, const char *name);
+    int list_installed(const struct wcr_state_s *state, struct wcr_installed_pkg_s **out, size_t *out_count);
+    void free_installed_list(struct wcr_installed_pkg_s *list, size_t count);
     void wcr_set_event_callback(struct wcr_state_s *state, wcr_event_callback_t callback, void *user_data);
 
     /* ==== low level interfaces ==== */
