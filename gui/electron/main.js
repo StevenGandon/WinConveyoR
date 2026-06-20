@@ -115,3 +115,4 @@ ipcMain.on('close-window', () => {
 ipcMain.handle('cli-update', () => runCli(['update']));
 ipcMain.handle('cli-install', (_event, packageName) => runCli(['install', packageName]));
 ipcMain.handle('cli-uninstall', (_event, packageName) => runCli(['uninstall', packageName]));
+ipcMain.handle('cli-list-installed', () => runCli(['list']));

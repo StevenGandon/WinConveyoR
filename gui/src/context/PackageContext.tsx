@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { Package } from '../types';
 
 interface PackageContextType {
@@ -8,27 +8,42 @@ interface PackageContextType {
   isLoading: boolean;
   addInstalled: (name: string, version?: string) => void;
   removeInstalled: (name: string) => void;
+  refreshInstalled: () => Promise<void>;
 }
 
 const PackageContext = createContext<PackageContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'wcr_packages';
-
-const loadPackages = (): Package[] => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
-
-const savePackages = (pkgs: Package[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(pkgs));
-};
-
 export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [packages, setPackages] = useState<Package[]>(loadPackages);
+  const [packages, setPackages] = useState<Package[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const refreshInstalled = useCallback(async () => {
+    if (!window.electronAPI?.listInstalled) {
+      setIsLoading(false);
+      return;
+    }
+    const result = await window.electronAPI.listInstalled();
+    if (result.code === 0 && result.output.trim()) {
+      try {
+        const lines = result.output.trim().split('\n');
+        const jsonLine = lines.find(l => l.startsWith('[{') || l === '[]');
+        if (jsonLine) {
+          const list: { name: string; version: string }[] = JSON.parse(jsonLine);
+          setPackages(list.map(p => ({
+            name: p.name,
+            version: p.version,
+            isInstalled: true,
+            isUpdatable: false,
+          })));
+        }
+      } catch { /* ignore parse errors */ }
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    refreshInstalled();
+  }, [refreshInstalled]);
 
   const installedPackages = packages.filter(pkg => pkg.isInstalled);
   const updatablePackages = packages.filter(pkg => pkg.isInstalled && pkg.isUpdatable);
@@ -36,23 +51,17 @@ export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const addInstalled = (name: string, version?: string) => {
     setPackages(prev => {
       if (prev.some(p => p.name === name)) return prev;
-      const next = [...prev, { name, version: version ?? 'unknown', isInstalled: true, isUpdatable: false }];
-      savePackages(next);
-      return next;
+      return [...prev, { name, version: version ?? 'unknown', isInstalled: true, isUpdatable: false }];
     });
   };
 
   const removeInstalled = (name: string) => {
-    setPackages(prev => {
-      const next = prev.filter(p => p.name !== name);
-      savePackages(next);
-      return next;
-    });
+    setPackages(prev => prev.filter(p => p.name !== name));
   };
 
   return (
     <PackageContext.Provider
-      value={{ packages, installedPackages, updatablePackages, isLoading: false, addInstalled, removeInstalled }}
+      value={{ packages, installedPackages, updatablePackages, isLoading, addInstalled, removeInstalled, refreshInstalled }}
     >
       {children}
     </PackageContext.Provider>

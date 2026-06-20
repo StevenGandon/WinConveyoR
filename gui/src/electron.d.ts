@@ -10,6 +10,7 @@ interface ElectronAPI {
   runUpdate: () => Promise<CliResult>;
   runInstall: (packageName: string) => Promise<CliResult>;
   runUninstall: (packageName: string) => Promise<CliResult>;
+  listInstalled: () => Promise<CliResult>;
   onCliOutput: (callback: (text: string) => void) => () => void;
 }
 
