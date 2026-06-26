@@ -37,7 +37,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <div className="flex items-center justify-center mb-4">
-            <PackageIcon className="h-10 w-10 text-blue-600 dark:text-blue-400" />
+            <PackageIcon className="h-10 w-10 text-wc-accent dark:text-wc-accent-bright" />
           </div>
           <CardTitle className="text-center">Sign in to WinConveyoR</CardTitle>
         </CardHeader>
@@ -63,7 +63,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             />
 
             {error && (
-              <p className="text-sm text-red-600 dark:text-red-400 whitespace-pre-line">{error}</p>
+              <p className="text-sm text-wc-danger dark:text-wc-danger-dark whitespace-pre-line">{error}</p>
             )}
 
             <Button variant="primary" className="w-full" disabled={loading}>
@@ -73,10 +73,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
 
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200 dark:border-gray-700" />
+              <div className="w-full border-t border-wc-border dark:border-wc-border-dark" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400">or</span>
+              <span className="bg-wc-card dark:bg-wc-card-dark px-2 text-wc-muted dark:text-wc-muted-dark">or</span>
             </div>
           </div>
 
@@ -88,11 +88,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             Continue without account
           </Button>
 
-          <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-4 text-center text-sm text-wc-muted dark:text-wc-muted-dark">
             Don't have an account?{" "}
             <button
               onClick={onSwitchToRegister}
-              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+              className="text-wc-accent dark:text-wc-accent-bright hover:underline font-medium"
             >
               Create one
             </button>

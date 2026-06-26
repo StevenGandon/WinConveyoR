@@ -28,10 +28,10 @@ function AuthGate() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
         <TitleBar />
         <div className="flex items-center justify-center flex-1">
-          <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+          <p className="text-wc-muted dark:text-wc-muted-dark">Loading...</p>
         </div>
       </div>
     );
@@ -42,7 +42,7 @@ function AuthGate() {
       ? <LoginPage onSwitchToRegister={() => setAuthPage('register')} />
       : <RegisterPage onSwitchToLogin={() => setAuthPage('login')} />;
     return (
-      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
         <TitleBar />
         <div className="flex-1 flex items-center justify-center overflow-hidden">{page}</div>
       </div>
@@ -93,7 +93,7 @@ function MainApp() {
   return (
     <PackageProvider>
       <CliProvider>
-      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark text-wc-fg dark:text-wc-fg-dark">
         <TitleBar />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar activePage={activePage} onNavigate={setActivePage} />

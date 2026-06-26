@@ -16,11 +16,11 @@ const Badge: React.FC<BadgeProps> = ({
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-full transition-colors';
   
   const variantClasses = {
-    default: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-    success: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    warning: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    error: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-    info: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+    default: 'bg-wc-surface text-wc-fg dark:bg-wc-surface-dark dark:text-wc-fg-dark',
+    success: 'bg-wc-success-soft text-wc-success dark:bg-wc-success-soft-dark dark:text-wc-success-dark',
+    warning: 'bg-wc-accent-soft text-wc-accent-deep dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright',
+    error: 'bg-wc-danger-soft text-wc-danger dark:bg-wc-danger-soft-dark dark:text-wc-danger-dark',
+    info: 'bg-wc-accent-soft text-wc-accent dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright'
   };
   
   const sizeClasses = {

@@ -13,8 +13,8 @@ const Card: React.FC<CardProps> = ({
   onClick,
   hoverable = false
 }) => {
-  const baseClasses = 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200';
-  const hoverClasses = hoverable ? 'hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 cursor-pointer' : '';
+  const baseClasses = 'bg-wc-card dark:bg-wc-card-dark rounded-lg shadow-sm border border-wc-border dark:border-wc-border-dark overflow-hidden transition-all duration-200';
+  const hoverClasses = hoverable ? 'hover:shadow-md hover:border-wc-border-strong dark:hover:border-wc-border-strong-dark cursor-pointer' : '';
   
   return (
     <div 
@@ -33,7 +33,7 @@ export const CardHeader: React.FC<{ className?: string; children: React.ReactNod
   children 
 }) => {
   return (
-    <div className={`p-4 border-b border-gray-200 dark:border-gray-700 ${className}`}>
+    <div className={`p-4 border-b border-wc-border dark:border-wc-border-dark ${className}`}>
       {children}
     </div>
   );
@@ -44,7 +44,7 @@ export const CardTitle: React.FC<{ className?: string; children: React.ReactNode
   children 
 }) => {
   return (
-    <h3 className={`text-lg font-semibold text-gray-900 dark:text-gray-100 ${className}`}>
+    <h3 className={`text-lg font-semibold text-wc-fg dark:text-wc-fg-dark ${className}`}>
       {children}
     </h3>
   );
@@ -66,7 +66,7 @@ export const CardFooter: React.FC<{ className?: string; children: React.ReactNod
   children 
 }) => {
   return (
-    <div className={`p-4 border-t border-gray-200 dark:border-gray-700 ${className}`}>
+    <div className={`p-4 border-t border-wc-border dark:border-wc-border-dark ${className}`}>
       {children}
     </div>
   );

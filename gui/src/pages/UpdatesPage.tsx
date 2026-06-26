@@ -13,18 +13,18 @@ const UpdatesPage: React.FC = () => {
       <div className="p-6">
         {updatablePackages.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="rounded-full bg-green-100 dark:bg-green-900 p-4 mb-4">
-              <CheckCircle size={32} className="text-green-500 dark:text-green-400" />
+            <div className="rounded-full bg-wc-success-soft dark:bg-wc-success-soft-dark p-4 mb-4">
+              <CheckCircle size={32} className="text-wc-success dark:text-wc-success-dark" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">All up to date</h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <h3 className="text-lg font-medium text-wc-fg dark:text-wc-fg-dark">All up to date</h3>
+            <p className="mt-1 text-sm text-wc-muted dark:text-wc-muted-dark">
               All your packages are on the latest version.
             </p>
           </div>
         ) : (
           <>
             <div className="flex items-center justify-between mb-4">
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">
                 {updatablePackages.length} update{updatablePackages.length !== 1 ? 's' : ''} available
               </p>
               <Button variant="primary" size="sm" leftIcon={<RefreshCw size={16} />}>
@@ -35,14 +35,14 @@ const UpdatesPage: React.FC = () => {
               {updatablePackages.map(pkg => (
                 <Card key={pkg.name} className="flex flex-col">
                   <div className="p-4 flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                      <PackageIcon size={20} className="text-orange-600 dark:text-orange-400" />
+                    <div className="flex-shrink-0 w-10 h-10 bg-wc-accent-soft dark:bg-wc-accent-soft-dark rounded-lg flex items-center justify-center">
+                      <PackageIcon size={20} className="text-wc-accent dark:text-wc-accent-bright" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
+                      <h3 className="text-base font-semibold text-wc-fg dark:text-wc-fg-dark truncate">
                         {pkg.name}
                       </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      <p className="text-xs text-wc-muted dark:text-wc-muted-dark mt-0.5">
                         v{pkg.version}
                       </p>
                     </div>

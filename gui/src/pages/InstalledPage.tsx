@@ -23,29 +23,29 @@ const InstalledPage: React.FC = () => {
       <div className="p-6">
         {installedPackages.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="rounded-full bg-gray-100 dark:bg-gray-800 p-4 mb-4">
-              <PackageIcon size={32} className="text-gray-400 dark:text-gray-500" />
+            <div className="rounded-full bg-wc-surface dark:bg-wc-surface-dark p-4 mb-4">
+              <PackageIcon size={32} className="text-wc-muted dark:text-wc-muted-dark" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No packages installed</h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <h3 className="text-lg font-medium text-wc-fg dark:text-wc-fg-dark">No packages installed</h3>
+            <p className="mt-1 text-sm text-wc-muted dark:text-wc-muted-dark">
               Use the Home page to install your first package.
             </p>
           </div>
         ) : (
           <>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-sm text-wc-muted dark:text-wc-muted-dark mb-4">
               {installedPackages.length} package{installedPackages.length !== 1 ? 's' : ''} installed
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {installedPackages.map(pkg => (
                 <Card key={pkg.name} className="flex flex-col">
                   <div className="p-4 flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                      <PackageIcon size={20} className="text-blue-600 dark:text-blue-400" />
+                    <div className="flex-shrink-0 w-10 h-10 bg-wc-accent-soft dark:bg-wc-accent-soft-dark rounded-lg flex items-center justify-center">
+                      <PackageIcon size={20} className="text-wc-accent dark:text-wc-accent-bright" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
+                        <h3 className="text-base font-semibold text-wc-fg dark:text-wc-fg-dark truncate">
                           {pkg.name}
                         </h3>
                         <Badge
@@ -55,11 +55,11 @@ const InstalledPage: React.FC = () => {
                           {pkg.isUpdatable ? 'Update' : 'Installed'}
                         </Badge>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      <p className="text-xs text-wc-muted dark:text-wc-muted-dark mt-0.5">
                         v{pkg.version}
                       </p>
                       {pkg.description && (
-                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
+                        <p className="text-sm text-wc-muted dark:text-wc-muted-dark mt-2 line-clamp-2">
                           {pkg.description}
                         </p>
                       )}
@@ -72,7 +72,7 @@ const InstalledPage: React.FC = () => {
                       </Button>
                     )}
                     <Button
-                      variant="secondary"
+                      variant="danger"
                       size="sm"
                       leftIcon={<Trash2 size={14} />}
                       onClick={() => handleUninstall(pkg.name)}

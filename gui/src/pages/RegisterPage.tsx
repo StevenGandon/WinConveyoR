@@ -47,7 +47,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <div className="flex items-center justify-center mb-4">
-            <PackageIcon className="h-10 w-10 text-blue-600 dark:text-blue-400" />
+            <PackageIcon className="h-10 w-10 text-wc-accent dark:text-wc-accent-bright" />
           </div>
           <CardTitle className="text-center">Create your account</CardTitle>
         </CardHeader>
@@ -97,7 +97,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
             />
 
             {error && (
-              <p className="text-sm text-red-600 dark:text-red-400 whitespace-pre-line">{error}</p>
+              <p className="text-sm text-wc-danger dark:text-wc-danger-dark whitespace-pre-line">{error}</p>
             )}
 
             <Button variant="primary" className="w-full" disabled={loading}>
@@ -105,11 +105,11 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
             </Button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-4 text-center text-sm text-wc-muted dark:text-wc-muted-dark">
             Already have an account?{" "}
             <button
               onClick={onSwitchToLogin}
-              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+              className="text-wc-accent dark:text-wc-accent-bright hover:underline font-medium"
             >
               Sign in
             </button>
