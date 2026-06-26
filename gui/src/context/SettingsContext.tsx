@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { AppSettings, ThemeMode, ContrastMode } from '../types';
+import { AppSettings } from '../types';
 
 interface SettingsContextType {
   settings: AppSettings;
@@ -14,6 +14,7 @@ const defaultSettings: AppSettings = {
   fontSize: 16,
   reduceMotion: false,
   enableKeyboardShortcuts: true,
+  showOutputPage: true,
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
