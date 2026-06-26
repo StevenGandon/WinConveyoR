@@ -15,4 +15,5 @@ export interface AppSettings {
   fontSize: number;
   reduceMotion: boolean;
   enableKeyboardShortcuts: boolean;
+  showOutputPage: boolean;
 }
