@@ -155,6 +155,12 @@ class CLI(object):
 Options:
   > {', '.join(CLI.OPTION_TABLE['help']['opt'])}\tDisplay this help message
   > {', '.join(CLI.OPTION_TABLE['download']['opt'])}\tDownload a package
+  > {', '.join(CLI.OPTION_TABLE['install']['opt'])}\tInstall a package
+  > {', '.join(CLI.OPTION_TABLE['uninstall']['opt'])}\tUninstall a package
+  > {', '.join(CLI.OPTION_TABLE['update']['opt'])}\t\tSync package lists from sources
+  > {', '.join(CLI.OPTION_TABLE['list']['opt'])}\t\tList installed packages
+  > {', '.join(CLI.OPTION_TABLE['register']['opt'])}\t\tCreate an account
+  > {', '.join(CLI.OPTION_TABLE['login']['opt'])}\t\tLog in to your account
   > {', '.join(CLI.OPTION_TABLE['nocolor']['opt'])}\t\tDisable color rendering
   > {', '.join(CLI.OPTION_TABLE['noansi']['opt'])}\t\tDisable ansi rendering
   > {', '.join(CLI.OPTION_TABLE['ascii']['opt'])}\t\tRendering only in ascii
@@ -238,7 +244,7 @@ Exemples:
         return (1)
 
     def list_packages(self):
-        packages = [p for p in self.wcr.list_installed() if not p.get("is_dependency")]
+        packages = self.wcr.list_installed()
 
         if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
             sys.stdout.write(dumps(packages) + "\n")
