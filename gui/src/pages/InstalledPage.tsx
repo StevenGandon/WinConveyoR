@@ -7,13 +7,13 @@ import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 
 const InstalledPage: React.FC = () => {
-  const { installedPackages, removeInstalled } = usePackages();
+  const { installedPackages, refreshInstalled } = usePackages();
   const { busy, runUninstall } = useCli();
 
   const handleUninstall = async (name: string) => {
     const code = await runUninstall(name);
     if (code === 0) {
-      removeInstalled(name);
+      await refreshInstalled();
     }
   };
 

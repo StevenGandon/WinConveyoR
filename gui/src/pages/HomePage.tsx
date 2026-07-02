@@ -7,7 +7,7 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
 const HomePage: React.FC = () => {
-  const { installedPackages, updatablePackages, addInstalled } = usePackages();
+  const { installedPackages, updatablePackages, refreshInstalled } = usePackages();
   const { busy, runUpdate, runInstall } = useCli();
   const [installName, setInstallName] = useState('');
 
@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
     const pkg = installName.trim();
     const result = await runInstall(pkg);
     if (result.code === 0) {
-      addInstalled(pkg, result.version);
+      await refreshInstalled();
     }
     setInstallName('');
   };
