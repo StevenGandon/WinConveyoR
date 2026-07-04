@@ -1,5 +1,8 @@
 var namespacesrc_1_1cli_1_1commands =
 [
+    [ "add_pkg", "namespacesrc_1_1cli_1_1commands_1_1add__pkg.html", [
+      [ "add_pkg_command", "namespacesrc_1_1cli_1_1commands_1_1add__pkg.html#ad3f900c0beed276f35b03256fe8801d6", null ]
+    ] ],
     [ "connect", "namespacesrc_1_1cli_1_1commands_1_1connect.html", [
       [ "connect_command", "namespacesrc_1_1cli_1_1commands_1_1connect.html#af542d2098dda7cff31f5d877608458f3", null ]
     ] ],
@@ -24,6 +27,9 @@ var namespacesrc_1_1cli_1_1commands =
     [ "list_sessions", "namespacesrc_1_1cli_1_1commands_1_1list__sessions.html", [
       [ "get_permissions_name", "namespacesrc_1_1cli_1_1commands_1_1list__sessions.html#a1bd178f535266a8fef4f84d576fa6a52", null ],
       [ "list_sessions_command", "namespacesrc_1_1cli_1_1commands_1_1list__sessions.html#a6eeb5cc83155de0b214db3dafdcb2388", null ]
+    ] ],
+    [ "new_pkg", "namespacesrc_1_1cli_1_1commands_1_1new__pkg.html", [
+      [ "new_pkg_command", "namespacesrc_1_1cli_1_1commands_1_1new__pkg.html#a33c6611bb7a2c32e5248ac5f3df54786", null ]
     ] ],
     [ "quit", "namespacesrc_1_1cli_1_1commands_1_1quit.html", [
       [ "quit_command", "namespacesrc_1_1cli_1_1commands_1_1quit.html#a3219a3762faf2966122fb933db69bba3", null ]

@@ -1,5 +1,15 @@
 var NAVTREEINDEX10 =
 {
+"structvm__arg__value.html#a8c90532f6a038f1400e4428a68457e87":[4,0,23,4],
+"structvm__arg__value.html#a8cdd300dad5e078f355e2a053cc5f23a":[4,0,23,3],
+"structvm__arg__value.html#adceea416a4ee20068b73927dc3f4a8bb":[4,0,23,7],
+"structvm__arg__value.html#ae478381f76dc1f3f26dc4ca00cb06410":[4,0,23,6],
+"structvm__arg__value.html#ae63bcb4758602cfe136421f00b79b9e0":[4,0,23,1],
+"structvm__arg__value.html#af8b33f32d09531fb034504a6017b8d90":[4,0,23,0],
+"structvm__handler__entry.html":[4,0,24],
+"structvm__handler__entry.html#a35bb865b04a571295dcdc79bfc0caa1f":[4,0,24,1],
+"structvm__handler__entry.html#ae03d32c6081b9ae42720c0e121ce2b75":[4,0,24,0],
+"structvm__handler__version.html":[4,0,25],
 "structvm__handler__version.html#a0f7989a91a7962ccc2b92eb30e18a1bc":[4,0,25,1],
 "structvm__handler__version.html#ad75b580ec4f2f265fe0b559440f3f854":[4,0,25,0],
 "structvm__iset__s.html":[4,0,26],
@@ -45,8 +55,8 @@ var NAVTREEINDEX10 =
 "structwcr__system__s.html":[4,0,34],
 "structwcr__system__s.html#a21fdfd872e85f93d62b30dfd973affaa":[4,0,34,1],
 "structwcr__system__s.html#af05bdffe075cbd31a970d58923491aa1":[4,0,34,0],
-"switch__session_8py.html":[5,0,4,0,0,2,0,10],
-"switch__session_8py.html#a46e4ad47f8029f06eced82eeb0935199":[5,0,4,0,0,2,0,10,0],
+"switch__session_8py.html":[5,0,4,0,0,2,0,12],
+"switch__session_8py.html#a46e4ad47f8029f06eced82eeb0935199":[5,0,4,0,0,2,0,12,0],
 "sync__package__list_8c.html":[5,0,6,0,0,14],
 "sync__package__list_8c.html#a1d18e438f3a69c5ddd1986d8f2caffc0":[5,0,6,0,0,14,8],
 "sync__package__list_8c.html#a455c04e93b32de27b81ed2c505063ccd":[5,0,6,0,0,14,3],
@@ -239,15 +249,5 @@ var NAVTREEINDEX10 =
 "wcrmgr_8py.html":[5,0,4,0,3],
 "wcrmgr_8py.html#adc5ef3e5cbee618ba6668cbccc307665":[5,0,4,0,3,0],
 "wcrmirror_8py.html":[5,0,4,0,4],
-"wcrmirror_8py.html#a0334365cfd042c65081d49e527031cc2":[5,0,4,0,4,5],
-"wcrmirror_8py.html#a1b20fbb4bf0f82e49b02243576d4a116":[5,0,4,0,4,7],
-"wcrmirror_8py.html#a1b4f88415fa041d19ea5123690e7c0d7":[5,0,4,0,4,16],
-"wcrmirror_8py.html#a256b54ae5bd3390852b338ff623b1f9b":[5,0,4,0,4,4],
-"wcrmirror_8py.html#a3da127f814ba944bd7d5041670566b35":[5,0,4,0,4,14],
-"wcrmirror_8py.html#a58513e5083534d66a712d87f57726a4e":[5,0,4,0,4,11],
-"wcrmirror_8py.html#a6dcb1dcd305ecf008b887c4b5d2d57b9":[5,0,4,0,4,9],
-"wcrmirror_8py.html#a804af6156082f48c2cbb0a8c9a4ec49d":[5,0,4,0,4,6],
-"wcrmirror_8py.html#a9dc492fd6765c9fc8d91012da91ff1eb":[5,0,4,0,4,17],
-"wcrmirror_8py.html#aa40e9d47c837123c79deaa27d23646dd":[5,0,4,0,4,15],
-"wcrmirror_8py.html#acfa38cc2cfee8cbbf1b1e123699bbc4d":[5,0,4,0,4,13]
+"wcrmirror_8py.html#a0334365cfd042c65081d49e527031cc2":[5,0,4,0,4,6]
 };
