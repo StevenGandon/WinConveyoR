@@ -98,7 +98,7 @@ class Package(object):
             print("file not found, remember, remote package is not implemented.")
             return
         
-        arch = package_metadata.get("arch", "x64")
+        arch = package_metadata.get("architecture", "x64")
         version = package_metadata.get("version", "1.0.0")
         machine = package_metadata.get("machine", "Gen-Linux")
         description = package_metadata.get("description", f"{self.name} package.")
@@ -112,7 +112,7 @@ class Package(object):
             arch,
             version,
             machine,
-            '/' + relpath(json_path, self.base_path).replace('\\', '/').lstrip('/')
+            '/' + relpath(json_path, self.base_path).replace('\\', '/').lstrip('/'), base_path=self.base_path
         )
         self.listing[package_hash].package_data = {
             "package": self.name,
