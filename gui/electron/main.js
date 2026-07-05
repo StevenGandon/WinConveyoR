@@ -4,6 +4,10 @@ import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
 import isDev from 'electron-is-dev';
 
+if (process.platform === 'linux') {
+  app.disableHardwareAcceleration();
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -51,12 +55,22 @@ function createWindow() {
 
 function runCli(args) {
   return new Promise((resolve) => {
-    const wslRoot = PROJECT_ROOT.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
-    const wslCli = `${wslRoot}/cli/main.py`;
-    const wslLib = ['.', `${wslRoot}/cli/build`, `${wslRoot}/lib/libwconr/build`, `${wslRoot}/lib/libwconr`].join(':');
-    const child = spawn('wsl', ['bash', '-c', `LD_LIBRARY_PATH="${wslLib}" python3 "${wslCli}" --no-ansi ${args.join(' ')}`], {
-      cwd: PROJECT_ROOT,
-    });
+    let child;
+
+    if (process.platform === 'win32') {
+      const wslRoot = PROJECT_ROOT.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
+      const wslCli = `${wslRoot}/cli/main.py`;
+      const wslLib = ['.', `${wslRoot}/cli/build`, `${wslRoot}/lib/libwconr/build`, `${wslRoot}/lib/libwconr`].join(':');
+      child = spawn('wsl', ['bash', '-c', `LD_LIBRARY_PATH="${wslLib}" python3 "${wslCli}" --no-ansi ${args.join(' ')}`], {
+        cwd: PROJECT_ROOT,
+      });
+    } else {
+      const libDirs = ['.', path.join(PROJECT_ROOT, 'cli', 'build'), path.join(PROJECT_ROOT, 'lib', 'libwconr', 'build'), path.join(PROJECT_ROOT, 'lib', 'libwconr')].join(':');
+      child = spawn('python3', [CLI_ENTRY, '--no-ansi', ...args], {
+        cwd: PROJECT_ROOT,
+        env: { ...process.env, LD_LIBRARY_PATH: libDirs },
+      });
+    }
 
     let output = '';
 
