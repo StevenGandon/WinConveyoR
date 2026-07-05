@@ -278,6 +278,7 @@ Exemples:
             sys.stderr.write(f"{sys.argv[0]} update: all sources failed.\n")
             return (1)
 
+        self.wcr.save("~/.config/wcr/config")
         sys.stdout.write(f"{sys.argv[0]} update: ok.\n")
         return (0)
 
