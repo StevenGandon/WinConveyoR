@@ -358,10 +358,9 @@ def route_get_package_metadata(client: Client, server: Server, message: JSONMess
 
 @protected_route(FLAG_USER)
 def route_get_file(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
-    from base64 import b64encode
     from os.path import isfile, join
 
-    if ("file_path" not in message.content["data"]):
+    if ("package_name" not in message.content["data"]):
         client.write(JSONMessage({
             "action": message.content["action"],
             "data": {"msg": "ko"},
@@ -369,21 +368,58 @@ def route_get_file(client: Client, server: Server, message: JSONMessage, /, sess
         }))
         return
 
-    file_path = message.content["data"]["file_path"]
-
-    if (".." in file_path):
+    if ("location_hash" not in message.content["data"]):
         client.write(JSONMessage({
             "action": message.content["action"],
-            "data": {"msg": "invalid_path"},
+            "data": {"msg": "ko"},
             "code": 1
         }))
         return
 
-    if (file_path.startswith("/")):
-        file_path = file_path[1:]
+    session.session_instance.load()
+
+    package_name = message.content["data"]["package_name"]
+    location_hash = int(message.content["data"]["location_hash"], base=16)
+
+    if (package_name not in session.session_instance.packages):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    package = session.session_instance.packages[package_name]
+    package.load()
+
+    package_listing = None
+    for item in package.listing.values():
+        if (int.from_bytes(sha256(str(item.location).encode(errors="replace")).digest(), "big") != location_hash):
+            continue
+        package_listing = item
+        break
+
+    if (not package_listing):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    package_listing.load()
+
+    address = package_listing.package_data.get("address")
+    if (not address):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
 
     wcr_dir = "." if "WCR_DIR" not in environ else environ["WCR_DIR"]
-    full_path = join(wcr_dir, file_path)
+    full_path = join(wcr_dir, address.lstrip('/'))
 
     if (not isfile(full_path)):
         client.write(JSONMessage({
@@ -394,7 +430,7 @@ def route_get_file(client: Client, server: Server, message: JSONMessage, /, sess
         return
 
     with open(full_path, "rb") as f:
-        content = b64encode(f.read()).decode("ascii")
+        content = f.read()
 
     client.write(Message(Message.MAGIC, 0x00, content))
 

@@ -192,16 +192,17 @@ static int extract_location_hash(const char *listing, char *out, size_t out_sz)
 
 static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char *package_name,
                               char **out_address, char **out_sha256,
+                              char *out_location_hash, size_t location_hash_sz,
                               char ***out_depends, size_t *out_depends_count)
 {
     char *listing;
     char *metadata;
-    char location_hash[128] = {0};
 
     *out_address = NULL;
     *out_sha256 = NULL;
     *out_depends = NULL;
     *out_depends_count = 0;
+    out_location_hash[0] = '\0';
 
     listing = wcr_get_package_listing(conn, package_name);
     if (!listing) {
@@ -211,16 +212,16 @@ static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char
 
     wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: package_listing=\n%s", listing);
 
-    if (extract_location_hash(listing, location_hash, sizeof(location_hash)) != 0) {
+    if (extract_location_hash(listing, out_location_hash, location_hash_sz) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: could not extract location_hash");
         free(listing);
         return -1;
     }
     free(listing);
 
-    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: using location_hash=%s", location_hash);
+    wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: using location_hash=%s", out_location_hash);
 
-    metadata = wcr_get_package_metadata(conn, package_name, location_hash);
+    metadata = wcr_get_package_metadata(conn, package_name, out_location_hash);
     if (!metadata) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: get_package_metadata failed");
         return -1;
@@ -308,6 +309,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
     char *local_path = NULL;
     char *version = NULL;
     char **depends = NULL;
+    char location_hash[128] = {0};
     size_t depends_count = 0;
     size_t i;
     const char *access_key;
@@ -334,7 +336,9 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         return -1;
     }
 
-    if (wcr_fetch_metadata(state, conn, package_name, &address, &sha256_expected, &depends, &depends_count) != 0) {
+    if (wcr_fetch_metadata(state, conn, package_name, &address, &sha256_expected,
+                           location_hash, sizeof(location_hash),
+                           &depends, &depends_count) != 0) {
         wcr_close(conn);
         return -1;
     }
@@ -371,9 +375,9 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         return -1;
     }
 
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: downloading %s", address);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: downloading %s", package_name);
 
-    if (wcr_download_file(conn, address, local_path) != 0) {
+    if (wcr_download_file(conn, package_name, location_hash, local_path) != 0) {
         wcr_close(conn);
         free(address);
         free(sha256_expected);
