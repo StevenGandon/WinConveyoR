@@ -12,5 +12,6 @@ var searchData=
   ['platform_5ftypes_2eh_9',['platform_types.h',['../platform__types_8h.html',1,'']]],
   ['pool_2epy_10',['pool.py',['../cli_2src_2thread_2pool_8py.html',1,'(Global Namespace)'],['../daemon_2src_2scheduler_2pool_8py.html',1,'(Global Namespace)']]],
   ['privacy_5fpolicy_2emd_11',['privacy_policy.md',['../privacy__policy_8md.html',1,'']]],
-  ['protocol_5frfc_2emd_12',['protocol_rfc.md',['../protocol__rfc_8md.html',1,'']]]
+  ['protocol_5frfc_2emd_12',['protocol_rfc.md',['../protocol__rfc_8md.html',1,'']]],
+  ['purge_5fpkg_2epy_13',['purge_pkg.py',['../purge__pkg_8py.html',1,'']]]
 ];

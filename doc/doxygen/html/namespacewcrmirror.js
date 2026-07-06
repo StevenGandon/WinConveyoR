@@ -16,6 +16,8 @@ var namespacewcrmirror =
     [ "route_init_rsa", "namespacewcrmirror.html#af1c36576984393aac1fb1629d577c817", null ],
     [ "route_list_packages", "namespacewcrmirror.html#acfa38cc2cfee8cbbf1b1e123699bbc4d", null ],
     [ "route_new_pkg_listing", "namespacewcrmirror.html#a61cc45e5423621d69b5d471a1b328ca8", null ],
+    [ "route_purge_pkg_listing", "namespacewcrmirror.html#a9d543c1aa498c97c97212bbf430529e0", null ],
+    [ "route_remove_pkg_listing", "namespacewcrmirror.html#a1874d201646d47440380cd6874ab91b9", null ],
     [ "route_user", "namespacewcrmirror.html#a3da127f814ba944bd7d5041670566b35", null ],
     [ "route_write", "namespacewcrmirror.html#aa40e9d47c837123c79deaa27d23646dd", null ],
     [ "FLAG_ADMIN", "namespacewcrmirror.html#a1b4f88415fa041d19ea5123690e7c0d7", null ],

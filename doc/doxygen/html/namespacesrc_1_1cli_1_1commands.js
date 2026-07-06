@@ -31,8 +31,14 @@ var namespacesrc_1_1cli_1_1commands =
     [ "new_pkg", "namespacesrc_1_1cli_1_1commands_1_1new__pkg.html", [
       [ "new_pkg_command", "namespacesrc_1_1cli_1_1commands_1_1new__pkg.html#a33c6611bb7a2c32e5248ac5f3df54786", null ]
     ] ],
+    [ "purge_pkg", "namespacesrc_1_1cli_1_1commands_1_1purge__pkg.html", [
+      [ "purge_pkg_command", "namespacesrc_1_1cli_1_1commands_1_1purge__pkg.html#a3aaf35ea3e4870ce7306ee7f0a04f523", null ]
+    ] ],
     [ "quit", "namespacesrc_1_1cli_1_1commands_1_1quit.html", [
       [ "quit_command", "namespacesrc_1_1cli_1_1commands_1_1quit.html#a3219a3762faf2966122fb933db69bba3", null ]
+    ] ],
+    [ "remove_pkg", "namespacesrc_1_1cli_1_1commands_1_1remove__pkg.html", [
+      [ "remove_pkg_command", "namespacesrc_1_1cli_1_1commands_1_1remove__pkg.html#ac85930282c8e6cac6c0abe34b79b93d1", null ]
     ] ],
     [ "switch_session", "namespacesrc_1_1cli_1_1commands_1_1switch__session.html", [
       [ "switch_session_command", "namespacesrc_1_1cli_1_1commands_1_1switch__session.html#a46e4ad47f8029f06eced82eeb0935199", null ]
