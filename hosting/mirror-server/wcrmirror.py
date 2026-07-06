@@ -396,6 +396,81 @@ def route_new_pkg_listing(client: Client, server: Server, message: JSONMessage, 
     }))
 
 @protected_route(FLAG_ADMIN)
+def route_purge_pkg_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    if (not session.session_instance.has_package_register(message.content["data"]["package_name"])):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "package_not_found"
+            },
+            "code": 1
+        }))
+    
+    session.session_instance.remove_package_register(message.content["data"]["package_name"], hard_delete=True)
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
+@protected_route(FLAG_ADMIN)
+def route_remove_pkg_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+    
+    if (not session.session_instance.has_package_register(message.content["data"]["package_name"])):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "package_not_found"
+            },
+            "code": 1
+        }))
+
+    package_register = session.session_instance.get_package_register(message.content["data"]["package_name"])
+
+    if (not package_register.has_package_listing(message.content["data"]["package_hash"])):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "package_listing_not_found"
+            },
+            "code": 1
+        }))
+
+    package_register.remove_package_listing(message.content["data"]["package_hash"], hard_delete=True)
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
+@protected_route(FLAG_ADMIN)
 def route_add_pkg(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     if ("package_data" not in message.content["data"]):
         client.write(JSONMessage({
@@ -518,6 +593,8 @@ def main():
     R.add_route("get_package_metadata", route_get_package_metadata)
     R.add_route("add_package", route_add_pkg)
     R.add_route("new_package", route_new_pkg_listing)
+    R.add_route("purge_package", route_purge_pkg_listing)
+    R.add_route("remove_package", route_remove_pkg_listing)
     R.add_route("goodbye", route_goodbye)
 
     S.set_handler(WCRHandler(R))
