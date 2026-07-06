@@ -169,6 +169,25 @@ def main():
     ), True)
 
     nc.add_command(CLICommand(
+        "purge_pkg",
+        purge_pkg_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "remove_pkg",
+        remove_pkg_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY),
+            CLICommandArg("package_hash", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
         "quit",
         quit_command,
         []

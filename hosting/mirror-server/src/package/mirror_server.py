@@ -106,6 +106,12 @@ class MirrorServer(object):
             self.load()
 
         return (self.packages[name])
+    
+    def has_package_register(self, name) -> Package:
+        if (not self.loaded):
+            self.load()
+
+        return (name in self.packages)
 
     def remove_package_register(self, name, *, hard_delete = False) -> None:
         if (not self.loaded):

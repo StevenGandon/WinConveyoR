@@ -135,12 +135,25 @@ class Package(object):
             self.latest = version
 
         return (self.listing[package_hash])
+    
+    def get_package_listing(self, hsh):
+        if (not self.loaded):
+            self.load()
+        
+        return self.listing[hsh]
+    
+    def has_package_listing(self, hsh):
+        if (not self.loaded):
+            self.load()
+        
+        return (hsh in self.listing)
 
     def remove_package_listing(self, hsh, *, hard_delete = False):
         if (not self.loaded):
             self.load()
         
         listing_location = join(self.base_path, self.listing[hsh].location.lstrip('/'))
+        archive_location = join(self.base_path, self.listing[hsh].package_data["address"].lstrip('/'))
 
         if (hard_delete and isfile(listing_location)):
             if (not isdir(self.backup_path)):
@@ -150,5 +163,9 @@ class Package(object):
             filename, *extension = basename(listing_location).split('.')
             copyfile(listing_location, join(self.backup_path, "deleted", filename + '-' + hash_file(listing_location, md5) + '.' + '.'.join(extension)))
             remove(listing_location)
+
+            filename, *extension = basename(archive_location).split('.')
+            copyfile(archive_location, join(self.backup_path, "deleted", filename + '-' + hash_file(archive_location, md5) + '.' + '.'.join(extension)))
+            remove(archive_location)
 
         del self.listing[hsh]

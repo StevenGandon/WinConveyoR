@@ -12,3 +12,5 @@ from .gpkl import gpkl_command
 from .gpkm import gpkm_command
 from .add_pkg import add_pkg_command
 from .new_pkg import new_pkg_command
+from .purge_pkg import purge_pkg_command
+from .remove_pkg import remove_pkg_command
