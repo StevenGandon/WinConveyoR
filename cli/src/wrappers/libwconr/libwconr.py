@@ -57,12 +57,22 @@ class WCRState(object):
         result = []
         for i in range(state.sources_count):
             src = state.sources[i].contents
-            result.append({"url": src.url.decode('utf-8'), "proto": src.proto})
+            entry = {"url": src.url.decode('utf-8'), "proto": src.proto}
+            if src.access_key:
+                entry["access_key"] = src.access_key.decode('utf-8')
+            if src.server_pubkey_path:
+                entry["server_pubkey_path"] = src.server_pubkey_path.decode('utf-8')
+            result.append(entry)
         return result
 
     def dowload_package(self, url, location) -> None:
         if int(self.__mapper.call_function("download_package", cast(create_string_buffer(url.encode('utf-8')), POINTER(c_ubyte)), cast(create_string_buffer(location.encode('utf-8')), POINTER(c_ubyte))) < 0):
             raise RuntimeError("failed to download")
+
+    def source_set_auth(self, index: int, access_key: str = None, server_pubkey_path: str = None) -> int:
+        ak = access_key.encode('utf-8') if access_key else None
+        pk = server_pubkey_path.encode('utf-8') if server_pubkey_path else None
+        return int(self.__mapper.call_function("wcr_source_set_auth", self._cstate, index, ak, pk))
 
     def sync_package_list(self, proto: int, source_uri: str) -> int:
         return int(self.__mapper.call_function("sync_package_list", self._cstate, proto, source_uri.encode('utf-8')))

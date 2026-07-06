@@ -11,6 +11,53 @@
 #include <string.h>
 #include <curl/curl.h>
 
+static int wcr_connect_source(const wcr_state *state, const wcr_source *src,
+                              const char *host, int port, wcr_conn **out)
+{
+    wcr_conn *conn;
+    const char *access_key;
+
+    conn = wcr_open(host, port);
+    if (!conn)
+        return -1;
+
+    {
+        const char *pubkey_path = (src && src->server_pubkey_path)
+            ? src->server_pubkey_path : getenv("WCR_PUBKEY");
+
+        if (pubkey_path) {
+            char *pem = read_file_text(pubkey_path);
+
+            if (!pem) {
+                wcr_emit(state, WCR_EVENT_ERROR,
+                         "[ERROR] wcr_connect_source: cannot read pubkey %s",
+                         pubkey_path);
+                wcr_close(conn);
+                return -1;
+            }
+            if (wcr_handshake(conn, pem) != 0) {
+                wcr_emit(state, WCR_EVENT_ERROR,
+                         "[ERROR] wcr_connect_source: handshake failed");
+                free(pem);
+                wcr_close(conn);
+                return -1;
+            }
+            free(pem);
+            wcr_emit(state, WCR_EVENT_INFO,
+                     "[INFO] wcr_connect_source: RSA encryption established");
+        }
+    }
+
+    access_key = (src && src->access_key) ? src->access_key : getenv("WCR_ACCESS");
+    if (wcr_auth(conn, access_key ? access_key : "") != 0) {
+        wcr_close(conn);
+        return -1;
+    }
+
+    *out = conn;
+    return 0;
+}
+
 static int fetch_register(const wcr_state *state, protocol_type proto, const char *source_uri, const char *register_path, char **out_content)
 {
     char *url = NULL;
@@ -193,7 +240,8 @@ static int extract_location_hash(const char *listing, char *out, size_t out_sz)
 static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char *package_name,
                               char **out_address, char **out_sha256,
                               char *out_location_hash, size_t location_hash_sz,
-                              char ***out_depends, size_t *out_depends_count)
+                              char ***out_depends, size_t *out_depends_count,
+                              char **out_version)
 {
     char *listing;
     char *metadata;
@@ -202,6 +250,7 @@ static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char
     *out_sha256 = NULL;
     *out_depends = NULL;
     *out_depends_count = 0;
+    *out_version = NULL;
     out_location_hash[0] = '\0';
 
     listing = wcr_get_package_listing(conn, package_name);
@@ -251,6 +300,8 @@ static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char
         free(metadata);
         return -1;
     }
+
+    json_extract_string(metadata, "version", out_version);
 
     free(metadata);
     return 0;
@@ -312,7 +363,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
     char location_hash[128] = {0};
     size_t depends_count = 0;
     size_t i;
-    const char *access_key;
+    const wcr_source *src;
     const char *basename;
 
     if (install_ctx_has(ctx, package_name)) {
@@ -326,19 +377,14 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: resolving '%s'", package_name);
 
     parse_host_port(source_uri, host, sizeof(host), &port);
+    src = wcr_state_find_source(state, source_uri);
 
-    conn = wcr_open(host, port);
-    if (!conn) return -1;
-
-    access_key = getenv("WCR_ACCESS");
-    if (wcr_auth(conn, access_key ? access_key : "") != 0) {
-        wcr_close(conn);
+    if (wcr_connect_source(state, src, host, port, &conn) != 0)
         return -1;
-    }
 
     if (wcr_fetch_metadata(state, conn, package_name, &address, &sha256_expected,
                            location_hash, sizeof(location_hash),
-                           &depends, &depends_count) != 0) {
+                           &depends, &depends_count, &version) != 0) {
         wcr_close(conn);
         return -1;
     }
@@ -354,8 +400,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
             free_string_array(depends, depends_count);
             return -1;
         }
-        conn = wcr_open(host, port);
-        if (!conn || wcr_auth(conn, access_key ? access_key : "") != 0) {
+        if (wcr_connect_source(state, src, host, port, &conn) != 0) {
             free(address);
             free(sha256_expected);
             free_string_array(depends, depends_count);
@@ -406,18 +451,6 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         return -1;
     }
     free(local_path);
-
-    {
-        char *pkgs_list_path = get_cache_path(state, "pkgs.list");
-        char *reg_path = NULL;
-        char *chk = NULL;
-
-        if (pkgs_list_path && find_package_in_list(pkgs_list_path, package_name, &reg_path, &chk, &version) == 0) {
-            free(reg_path);
-            free(chk);
-        }
-        free(pkgs_list_path);
-    }
 
     record_installed(state, package_name, version ? version : "unknown", is_dep);
     free(version);

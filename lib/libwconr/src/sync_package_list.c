@@ -140,15 +140,44 @@ static int sync_wcr(const wcr_state *state, const char *source_uri)
     wcr_conn *conn;
     char *pkgs_list_path;
     char *remote_hash;
+    const wcr_source *src;
     const char *access_key;
     int rc;
 
     parse_host_port(source_uri, host, sizeof(host), &port);
+    src = wcr_state_find_source(state, source_uri);
 
     conn = wcr_open(host, port);
     if (!conn) return -1;
 
-    access_key = getenv("WCR_ACCESS");
+    {
+        const char *pubkey_path = (src && src->server_pubkey_path)
+            ? src->server_pubkey_path : getenv("WCR_PUBKEY");
+
+        if (pubkey_path) {
+            char *pem = read_file_text(pubkey_path);
+
+            if (!pem) {
+                wcr_emit(state, WCR_EVENT_ERROR,
+                         "[ERROR] sync_wcr: cannot read pubkey %s",
+                         pubkey_path);
+                wcr_close(conn);
+                return -1;
+            }
+            if (wcr_handshake(conn, pem) != 0) {
+                wcr_emit(state, WCR_EVENT_ERROR,
+                         "[ERROR] sync_wcr: handshake failed");
+                free(pem);
+                wcr_close(conn);
+                return -1;
+            }
+            free(pem);
+            wcr_emit(state, WCR_EVENT_INFO,
+                     "[INFO] sync_wcr: RSA encryption established");
+        }
+    }
+
+    access_key = (src && src->access_key) ? src->access_key : getenv("WCR_ACCESS");
     if (wcr_auth(conn, access_key ? access_key : "") != 0) {
         wcr_close(conn);
         return -1;

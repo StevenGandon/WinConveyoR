@@ -113,6 +113,37 @@ int extract_archive(const struct wcr_state_s *state, const char *archive_path, c
     return 0;
 }
 
+char *read_file_text(const char *path)
+{
+    FILE *fp;
+    long sz;
+    char *buf;
+
+    fp = fopen(path, "r");
+    if (!fp)
+        return NULL;
+    fseek(fp, 0, SEEK_END);
+    sz = ftell(fp);
+    if (sz <= 0) {
+        fclose(fp);
+        return NULL;
+    }
+    rewind(fp);
+    buf = malloc((size_t)sz + 1);
+    if (!buf) {
+        fclose(fp);
+        return NULL;
+    }
+    if (fread(buf, 1, (size_t)sz, fp) != (size_t)sz) {
+        free(buf);
+        fclose(fp);
+        return NULL;
+    }
+    buf[sz] = '\0';
+    fclose(fp);
+    return buf;
+}
+
 char *calculate_sha256_file(const char *filepath)
 {
     FILE *fp;

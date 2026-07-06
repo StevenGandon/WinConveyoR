@@ -102,5 +102,12 @@ add_custom_command(TARGET wconr POST_BUILD
         $<TARGET_FILE:libcurl>
         $<TARGET_FILE_DIR:wconr>
     COMMAND ${CMAKE_COMMAND} -E echo "libcurl copied to: $<TARGET_FILE_DIR:wconr>"
-    COMMENT "Copying libcurl shared library to output directory and printing the path"
+    COMMENT "Copying libcurl shared library to output directory"
+)
+
+add_custom_command(TARGET wconr POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:wconr>
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../cli/build/$<TARGET_FILE_NAME:wconr>
+    COMMENT "Copying libwconr to cli/build/"
 )

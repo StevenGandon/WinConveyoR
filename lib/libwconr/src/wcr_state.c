@@ -120,6 +120,8 @@ void close_state(wcr_state *state)
             if (!state->sources[i])
                 continue;
             free(state->sources[i]->url);
+            free(state->sources[i]->access_key);
+            free(state->sources[i]->server_pubkey_path);
             free(state->sources[i]);
         }
         free(state->sources);
@@ -217,6 +219,10 @@ int write_state(const wcr_state *state, const char *filepath)
         }
 
         fprintf(file, "source=%s %s\n", proto_name, src->url);
+        if (src->access_key)
+            fprintf(file, "access_key=%s\n", src->access_key);
+        if (src->server_pubkey_path)
+            fprintf(file, "server_pubkey=%s\n", src->server_pubkey_path);
     }
 
     fclose(file);
@@ -289,10 +295,64 @@ wcr_state *load_state(const char *filepath)
             }
             continue;
         }
+
+        #define ACCESS_KEY_PREFIX "access_key="
+        if (strncmp(line, ACCESS_KEY_PREFIX, sizeof(ACCESS_KEY_PREFIX) - 1) == 0
+            && state->sources_count > 0) {
+            wcr_source *last = state->sources[state->sources_count - 1];
+            free(last->access_key);
+            last->access_key = strdup(line + sizeof(ACCESS_KEY_PREFIX) - 1);
+            continue;
+        }
+
+        #define SERVER_PUBKEY_PREFIX "server_pubkey="
+        if (strncmp(line, SERVER_PUBKEY_PREFIX, sizeof(SERVER_PUBKEY_PREFIX) - 1) == 0
+            && state->sources_count > 0) {
+            wcr_source *last = state->sources[state->sources_count - 1];
+            free(last->server_pubkey_path);
+            last->server_pubkey_path = strdup(line + sizeof(SERVER_PUBKEY_PREFIX) - 1);
+            continue;
+        }
     }
 
     state->config_path = strdup(filepath);
 
     fclose(file);
     return state;
+}
+
+const wcr_source *wcr_state_find_source(const wcr_state *state, const char *url)
+{
+    size_t i;
+
+    if (!state || !url)
+        return NULL;
+    for (i = 0; i < state->sources_count; i++) {
+        if (state->sources[i] && state->sources[i]->url
+            && strcmp(state->sources[i]->url, url) == 0)
+            return state->sources[i];
+    }
+    return NULL;
+}
+
+int wcr_source_set_auth(wcr_state *state, size_t index,
+                        const char *access_key,
+                        const char *server_pubkey_path)
+{
+    wcr_source *src;
+
+    if (!state || index >= state->sources_count)
+        return -1;
+    src = state->sources[index];
+    if (!src)
+        return -1;
+
+    free(src->access_key);
+    src->access_key = access_key ? strdup(access_key) : NULL;
+
+    free(src->server_pubkey_path);
+    src->server_pubkey_path = server_pubkey_path ? strdup(server_pubkey_path) : NULL;
+
+    state_auto_save(state);
+    return 0;
 }

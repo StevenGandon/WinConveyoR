@@ -146,7 +146,8 @@ static int rsa_decrypt_key(EVP_PKEY *privkey,
                            const unsigned char *encrypted_key,
                            unsigned char *aes_key_out)
 {
-    size_t aes_key_len = WCR_AES_KEY_SIZE;
+    unsigned char buf[WCR_RSA_KEY_BYTES];
+    size_t buf_len = sizeof(buf);
     EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(privkey, NULL);
 
     if (!ctx)
@@ -155,11 +156,14 @@ static int rsa_decrypt_key(EVP_PKEY *privkey,
         EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_OAEP_PADDING) <= 0 ||
         EVP_PKEY_CTX_set_rsa_oaep_md(ctx, EVP_sha256()) <= 0 ||
         EVP_PKEY_CTX_set_rsa_mgf1_md(ctx, EVP_sha256()) <= 0 ||
-        EVP_PKEY_decrypt(ctx, aes_key_out, &aes_key_len, encrypted_key, WCR_RSA_KEY_BYTES) <= 0) {
+        EVP_PKEY_decrypt(ctx, buf, &buf_len, encrypted_key, WCR_RSA_KEY_BYTES) <= 0) {
         EVP_PKEY_CTX_free(ctx);
         return -1;
     }
     EVP_PKEY_CTX_free(ctx);
+    if (buf_len != WCR_AES_KEY_SIZE)
+        return -1;
+    memcpy(aes_key_out, buf, WCR_AES_KEY_SIZE);
     return 0;
 }
 
@@ -206,12 +210,15 @@ unsigned char *wcr_decrypt(EVP_PKEY *privkey,
     *out_len = 0;
 
     if (cipher_len < WCR_RSA_KEY_BYTES + WCR_AES_IV_SIZE + 1) {
-        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_decrypt: ciphertext too short");
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_decrypt: ciphertext too short (%zu < %d)",
+                 cipher_len, WCR_RSA_KEY_BYTES + WCR_AES_IV_SIZE + 1);
         return NULL;
     }
 
-    if (rsa_decrypt_key(privkey, ciphertext, aes_key) != 0)
+    if (rsa_decrypt_key(privkey, ciphertext, aes_key) != 0) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_decrypt: rsa_decrypt_key failed");
         return NULL;
+    }
 
     iv = ciphertext + WCR_RSA_KEY_BYTES;
     aes_data = ciphertext + WCR_RSA_KEY_BYTES + WCR_AES_IV_SIZE;

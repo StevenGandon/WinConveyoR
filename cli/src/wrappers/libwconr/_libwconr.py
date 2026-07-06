@@ -40,7 +40,9 @@ class wcr_source_s(Structure):
 
 wcr_source_s._fields_ = [
     ("url", c_char_p),
-    ("proto", c_int)
+    ("proto", c_int),
+    ("access_key", c_char_p),
+    ("server_pubkey_path", c_char_p)
 ]
 
 class wcr_state_s(Structure):
@@ -115,5 +117,6 @@ class Mapper(object):
         self._dll.register_function("uninstall_package", c_int, POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("list_installed", c_int, POINTER(wcr_state_s), POINTER(POINTER(wcr_installed_pkg_s)), POINTER(c_size_t))
         self._dll.register_function("free_installed_list", None, POINTER(wcr_installed_pkg_s), c_size_t)
+        self._dll.register_function("wcr_source_set_auth", c_int, POINTER(wcr_state_s), c_size_t, c_char_p, c_char_p)
         self._dll.register_function("wcr_set_event_callback", None, POINTER(wcr_state_s), c_void_p, POINTER(None))
 
