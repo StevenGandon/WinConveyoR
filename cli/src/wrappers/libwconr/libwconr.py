@@ -83,6 +83,22 @@ class WCRState(object):
     def uninstall_package(self, package_name: str) -> int:
         return int(self.__mapper.call_function("uninstall_package", self._cstate, package_name.encode('utf-8')))
 
+    def search_available(self, query: str = "") -> list:
+        out = POINTER(wcr_available_pkg_s)()
+        count = c_size_t(0)
+        q = query.encode('utf-8') if query else None
+        rc = int(self.__mapper.call_function("search_available", self._cstate, q, pointer(out), pointer(count)))
+        if (rc != 0):
+            return []
+        result = []
+        for i in range(count.value):
+            name = out[i].name.decode('utf-8', errors='replace') if out[i].name else ""
+            version = out[i].version.decode('utf-8', errors='replace') if out[i].version else ""
+            result.append({"name": name, "version": version})
+        if (count.value > 0):
+            self.__mapper.call_function("free_available_list", out, count)
+        return result
+
     def list_installed(self) -> list:
         out = POINTER(wcr_installed_pkg_s)()
         count = c_size_t(0)

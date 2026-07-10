@@ -21,6 +21,7 @@ class CLI(object):
         "update": {"opt": ("update", "-u", "--update"), "exc": ()},
         "register": {"opt": ("register",), "exc": ()},
         "login": {"opt": ("login",), "exc": ()},
+        "search": {"opt": ("search",), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -158,6 +159,7 @@ class CLI(object):
             (', '.join(CLI.OPTION_TABLE['uninstall']['opt']), "Uninstall a package"),
             (', '.join(CLI.OPTION_TABLE['update']['opt']), "Sync package lists from sources"),
             (', '.join(CLI.OPTION_TABLE['list']['opt']), "List installed packages"),
+            (', '.join(CLI.OPTION_TABLE['search']['opt']), "Search available packages"),
             (', '.join(CLI.OPTION_TABLE['register']['opt']), "Create an account"),
             (', '.join(CLI.OPTION_TABLE['login']['opt']), "Log in to your account"),
             (', '.join(CLI.OPTION_TABLE['nocolor']['opt']), "Disable color rendering"),
@@ -322,6 +324,26 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} register: {e}\n")
             return (1)
 
+    def search_packages(self):
+        query = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else ""
+
+        packages = self.wcr.search_available(query)
+
+        if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
+            sys.stdout.write(dumps(packages) + "\n")
+            return (0)
+
+        if (not packages):
+            sys.stdout.write(f"No packages found{' for ' + repr(query) if query else ''}.\n")
+            return (0)
+
+        col = 32
+        for p in packages:
+            sys.stdout.write(f"  {p['name'].ljust(col)}{p['version']}\n")
+
+        sys.stdout.write(f"\n{len(packages)} package(s) available.\n")
+        return (0)
+
     def login_user(self):
         from getpass import getpass
 
@@ -389,6 +411,9 @@ class CLI(object):
 
         if (self.has_opt("update")):
             return self.update_sources()
+
+        if (self.has_opt("search")):
+            return self.search_packages()
 
         if (self.has_opt("register")):
             return self.register_user()
