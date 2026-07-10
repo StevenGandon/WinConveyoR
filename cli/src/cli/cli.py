@@ -150,33 +150,45 @@ class CLI(object):
         return self.argparser.parameters[tuple(filter(lambda x: x in self.argparser.parameters, CLI.PARAMETER_TABLE[arg]["opt"]))[-1]]
 
     def show_help(self):
-        sys.stdout.write(f"""Usage: {sys.argv[0]} <-d|-h|...> [options] [arguments]
+        col = 32
+        opts = [
+            (', '.join(CLI.OPTION_TABLE['help']['opt']), "Display this help message"),
+            (', '.join(CLI.OPTION_TABLE['download']['opt']), "Download a package"),
+            (', '.join(CLI.OPTION_TABLE['install']['opt']), "Install a package"),
+            (', '.join(CLI.OPTION_TABLE['uninstall']['opt']), "Uninstall a package"),
+            (', '.join(CLI.OPTION_TABLE['update']['opt']), "Sync package lists from sources"),
+            (', '.join(CLI.OPTION_TABLE['list']['opt']), "List installed packages"),
+            (', '.join(CLI.OPTION_TABLE['register']['opt']), "Create an account"),
+            (', '.join(CLI.OPTION_TABLE['login']['opt']), "Log in to your account"),
+            (', '.join(CLI.OPTION_TABLE['nocolor']['opt']), "Disable color rendering"),
+            (', '.join(CLI.OPTION_TABLE['noansi']['opt']), "Disable ansi rendering"),
+            (', '.join(CLI.OPTION_TABLE['ascii']['opt']), "Rendering only in ascii"),
+        ]
+        params = [
+            (', '.join(CLI.PARAMETER_TABLE['terminal-support']['opt']), "Define a specific generic terminal support"),
+            (', '.join(CLI.PARAMETER_TABLE['charset']['opt']), "Define a specific generic charset"),
+        ]
 
-Options:
-  > {', '.join(CLI.OPTION_TABLE['help']['opt'])}\tDisplay this help message
-  > {', '.join(CLI.OPTION_TABLE['download']['opt'])}\tDownload a package
-  > {', '.join(CLI.OPTION_TABLE['install']['opt'])}\tInstall a package
-  > {', '.join(CLI.OPTION_TABLE['uninstall']['opt'])}\tUninstall a package
-  > {', '.join(CLI.OPTION_TABLE['update']['opt'])}\t\tSync package lists from sources
-  > {', '.join(CLI.OPTION_TABLE['list']['opt'])}\t\tList installed packages
-  > {', '.join(CLI.OPTION_TABLE['register']['opt'])}\t\tCreate an account
-  > {', '.join(CLI.OPTION_TABLE['login']['opt'])}\t\tLog in to your account
-  > {', '.join(CLI.OPTION_TABLE['nocolor']['opt'])}\t\tDisable color rendering
-  > {', '.join(CLI.OPTION_TABLE['noansi']['opt'])}\t\tDisable ansi rendering
-  > {', '.join(CLI.OPTION_TABLE['ascii']['opt'])}\t\tRendering only in ascii
+        lines = [f"Usage: {sys.argv[0]} <-d|-h|...> [options] [arguments]", "", "Options:"]
+        for label, desc in opts:
+            lines.append(f"  > {label.ljust(col)}{desc}")
+        lines.append("")
+        lines.append("Parameters:")
+        for label, desc in params:
+            lines.append(f"  > {label.ljust(col)}{desc}")
+        lines.append("")
+        lines.append("Terminal supports:")
+        for item in STANDARD_PRIORITY:
+            lines.append(f"  > {item}")
+        lines.append("")
+        lines.append("Charsets:")
+        for item in CHARSET_PRIORITY:
+            lines.append(f"  > {item}")
+        lines.append("")
+        lines.append("Exemples:")
+        lines.append("")
 
-Parameters
-  > {', '.join(CLI.PARAMETER_TABLE['terminal-support']['opt'])}\tDefine a specific generic terminal support
-  > {', '.join(CLI.PARAMETER_TABLE['charset']['opt'])}\t\tDefine a specific generic charset
-
-Terminal supports:
-  > {'\x0a  > '.join(STANDARD_PRIORITY)}
-
-Charsets:
-  > {'\x0a  > '.join(CHARSET_PRIORITY)}
-
-Exemples:
-""")
+        sys.stdout.write('\n'.join(lines))
         return (0)
 
     def download_package(self):
