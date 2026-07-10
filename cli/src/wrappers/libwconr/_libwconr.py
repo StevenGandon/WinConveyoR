@@ -77,6 +77,15 @@ wcr_available_pkg_s._fields_ = [
     ("version", c_char_p)
 ]
 
+class wcr_pkg_variant_s(Structure):
+    pass
+
+wcr_pkg_variant_s._fields_ = [
+    ("version", c_char_p),
+    ("arch", c_char_p),
+    ("machine", c_char_p)
+]
+
 
 # ==== Interfaces ==== #
 
@@ -128,5 +137,7 @@ class Mapper(object):
         self._dll.register_function("wcr_source_set_auth", c_int, POINTER(wcr_state_s), c_size_t, c_char_p, c_char_p)
         self._dll.register_function("search_available", c_int, POINTER(wcr_state_s), c_char_p, POINTER(POINTER(wcr_available_pkg_s)), POINTER(c_size_t))
         self._dll.register_function("free_available_list", None, POINTER(wcr_available_pkg_s), c_size_t)
+        self._dll.register_function("list_package_variants", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(POINTER(wcr_pkg_variant_s)), POINTER(c_size_t))
+        self._dll.register_function("free_variant_list", None, POINTER(wcr_pkg_variant_s), c_size_t)
         self._dll.register_function("wcr_set_event_callback", None, POINTER(wcr_state_s), c_void_p, POINTER(None))
 

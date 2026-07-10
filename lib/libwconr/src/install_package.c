@@ -684,6 +684,90 @@ static int install_http(const wcr_state *state, protocol_type proto, const char 
     return rc;
 }
 
+static int variants_wcr(const wcr_state *state, const char *source_uri,
+                        const char *package_name,
+                        wcr_pkg_variant **out, size_t *out_count)
+{
+    char host[256];
+    int port;
+    wcr_conn *conn;
+    char *listing;
+    const wcr_source *src;
+    int rc;
+
+    parse_host_port(source_uri, host, sizeof(host), &port);
+    src = wcr_state_find_source(state, source_uri);
+
+    if (wcr_connect_source(state, src, host, port, &conn) != 0)
+        return -1;
+
+    listing = wcr_get_package_listing(conn, package_name);
+    wcr_close(conn);
+    if (!listing)
+        return -1;
+
+    rc = parse_wcr_listing_variants(listing, out, out_count);
+    free(listing);
+    return rc;
+}
+
+static int variants_http(const wcr_state *state, protocol_type proto,
+                         const char *source_uri, const char *package_name,
+                         wcr_pkg_variant **out, size_t *out_count)
+{
+    char *pkgs_list_path;
+    char *register_path = NULL;
+    char *checksum = NULL;
+    char *version = NULL;
+    char *register_content = NULL;
+    int rc;
+
+    pkgs_list_path = get_cache_path(state, "pkgs.list");
+    if (!pkgs_list_path)
+        return -1;
+
+    if (find_package_in_list(pkgs_list_path, package_name, &register_path, &checksum, &version) != 0) {
+        free(pkgs_list_path);
+        return -1;
+    }
+    free(pkgs_list_path);
+    free(checksum);
+    free(version);
+
+    if (fetch_register(state, proto, source_uri, register_path, &register_content) != 0) {
+        free(register_path);
+        return -1;
+    }
+    free(register_path);
+
+    rc = parse_register_variants(register_content, out, out_count);
+    free(register_content);
+    return rc;
+}
+
+int list_package_variants(const wcr_state *state, protocol_type proto,
+                          const char *source_uri, const char *package_name,
+                          wcr_pkg_variant **out, size_t *out_count)
+{
+    *out = NULL;
+    *out_count = 0;
+
+    if (!state || !source_uri || !package_name)
+        return -1;
+
+    if (proto == PROT_WCR)
+        return variants_wcr(state, source_uri, package_name, out, out_count);
+
+    if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0)
+        return -1;
+
+    {
+        int rc = variants_http(state, proto, source_uri, package_name, out, out_count);
+        curl_global_cleanup();
+        return rc;
+    }
+}
+
 int install_package(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name)
 {
     int rc;

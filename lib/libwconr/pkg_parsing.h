@@ -12,6 +12,11 @@
     int select_variant_register(const char *register_content,
                                 const struct pkg_specifier *spec,
                                 char **out_location);
+    struct wcr_pkg_variant_s;
+    int parse_register_variants(const char *register_content,
+                                struct wcr_pkg_variant_s **out, size_t *out_count);
+    int parse_wcr_listing_variants(const char *listing,
+                                   struct wcr_pkg_variant_s **out, size_t *out_count);
     int json_extract_string(const char *json, const char *key, char **out_value);
     int json_extract_string_array(const char *json, const char *key,
                                   char ***out_values, size_t *out_count);

@@ -307,3 +307,139 @@ int select_variant_register(const char *register_content,
     free(first_location);
     return -1;
 }
+
+int parse_register_variants(const char *register_content,
+                            struct wcr_pkg_variant_s **out, size_t *out_count)
+{
+    const char *p = register_content;
+    struct wcr_pkg_variant_s *list = NULL;
+    size_t count = 0;
+    size_t capacity = 0;
+
+    *out = NULL;
+    *out_count = 0;
+
+    while (*p) {
+        const char *block_start = p;
+        const char *block_end;
+        struct wcr_pkg_variant_s *tmp;
+
+        block_end = strstr(p, "\n\n");
+        if (!block_end) {
+            block_end = p + strlen(p);
+            p = block_end;
+        } else {
+            p = block_end + 2;
+        }
+
+        {
+            char *ver = extract_register_field(block_start, block_end, "Version:");
+            char *arch = extract_register_field(block_start, block_end, "Architecture:");
+            char *mach = extract_register_field(block_start, block_end, "Machine:");
+
+            if (!ver && !arch && !mach)
+                continue;
+
+            if (count >= capacity) {
+                capacity = capacity ? capacity * 2 : 4;
+                tmp = realloc(list, capacity * sizeof(struct wcr_pkg_variant_s));
+                if (!tmp) {
+                    free(ver); free(arch); free(mach);
+                    free_variant_list(list, count);
+                    return -1;
+                }
+                list = tmp;
+            }
+
+            list[count].version = ver;
+            list[count].arch = arch;
+            list[count].machine = mach;
+            count++;
+        }
+    }
+
+    *out = list;
+    *out_count = count;
+    return 0;
+}
+
+int parse_wcr_listing_variants(const char *listing,
+                               struct wcr_pkg_variant_s **out, size_t *out_count)
+{
+    const char *line = listing;
+    struct wcr_pkg_variant_s *list = NULL;
+    size_t count = 0;
+    size_t capacity = 0;
+
+    *out = NULL;
+    *out_count = 0;
+
+    while (line && *line) {
+        const char *next = strstr(line, "\r\n");
+        char ver[128] = {0}, arch[128] = {0}, mach[128] = {0};
+        const char *p;
+        int field;
+        size_t i;
+        struct wcr_pkg_variant_s *tmp;
+
+        if (!next)
+            next = strchr(line, '\n');
+
+        if (*line == '\r' || *line == '\n') {
+            line = next ? next + (next[0] == '\r' ? 2 : 1) : NULL;
+            continue;
+        }
+
+        p = line;
+        field = 0;
+        i = 0;
+        while (*p && *p != '\r' && *p != '\n') {
+            if (*p == ' ') {
+                field++;
+                i = 0;
+            } else {
+                if (field == 0 && i < sizeof(ver) - 1) ver[i++] = *p;
+                else if (field == 1 && i < sizeof(arch) - 1) arch[i++] = *p;
+                else if (field == 2 && i < sizeof(mach) - 1) mach[i++] = *p;
+            }
+            p++;
+        }
+
+        if (ver[0]) {
+            if (count >= capacity) {
+                capacity = capacity ? capacity * 2 : 4;
+                tmp = realloc(list, capacity * sizeof(struct wcr_pkg_variant_s));
+                if (!tmp) {
+                    free_variant_list(list, count);
+                    return -1;
+                }
+                list = tmp;
+            }
+
+            list[count].version = strdup(ver);
+            list[count].arch = arch[0] ? strdup(arch) : NULL;
+            list[count].machine = mach[0] ? strdup(mach) : NULL;
+            count++;
+        }
+
+        line = next ? next + (next[0] == '\r' ? 2 : 1) : NULL;
+    }
+
+    *out = list;
+    *out_count = count;
+    return 0;
+}
+
+void free_variant_list(struct wcr_pkg_variant_s *list, size_t count)
+{
+    size_t i;
+
+    if (!list)
+        return;
+    for (i = 0; i < count; i++) {
+        free(list[i].version);
+        free(list[i].arch);
+        free(list[i].machine);
+    }
+    free(list);
+}

@@ -22,6 +22,7 @@ class CLI(object):
         "register": {"opt": ("register",), "exc": ()},
         "login": {"opt": ("login",), "exc": ()},
         "search": {"opt": ("search",), "exc": ()},
+        "info": {"opt": ("info",), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -160,6 +161,7 @@ class CLI(object):
             (', '.join(CLI.OPTION_TABLE['update']['opt']), "Sync package lists from sources"),
             (', '.join(CLI.OPTION_TABLE['list']['opt']), "List installed packages"),
             (', '.join(CLI.OPTION_TABLE['search']['opt']), "Search available packages"),
+            (', '.join(CLI.OPTION_TABLE['info']['opt']), "Show package variants"),
             (', '.join(CLI.OPTION_TABLE['register']['opt']), "Create an account"),
             (', '.join(CLI.OPTION_TABLE['login']['opt']), "Log in to your account"),
             (', '.join(CLI.OPTION_TABLE['nocolor']['opt']), "Disable color rendering"),
@@ -324,6 +326,42 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} register: {e}\n")
             return (1)
 
+    def info_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_name):
+            sys.stderr.write(f"{sys.argv[0]} info: no package name provided.\n")
+            return (1)
+
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} info: no sources configured.\n")
+            return (1)
+
+        variants = []
+        for src in sources:
+            variants = self.wcr.list_package_variants(src['proto'], src['url'], package_name)
+            if (variants):
+                break
+
+        if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
+            sys.stdout.write(dumps(variants) + "\n")
+            return (0)
+
+        if (not variants):
+            sys.stdout.write(f"No variants found for '{package_name}'.\n")
+            return (0)
+
+        col = 16
+        sys.stdout.write(f"Variants for '{package_name}':\n\n")
+        sys.stdout.write(f"  {'VERSION'.ljust(col)}{'ARCH'.ljust(col)}MACHINE\n")
+        sys.stdout.write(f"  {'-' * (col - 1) + ' '}{'-' * (col - 1) + ' '}{'-' * (col - 1)}\n")
+        for v in variants:
+            sys.stdout.write(f"  {v['version'].ljust(col)}{v['arch'].ljust(col)}{v['machine']}\n")
+
+        sys.stdout.write(f"\n{len(variants)} variant(s).\n")
+        return (0)
+
     def search_packages(self):
         query = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else ""
 
@@ -414,6 +452,9 @@ class CLI(object):
 
         if (self.has_opt("search")):
             return self.search_packages()
+
+        if (self.has_opt("info")):
+            return self.info_package()
 
         if (self.has_opt("register")):
             return self.register_user()
