@@ -1,9 +1,11 @@
 #include "pkg_parsing.h"
+#include "pkg_specifier.h"
 #include "wcr_event_internal.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <cJSON.h>
 
 int find_package_in_list(const char *pkgs_list_path, const char *package_name,
@@ -215,4 +217,93 @@ int json_extract_string_array(const char *json, const char *key,
     *out_values = values;
     *out_count = count;
     return 0;
+}
+
+static char *extract_register_field(const char *block_start, const char *block_end, const char *key)
+{
+    const char *p = block_start;
+    size_t key_len = strlen(key);
+
+    while (p < block_end) {
+        const char *line_end = memchr(p, '\n', (size_t)(block_end - p));
+
+        if (!line_end)
+            line_end = block_end;
+
+        if ((size_t)(line_end - p) >= key_len && strncmp(p, key, key_len) == 0) {
+            const char *val = p + key_len;
+            const char *val_end = line_end;
+
+            while (val < val_end && (*val == ' ' || *val == '\t')) val++;
+            while (val_end > val && (*(val_end - 1) == '\r' || *(val_end - 1) == ' ')) val_end--;
+
+            if (val < val_end)
+                return strndup(val, (size_t)(val_end - val));
+        }
+
+        p = line_end + 1;
+    }
+
+    return NULL;
+}
+
+int select_variant_register(const char *register_content,
+                            const struct pkg_specifier *spec,
+                            char **out_location)
+{
+    const char *p = register_content;
+    char *first_location = NULL;
+
+    *out_location = NULL;
+
+    while (*p) {
+        const char *block_start = p;
+        const char *block_end;
+        char *ver, *arch, *mach, *loc;
+        int match;
+
+        block_end = strstr(p, "\n\n");
+        if (!block_end) {
+            block_end = p + strlen(p);
+            p = block_end;
+        } else {
+            p = block_end + 2;
+        }
+
+        loc = extract_register_field(block_start, block_end, "Location:");
+        if (!loc)
+            continue;
+
+        if (!first_location)
+            first_location = strdup(loc);
+
+        ver = extract_register_field(block_start, block_end, "Version:");
+        arch = extract_register_field(block_start, block_end, "Architecture:");
+        mach = extract_register_field(block_start, block_end, "Machine:");
+
+        match = 1;
+        if (spec->version && ver && strcasecmp(spec->version, ver) != 0) match = 0;
+        if (spec->arch && arch && strcasecmp(spec->arch, arch) != 0) match = 0;
+        if (spec->machine && mach && strcasecmp(spec->machine, mach) != 0) match = 0;
+
+        free(ver);
+        free(arch);
+        free(mach);
+
+        if (match) {
+            *out_location = loc;
+            free(first_location);
+            return 0;
+        }
+
+        free(loc);
+    }
+
+    if (!spec->version && !spec->arch && !spec->machine && first_location) {
+        *out_location = first_location;
+        return 0;
+    }
+
+    free(first_location);
+    return -1;
 }

@@ -5,6 +5,7 @@
 #include "pkg_parsing.h"
 #include "pkg_registry.h"
 #include "wcr_client.h"
+#include "pkg_specifier.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -217,9 +218,9 @@ static int parse_host_port(const char *source_uri, char *host, size_t host_sz, i
     return 0;
 }
 
-static int extract_location_hash(const char *listing, char *out, size_t out_sz)
+static int extract_line_field(const char *line, int field_idx, char *out, size_t out_sz)
 {
-    const char *p = listing;
+    const char *p = line;
     int field = 0;
     size_t i = 0;
 
@@ -227,7 +228,7 @@ static int extract_location_hash(const char *listing, char *out, size_t out_sz)
         if (*p == ' ') {
             field++;
             i = 0;
-        } else if (field == 3 && i < out_sz - 1) {
+        } else if (field == field_idx && i < out_sz - 1) {
             out[i++] = *p;
         }
         p++;
@@ -237,7 +238,73 @@ static int extract_location_hash(const char *listing, char *out, size_t out_sz)
     return (i > 0) ? 0 : -1;
 }
 
-static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char *package_name,
+static int strcasematch(const char *filter, const char *value)
+{
+    if (!filter)
+        return 1;
+#ifdef _WIN32
+    return (_stricmp(filter, value) == 0);
+#else
+    return (strcasecmp(filter, value) == 0);
+#endif
+}
+
+static int select_variant_wcr(const char *listing,
+                              const struct pkg_specifier *spec,
+                              char *out_hash, size_t hash_sz)
+{
+    const char *line = listing;
+    char ver[128], arch[128], mach[128], hash[256];
+    const char *best_line = NULL;
+
+    out_hash[0] = '\0';
+
+    while (line && *line) {
+        const char *next = strstr(line, "\r\n");
+
+        if (!next)
+            next = strchr(line, '\n');
+
+        if (*line == '\r' || *line == '\n' || *line == '\0') {
+            line = next ? next + (next[0] == '\r' ? 2 : 1) : NULL;
+            continue;
+        }
+
+        if (extract_line_field(line, 0, ver, sizeof(ver)) != 0 ||
+            extract_line_field(line, 1, arch, sizeof(arch)) != 0 ||
+            extract_line_field(line, 2, mach, sizeof(mach)) != 0 ||
+            extract_line_field(line, 3, hash, sizeof(hash)) != 0) {
+            line = next ? next + (next[0] == '\r' ? 2 : 1) : NULL;
+            continue;
+        }
+
+        if (strcasematch(spec->version, ver) &&
+            strcasematch(spec->arch, arch) &&
+            strcasematch(spec->machine, mach)) {
+            size_t hlen = strlen(hash);
+
+            if (hlen >= hash_sz) hlen = hash_sz - 1;
+            memcpy(out_hash, hash, hlen);
+            out_hash[hlen] = '\0';
+            return 0;
+        }
+
+        if (!best_line)
+            best_line = line;
+
+        line = next ? next + (next[0] == '\r' ? 2 : 1) : NULL;
+    }
+
+    if (!spec->version && !spec->arch && !spec->machine && best_line) {
+        extract_line_field(best_line, 3, out_hash, hash_sz);
+        return (out_hash[0] != '\0') ? 0 : -1;
+    }
+
+    return -1;
+}
+
+static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn,
+                              const struct pkg_specifier *spec,
                               char **out_address, char **out_sha256,
                               char *out_location_hash, size_t location_hash_sz,
                               char ***out_depends, size_t *out_depends_count,
@@ -253,16 +320,16 @@ static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char
     *out_version = NULL;
     out_location_hash[0] = '\0';
 
-    listing = wcr_get_package_listing(conn, package_name);
+    listing = wcr_get_package_listing(conn, spec->name);
     if (!listing) {
-        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: get_package_listing failed for '%s'", package_name);
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: get_package_listing failed for '%s'", spec->name);
         return -1;
     }
 
     wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: package_listing=\n%s", listing);
 
-    if (extract_location_hash(listing, out_location_hash, location_hash_sz) != 0) {
-        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: could not extract location_hash");
+    if (select_variant_wcr(listing, spec, out_location_hash, location_hash_sz) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: no matching variant for '%s'", spec->name);
         free(listing);
         return -1;
     }
@@ -270,7 +337,7 @@ static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn, const char
 
     wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wcr_fetch_metadata: using location_hash=%s", out_location_hash);
 
-    metadata = wcr_get_package_metadata(conn, package_name, out_location_hash);
+    metadata = wcr_get_package_metadata(conn, spec->name, out_location_hash);
     if (!metadata) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wcr_fetch_metadata: get_package_metadata failed");
         return -1;
@@ -365,45 +432,59 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
     size_t i;
     const wcr_source *src;
     const char *basename;
+    struct pkg_specifier spec;
 
-    if (install_ctx_has(ctx, package_name)) {
-        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] install_wcr: skipping already-visited '%s'", package_name);
+    if (pkg_specifier_parse(package_name, &spec) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: invalid package specifier '%s'", package_name);
+        return -1;
+    }
+
+    if (install_ctx_has(ctx, spec.name)) {
+        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] install_wcr: skipping already-visited '%s'", spec.name);
+        pkg_specifier_free(&spec);
         return 0;
     }
 
-    if (install_ctx_add(state, ctx, package_name) != 0)
+    if (install_ctx_add(state, ctx, spec.name) != 0) {
+        pkg_specifier_free(&spec);
         return -1;
+    }
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: resolving '%s'", package_name);
 
     parse_host_port(source_uri, host, sizeof(host), &port);
     src = wcr_state_find_source(state, source_uri);
 
-    if (wcr_connect_source(state, src, host, port, &conn) != 0)
+    if (wcr_connect_source(state, src, host, port, &conn) != 0) {
+        pkg_specifier_free(&spec);
         return -1;
+    }
 
-    if (wcr_fetch_metadata(state, conn, package_name, &address, &sha256_expected,
+    if (wcr_fetch_metadata(state, conn, &spec, &address, &sha256_expected,
                            location_hash, sizeof(location_hash),
                            &depends, &depends_count, &version) != 0) {
         wcr_close(conn);
+        pkg_specifier_free(&spec);
         return -1;
     }
 
     for (i = 0; i < depends_count; i++) {
         wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: dependency '%s' required by '%s'",
-                 depends[i], package_name);
+                 depends[i], spec.name);
         wcr_close(conn);
         if (install_wcr_single(state, source_uri, depends[i], ctx, 1) != 0) {
             wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: failed to install dependency '%s'", depends[i]);
             free(address);
             free(sha256_expected);
             free_string_array(depends, depends_count);
+            pkg_specifier_free(&spec);
             return -1;
         }
         if (wcr_connect_source(state, src, host, port, &conn) != 0) {
             free(address);
             free(sha256_expected);
             free_string_array(depends, depends_count);
+            pkg_specifier_free(&spec);
             return -1;
         }
     }
@@ -417,16 +498,18 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         wcr_close(conn);
         free(address);
         free(sha256_expected);
+        pkg_specifier_free(&spec);
         return -1;
     }
 
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: downloading %s", package_name);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: downloading %s", spec.name);
 
-    if (wcr_download_file(conn, package_name, location_hash, local_path) != 0) {
+    if (wcr_download_file(conn, spec.name, location_hash, local_path) != 0) {
         wcr_close(conn);
         free(address);
         free(sha256_expected);
         free(local_path);
+        pkg_specifier_free(&spec);
         return -1;
     }
     wcr_close(conn);
@@ -439,6 +522,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         free(sha256_expected);
         free(sha256_local);
         free(local_path);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(sha256_expected);
@@ -446,16 +530,18 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: SHA256 verified ok");
 
-    if (extract_archive(state, local_path, package_name) != 0) {
+    if (extract_archive(state, local_path, spec.name) != 0) {
         free(local_path);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(local_path);
 
-    record_installed(state, package_name, version ? version : "unknown", is_dep);
+    record_installed(state, spec.name, version ? version : "unknown", is_dep);
     free(version);
 
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: '%s' installed successfully", package_name);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: '%s' installed successfully", spec.name);
+    pkg_specifier_free(&spec);
     return 0;
 }
 
@@ -485,23 +571,35 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     char **depends = NULL;
     size_t depends_count = 0;
     size_t i;
+    struct pkg_specifier spec;
 
-    if (install_ctx_has(ctx, package_name)) {
-        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] install: skipping already-visited '%s'", package_name);
+    if (pkg_specifier_parse(package_name, &spec) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: invalid package specifier '%s'", package_name);
+        return -1;
+    }
+
+    if (install_ctx_has(ctx, spec.name)) {
+        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] install: skipping already-visited '%s'", spec.name);
+        pkg_specifier_free(&spec);
         return 0;
     }
 
-    if (install_ctx_add(state, ctx, package_name) != 0)
+    if (install_ctx_add(state, ctx, spec.name) != 0) {
+        pkg_specifier_free(&spec);
         return -1;
+    }
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: resolving '%s'", package_name);
 
     pkgs_list_path = get_cache_path(state, "pkgs.list");
-    if (!pkgs_list_path)
+    if (!pkgs_list_path) {
+        pkg_specifier_free(&spec);
         return -1;
+    }
 
-    if (find_package_in_list(pkgs_list_path, package_name, &register_path, &checksum, &version) != 0) {
+    if (find_package_in_list(pkgs_list_path, spec.name, &register_path, &checksum, &version) != 0) {
         free(pkgs_list_path);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(pkgs_list_path);
@@ -509,12 +607,17 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
 
     if (fetch_register(state, proto, source_uri, register_path, &register_content) != 0) {
         free(register_path);
+        free(version);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(register_path);
 
-    if (parse_first_location(register_content, &variant_location) != 0) {
+    if (select_variant_register(register_content, &spec, &variant_location) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: no matching variant for '%s'", package_name);
         free(register_content);
+        free(version);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(register_content);
@@ -522,19 +625,23 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     if (fetch_metadata(state, proto, source_uri, variant_location,
                        &archive_address, &archive_sha256, &depends, &depends_count) != 0) {
         free(variant_location);
+        free(version);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(variant_location);
 
     for (i = 0; i < depends_count; i++) {
         wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: dependency '%s' required by '%s'",
-                 depends[i], package_name);
+                 depends[i], spec.name);
         if (install_http_with_deps(state, proto, source_uri, depends[i], ctx, 1) != 0) {
             wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: failed to install dependency '%s'",
                      depends[i]);
             free_string_array(depends, depends_count);
             free(archive_address);
             free(archive_sha256);
+            free(version);
+            pkg_specifier_free(&spec);
             return -1;
         }
     }
@@ -543,6 +650,8 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     if (fetch_and_verify_archive(state, proto, source_uri, archive_address, archive_sha256, &archive_path) != 0) {
         free(archive_address);
         free(archive_sha256);
+        free(version);
+        pkg_specifier_free(&spec);
         return -1;
     }
     free(archive_address);
@@ -550,16 +659,18 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: archive downloaded and SHA256 verified ok (%s)", archive_path);
 
-    if (extract_archive(state, archive_path, package_name) != 0) {
+    if (extract_archive(state, archive_path, spec.name) != 0) {
         free(archive_path);
         free(version);
+        pkg_specifier_free(&spec);
         return -1;
     }
 
     free(archive_path);
-    record_installed(state, package_name, version ? version : "unknown", is_dep);
+    record_installed(state, spec.name, version ? version : "unknown", is_dep);
     free(version);
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: '%s' installed successfully", package_name);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: '%s' installed successfully", spec.name);
+    pkg_specifier_free(&spec);
     return 0;
 }
 

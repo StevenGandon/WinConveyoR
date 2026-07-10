@@ -52,6 +52,7 @@ set(LIBWCONR_SOURCES
     src/wcr_state.c
     src/wcr_client.c
     src/wcr_crypt.c
+    src/pkg_specifier.c
 
     src/modules/source/source_handler.c
 
