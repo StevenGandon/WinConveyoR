@@ -23,6 +23,7 @@ class CLI(object):
         "login": {"opt": ("login",), "exc": ()},
         "search": {"opt": ("search",), "exc": ()},
         "info": {"opt": ("info",), "exc": ()},
+        "check": {"opt": ("check",), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -162,6 +163,7 @@ class CLI(object):
             (', '.join(CLI.OPTION_TABLE['list']['opt']), "List installed packages"),
             (', '.join(CLI.OPTION_TABLE['search']['opt']), "Search available packages"),
             (', '.join(CLI.OPTION_TABLE['info']['opt']), "Show package variants"),
+            (', '.join(CLI.OPTION_TABLE['check']['opt']), "Verify cached package hash"),
             (', '.join(CLI.OPTION_TABLE['register']['opt']), "Create an account"),
             (', '.join(CLI.OPTION_TABLE['login']['opt']), "Log in to your account"),
             (', '.join(CLI.OPTION_TABLE['nocolor']['opt']), "Disable color rendering"),
@@ -426,6 +428,45 @@ class CLI(object):
         sys.stdout.write(f"\n{len(packages)} package(s) available.\n")
         return (0)
 
+    def check_package(self):
+        package_spec = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_spec):
+            sys.stderr.write(f"{sys.argv[0]} check: no package specifier provided.\n")
+            return (1)
+
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} check: no sources configured.\n")
+            return (1)
+
+        result = None
+        for src in sources:
+            result = self.wcr.verify_cached_package(src['proto'], src['url'], package_spec)
+            if (result is not None):
+                break
+
+        if (result is None):
+            sys.stderr.write(f"{sys.argv[0]} check: cannot verify '{package_spec}'.\n")
+            return (1)
+
+        if (result['match'] == -1):
+            sys.stdout.write(f"  Package '{package_spec}' not found in cache.\n")
+            sys.stdout.write(f"  Expected SHA256: {result['expected']}\n")
+            return (1)
+
+        col = 16
+        sys.stdout.write(f"\n  {'Package:'.ljust(col)}{package_spec}\n")
+        sys.stdout.write(f"  {'Expected:'.ljust(col)}{result['expected']}\n")
+        sys.stdout.write(f"  {'Actual:'.ljust(col)}{result['actual']}\n")
+
+        if (result['match'] == 1):
+            sys.stdout.write(f"  {'Status:'.ljust(col)}OK\n\n")
+            return (0)
+
+        sys.stdout.write(f"  {'Status:'.ljust(col)}MISMATCH\n\n")
+        return (1)
+
     def login_user(self):
         from getpass import getpass
 
@@ -499,6 +540,9 @@ class CLI(object):
 
         if (self.has_opt("info")):
             return self.info_package()
+
+        if (self.has_opt("check")):
+            return self.check_package()
 
         if (self.has_opt("register")):
             return self.register_user()

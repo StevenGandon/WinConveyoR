@@ -104,6 +104,15 @@ wcr_pkg_metadata_s._fields_ = [
     ("added_at", c_long)
 ]
 
+class wcr_hash_check_s(Structure):
+    pass
+
+wcr_hash_check_s._fields_ = [
+    ("expected", c_char_p),
+    ("actual", c_char_p),
+    ("match", c_int)
+]
+
 
 # ==== Interfaces ==== #
 
@@ -159,5 +168,7 @@ class Mapper(object):
         self._dll.register_function("free_variant_list", None, POINTER(wcr_pkg_variant_s), c_size_t)
         self._dll.register_function("get_package_metadata", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(wcr_pkg_metadata_s))
         self._dll.register_function("free_package_metadata", None, POINTER(wcr_pkg_metadata_s))
+        self._dll.register_function("verify_cached_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(wcr_hash_check_s))
+        self._dll.register_function("free_hash_check", None, POINTER(wcr_hash_check_s))
         self._dll.register_function("wcr_set_event_callback", None, POINTER(wcr_state_s), c_void_p, POINTER(None))
 

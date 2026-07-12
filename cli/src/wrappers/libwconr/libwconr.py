@@ -150,6 +150,26 @@ class WCRState(object):
             self.__mapper.call_function("free_available_list", out, count)
         return result
 
+    def verify_cached_package(self, proto: int, source_uri: str, package_spec: str) -> dict:
+        check = wcr_hash_check_s()
+        rc = int(self.__mapper.call_function("verify_cached_package", self._cstate, proto,
+                                             source_uri.encode('utf-8'), package_spec.encode('utf-8'),
+                                             pointer(check)))
+        if (rc != 0):
+            return None
+
+        def _ds(v):
+            return v.decode('utf-8', errors='replace') if v else ""
+
+        result = {
+            "expected": _ds(check.expected),
+            "actual": _ds(check.actual),
+            "match": check.match
+        }
+
+        self.__mapper.call_function("free_hash_check", pointer(check))
+        return result
+
     def list_installed(self) -> list:
         out = POINTER(wcr_installed_pkg_s)()
         count = c_size_t(0)

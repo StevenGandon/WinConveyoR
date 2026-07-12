@@ -911,6 +911,65 @@ void free_package_metadata(wcr_pkg_metadata *meta)
     memset(meta, 0, sizeof(*meta));
 }
 
+int verify_cached_package(const wcr_state *state, protocol_type proto,
+                          const char *source_uri, const char *package_spec,
+                          wcr_hash_check *out)
+{
+    wcr_pkg_metadata meta;
+    const char *basename;
+    char *cache_path;
+
+    memset(out, 0, sizeof(*out));
+    out->match = -1;
+
+    if (!state || !source_uri || !package_spec)
+        return -1;
+
+    if (get_package_metadata(state, proto, source_uri, package_spec, &meta) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR,
+                 "[ERROR] verify_cached_package: cannot fetch metadata for '%s'", package_spec);
+        return -1;
+    }
+
+    if (!meta.sha256 || !meta.address) {
+        wcr_emit(state, WCR_EVENT_ERROR,
+                 "[ERROR] verify_cached_package: metadata missing SHA256 or address");
+        free_package_metadata(&meta);
+        return -1;
+    }
+
+    out->expected = strdup(meta.sha256);
+
+    basename = strrchr(meta.address, '/');
+    basename = basename ? basename + 1 : meta.address;
+
+    cache_path = get_cache_path(state, basename);
+    free_package_metadata(&meta);
+
+    if (!cache_path)
+        return -1;
+
+    out->actual = calculate_sha256_file(cache_path);
+    free(cache_path);
+
+    if (!out->actual) {
+        out->match = -1;
+        return 0;
+    }
+
+    out->match = (strcmp(out->expected, out->actual) == 0) ? 1 : 0;
+    return 0;
+}
+
+void free_hash_check(wcr_hash_check *check)
+{
+    if (!check)
+        return;
+    free(check->expected);
+    free(check->actual);
+    memset(check, 0, sizeof(*check));
+}
+
 int install_package(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name)
 {
     int rc;
