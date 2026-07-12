@@ -326,18 +326,10 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} register: {e}\n")
             return (1)
 
-    def info_package(self):
-        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+    def _has_specifier_filters(self, name):
+        return (':' in name or '@' in name or '#' in name)
 
-        if (not package_name):
-            sys.stderr.write(f"{sys.argv[0]} info: no package name provided.\n")
-            return (1)
-
-        sources = self.wcr.get_sources()
-        if (not sources):
-            sys.stderr.write(f"{sys.argv[0]} info: no sources configured.\n")
-            return (1)
-
+    def _info_variants(self, package_name, sources):
         variants = []
         for src in sources:
             variants = self.wcr.list_package_variants(src['proto'], src['url'], package_name)
@@ -361,6 +353,58 @@ class CLI(object):
 
         sys.stdout.write(f"\n{len(variants)} variant(s).\n")
         return (0)
+
+    def _info_metadata(self, package_spec, sources):
+        meta = None
+        for src in sources:
+            meta = self.wcr.get_package_metadata(src['proto'], src['url'], package_spec)
+            if (meta):
+                break
+
+        if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
+            sys.stdout.write(dumps(meta) + "\n")
+            return (0)
+
+        if (not meta):
+            sys.stdout.write(f"No metadata found for '{package_spec}'.\n")
+            return (0)
+
+        col = 16
+        sys.stdout.write(f"\n  {'Package:'.ljust(col)}{meta['name']}\n")
+        sys.stdout.write(f"  {'Version:'.ljust(col)}{meta['version']}\n")
+        sys.stdout.write(f"  {'Arch:'.ljust(col)}{meta['arch']}\n")
+        sys.stdout.write(f"  {'Machine:'.ljust(col)}{meta['machine']}\n")
+
+        if (meta['description']):
+            sys.stdout.write(f"  {'Description:'.ljust(col)}{meta['description']}\n")
+        if (meta['depends']):
+            sys.stdout.write(f"  {'Depends:'.ljust(col)}{', '.join(meta['depends'])}\n")
+        if (meta['size']):
+            sys.stdout.write(f"  {'Size:'.ljust(col)}{meta['size']} bytes\n")
+        if (meta['SHA256']):
+            sys.stdout.write(f"  {'SHA256:'.ljust(col)}{meta['SHA256']}\n")
+        if (meta['MD5sum']):
+            sys.stdout.write(f"  {'MD5:'.ljust(col)}{meta['MD5sum']}\n")
+
+        sys.stdout.write("\n")
+        return (0)
+
+    def info_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        if (not package_name):
+            sys.stderr.write(f"{sys.argv[0]} info: no package name provided.\n")
+            return (1)
+
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} info: no sources configured.\n")
+            return (1)
+
+        if (self._has_specifier_filters(package_name)):
+            return self._info_metadata(package_name, sources)
+
+        return self._info_variants(package_name, sources)
 
     def search_packages(self):
         query = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else ""

@@ -17,6 +17,8 @@
                                 struct wcr_pkg_variant_s **out, size_t *out_count);
     int parse_wcr_listing_variants(const char *listing,
                                    struct wcr_pkg_variant_s **out, size_t *out_count);
+    struct wcr_pkg_metadata_s;
+    int json_parse_metadata(const char *json, struct wcr_pkg_metadata_s *out);
     int json_extract_string(const char *json, const char *key, char **out_value);
     int json_extract_string_array(const char *json, const char *key,
                                   char ***out_values, size_t *out_count);

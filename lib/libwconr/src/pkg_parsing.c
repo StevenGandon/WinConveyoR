@@ -124,6 +124,68 @@ int parse_first_location(const char *register_content, char **out_location)
     return -1;
 }
 
+static char *cjson_strdup(cJSON *root, const char *key)
+{
+    cJSON *item = cJSON_GetObjectItemCaseSensitive(root, key);
+
+    if (cJSON_IsString(item) && item->valuestring)
+        return strdup(item->valuestring);
+    return NULL;
+}
+
+static long cjson_long(cJSON *root, const char *key)
+{
+    cJSON *item = cJSON_GetObjectItemCaseSensitive(root, key);
+
+    if (cJSON_IsNumber(item))
+        return (long)item->valuedouble;
+    return 0;
+}
+
+int json_parse_metadata(const char *json, struct wcr_pkg_metadata_s *out)
+{
+    cJSON *root;
+    cJSON *deps;
+    cJSON *elem;
+    size_t i;
+
+    memset(out, 0, sizeof(*out));
+
+    root = cJSON_Parse(json);
+    if (!root)
+        return -1;
+
+    out->name = cjson_strdup(root, "package");
+    out->version = cjson_strdup(root, "version");
+    out->arch = cjson_strdup(root, "architecture");
+    out->machine = cjson_strdup(root, "machine");
+    out->description = cjson_strdup(root, "description");
+    out->address = cjson_strdup(root, "address");
+    out->sha256 = cjson_strdup(root, "SHA256");
+    out->md5 = cjson_strdup(root, "MD5sum");
+    out->size = cjson_long(root, "size");
+    out->added_at = cjson_long(root, "added_at");
+
+    deps = cJSON_GetObjectItemCaseSensitive(root, "depends");
+    if (cJSON_IsArray(deps)) {
+        out->depends_count = (size_t)cJSON_GetArraySize(deps);
+        if (out->depends_count > 0) {
+            out->depends = calloc(out->depends_count, sizeof(char *));
+            if (out->depends) {
+                i = 0;
+                cJSON_ArrayForEach(elem, deps) {
+                    if (cJSON_IsString(elem) && elem->valuestring)
+                        out->depends[i] = strdup(elem->valuestring);
+                    i++;
+                }
+            }
+        }
+    }
+
+    cJSON_Delete(root);
+    return 0;
+}
+
 int json_extract_string(const char *json, const char *key, char **out_value)
 {
     cJSON *root = cJSON_Parse(json);

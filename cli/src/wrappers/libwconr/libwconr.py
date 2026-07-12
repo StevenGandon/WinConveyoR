@@ -83,6 +83,39 @@ class WCRState(object):
     def uninstall_package(self, package_name: str) -> int:
         return int(self.__mapper.call_function("uninstall_package", self._cstate, package_name.encode('utf-8')))
 
+    def get_package_metadata(self, proto: int, source_uri: str, package_spec: str) -> dict:
+        meta = wcr_pkg_metadata_s()
+        rc = int(self.__mapper.call_function("get_package_metadata", self._cstate, proto,
+                                             source_uri.encode('utf-8'), package_spec.encode('utf-8'),
+                                             pointer(meta)))
+        if (rc != 0):
+            return None
+
+        def _ds(v):
+            return v.decode('utf-8', errors='replace') if v else ""
+
+        deps = []
+        for i in range(meta.depends_count):
+            if (meta.depends[i]):
+                deps.append(meta.depends[i].decode('utf-8', errors='replace'))
+
+        result = {
+            "name": _ds(meta.name),
+            "version": _ds(meta.version),
+            "arch": _ds(meta.arch),
+            "machine": _ds(meta.machine),
+            "description": _ds(meta.description),
+            "address": _ds(meta.address),
+            "SHA256": _ds(meta.sha256),
+            "MD5sum": _ds(meta.md5),
+            "depends": deps,
+            "size": meta.size,
+            "added_at": meta.added_at
+        }
+
+        self.__mapper.call_function("free_package_metadata", pointer(meta))
+        return result
+
     def list_package_variants(self, proto: int, source_uri: str, package_name: str) -> list:
         out = POINTER(wcr_pkg_variant_s)()
         count = c_size_t(0)

@@ -768,6 +768,149 @@ int list_package_variants(const wcr_state *state, protocol_type proto,
     }
 }
 
+static int metadata_wcr(const wcr_state *state, const char *source_uri,
+                        const struct pkg_specifier *spec, wcr_pkg_metadata *out)
+{
+    char host[256];
+    int port;
+    wcr_conn *conn;
+    char *listing;
+    char *metadata_json;
+    char location_hash[256] = {0};
+    const wcr_source *src;
+
+    parse_host_port(source_uri, host, sizeof(host), &port);
+    src = wcr_state_find_source(state, source_uri);
+
+    if (wcr_connect_source(state, src, host, port, &conn) != 0)
+        return -1;
+
+    listing = wcr_get_package_listing(conn, spec->name);
+    if (!listing) {
+        wcr_close(conn);
+        return -1;
+    }
+
+    if (select_variant_wcr(listing, spec, location_hash, sizeof(location_hash)) != 0) {
+        free(listing);
+        wcr_close(conn);
+        return -1;
+    }
+    free(listing);
+
+    metadata_json = wcr_get_package_metadata(conn, spec->name, location_hash);
+    wcr_close(conn);
+    if (!metadata_json)
+        return -1;
+
+    {
+        int rc = json_parse_metadata(metadata_json, out);
+        free(metadata_json);
+        return rc;
+    }
+}
+
+static int metadata_http(const wcr_state *state, protocol_type proto,
+                         const char *source_uri, const struct pkg_specifier *spec,
+                         wcr_pkg_metadata *out)
+{
+    char *pkgs_list_path;
+    char *register_path = NULL;
+    char *checksum = NULL;
+    char *version = NULL;
+    char *register_content = NULL;
+    char *variant_location = NULL;
+    char *url = NULL;
+    char *metadata_json = NULL;
+
+    pkgs_list_path = get_cache_path(state, "pkgs.list");
+    if (!pkgs_list_path)
+        return -1;
+
+    if (find_package_in_list(pkgs_list_path, spec->name, &register_path, &checksum, &version) != 0) {
+        free(pkgs_list_path);
+        return -1;
+    }
+    free(pkgs_list_path);
+    free(checksum);
+    free(version);
+
+    if (fetch_register(state, proto, source_uri, register_path, &register_content) != 0) {
+        free(register_path);
+        return -1;
+    }
+    free(register_path);
+
+    if (select_variant_register(register_content, spec, &variant_location) != 0) {
+        free(register_content);
+        return -1;
+    }
+    free(register_content);
+
+    url = build_url(source_uri, variant_location);
+    free(variant_location);
+    if (!url)
+        return -1;
+
+    metadata_json = download_to_string(proto, url);
+    free(url);
+    if (!metadata_json)
+        return -1;
+
+    {
+        int rc = json_parse_metadata(metadata_json, out);
+        free(metadata_json);
+        return rc;
+    }
+}
+
+int get_package_metadata(const wcr_state *state, protocol_type proto,
+                         const char *source_uri, const char *package_spec,
+                         wcr_pkg_metadata *out)
+{
+    struct pkg_specifier spec;
+    int rc;
+
+    memset(out, 0, sizeof(*out));
+    if (!state || !source_uri || !package_spec)
+        return -1;
+
+    if (pkg_specifier_parse(package_spec, &spec) != 0)
+        return -1;
+
+    if (proto == PROT_WCR) {
+        rc = metadata_wcr(state, source_uri, &spec, out);
+        pkg_specifier_free(&spec);
+        return rc;
+    }
+
+    if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
+        pkg_specifier_free(&spec);
+        return -1;
+    }
+
+    rc = metadata_http(state, proto, source_uri, &spec, out);
+    pkg_specifier_free(&spec);
+    curl_global_cleanup();
+    return rc;
+}
+
+void free_package_metadata(wcr_pkg_metadata *meta)
+{
+    if (!meta)
+        return;
+    free(meta->name);
+    free(meta->version);
+    free(meta->arch);
+    free(meta->machine);
+    free(meta->description);
+    free(meta->address);
+    free(meta->sha256);
+    free(meta->md5);
+    free_string_array(meta->depends, meta->depends_count);
+    memset(meta, 0, sizeof(*meta));
+}
+
 int install_package(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name)
 {
     int rc;

@@ -86,6 +86,24 @@ wcr_pkg_variant_s._fields_ = [
     ("machine", c_char_p)
 ]
 
+class wcr_pkg_metadata_s(Structure):
+    pass
+
+wcr_pkg_metadata_s._fields_ = [
+    ("name", c_char_p),
+    ("version", c_char_p),
+    ("arch", c_char_p),
+    ("machine", c_char_p),
+    ("description", c_char_p),
+    ("address", c_char_p),
+    ("sha256", c_char_p),
+    ("md5", c_char_p),
+    ("depends", POINTER(c_char_p)),
+    ("depends_count", c_size_t),
+    ("size", c_long),
+    ("added_at", c_long)
+]
+
 
 # ==== Interfaces ==== #
 
@@ -139,5 +157,7 @@ class Mapper(object):
         self._dll.register_function("free_available_list", None, POINTER(wcr_available_pkg_s), c_size_t)
         self._dll.register_function("list_package_variants", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(POINTER(wcr_pkg_variant_s)), POINTER(c_size_t))
         self._dll.register_function("free_variant_list", None, POINTER(wcr_pkg_variant_s), c_size_t)
+        self._dll.register_function("get_package_metadata", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(wcr_pkg_metadata_s))
+        self._dll.register_function("free_package_metadata", None, POINTER(wcr_pkg_metadata_s))
         self._dll.register_function("wcr_set_event_callback", None, POINTER(wcr_state_s), c_void_p, POINTER(None))
 
