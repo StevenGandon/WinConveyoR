@@ -1,17 +1,17 @@
 \chapter{RFC -\/ Win\+ConveyoR Communication Protocol (WCP)}
 \hypertarget{md_doc_2protocol__rfc}{}\label{md_doc_2protocol__rfc}\index{RFC -\/ WinConveyoR Communication Protocol (WCP)@{RFC -\/ WinConveyoR Communication Protocol (WCP)}}
-\label{md_doc_2protocol__rfc_autotoc_md176}%
-\Hypertarget{md_doc_2protocol__rfc_autotoc_md176}%
- \hypertarget{md_doc_2protocol__rfc_autotoc_md177}{}\doxysection{\texorpdfstring{1. Introduction}{1. Introduction}}\label{md_doc_2protocol__rfc_autotoc_md177}
-Le protocole WCR (Win\+ConveyoR) est un protocole de communication binaire basé sur TCP pour la gestion de dépôts de packages logiciels.\hypertarget{md_doc_2protocol__rfc_autotoc_md178}{}\doxysubsection{\texorpdfstring{1.\+1 Conventions}{1.1 Conventions}}\label{md_doc_2protocol__rfc_autotoc_md178}
-Les mots-\/clés "{}\+DOIT"{}, "{}\+NE DOIT PAS"{}, "{}\+REQUIS"{}, "{}\+DEVRA"{}, "{}\+PEUT"{} sont interprétés comme décrit dans RFC 2119.\hypertarget{md_doc_2protocol__rfc_autotoc_md179}{}\doxysection{\texorpdfstring{2. Architecture du Protocole}{2. Architecture du Protocole}}\label{md_doc_2protocol__rfc_autotoc_md179}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md180}{}\doxysubsection{\texorpdfstring{2.\+1 Couche Transport}{2.1 Couche Transport}}\label{md_doc_2protocol__rfc_autotoc_md180}
+\label{md_doc_2protocol__rfc_autotoc_md224}%
+\Hypertarget{md_doc_2protocol__rfc_autotoc_md224}%
+ \hypertarget{md_doc_2protocol__rfc_autotoc_md225}{}\doxysection{\texorpdfstring{1. Introduction}{1. Introduction}}\label{md_doc_2protocol__rfc_autotoc_md225}
+Le protocole WCR (Win\+ConveyoR) est un protocole de communication binaire basé sur TCP pour la gestion de dépôts de packages logiciels.\hypertarget{md_doc_2protocol__rfc_autotoc_md226}{}\doxysubsection{\texorpdfstring{1.\+1 Conventions}{1.1 Conventions}}\label{md_doc_2protocol__rfc_autotoc_md226}
+Les mots-\/clés "{}\+DOIT"{}, "{}\+NE DOIT PAS"{}, "{}\+REQUIS"{}, "{}\+DEVRA"{}, "{}\+PEUT"{} sont interprétés comme décrit dans RFC 2119.\hypertarget{md_doc_2protocol__rfc_autotoc_md227}{}\doxysection{\texorpdfstring{2. Architecture du Protocole}{2. Architecture du Protocole}}\label{md_doc_2protocol__rfc_autotoc_md227}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md228}{}\doxysubsection{\texorpdfstring{2.\+1 Couche Transport}{2.1 Couche Transport}}\label{md_doc_2protocol__rfc_autotoc_md228}
 
 \begin{DoxyItemize}
 \item {\bfseries{Port par défaut}}\+: 1674
 \item {\bfseries{Transport}}\+: TCP
 \item {\bfseries{Encodage}}\+: UTF-\/8
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md181}{}\doxysubsection{\texorpdfstring{2.\+2 Format des Messages}{2.2 Format des Messages}}\label{md_doc_2protocol__rfc_autotoc_md181}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md229}{}\doxysubsection{\texorpdfstring{2.\+2 Format des Messages}{2.2 Format des Messages}}\label{md_doc_2protocol__rfc_autotoc_md229}
 Tous les messages suivent ce format binaire\+:
 
 
@@ -22,19 +22,19 @@ Tous les messages suivent ce format binaire\+:
 \DoxyCodeLine{+-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md182}{}\doxysubsubsection{\texorpdfstring{2.\+2.\+1 Champs du Message}{2.2.1 Champs du Message}}\label{md_doc_2protocol__rfc_autotoc_md182}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md230}{}\doxysubsubsection{\texorpdfstring{2.\+2.\+1 Champs du Message}{2.2.1 Champs du Message}}\label{md_doc_2protocol__rfc_autotoc_md230}
 
 \begin{DoxyItemize}
 \item {\bfseries{MAGIC}} (4 octets)\+: Valeur fixe {\ttfamily 0xffc407ec} (big-\/endian)
 \item {\bfseries{FLAGS}} (2 octets)\+: Réservé pour usage futur (actuellement {\ttfamily 0x0000})
 \item {\bfseries{PAYLOAD\+\_\+\+SIZE}} (8 octets)\+: Taille du contenu en octets (big-\/endian)
 \item {\bfseries{PAYLOAD\+\_\+\+CONTENT}} (variable)\+: Contenu JSON encodé en UTF-\/8
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md183}{}\doxysubsubsection{\texorpdfstring{2.\+2.\+2 Limites}{2.2.2 Limites}}\label{md_doc_2protocol__rfc_autotoc_md183}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md231}{}\doxysubsubsection{\texorpdfstring{2.\+2.\+2 Limites}{2.2.2 Limites}}\label{md_doc_2protocol__rfc_autotoc_md231}
 
 \begin{DoxyItemize}
 \item Taille maximale du payload\+: 2 Go (2,147,483,648 octets)
 \item Les messages dépassant cette limite DOIVENT être rejetés avec une erreur {\ttfamily Buffer\+Error}
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md184}{}\doxysubsection{\texorpdfstring{2.\+3 Format JSON du Payload}{2.3 Format JSON du Payload}}\label{md_doc_2protocol__rfc_autotoc_md184}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md232}{}\doxysubsection{\texorpdfstring{2.\+3 Format JSON du Payload}{2.3 Format JSON du Payload}}\label{md_doc_2protocol__rfc_autotoc_md232}
 Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 
 
@@ -46,34 +46,34 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md185}{}\doxysubsubsection{\texorpdfstring{2.\+3.\+1 Champs JSON}{2.3.1 Champs JSON}}\label{md_doc_2protocol__rfc_autotoc_md185}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md233}{}\doxysubsubsection{\texorpdfstring{2.\+3.\+1 Champs JSON}{2.3.1 Champs JSON}}\label{md_doc_2protocol__rfc_autotoc_md233}
 
 \begin{DoxyItemize}
 \item {\bfseries{action}} (string, REQUIS)\+: Type d\textquotesingle{}action ou de réponse
 \item {\bfseries{code}} (integer, REQUIS)\+: Code de statut (0 = succès, 1 = erreur)
 \item {\bfseries{data}} (object, REQUIS)\+: Données spécifiques à l\textquotesingle{}action
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md186}{}\doxysection{\texorpdfstring{3. Cycle de Vie de la Connexion}{3. Cycle de Vie de la Connexion}}\label{md_doc_2protocol__rfc_autotoc_md186}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md187}{}\doxysubsection{\texorpdfstring{3.\+1 Établissement de Connexion}{3.1 Établissement de Connexion}}\label{md_doc_2protocol__rfc_autotoc_md187}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md234}{}\doxysection{\texorpdfstring{3. Cycle de Vie de la Connexion}{3. Cycle de Vie de la Connexion}}\label{md_doc_2protocol__rfc_autotoc_md234}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md235}{}\doxysubsection{\texorpdfstring{3.\+1 Établissement de Connexion}{3.1 Établissement de Connexion}}\label{md_doc_2protocol__rfc_autotoc_md235}
 
 \begin{DoxyEnumerate}
 \item Le client établit une connexion TCP au serveur
 \item Le client envoie un message {\ttfamily hello}
 \item Le serveur répond avec un message {\ttfamily hello} contenant le message de bienvenue
 \item La connexion est établie
-\end{DoxyEnumerate}\hypertarget{md_doc_2protocol__rfc_autotoc_md188}{}\doxysubsection{\texorpdfstring{3.\+2 Session}{3.2 Session}}\label{md_doc_2protocol__rfc_autotoc_md188}
+\end{DoxyEnumerate}\hypertarget{md_doc_2protocol__rfc_autotoc_md236}{}\doxysubsection{\texorpdfstring{3.\+2 Session}{3.2 Session}}\label{md_doc_2protocol__rfc_autotoc_md236}
 
 \begin{DoxyEnumerate}
 \item Le client envoie un message {\ttfamily connect} avec authentification
 \item Le serveur crée une session et retourne un {\ttfamily session\+\_\+id}
 \item Le client utilise ce {\ttfamily session\+\_\+id} pour toutes les opérations protégées
-\end{DoxyEnumerate}\hypertarget{md_doc_2protocol__rfc_autotoc_md189}{}\doxysubsection{\texorpdfstring{3.\+3 Terminaison}{3.3 Terminaison}}\label{md_doc_2protocol__rfc_autotoc_md189}
+\end{DoxyEnumerate}\hypertarget{md_doc_2protocol__rfc_autotoc_md237}{}\doxysubsection{\texorpdfstring{3.\+3 Terminaison}{3.3 Terminaison}}\label{md_doc_2protocol__rfc_autotoc_md237}
 
 \begin{DoxyEnumerate}
 \item Le client envoie un message {\ttfamily goodbye}
 \item Le serveur répond et ferme la connexion
 \item Toutes les sessions associées sont nettoyées
-\end{DoxyEnumerate}\hypertarget{md_doc_2protocol__rfc_autotoc_md190}{}\doxysection{\texorpdfstring{4. Actions du Protocole}{4. Actions du Protocole}}\label{md_doc_2protocol__rfc_autotoc_md190}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md191}{}\doxysubsection{\texorpdfstring{4.\+1 hello -\/ Handshake Initial}{4.1 hello - Handshake Initial}}\label{md_doc_2protocol__rfc_autotoc_md191}
+\end{DoxyEnumerate}\hypertarget{md_doc_2protocol__rfc_autotoc_md238}{}\doxysection{\texorpdfstring{4. Actions du Protocole}{4. Actions du Protocole}}\label{md_doc_2protocol__rfc_autotoc_md238}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md239}{}\doxysubsection{\texorpdfstring{4.\+1 hello -\/ Handshake Initial}{4.1 hello - Handshake Initial}}\label{md_doc_2protocol__rfc_autotoc_md239}
 {\bfseries{Direction}}\+: Client → Serveur → Client
 
 {\bfseries{Requête Client}}\+: 
@@ -97,7 +97,7 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md192}{}\doxysubsection{\texorpdfstring{4.\+2 connect -\/ Authentification}{4.2 connect - Authentification}}\label{md_doc_2protocol__rfc_autotoc_md192}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md240}{}\doxysubsection{\texorpdfstring{4.\+2 connect -\/ Authentification}{4.2 connect - Authentification}}\label{md_doc_2protocol__rfc_autotoc_md240}
 {\bfseries{Direction}}\+: Client → Serveur → Client
 
 {\bfseries{Requête Client}}\+: 
@@ -137,7 +137,7 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md193}{}\doxysubsection{\texorpdfstring{4.\+3 list\+\_\+packages -\/ Lister les Packages}{4.3 list\_packages - Lister les Packages}}\label{md_doc_2protocol__rfc_autotoc_md193}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md241}{}\doxysubsection{\texorpdfstring{4.\+3 list\+\_\+packages -\/ Lister les Packages}{4.3 list\_packages - Lister les Packages}}\label{md_doc_2protocol__rfc_autotoc_md241}
 {\bfseries{Route Protégée}}\+: OUI
 
 {\bfseries{Requête Client}}\+: 
@@ -163,7 +163,7 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md194}{}\doxysubsection{\texorpdfstring{4.\+4 write -\/ Sauvegarder les Modifications}{4.4 write - Sauvegarder les Modifications}}\label{md_doc_2protocol__rfc_autotoc_md194}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md242}{}\doxysubsection{\texorpdfstring{4.\+4 write -\/ Sauvegarder les Modifications}{4.4 write - Sauvegarder les Modifications}}\label{md_doc_2protocol__rfc_autotoc_md242}
 {\bfseries{Route Protégée}}\+: OUI
 
 {\bfseries{Requête Client}}\+: 
@@ -191,7 +191,7 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md195}{}\doxysubsection{\texorpdfstring{4.\+5 disconnect -\/ Fermer une Session}{4.5 disconnect - Fermer une Session}}\label{md_doc_2protocol__rfc_autotoc_md195}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md243}{}\doxysubsection{\texorpdfstring{4.\+5 disconnect -\/ Fermer une Session}{4.5 disconnect - Fermer une Session}}\label{md_doc_2protocol__rfc_autotoc_md243}
 {\bfseries{Route Protégée}}\+: OUI
 
 {\bfseries{Requête Client}}\+: 
@@ -217,7 +217,7 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md196}{}\doxysubsection{\texorpdfstring{4.\+6 goodbye -\/ Terminer la Connexion}{4.6 goodbye - Terminer la Connexion}}\label{md_doc_2protocol__rfc_autotoc_md196}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md244}{}\doxysubsection{\texorpdfstring{4.\+6 goodbye -\/ Terminer la Connexion}{4.6 goodbye - Terminer la Connexion}}\label{md_doc_2protocol__rfc_autotoc_md244}
 {\bfseries{Direction}}\+: Client → Serveur → Client
 
 {\bfseries{Requête Client}}\+: 
@@ -241,13 +241,13 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md197}{}\doxysection{\texorpdfstring{5. Codes d\textquotesingle{}\+Erreur}{5. Codes d'Erreur}}\label{md_doc_2protocol__rfc_autotoc_md197}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md198}{}\doxysubsection{\texorpdfstring{5.\+1 Codes de Statut}{5.1 Codes de Statut}}\label{md_doc_2protocol__rfc_autotoc_md198}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md245}{}\doxysection{\texorpdfstring{5. Codes d\textquotesingle{}\+Erreur}{5. Codes d'Erreur}}\label{md_doc_2protocol__rfc_autotoc_md245}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md246}{}\doxysubsection{\texorpdfstring{5.\+1 Codes de Statut}{5.1 Codes de Statut}}\label{md_doc_2protocol__rfc_autotoc_md246}
 
 \begin{DoxyItemize}
 \item {\bfseries{0}}\+: Succès
 \item {\bfseries{1}}\+: Erreur
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md199}{}\doxysubsection{\texorpdfstring{5.\+2 Messages d\textquotesingle{}\+Erreur Standard}{5.2 Messages d'Erreur Standard}}\label{md_doc_2protocol__rfc_autotoc_md199}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md247}{}\doxysubsection{\texorpdfstring{5.\+2 Messages d\textquotesingle{}\+Erreur Standard}{5.2 Messages d'Erreur Standard}}\label{md_doc_2protocol__rfc_autotoc_md247}
 
 \begin{DoxyItemize}
 \item {\ttfamily "{}ko"{}}\+: Requête malformée (données manquantes)
@@ -257,41 +257,41 @@ Tous les payloads DOIVENT être des objets JSON avec cette structure\+:
 \item `"{}action not found\+: '\{action\}\textquotesingle{}"{}\`{}\+: Action non reconnue
 \item \`{}"{}failed to parse json message"{}\`{}\+: JSON invalide
 \item \`{}"{}missing fields in json"{}\`{}\+: Champs requis manquants
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md200}{}\doxysection{\texorpdfstring{6. Sécurité}{6. Sécurité}}\label{md_doc_2protocol__rfc_autotoc_md200}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md201}{}\doxysubsection{\texorpdfstring{6.\+1 Authentification}{6.1 Authentification}}\label{md_doc_2protocol__rfc_autotoc_md201}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md248}{}\doxysection{\texorpdfstring{6. Sécurité}{6. Sécurité}}\label{md_doc_2protocol__rfc_autotoc_md248}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md249}{}\doxysubsection{\texorpdfstring{6.\+1 Authentification}{6.1 Authentification}}\label{md_doc_2protocol__rfc_autotoc_md249}
 
 \begin{DoxyItemize}
 \item Mot de passe envoyé en clair via variable d\textquotesingle{}environnement {\ttfamily WCR\+\_\+\+PASSWORD}
 \item {\bfseries{Note}}\+: Cette implémentation n\textquotesingle{}est PAS sécurisée pour la production
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md202}{}\doxysubsection{\texorpdfstring{6.\+2 Sessions}{6.2 Sessions}}\label{md_doc_2protocol__rfc_autotoc_md202}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md250}{}\doxysubsection{\texorpdfstring{6.\+2 Sessions}{6.2 Sessions}}\label{md_doc_2protocol__rfc_autotoc_md250}
 
 \begin{DoxyItemize}
 \item Chaque session est liée à un client spécifique
 \item Les sessions sont identifiées par un UUID (128 bits)
 \item Les sessions expirent automatiquement à la déconnexion du client
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md203}{}\doxysubsection{\texorpdfstring{6.\+3 Routes Protégées}{6.3 Routes Protégées}}\label{md_doc_2protocol__rfc_autotoc_md203}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md251}{}\doxysubsection{\texorpdfstring{6.\+3 Routes Protégées}{6.3 Routes Protégées}}\label{md_doc_2protocol__rfc_autotoc_md251}
 Les actions suivantes nécessitent une authentification\+:
 \begin{DoxyItemize}
 \item {\ttfamily list\+\_\+packages}
 \item {\ttfamily write}
 \item {\ttfamily disconnect}
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md204}{}\doxysection{\texorpdfstring{7. Recommandations d\textquotesingle{}\+Implémentation}{7. Recommandations d'Implémentation}}\label{md_doc_2protocol__rfc_autotoc_md204}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md205}{}\doxysubsection{\texorpdfstring{7.\+1 Clients}{7.1 Clients}}\label{md_doc_2protocol__rfc_autotoc_md205}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md252}{}\doxysection{\texorpdfstring{7. Recommandations d\textquotesingle{}\+Implémentation}{7. Recommandations d'Implémentation}}\label{md_doc_2protocol__rfc_autotoc_md252}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md253}{}\doxysubsection{\texorpdfstring{7.\+1 Clients}{7.1 Clients}}\label{md_doc_2protocol__rfc_autotoc_md253}
 
 \begin{DoxyItemize}
 \item DOIVENT valider le magic number avant de traiter un message
 \item DOIVENT respecter la limite de taille de payload
 \item DEVRAIENT implémenter un timeout pour les opérations réseau
 \item DEVRAIENT gérer la reconnexion automatique
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md206}{}\doxysubsection{\texorpdfstring{7.\+2 Serveurs}{7.2 Serveurs}}\label{md_doc_2protocol__rfc_autotoc_md206}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md254}{}\doxysubsection{\texorpdfstring{7.\+2 Serveurs}{7.2 Serveurs}}\label{md_doc_2protocol__rfc_autotoc_md254}
 
 \begin{DoxyItemize}
 \item DOIVENT rejeter les messages avec magic number invalide
 \item DOIVENT limiter le nombre de connexions simultanées
 \item DEVRAIENT logger toutes les opérations d\textquotesingle{}authentification
 \item DEVRAIENT implémenter un rate limiting
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md207}{}\doxysection{\texorpdfstring{8. Extensions Futures}{8. Extensions Futures}}\label{md_doc_2protocol__rfc_autotoc_md207}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md208}{}\doxysubsection{\texorpdfstring{8.\+1 Propositions}{8.1 Propositions}}\label{md_doc_2protocol__rfc_autotoc_md208}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md255}{}\doxysection{\texorpdfstring{8. Extensions Futures}{8. Extensions Futures}}\label{md_doc_2protocol__rfc_autotoc_md255}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md256}{}\doxysubsection{\texorpdfstring{8.\+1 Propositions}{8.1 Propositions}}\label{md_doc_2protocol__rfc_autotoc_md256}
 
 \begin{DoxyItemize}
 \item Chiffrement TLS/\+SSL
@@ -299,8 +299,8 @@ Les actions suivantes nécessitent une authentification\+:
 \item Compression du payload
 \item Streaming de packages volumineux
 \item Checksum de message
-\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md209}{}\doxysubsection{\texorpdfstring{8.\+2 Flags Réservés}{8.2 Flags Réservés}}\label{md_doc_2protocol__rfc_autotoc_md209}
-Les 2 octets de flags sont réservés pour ces extensions futures.\hypertarget{md_doc_2protocol__rfc_autotoc_md210}{}\doxysection{\texorpdfstring{9. Exemple de Session Complète}{9. Exemple de Session Complète}}\label{md_doc_2protocol__rfc_autotoc_md210}
+\end{DoxyItemize}\hypertarget{md_doc_2protocol__rfc_autotoc_md257}{}\doxysubsection{\texorpdfstring{8.\+2 Flags Réservés}{8.2 Flags Réservés}}\label{md_doc_2protocol__rfc_autotoc_md257}
+Les 2 octets de flags sont réservés pour ces extensions futures.\hypertarget{md_doc_2protocol__rfc_autotoc_md258}{}\doxysection{\texorpdfstring{9. Exemple de Session Complète}{9. Exemple de Session Complète}}\label{md_doc_2protocol__rfc_autotoc_md258}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{Client\ →\ Server:\ hello}
@@ -318,7 +318,7 @@ Les 2 octets de flags sont réservés pour ces extensions futures.\hypertarget{m
 \DoxyCodeLine{[Connexion\ fermée]}
 
 \end{DoxyCode}
-\hypertarget{md_doc_2protocol__rfc_autotoc_md211}{}\doxysection{\texorpdfstring{10. Références}{10. Références}}\label{md_doc_2protocol__rfc_autotoc_md211}
+\hypertarget{md_doc_2protocol__rfc_autotoc_md259}{}\doxysection{\texorpdfstring{10. Références}{10. Références}}\label{md_doc_2protocol__rfc_autotoc_md259}
 
 \begin{DoxyItemize}
 \item RFC 2119\+: Key words for use in RFCs
