@@ -13,7 +13,7 @@ from .. import api_client
 
 class CLI(object):
     OPTION_TABLE: dict = {
-        "help": {"opt": ("-h", "--help", "-?", "/?", "/h"), "exc": ()},
+        "help": {"opt": ("help", "-h", "--help", "-?", "/?", "/h"), "exc": ()},
         "download": {"opt": ("-d", "--download", "-dwnld"), "exc": ()},
         "install": {"opt": ("install", "-i", "--install"), "exc": ()},
         "uninstall": {"opt": ("uninstall", "--uninstall"), "exc": ()},
@@ -24,6 +24,7 @@ class CLI(object):
         "search": {"opt": ("search",), "exc": ()},
         "info": {"opt": ("info",), "exc": ()},
         "check": {"opt": ("check",), "exc": ()},
+        "upgrade": {"opt": ("upgrade",), "exc": ()},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -164,6 +165,7 @@ class CLI(object):
             (', '.join(CLI.OPTION_TABLE['search']['opt']), "Search available packages"),
             (', '.join(CLI.OPTION_TABLE['info']['opt']), "Show package variants"),
             (', '.join(CLI.OPTION_TABLE['check']['opt']), "Verify cached package hash"),
+            (', '.join(CLI.OPTION_TABLE['upgrade']['opt']), "Upgrade all packages (or a specific one)"),
             (', '.join(CLI.OPTION_TABLE['register']['opt']), "Create an account"),
             (', '.join(CLI.OPTION_TABLE['login']['opt']), "Log in to your account"),
             (', '.join(CLI.OPTION_TABLE['nocolor']['opt']), "Disable color rendering"),
@@ -467,6 +469,59 @@ class CLI(object):
         sys.stdout.write(f"  {'Status:'.ljust(col)}MISMATCH\n\n")
         return (1)
 
+    def upgrade_packages(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+
+        packages = self.wcr.list_installed()
+        if (not packages):
+            sys.stdout.write("No packages installed.\n")
+            return (0)
+
+        sources = self.wcr.get_sources()
+        if (not sources):
+            sys.stderr.write(f"{sys.argv[0]} upgrade: no sources configured.\n")
+            return (1)
+
+        if (package_name):
+            packages = [p for p in packages if p['name'] == package_name]
+            if (not packages):
+                sys.stderr.write(f"{sys.argv[0]} upgrade: '{package_name}' is not installed.\n")
+                return (1)
+
+        upgraded = 0
+        failed = 0
+        up_to_date = 0
+
+        for pkg in packages:
+            meta = None
+            src_used = None
+            for src in sources:
+                meta = self.wcr.get_package_metadata(src['proto'], src['url'], pkg['name'])
+                if (meta):
+                    src_used = src
+                    break
+
+            if (not meta):
+                sys.stderr.write(f"{sys.argv[0]} upgrade: cannot fetch metadata for '{pkg['name']}'.\n")
+                failed += 1
+                continue
+
+            if (meta['version'] == pkg['version']):
+                sys.stdout.write(f"  {pkg['name']} {pkg['version']} is up to date.\n")
+                up_to_date += 1
+                continue
+
+            sys.stdout.write(f"  {pkg['name']} {pkg['version']} -> {meta['version']}\n")
+            rc = self.wcr.install_package(src_used['proto'], src_used['url'], pkg['name'])
+            if (rc == 0):
+                upgraded += 1
+            else:
+                sys.stderr.write(f"{sys.argv[0]} upgrade: failed to upgrade '{pkg['name']}'.\n")
+                failed += 1
+
+        sys.stdout.write(f"\n{upgraded} upgraded, {up_to_date} up to date, {failed} failed.\n")
+        return (1 if failed else 0)
+
     def login_user(self):
         from getpass import getpass
 
@@ -543,6 +598,9 @@ class CLI(object):
 
         if (self.has_opt("check")):
             return self.check_package()
+
+        if (self.has_opt("upgrade")):
+            return self.upgrade_packages()
 
         if (self.has_opt("register")):
             return self.register_user()
