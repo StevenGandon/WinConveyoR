@@ -226,8 +226,9 @@ static int extract_line_field(const char *line, int field_idx, char *out, size_t
 
     while (*p && *p != '\r' && *p != '\n') {
         if (*p == ' ') {
+            if (field == field_idx)
+                break;
             field++;
-            i = 0;
         } else if (field == field_idx && i < out_sz - 1) {
             out[i++] = *p;
         }
