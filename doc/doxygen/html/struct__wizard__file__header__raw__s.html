@@ -110,6 +110,9 @@ $(document).ready(function(){initNavTree('struct__wizard__file__header__raw__s.h
 </div><!--header-->
 <div class="contents">
 
+<p>On-disk layout of the .WIZARD file header (27 bytes, big-endian fields).  
+ <a href="struct__wizard__file__header__raw__s.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="wizard__private_8h_source.html">wizard_private.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -127,7 +130,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a0ebf928f647208b8191b5725b3a3a564" id="r_a0ebf928f647208b8191b5725b3a3a564"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__wizard__file__header__raw__s.html#a0ebf928f647208b8191b5725b3a3a564">strndx_offset</a> [8]</td></tr>
 <tr class="separator:a0ebf928f647208b8191b5725b3a3a564"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>On-disk layout of the .WIZARD file header (27 bytes, big-endian fields). </p>
+<p>Always located at offset 0 of the file. All integer fields must be read through the <code>wizard_be*</code> helpers to handle endianness correctly. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a4147caca394ff210c1d478d516083a41" name="a4147caca394ff210c1d478d516083a41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4147caca394ff210c1d478d516083a41">&#9670;&#160;</a></span>endianness</h2>
 
@@ -139,6 +145,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>0 = big-endian file, 1 = little-endian file. </p>
 
 </div>
 </div>
@@ -153,6 +160,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Format flags: bit 0 = 8-byte alignment, bit 1 = 16-byte alignment. </p>
 
 </div>
 </div>
@@ -167,6 +175,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Magic number: must equal <a class="el" href="wizard__private_8h.html#a33f181a6f88624ff29487e649f50a8b0">WIZARD_MAGIC</a>. </p>
 
 </div>
 </div>
@@ -181,6 +190,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Absolute file offset to <a class="el" href="struct__wizard__section__header__raw__s.html">_wizard_section_header_raw_s</a>. </p>
 
 </div>
 </div>
@@ -195,6 +205,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Absolute file offset to the string table. </p>
 
 </div>
 </div>
@@ -209,6 +220,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Format version: high byte = major, low byte = minor. </p>
 
 </div>
 </div>

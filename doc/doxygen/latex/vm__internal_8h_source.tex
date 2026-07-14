@@ -3,84 +3,100 @@
 \mbox{\hyperlink{vm__internal_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VM\_INTERNAL\_H\_}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ VM\_INTERNAL\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VM\_INTERNAL\_H\_}}
 \DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}\mbox{\hyperlink{wizard__private_8h}{wizard\_private.h}}"{}}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\_base\_type}}\ \{}
-\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e}{VM\_BASE\_STR}},}
-\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b}{VM\_BASE\_U8}},}
-\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2}{VM\_BASE\_U16}},}
-\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086}{VM\_BASE\_U32}},}
-\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf}{VM\_BASE\_U64}}}
-\DoxyCodeLine{00012\ \ \ \ \ \};}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ \{}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\_base\_type}}\ \mbox{\hyperlink{structvm__arg__type_ab3c0f933fdc781385ef884b9213bc2b7}{base}};}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__arg__type_a1dadc92f9d027f76ffa18d724171fd98}{is\_array}};}
-\DoxyCodeLine{00017\ \ \ \ \ \};}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ \mbox{\hyperlink{structvm__arg__value_a8c90532f6a038f1400e4428a68457e87}{type}};}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__arg__value_af8b33f32d09531fb034504a6017b8d90}{count}};}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{union\ }\{}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\{\ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{structvm__arg__value_ae63bcb4758602cfe136421f00b79b9e0}{data}};\ uint32\_t\ *lens;\ \}\ str;}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ \ *\mbox{\hyperlink{structvm__arg__value_a753ce9c31a6eb8d15a801d7ae8ef346e}{u8}};}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ *\mbox{\hyperlink{structvm__arg__value_a684029aea13ae4042c4ff367719bf1d3}{u16}};}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ *\mbox{\hyperlink{structvm__arg__value_ae478381f76dc1f3f26dc4ca00cb06410}{u32}};}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ *\mbox{\hyperlink{structvm__arg__value_adceea416a4ee20068b73927dc3f4a8bb}{u64}};}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \}\ \mbox{\hyperlink{structvm__arg__value_a58c75ba647cca39d68606d4d50bae21e}{v}};}
-\DoxyCodeLine{00029\ \ \ \ \ \};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{typedef}\ int\ (*\mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\_handler\_t}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ *args,\ uint32\_t\ \mbox{\hyperlink{structvm__arg__value_af8b33f32d09531fb034504a6017b8d90}{count}});}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__handler__entry}{vm\_handler\_entry}}\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structvm__handler__entry_a35bb865b04a571295dcdc79bfc0caa1f}{name}};}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\_handler\_t}}\ \mbox{\hyperlink{structvm__handler__entry_ae03d32c6081b9ae42720c0e121ce2b75}{handler}};}
-\DoxyCodeLine{00036\ \ \ \ \ \};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__handler__version}{vm\_handler\_version}}\ \{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structvm__handler__version_a0f7989a91a7962ccc2b92eb30e18a1bc}{version}};}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__handler__entry}{vm\_handler\_entry}}\ *\mbox{\hyperlink{structvm__handler__version_ad75b580ec4f2f265fe0b559440f3f854}{table}};}
-\DoxyCodeLine{00041\ \ \ \ \ \};}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\_handler\_t}}\ \mbox{\hyperlink{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4}{vm\_find\_handler}}(uint16\_t\ version,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structvm__handler__entry_a35bb865b04a571295dcdc79bfc0caa1f}{name}});}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \#define\ VM\_BUF\_SIZE\ 4096}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__def}{vm\_arg\_def}}\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ \mbox{\hyperlink{structvm__arg__def_a101c365f81111224b1772065dc62fab0}{type}};}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structvm__arg__def_a70af85d75c8086846a347b99b2642878}{label}};}
-\DoxyCodeLine{00050\ \ \ \ \ \};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__op__def}{vm\_op\_def}}\ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structvm__op__def_a2e214fac3a98c5e61bc0bfd2ab0ffa73}{name}};}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structvm__op__def_ac0651e1897134d310cab777713d61190}{code}};}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__def}{vm\_arg\_def}}\ *\mbox{\hyperlink{structvm__op__def_a70ba17e53d24a21060f46153c72de5c9}{args}};}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structvm__op__def_a4b99a818f5835863182aadd78c6a1d4e}{arg\_count}};}
-\DoxyCodeLine{00057\ \ \ \ \ \};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__iset__s}{vm\_iset\_s}}\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structvm__iset__s_a26f8f596270f058f7cb58524cf9ef4ed}{version}};}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__op__def}{vm\_op\_def}}\ *\mbox{\hyperlink{structvm__iset__s_a786a1ee88db83ab6e5a104bd28ad5d10}{ops}};}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structvm__iset__s_ab3411b56301deccc437c43b646a64327}{op\_count}};}
-\DoxyCodeLine{00063\ \ \ \ \ \};}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__iset__s}{vm\_iset\_s}}\ *\mbox{\hyperlink{struct__wizard__vm__s_a7e65e0e4ae15f2f99d28d2390068e5c4}{isets}};}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct__wizard__vm__s_a55fe7745597ae739efaae9c5524ec805}{iset\_count}};}
-\DoxyCodeLine{00068\ \ \ \ \ \};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{/*\ vm\_parse.c\ */}}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f}{vm\_parse\_xml}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__iset__s}{vm\_iset\_s}}\ *iset);}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{/*\ vm\_decode.c\ */}}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1}{vm\_decode\_arg}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ uint64\_t\ size,}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ *ip,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ type,}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ *out);}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\_free\_args}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ *args,\ uint32\_t\ count);}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !VM\_INTERNAL\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{wizard__private_8h}{wizard\_private.h}}"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{/*\ ──\ Argument\ type\ system\ ──────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\_base\_type}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e}{VM\_BASE\_STR}},\ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b}{VM\_BASE\_U8}},\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2}{VM\_BASE\_U16}},\ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086}{VM\_BASE\_U32}},\ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf}{VM\_BASE\_U64}},\ \ \ \ }
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\_base\_type}}\ \mbox{\hyperlink{structvm__arg__type_ab3c0f933fdc781385ef884b9213bc2b7}{base}};\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__arg__type_a1dadc92f9d027f76ffa18d724171fd98}{is\_array}};\ }
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ ──\ Decoded\ argument\ value\ ────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ \mbox{\hyperlink{structvm__arg__value_a8c90532f6a038f1400e4428a68457e87}{type}};\ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__arg__value_af8b33f32d09531fb034504a6017b8d90}{count}};\ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ **\mbox{\hyperlink{structvm__arg__value_ae63bcb4758602cfe136421f00b79b9e0}{data}};\ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ *\mbox{\hyperlink{structvm__arg__value_a229fee80b1a32a2da9f0bad66f6dec00}{lens}};\ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}\ str;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ uint8\_t\ \ *\mbox{\hyperlink{structvm__arg__value_a753ce9c31a6eb8d15a801d7ae8ef346e}{u8}};\ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ uint16\_t\ *\mbox{\hyperlink{structvm__arg__value_a684029aea13ae4042c4ff367719bf1d3}{u16}};\ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ uint32\_t\ *\mbox{\hyperlink{structvm__arg__value_ae478381f76dc1f3f26dc4ca00cb06410}{u32}};\ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ uint64\_t\ *\mbox{\hyperlink{structvm__arg__value_adceea416a4ee20068b73927dc3f4a8bb}{u64}};\ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \}\ \mbox{\hyperlink{structvm__arg__value_a58c75ba647cca39d68606d4d50bae21e}{v}};}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ ──\ Handler\ function\ type\ ─────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ int\ (*\mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\_handler\_t}})(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ *args,\ uint32\_t\ \mbox{\hyperlink{structvm__arg__value_af8b33f32d09531fb034504a6017b8d90}{count}});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*\ ──\ Handler\ registry\ ──────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__handler__entry}{vm\_handler\_entry}}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \ \ *\mbox{\hyperlink{structvm__handler__entry_a35bb865b04a571295dcdc79bfc0caa1f}{name}};\ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\_handler\_t}}\ \ \mbox{\hyperlink{structvm__handler__entry_ae03d32c6081b9ae42720c0e121ce2b75}{handler}};\ \ }
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__handler__version}{vm\_handler\_version}}\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__handler__version_a0f7989a91a7962ccc2b92eb30e18a1bc}{version}};\ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__handler__entry}{vm\_handler\_entry}}\ \ \ *\mbox{\hyperlink{structvm__handler__version_ad75b580ec4f2f265fe0b559440f3f854}{table}};\ \ \ \ \ }
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00126\ \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\_handler\_t}}\ \mbox{\hyperlink{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4}{vm\_find\_handler}}(uint16\_t\ version,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structvm__handler__entry_a35bb865b04a571295dcdc79bfc0caa1f}{name}});}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{/*\ ──\ Instruction\ set\ definition\ ────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ VM\_BUF\_SIZE\ 4096}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__def}{vm\_arg\_def}}\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ \mbox{\hyperlink{structvm__arg__def_a101c365f81111224b1772065dc62fab0}{type}};\ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structvm__arg__def_a70af85d75c8086846a347b99b2642878}{label}};\ \ \ }
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__op__def}{vm\_op\_def}}\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structvm__op__def_a2e214fac3a98c5e61bc0bfd2ab0ffa73}{name}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__op__def_ac0651e1897134d310cab777713d61190}{code}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__arg__def}{vm\_arg\_def}}\ *\mbox{\hyperlink{structvm__op__def_a70ba17e53d24a21060f46153c72de5c9}{args}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__op__def_a4b99a818f5835863182aadd78c6a1d4e}{arg\_count}};\ \ \ \ }
+\DoxyCodeLine{00152\ \};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__iset__s}{vm\_iset\_s}}\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__iset__s_a26f8f596270f058f7cb58524cf9ef4ed}{version}};\ \ \ \ \ \ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__op__def}{vm\_op\_def}}\ *\mbox{\hyperlink{structvm__iset__s_a786a1ee88db83ab6e5a104bd28ad5d10}{ops}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structvm__iset__s_ab3411b56301deccc437c43b646a64327}{op\_count}};\ \ \ \ \ }
+\DoxyCodeLine{00164\ \};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__iset__s}{vm\_iset\_s}}\ *\mbox{\hyperlink{struct__wizard__vm__s_a7e65e0e4ae15f2f99d28d2390068e5c4}{isets}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00174\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct__wizard__vm__s_a55fe7745597ae739efaae9c5524ec805}{iset\_count}};\ \ \ }
+\DoxyCodeLine{00175\ \};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{/*\ ──\ vm\_parse.c\ ────────────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f}{vm\_parse\_xml}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__iset__s}{vm\_iset\_s}}\ *iset);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*\ ──\ vm\_decode.c\ ───────────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00216\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1}{vm\_decode\_arg}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ uint64\_t\ size,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ *ip,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__arg__type}{vm\_arg\_type}}\ type,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ *out);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00230\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\_free\_args}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structvm__arg__value}{vm\_arg\_value}}\ *args,\ uint32\_t\ count);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !VM\_INTERNAL\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

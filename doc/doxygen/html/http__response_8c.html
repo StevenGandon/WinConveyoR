@@ -125,6 +125,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a44c7a9712eaa9f2dcc3315ff6c8bb992" id="r_a44c7a9712eaa9f2dcc3315ff6c8bb992"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="http__response_8c.html#a44c7a9712eaa9f2dcc3315ff6c8bb992">fetch_response</a> (struct <a class="el" href="struct__http__response__parser__s.html">_http_response_parser_s</a> *response_parser)</td></tr>
+<tr class="memdesc:a44c7a9712eaa9f2dcc3315ff6c8bb992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads and parses the HTTP response headers from the connection.  <br /></td></tr>
 <tr class="separator:a44c7a9712eaa9f2dcc3315ff6c8bb992"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -181,11 +182,20 @@ Functions</h2></td></tr>
           <td class="memname">void fetch_response </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="struct__http__response__parser__s.html">_http_response_parser_s</a> *&#160;</td>
-          <td class="paramname"><em>response_parser</em></td><td>)</td>
+          <td class="paramname"><em>__r</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reads and parses the HTTP response headers from the connection. </p>
+<p>Populates <code>__r</code> with the status code, reason phrase, protocol version, and all response headers. The response body is not consumed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">__r</td><td>Response parser to fill. Must have a valid connection. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

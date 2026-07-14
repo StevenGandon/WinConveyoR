@@ -121,6 +121,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aab1e605d2a34203737e495736a5a36c5" id="r_aab1e605d2a34203737e495736a5a36c5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__parse_8c.html#aab1e605d2a34203737e495736a5a36c5">vm_parse_op</a> (struct <a class="el" href="structvm__iset__s.html">vm_iset_s</a> *iset, xmlNodePtr op_node)</td></tr>
 <tr class="separator:aab1e605d2a34203737e495736a5a36c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a611b107c0e6604a3a354c524aeb5a15f" id="r_a611b107c0e6604a3a354c524aeb5a15f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__parse_8c.html#a611b107c0e6604a3a354c524aeb5a15f">vm_parse_xml</a> (const char *path, struct <a class="el" href="structvm__iset__s.html">vm_iset_s</a> *iset)</td></tr>
+<tr class="memdesc:a611b107c0e6604a3a354c524aeb5a15f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a wizard instruction XML file and fills an instruction set.  <br /></td></tr>
 <tr class="separator:a611b107c0e6604a3a354c524aeb5a15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -247,6 +248,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Parses a wizard instruction XML file and fills an instruction set. </p>
+<p>Accepts either a root <code>&lt;wizard&gt;</code> element (with a nested <code>&lt;instructions&gt;</code> child) or a bare <code>&lt;instructions&gt;</code> root. The <code>version</code> attribute of the <code>&lt;instructions&gt;</code> element is required.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>Path to the XML file on disk. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">iset</td><td>Instruction set struct to populate. Must be pre-allocated by the caller; its fields will be initialised here. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success (at least one opcode loaded), -1 on any parse or allocation failure. </dd></dl>
 
 </div>
 </div>

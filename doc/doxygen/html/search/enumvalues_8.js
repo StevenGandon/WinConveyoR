@@ -1,23 +1,8 @@
 var searchData=
 [
-  ['i686_5farch_0',['I686_ARCH',['../libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baaea2de3e3a070ad7ca1ef755abd4e4fe2',1,'libwconr.h']]],
-  ['if2ip_5faf_5fnot_5fsupported_1',['IF2IP_AF_NOT_SUPPORTED',['../if2ip_8h.html#a5b6d01fb9da7688daa9437b3628d83eea6389ed3ecbe54bc7bbe4fa60080b9eff',1,'if2ip.h']]],
-  ['if2ip_5ffound_2',['IF2IP_FOUND',['../if2ip_8h.html#a5b6d01fb9da7688daa9437b3628d83eeafa243304b615badc01baed1ef9ecf04d',1,'if2ip.h']]],
-  ['if2ip_5fnot_5ffound_3',['IF2IP_NOT_FOUND',['../if2ip_8h.html#a5b6d01fb9da7688daa9437b3628d83eea6f409d3c1e34d2b7c92a46d51e60405c',1,'if2ip.h']]],
-  ['imap_5fappend_4',['IMAP_APPEND',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa1d6b765d7df319a1b12e1ff92edc9f50',1,'imap.h']]],
-  ['imap_5fappend_5ffinal_5',['IMAP_APPEND_FINAL',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaab873db8c58df0effed9d3fe4e0c5ae54',1,'imap.h']]],
-  ['imap_5fauthenticate_6',['IMAP_AUTHENTICATE',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa4b7258cc80f22b67f224f2ac97e703eb',1,'imap.h']]],
-  ['imap_5fcapability_7',['IMAP_CAPABILITY',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaaca3968b75d65a456f48347d212d316a0',1,'imap.h']]],
-  ['imap_5ffetch_8',['IMAP_FETCH',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa1bfe1b2026d0357ee6ba25ea009a7f66',1,'imap.h']]],
-  ['imap_5ffetch_5ffinal_9',['IMAP_FETCH_FINAL',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaafe669e271a40f798003fd76c0eaf6e63',1,'imap.h']]],
-  ['imap_5flast_10',['IMAP_LAST',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaae384385cd102ec40f657ec13ce06b3f6',1,'imap.h']]],
-  ['imap_5flist_11',['IMAP_LIST',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaacbce467d1755f2653c268562a9c7a100',1,'imap.h']]],
-  ['imap_5flogin_12',['IMAP_LOGIN',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa9c6ca16e6c5af045bb8fcbc4ced2c796',1,'imap.h']]],
-  ['imap_5flogout_13',['IMAP_LOGOUT',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa7a03ad57f81e95a60b8840401861ced2',1,'imap.h']]],
-  ['imap_5fsearch_14',['IMAP_SEARCH',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaaef4439450032e719930d3db4cb1b74ac',1,'imap.h']]],
-  ['imap_5fselect_15',['IMAP_SELECT',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa380a71f52c42edbafe4a66ec2ba26619',1,'imap.h']]],
-  ['imap_5fservergreet_16',['IMAP_SERVERGREET',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaaf6d1e90b5fcecb4a9baf757df9815110',1,'imap.h']]],
-  ['imap_5fstarttls_17',['IMAP_STARTTLS',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa05191306d5de2126c93f02a62665a548',1,'imap.h']]],
-  ['imap_5fstop_18',['IMAP_STOP',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaa6076e4cab6d67e43e7cedb0f409dba86',1,'imap.h']]],
-  ['imap_5fupgradetls_19',['IMAP_UPGRADETLS',['../imap_8h.html#afd32b033e86ebc4fc96084546d9aa1eaad84f9beee436b2ca50801981333797b7',1,'imap.h']]]
+  ['wcr_5fevent_5fdebug_0',['WCR_EVENT_DEBUG',['../wcr__event_8h.html#a1b70fc399fec5db3f17e71fe661ab631ae96eaa9e3034a1f54fffd4ccd1172856',1,'wcr_event.h']]],
+  ['wcr_5fevent_5ferror_1',['WCR_EVENT_ERROR',['../wcr__event_8h.html#a1b70fc399fec5db3f17e71fe661ab631af898a5b2c66a4f626c42f9ad83da90c9',1,'wcr_event.h']]],
+  ['wcr_5fevent_5finfo_2',['WCR_EVENT_INFO',['../wcr__event_8h.html#a1b70fc399fec5db3f17e71fe661ab631a8575568ec95acc5858914941445cc88d',1,'wcr_event.h']]],
+  ['wcr_5fevent_5fprogress_3',['WCR_EVENT_PROGRESS',['../wcr__event_8h.html#a1b70fc399fec5db3f17e71fe661ab631ae56d350ee7dd71ac7ad362a50c5883a6',1,'wcr_event.h']]],
+  ['wcr_5fevent_5fwarning_4',['WCR_EVENT_WARNING',['../wcr__event_8h.html#a1b70fc399fec5db3f17e71fe661ab631afb304ab720c64769a82f5b23139b3b62',1,'wcr_event.h']]]
 ];

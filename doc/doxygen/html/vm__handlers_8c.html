@@ -146,6 +146,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aba0a16500d25071025d4c58977d561c2" id="r_aba0a16500d25071025d4c58977d561c2"><td class="memItemLeft" align="right" valign="top">static const struct <a class="el" href="structvm__handler__version.html">vm_handler_version</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__handlers_8c.html#aba0a16500d25071025d4c58977d561c2">vm_get_versions</a> (void)</td></tr>
 <tr class="separator:aba0a16500d25071025d4c58977d561c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27df2945da6df5b68eae1baf79372ad4" id="r_a27df2945da6df5b68eae1baf79372ad4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="vm__internal_8h.html#a94be1fc5b90a7764f8d31a8694db7951">vm_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__handlers_8c.html#a27df2945da6df5b68eae1baf79372ad4">vm_find_handler</a> (uint16_t version, const char *name)</td></tr>
+<tr class="memdesc:a27df2945da6df5b68eae1baf79372ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the handler for the given instruction name and format version.  <br /></td></tr>
 <tr class="separator:a27df2945da6df5b68eae1baf79372ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -246,6 +247,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Looks up the handler for the given instruction name and format version. </p>
+<p>Selects the most recent handler table whose version does not exceed <code>version</code>, then searches linearly for a matching name.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">version</td><td>Format version of the .WIZARD file being executed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>NUL-terminated instruction mnemonic to look up. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the handler function, or NULL if not found. </dd></dl>
 
 </div>
 </div>

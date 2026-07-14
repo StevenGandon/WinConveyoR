@@ -1,13 +1,39 @@
 \doxysection{lib/libwconr/src/wcr\+\_\+state.c File Reference}
 \hypertarget{wcr__state_8c}{}\label{wcr__state_8c}\index{lib/libwconr/src/wcr\_state.c@{lib/libwconr/src/wcr\_state.c}}
 {\ttfamily \#include "{}libwconr.\+h"{}}\newline
+{\ttfamily \#include "{}wcr\+\_\+event\+\_\+internal.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__state_8c_a0e386028ffd7d9a9e8f2796c83379977}{default\+\_\+cache\+\_\+path}} (void)
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__state_8c_ab0b76e08652af65513c69d7b77962517}{proto\+\_\+to\+\_\+string}} (\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto)
+\item 
+static int \mbox{\hyperlink{wcr__state_8c_ad39b945a32d6147622adbca3ce84e127}{proto\+\_\+from\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} \texorpdfstring{$\ast$}{*}out)
+\item 
+static void \mbox{\hyperlink{wcr__state_8c_a239b66e28091534f714e1c027dc076f9}{wcr\+\_\+mutex\+\_\+init}} (\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}m)
+\item 
+static void \mbox{\hyperlink{wcr__state_8c_a77bc4913b751be1c3240d418d4e7ebb7}{wcr\+\_\+mutex\+\_\+destroy}} (\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}m)
+\item 
+static void \mbox{\hyperlink{wcr__state_8c_a2ecff66bb90a15f52a4521c4516eeb41}{wcr\+\_\+mutex\+\_\+lock}} (\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}m)
+\item 
+static void \mbox{\hyperlink{wcr__state_8c_a1a8016d6ae2b3f7d105d5adbf6a3c9e6}{wcr\+\_\+mutex\+\_\+unlock}} (\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}m)
 \item 
 \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__state_8c_adb5329b2d274868037a90bd27c1143b7}{new\+\_\+state}} (void)
 \item 
 void \mbox{\hyperlink{wcr__state_8c_accc361364877ff561e332056a6b36502}{close\+\_\+state}} (\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state)
+\item 
+static void \mbox{\hyperlink{wcr__state_8c_af80a2db21bd726e92cddc4cb31121ca5}{state\+\_\+auto\+\_\+save}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state)
+\item 
+int \mbox{\hyperlink{wcr__state_8c_a2d0b5c27b3597d1d9de8872fce6f7a03}{wcr\+\_\+state\+\_\+add\+\_\+source}} (\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}url)
+\item 
+int \mbox{\hyperlink{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143}{write\+\_\+state}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}filepath)
+\item 
+\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__state_8c_a923f8210b10387db0dfd09297804a4f5}{load\+\_\+state}} (const char \texorpdfstring{$\ast$}{*}filepath)
 \end{DoxyCompactItemize}
 
 
@@ -18,9 +44,75 @@ void \mbox{\hyperlink{wcr__state_8c_accc361364877ff561e332056a6b36502}{close\+\_
 \doxysubsubsection{\texorpdfstring{close\_state()}{close\_state()}}
 {\footnotesize\ttfamily void close\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state }\end{DoxyParamCaption})}
 
+\Hypertarget{wcr__state_8c_a0e386028ffd7d9a9e8f2796c83379977}\label{wcr__state_8c_a0e386028ffd7d9a9e8f2796c83379977} 
+\index{wcr\_state.c@{wcr\_state.c}!default\_cache\_path@{default\_cache\_path}}
+\index{default\_cache\_path@{default\_cache\_path}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{default\_cache\_path()}{default\_cache\_path()}}
+{\footnotesize\ttfamily static char \texorpdfstring{$\ast$}{*} default\+\_\+cache\+\_\+path (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_a923f8210b10387db0dfd09297804a4f5}\label{wcr__state_8c_a923f8210b10387db0dfd09297804a4f5} 
+\index{wcr\_state.c@{wcr\_state.c}!load\_state@{load\_state}}
+\index{load\_state@{load\_state}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{load\_state()}{load\_state()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*} load\+\_\+state (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filepath }\end{DoxyParamCaption})}
+
 \Hypertarget{wcr__state_8c_adb5329b2d274868037a90bd27c1143b7}\label{wcr__state_8c_adb5329b2d274868037a90bd27c1143b7} 
 \index{wcr\_state.c@{wcr\_state.c}!new\_state@{new\_state}}
 \index{new\_state@{new\_state}!wcr\_state.c@{wcr\_state.c}}
 \doxysubsubsection{\texorpdfstring{new\_state()}{new\_state()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*} new\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__state_8c_ad39b945a32d6147622adbca3ce84e127}\label{wcr__state_8c_ad39b945a32d6147622adbca3ce84e127} 
+\index{wcr\_state.c@{wcr\_state.c}!proto\_from\_string@{proto\_from\_string}}
+\index{proto\_from\_string@{proto\_from\_string}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{proto\_from\_string()}{proto\_from\_string()}}
+{\footnotesize\ttfamily static int proto\+\_\+from\+\_\+string (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_ab0b76e08652af65513c69d7b77962517}\label{wcr__state_8c_ab0b76e08652af65513c69d7b77962517} 
+\index{wcr\_state.c@{wcr\_state.c}!proto\_to\_string@{proto\_to\_string}}
+\index{proto\_to\_string@{proto\_to\_string}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{proto\_to\_string()}{proto\_to\_string()}}
+{\footnotesize\ttfamily static const char \texorpdfstring{$\ast$}{*} proto\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_af80a2db21bd726e92cddc4cb31121ca5}\label{wcr__state_8c_af80a2db21bd726e92cddc4cb31121ca5} 
+\index{wcr\_state.c@{wcr\_state.c}!state\_auto\_save@{state\_auto\_save}}
+\index{state\_auto\_save@{state\_auto\_save}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{state\_auto\_save()}{state\_auto\_save()}}
+{\footnotesize\ttfamily static void state\+\_\+auto\+\_\+save (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_a77bc4913b751be1c3240d418d4e7ebb7}\label{wcr__state_8c_a77bc4913b751be1c3240d418d4e7ebb7} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_mutex\_destroy@{wcr\_mutex\_destroy}}
+\index{wcr\_mutex\_destroy@{wcr\_mutex\_destroy}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_mutex\_destroy()}{wcr\_mutex\_destroy()}}
+{\footnotesize\ttfamily static void wcr\+\_\+mutex\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_a239b66e28091534f714e1c027dc076f9}\label{wcr__state_8c_a239b66e28091534f714e1c027dc076f9} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_mutex\_init@{wcr\_mutex\_init}}
+\index{wcr\_mutex\_init@{wcr\_mutex\_init}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_mutex\_init()}{wcr\_mutex\_init()}}
+{\footnotesize\ttfamily static void wcr\+\_\+mutex\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_a2ecff66bb90a15f52a4521c4516eeb41}\label{wcr__state_8c_a2ecff66bb90a15f52a4521c4516eeb41} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_mutex\_lock@{wcr\_mutex\_lock}}
+\index{wcr\_mutex\_lock@{wcr\_mutex\_lock}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_mutex\_lock()}{wcr\_mutex\_lock()}}
+{\footnotesize\ttfamily static void wcr\+\_\+mutex\+\_\+lock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_a1a8016d6ae2b3f7d105d5adbf6a3c9e6}\label{wcr__state_8c_a1a8016d6ae2b3f7d105d5adbf6a3c9e6} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_mutex\_unlock@{wcr\_mutex\_unlock}}
+\index{wcr\_mutex\_unlock@{wcr\_mutex\_unlock}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_mutex\_unlock()}{wcr\_mutex\_unlock()}}
+{\footnotesize\ttfamily static void wcr\+\_\+mutex\+\_\+unlock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__state_8c_a2d0b5c27b3597d1d9de8872fce6f7a03}\label{wcr__state_8c_a2d0b5c27b3597d1d9de8872fce6f7a03} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_state\_add\_source@{wcr\_state\_add\_source}}
+\index{wcr\_state\_add\_source@{wcr\_state\_add\_source}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_state\_add\_source()}{wcr\_state\_add\_source()}}
+{\footnotesize\ttfamily int wcr\+\_\+state\+\_\+add\+\_\+source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{url }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143}\label{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143} 
+\index{wcr\_state.c@{wcr\_state.c}!write\_state@{write\_state}}
+\index{write\_state@{write\_state}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{write\_state()}{write\_state()}}
+{\footnotesize\ttfamily int write\+\_\+state (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{filepath }\end{DoxyParamCaption})}
 

@@ -10,7 +10,7 @@ var searchData=
   ['client_7',['Client',['../classsrc_1_1network_1_1client_1_1Client.html',1,'src::network::client']]],
   ['clientsocket_8',['ClientSocket',['../classsrc_1_1network_1_1client_1_1ClientSocket.html',1,'src::network::client']]],
   ['clock_9',['clock',['../classsrc_1_1common_1_1clock_1_1Clock.html',1,'src.common.clock.Clock'],['../classsrc_1_1scheduler_1_1clock_1_1Clock.html',1,'src.scheduler.clock.Clock']]],
-  ['config_10',['config',['../classcore_1_1config_1_1Settings_1_1Config.html',1,'core.config.Settings.Config'],['../classschemas_1_1user_1_1UserOut_1_1Config.html',1,'schemas.user.UserOut.Config']]],
+  ['config_10',['Config',['../classcore_1_1config_1_1Settings_1_1Config.html',1,'core::config::Settings']]],
   ['configerror_11',['ConfigError',['../classsrc_1_1builder_1_1config_1_1message_1_1ConfigError.html',1,'src::builder::config::message']]],
   ['configkey_12',['ConfigKey',['../classsrc_1_1builder_1_1config_1_1schema_1_1ConfigKey.html',1,'src::builder::config::schema']]],
   ['configmessage_13',['ConfigMessage',['../classsrc_1_1builder_1_1config_1_1message_1_1ConfigMessage.html',1,'src::builder::config::message']]],

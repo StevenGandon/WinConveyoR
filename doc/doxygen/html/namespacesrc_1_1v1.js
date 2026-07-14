@@ -1,7 +1,9 @@
 var namespacesrc_1_1v1 =
 [
     [ "deps", "namespacesrc_1_1v1_1_1deps.html", [
-      [ "get_db", "namespacesrc_1_1v1_1_1deps.html#aba26960161309119335900554b51a41f", null ]
+      [ "get_current_user", "namespacesrc_1_1v1_1_1deps.html#a8babe01b56ea61946a047815f8d01ffc", null ],
+      [ "get_db", "namespacesrc_1_1v1_1_1deps.html#aba26960161309119335900554b51a41f", null ],
+      [ "_bearer", "namespacesrc_1_1v1_1_1deps.html#a171456d38e842356e50dc2140d36ed7c", null ]
     ] ],
     [ "endpoints", "namespacesrc_1_1v1_1_1endpoints.html", "namespacesrc_1_1v1_1_1endpoints" ],
     [ "prefix", "namespacesrc_1_1v1.html#a648bea9c7c73e77080ecce807b25fdd2", null ],

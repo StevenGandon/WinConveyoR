@@ -3,6 +3,7 @@
 from sys import exit, argv
 from string import hexdigits
 
+from os.path import isfile
 from src import *
 from src.cli.commands import *
 from src.cli.middlewares import *
@@ -145,6 +146,44 @@ def main():
         write_command,
         [
             CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "new_pkg",
+        new_pkg_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "add_pkg",
+        add_pkg_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_data", CLICommandArg.ARG_MANDATORY, argument_checker=lambda x: isfile(x)),
+            CLICommandArg("package_archive", CLICommandArg.ARG_MANDATORY, argument_checker=lambda x: isfile(x))
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "purge_pkg",
+        purge_pkg_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "remove_pkg",
+        remove_pkg_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("package_name", CLICommandArg.ARG_MANDATORY),
+            CLICommandArg("package_hash", CLICommandArg.ARG_MANDATORY)
         ]
     ), True)
 

@@ -1,35 +1,40 @@
 \doxysection{lib/libwconr/vm\+\_\+internal.h File Reference}
 \hypertarget{vm__internal_8h}{}\label{vm__internal_8h}\index{lib/libwconr/vm\_internal.h@{lib/libwconr/vm\_internal.h}}
+
+
+Internal types and API for the wizard bytecode virtual machine.  
+
+
 {\ttfamily \#include "{}wizard\+\_\+private.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}
-\item 
+\begin{DoxyCompactList}\small\item\em Full type descriptor for a VM argument. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}}
-\item 
+\begin{DoxyCompactList}\small\item\em A decoded argument value produced by \doxylink{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1}{vm\+\_\+decode\+\_\+arg}. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvm__handler__entry}{vm\+\_\+handler\+\_\+entry}}
-\item 
+\begin{DoxyCompactList}\small\item\em Maps an instruction name to its handler function. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvm__handler__version}{vm\+\_\+handler\+\_\+version}}
-\item 
+\begin{DoxyCompactList}\small\item\em Associates a handler table with a format version. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvm__arg__def}{vm\+\_\+arg\+\_\+def}}
-\item 
+\begin{DoxyCompactList}\small\item\em Defines a single formal argument of an instruction (from XML). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvm__op__def}{vm\+\_\+op\+\_\+def}}
-\item 
+\begin{DoxyCompactList}\small\item\em Defines a single opcode within an instruction set (from XML). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}}
-\item 
+\begin{DoxyCompactList}\small\item\em A complete instruction set loaded from a single XML file. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Top-\/level wizard VM instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{vm__internal_8h_afd8036776ff52e66b67544391c5edde8}{VM\+\_\+\+BUF\+\_\+\+SIZE}}~4096
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Maximum size for path and command-\/line buffers used by VM handlers. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 typedef int(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}}) (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Prototype for a VM instruction handler function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,19 +46,26 @@ enum \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\+\_\
 , \newline
 \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf}{VM\+\_\+\+BASE\+\_\+\+U64}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Base data types supported by VM instruction arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} \mbox{\hyperlink{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4}{vm\+\_\+find\+\_\+handler}} (uint16\+\_\+t version, const char \texorpdfstring{$\ast$}{*}name)
-\item 
+\begin{DoxyCompactList}\small\item\em Looks up the handler for the given instruction name and format version. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f}{vm\+\_\+parse\+\_\+xml}} (const char \texorpdfstring{$\ast$}{*}path, struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset)
-\item 
+\begin{DoxyCompactList}\small\item\em Parses a wizard instruction XML file and fills an instruction set. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{vm__internal_8h_a91cdd473adaf6e69f1b93cb126a63de1}{vm\+\_\+decode\+\_\+arg}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}} type, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out)
-\item 
+\begin{DoxyCompactList}\small\item\em Decodes a single instruction argument from the bytecode stream. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+free\+\_\+args}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Frees all heap memory owned by an array of decoded argument values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Internal types and API for the wizard bytecode virtual machine. 
+
+The wizard VM interprets the bytecode stored in the code sections of a .WIZARD file (build, install, uninstall, purge). An instruction set is loaded from an XML file at VM initialisation time; at runtime each opcode is decoded, its arguments resolved through the string table, and a registered C handler is called to perform the actual operation.
+
+This header is private to libwconr and must not be included by consumers of the public API. 
 
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{vm__internal_8h_afd8036776ff52e66b67544391c5edde8}\label{vm__internal_8h_afd8036776ff52e66b67544391c5edde8} 
@@ -61,6 +73,10 @@ void \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\
 \index{VM\_BUF\_SIZE@{VM\_BUF\_SIZE}!vm\_internal.h@{vm\_internal.h}}
 \doxysubsubsection{\texorpdfstring{VM\_BUF\_SIZE}{VM\_BUF\_SIZE}}
 {\footnotesize\ttfamily \#define VM\+\_\+\+BUF\+\_\+\+SIZE~4096}
+
+
+
+Maximum size for path and command-\/line buffers used by VM handlers. 
 
 
 
@@ -73,6 +89,22 @@ void \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\
 
 
 
+Prototype for a VM instruction handler function. 
+
+Each opcode is mapped to a handler of this type. The handler receives the fully decoded argument array and must not retain any pointer after returning.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em args} & Array of {\ttfamily count} decoded argument values. \\
+\hline
+\mbox{\texttt{ in}}  & {\em count} & Number of elements in {\ttfamily args}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on any failure. A non-\/zero return aborts execution of the current section. 
+\end{DoxyReturn}
+
+
 \doxysubsection{Enumeration Type Documentation}
 \Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a} 
 \index{vm\_internal.h@{vm\_internal.h}!vm\_base\_type@{vm\_base\_type}}
@@ -80,25 +112,29 @@ void \mbox{\hyperlink{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\
 \doxysubsubsection{\texorpdfstring{vm\_base\_type}{vm\_base\_type}}
 {\footnotesize\ttfamily enum \mbox{\hyperlink{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6a}{vm\+\_\+base\+\_\+type}}}
 
-\begin{DoxyEnumFields}{Enumerator}
+
+
+Base data types supported by VM instruction arguments. 
+
+String arguments are resolved through the .WIZARD string table at decode time. Integer types are read directly from the bytecode stream. \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_STR@{VM\_BASE\_STR}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_STR@{VM\_BASE\_STR}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aade4dc031c6df01d521dee1ab898c2f6e} 
-VM\+\_\+\+BASE\+\_\+\+STR&\\
+VM\+\_\+\+BASE\+\_\+\+STR&String — decoded as a strndx offset, resolved to a char\texorpdfstring{$\ast$}{*}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U8@{VM\_BASE\_U8}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U8@{VM\_BASE\_U8}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa5b56ce560105198ed0f8971408c7931b} 
-VM\+\_\+\+BASE\+\_\+\+U8&\\
+VM\+\_\+\+BASE\+\_\+\+U8&Unsigned 8-\/bit integer. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U16@{VM\_BASE\_U16}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U16@{VM\_BASE\_U16}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aac9c85e874ee8bd3805128aaad9a61ba2} 
-VM\+\_\+\+BASE\+\_\+\+U16&\\
+VM\+\_\+\+BASE\+\_\+\+U16&Unsigned 16-\/bit integer (used for chmod mode fields). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U32@{VM\_BASE\_U32}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U32@{VM\_BASE\_U32}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aa2b1c38b867c8f3efcac7df19ac66f086} 
-VM\+\_\+\+BASE\+\_\+\+U32&\\
+VM\+\_\+\+BASE\+\_\+\+U32&Unsigned 32-\/bit integer. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{VM\_BASE\_U64@{VM\_BASE\_U64}!vm\_internal.h@{vm\_internal.h}}\index{vm\_internal.h@{vm\_internal.h}!VM\_BASE\_U64@{VM\_BASE\_U64}}}\Hypertarget{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf}\label{vm__internal_8h_a9268381295807c289c4c4c2ad7e63c6aaa8bb10b05f55340f9a6e28ab214ebaaf} 
-VM\+\_\+\+BASE\+\_\+\+U64&\\
+VM\+\_\+\+BASE\+\_\+\+U64&Unsigned 64-\/bit integer. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -111,21 +147,92 @@ VM\+\_\+\+BASE\+\_\+\+U64&\\
 \doxysubsubsection{\texorpdfstring{vm\_decode\_arg()}{vm\_decode\_arg()}}
 {\footnotesize\ttfamily int vm\+\_\+decode\+\_\+arg (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}}]{type,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
 
+
+
+Decodes a single instruction argument from the bytecode stream. 
+
+Advances {\ttfamily ip} by the number of bytes consumed. For array arguments, reads the 4-\/byte element count first. String arguments are resolved through the .WIZARD string table in {\ttfamily ctx}; all other types are read directly from {\ttfamily data}.
+
+The caller must release the decoded value with \doxylink{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+free\+\_\+args} when done.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context (needed for string table lookups). \\
+\hline
+\mbox{\texttt{ in}}  & {\em data} & Pointer to the start of the current section\textquotesingle{}s bytecode. \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & Total size of {\ttfamily data} in bytes. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em ip} & Instruction pointer\+: byte offset of the next byte to decode. Advanced by this function. \\
+\hline
+\mbox{\texttt{ in}}  & {\em type} & Type descriptor indicating how to decode the argument. \\
+\hline
+\mbox{\texttt{ out}}  & {\em out} & Populated with the decoded value on success. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on bounds violation, unknown type, or allocation failure. 
+\end{DoxyReturn}
 \Hypertarget{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4}\label{vm__internal_8h_a27df2945da6df5b68eae1baf79372ad4} 
 \index{vm\_internal.h@{vm\_internal.h}!vm\_find\_handler@{vm\_find\_handler}}
 \index{vm\_find\_handler@{vm\_find\_handler}!vm\_internal.h@{vm\_internal.h}}
 \doxysubsubsection{\texorpdfstring{vm\_find\_handler()}{vm\_find\_handler()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{vm__internal_8h_a94be1fc5b90a7764f8d31a8694db7951}{vm\+\_\+handler\+\_\+t}} vm\+\_\+find\+\_\+handler (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{version,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
 
+
+
+Looks up the handler for the given instruction name and format version. 
+
+Selects the most recent handler table whose version does not exceed {\ttfamily version}, then searches linearly for a matching name.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em version} & Format version of the .WIZARD file being executed. \\
+\hline
+\mbox{\texttt{ in}}  & {\em name} & NUL-\/terminated instruction mnemonic to look up. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the handler function, or NULL if not found. 
+\end{DoxyReturn}
 \Hypertarget{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a}\label{vm__internal_8h_a7c40df2d1c68ecfb6b23a0f38dce3c9a} 
 \index{vm\_internal.h@{vm\_internal.h}!vm\_free\_args@{vm\_free\_args}}
 \index{vm\_free\_args@{vm\_free\_args}!vm\_internal.h@{vm\_internal.h}}
 \doxysubsubsection{\texorpdfstring{vm\_free\_args()}{vm\_free\_args()}}
 {\footnotesize\ttfamily void vm\+\_\+free\+\_\+args (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})}
 
+
+
+Frees all heap memory owned by an array of decoded argument values. 
+
+Releases string pointer arrays, length arrays, and integer arrays for each of the first {\ttfamily count} entries. Does not free the {\ttfamily args} array itself.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em args} & Array of decoded argument values to free. \\
+\hline
+\mbox{\texttt{ in}}  & {\em count} & Number of entries to process. No-\/op if {\ttfamily args} is NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f}\label{vm__internal_8h_a611b107c0e6604a3a354c524aeb5a15f} 
 \index{vm\_internal.h@{vm\_internal.h}!vm\_parse\_xml@{vm\_parse\_xml}}
 \index{vm\_parse\_xml@{vm\_parse\_xml}!vm\_internal.h@{vm\_internal.h}}
 \doxysubsubsection{\texorpdfstring{vm\_parse\_xml()}{vm\_parse\_xml()}}
 {\footnotesize\ttfamily int vm\+\_\+parse\+\_\+xml (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{iset }\end{DoxyParamCaption})}
 
+
+
+Parses a wizard instruction XML file and fills an instruction set. 
+
+Accepts either a root {\ttfamily \texorpdfstring{$<$}{<}wizard\texorpdfstring{$>$}{>}} element (with a nested {\ttfamily \texorpdfstring{$<$}{<}instructions\texorpdfstring{$>$}{>}} child) or a bare {\ttfamily \texorpdfstring{$<$}{<}instructions\texorpdfstring{$>$}{>}} root. The {\ttfamily version} attribute of the {\ttfamily \texorpdfstring{$<$}{<}instructions\texorpdfstring{$>$}{>}} element is required.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & Path to the XML file on disk. \\
+\hline
+\mbox{\texttt{ out}}  & {\em iset} & Instruction set struct to populate. Must be pre-\/allocated by the caller; its fields will be initialised here. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success (at least one opcode loaded), -\/1 on any parse or allocation failure. 
+\end{DoxyReturn}

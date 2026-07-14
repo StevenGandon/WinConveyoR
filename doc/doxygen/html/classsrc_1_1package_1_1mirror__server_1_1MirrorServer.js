@@ -5,6 +5,7 @@ var classsrc_1_1package_1_1mirror__server_1_1MirrorServer =
     [ "__str__", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#ade59b2d02fe16c89d294697e04ccd8ab", null ],
     [ "add_package_register", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a87495fe3aaee75c593a59c464c59230c", null ],
     [ "get_package_register", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a7a83ce8e93653a24024d693714595791", null ],
+    [ "has_package_register", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a2f5f9fad6acf72c657734061e396cfc0", null ],
     [ "load", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a77972c7dae81ae645c24580bcb41b60e", null ],
     [ "remove_package_register", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a37e0f9c8b1b410afdf2f7b1732fb1adc", null ],
     [ "write", "classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#aae023ac9bd3e0906c41ebc2feeb512b3", null ],

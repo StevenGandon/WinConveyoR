@@ -1,5 +1,19 @@
 var namespacesrc =
 [
+    [ "api_client", "namespacesrc_1_1api__client.html", [
+      [ "_api_url", "namespacesrc_1_1api__client.html#a1dc6a2aae2b49ea9ae7eae8a4e46e5c8", null ],
+      [ "_format_error", "namespacesrc_1_1api__client.html#a7feb49d16adfcfd9aa08222a3eadd1f1", null ],
+      [ "_get", "namespacesrc_1_1api__client.html#a079a8654f2474982edb125a79c62681f", null ],
+      [ "_post", "namespacesrc_1_1api__client.html#a03bb27a4ff15dbd9017ef011331fbf0b", null ],
+      [ "get_me", "namespacesrc_1_1api__client.html#a5b1547504a35951b0a749c3fa89ce2e7", null ],
+      [ "load_token", "namespacesrc_1_1api__client.html#a82db0bd62d9aa90f5c3c90aed22001ee", null ],
+      [ "login", "namespacesrc_1_1api__client.html#a058610d143feb5099891a690b3301a23", null ],
+      [ "register", "namespacesrc_1_1api__client.html#a0f0d5831a20e9541a55af2ead4b5b3ad", null ],
+      [ "save_token", "namespacesrc_1_1api__client.html#a674feefebb9ecda0e7e21ea410ff04bb", null ],
+      [ "_DEFAULT_API_URL", "namespacesrc_1_1api__client.html#a42077eee0605749a867ef27f6b0cd28f", null ],
+      [ "_FIELD_HINTS", "namespacesrc_1_1api__client.html#a7f0a9e857d3b7533dde228caa624df12", null ],
+      [ "_TOKEN_PATH", "namespacesrc_1_1api__client.html#a7e09d6580f1f9f89310ad1f80cccd0ca", null ]
+    ] ],
     [ "arghandler", "namespacesrc_1_1arghandler.html", "namespacesrc_1_1arghandler" ],
     [ "builder", "namespacesrc_1_1builder.html", "namespacesrc_1_1builder" ],
     [ "cache", "namespacesrc_1_1cache.html", "namespacesrc_1_1cache" ],

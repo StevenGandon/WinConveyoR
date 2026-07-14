@@ -1,14 +1,20 @@
 var searchData=
 [
-  ['wcr_5fstate_5fs_0',['wcr_state_s',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html',1,'src.wrappers.libwconr._libwconr.wcr_state_s'],['../structwcr__state__s.html',1,'wcr_state_s']]],
-  ['wcr_5fsystem_5fs_1',['wcr_system_s',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html',1,'src.wrappers.libwconr._libwconr.wcr_system_s'],['../structwcr__system__s.html',1,'wcr_system_s']]],
-  ['wcrhandler_2',['WCRHandler',['../classwcrmirror_1_1WCRHandler.html',1,'wcrmirror']]],
-  ['wcrstate_3',['WCRState',['../classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html',1,'src::wrappers::libwconr::libwconr']]],
-  ['wizardargument_4',['WizardArgument',['../classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgument.html',1,'src::wizard::classes::arguments']]],
-  ['wizardargumentarray_5',['WizardArgumentArray',['../classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgumentArray.html',1,'src::wizard::classes::arguments']]],
-  ['wizardcodesection_6',['WizardCodeSection',['../classsrc_1_1wizard_1_1classes_1_1section_1_1WizardCodeSection.html',1,'src::wizard::classes::section']]],
-  ['wizardgraphic_7',['WizardGraphic',['../classsrc_1_1graphic_1_1builtin_1_1wizard_1_1WizardGraphic.html',1,'src::graphic::builtin::wizard']]],
-  ['wizardinstruction_8',['WizardInstruction',['../classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html',1,'src::wizard::classes::instruction']]],
-  ['wizardsection_9',['WizardSection',['../classsrc_1_1wizard_1_1classes_1_1section_1_1WizardSection.html',1,'src::wizard::classes::section']]],
-  ['wizardstrndx_10',['WizardStrndx',['../classsrc_1_1wizard_1_1classes_1_1strndx_1_1WizardStrndx.html',1,'src::wizard::classes::strndx']]]
+  ['wcr_5fconn_5fs_0',['wcr_conn_s',['../structwcr__conn__s.html',1,'']]],
+  ['wcr_5fevent_1',['wcr_event',['../classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event.html',1,'src.wrappers.libwconr.libwconr.wcr_event'],['../structwcr__event.html',1,'wcr_event']]],
+  ['wcr_5fevent_5ftype_2',['wcr_event_type',['../classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event__type.html',1,'src::wrappers::libwconr::libwconr']]],
+  ['wcr_5finstall_5fctx_3',['wcr_install_ctx',['../structwcr__install__ctx.html',1,'']]],
+  ['wcr_5fmsg_5fs_4',['wcr_msg_s',['../structwcr__msg__s.html',1,'']]],
+  ['wcr_5fsource_5fs_5',['wcr_source_s',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__source__s.html',1,'src.wrappers.libwconr._libwconr.wcr_source_s'],['../structwcr__source__s.html',1,'wcr_source_s']]],
+  ['wcr_5fstate_5fs_6',['wcr_state_s',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html',1,'src.wrappers.libwconr._libwconr.wcr_state_s'],['../structwcr__state__s.html',1,'wcr_state_s']]],
+  ['wcr_5fsystem_5fs_7',['wcr_system_s',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html',1,'src.wrappers.libwconr._libwconr.wcr_system_s'],['../structwcr__system__s.html',1,'wcr_system_s']]],
+  ['wcrhandler_8',['WCRHandler',['../classwcrmirror_1_1WCRHandler.html',1,'wcrmirror']]],
+  ['wcrstate_9',['WCRState',['../classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html',1,'src::wrappers::libwconr::libwconr']]],
+  ['wizardargument_10',['WizardArgument',['../classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgument.html',1,'src::wizard::classes::arguments']]],
+  ['wizardargumentarray_11',['WizardArgumentArray',['../classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgumentArray.html',1,'src::wizard::classes::arguments']]],
+  ['wizardcodesection_12',['WizardCodeSection',['../classsrc_1_1wizard_1_1classes_1_1section_1_1WizardCodeSection.html',1,'src::wizard::classes::section']]],
+  ['wizardgraphic_13',['WizardGraphic',['../classsrc_1_1graphic_1_1builtin_1_1wizard_1_1WizardGraphic.html',1,'src::graphic::builtin::wizard']]],
+  ['wizardinstruction_14',['WizardInstruction',['../classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html',1,'src::wizard::classes::instruction']]],
+  ['wizardsection_15',['WizardSection',['../classsrc_1_1wizard_1_1classes_1_1section_1_1WizardSection.html',1,'src::wizard::classes::section']]],
+  ['wizardstrndx_16',['WizardStrndx',['../classsrc_1_1wizard_1_1classes_1_1strndx_1_1WizardStrndx.html',1,'src::wizard::classes::strndx']]]
 ];

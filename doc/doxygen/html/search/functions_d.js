@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['object_5ffrom_5fdot_5fref_0',['object_from_dot_ref',['../classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#aacb1058b8c8e0c1d0b97d3849fd24dcd',1,'src::builder::config::reader::YAMLConfigReader']]],
-  ['op_5ffrom_5fstring_1',['op_from_string',['../classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a8d234ab78b842caae0f37c44dd26e372',1,'src::builder::config::reader::YAMLConfigReader']]]
+  ['network_5fcommand_0',['network_command',['../namespacesrc_1_1cli_1_1network__command__wrapper.html#a0d26f5568421ef1a4b62733de7f3a420',1,'src::cli::network_command_wrapper']]],
+  ['new_5fhttp_5fconnection_1',['new_http_connection',['../libwconr__private_8h.html#a3a9c10a45637e08ccd570a8945ff24eb',1,'new_http_connection(const char *__s, unsigned short __p):&#160;http.c'],['../posix_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9',1,'new_http_connection(const char *ip, unsigned short port):&#160;http.c'],['../win_2http_8c.html#ac16c71f53c5204afa141816bb9cd83f9',1,'new_http_connection(const char *ip, unsigned short port):&#160;http.c']]],
+  ['new_5fhttp_5frequest_5fparser_2',['new_http_request_parser',['../libwconr__private_8h.html#ac7ebea9fdf20149a44d0e057cc3e6313',1,'new_http_request_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c'],['../http__parsing_8c.html#ac7ebea9fdf20149a44d0e057cc3e6313',1,'new_http_request_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c']]],
+  ['new_5fhttp_5fresponse_5fparser_3',['new_http_response_parser',['../libwconr__private_8h.html#ad6b88be93dbe0fd5ba658681e47c16a6',1,'new_http_response_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c'],['../http__parsing_8c.html#ad6b88be93dbe0fd5ba658681e47c16a6',1,'new_http_response_parser(struct _http_connection_s *http_connection):&#160;http_parsing.c']]],
+  ['new_5fpkg_5fcommand_4',['new_pkg_command',['../namespacesrc_1_1cli_1_1commands_1_1new__pkg.html#a33c6611bb7a2c32e5248ac5f3df54786',1,'src::cli::commands::new_pkg']]],
+  ['new_5fstate_5',['new_state',['../libwconr_8h.html#a1815617a622e3776dc61ecf67def9157',1,'new_state(void):&#160;wcr_state.c'],['../wcr__state_8c.html#adb5329b2d274868037a90bd27c1143b7',1,'new_state(void):&#160;wcr_state.c']]],
+  ['non_5fblocking_5fread_6',['non_blocking_read',['../namespacesrc_1_1common_1_1user__input.html#aac972a4578fc8a5057d2ffa761000035',1,'src::common::user_input']]]
 ];

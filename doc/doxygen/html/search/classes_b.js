@@ -14,5 +14,6 @@ var searchData=
   ['patternxmlparseerror_11',['PatternXMLParseError',['../classsrc_1_1graphic_1_1pattern_1_1exceptions_1_1PatternXMLParseError.html',1,'src::graphic::pattern::exceptions']]],
   ['pool_12',['pool',['../classsrc_1_1scheduler_1_1pool_1_1Pool.html',1,'src.scheduler.pool.Pool'],['../classsrc_1_1thread_1_1pool_1_1Pool.html',1,'src.thread.pool.Pool']]],
   ['privatesecuritykey_13',['PrivateSecurityKey',['../classsrc_1_1network_1_1security_1_1PrivateSecurityKey.html',1,'src::network::security']]],
-  ['publicsecuritykey_14',['PublicSecurityKey',['../classsrc_1_1network_1_1security_1_1PublicSecurityKey.html',1,'src::network::security']]]
+  ['protocol_5ftype_14',['protocol_type',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1protocol__type.html',1,'src::wrappers::libwconr::_libwconr']]],
+  ['publicsecuritykey_15',['PublicSecurityKey',['../classsrc_1_1network_1_1security_1_1PublicSecurityKey.html',1,'src::network::security']]]
 ];

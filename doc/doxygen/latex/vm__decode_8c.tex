@@ -17,9 +17,9 @@ static int \mbox{\hyperlink{vm__decode_8c_a3c1195b333dc77a4ab7b5d550e6962e7}{vm\
 static int \mbox{\hyperlink{vm__decode_8c_af150eaf7632c6f5afcb392ab324a3f35}{vm\+\_\+decode\+\_\+u64}} (const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out, int is\+\_\+array)
 \item 
 int \mbox{\hyperlink{vm__decode_8c_a91cdd473adaf6e69f1b93cb126a63de1}{vm\+\_\+decode\+\_\+arg}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const unsigned char \texorpdfstring{$\ast$}{*}data, uint64\+\_\+t size, uint64\+\_\+t \texorpdfstring{$\ast$}{*}ip, struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}} type, struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}out)
-\item 
+\begin{DoxyCompactList}\small\item\em Decodes a single instruction argument from the bytecode stream. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+free\+\_\+args}} (struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}args, uint32\+\_\+t count)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Frees all heap memory owned by an array of decoded argument values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -29,6 +29,32 @@ void \mbox{\hyperlink{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+f
 \doxysubsubsection{\texorpdfstring{vm\_decode\_arg()}{vm\_decode\_arg()}}
 {\footnotesize\ttfamily int vm\+\_\+decode\+\_\+arg (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint64\+\_\+t}]{size,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{ip,  }\item[{struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}}}]{type,  }\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
 
+
+
+Decodes a single instruction argument from the bytecode stream. 
+
+Advances {\ttfamily ip} by the number of bytes consumed. For array arguments, reads the 4-\/byte element count first. String arguments are resolved through the .WIZARD string table in {\ttfamily ctx}; all other types are read directly from {\ttfamily data}.
+
+The caller must release the decoded value with \doxylink{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+free\+\_\+args} when done.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context (needed for string table lookups). \\
+\hline
+\mbox{\texttt{ in}}  & {\em data} & Pointer to the start of the current section\textquotesingle{}s bytecode. \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & Total size of {\ttfamily data} in bytes. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em ip} & Instruction pointer\+: byte offset of the next byte to decode. Advanced by this function. \\
+\hline
+\mbox{\texttt{ in}}  & {\em type} & Type descriptor indicating how to decode the argument. \\
+\hline
+\mbox{\texttt{ out}}  & {\em out} & Populated with the decoded value on success. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on bounds violation, unknown type, or allocation failure. 
+\end{DoxyReturn}
 \Hypertarget{vm__decode_8c_a8e1acfbe021cbdd1fe04531520ac5823}\label{vm__decode_8c_a8e1acfbe021cbdd1fe04531520ac5823} 
 \index{vm\_decode.c@{vm\_decode.c}!vm\_decode\_str@{vm\_decode\_str}}
 \index{vm\_decode\_str@{vm\_decode\_str}!vm\_decode.c@{vm\_decode.c}}
@@ -65,6 +91,19 @@ void \mbox{\hyperlink{vm__decode_8c_a7c40df2d1c68ecfb6b23a0f38dce3c9a}{vm\+\_\+f
 \doxysubsubsection{\texorpdfstring{vm\_free\_args()}{vm\_free\_args()}}
 {\footnotesize\ttfamily void vm\+\_\+free\+\_\+args (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}}]{args,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})}
 
+
+
+Frees all heap memory owned by an array of decoded argument values. 
+
+Releases string pointer arrays, length arrays, and integer arrays for each of the first {\ttfamily count} entries. Does not free the {\ttfamily args} array itself.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em args} & Array of decoded argument values to free. \\
+\hline
+\mbox{\texttt{ in}}  & {\em count} & Number of entries to process. No-\/op if {\ttfamily args} is NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{vm__decode_8c_a38886aa39c451f7f87db4032b6794ded}\label{vm__decode_8c_a38886aa39c451f7f87db4032b6794ded} 
 \index{vm\_decode.c@{vm\_decode.c}!vm\_free\_str\_partial@{vm\_free\_str\_partial}}
 \index{vm\_free\_str\_partial@{vm\_free\_str\_partial}!vm\_decode.c@{vm\_decode.c}}
