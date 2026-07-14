@@ -5,9 +5,9 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a5abb552099529c789882a3bb62b019f2}{wizard\+\_\+vm\+\_\+init}} (const char \texorpdfstring{$\ast$}{*}instructions\+\_\+dir)
-\item 
+\begin{DoxyCompactList}\small\item\em Creates and initialises a wizard VM by loading instruction XML files from {\ttfamily instructions\+\_\+dir}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{vm_8c_af6f4b516ccd34e127a746af68ff8982d}{wizard\+\_\+vm\+\_\+close}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm)
-\item 
+\begin{DoxyCompactList}\small\item\em Destroys a wizard VM and frees all associated instruction data. \end{DoxyCompactList}\item 
 static const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a125d3c2010ab89125ae42dcea210c7e2}{vm\+\_\+resolve\+\_\+iset}} (const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, uint16\+\_\+t version)
 \item 
 static const struct \mbox{\hyperlink{structvm__op__def}{vm\+\_\+op\+\_\+def}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a2523a860924465044b642dc9875efeda}{vm\+\_\+find\+\_\+op}} (const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset, uint16\+\_\+t code)
@@ -15,15 +15,15 @@ static const struct \mbox{\hyperlink{structvm__op__def}{vm\+\_\+op\+\_\+def}} \t
 static int \mbox{\hyperlink{vm_8c_abecc97abfba565aa1cb7096e609d9458}{vm\+\_\+run\+\_\+section}} (const struct \mbox{\hyperlink{structvm__iset__s}{vm\+\_\+iset\+\_\+s}} \texorpdfstring{$\ast$}{*}iset, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
 \item 
 int \mbox{\hyperlink{vm_8c_ae0754f1b2cb7f485b5371349607eb496}{wizard\+\_\+vm\+\_\+exec}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
-\item 
+\begin{DoxyCompactList}\small\item\em Executes the bytecode contained in a section using the wizard VM. \end{DoxyCompactList}\item 
 static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vm_8c_a7f12c8aff443a93192013743069679be}{vm\+\_\+type\+\_\+name}} (struct \mbox{\hyperlink{structvm__arg__type}{vm\+\_\+arg\+\_\+type}} type)
 \item 
 void \mbox{\hyperlink{vm_8c_aa1bba13f29a0a9d6623f95901f4fce4c}{wizard\+\_\+vm\+\_\+dump\+\_\+instructions}} (const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm)
-\item 
+\begin{DoxyCompactList}\small\item\em Prints all loaded instruction sets and their opcodes to stdout. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{vm_8c_ae3e5d12f58dedd91f7ec2079893e706e}{vm\+\_\+disasm\+\_\+print\+\_\+arg}} (const struct \mbox{\hyperlink{structvm__arg__def}{vm\+\_\+arg\+\_\+def}} \texorpdfstring{$\ast$}{*}adef, const struct \mbox{\hyperlink{structvm__arg__value}{vm\+\_\+arg\+\_\+value}} \texorpdfstring{$\ast$}{*}aval)
 \item 
 int \mbox{\hyperlink{vm_8c_a893f6b791add77894395a3ade9cfcc21}{wizard\+\_\+vm\+\_\+disasm}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Disassembles a section\textquotesingle{}s bytecode and prints it to stdout. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -68,30 +68,100 @@ static const char \texorpdfstring{$\ast$}{*}const \mbox{\hyperlink{vm_8c_ab1ccce
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_close()}{wizard\_vm\_close()}}
 {\footnotesize\ttfamily void wizard\+\_\+vm\+\_\+close (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm }\end{DoxyParamCaption})}
 
+
+
+Destroys a wizard VM and frees all associated instruction data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & VM to destroy. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{vm_8c_a893f6b791add77894395a3ade9cfcc21}\label{vm_8c_a893f6b791add77894395a3ade9cfcc21} 
 \index{vm.c@{vm.c}!wizard\_vm\_disasm@{wizard\_vm\_disasm}}
 \index{wizard\_vm\_disasm@{wizard\_vm\_disasm}!vm.c@{vm.c}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_disasm()}{wizard\_vm\_disasm()}}
 {\footnotesize\ttfamily int wizard\+\_\+vm\+\_\+disasm (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
 
+
+
+Disassembles a section\textquotesingle{}s bytecode and prints it to stdout. 
+
+Decodes each instruction in order, printing its file offset, index, mnemonic name, and decoded argument values.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & Initialised wizard VM. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em section} & Section to disassemble. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on any decode failure. 
+\end{DoxyReturn}
 \Hypertarget{vm_8c_aa1bba13f29a0a9d6623f95901f4fce4c}\label{vm_8c_aa1bba13f29a0a9d6623f95901f4fce4c} 
 \index{vm.c@{vm.c}!wizard\_vm\_dump\_instructions@{wizard\_vm\_dump\_instructions}}
 \index{wizard\_vm\_dump\_instructions@{wizard\_vm\_dump\_instructions}!vm.c@{vm.c}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_dump\_instructions()}{wizard\_vm\_dump\_instructions()}}
 {\footnotesize\ttfamily void wizard\+\_\+vm\+\_\+dump\+\_\+instructions (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm }\end{DoxyParamCaption})}
 
+
+
+Prints all loaded instruction sets and their opcodes to stdout. 
+
+Intended for debugging. Prints each version\textquotesingle{}s opcode list with name and argument types.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & Initialised wizard VM. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{vm_8c_ae0754f1b2cb7f485b5371349607eb496}\label{vm_8c_ae0754f1b2cb7f485b5371349607eb496} 
 \index{vm.c@{vm.c}!wizard\_vm\_exec@{wizard\_vm\_exec}}
 \index{wizard\_vm\_exec@{wizard\_vm\_exec}!vm.c@{vm.c}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_exec()}{wizard\_vm\_exec()}}
 {\footnotesize\ttfamily int wizard\+\_\+vm\+\_\+exec (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
 
+
+
+Executes the bytecode contained in a section using the wizard VM. 
+
+Selects the instruction set whose version matches the file\textquotesingle{}s format version, then interprets each instruction sequentially. Execution stops on the first unrecognised opcode or handler error.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & Initialised wizard VM. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context providing the string table and file data. \\
+\hline
+\mbox{\texttt{ in}}  & {\em section} & Section entry whose content will be executed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on any failure. 
+\end{DoxyReturn}
 \Hypertarget{vm_8c_a5abb552099529c789882a3bb62b019f2}\label{vm_8c_a5abb552099529c789882a3bb62b019f2} 
 \index{vm.c@{vm.c}!wizard\_vm\_init@{wizard\_vm\_init}}
 \index{wizard\_vm\_init@{wizard\_vm\_init}!vm.c@{vm.c}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_init()}{wizard\_vm\_init()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+vm\+\_\+init (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{instructions\+\_\+dir }\end{DoxyParamCaption})}
 
+
+
+Creates and initialises a wizard VM by loading instruction XML files from {\ttfamily instructions\+\_\+dir}. 
+
+Loads every XML file listed in the internal {\ttfamily vm\+\_\+xml\+\_\+files} table. At least one instruction set must load successfully; otherwise NULL is returned.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em instructions\+\_\+dir} & Directory containing instruction XML files. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a new VM, or NULL on failure. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Variable Documentation}

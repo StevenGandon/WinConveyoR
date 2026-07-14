@@ -18,7 +18,7 @@ static size\+\_\+t \mbox{\hyperlink{http__request_8c_a016248e636743bf1aa13df7f17
 static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__request_8c_aefd35d36dc9af5cc71e2cc13a1422388}{build\+\_\+request}} (struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}request\+\_\+parser, const unsigned char \texorpdfstring{$\ast$}{*}host, size\+\_\+t buffer\+\_\+size)
 \item 
 void \mbox{\hyperlink{http__request_8c_a4bdcbfbc3d2947860e4a53f6eaeaa949}{request\+\_\+ressource}} (struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}request\+\_\+parser, const unsigned char \texorpdfstring{$\ast$}{*}http\+\_\+address)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Sends a fully built HTTP request over the connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -55,5 +55,18 @@ void \mbox{\hyperlink{http__request_8c_a4bdcbfbc3d2947860e4a53f6eaeaa949}{reques
 \index{http\_request.c@{http\_request.c}!request\_ressource@{request\_ressource}}
 \index{request\_ressource@{request\_ressource}!http\_request.c@{http\_request.c}}
 \doxysubsubsection{\texorpdfstring{request\_ressource()}{request\_ressource()}}
-{\footnotesize\ttfamily void request\+\_\+ressource (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{request\+\_\+parser,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{http\+\_\+address }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void request\+\_\+ressource (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{\+\_\+\+\_\+r,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{http\+\_\+address }\end{DoxyParamCaption})}
 
+
+
+Sends a fully built HTTP request over the connection. 
+
+Serialises the request line (method, route, protocol/version), all stored headers, and the mandatory blank line terminator, then writes the result to the socket.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em \+\_\+\+\_\+r} & Request parser containing the request to send. \\
+\hline
+\mbox{\texttt{ in}}  & {\em http\+\_\+address} & Fallback Host header value when no Host header has been set explicitly. \\
+\hline
+\end{DoxyParams}

@@ -13,9 +13,9 @@ static int \mbox{\hyperlink{pars__wizard_8c_a25f726e065aeb6060bd17b7c9382c9f9}{w
 static int \mbox{\hyperlink{pars__wizard_8c_a2518130dc364c1eb1bbfaab0785fb4d6}{wizard\+\_\+validate\+\_\+bounds}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx)
 \item 
 struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{pars__wizard_8c_a8da5c6a7c3523dd6ad3477b2451d22bc}{wizard\+\_\+open}} (const char \texorpdfstring{$\ast$}{*}path)
-\item 
+\begin{DoxyCompactList}\small\item\em Opens and memory-\/maps a .WIZARD file, returning a validated context. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{pars__wizard_8c_a56d2c1efb439f13289c395826d6893b7}{wizard\+\_\+close}} (struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Closes a .WIZARD context and releases all associated resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -25,6 +25,17 @@ void \mbox{\hyperlink{pars__wizard_8c_a56d2c1efb439f13289c395826d6893b7}{wizard\
 \doxysubsubsection{\texorpdfstring{wizard\_close()}{wizard\_close()}}
 {\footnotesize\ttfamily void wizard\+\_\+close (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx }\end{DoxyParamCaption})}
 
+
+
+Closes a .WIZARD context and releases all associated resources. 
+
+Unmaps the file, closes the file descriptor (POSIX), and frees the context.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Context to close. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{pars__wizard_8c_a969ebded77bb4fc7cdca9394c7658b7e}\label{pars__wizard_8c_a969ebded77bb4fc7cdca9394c7658b7e} 
 \index{pars\_wizard.c@{pars\_wizard.c}!wizard\_mmap\_file@{wizard\_mmap\_file}}
 \index{wizard\_mmap\_file@{wizard\_mmap\_file}!pars\_wizard.c@{pars\_wizard.c}}
@@ -43,6 +54,20 @@ void \mbox{\hyperlink{pars__wizard_8c_a56d2c1efb439f13289c395826d6893b7}{wizard\
 \doxysubsubsection{\texorpdfstring{wizard\_open()}{wizard\_open()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+open (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
 
+
+
+Opens and memory-\/maps a .WIZARD file, returning a validated context. 
+
+Validates the magic number, version range, and section table bounds before returning. The file remains mapped until \doxylink{pars__wizard_8c_a56d2c1efb439f13289c395826d6893b7}{wizard\+\_\+close} is called.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & Path to the .WIZARD file on disk. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a new context, or NULL on any failure (file not found, invalid magic, bounds violation, allocation error, etc.). 
+\end{DoxyReturn}
 \Hypertarget{pars__wizard_8c_a2518130dc364c1eb1bbfaab0785fb4d6}\label{pars__wizard_8c_a2518130dc364c1eb1bbfaab0785fb4d6} 
 \index{pars\_wizard.c@{pars\_wizard.c}!wizard\_validate\_bounds@{wizard\_validate\_bounds}}
 \index{wizard\_validate\_bounds@{wizard\_validate\_bounds}!pars\_wizard.c@{pars\_wizard.c}}

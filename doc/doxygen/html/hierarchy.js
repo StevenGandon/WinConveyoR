@@ -12,7 +12,6 @@ var hierarchy =
     [ "_wizard_vm_s", "struct__wizard__vm__s.html", null ],
     [ "cached_source_s", "structcached__source__s.html", null ],
     [ "core.config.Settings.Config", "classcore_1_1config_1_1Settings_1_1Config.html", null ],
-    [ "schemas.user.UserOut.Config", "classschemas_1_1user_1_1UserOut_1_1Config.html", null ],
     [ "Exception", null, [
       [ "src.arghandler.ArgumentHandlerException", "classsrc_1_1arghandler_1_1ArgumentHandlerException.html", [
         [ "src.arghandler.ArgumentExclusionMatch", "classsrc_1_1arghandler_1_1ArgumentExclusionMatch.html", null ],
@@ -125,7 +124,6 @@ var hierarchy =
     ] ],
     [ "source_handler_s", "structsource__handler__s.html", null ],
     [ "source_mirror_s", "structsource__mirror__s.html", null ],
-    [ "sync_resources_s", "structsync__resources__s.html", null ],
     [ "T", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
     ] ],
@@ -136,23 +134,33 @@ var hierarchy =
     [ "vm_handler_version", "structvm__handler__version.html", null ],
     [ "vm_iset_s", "structvm__iset__s.html", null ],
     [ "vm_op_def", "structvm__op__def.html", null ],
+    [ "wcr_conn_s", "structwcr__conn__s.html", null ],
+    [ "wcr_event", "structwcr__event.html", null ],
+    [ "wcr_install_ctx", "structwcr__install__ctx.html", null ],
+    [ "wcr_msg_s", "structwcr__msg__s.html", null ],
+    [ "wcr_source_s", "structwcr__source__s.html", null ],
     [ "wcr_state_s", "structwcr__state__s.html", null ],
     [ "wcr_system_s", "structwcr__system__s.html", null ],
     [ "Base", null, [
       [ "models.user.User", "classmodels_1_1user_1_1User.html", null ]
     ] ],
     [ "BaseModel", null, [
+      [ "schemas.user.TokenOut", "classschemas_1_1user_1_1TokenOut.html", null ],
       [ "schemas.user.UserBase", "classschemas_1_1user_1_1UserBase.html", [
         [ "schemas.user.UserIn", "classschemas_1_1user_1_1UserIn.html", null ],
         [ "schemas.user.UserOut", "classschemas_1_1user_1_1UserOut.html", null ]
-      ] ]
+      ] ],
+      [ "schemas.user.UserLogin", "classschemas_1_1user_1_1UserLogin.html", null ],
+      [ "schemas.user.UserRegister", "classschemas_1_1user_1_1UserRegister.html", null ]
     ] ],
     [ "BaseSettings", null, [
       [ "core.config.Settings", "classcore_1_1config_1_1Settings.html", null ]
     ] ],
     [ "Enum", null, [
       [ "src.wrappers.libwconr._libwconr.SUPPORTED_ARCHITECTURES", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html", null ],
-      [ "src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", null ]
+      [ "src.wrappers.libwconr._libwconr.SUPPORTED_PLATFORMS", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html", null ],
+      [ "src.wrappers.libwconr._libwconr.protocol_type", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1protocol__type.html", null ],
+      [ "src.wrappers.libwconr.libwconr.wcr_event_type", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event__type.html", null ]
     ] ],
     [ "Generic", null, [
       [ "repository.Repository", "classrepository_1_1Repository.html", null ]
@@ -161,7 +169,9 @@ var hierarchy =
       [ "wcrmirror.WCRHandler", "classwcrmirror_1_1WCRHandler.html", null ]
     ] ],
     [ "Structure", null, [
+      [ "src.wrappers.libwconr._libwconr.wcr_source_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__source__s.html", null ],
       [ "src.wrappers.libwconr._libwconr.wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", null ],
-      [ "src.wrappers.libwconr._libwconr.wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", null ]
+      [ "src.wrappers.libwconr._libwconr.wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", null ],
+      [ "src.wrappers.libwconr.libwconr.wcr_event", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1wcr__event.html", null ]
     ] ]
 ];

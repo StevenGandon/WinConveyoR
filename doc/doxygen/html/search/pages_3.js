@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['manager_20cli_0',['Documentation wcmgr - WinConveyoR Manager CLI',['../md_doc_2wcmgr__documentation.html',1,'']]]
+  ['fichier_20binaire_0',['.WIZARD — Format de fichier binaire',['../md_doc_2wizard__file__format.html',1,'']]],
+  ['format_20de_20fichier_20binaire_1',['.WIZARD — Format de fichier binaire',['../md_doc_2wizard__file__format.html',1,'']]]
 ];

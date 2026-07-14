@@ -75,10 +75,10 @@ class MirrorServer(object):
     def load(self):
         if (not self.location):
             return
-        
-        self.checksum: str = hash_file(join(self.location, "pkgs.list"))
 
         if (isfile(join(self.location, "pkgs.list"))):
+            self.checksum: str = hash_file(join(self.location, "pkgs.list"))
+
             with open(join(self.location, "pkgs.list"), 'r') as fp:
                 line = fp.readline()
                 while line:
@@ -87,7 +87,8 @@ class MirrorServer(object):
                     self.packages[name] = Package(name, location, version, sha256, load=self.recursive_load, recursive_load=self.recursive_load, base_path=self.location)
 
                     line = fp.readline()
-
+        else:
+            self.checksum = "0"
         self.loaded = True
 
     def add_package_register(self, name) -> Package:
@@ -105,6 +106,12 @@ class MirrorServer(object):
             self.load()
 
         return (self.packages[name])
+    
+    def has_package_register(self, name) -> Package:
+        if (not self.loaded):
+            self.load()
+
+        return (name in self.packages)
 
     def remove_package_register(self, name, *, hard_delete = False) -> None:
         if (not self.loaded):

@@ -13,7 +13,7 @@ COPY . /var/wcr
 
 RUN pip install -r /var/wcr/requirements.txt --break-system-packages
 
-RUN chmod +x /var/wcr/wcmgr.py && ln -sn /var/wcr/wcmgr.py /bin/wcmgr
+RUN chmod +x /var/wcr/wcrmgr.py && ln -sn /var/wcr/wcrmgr.py /bin/wcrmgr
 RUN chmod +x /var/wcr/wcrmirror.py && ln -sn /var/wcr/wcrmirror.py /bin/wcrmirror
 RUN chmod +x /var/wcr/wcrpackager.py && ln -sn /var/wcr/wcrpackager.py /bin/wcrpackager
 

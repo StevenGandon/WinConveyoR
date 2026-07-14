@@ -106,30 +106,30 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
   <div class="headertitle"><div class="title">RFC - WinConveyoR Communication Protocol (WCP)</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md146"></a> </p>
-<h1><a class="anchor" id="autotoc_md147"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md224"></a> </p>
+<h1><a class="anchor" id="autotoc_md225"></a>
 1. Introduction</h1>
 <p>Le protocole WCR (WinConveyoR) est un protocole de communication binaire basé sur TCP pour la gestion de dépôts de packages logiciels.</p>
-<h2><a class="anchor" id="autotoc_md148"></a>
+<h2><a class="anchor" id="autotoc_md226"></a>
 1.1 Conventions</h2>
 <p>Les mots-clés "DOIT", "NE DOIT PAS", "REQUIS", "DEVRA", "PEUT" sont interprétés comme décrit dans RFC 2119.</p>
-<h1><a class="anchor" id="autotoc_md149"></a>
+<h1><a class="anchor" id="autotoc_md227"></a>
 2. Architecture du Protocole</h1>
-<h2><a class="anchor" id="autotoc_md150"></a>
+<h2><a class="anchor" id="autotoc_md228"></a>
 2.1 Couche Transport</h2>
 <ul>
 <li><b>Port par défaut</b>: 1674</li>
 <li><b>Transport</b>: TCP</li>
 <li><b>Encodage</b>: UTF-8</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md151"></a>
+<h2><a class="anchor" id="autotoc_md229"></a>
 2.2 Format des Messages</h2>
 <p>Tous les messages suivent ce format binaire:</p>
 <div class="fragment"><div class="line">+--------+--------+----------------+------------------+</div>
 <div class="line">| MAGIC  | FLAGS  | PAYLOAD_SIZE   | PAYLOAD_CONTENT  |</div>
 <div class="line">| 4 bytes| 2 bytes| 8 bytes        | variable         |</div>
 <div class="line">+--------+--------+----------------+------------------+</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md152"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md230"></a>
 2.2.1 Champs du Message</h3>
 <ul>
 <li><b>MAGIC</b> (4 octets): Valeur fixe <code>0xffc407ec</code> (big-endian)</li>
@@ -137,13 +137,13 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <li><b>PAYLOAD_SIZE</b> (8 octets): Taille du contenu en octets (big-endian)</li>
 <li><b>PAYLOAD_CONTENT</b> (variable): Contenu JSON encodé en UTF-8</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md153"></a>
+<h3><a class="anchor" id="autotoc_md231"></a>
 2.2.2 Limites</h3>
 <ul>
 <li>Taille maximale du payload: 2 Go (2,147,483,648 octets)</li>
 <li>Les messages dépassant cette limite DOIVENT être rejetés avec une erreur <code>BufferError</code></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md154"></a>
+<h2><a class="anchor" id="autotoc_md232"></a>
 2.3 Format JSON du Payload</h2>
 <p>Tous les payloads DOIVENT être des objets JSON avec cette structure:</p>
 <div class="fragment"><div class="line">{</div>
@@ -151,16 +151,16 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">  &quot;code&quot;: 0,</div>
 <div class="line">  &quot;data&quot;: {}</div>
 <div class="line">}</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md155"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md233"></a>
 2.3.1 Champs JSON</h3>
 <ul>
 <li><b>action</b> (string, REQUIS): Type d'action ou de réponse</li>
 <li><b>code</b> (integer, REQUIS): Code de statut (0 = succès, 1 = erreur)</li>
 <li><b>data</b> (object, REQUIS): Données spécifiques à l'action</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md156"></a>
+<h1><a class="anchor" id="autotoc_md234"></a>
 3. Cycle de Vie de la Connexion</h1>
-<h2><a class="anchor" id="autotoc_md157"></a>
+<h2><a class="anchor" id="autotoc_md235"></a>
 3.1 Établissement de Connexion</h2>
 <ol type="1">
 <li>Le client établit une connexion TCP au serveur</li>
@@ -168,23 +168,23 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <li>Le serveur répond avec un message <code>hello</code> contenant le message de bienvenue</li>
 <li>La connexion est établie</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md158"></a>
+<h2><a class="anchor" id="autotoc_md236"></a>
 3.2 Session</h2>
 <ol type="1">
 <li>Le client envoie un message <code>connect</code> avec authentification</li>
 <li>Le serveur crée une session et retourne un <code>session_id</code></li>
 <li>Le client utilise ce <code>session_id</code> pour toutes les opérations protégées</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md159"></a>
+<h2><a class="anchor" id="autotoc_md237"></a>
 3.3 Terminaison</h2>
 <ol type="1">
 <li>Le client envoie un message <code>goodbye</code></li>
 <li>Le serveur répond et ferme la connexion</li>
 <li>Toutes les sessions associées sont nettoyées</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md160"></a>
+<h1><a class="anchor" id="autotoc_md238"></a>
 4. Actions du Protocole</h1>
-<h2><a class="anchor" id="autotoc_md161"></a>
+<h2><a class="anchor" id="autotoc_md239"></a>
 4.1 hello - Handshake Initial</h2>
 <p><b>Direction</b>: Client → Serveur → Client</p>
 <p><b>Requête Client</b>: </p><div class="fragment"><div class="line">{</div>
@@ -198,7 +198,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">    &quot;msg&quot;: &quot;******************************\n*                            *\n*      wcr source server     *\n*                            *\n******************************&quot;</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md162"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md240"></a>
 4.2 connect - Authentification</h2>
 <p><b>Direction</b>: Client → Serveur → Client</p>
 <p><b>Requête Client</b>: </p><div class="fragment"><div class="line">{</div>
@@ -222,7 +222,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">    &quot;msg&quot;: &quot;invalid_password&quot;</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md163"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md241"></a>
 4.3 list_packages - Lister les Packages</h2>
 <p><b>Route Protégée</b>: OUI</p>
 <p><b>Requête Client</b>: </p><div class="fragment"><div class="line">{</div>
@@ -238,7 +238,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">    &quot;packages&quot;: [&quot;gcc&quot;, &quot;python&quot;, &quot;nodejs&quot;]</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md164"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md242"></a>
 4.4 write - Sauvegarder les Modifications</h2>
 <p><b>Route Protégée</b>: OUI</p>
 <p><b>Requête Client</b>: </p><div class="fragment"><div class="line">{</div>
@@ -256,7 +256,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">    &quot;edited_instance_count&quot;: 12</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md165"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md243"></a>
 4.5 disconnect - Fermer une Session</h2>
 <p><b>Route Protégée</b>: OUI</p>
 <p><b>Requête Client</b>: </p><div class="fragment"><div class="line">{</div>
@@ -272,7 +272,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">    &quot;msg&quot;: &quot;ok&quot;</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md166"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md244"></a>
 4.6 goodbye - Terminer la Connexion</h2>
 <p><b>Direction</b>: Client → Serveur → Client</p>
 <p><b>Requête Client</b>: </p><div class="fragment"><div class="line">{</div>
@@ -286,15 +286,15 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">    &quot;msg&quot;: &quot;goodbye&quot;</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md167"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md245"></a>
 5. Codes d'Erreur</h1>
-<h2><a class="anchor" id="autotoc_md168"></a>
+<h2><a class="anchor" id="autotoc_md246"></a>
 5.1 Codes de Statut</h2>
 <ul>
 <li><b>0</b>: Succès</li>
 <li><b>1</b>: Erreur</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md169"></a>
+<h2><a class="anchor" id="autotoc_md247"></a>
 5.2 Messages d'Erreur Standard</h2>
 <ul>
 <li><code>"ko"</code>: Requête malformée (données manquantes)</li>
@@ -305,31 +305,31 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <li>`"failed to parse json message"`: JSON invalide</li>
 <li>`"missing fields in json"`: Champs requis manquants</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md170"></a>
+<h1><a class="anchor" id="autotoc_md248"></a>
 6. Sécurité</h1>
-<h2><a class="anchor" id="autotoc_md171"></a>
+<h2><a class="anchor" id="autotoc_md249"></a>
 6.1 Authentification</h2>
 <ul>
 <li>Mot de passe envoyé en clair via variable d'environnement <code>WCR_PASSWORD</code></li>
 <li><b>Note</b>: Cette implémentation n'est PAS sécurisée pour la production</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md172"></a>
+<h2><a class="anchor" id="autotoc_md250"></a>
 6.2 Sessions</h2>
 <ul>
 <li>Chaque session est liée à un client spécifique</li>
 <li>Les sessions sont identifiées par un UUID (128 bits)</li>
 <li>Les sessions expirent automatiquement à la déconnexion du client</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md173"></a>
+<h2><a class="anchor" id="autotoc_md251"></a>
 6.3 Routes Protégées</h2>
 <p>Les actions suivantes nécessitent une authentification:</p><ul>
 <li><code>list_packages</code></li>
 <li><code>write</code></li>
 <li><code>disconnect</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md174"></a>
+<h1><a class="anchor" id="autotoc_md252"></a>
 7. Recommandations d'Implémentation</h1>
-<h2><a class="anchor" id="autotoc_md175"></a>
+<h2><a class="anchor" id="autotoc_md253"></a>
 7.1 Clients</h2>
 <ul>
 <li>DOIVENT valider le magic number avant de traiter un message</li>
@@ -337,7 +337,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <li>DEVRAIENT implémenter un timeout pour les opérations réseau</li>
 <li>DEVRAIENT gérer la reconnexion automatique</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md176"></a>
+<h2><a class="anchor" id="autotoc_md254"></a>
 7.2 Serveurs</h2>
 <ul>
 <li>DOIVENT rejeter les messages avec magic number invalide</li>
@@ -345,9 +345,9 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <li>DEVRAIENT logger toutes les opérations d'authentification</li>
 <li>DEVRAIENT implémenter un rate limiting</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md177"></a>
+<h1><a class="anchor" id="autotoc_md255"></a>
 8. Extensions Futures</h1>
-<h2><a class="anchor" id="autotoc_md178"></a>
+<h2><a class="anchor" id="autotoc_md256"></a>
 8.1 Propositions</h2>
 <ul>
 <li>Chiffrement TLS/SSL</li>
@@ -356,10 +356,10 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <li>Streaming de packages volumineux</li>
 <li>Checksum de message</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md179"></a>
+<h2><a class="anchor" id="autotoc_md257"></a>
 8.2 Flags Réservés</h2>
 <p>Les 2 octets de flags sont réservés pour ces extensions futures.</p>
-<h1><a class="anchor" id="autotoc_md180"></a>
+<h1><a class="anchor" id="autotoc_md258"></a>
 9. Exemple de Session Complète</h1>
 <div class="fragment"><div class="line">Client → Server: hello</div>
 <div class="line">Server → Client: hello (avec message de bienvenue)</div>
@@ -374,7 +374,7 @@ $(document).ready(function(){initNavTree('md_doc_2protocol__rfc.html',''); initR
 <div class="line">Client → Server: goodbye</div>
 <div class="line">Server → Client: goodbye</div>
 <div class="line">[Connexion fermée]</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md181"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md259"></a>
 10. Références</h1>
 <ul>
 <li>RFC 2119: Key words for use in RFCs</li>

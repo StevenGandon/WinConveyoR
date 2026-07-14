@@ -9,5 +9,7 @@ var searchData=
   ['user_6',['User',['../classmodels_1_1user_1_1User.html',1,'models::user']]],
   ['userbase_7',['UserBase',['../classschemas_1_1user_1_1UserBase.html',1,'schemas::user']]],
   ['userin_8',['UserIn',['../classschemas_1_1user_1_1UserIn.html',1,'schemas::user']]],
-  ['userout_9',['UserOut',['../classschemas_1_1user_1_1UserOut.html',1,'schemas::user']]]
+  ['userlogin_9',['UserLogin',['../classschemas_1_1user_1_1UserLogin.html',1,'schemas::user']]],
+  ['userout_10',['UserOut',['../classschemas_1_1user_1_1UserOut.html',1,'schemas::user']]],
+  ['userregister_11',['UserRegister',['../classschemas_1_1user_1_1UserRegister.html',1,'schemas::user']]]
 ];

@@ -88,7 +88,7 @@ class NetworkCLI(object):
         if (val == b"\n" or val == b"\r"):
             print("\r\n", end="", flush=True)
             self.cursor = 0
-            value = self.buffer.decode(errors="replace")
+            value = self.buffer.decode(errors='replace')
             self.buffer.clear()
             self.history_cursor = 0
             self.history[-1] = value

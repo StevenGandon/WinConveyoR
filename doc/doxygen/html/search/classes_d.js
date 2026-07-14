@@ -7,6 +7,5 @@ var searchData=
   ['source_5fhandler_5fs_4',['source_handler_s',['../structsource__handler__s.html',1,'']]],
   ['source_5fmirror_5fs_5',['source_mirror_s',['../structsource__mirror__s.html',1,'']]],
   ['supported_5farchitectures_6',['SUPPORTED_ARCHITECTURES',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__ARCHITECTURES.html',1,'src::wrappers::libwconr::_libwconr']]],
-  ['supported_5fplatforms_7',['SUPPORTED_PLATFORMS',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html',1,'src::wrappers::libwconr::_libwconr']]],
-  ['sync_5fresources_5fs_8',['sync_resources_s',['../structsync__resources__s.html',1,'']]]
+  ['supported_5fplatforms_7',['SUPPORTED_PLATFORMS',['../classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1SUPPORTED__PLATFORMS.html',1,'src::wrappers::libwconr::_libwconr']]]
 ];

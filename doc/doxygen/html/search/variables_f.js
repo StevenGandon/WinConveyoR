@@ -8,6 +8,5 @@ var searchData=
   ['ops_5',['ops',['../structvm__iset__s.html#a786a1ee88db83ab6e5a104bd28ad5d10',1,'vm_iset_s']]],
   ['option_5ftable_6',['OPTION_TABLE',['../classsrc_1_1cli_1_1cli_1_1CLI.html#aee7b2f34360fe31e3e95652c8e39632f',1,'src::cli::cli::CLI']]],
   ['options_7',['options',['../classsrc_1_1arghandler_1_1ArgumentParser.html#aeda6e853561024c930ca22749e8ba6c5',1,'src::arghandler::ArgumentParser']]],
-  ['orm_5fmode_8',['orm_mode',['../classschemas_1_1user_1_1UserOut_1_1Config.html#a4af5f4d26778f32c4ec862d78484e57f',1,'schemas::user::UserOut::Config']]],
-  ['ospeed_9',['OSPEED',['../namespacesrc_1_1common_1_1user__input.html#a2b3e0b9a1bc1f3b315f539b5a63b9819',1,'src::common::user_input']]]
+  ['ospeed_8',['OSPEED',['../namespacesrc_1_1common_1_1user__input.html#a2b3e0b9a1bc1f3b315f539b5a63b9819',1,'src::common::user_input']]]
 ];

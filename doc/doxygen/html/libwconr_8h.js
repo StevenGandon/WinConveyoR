@@ -1,9 +1,16 @@
 var libwconr_8h =
 [
     [ "wcr_system_s", "structwcr__system__s.html", "structwcr__system__s" ],
+    [ "wcr_source_s", "structwcr__source__s.html", "structwcr__source__s" ],
     [ "wcr_state_s", "structwcr__state__s.html", "structwcr__state__s" ],
+    [ "wcr_mutex", "libwconr_8h.html#ab19d06edee72f24d411bce6ca0db4979", null ],
+    [ "wcr_source", "libwconr_8h.html#a4a6ce4da2c8e31dbb744407138f06731", null ],
     [ "wcr_state", "libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc", null ],
     [ "wcr_system", "libwconr_8h.html#acc5550b311a37f1b3656c9f1175b216c", null ],
+    [ "protocol_type", "libwconr_8h.html#ac921c2e8625e26392a9679359d60e396", [
+      [ "PROT_HTTP", "libwconr_8h.html#ac921c2e8625e26392a9679359d60e396a629bfdbe57c73dc474b005b5f86c68ff", null ],
+      [ "PROT_WCR", "libwconr_8h.html#ac921c2e8625e26392a9679359d60e396a09c01c8676dae0d06d018ccd74a02ff9", null ]
+    ] ],
     [ "SUPPORTED_ARCHITECTURES", "libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404ba", [
       [ "UNSUPPORTED_ARCH", "libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baa29a1490027475f7c98a99e53a7800f0b", null ],
       [ "X86_64_ARCH", "libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baaf726b6d0fda3c473645d88380aba49ff", null ],
@@ -18,5 +25,12 @@ var libwconr_8h =
     ] ],
     [ "close_state", "libwconr_8h.html#a1db192117e8a2c2dbdd0cb17de414991", null ],
     [ "download_package", "libwconr_8h.html#a61f955cf2993a9658c6381ec5ad9aad6", null ],
-    [ "new_state", "libwconr_8h.html#a1815617a622e3776dc61ecf67def9157", null ]
+    [ "install_package", "libwconr_8h.html#a3def8bce8faff61f9b6fcf926a4c7be6", null ],
+    [ "load_state", "libwconr_8h.html#a8bd2041a67bb12dd529190e75320243b", null ],
+    [ "new_state", "libwconr_8h.html#a1815617a622e3776dc61ecf67def9157", null ],
+    [ "sync_package_list", "libwconr_8h.html#aed8a7d2f660f1149f7f5a4a27a1d54db", null ],
+    [ "uninstall_package", "libwconr_8h.html#a5de9bebf15d197d58616754b5c82419d", null ],
+    [ "wcr_set_event_callback", "libwconr_8h.html#a3a71e273e4e005ab38ddd005cd87a4a0", null ],
+    [ "wcr_state_add_source", "libwconr_8h.html#a2a72d0139b22dbceaa725fe267afa51c", null ],
+    [ "write_state", "libwconr_8h.html#afb2e55496f2db23dcf3ef5695a403531", null ]
 ];

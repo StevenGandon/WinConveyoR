@@ -1,0 +1,25 @@
+var wcr__client_8c =
+[
+    [ "build_init_rsa_payload", "wcr__client_8c.html#aa5cf339153c8791d99df50155eeb757c", null ],
+    [ "check_response_code", "wcr__client_8c.html#afcde4fe25a1961c477379303ead093dd", null ],
+    [ "extract_session_id", "wcr__client_8c.html#a5a5ccdd5da21e3b7cbad7edf0536f7a6", null ],
+    [ "read_be64", "wcr__client_8c.html#a78f5ca48c5e0d27c7a732c3bebc59413", null ],
+    [ "recv_payload", "wcr__client_8c.html#af16a49f00da8c9419daa2eeb27610d41", null ],
+    [ "wcr_auth", "wcr__client_8c.html#ac846ad724fbe771080bfa1db01aa9778", null ],
+    [ "wcr_build_payload", "wcr__client_8c.html#af75eca6595be364ca5d878a7be6f8d93", null ],
+    [ "wcr_build_payload_va", "wcr__client_8c.html#ac90a24b6c1d31db825bc3c3f27758592", null ],
+    [ "wcr_close", "wcr__client_8c.html#a9ced6f3727ffc0dbe614c1c94e5908ef", null ],
+    [ "wcr_get_hash", "wcr__client_8c.html#a021f52a7579c7b309e0c915f4b987bdd", null ],
+    [ "wcr_get_listing", "wcr__client_8c.html#adeecb10306bba9f36c88cbd5f10d0f67", null ],
+    [ "wcr_get_package_listing", "wcr__client_8c.html#a45652000f6de45422dc7171dfd2cf684", null ],
+    [ "wcr_get_package_metadata", "wcr__client_8c.html#a45d71d766e6187f8aef5db52ea25fd64", null ],
+    [ "wcr_handshake", "wcr__client_8c.html#aff24042e4dd8a1fd882d08557a46ac57", null ],
+    [ "wcr_msg_free", "wcr__client_8c.html#a67b36c31af7b0da3937d11fe6858c13a", null ],
+    [ "wcr_msg_new", "wcr__client_8c.html#a939e4a3bf655697562130a936c4cd7ad", null ],
+    [ "wcr_open", "wcr__client_8c.html#ab2af38b744882c13b570ba3c50bcbd24", null ],
+    [ "wcr_recv", "wcr__client_8c.html#a86b9cfe7f61f4a22ec38007d4a383f51", null ],
+    [ "wcr_request", "wcr__client_8c.html#ac5c92df5db5789a5cd41480ad4d82da5", null ],
+    [ "wcr_send", "wcr__client_8c.html#af77a05910969d413ae5c7718039d0d31", null ],
+    [ "wcr_send_recv", "wcr__client_8c.html#aa1fb69d5598a5bae07cafc25d823e3b5", null ],
+    [ "write_be64", "wcr__client_8c.html#afcc9ab7c1a0ccf57627503af7bc4711d", null ]
+];

@@ -110,6 +110,9 @@ $(document).ready(function(){initNavTree('structvm__arg__value.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
+<p>A decoded argument value produced by <a class="el" href="vm__internal_8h.html#a91cdd473adaf6e69f1b93cb126a63de1">vm_decode_arg</a>.  
+ <a href="structvm__arg__value.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vm__internal_8h_source.html">vm_internal.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -127,6 +130,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:acc86958a1558ee22a874ff025252de61" id="r_acc86958a1558ee22a874ff025252de61"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;uint32_t *&#160;&#160;&#160;<a class="el" href="structvm__arg__value.html#a229fee80b1a32a2da9f0bad66f6dec00">lens</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:acc86958a1558ee22a874ff025252de61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1d8fbbea2742fb454435deab4974b8a" id="r_af1d8fbbea2742fb454435deab4974b8a"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="structvm__arg__value.html#a8cdd300dad5e078f355e2a053cc5f23a">str</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memdesc:af1d8fbbea2742fb454435deab4974b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">String data: parallel arrays of C-string pointers and their lengths.  <a href="structvm__arg__value.html#a8cdd300dad5e078f355e2a053cc5f23a">More...</a><br /></td></tr>
 <tr class="separator:af1d8fbbea2742fb454435deab4974b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a395d5bb82f899a26191b5c739878f7bc" id="r_a395d5bb82f899a26191b5c739878f7bc"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t *&#160;&#160;&#160;<a class="el" href="structvm__arg__value.html#a753ce9c31a6eb8d15a801d7ae8ef346e">u8</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:a395d5bb82f899a26191b5c739878f7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,7 +143,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a58c75ba647cca39d68606d4d50bae21e" id="r_a58c75ba647cca39d68606d4d50bae21e"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structvm__arg__value.html#a58c75ba647cca39d68606d4d50bae21e">v</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:a58c75ba647cca39d68606d4d50bae21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A decoded argument value produced by <a class="el" href="vm__internal_8h.html#a91cdd473adaf6e69f1b93cb126a63de1">vm_decode_arg</a>. </p>
+<p>The active union member is determined by <code>type.base</code>. When <code>type.is_array</code> is non-zero, <code>count</code> gives the number of elements and each pointer addresses a heap-allocated array of that many values. When not an array, <code>count</code> is 1 and the pointer addresses a single-element heap-allocated array.</p>
+<p>Call <a class="el" href="vm__internal_8h.html#a7c40df2d1c68ecfb6b23a0f38dce3c9a">vm_free_args</a> to release all memory owned by decoded argument arrays. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="af8b33f32d09531fb034504a6017b8d90" name="af8b33f32d09531fb034504a6017b8d90"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af8b33f32d09531fb034504a6017b8d90">&#9670;&#160;</a></span>count</h2>
 
@@ -151,6 +159,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of elements (1 for scalars, N for arrays). </p>
 
 </div>
 </div>
@@ -165,6 +174,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Heap-allocated array of <code>count</code> NUL-terminated strings. </p>
 
 </div>
 </div>
@@ -179,6 +189,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Heap-allocated array of <code>count</code> string byte lengths. </p>
 
 </div>
 </div>
@@ -194,6 +205,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>String data: parallel arrays of C-string pointers and their lengths. </p>
+
 </div>
 </div>
 <a id="a8c90532f6a038f1400e4428a68457e87" name="a8c90532f6a038f1400e4428a68457e87"></a>
@@ -207,6 +220,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Type descriptor that governs which union member is valid. </p>
 
 </div>
 </div>
@@ -221,6 +235,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Heap-allocated array of <code>count</code> uint16_t values (big-endian decoded). </p>
 
 </div>
 </div>
@@ -235,6 +250,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Heap-allocated array of <code>count</code> uint32_t values (big-endian decoded). </p>
 
 </div>
 </div>
@@ -249,6 +265,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Heap-allocated array of <code>count</code> uint64_t values (big-endian decoded). </p>
 
 </div>
 </div>
@@ -263,6 +280,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Heap-allocated array of <code>count</code> uint8_t values. </p>
 
 </div>
 </div>

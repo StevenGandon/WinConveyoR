@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['rate_5flimiter_2epy_0',['rate_limiter.py',['../rate__limiter_8py.html',1,'']]],
-  ['reader_2epy_1',['reader.py',['../reader_8py.html',1,'']]],
-  ['readme_2emd_2',['README.md',['../README_8md.html',1,'']]],
-  ['repository_2epy_3',['repository.py',['../repository_8py.html',1,'']]]
+  ['quit_2epy_0',['quit.py',['../quit_8py.html',1,'']]]
 ];

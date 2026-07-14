@@ -3,150 +3,178 @@
 \mbox{\hyperlink{wizard__private_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WIZARD\_PRIVATE\_H\_}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_PRIVATE\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WIZARD\_PRIVATE\_H\_}}
 \DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stddef.h>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdint.h>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdlib.h>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ \#include\ <string.h>}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdio.h>}}
-\DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ include\ <windows.h>}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#else}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ include\ <fcntl.h>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ include\ <sys/mman.h>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ include\ <sys/stat.h>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ include\ <unistd.h>}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_MSC\_VER}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ define\ WIZARD\_PACK\_BEGIN\ \_\_pragma(pack(push,\ 1))}}
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ define\ WIZARD\_PACK\_END\ \ \ \_\_pragma(pack(pop))}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ define\ WIZARD\_PACKED}}
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \#else}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ define\ WIZARD\_PACK\_BEGIN}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ define\ WIZARD\_PACK\_END}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ define\ WIZARD\_PACKED\ \ \ \ \ \_\_attribute\_\_((packed))}}
-\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_MAGIC\ "{}\(\backslash\)x42\(\backslash\)xa4\(\backslash\)x09\(\backslash\)x67"{}}}
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_MAGIC\_SIZE\ 4}}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_HEADER\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ 27}}
-\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_SECTION\_HEADER\_PREFIX\ \ \ \ 16}}
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_SECTION\_ENTRY\_SIZE\ \ \ \ \ \ \ 28}}
-\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_STRING\_LENGTH\_SIZE\ \ \ \ \ \ \ 4}}
-\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ \#define\ WIZARD\_MAX\_SECTIONS\ \ \ \ \ \ \ \ \ \ \ \ \ 1000}}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{wizard__private_8h_a95b755c46cac3073d41aaf45a8a694dd}{wizard\_be16}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *p);}
-\DoxyCodeLine{00039\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_a9f89649b4d0fb6d29dd8ba4ababba0bf}{wizard\_be32}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *p);}
-\DoxyCodeLine{00040\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{wizard__private_8h_abf2771cf2e6d20663969852eab8a7d0a}{wizard\_be64}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *p);}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{wizard__private_8h_aa3345a9689de09613ad50d8636ac0cc4}{WIZARD\_PACK\_BEGIN}}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__file__header__raw__s}{\_wizard\_file\_header\_raw\_s}}\ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a48b77056c70cb2184fbce6bd4a094be9}{magic}}[4];}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a4147caca394ff210c1d478d516083a41}{endianness}}[1];}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a2891cf957842a52826cfe96e388044c0}{version}}[2];}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_ad00f0865a46c5860a6938f976a48c2dc}{flags}}[4];}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a0724b435167cd151ff3ec219f430bdab}{section\_header\_offset}}[8];}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a0ebf928f647208b8191b5725b3a3a564}{strndx\_offset}}[8];}
-\DoxyCodeLine{00051\ \ \ \ \ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__header__raw__s}{\_wizard\_section\_header\_raw\_s}}\ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__header__raw__s_ae4de8094d9fa8757fcf27439f01a3448}{section\_header\_size}}[8];}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__header__raw__s_a09a6bca8cddd95778bf8b06c65a774e1}{section\_count}}[8];}
-\DoxyCodeLine{00056\ \ \ \ \ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_adea9cd5bfa9facaddbaf1593f9d3a812}{name\_strndx}}[4];}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_a5c7f3e49a3c9f9c62a5bcf001a36ffb9}{section\_type}}[4];}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_a76ad4446a95dd6a6613c8ba7826279ad}{section\_flags}}[4];}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_a519e4acecc2ec962172026abef7049cd}{section\_size}}[8];}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_ade9eec66be3bc62bf2ed590b7a0d257a}{section\_offset}}[8];}
-\DoxyCodeLine{00064\ \ \ \ \ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#\ \ \ \ include\ <windows.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#\ \ \ \ include\ <fcntl.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#\ \ \ \ include\ <sys/mman.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#\ \ \ \ include\ <sys/stat.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#\ \ \ \ include\ <unistd.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ ──\ Packing\ macros\ ────────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIZARD\_PACK\_BEGIN\ \_\_pragma(pack(push,\ 1))}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIZARD\_PACK\_END\ \ \ \_\_pragma(pack(pop))}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIZARD\_PACKED}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIZARD\_PACK\_BEGIN}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIZARD\_PACK\_END}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ \ \ define\ WIZARD\_PACKED\ \ \ \ \ \_\_attribute\_\_((packed))}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ ──\ Magic\ \&\ size\ constants\ ────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ WIZARD\_MAGIC\ \ \ \ \ \ \ \ \ \ \ \ "{}\(\backslash\)x42\(\backslash\)xa4\(\backslash\)x09\(\backslash\)x67"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ WIZARD\_MAGIC\_SIZE\ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ WIZARD\_HEADER\_SIZE\ \ \ \ \ \ 27}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ WIZARD\_SECTION\_HEADER\_PREFIX\ \ \ \ 16}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ WIZARD\_SECTION\_ENTRY\_SIZE\ \ \ \ \ \ \ 28}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ WIZARD\_STRING\_LENGTH\_SIZE\ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ WIZARD\_MAX\_SECTIONS\ \ \ \ \ 1000}}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__strndx__entry__raw__s}{\_wizard\_strndx\_entry\_raw\_s}}\ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__strndx__entry__raw__s_ac0019b64d755ef8948ff4bbd58127324}{length}}[4];}
-\DoxyCodeLine{00068\ \ \ \ \ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{wizard__private_8h_a58016d9d6c5bfcdcaba89fd2da6b2765}{WIZARD\_PACK\_END}}}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a1a4696c87d875937706cf50ec89c4da4}{base}};}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d}{file\_size}};}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__file__header__raw__s}{\_wizard\_file\_header\_raw\_s}}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f}{header}};}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__header__raw__s}{\_wizard\_section\_header\_raw\_s}}\ *\mbox{\hyperlink{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a}{section\_header}};}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a5c92b91203f42ae04b75d906b2d4bb9f}{sections}};}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a092ebc70fb5e961caae739da2f2596be}{strndx\_base}};}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{struct__wizard__ctx__s_a10c64c0719acb9cca1b7114e720c40f8}{version}};}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b}{flags}};}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ uint64\_t\ \mbox{\hyperlink{struct__wizard__ctx__s_acccde2b0411ba8f695bd99091ddfe0b6}{section\_count}};}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{fd}};}
-\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00088\ \ \ \ \ \};}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a8da5c6a7c3523dd6ad3477b2451d22bc}{wizard\_open}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wizard__private_8h_a56d2c1efb439f13289c395826d6893b7}{wizard\_close}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ ──\ Endian\ helpers\ ────────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00073\ uint16\_t\ \mbox{\hyperlink{wizard__private_8h_a95b755c46cac3073d41aaf45a8a694dd}{wizard\_be16}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *p);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_a9f89649b4d0fb6d29dd8ba4ababba0bf}{wizard\_be32}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *p);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ uint64\_t\ \mbox{\hyperlink{wizard__private_8h_abf2771cf2e6d20663969852eab8a7d0a}{wizard\_be64}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *p);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{comment}{/*\ ──\ On-\/disk\ packed\ structs\ ────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \mbox{\hyperlink{wizard__private_8h_aa3345a9689de09613ad50d8636ac0cc4}{WIZARD\_PACK\_BEGIN}}}
 \DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{wizard__private_8h_a60b0c2b0f52c19eecdaf9133e457503f}{wizard\_get\_version}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
-\DoxyCodeLine{00094\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_afebead9a7afafd7a1122774266b1788a}{wizard\_get\_flags}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
-\DoxyCodeLine{00095\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{wizard__private_8h_af9b7fe665a1bcb3a6de7140379e7ed9b}{wizard\_get\_section\_count}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a43cd014a5b535eaf99d939c7c73f517e}{wizard\_get\_section}}(}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ uint64\_t\ index);}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_a980c16c5ed3cf1c1c4f43478a14dcf64}{wizard\_get\_section\_type}}(}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_a7a921c0d16e5205480aca56ef1ea7659}{wizard\_get\_section\_flags}}(}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a99dd036cf92e8dd502fa16aaf0b0b3fd}{wizard\_get\_section\_by\_name}}(}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a12ad1cba47f6c35b7fc3d7fbe27878e1}{wizard\_get\_section\_data}}(}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section,}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **data\_out,}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ uint64\_t\ *size\_out);}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a7d0ec7ad1f0e8b1eda600f81c280bb21}{wizard\_get\_string}}(}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ uint32\_t\ strndx\_offset,}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **str\_out,}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ uint32\_t\ *len\_out);}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a55626fef3538a4ae7d790098fdadfcbd}{wizard\_get\_section\_name}}(}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section,}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **name\_out,}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ uint32\_t\ *len\_out);}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}};}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a5abb552099529c789882a3bb62b019f2}{wizard\_vm\_init}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instructions\_dir);}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wizard__private_8h_af6f4b516ccd34e127a746af68ff8982d}{wizard\_vm\_close}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm);}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_ae0754f1b2cb7f485b5371349607eb496}{wizard\_vm\_exec}}(}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm,}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wizard__private_8h_aa1bba13f29a0a9d6623f95901f4fce4c}{wizard\_vm\_dump\_instructions}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm);}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizard\_vm\_disasm}}(}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm,}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
+\DoxyCodeLine{00099\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__file__header__raw__s}{\_wizard\_file\_header\_raw\_s}}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a48b77056c70cb2184fbce6bd4a094be9}{magic}}[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a4147caca394ff210c1d478d516083a41}{endianness}}[1];\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a2891cf957842a52826cfe96e388044c0}{version}}[2];\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_ad00f0865a46c5860a6938f976a48c2dc}{flags}}[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a0724b435167cd151ff3ec219f430bdab}{section\_header\_offset}}[8];}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__file__header__raw__s_a0ebf928f647208b8191b5725b3a3a564}{strndx\_offset}}[8];\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__header__raw__s}{\_wizard\_section\_header\_raw\_s}}\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__header__raw__s_ae4de8094d9fa8757fcf27439f01a3448}{section\_header\_size}}[8];\ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__header__raw__s_a09a6bca8cddd95778bf8b06c65a774e1}{section\_count}}[8];\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_adea9cd5bfa9facaddbaf1593f9d3a812}{name\_strndx}}[4];\ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_a5c7f3e49a3c9f9c62a5bcf001a36ffb9}{section\_type}}[4];\ \ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_a76ad4446a95dd6a6613c8ba7826279ad}{section\_flags}}[4];\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_a519e4acecc2ec962172026abef7049cd}{section\_size}}[8];\ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s_ade9eec66be3bc62bf2ed590b7a0d257a}{section\_offset}}[8];}
+\DoxyCodeLine{00131\ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__strndx__entry__raw__s}{\_wizard\_strndx\_entry\_raw\_s}}\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct__wizard__strndx__entry__raw__s_ac0019b64d755ef8948ff4bbd58127324}{length}}[4];\ \ \ \ }
+\DoxyCodeLine{00142\ \}\ \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\_PACKED}};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \mbox{\hyperlink{wizard__private_8h_a58016d9d6c5bfcdcaba89fd2da6b2765}{WIZARD\_PACK\_END}}}
 \DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00146\ \textcolor{comment}{/*\ ──\ Runtime\ context\ ───────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a1a4696c87d875937706cf50ec89c4da4}{base}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct__wizard__ctx__s_aa5012906743cf915c6a642b9abff775d}{file\_size}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__file__header__raw__s}{\_wizard\_file\_header\_raw\_s}}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a6cb25e537caa8878f09fab648715ef4f}{header}};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__header__raw__s}{\_wizard\_section\_header\_raw\_s}}\ *\mbox{\hyperlink{struct__wizard__ctx__s_af4ec39ec5a6bcf6f2d9168a15943361a}{section\_header}};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a5c92b91203f42ae04b75d906b2d4bb9f}{sections}};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct__wizard__ctx__s_a092ebc70fb5e961caae739da2f2596be}{strndx\_base}};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{struct__wizard__ctx__s_a10c64c0719acb9cca1b7114e720c40f8}{version}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00172\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct__wizard__ctx__s_a3df11eef6e251e58cbfc2d64a0b2cb9b}{flags}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00173\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{struct__wizard__ctx__s_acccde2b0411ba8f695bd99091ddfe0b6}{section\_count}};\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#ifndef\ \_WIN32}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct__wizard__ctx__s_a0f03cd95607afc6f880f4426abba279e}{fd}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00178\ \};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{/*\ ──\ File\ lifecycle\ ────────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00192\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a8da5c6a7c3523dd6ad3477b2451d22bc}{wizard\_open}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wizard__private_8h_a56d2c1efb439f13289c395826d6893b7}{wizard\_close}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{comment}{/*\ ──\ Context\ accessors\ ─────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00210\ uint16\_t\ \mbox{\hyperlink{wizard__private_8h_a60b0c2b0f52c19eecdaf9133e457503f}{wizard\_get\_version}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00217\ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_afebead9a7afafd7a1122774266b1788a}{wizard\_get\_flags}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00224\ uint64\_t\ \mbox{\hyperlink{wizard__private_8h_af9b7fe665a1bcb3a6de7140379e7ed9b}{wizard\_get\_section\_count}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx);}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{/*\ ──\ Section\ accessors\ ─────────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00237\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a43cd014a5b535eaf99d939c7c73f517e}{wizard\_get\_section}}(}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,\ uint64\_t\ index);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00245\ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_a980c16c5ed3cf1c1c4f43478a14dcf64}{wizard\_get\_section\_type}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00252\ uint32\_t\ \mbox{\hyperlink{wizard__private_8h_a7a921c0d16e5205480aca56ef1ea7659}{wizard\_get\_section\_flags}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00264\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a99dd036cf92e8dd502fa16aaf0b0b3fd}{wizard\_get\_section\_by\_name}}(}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00279\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a12ad1cba47f6c35b7fc3d7fbe27878e1}{wizard\_get\_section\_data}}(}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section,}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ **data\_out,}
+\DoxyCodeLine{00283\ \ \ \ \ uint64\_t\ *size\_out);}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{comment}{/*\ ──\ String\ table\ accessors\ ────────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00299\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a7d0ec7ad1f0e8b1eda600f81c280bb21}{wizard\_get\_string}}(}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
+\DoxyCodeLine{00301\ \ \ \ \ uint32\_t\ strndx\_offset,}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **str\_out,}
+\DoxyCodeLine{00303\ \ \ \ \ uint32\_t\ *len\_out);}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00316\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a55626fef3538a4ae7d790098fdadfcbd}{wizard\_get\_section\_name}}(}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section,}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **name\_out,}
+\DoxyCodeLine{00320\ \ \ \ \ uint32\_t\ *len\_out);}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \textcolor{comment}{/*\ ──\ VM\ forward\ declarations\ ───────────────────────────────────────────────\ */}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00325\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *\mbox{\hyperlink{wizard__private_8h_a5abb552099529c789882a3bb62b019f2}{wizard\_vm\_init}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instructions\_dir);}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00343\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wizard__private_8h_af6f4b516ccd34e127a746af68ff8982d}{wizard\_vm\_close}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm);}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00357\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_ae0754f1b2cb7f485b5371349607eb496}{wizard\_vm\_exec}}(}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm,}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00370\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wizard__private_8h_aa1bba13f29a0a9d6623f95901f4fce4c}{wizard\_vm\_dump\_instructions}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm);}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00383\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizard\_vm\_disasm}}(}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__vm__s}{\_wizard\_vm\_s}}\ *vm,}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__ctx__s}{\_wizard\_ctx\_s}}\ *ctx,}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\_wizard\_section\_entry\_raw\_s}}\ *section);}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !WIZARD\_PRIVATE\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

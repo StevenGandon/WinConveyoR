@@ -125,8 +125,10 @@ Functions</h2></td></tr>
 <tr class="memitem:af150eaf7632c6f5afcb392ab324a3f35" id="r_af150eaf7632c6f5afcb392ab324a3f35"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__decode_8c.html#af150eaf7632c6f5afcb392ab324a3f35">vm_decode_u64</a> (const unsigned char *data, uint64_t size, uint64_t *ip, struct <a class="el" href="structvm__arg__value.html">vm_arg_value</a> *out, int is_array)</td></tr>
 <tr class="separator:af150eaf7632c6f5afcb392ab324a3f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91cdd473adaf6e69f1b93cb126a63de1" id="r_a91cdd473adaf6e69f1b93cb126a63de1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__decode_8c.html#a91cdd473adaf6e69f1b93cb126a63de1">vm_decode_arg</a> (const struct <a class="el" href="struct__wizard__ctx__s.html">_wizard_ctx_s</a> *ctx, const unsigned char *data, uint64_t size, uint64_t *ip, struct <a class="el" href="structvm__arg__type.html">vm_arg_type</a> type, struct <a class="el" href="structvm__arg__value.html">vm_arg_value</a> *out)</td></tr>
+<tr class="memdesc:a91cdd473adaf6e69f1b93cb126a63de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes a single instruction argument from the bytecode stream.  <br /></td></tr>
 <tr class="separator:a91cdd473adaf6e69f1b93cb126a63de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c40df2d1c68ecfb6b23a0f38dce3c9a" id="r_a7c40df2d1c68ecfb6b23a0f38dce3c9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vm__decode_8c.html#a7c40df2d1c68ecfb6b23a0f38dce3c9a">vm_free_args</a> (struct <a class="el" href="structvm__arg__value.html">vm_arg_value</a> *args, uint32_t count)</td></tr>
+<tr class="memdesc:a7c40df2d1c68ecfb6b23a0f38dce3c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees all heap memory owned by an array of decoded argument values.  <br /></td></tr>
 <tr class="separator:a7c40df2d1c68ecfb6b23a0f38dce3c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -179,6 +181,22 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Decodes a single instruction argument from the bytecode stream. </p>
+<p>Advances <code>ip</code> by the number of bytes consumed. For array arguments, reads the 4-byte element count first. String arguments are resolved through the .WIZARD string table in <code>ctx</code>; all other types are read directly from <code>data</code>.</p>
+<p>The caller must release the decoded value with <a class="el" href="vm__decode_8c.html#a7c40df2d1c68ecfb6b23a0f38dce3c9a">vm_free_args</a> when done.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Open wizard context (needed for string table lookups). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the start of the current section's bytecode. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Total size of <code>data</code> in bytes. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ip</td><td>Instruction pointer: byte offset of the next byte to decode. Advanced by this function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Type descriptor indicating how to decode the argument. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Populated with the decoded value on success. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on bounds violation, unknown type, or allocation failure. </dd></dl>
 
 </div>
 </div>
@@ -483,6 +501,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Frees all heap memory owned by an array of decoded argument values. </p>
+<p>Releases string pointer arrays, length arrays, and integer arrays for each of the first <code>count</code> entries. Does not free the <code>args</code> array itself.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>Array of decoded argument values to free. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Number of entries to process. No-op if <code>args</code> is NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

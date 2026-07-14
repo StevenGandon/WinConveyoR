@@ -49,8 +49,8 @@ var NAVTREE =
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
+        [ "Functions", "globals_func.html", "globals_func" ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -64,15 +64,17 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CLI.html",
-"classsrc_1_1builder_1_1config_1_1reader_1_1YAMLConfigReader.html#a4518bebe45b07db6a00a9c60e9377552",
-"classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#ae0b7d20cdd15b9837587e59c68071b0f",
-"classsrc_1_1network_1_1client_1_1ClientSocket.html#aa90ea920b45436e8dc04fef3316c694a",
-"classsrc_1_1scheduler_1_1clock_1_1Clock.html#acad24d923d9cb251a248fc59f84362dc",
-"classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html#a83f047018641811d2a6049a3613d1adc",
-"classsrc_1_1wizard_1_1instruction__loader_1_1InstructionLoader.html#a0cf418fd9fc3849e40cb1059cbc43d2d",
-"functions_m.html",
-"namespacesrc_1_1common_1_1clock.html",
-"structsync__resources__s.html#a7071b44e53858568ef78c15284c1a1c8"
+"classsrc_1_1arghandler_1_1GenericArgument.html#a7cd27b7672194ff2fe5716ae82d41cc8",
+"classsrc_1_1cli_1_1cli_1_1CLI.html#ad7c4cd3cd0d9130f572efdc7ba664dc2",
+"classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiled.html#a14bf068c00307da357e5f601753eba9b",
+"classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#ac6aba0ab7ddb3c3b9d8f840d1bddf435",
+"classsrc_1_1thread_1_1job_1_1Job.html#a6e1f4f9cccbd2afe283400a20fe965f9",
+"classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#ab69ea92b6ec9899365660354515cd054",
+"cli_2src_2packaging_2____init_____8py.html#a8283912193b9b0c76df976ba0c94df44",
+"hosting_2mirror-server_2src_2common_2clock_8py.html",
+"namespacesrc_1_1common_1_1user__input.html#ab79f38d5c98f900ad7e13e6d23e48ad2",
+"structsource__handler__s.html#a20019d742ddb89efb975ec694b08fd19",
+"wcr__state_8c.html#a2d0b5c27b3597d1d9de8872fce6f7a03"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

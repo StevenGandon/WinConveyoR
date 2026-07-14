@@ -1,5 +1,10 @@
 \doxysection{lib/libwconr/wizard\+\_\+private.h File Reference}
 \hypertarget{wizard__private_8h}{}\label{wizard__private_8h}\index{lib/libwconr/wizard\_private.h@{lib/libwconr/wizard\_private.h}}
+
+
+Internal structures and API for parsing and executing .WIZARD binary files.  
+
+
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
@@ -13,15 +18,15 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct__wizard__file__header__raw__s}{\+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s}}
-\item 
+\begin{DoxyCompactList}\small\item\em On-\/disk layout of the .WIZARD file header (27 bytes, big-\/endian fields). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__section__header__raw__s}{\+\_\+wizard\+\_\+section\+\_\+header\+\_\+raw\+\_\+s}}
-\item 
+\begin{DoxyCompactList}\small\item\em On-\/disk layout of the section header prefix (16 bytes, big-\/endian fields). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}}
-\item 
+\begin{DoxyCompactList}\small\item\em On-\/disk layout of a single section table entry (28 bytes, big-\/endian fields). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__strndx__entry__raw__s}{\+\_\+wizard\+\_\+strndx\+\_\+entry\+\_\+raw\+\_\+s}}
-\item 
+\begin{DoxyCompactList}\small\item\em On-\/disk layout of a string table entry header (4 bytes). \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Runtime context for an open .WIZARD file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -32,68 +37,75 @@ struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}}
 \#define \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\+\_\+\+PACKED}}~\+\_\+\+\_\+attribute\+\_\+\+\_\+((packed))
 \item 
 \#define \mbox{\hyperlink{wizard__private_8h_a33f181a6f88624ff29487e649f50a8b0}{WIZARD\+\_\+\+MAGIC}}~"{}\textbackslash{}x42\textbackslash{}xa4\textbackslash{}x09\textbackslash{}x67"{}
-\item 
+\begin{DoxyCompactList}\small\item\em Expected magic bytes at offset 0 of every .WIZARD file. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{wizard__private_8h_a53e16c0e65366e2a196d1fff7d060fac}{WIZARD\+\_\+\+MAGIC\+\_\+\+SIZE}}~4
-\item 
+\begin{DoxyCompactList}\small\item\em Length of the magic field in bytes. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{wizard__private_8h_ababf842bd1cc96ac3407b522a5aa8046}{WIZARD\+\_\+\+HEADER\+\_\+\+SIZE}}~27
-\item 
+\begin{DoxyCompactList}\small\item\em Total size of the on-\/disk file header in bytes. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{wizard__private_8h_afa13991dfbec37b5d5fe71cace84e5b9}{WIZARD\+\_\+\+SECTION\+\_\+\+HEADER\+\_\+\+PREFIX}}~16
-\item 
+\begin{DoxyCompactList}\small\item\em Size of the fixed prefix of the section header (size + count fields). \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{wizard__private_8h_a149e5bced05cef4b86d8ab80592c4e11}{WIZARD\+\_\+\+SECTION\+\_\+\+ENTRY\+\_\+\+SIZE}}~28
-\item 
+\begin{DoxyCompactList}\small\item\em Size of a single section entry in the section header table. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{wizard__private_8h_afbea4c030baa8a9edd494fbdcfc6b454}{WIZARD\+\_\+\+STRING\+\_\+\+LENGTH\+\_\+\+SIZE}}~4
-\item 
+\begin{DoxyCompactList}\small\item\em Size of the length field that precedes each string in the strndx. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{wizard__private_8h_aaa18ec7c8407da092f7d6ac6def29e36}{WIZARD\+\_\+\+MAX\+\_\+\+SECTIONS}}~1000
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Maximum number of sections accepted during bounds validation. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 uint16\+\_\+t \mbox{\hyperlink{wizard__private_8h_a95b755c46cac3073d41aaf45a8a694dd}{wizard\+\_\+be16}} (const unsigned char \texorpdfstring{$\ast$}{*}p)
-\item 
+\begin{DoxyCompactList}\small\item\em Reads a big-\/endian 16-\/bit unsigned integer from an unaligned buffer. \end{DoxyCompactList}\item 
 uint32\+\_\+t \mbox{\hyperlink{wizard__private_8h_a9f89649b4d0fb6d29dd8ba4ababba0bf}{wizard\+\_\+be32}} (const unsigned char \texorpdfstring{$\ast$}{*}p)
-\item 
+\begin{DoxyCompactList}\small\item\em Reads a big-\/endian 32-\/bit unsigned integer from an unaligned buffer. \end{DoxyCompactList}\item 
 uint64\+\_\+t \mbox{\hyperlink{wizard__private_8h_abf2771cf2e6d20663969852eab8a7d0a}{wizard\+\_\+be64}} (const unsigned char \texorpdfstring{$\ast$}{*}p)
-\item 
+\begin{DoxyCompactList}\small\item\em Reads a big-\/endian 64-\/bit unsigned integer from an unaligned buffer. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wizard__private_8h_a8da5c6a7c3523dd6ad3477b2451d22bc}{wizard\+\_\+open}} (const char \texorpdfstring{$\ast$}{*}path)
-\item 
+\begin{DoxyCompactList}\small\item\em Opens and memory-\/maps a .WIZARD file, returning a validated context. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{wizard__private_8h_a56d2c1efb439f13289c395826d6893b7}{wizard\+\_\+close}} (struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx)
-\item 
+\begin{DoxyCompactList}\small\item\em Closes a .WIZARD context and releases all associated resources. \end{DoxyCompactList}\item 
 uint16\+\_\+t \mbox{\hyperlink{wizard__private_8h_a60b0c2b0f52c19eecdaf9133e457503f}{wizard\+\_\+get\+\_\+version}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the format version stored in the file header. \end{DoxyCompactList}\item 
 uint32\+\_\+t \mbox{\hyperlink{wizard__private_8h_afebead9a7afafd7a1122774266b1788a}{wizard\+\_\+get\+\_\+flags}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the flags field stored in the file header. \end{DoxyCompactList}\item 
 uint64\+\_\+t \mbox{\hyperlink{wizard__private_8h_af9b7fe665a1bcb3a6de7140379e7ed9b}{wizard\+\_\+get\+\_\+section\+\_\+count}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the total number of sections in the file. \end{DoxyCompactList}\item 
 const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wizard__private_8h_a43cd014a5b535eaf99d939c7c73f517e}{wizard\+\_\+get\+\_\+section}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, uint64\+\_\+t index)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns a pointer to the Nth section entry. \end{DoxyCompactList}\item 
 uint32\+\_\+t \mbox{\hyperlink{wizard__private_8h_a980c16c5ed3cf1c1c4f43478a14dcf64}{wizard\+\_\+get\+\_\+section\+\_\+type}} (const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
-\item 
+\begin{DoxyCompactList}\small\item\em Decodes the type field of a section entry. \end{DoxyCompactList}\item 
 uint32\+\_\+t \mbox{\hyperlink{wizard__private_8h_a7a921c0d16e5205480aca56ef1ea7659}{wizard\+\_\+get\+\_\+section\+\_\+flags}} (const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
-\item 
+\begin{DoxyCompactList}\small\item\em Decodes the flags field of a section entry. \end{DoxyCompactList}\item 
 const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wizard__private_8h_a99dd036cf92e8dd502fa16aaf0b0b3fd}{wizard\+\_\+get\+\_\+section\+\_\+by\+\_\+name}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name)
-\item 
+\begin{DoxyCompactList}\small\item\em Finds the first section whose name matches {\ttfamily name}. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{wizard__private_8h_a12ad1cba47f6c35b7fc3d7fbe27878e1}{wizard\+\_\+get\+\_\+section\+\_\+data}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section, const unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data\+\_\+out, uint64\+\_\+t \texorpdfstring{$\ast$}{*}size\+\_\+out)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns a pointer to the raw content bytes of a section. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{wizard__private_8h_a7d0ec7ad1f0e8b1eda600f81c280bb21}{wizard\+\_\+get\+\_\+string}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, uint32\+\_\+t strndx\+\_\+offset, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}str\+\_\+out, uint32\+\_\+t \texorpdfstring{$\ast$}{*}len\+\_\+out)
-\item 
+\begin{DoxyCompactList}\small\item\em Resolves a string table entry by its byte offset. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{wizard__private_8h_a55626fef3538a4ae7d790098fdadfcbd}{wizard\+\_\+get\+\_\+section\+\_\+name}} (const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}name\+\_\+out, uint32\+\_\+t \texorpdfstring{$\ast$}{*}len\+\_\+out)
-\item 
+\begin{DoxyCompactList}\small\item\em Resolves the name of a section through the string table. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wizard__private_8h_a5abb552099529c789882a3bb62b019f2}{wizard\+\_\+vm\+\_\+init}} (const char \texorpdfstring{$\ast$}{*}instructions\+\_\+dir)
-\item 
+\begin{DoxyCompactList}\small\item\em Creates and initialises a wizard VM by loading instruction XML files from {\ttfamily instructions\+\_\+dir}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{wizard__private_8h_af6f4b516ccd34e127a746af68ff8982d}{wizard\+\_\+vm\+\_\+close}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm)
-\item 
+\begin{DoxyCompactList}\small\item\em Destroys a wizard VM and frees all associated instruction data. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{wizard__private_8h_ae0754f1b2cb7f485b5371349607eb496}{wizard\+\_\+vm\+\_\+exec}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
-\item 
+\begin{DoxyCompactList}\small\item\em Executes the bytecode contained in a section using the wizard VM. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{wizard__private_8h_aa1bba13f29a0a9d6623f95901f4fce4c}{wizard\+\_\+vm\+\_\+dump\+\_\+instructions}} (const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm)
-\item 
+\begin{DoxyCompactList}\small\item\em Prints all loaded instruction sets and their opcodes to stdout. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizard\+\_\+vm\+\_\+disasm}} (struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}vm, struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}ctx, const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}section)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Disassembles a section\textquotesingle{}s bytecode and prints it to stdout. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{wizard__private_8h_aa3345a9689de09613ad50d8636ac0cc4}{WIZARD\+\_\+\+PACK\+\_\+\+BEGIN}} struct \mbox{\hyperlink{struct__wizard__file__header__raw__s}{\+\_\+wizard\+\_\+file\+\_\+header\+\_\+raw\+\_\+s}} \mbox{\hyperlink{wizard__private_8h_a09b3ea0a9cf84eb2b4d709413824699d}{WIZARD\+\_\+\+PACKED}}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Internal structures and API for parsing and executing .WIZARD binary files. 
+
+A .WIZARD file is a structured binary package script. It contains a file header, a section header table, a variable number of sections (metadata, build, install, uninstall, purge), and a string table (strndx).
+
+All multi-\/byte integer fields in the on-\/disk structs are big-\/endian. Use the {\ttfamily wizard\+\_\+be\texorpdfstring{$\ast$}{*}} helpers to read them portably. 
 
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{wizard__private_8h_ababf842bd1cc96ac3407b522a5aa8046}\label{wizard__private_8h_ababf842bd1cc96ac3407b522a5aa8046} 
@@ -102,11 +114,19 @@ int \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizar
 \doxysubsubsection{\texorpdfstring{WIZARD\_HEADER\_SIZE}{WIZARD\_HEADER\_SIZE}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+HEADER\+\_\+\+SIZE~27}
 
+
+
+Total size of the on-\/disk file header in bytes. 
+
 \Hypertarget{wizard__private_8h_a33f181a6f88624ff29487e649f50a8b0}\label{wizard__private_8h_a33f181a6f88624ff29487e649f50a8b0} 
 \index{wizard\_private.h@{wizard\_private.h}!WIZARD\_MAGIC@{WIZARD\_MAGIC}}
 \index{WIZARD\_MAGIC@{WIZARD\_MAGIC}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{WIZARD\_MAGIC}{WIZARD\_MAGIC}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+MAGIC~"{}\textbackslash{}x42\textbackslash{}xa4\textbackslash{}x09\textbackslash{}x67"{}}
+
+
+
+Expected magic bytes at offset 0 of every .WIZARD file. 
 
 \Hypertarget{wizard__private_8h_a53e16c0e65366e2a196d1fff7d060fac}\label{wizard__private_8h_a53e16c0e65366e2a196d1fff7d060fac} 
 \index{wizard\_private.h@{wizard\_private.h}!WIZARD\_MAGIC\_SIZE@{WIZARD\_MAGIC\_SIZE}}
@@ -114,11 +134,19 @@ int \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizar
 \doxysubsubsection{\texorpdfstring{WIZARD\_MAGIC\_SIZE}{WIZARD\_MAGIC\_SIZE}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+MAGIC\+\_\+\+SIZE~4}
 
+
+
+Length of the magic field in bytes. 
+
 \Hypertarget{wizard__private_8h_aaa18ec7c8407da092f7d6ac6def29e36}\label{wizard__private_8h_aaa18ec7c8407da092f7d6ac6def29e36} 
 \index{wizard\_private.h@{wizard\_private.h}!WIZARD\_MAX\_SECTIONS@{WIZARD\_MAX\_SECTIONS}}
 \index{WIZARD\_MAX\_SECTIONS@{WIZARD\_MAX\_SECTIONS}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{WIZARD\_MAX\_SECTIONS}{WIZARD\_MAX\_SECTIONS}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+MAX\+\_\+\+SECTIONS~1000}
+
+
+
+Maximum number of sections accepted during bounds validation. 
 
 \Hypertarget{wizard__private_8h_aa3345a9689de09613ad50d8636ac0cc4}\label{wizard__private_8h_aa3345a9689de09613ad50d8636ac0cc4} 
 \index{wizard\_private.h@{wizard\_private.h}!WIZARD\_PACK\_BEGIN@{WIZARD\_PACK\_BEGIN}}
@@ -144,17 +172,29 @@ int \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizar
 \doxysubsubsection{\texorpdfstring{WIZARD\_SECTION\_ENTRY\_SIZE}{WIZARD\_SECTION\_ENTRY\_SIZE}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+SECTION\+\_\+\+ENTRY\+\_\+\+SIZE~28}
 
+
+
+Size of a single section entry in the section header table. 
+
 \Hypertarget{wizard__private_8h_afa13991dfbec37b5d5fe71cace84e5b9}\label{wizard__private_8h_afa13991dfbec37b5d5fe71cace84e5b9} 
 \index{wizard\_private.h@{wizard\_private.h}!WIZARD\_SECTION\_HEADER\_PREFIX@{WIZARD\_SECTION\_HEADER\_PREFIX}}
 \index{WIZARD\_SECTION\_HEADER\_PREFIX@{WIZARD\_SECTION\_HEADER\_PREFIX}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{WIZARD\_SECTION\_HEADER\_PREFIX}{WIZARD\_SECTION\_HEADER\_PREFIX}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+SECTION\+\_\+\+HEADER\+\_\+\+PREFIX~16}
 
+
+
+Size of the fixed prefix of the section header (size + count fields). 
+
 \Hypertarget{wizard__private_8h_afbea4c030baa8a9edd494fbdcfc6b454}\label{wizard__private_8h_afbea4c030baa8a9edd494fbdcfc6b454} 
 \index{wizard\_private.h@{wizard\_private.h}!WIZARD\_STRING\_LENGTH\_SIZE@{WIZARD\_STRING\_LENGTH\_SIZE}}
 \index{WIZARD\_STRING\_LENGTH\_SIZE@{WIZARD\_STRING\_LENGTH\_SIZE}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{WIZARD\_STRING\_LENGTH\_SIZE}{WIZARD\_STRING\_LENGTH\_SIZE}}
 {\footnotesize\ttfamily \#define WIZARD\+\_\+\+STRING\+\_\+\+LENGTH\+\_\+\+SIZE~4}
+
+
+
+Size of the length field that precedes each string in the strndx. 
 
 
 
@@ -165,120 +205,403 @@ int \mbox{\hyperlink{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}{wizar
 \doxysubsubsection{\texorpdfstring{wizard\_be16()}{wizard\_be16()}}
 {\footnotesize\ttfamily uint16\+\_\+t wizard\+\_\+be16 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})}
 
+
+
+Reads a big-\/endian 16-\/bit unsigned integer from an unaligned buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Pointer to at least 2 bytes of data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Host-\/endian value, or 0 if {\ttfamily p} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a9f89649b4d0fb6d29dd8ba4ababba0bf}\label{wizard__private_8h_a9f89649b4d0fb6d29dd8ba4ababba0bf} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_be32@{wizard\_be32}}
 \index{wizard\_be32@{wizard\_be32}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_be32()}{wizard\_be32()}}
 {\footnotesize\ttfamily uint32\+\_\+t wizard\+\_\+be32 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})}
 
+
+
+Reads a big-\/endian 32-\/bit unsigned integer from an unaligned buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Pointer to at least 4 bytes of data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Host-\/endian value, or 0 if {\ttfamily p} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_abf2771cf2e6d20663969852eab8a7d0a}\label{wizard__private_8h_abf2771cf2e6d20663969852eab8a7d0a} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_be64@{wizard\_be64}}
 \index{wizard\_be64@{wizard\_be64}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_be64()}{wizard\_be64()}}
 {\footnotesize\ttfamily uint64\+\_\+t wizard\+\_\+be64 (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})}
 
+
+
+Reads a big-\/endian 64-\/bit unsigned integer from an unaligned buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Pointer to at least 8 bytes of data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Host-\/endian value, or 0 if {\ttfamily p} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a56d2c1efb439f13289c395826d6893b7}\label{wizard__private_8h_a56d2c1efb439f13289c395826d6893b7} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_close@{wizard\_close}}
 \index{wizard\_close@{wizard\_close}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_close()}{wizard\_close()}}
 {\footnotesize\ttfamily void wizard\+\_\+close (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx }\end{DoxyParamCaption})}
 
+
+
+Closes a .WIZARD context and releases all associated resources. 
+
+Unmaps the file, closes the file descriptor (POSIX), and frees the context.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Context to close. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{wizard__private_8h_afebead9a7afafd7a1122774266b1788a}\label{wizard__private_8h_afebead9a7afafd7a1122774266b1788a} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_flags@{wizard\_get\_flags}}
 \index{wizard\_get\_flags@{wizard\_get\_flags}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_flags()}{wizard\_get\_flags()}}
 {\footnotesize\ttfamily uint32\+\_\+t wizard\+\_\+get\+\_\+flags (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx }\end{DoxyParamCaption})}
 
+
+
+Returns the flags field stored in the file header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Flags bitmask, or 0 if {\ttfamily ctx} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a43cd014a5b535eaf99d939c7c73f517e}\label{wizard__private_8h_a43cd014a5b535eaf99d939c7c73f517e} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section@{wizard\_get\_section}}
 \index{wizard\_get\_section@{wizard\_get\_section}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section()}{wizard\_get\_section()}}
 {\footnotesize\ttfamily const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+get\+\_\+section (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{uint64\+\_\+t}]{index }\end{DoxyParamCaption})}
 
+
+
+Returns a pointer to the Nth section entry. 
+
+The returned pointer is a view into the memory-\/mapped file; do not free it.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em index} & Zero-\/based section index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the section entry, or NULL if out of range or {\ttfamily ctx} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a99dd036cf92e8dd502fa16aaf0b0b3fd}\label{wizard__private_8h_a99dd036cf92e8dd502fa16aaf0b0b3fd} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section\_by\_name@{wizard\_get\_section\_by\_name}}
 \index{wizard\_get\_section\_by\_name@{wizard\_get\_section\_by\_name}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section\_by\_name()}{wizard\_get\_section\_by\_name()}}
 {\footnotesize\ttfamily const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+get\+\_\+section\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
 
+
+
+Finds the first section whose name matches {\ttfamily name}. 
+
+Comparison is by byte-\/exact match of the raw string data; no NUL terminator is assumed in the string table.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em name} & NUL-\/terminated name to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the matching section entry, or NULL if not found. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_af9b7fe665a1bcb3a6de7140379e7ed9b}\label{wizard__private_8h_af9b7fe665a1bcb3a6de7140379e7ed9b} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section\_count@{wizard\_get\_section\_count}}
 \index{wizard\_get\_section\_count@{wizard\_get\_section\_count}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section\_count()}{wizard\_get\_section\_count()}}
 {\footnotesize\ttfamily uint64\+\_\+t wizard\+\_\+get\+\_\+section\+\_\+count (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx }\end{DoxyParamCaption})}
 
+
+
+Returns the total number of sections in the file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Section count, or 0 if {\ttfamily ctx} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a12ad1cba47f6c35b7fc3d7fbe27878e1}\label{wizard__private_8h_a12ad1cba47f6c35b7fc3d7fbe27878e1} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section\_data@{wizard\_get\_section\_data}}
 \index{wizard\_get\_section\_data@{wizard\_get\_section\_data}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section\_data()}{wizard\_get\_section\_data()}}
 {\footnotesize\ttfamily int wizard\+\_\+get\+\_\+section\+\_\+data (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data\+\_\+out,  }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{size\+\_\+out }\end{DoxyParamCaption})}
 
+
+
+Returns a pointer to the raw content bytes of a section. 
+
+The pointer is a view into the memory-\/mapped file; do not free it. Validates that the section data lies within the mapped file bounds.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em section} & Section entry to query. \\
+\hline
+\mbox{\texttt{ out}}  & {\em data\+\_\+out} & Set to the start of the section content on success. \\
+\hline
+\mbox{\texttt{ out}}  & {\em size\+\_\+out} & Set to the section size in bytes on success. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 if any argument is NULL or bounds are violated. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a7a921c0d16e5205480aca56ef1ea7659}\label{wizard__private_8h_a7a921c0d16e5205480aca56ef1ea7659} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section\_flags@{wizard\_get\_section\_flags}}
 \index{wizard\_get\_section\_flags@{wizard\_get\_section\_flags}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section\_flags()}{wizard\_get\_section\_flags()}}
 {\footnotesize\ttfamily uint32\+\_\+t wizard\+\_\+get\+\_\+section\+\_\+flags (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
 
+
+
+Decodes the flags field of a section entry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em section} & Section entry to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Section flags bitmask, or 0 if {\ttfamily section} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a55626fef3538a4ae7d790098fdadfcbd}\label{wizard__private_8h_a55626fef3538a4ae7d790098fdadfcbd} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section\_name@{wizard\_get\_section\_name}}
 \index{wizard\_get\_section\_name@{wizard\_get\_section\_name}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section\_name()}{wizard\_get\_section\_name()}}
 {\footnotesize\ttfamily int wizard\+\_\+get\+\_\+section\+\_\+name (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section,  }\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{name\+\_\+out,  }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{len\+\_\+out }\end{DoxyParamCaption})}
 
+
+
+Resolves the name of a section through the string table. 
+
+Reads the {\ttfamily name\+\_\+strndx} field of {\ttfamily section} and calls \doxylink{wizard__section_8c_a7d0ec7ad1f0e8b1eda600f81c280bb21}{wizard\+\_\+get\+\_\+string}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em section} & Section entry whose name to resolve. \\
+\hline
+\mbox{\texttt{ out}}  & {\em name\+\_\+out} & Set to the start of the name bytes on success. \\
+\hline
+\mbox{\texttt{ out}}  & {\em len\+\_\+out} & Set to the name length in bytes on success. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on any failure. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a980c16c5ed3cf1c1c4f43478a14dcf64}\label{wizard__private_8h_a980c16c5ed3cf1c1c4f43478a14dcf64} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_section\_type@{wizard\_get\_section\_type}}
 \index{wizard\_get\_section\_type@{wizard\_get\_section\_type}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_section\_type()}{wizard\_get\_section\_type()}}
 {\footnotesize\ttfamily uint32\+\_\+t wizard\+\_\+get\+\_\+section\+\_\+type (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
 
+
+
+Decodes the type field of a section entry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em section} & Section entry to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Section type value, or 0 if {\ttfamily section} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a7d0ec7ad1f0e8b1eda600f81c280bb21}\label{wizard__private_8h_a7d0ec7ad1f0e8b1eda600f81c280bb21} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_string@{wizard\_get\_string}}
 \index{wizard\_get\_string@{wizard\_get\_string}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_string()}{wizard\_get\_string()}}
 {\footnotesize\ttfamily int wizard\+\_\+get\+\_\+string (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{uint32\+\_\+t}]{strndx\+\_\+offset,  }\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{str\+\_\+out,  }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{len\+\_\+out }\end{DoxyParamCaption})}
 
+
+
+Resolves a string table entry by its byte offset. 
+
+The returned pointer is a non-\/owning view into the memory-\/mapped file. The string is not NUL-\/terminated on disk; use {\ttfamily len\+\_\+out} to bound reads.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em strndx\+\_\+offset} & Byte offset from {\ttfamily strndx\+\_\+base} to the desired entry. \\
+\hline
+\mbox{\texttt{ out}}  & {\em str\+\_\+out} & Set to the start of the string bytes on success. \\
+\hline
+\mbox{\texttt{ out}}  & {\em len\+\_\+out} & Set to the string length in bytes on success. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 if any argument is NULL or bounds are violated. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a60b0c2b0f52c19eecdaf9133e457503f}\label{wizard__private_8h_a60b0c2b0f52c19eecdaf9133e457503f} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_get\_version@{wizard\_get\_version}}
 \index{wizard\_get\_version@{wizard\_get\_version}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_get\_version()}{wizard\_get\_version()}}
 {\footnotesize\ttfamily uint16\+\_\+t wizard\+\_\+get\+\_\+version (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx }\end{DoxyParamCaption})}
 
+
+
+Returns the format version stored in the file header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Format version, or 0 if {\ttfamily ctx} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a8da5c6a7c3523dd6ad3477b2451d22bc}\label{wizard__private_8h_a8da5c6a7c3523dd6ad3477b2451d22bc} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_open@{wizard\_open}}
 \index{wizard\_open@{wizard\_open}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_open()}{wizard\_open()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+open (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
 
+
+
+Opens and memory-\/maps a .WIZARD file, returning a validated context. 
+
+Validates the magic number, version range, and section table bounds before returning. The file remains mapped until \doxylink{pars__wizard_8c_a56d2c1efb439f13289c395826d6893b7}{wizard\+\_\+close} is called.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em path} & Path to the .WIZARD file on disk. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a new context, or NULL on any failure (file not found, invalid magic, bounds violation, allocation error, etc.). 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_af6f4b516ccd34e127a746af68ff8982d}\label{wizard__private_8h_af6f4b516ccd34e127a746af68ff8982d} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_vm\_close@{wizard\_vm\_close}}
 \index{wizard\_vm\_close@{wizard\_vm\_close}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_close()}{wizard\_vm\_close()}}
 {\footnotesize\ttfamily void wizard\+\_\+vm\+\_\+close (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm }\end{DoxyParamCaption})}
 
+
+
+Destroys a wizard VM and frees all associated instruction data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & VM to destroy. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21}\label{wizard__private_8h_a893f6b791add77894395a3ade9cfcc21} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_vm\_disasm@{wizard\_vm\_disasm}}
 \index{wizard\_vm\_disasm@{wizard\_vm\_disasm}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_disasm()}{wizard\_vm\_disasm()}}
 {\footnotesize\ttfamily int wizard\+\_\+vm\+\_\+disasm (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
 
+
+
+Disassembles a section\textquotesingle{}s bytecode and prints it to stdout. 
+
+Decodes each instruction in order, printing its file offset, index, mnemonic name, and decoded argument values.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & Initialised wizard VM. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context. \\
+\hline
+\mbox{\texttt{ in}}  & {\em section} & Section to disassemble. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on any decode failure. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_aa1bba13f29a0a9d6623f95901f4fce4c}\label{wizard__private_8h_aa1bba13f29a0a9d6623f95901f4fce4c} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_vm\_dump\_instructions@{wizard\_vm\_dump\_instructions}}
 \index{wizard\_vm\_dump\_instructions@{wizard\_vm\_dump\_instructions}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_dump\_instructions()}{wizard\_vm\_dump\_instructions()}}
 {\footnotesize\ttfamily void wizard\+\_\+vm\+\_\+dump\+\_\+instructions (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm }\end{DoxyParamCaption})}
 
+
+
+Prints all loaded instruction sets and their opcodes to stdout. 
+
+Intended for debugging. Prints each version\textquotesingle{}s opcode list with name and argument types.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & Initialised wizard VM. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{wizard__private_8h_ae0754f1b2cb7f485b5371349607eb496}\label{wizard__private_8h_ae0754f1b2cb7f485b5371349607eb496} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_vm\_exec@{wizard\_vm\_exec}}
 \index{wizard\_vm\_exec@{wizard\_vm\_exec}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_exec()}{wizard\_vm\_exec()}}
 {\footnotesize\ttfamily int wizard\+\_\+vm\+\_\+exec (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{vm,  }\item[{struct \mbox{\hyperlink{struct__wizard__ctx__s}{\+\_\+wizard\+\_\+ctx\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{const struct \mbox{\hyperlink{struct__wizard__section__entry__raw__s}{\+\_\+wizard\+\_\+section\+\_\+entry\+\_\+raw\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{section }\end{DoxyParamCaption})}
 
+
+
+Executes the bytecode contained in a section using the wizard VM. 
+
+Selects the instruction set whose version matches the file\textquotesingle{}s format version, then interprets each instruction sequentially. Execution stops on the first unrecognised opcode or handler error.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vm} & Initialised wizard VM. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ctx} & Open wizard context providing the string table and file data. \\
+\hline
+\mbox{\texttt{ in}}  & {\em section} & Section entry whose content will be executed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on any failure. 
+\end{DoxyReturn}
 \Hypertarget{wizard__private_8h_a5abb552099529c789882a3bb62b019f2}\label{wizard__private_8h_a5abb552099529c789882a3bb62b019f2} 
 \index{wizard\_private.h@{wizard\_private.h}!wizard\_vm\_init@{wizard\_vm\_init}}
 \index{wizard\_vm\_init@{wizard\_vm\_init}!wizard\_private.h@{wizard\_private.h}}
 \doxysubsubsection{\texorpdfstring{wizard\_vm\_init()}{wizard\_vm\_init()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__wizard__vm__s}{\+\_\+wizard\+\_\+vm\+\_\+s}} \texorpdfstring{$\ast$}{*} wizard\+\_\+vm\+\_\+init (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{instructions\+\_\+dir }\end{DoxyParamCaption})}
 
+
+
+Creates and initialises a wizard VM by loading instruction XML files from {\ttfamily instructions\+\_\+dir}. 
+
+Loads every XML file listed in the internal {\ttfamily vm\+\_\+xml\+\_\+files} table. At least one instruction set must load successfully; otherwise NULL is returned.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em instructions\+\_\+dir} & Directory containing instruction XML files. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a new VM, or NULL on failure. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Variable Documentation}
