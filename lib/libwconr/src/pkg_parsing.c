@@ -5,7 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
+#ifdef _WIN32
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
+#endif
 #include <cJSON.h>
 
 int find_package_in_list(const char *pkgs_list_path, const char *package_name,
