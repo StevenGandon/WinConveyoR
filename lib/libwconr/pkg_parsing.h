@@ -12,12 +12,31 @@
     int select_variant_register(const char *register_content,
                                 const struct pkg_specifier *spec,
                                 char **out_location);
-    struct wcr_pkg_variant_s;
+    struct wcr_pkg_variant_s {
+        char *version;
+        char *arch;
+        char *machine;
+    };
+
+    struct wcr_pkg_metadata_s {
+        char *name;
+        char *version;
+        char *arch;
+        char *machine;
+        char *description;
+        char *address;
+        char *sha256;
+        char *md5;
+        char **depends;
+        size_t depends_count;
+        long size;
+        long added_at;
+    };
+
     int parse_register_variants(const char *register_content,
                                 struct wcr_pkg_variant_s **out, size_t *out_count);
     int parse_wcr_listing_variants(const char *listing,
                                    struct wcr_pkg_variant_s **out, size_t *out_count);
-    struct wcr_pkg_metadata_s;
     int json_parse_metadata(const char *json, struct wcr_pkg_metadata_s *out);
     int json_extract_string(const char *json, const char *key, char **out_value);
     int json_extract_string_array(const char *json, const char *key,
