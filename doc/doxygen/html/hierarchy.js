@@ -103,6 +103,7 @@ var hierarchy =
       [ "src.undo.undo_action.UndoStepDelItem", "classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html", null ],
       [ "src.undo.undo_action.UndoStepInsert", "classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html", null ],
       [ "src.undo.undo_action.UndoStepPop", "classsrc_1_1undo_1_1undo__action_1_1UndoStepPop.html", null ],
+      [ "src.undo.undo_action.UndoStepSetAttr", "classsrc_1_1undo_1_1undo__action_1_1UndoStepSetAttr.html", null ],
       [ "src.undo.undo_action.UndoStepSetItem", "classsrc_1_1undo_1_1undo__action_1_1UndoStepSetItem.html", null ],
       [ "src.undo.undo_stack.UndoStack", "classsrc_1_1undo_1_1undo__stack_1_1UndoStack.html", null ],
       [ "src.wizard.classes.arguments.WizardArgument", "classsrc_1_1wizard_1_1classes_1_1arguments_1_1WizardArgument.html", [

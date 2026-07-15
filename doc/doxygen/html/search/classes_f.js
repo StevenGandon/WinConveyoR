@@ -5,11 +5,12 @@ var searchData=
   ['undostepdelitem_2',['UndoStepDelItem',['../classsrc_1_1undo_1_1undo__action_1_1UndoStepDelItem.html',1,'src::undo::undo_action']]],
   ['undostepinsert_3',['UndoStepInsert',['../classsrc_1_1undo_1_1undo__action_1_1UndoStepInsert.html',1,'src::undo::undo_action']]],
   ['undosteppop_4',['UndoStepPop',['../classsrc_1_1undo_1_1undo__action_1_1UndoStepPop.html',1,'src::undo::undo_action']]],
-  ['undostepsetitem_5',['UndoStepSetItem',['../classsrc_1_1undo_1_1undo__action_1_1UndoStepSetItem.html',1,'src::undo::undo_action']]],
-  ['user_6',['User',['../classmodels_1_1user_1_1User.html',1,'models::user']]],
-  ['userbase_7',['UserBase',['../classschemas_1_1user_1_1UserBase.html',1,'schemas::user']]],
-  ['userin_8',['UserIn',['../classschemas_1_1user_1_1UserIn.html',1,'schemas::user']]],
-  ['userlogin_9',['UserLogin',['../classschemas_1_1user_1_1UserLogin.html',1,'schemas::user']]],
-  ['userout_10',['UserOut',['../classschemas_1_1user_1_1UserOut.html',1,'schemas::user']]],
-  ['userregister_11',['UserRegister',['../classschemas_1_1user_1_1UserRegister.html',1,'schemas::user']]]
+  ['undostepsetattr_5',['UndoStepSetAttr',['../classsrc_1_1undo_1_1undo__action_1_1UndoStepSetAttr.html',1,'src::undo::undo_action']]],
+  ['undostepsetitem_6',['UndoStepSetItem',['../classsrc_1_1undo_1_1undo__action_1_1UndoStepSetItem.html',1,'src::undo::undo_action']]],
+  ['user_7',['User',['../classmodels_1_1user_1_1User.html',1,'models::user']]],
+  ['userbase_8',['UserBase',['../classschemas_1_1user_1_1UserBase.html',1,'schemas::user']]],
+  ['userin_9',['UserIn',['../classschemas_1_1user_1_1UserIn.html',1,'schemas::user']]],
+  ['userlogin_10',['UserLogin',['../classschemas_1_1user_1_1UserLogin.html',1,'schemas::user']]],
+  ['userout_11',['UserOut',['../classschemas_1_1user_1_1UserOut.html',1,'schemas::user']]],
+  ['userregister_12',['UserRegister',['../classschemas_1_1user_1_1UserRegister.html',1,'schemas::user']]]
 ];

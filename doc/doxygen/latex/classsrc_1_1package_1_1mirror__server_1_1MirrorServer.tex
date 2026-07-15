@@ -15,7 +15,7 @@ Inheritance diagram for src.\+package.\+mirror\+\_\+server.\+Mirror\+Server\+:\b
 \item 
 \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ac6aba0ab7ddb3c3b9d8f840d1bddf435}{\+\_\+\+\_\+repr\+\_\+\+\_\+}} (self)
 \item 
-\mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_aae023ac9bd3e0906c41ebc2feeb512b3}{write}} (self)
+str\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a471673dd70949fb3f79e8f1c7a4c9e40}{write}} (self)
 \item 
 \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a77972c7dae81ae645c24580bcb41b60e}{load}} (self)
 \item 
@@ -26,11 +26,29 @@ Inheritance diagram for src.\+package.\+mirror\+\_\+server.\+Mirror\+Server\+:\b
 \mbox{\hyperlink{classsrc_1_1package_1_1package_1_1Package}{Package}} \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2f5f9fad6acf72c657734061e396cfc0}{has\+\_\+package\+\_\+register}} (self, name)
 \item 
 None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e0f9c8b1b410afdf2f7b1732fb1adc}{remove\+\_\+package\+\_\+register}} (self, name, \texorpdfstring{$\ast$}{*}hard\+\_\+delete=False)
+\item 
+\mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2e084e4d336980e604d40f979b948d61}{undo}} (self)
+\item 
+\mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a58e80b897ba4ecffb21a22ab44cce2f7}{redo}} (self)
+\item 
+list \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a06e4cb9f42b982a37331eff54569fe7e}{list\+\_\+backups}} (self)
+\item 
+str\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2806a7d1ceaddcdc3d0cde896bc8c9ff}{latest\+\_\+backup}} (self)
+\item 
+str \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ad62500fa6bf094ed5dd7f8aa184eefdb}{restore}} (self, str backup\+\_\+name)
+\item 
+bool \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ab0241fe2f4b37aea99d4fc06957e0bbc}{verify}} (self)
+\item 
+None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a4bad3a537ce03e14d78d73dfb9727f42}{delete\+\_\+backup}} (self, str backup\+\_\+name)
+\item 
+list \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a7ff107fed04fcf20c1f33656743133d6}{prune\+\_\+backups}} (self, int keep=5)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ade2c4d8b20953959295f513fcfebace9}{checksum}}
+\item 
+\mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a391d54a8795767541667bb483fc4466f}{undo\+\_\+stack}}
 \item 
 \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a3e77c4b47ee893b1fed7bc7c42c1af74}{register\+\_\+path}}
 \item 
@@ -47,6 +65,11 @@ None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e
 \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a07e6e7c2bf42372ecf56d81c8dbeec84}{backup\+\_\+path}}
 \item 
 \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ada3793cc54dfa5d10fd8ac68723cd2ee}{packages}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a3d7561f16753774b3db77d87d5d63c95}{\+\_\+snapshot\+\_\+live}} (self, str name)
 \end{DoxyCompactItemize}
 
 
@@ -72,11 +95,23 @@ None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e
 \doxysubsubsection{\texorpdfstring{\_\_str\_\_()}{\_\_str\_\_()}}
 {\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+\_\+\+\_\+str\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a3d7561f16753774b3db77d87d5d63c95}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a3d7561f16753774b3db77d87d5d63c95} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!\_snapshot\_live@{\_snapshot\_live}}
+\index{\_snapshot\_live@{\_snapshot\_live}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{\_snapshot\_live()}{\_snapshot\_live()}}
+{\footnotesize\ttfamily  str src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+\_\+snapshot\+\_\+live (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
 \Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a87495fe3aaee75c593a59c464c59230c}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a87495fe3aaee75c593a59c464c59230c} 
 \index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!add\_package\_register@{add\_package\_register}}
 \index{add\_package\_register@{add\_package\_register}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
 \doxysubsubsection{\texorpdfstring{add\_package\_register()}{add\_package\_register()}}
 {\footnotesize\ttfamily  \mbox{\hyperlink{classsrc_1_1package_1_1package_1_1Package}{Package}} src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+add\+\_\+package\+\_\+register (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{name }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a4bad3a537ce03e14d78d73dfb9727f42}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a4bad3a537ce03e14d78d73dfb9727f42} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!delete\_backup@{delete\_backup}}
+\index{delete\_backup@{delete\_backup}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{delete\_backup()}{delete\_backup()}}
+{\footnotesize\ttfamily  None src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+delete\+\_\+backup (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{backup\+\_\+name }\end{DoxyParamCaption})}
 
 \Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a7a83ce8e93653a24024d693714595791}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a7a83ce8e93653a24024d693714595791} 
 \index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!get\_package\_register@{get\_package\_register}}
@@ -90,11 +125,35 @@ None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e
 \doxysubsubsection{\texorpdfstring{has\_package\_register()}{has\_package\_register()}}
 {\footnotesize\ttfamily  \mbox{\hyperlink{classsrc_1_1package_1_1package_1_1Package}{Package}} src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+has\+\_\+package\+\_\+register (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{name }\end{DoxyParamCaption})}
 
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2806a7d1ceaddcdc3d0cde896bc8c9ff}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2806a7d1ceaddcdc3d0cde896bc8c9ff} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!latest\_backup@{latest\_backup}}
+\index{latest\_backup@{latest\_backup}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{latest\_backup()}{latest\_backup()}}
+{\footnotesize\ttfamily  str \texorpdfstring{$\vert$}{|} None src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+latest\+\_\+backup (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a06e4cb9f42b982a37331eff54569fe7e}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a06e4cb9f42b982a37331eff54569fe7e} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!list\_backups@{list\_backups}}
+\index{list\_backups@{list\_backups}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{list\_backups()}{list\_backups()}}
+{\footnotesize\ttfamily  list src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+list\+\_\+backups (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
 \Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a77972c7dae81ae645c24580bcb41b60e}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a77972c7dae81ae645c24580bcb41b60e} 
 \index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!load@{load}}
 \index{load@{load}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
 \doxysubsubsection{\texorpdfstring{load()}{load()}}
 {\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+load (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a7ff107fed04fcf20c1f33656743133d6}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a7ff107fed04fcf20c1f33656743133d6} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!prune\_backups@{prune\_backups}}
+\index{prune\_backups@{prune\_backups}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{prune\_backups()}{prune\_backups()}}
+{\footnotesize\ttfamily  list src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+prune\+\_\+backups (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{int }]{keep = {\ttfamily 5} }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a58e80b897ba4ecffb21a22ab44cce2f7}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a58e80b897ba4ecffb21a22ab44cce2f7} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!redo@{redo}}
+\index{redo@{redo}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{redo()}{redo()}}
+{\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+redo (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
 \Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e0f9c8b1b410afdf2f7b1732fb1adc}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e0f9c8b1b410afdf2f7b1732fb1adc} 
 \index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!remove\_package\_register@{remove\_package\_register}}
@@ -102,11 +161,29 @@ None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e
 \doxysubsubsection{\texorpdfstring{remove\_package\_register()}{remove\_package\_register()}}
 {\footnotesize\ttfamily  None src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+remove\+\_\+package\+\_\+register (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{name,  }\item[{\texorpdfstring{$\ast$}{*}}]{hard\+\_\+delete = {\ttfamily False} }\end{DoxyParamCaption})}
 
-\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_aae023ac9bd3e0906c41ebc2feeb512b3}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_aae023ac9bd3e0906c41ebc2feeb512b3} 
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ad62500fa6bf094ed5dd7f8aa184eefdb}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ad62500fa6bf094ed5dd7f8aa184eefdb} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!restore@{restore}}
+\index{restore@{restore}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{restore()}{restore()}}
+{\footnotesize\ttfamily  str src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+restore (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{backup\+\_\+name }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2e084e4d336980e604d40f979b948d61}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a2e084e4d336980e604d40f979b948d61} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!undo@{undo}}
+\index{undo@{undo}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{undo()}{undo()}}
+{\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+undo (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ab0241fe2f4b37aea99d4fc06957e0bbc}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_ab0241fe2f4b37aea99d4fc06957e0bbc} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!verify@{verify}}
+\index{verify@{verify}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{verify()}{verify()}}
+{\footnotesize\ttfamily  bool src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+verify (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a471673dd70949fb3f79e8f1c7a4c9e40}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a471673dd70949fb3f79e8f1c7a4c9e40} 
 \index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!write@{write}}
 \index{write@{write}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
 \doxysubsubsection{\texorpdfstring{write()}{write()}}
-{\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+write (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily  str \texorpdfstring{$\vert$}{|} None src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+write (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
 
 
@@ -164,6 +241,12 @@ None \mbox{\hyperlink{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a37e
 \index{register\_path@{register\_path}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
 \doxysubsubsection{\texorpdfstring{register\_path}{register\_path}}
 {\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+register\+\_\+path}
+
+\Hypertarget{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a391d54a8795767541667bb483fc4466f}\label{classsrc_1_1package_1_1mirror__server_1_1MirrorServer_a391d54a8795767541667bb483fc4466f} 
+\index{src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}!undo\_stack@{undo\_stack}}
+\index{undo\_stack@{undo\_stack}!src.package.mirror\_server.MirrorServer@{src.package.mirror\_server.MirrorServer}}
+\doxysubsubsection{\texorpdfstring{undo\_stack}{undo\_stack}}
+{\footnotesize\ttfamily src.\+package.\+mirror\+\_\+server.\+Mirror\+Server.\+undo\+\_\+stack}
 
 
 

@@ -67,14 +67,14 @@ var NAVTREEINDEX =
 "classsrc_1_1arghandler_1_1GenericArgument.html#a7cd27b7672194ff2fe5716ae82d41cc8",
 "classsrc_1_1cli_1_1cli_1_1CLI.html#ad7c4cd3cd0d9130f572efdc7ba664dc2",
 "classsrc_1_1graphic_1_1pattern_1_1compiler_1_1PatternCompiled.html#a14bf068c00307da357e5f601753eba9b",
-"classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#ac6aba0ab7ddb3c3b9d8f840d1bddf435",
-"classsrc_1_1thread_1_1job_1_1Job.html#a6e1f4f9cccbd2afe283400a20fe965f9",
-"classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#ab69ea92b6ec9899365660354515cd054",
-"cli_2src_2packaging_2____init_____8py.html#a8283912193b9b0c76df976ba0c94df44",
-"hosting_2mirror-server_2src_2common_2clock_8py.html",
-"namespacesrc_1_1common_1_1user__input.html#ab79f38d5c98f900ad7e13e6d23e48ad2",
-"structsource__handler__s.html#a20019d742ddb89efb975ec694b08fd19",
-"wcr__state_8c.html#a2d0b5c27b3597d1d9de8872fce6f7a03"
+"classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a4bad3a537ce03e14d78d73dfb9727f42",
+"classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#ae7ac1884391ddba2290b5aa9fa32571f",
+"classsrc_1_1wizard_1_1classes_1_1package_1_1PackageWizard.html#a100ed5eb062f0071a549e322edb15bbd",
+"classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html#aae159bd1b1a400c6c2e6d3ad7f1cddff",
+"globals_func_i.html",
+"namespacesrc_1_1cli_1_1commands_1_1add__pkg.html#ad3f900c0beed276f35b03256fe8801d6",
+"schema_8py.html",
+"wcr__client_8c.html#ac846ad724fbe771080bfa1db01aa9778"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
