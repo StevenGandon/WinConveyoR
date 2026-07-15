@@ -303,8 +303,14 @@ static char *extract_register_field(const char *block_start, const char *block_e
             while (val < val_end && (*val == ' ' || *val == '\t')) val++;
             while (val_end > val && (*(val_end - 1) == '\r' || *(val_end - 1) == ' ')) val_end--;
 
-            if (val < val_end)
-                return strndup(val, (size_t)(val_end - val));
+            if (val < val_end) {
+                size_t len = (size_t)(val_end - val);
+                char *dup = malloc(len + 1);
+                if (!dup) return NULL;
+                memcpy(dup, val, len);
+                dup[len] = '\0';
+                return dup;
+            }
         }
 
         p = line_end + 1;

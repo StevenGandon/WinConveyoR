@@ -15,7 +15,13 @@ static char *extract_field(const char *start, const char *stops)
     if (len == 0)
         return (NULL);
 
-    return strndup(start, len);
+    {
+        char *dup = malloc(len + 1);
+        if (!dup) return NULL;
+        memcpy(dup, start, len);
+        dup[len] = '\0';
+        return dup;
+    }
 }
 
 int pkg_specifier_parse(const char *input, struct pkg_specifier *out)
@@ -34,7 +40,14 @@ int pkg_specifier_parse(const char *input, struct pkg_specifier *out)
     if (p == input)
         return (-1);
 
-    out->name = strndup(input, (size_t)(p - input));
+    {
+        size_t nlen = (size_t)(p - input);
+        out->name = malloc(nlen + 1);
+        if (out->name) {
+            memcpy(out->name, input, nlen);
+            out->name[nlen] = '\0';
+        }
+    }
     if (!out->name)
         return (-1);
 
