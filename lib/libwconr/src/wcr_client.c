@@ -301,8 +301,6 @@ void wcr_close(wcr_conn *conn)
             wcr_send(conn, goodbye);
             wcr_msg_free(goodbye);
         }
-        wcr_msg *resp = wcr_recv(conn);
-        wcr_msg_free(resp);
         close(conn->sockfd);
     }
 

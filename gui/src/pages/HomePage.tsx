@@ -7,7 +7,7 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
 const HomePage: React.FC = () => {
-  const { installedPackages, updatablePackages, refreshInstalled } = usePackages();
+  const { installedPackages, updatablePackages, refreshInstalled, loadAvailable } = usePackages();
   const { busy, runUpdate, runInstall } = useCli();
   const [installName, setInstallName] = useState('');
 
@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
             <Button
               variant="primary"
               leftIcon={<RefreshCw size={18} />}
-              onClick={runUpdate}
+              onClick={async () => { await runUpdate(); await loadAvailable(); }}
               disabled={busy}
               isLoading={busy}
             >

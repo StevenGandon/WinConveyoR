@@ -551,10 +551,7 @@ class CLI(object):
         reset = "\033[0m"
 
         def _cb(event_type, message, bytes_done, bytes_total):
-            if (use_color and event_type.value in colors):
-                sys.stdout.write(f"{colors[event_type.value]}{message}{reset}\n")
-            else:
-                sys.stdout.write(f"{message}\n")
+            return
 
         return (_cb)
 
