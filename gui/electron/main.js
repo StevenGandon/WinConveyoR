@@ -44,9 +44,6 @@ function createWindow() {
 
   mainWindow.loadURL(startURL);
 
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -130,3 +127,7 @@ ipcMain.handle('cli-update', () => runCli(['update']));
 ipcMain.handle('cli-install', (_event, packageName) => runCli(['install', packageName]));
 ipcMain.handle('cli-uninstall', (_event, packageName) => runCli(['uninstall', packageName]));
 ipcMain.handle('cli-list-installed', () => runCli(['list']));
+ipcMain.handle('cli-search', (_event, query) => runCli(query ? ['search', query] : ['search']));
+ipcMain.handle('cli-info', (_event, packageSpec) => runCli(['info', packageSpec]));
+ipcMain.handle('cli-check', (_event, packageSpec) => runCli(['check', packageSpec]));
+ipcMain.handle('cli-upgrade', (_event, packageName) => runCli(packageName ? ['upgrade', packageName] : ['upgrade']));

@@ -1,15 +1,27 @@
 import { Package as PackageIcon, RefreshCw, CheckCircle } from 'lucide-react';
 import { usePackages } from '../context/PackageContext';
+import { useCli } from '../context/CliContext';
 import Header from '../components/layout/Header';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 
-const UpdatesPage: React.FC = () => {
-  const { updatablePackages } = usePackages();
+const UpgradesPage: React.FC = () => {
+  const { updatablePackages, refreshInstalled } = usePackages();
+  const { busy, runUpgrade } = useCli();
+
+  const handleUpgradeAll = async () => {
+    const code = await runUpgrade();
+    if (code === 0) await refreshInstalled();
+  };
+
+  const handleUpgradeOne = async (name: string) => {
+    const code = await runUpgrade(name);
+    if (code === 0) await refreshInstalled();
+  };
 
   return (
     <>
-      <Header title="Available Updates" />
+      <Header title="Available Upgrades" />
       <div className="p-6">
         {updatablePackages.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -25,10 +37,17 @@ const UpdatesPage: React.FC = () => {
           <>
             <div className="flex items-center justify-between mb-4">
               <p className="text-sm text-wc-muted dark:text-wc-muted-dark">
-                {updatablePackages.length} update{updatablePackages.length !== 1 ? 's' : ''} available
+                {updatablePackages.length} upgrade{updatablePackages.length !== 1 ? 's' : ''} available
               </p>
-              <Button variant="primary" size="sm" leftIcon={<RefreshCw size={16} />}>
-                Update all
+              <Button
+                variant="primary"
+                size="sm"
+                leftIcon={<RefreshCw size={16} />}
+                onClick={handleUpgradeAll}
+                disabled={busy}
+                isLoading={busy}
+              >
+                Upgrade all
               </Button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -48,8 +67,14 @@ const UpdatesPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="mt-auto px-4 pb-4 flex justify-end">
-                    <Button variant="secondary" size="sm" leftIcon={<RefreshCw size={14} />}>
-                      Update
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      leftIcon={<RefreshCw size={14} />}
+                      onClick={() => handleUpgradeOne(pkg.name)}
+                      disabled={busy}
+                    >
+                      Upgrade
                     </Button>
                   </div>
                 </Card>
@@ -62,4 +87,4 @@ const UpdatesPage: React.FC = () => {
   );
 };
 
-export default UpdatesPage;
+export default UpgradesPage;

@@ -8,7 +8,7 @@ import Sidebar from './components/layout/Sidebar';
 import HomePage from './pages/HomePage';
 import DiscoverPage from './pages/DiscoverPage';
 import InstalledPage from './pages/InstalledPage';
-import UpdatesPage from './pages/UpdatesPage';
+import UpgradesPage from './pages/UpgradesPage';
 import SettingsPage from './pages/SettingsPage';
 import OutputPage from './pages/OutputPage';
 import LoginPage from './pages/LoginPage';
@@ -59,7 +59,7 @@ function MainApp() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && !isNaN(Number(e.key))) {
         e.preventDefault();
-        const pages = ['home', 'discover', 'installed', 'updates', 'output', 'settings'];
+        const pages = ['home', 'discover', 'installed', 'upgrades', 'output', 'settings'];
         const index = Number(e.key) - 1;
         if (index >= 0 && index < pages.length) {
           setActivePage(pages[index]);
@@ -79,8 +79,8 @@ function MainApp() {
         return <DiscoverPage />;
       case 'installed':
         return <InstalledPage />;
-      case 'updates':
-        return <UpdatesPage />;
+      case 'upgrades':
+        return <UpgradesPage />;
       case 'output':
         return <OutputPage />;
       case 'settings':

@@ -77,10 +77,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
         />
         <SidebarItem
           icon={<RefreshCw size={18} />}
-          label="Updates"
-          isActive={activePage === 'updates'}
+          label="Upgrades"
+          isActive={activePage === 'upgrades'}
           count={updatablePackages.length}
-          onClick={() => onNavigate('updates')}
+          onClick={() => onNavigate('upgrades')}
         />
         {settings.showOutputPage && (
           <SidebarItem
