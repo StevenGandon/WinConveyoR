@@ -14,3 +14,7 @@ from .add_pkg import add_pkg_command
 from .new_pkg import new_pkg_command
 from .purge_pkg import purge_pkg_command
 from .remove_pkg import remove_pkg_command
+from .undo import undo_command
+from .redo import redo_command
+from .list_backups import list_backups_command
+from .restore_backup import restore_backup_command

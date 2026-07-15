@@ -193,6 +193,39 @@ def main():
         []
     ))
 
+    nc.add_command(CLICommand(
+        "undo",
+        undo_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "redo",
+        redo_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "list_backups",
+        list_backups_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric())
+        ]
+    ), True)
+
+    nc.add_command(CLICommand(
+        "restore_backup",
+        restore_backup_command,
+        [
+            CLICommandArg("session_id", CLICommandArg.ARG_MANDATORY, argument_parser=int, argument_checker=lambda x: x.isnumeric()),
+            CLICommandArg("backup_name", CLICommandArg.ARG_MANDATORY)
+        ]
+    ), True)
+
     try:
         nc.run(private_key)
     except Exception as e:

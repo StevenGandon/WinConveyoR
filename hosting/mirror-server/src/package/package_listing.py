@@ -1,5 +1,5 @@
 from os.path import join, isfile, isdir, dirname
-from os import mkdir, stat
+from os import mkdir, stat, makedirs
 from shutil import copyfile
 from json import load, dump
 from hashlib import sha256, md5
@@ -55,9 +55,13 @@ class PackageListing(object):
                 print(f"warning: package {pkg_location} not found, remember, remote package is not implemented.")
 
         backup_dir = join(backup_parent, dirname(self.location.lstrip('/')))
+        live_dir = join(self.base_path, dirname(self.location.lstrip('/')))
 
         if (not isdir(backup_dir)):
-            mkdir(backup_dir)
+            makedirs(backup_dir, exist_ok=True)
+
+        if (not isdir(live_dir)):
+            makedirs(live_dir, exist_ok=True)
 
         if (isfile(join(self.base_path, self.location.lstrip('/')))):
             copyfile(join(self.base_path, self.location.lstrip('/')), join(backup_parent, self.location.lstrip('/')))

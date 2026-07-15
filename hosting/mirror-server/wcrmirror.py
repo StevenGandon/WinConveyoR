@@ -384,7 +384,7 @@ def route_new_pkg_listing(client: Client, server: Server, message: JSONMessage, 
         }))
 
         return
-    
+
     session.session_instance.add_package_register(message.content["data"]["package_name"])
 
     client.write(JSONMessage({
@@ -394,6 +394,99 @@ def route_new_pkg_listing(client: Client, server: Server, message: JSONMessage, 
         },
         "code": 0
     }))
+
+@protected_route(FLAG_ADMIN)
+def route_undo(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if (session.session_instance.undo_stack.can_undo()):
+        lastest = session.session_instance.undo_stack.get_lastest_undo()
+        session.session_instance.undo()
+
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": f"undone {lastest.name}."
+            },
+            "code": 0
+        }))
+    else:
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "nothing to undo."
+            },
+            "code": 0
+        }))
+
+        return
+
+@protected_route(FLAG_ADMIN)
+def route_redo(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if (session.session_instance.undo_stack.can_redo()):
+        lastest = session.session_instance.undo_stack.get_lastest_redo()
+        session.session_instance.redo()
+
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": f"redone {lastest.name}."
+            },
+            "code": 0
+        }))
+    else:
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "nothing to redo."
+            },
+            "code": 0
+        }))
+
+        return
+
+@protected_route(FLAG_ADMIN)
+def route_list_backups(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": list(session.session_instance.list_backups())
+        },
+        "code": 0
+    }))
+
+@protected_route(FLAG_ADMIN)
+def route_retrieve_backup(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("backup_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    try:
+        session.session_instance.restore(message.content["data"]["backup_name"])
+    except FileNotFoundError:
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "not_found"
+            },
+            "code": 1
+        }))
+
+        return
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
 
 @protected_route(FLAG_ADMIN)
 def route_purge_pkg_listing(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
@@ -417,7 +510,7 @@ def route_purge_pkg_listing(client: Client, server: Server, message: JSONMessage
             "code": 1
         }))
     
-    session.session_instance.remove_package_register(message.content["data"]["package_name"], hard_delete=True)
+    session.session_instance.remove_package_register(message.content["data"]["package_name"], hard_delete=False)
 
     client.write(JSONMessage({
         "action": message.content["action"],
@@ -460,7 +553,7 @@ def route_remove_pkg_listing(client: Client, server: Server, message: JSONMessag
             "code": 1
         }))
 
-    package_register.remove_package_listing(message.content["data"]["package_hash"], hard_delete=True)
+    package_register.remove_package_listing(message.content["data"]["package_hash"], hard_delete=False)
 
     client.write(JSONMessage({
         "action": message.content["action"],
@@ -595,6 +688,10 @@ def main():
     R.add_route("new_package", route_new_pkg_listing)
     R.add_route("purge_package", route_purge_pkg_listing)
     R.add_route("remove_package", route_remove_pkg_listing)
+    R.add_route("restore_backup", route_retrieve_backup)
+    R.add_route("list_backups", route_list_backups)
+    R.add_route("undo", route_undo)
+    R.add_route("redo", route_redo)
     R.add_route("goodbye", route_goodbye)
 
     S.set_handler(WCRHandler(R))

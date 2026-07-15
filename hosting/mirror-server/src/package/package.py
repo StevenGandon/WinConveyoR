@@ -1,21 +1,23 @@
 from os.path import join, isfile, isdir, basename, dirname, splitext, relpath
 from datetime import datetime
-from os import mkdir, remove
+from os import mkdir, remove, makedirs
 from shutil import copyfile
 from hashlib import sha256, md5
 
 from ..common import hash_file
+from ..undo import UndoStack, UndoStepSetItem, UndoStepSetAttr, UndoStepDelItem
 
 from .package_listing import PackageListing
 
 class Package(object):
-    def __init__(self, name="", location=None, latest = None, hsh = 0, backup_path: str = None, /, load: bool=False, recursive_load: bool = False, base_path = None):
+    def __init__(self, name="", location=None, latest = None, hsh = 0, backup_path: str = None, /, load: bool=False, recursive_load: bool = False, base_path = None, undo_stack = None):
         self.name = name
         self.latest = latest
-        self.location = location.replace('\\', '/')
+        self.location = location.replace('\\', '/') if location else location
         self.hash = hsh
         self.listing = {}
 
+        self.undo_stack = undo_stack if undo_stack else UndoStack()
 
         if (not base_path):
             base_path = "."
@@ -60,15 +62,19 @@ class Package(object):
 
     def write(self, backup_parent):
         hsh = sha256()
-        _linebreak: str = "\n" 
+        _linebreak: str = "\n"
 
         if (not self.loaded or not self.location):
             return
-        
+
         backup_dir = join(backup_parent, dirname(self.location.lstrip('/')))
+        live_dir = join(self.base_path, dirname(self.location.lstrip('/')))
 
         if (not isdir(backup_dir)):
-            mkdir(backup_dir)
+            makedirs(backup_dir, exist_ok=True)
+
+        if (not isdir(live_dir)):
+            makedirs(live_dir, exist_ok=True)
 
         if (isfile(join(self.base_path, self.location.lstrip('/')))):
             copyfile(join(self.base_path, self.location.lstrip('/')), join(backup_parent, self.location.lstrip('/')))
@@ -97,7 +103,7 @@ class Package(object):
         if (not isfile(package_location)):
             print("file not found, remember, remote package is not implemented.")
             return
-        
+
         arch = package_metadata.get("architecture", "x64")
         version = package_metadata.get("version", "1.0.0")
         machine = package_metadata.get("machine", "Gen-Linux")
@@ -107,6 +113,10 @@ class Package(object):
         path = copyfile(package_location, join(package_files_dir, name + splitext(package_location)[1]))
         json_path = join(package_files_dir, name + ".json")
         package_hash = hash_file(path)
+
+        prev_latest = self.latest
+
+        self.undo_stack.start_regisering_undo(f"add_package_listing:{package_hash}")
 
         self.listing[package_hash] = PackageListing(
             arch,
@@ -129,31 +139,44 @@ class Package(object):
 
         self.listing[package_hash].loaded = True
 
+
+        self.undo_stack.register_action(UndoStepSetItem(self.listing, package_hash))
+
         if (self.latest):
             self.latest = version if int(version.replace('.', '')) > int(self.latest.replace('.', '')) else self.latest
         else:
             self.latest = version
 
+        if (self.latest != prev_latest):
+            self.undo_stack.register_action(UndoStepSetAttr(self, "latest", prev_latest))
+
+        self.undo_stack.end_regisering_undo()
+
         return (self.listing[package_hash])
-    
+
     def get_package_listing(self, hsh):
         if (not self.loaded):
             self.load()
-        
+
         return self.listing[hsh]
-    
+
     def has_package_listing(self, hsh):
         if (not self.loaded):
             self.load()
-        
+
         return (hsh in self.listing)
 
     def remove_package_listing(self, hsh, *, hard_delete = False):
         if (not self.loaded):
             self.load()
-        
+
+        if (hsh not in self.listing):
+            return
+
         listing_location = join(self.base_path, self.listing[hsh].location.lstrip('/'))
         archive_location = join(self.base_path, self.listing[hsh].package_data["address"].lstrip('/'))
+
+        self.undo_stack.start_regisering_undo(f"remove_package_listing:{hsh}")
 
         if (hard_delete and isfile(listing_location)):
             if (not isdir(self.backup_path)):
@@ -168,4 +191,14 @@ class Package(object):
             copyfile(archive_location, join(self.backup_path, "deleted", filename + '-' + hash_file(archive_location, md5) + '.' + '.'.join(extension)))
             remove(archive_location)
 
+        self.undo_stack.register_action(UndoStepDelItem(self.listing[hsh], self.listing, hsh))
+
         del self.listing[hsh]
+
+        self.undo_stack.end_regisering_undo()
+
+    def undo(self):
+        self.undo_stack.undo()
+
+    def redo(self):
+        self.undo_stack.redo()
