@@ -591,6 +591,62 @@ def route_add_pkg(client: Client, server: Server, message: JSONMessage, /, sessi
     }))
 
 @protected_route(FLAG_ADMIN)
+def route_add_pkg_binary(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_data" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    if ("archive_size" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    archive_size = message.content["data"]["archive_size"]
+    new_package = session.session_instance.add_package_register(message.content["data"]["package_data"]["package"])
+    name = f"{message.content['data']['package_data']['package']}-{message.content['data']['package_data']['version']}-{message.content['data']['package_data']['architecture']}-{message.content['data']['package_data']['machine']}.tar.gz"
+
+    if (not isdir(join(session.session_instance.location, "temp"))):
+        mkdir(join(session.session_instance.location, "temp"))
+
+    client._busy = True
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ready"
+        },
+        "code": 0
+    }))
+
+    filepath = join(session.session_instance.location, "temp", name)
+    client.read_raw_to_file(archive_size, filepath)
+
+    client._busy = False
+
+    listing = new_package.add_package_listing(message.content["data"]["package_data"], filepath)
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
+@protected_route(FLAG_ADMIN)
 def route_disconnect(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.close()
     del server.sessions[session.get_id()]
@@ -671,6 +727,7 @@ def main():
     R.add_route("get_package_metadata", route_get_package_metadata)
     R.add_route("get_file", route_get_file)
     R.add_route("add_package", route_add_pkg)
+    R.add_route("add_package_binary", route_add_pkg_binary)
     R.add_route("new_package", route_new_pkg_listing)
     R.add_route("purge_package", route_purge_pkg_listing)
     R.add_route("remove_package", route_remove_pkg_listing)

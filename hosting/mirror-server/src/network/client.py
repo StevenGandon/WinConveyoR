@@ -150,9 +150,24 @@ class Client(object):
         if (payload_size > Client.MAX_PAYLOAD_SIZE):
             raise BufferError("payload size received exceed max size.")
 
-        payload_content = self._socket.recv(payload_size)
+        payload_content = b""
+        while len(payload_content) < payload_size:
+            chunk = self._socket.recv(min(payload_size - len(payload_content), 65536))
+            if (not chunk):
+                raise ConnectionError("client disconnected.")
+            payload_content += chunk
 
         return Message.from_recv(payload_magic, payload_flags, payload_content, encoding=encoding)
+
+    def read_raw_to_file(self, size, filepath):
+        remaining = size
+        with open(filepath, "wb") as fp:
+            while remaining > 0:
+                chunk = self._socket.recv(min(remaining, 65536))
+                if (not chunk):
+                    raise ConnectionError("client disconnected.")
+                fp.write(chunk)
+                remaining -= len(chunk)
 
     def write(self, message: Message):
         if (not self.isopen()):
