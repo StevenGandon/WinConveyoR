@@ -3,7 +3,7 @@ import os
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
-_DEFAULT_API_URL = "http://localhost:8000/api/v1"
+_DEFAULT_API_URL = "http://localhost:8010/api/v1"
 _TOKEN_PATH = os.path.expanduser("~/.config/wcr/token")
 
 def _api_url() -> str:

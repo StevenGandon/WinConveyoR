@@ -9,6 +9,7 @@ var wcr__client_8c =
     [ "wcr_build_payload", "wcr__client_8c.html#af75eca6595be364ca5d878a7be6f8d93", null ],
     [ "wcr_build_payload_va", "wcr__client_8c.html#ac90a24b6c1d31db825bc3c3f27758592", null ],
     [ "wcr_close", "wcr__client_8c.html#a9ced6f3727ffc0dbe614c1c94e5908ef", null ],
+    [ "wcr_download_file", "wcr__client_8c.html#a5d17d9df6084a1ac1841bbe87c4f3a06", null ],
     [ "wcr_get_hash", "wcr__client_8c.html#a021f52a7579c7b309e0c915f4b987bdd", null ],
     [ "wcr_get_listing", "wcr__client_8c.html#adeecb10306bba9f36c88cbd5f10d0f67", null ],
     [ "wcr_get_package_listing", "wcr__client_8c.html#a45652000f6de45422dc7171dfd2cf684", null ],

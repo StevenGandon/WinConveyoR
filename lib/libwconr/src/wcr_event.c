@@ -33,10 +33,7 @@ void wcr_emit(const wcr_state *state, wcr_event_type type, const char *fmt, ...)
         return;
     }
 
-    if (type == WCR_EVENT_ERROR || type == WCR_EVENT_WARNING)
-        fprintf(stderr, "%s\n", buf);
-    else
-        printf("%s\n", buf);
+    return;
 }
 
 void wcr_emit_progress(const wcr_state *state, size_t done, size_t total, const char *fmt, ...)

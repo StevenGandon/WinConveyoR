@@ -6,6 +6,8 @@ var dir_038b11ea331834bac576710fcf2fc87c =
     [ "libwconr_private_source.h", "libwconr__private__source_8h.html", "libwconr__private__source_8h" ],
     [ "pkg_downloader.h", "pkg__downloader_8h.html", "pkg__downloader_8h" ],
     [ "pkg_parsing.h", "pkg__parsing_8h.html", "pkg__parsing_8h" ],
+    [ "pkg_registry.h", "pkg__registry_8h.html", "pkg__registry_8h" ],
+    [ "pkg_specifier.h", "pkg__specifier_8h.html", "pkg__specifier_8h" ],
     [ "vm_internal.h", "vm__internal_8h.html", "vm__internal_8h" ],
     [ "wcr_client.h", "wcr__client_8h.html", "wcr__client_8h" ],
     [ "wcr_event.h", "wcr__event_8h.html", "wcr__event_8h" ],

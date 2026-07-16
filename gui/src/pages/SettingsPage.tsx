@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun, Monitor, ZoomIn, ZoomOut, Sliders, Eye, Keyboard } from 'lucide-react';
+import { Moon, Sun, Monitor, ZoomIn, ZoomOut, Sliders, Eye, Keyboard, Terminal } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import Header from '../components/layout/Header';
 import Card, { CardHeader, CardTitle, CardContent } from '../components/ui/Card';
@@ -22,7 +22,7 @@ const SettingsPage: React.FC = () => {
   return (
     <>
       <Header title="Settings" />
-      
+
       <div className="p-6 max-w-4xl">
         <div className="space-y-6">
           <Card>
@@ -32,7 +32,7 @@ const SettingsPage: React.FC = () => {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Theme</h3>
+                  <h3 className="text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-2">Theme</h3>
                   <div className="flex flex-wrap gap-3">
                     {themeButtons.map(({ value, label, icon }) => (
                       <Button
@@ -47,9 +47,9 @@ const SettingsPage: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contrast</h3>
+                  <h3 className="text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-2">Contrast</h3>
                   <div className="flex flex-wrap gap-3">
                     {contrastButtons.map(({ value, label }) => (
                       <Button
@@ -63,9 +63,9 @@ const SettingsPage: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Font Size</h3>
+                  <h3 className="text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-2">Font Size</h3>
                   <div className="flex items-center space-x-4">
                     <Button
                       variant="outline"
@@ -76,7 +76,7 @@ const SettingsPage: React.FC = () => {
                     >
                       Smaller
                     </Button>
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    <span className="text-wc-fg dark:text-wc-fg-dark font-medium">
                       {settings.fontSize}px
                     </span>
                     <Button
@@ -93,7 +93,7 @@ const SettingsPage: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Accessibility</CardTitle>
@@ -102,8 +102,8 @@ const SettingsPage: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Eye size={18} className="text-gray-700 dark:text-gray-300" />
-                    <span className="text-gray-700 dark:text-gray-300">Reduce motion</span>
+                    <Eye size={18} className="text-wc-fg dark:text-wc-fg-dark" />
+                    <span className="text-wc-fg dark:text-wc-fg-dark">Reduce motion</span>
                   </div>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -112,14 +112,14 @@ const SettingsPage: React.FC = () => {
                       checked={settings.reduceMotion}
                       onChange={(e) => updateSettings({ reduceMotion: e.target.checked })}
                     />
-                    <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <div className="relative w-11 h-6 bg-wc-surface peer-focus:outline-none rounded-full peer dark:bg-wc-surface-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-wc-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-wc-border-dark peer-checked:bg-wc-accent"></div>
                   </label>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Keyboard size={18} className="text-gray-700 dark:text-gray-300" />
-                    <span className="text-gray-700 dark:text-gray-300">Enable keyboard shortcuts</span>
+                    <Keyboard size={18} className="text-wc-fg dark:text-wc-fg-dark" />
+                    <span className="text-wc-fg dark:text-wc-fg-dark">Enable keyboard shortcuts</span>
                   </div>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -128,13 +128,29 @@ const SettingsPage: React.FC = () => {
                       checked={settings.enableKeyboardShortcuts}
                       onChange={(e) => updateSettings({ enableKeyboardShortcuts: e.target.checked })}
                     />
-                    <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <div className="relative w-11 h-6 bg-wc-surface peer-focus:outline-none rounded-full peer dark:bg-wc-surface-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-wc-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-wc-border-dark peer-checked:bg-wc-accent"></div>
+                  </label>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Terminal size={18} className="text-wc-fg dark:text-wc-fg-dark" />
+                    <span className="text-wc-fg dark:text-wc-fg-dark">Show output page</span>
+                  </div>
+                  <label className="inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={settings.showOutputPage}
+                      onChange={(e) => updateSettings({ showOutputPage: e.target.checked })}
+                    />
+                    <div className="relative w-11 h-6 bg-wc-surface peer-focus:outline-none rounded-full peer dark:bg-wc-surface-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-wc-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-wc-border-dark peer-checked:bg-wc-accent"></div>
                   </label>
                 </div>
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>About</CardTitle>
@@ -142,11 +158,11 @@ const SettingsPage: React.FC = () => {
             <CardContent>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <Sliders size={18} className="text-gray-700 dark:text-gray-300" />
-                  <span className="text-gray-700 dark:text-gray-300">WinConveyoR</span>
+                  <Sliders size={18} className="text-wc-fg dark:text-wc-fg-dark" />
+                  <span className="text-wc-fg dark:text-wc-fg-dark">WinConveyoR</span>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400">Version 1.0.0</p>
-                <p className="text-gray-600 dark:text-gray-400 mt-2">
+                <p className="text-wc-muted dark:text-wc-muted-dark">Version 1.0.0</p>
+                <p className="text-wc-muted dark:text-wc-muted-dark mt-2">
                   WinConveyoR is a modern package manager for Windows, designed with accessibility in mind.
                   It provides an easy way to discover, install, update, and manage software packages.
                 </p>

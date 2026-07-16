@@ -11,6 +11,10 @@ interface CliContextType {
   runUpdate: () => Promise<void>;
   runInstall: (packageName: string) => Promise<InstallResult>;
   runUninstall: (packageName: string) => Promise<number>;
+  runSearch: (query?: string) => Promise<{ name: string; version: string }[]>;
+  runInfo: (packageSpec: string) => Promise<string>;
+  runCheck: (packageSpec: string) => Promise<{ match: number; expected: string; actual: string } | null>;
+  runUpgrade: (packageName?: string) => Promise<number>;
 }
 
 const CliContext = createContext<CliContextType | undefined>(undefined);
@@ -56,8 +60,60 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return result.code;
   }, [busy]);
 
+  const runSearch = useCallback(async (query?: string): Promise<{ name: string; version: string }[]> => {
+    if (!window.electronAPI || busy) return [];
+    setBusy(true);
+    setLog('');
+    const result = await window.electronAPI.runSearch(query);
+    setBusy(false);
+    if (result.code !== 0) return [];
+    try {
+      const match = result.output.match(/\[.*\]/s);
+      if (match) return JSON.parse(match[0]);
+    } catch { /* ignore */ }
+    return [];
+  }, [busy]);
+
+  const runInfo = useCallback(async (packageSpec: string): Promise<string> => {
+    if (!window.electronAPI || busy) return '';
+    setBusy(true);
+    setLog('');
+    const result = await window.electronAPI.runInfo(packageSpec);
+    setBusy(false);
+    return result.output;
+  }, [busy]);
+
+  const runCheck = useCallback(async (packageSpec: string): Promise<{ match: number; expected: string; actual: string } | null> => {
+    if (!window.electronAPI || busy) return null;
+    setBusy(true);
+    setLog('');
+    const result = await window.electronAPI.runCheck(packageSpec);
+    setBusy(false);
+    const expectedMatch = result.output.match(/Expected:\s*(\S+)/);
+    const actualMatch = result.output.match(/Actual:\s*(\S+)/);
+    const statusMatch = result.output.match(/Status:\s*(\S+)/);
+    if (expectedMatch) {
+      return {
+        match: statusMatch?.[1] === 'OK' ? 1 : 0,
+        expected: expectedMatch[1],
+        actual: actualMatch?.[1] ?? '',
+      };
+    }
+    return null;
+  }, [busy]);
+
+  const runUpgrade = useCallback(async (packageName?: string): Promise<number> => {
+    if (!window.electronAPI || busy) return -1;
+    setBusy(true);
+    setLog('');
+    const result = await window.electronAPI.runUpgrade(packageName);
+    if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
+    setBusy(false);
+    return result.code;
+  }, [busy]);
+
   return (
-    <CliContext.Provider value={{ log, busy, runUpdate, runInstall, runUninstall }}>
+    <CliContext.Provider value={{ log, busy, runUpdate, runInstall, runUninstall, runSearch, runInfo, runCheck, runUpgrade }}>
       {children}
     </CliContext.Provider>
   );

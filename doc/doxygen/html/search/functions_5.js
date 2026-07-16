@@ -9,6 +9,9 @@ var searchData=
   ['events_6',['events',['../classsrc_1_1network_1_1server_1_1Server.html#ac42d47958df854f246fc9be80412798c',1,'src.network.server.Server.events()'],['../classsrc_1_1network_1_1client_1_1ClientSocket.html#aed31239fb64364f8fa1affcf8d02490d',1,'src.network.client.ClientSocket.events()'],['../classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#a80c4a4bd47f51b2bfa096234ea95b688',1,'src.cli.cli_base.NetworkCLI.events()']]],
   ['execute_5fredo_7',['execute_redo',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#a03deb093cc98154e297936d9f7abc4d6',1,'src::undo::undo_action::UndoAction']]],
   ['execute_5fundo_8',['execute_undo',['../classsrc_1_1undo_1_1undo__action_1_1UndoAction.html#a72e5d5c450abb38efd592edf9b4ba0ff',1,'src::undo::undo_action::UndoAction']]],
-  ['extract_5flocation_5fhash_9',['extract_location_hash',['../install__package_8c.html#a78b990a52a7f751872c6242748cc25d4',1,'install_package.c']]],
-  ['extract_5fsession_5fid_10',['extract_session_id',['../wcr__client_8c.html#a5a5ccdd5da21e3b7cbad7edf0536f7a6',1,'wcr_client.c']]]
+  ['extract_5farchive_9',['extract_archive',['../file__utils_8h.html#a84f26aedeb94fe08e77b04f3e620d7d9',1,'extract_archive(const struct wcr_state_s *state, const char *archive_path, const char *package_name):&#160;file_utils.c'],['../file__utils_8c.html#a84f26aedeb94fe08e77b04f3e620d7d9',1,'extract_archive(const struct wcr_state_s *state, const char *archive_path, const char *package_name):&#160;file_utils.c']]],
+  ['extract_5ffield_10',['extract_field',['../pkg__specifier_8c.html#a903c1fa2cefd3eea18b35926d93f5396',1,'pkg_specifier.c']]],
+  ['extract_5fline_5ffield_11',['extract_line_field',['../install__package_8c.html#ae21bb28d539688eef00778e567019297',1,'install_package.c']]],
+  ['extract_5fregister_5ffield_12',['extract_register_field',['../pkg__parsing_8c.html#aa198de6cdc3052b97495862af218547c',1,'pkg_parsing.c']]],
+  ['extract_5fsession_5fid_13',['extract_session_id',['../wcr__client_8c.html#a5a5ccdd5da21e3b7cbad7edf0536f7a6',1,'wcr_client.c']]]
 ];

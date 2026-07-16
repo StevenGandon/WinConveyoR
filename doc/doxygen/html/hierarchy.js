@@ -123,6 +123,7 @@ var hierarchy =
       [ "src.wrappers.libwconr.libwconr.WCRState", "classsrc_1_1wrappers_1_1libwconr_1_1libwconr_1_1WCRState.html", null ],
       [ "wcrmirror.Router", "classwcrmirror_1_1Router.html", null ]
     ] ],
+    [ "pkg_specifier", "structpkg__specifier.html", null ],
     [ "source_handler_s", "structsource__handler__s.html", null ],
     [ "source_mirror_s", "structsource__mirror__s.html", null ],
     [ "T", null, [
@@ -135,10 +136,15 @@ var hierarchy =
     [ "vm_handler_version", "structvm__handler__version.html", null ],
     [ "vm_iset_s", "structvm__iset__s.html", null ],
     [ "vm_op_def", "structvm__op__def.html", null ],
+    [ "wcr_available_pkg_s", "structwcr__available__pkg__s.html", null ],
     [ "wcr_conn_s", "structwcr__conn__s.html", null ],
     [ "wcr_event", "structwcr__event.html", null ],
+    [ "wcr_hash_check_s", "structwcr__hash__check__s.html", null ],
     [ "wcr_install_ctx", "structwcr__install__ctx.html", null ],
+    [ "wcr_installed_pkg_s", "structwcr__installed__pkg__s.html", null ],
     [ "wcr_msg_s", "structwcr__msg__s.html", null ],
+    [ "wcr_pkg_metadata_s", "structwcr__pkg__metadata__s.html", null ],
+    [ "wcr_pkg_variant_s", "structwcr__pkg__variant__s.html", null ],
     [ "wcr_source_s", "structwcr__source__s.html", null ],
     [ "wcr_state_s", "structwcr__state__s.html", null ],
     [ "wcr_system_s", "structwcr__system__s.html", null ],
@@ -170,6 +176,11 @@ var hierarchy =
       [ "wcrmirror.WCRHandler", "classwcrmirror_1_1WCRHandler.html", null ]
     ] ],
     [ "Structure", null, [
+      [ "src.wrappers.libwconr._libwconr.wcr_available_pkg_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__available__pkg__s.html", null ],
+      [ "src.wrappers.libwconr._libwconr.wcr_hash_check_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__hash__check__s.html", null ],
+      [ "src.wrappers.libwconr._libwconr.wcr_installed_pkg_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__installed__pkg__s.html", null ],
+      [ "src.wrappers.libwconr._libwconr.wcr_pkg_metadata_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__metadata__s.html", null ],
+      [ "src.wrappers.libwconr._libwconr.wcr_pkg_variant_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html", null ],
       [ "src.wrappers.libwconr._libwconr.wcr_source_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__source__s.html", null ],
       [ "src.wrappers.libwconr._libwconr.wcr_state_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__state__s.html", null ],
       [ "src.wrappers.libwconr._libwconr.wcr_system_s", "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__system__s.html", null ],

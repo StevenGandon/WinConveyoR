@@ -358,6 +358,84 @@ def route_get_package_metadata(client: Client, server: Server, message: JSONMess
 
     client.write(Message(Message.MAGIC, 0x00, dumps(package_listing.package_data)))
 
+@protected_route(FLAG_USER)
+def route_get_file(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    from os.path import isfile, join
+
+    if ("package_name" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "ko"},
+            "code": 1
+        }))
+        return
+
+    if ("location_hash" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "ko"},
+            "code": 1
+        }))
+        return
+
+    session.session_instance.load()
+
+    package_name = message.content["data"]["package_name"]
+    location_hash = int(message.content["data"]["location_hash"], base=16)
+
+    if (package_name not in session.session_instance.packages):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    package = session.session_instance.packages[package_name]
+    package.load()
+
+    package_listing = None
+    for item in package.listing.values():
+        if (int.from_bytes(sha256(str(item.location).encode(errors="replace")).digest(), "big") != location_hash):
+            continue
+        package_listing = item
+        break
+
+    if (not package_listing):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    package_listing.load()
+
+    address = package_listing.package_data.get("address")
+    if (not address):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    wcr_dir = "." if "WCR_DIR" not in environ else environ["WCR_DIR"]
+    full_path = join(wcr_dir, address.lstrip('/'))
+
+    if (not isfile(full_path)):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {"msg": "not_found"},
+            "code": 1
+        }))
+        return
+
+    with open(full_path, "rb") as f:
+        content = f.read()
+
+    client.write(Message(Message.MAGIC, 0x00, content))
+
 @protected_route(FLAG_ADMIN)
 def route_write(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.session_instance.write()
@@ -606,6 +684,62 @@ def route_add_pkg(client: Client, server: Server, message: JSONMessage, /, sessi
     }))
 
 @protected_route(FLAG_ADMIN)
+def route_add_pkg_binary(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
+    if ("package_data" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    if ("archive_size" not in message.content["data"]):
+        client.write(JSONMessage({
+            "action": message.content["action"],
+            "data": {
+                "msg": "ko"
+            },
+            "code": 1
+        }))
+
+        return
+
+    archive_size = message.content["data"]["archive_size"]
+    new_package = session.session_instance.add_package_register(message.content["data"]["package_data"]["package"])
+    name = f"{message.content['data']['package_data']['package']}-{message.content['data']['package_data']['version']}-{message.content['data']['package_data']['architecture']}-{message.content['data']['package_data']['machine']}.tar.gz"
+
+    if (not isdir(join(session.session_instance.location, "temp"))):
+        mkdir(join(session.session_instance.location, "temp"))
+
+    client._busy = True
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ready"
+        },
+        "code": 0
+    }))
+
+    filepath = join(session.session_instance.location, "temp", name)
+    client.read_raw_to_file(archive_size, filepath)
+
+    client._busy = False
+
+    listing = new_package.add_package_listing(message.content["data"]["package_data"], filepath)
+
+    client.write(JSONMessage({
+        "action": message.content["action"],
+        "data": {
+            "msg": "ok"
+        },
+        "code": 0
+    }))
+
+@protected_route(FLAG_ADMIN)
 def route_disconnect(client: Client, server: Server, message: JSONMessage, /, session: Session = None):
     session.close()
     del server.sessions[session.get_id()]
@@ -684,7 +818,9 @@ def main():
     R.add_route("get_listing", route_get_listing)
     R.add_route("get_package_listing", route_get_package_listing)
     R.add_route("get_package_metadata", route_get_package_metadata)
+    R.add_route("get_file", route_get_file)
     R.add_route("add_package", route_add_pkg)
+    R.add_route("add_package_binary", route_add_pkg_binary)
     R.add_route("new_package", route_new_pkg_listing)
     R.add_route("purge_package", route_purge_pkg_listing)
     R.add_route("remove_package", route_remove_pkg_listing)

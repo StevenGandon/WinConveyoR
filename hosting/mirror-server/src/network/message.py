@@ -21,11 +21,12 @@ class Message(object):
 
     def to_bytes(self, encoding = "utf8"):
         buffer = bytearray()
+        raw = self.content if isinstance(self.content, bytes) else self.content.encode(encoding)
 
         if (self.PUBLIC_KEY is None):
-            encoded_content = self.content.encode(encoding)
+            encoded_content = raw
         else:
-            encoded_content = self.PUBLIC_KEY.encrypt(self.content.encode())
+            encoded_content = self.PUBLIC_KEY.encrypt(raw)
 
         buffer.extend(self.magic.to_bytes(4, "big"))
         buffer.extend(self.flags.to_bytes(2, "big"))

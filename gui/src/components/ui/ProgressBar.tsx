@@ -21,7 +21,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   const percentage = Math.min(Math.max(0, (value / max) * 100), 100);
   
-  const baseClasses = 'w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden';
+  const baseClasses = 'w-full bg-wc-surface dark:bg-wc-surface-dark rounded-full overflow-hidden';
   
   const sizeClasses = {
     sm: 'h-1',
@@ -30,10 +30,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   };
   
   const variantClasses = {
-    default: 'bg-blue-600 dark:bg-blue-500',
-    success: 'bg-green-600 dark:bg-green-500',
-    warning: 'bg-yellow-600 dark:bg-yellow-500',
-    error: 'bg-red-600 dark:bg-red-500',
+    default: 'bg-wc-accent',
+    success: 'bg-wc-success dark:bg-wc-success-dark',
+    warning: 'bg-wc-accent dark:bg-wc-accent-bright',
+    error: 'bg-wc-danger dark:bg-wc-danger-dark',
   };
   
   return (
@@ -41,12 +41,12 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       {(label || showValue) && (
         <div className="flex justify-between items-center mb-1">
           {label && (
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-wc-fg dark:text-wc-fg-dark">
               {label}
             </span>
           )}
           {showValue && (
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-wc-fg dark:text-wc-fg-dark">
               {value}/{max} ({percentage.toFixed(0)}%)
             </span>
           )}

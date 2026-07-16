@@ -6,6 +6,13 @@
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$unistd.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{wcr__state_8c_a75b28c63a2a67628d788981cb8170023}{ACCESS\+\_\+\+KEY\+\_\+\+PREFIX}}~"{}access\+\_\+key="{}
+\item 
+\#define \mbox{\hyperlink{wcr__state_8c_aba642627b31ac3bf1e7c4484337db30d}{SERVER\+\_\+\+PUBKEY\+\_\+\+PREFIX}}~"{}server\+\_\+pubkey="{}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -34,7 +41,26 @@ int \mbox{\hyperlink{wcr__state_8c_a2d0b5c27b3597d1d9de8872fce6f7a03}{wcr\+\_\+s
 int \mbox{\hyperlink{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143}{write\+\_\+state}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}filepath)
 \item 
 \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__state_8c_a923f8210b10387db0dfd09297804a4f5}{load\+\_\+state}} (const char \texorpdfstring{$\ast$}{*}filepath)
+\item 
+const \mbox{\hyperlink{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731}{wcr\+\_\+source}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__state_8c_aeb5e84fafc1e1c817eac43d395e3bfa3}{wcr\+\_\+state\+\_\+find\+\_\+source}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}url)
+\item 
+int \mbox{\hyperlink{wcr__state_8c_afff905240a219acb1239b0ab4861326a}{wcr\+\_\+source\+\_\+set\+\_\+auth}} (\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, size\+\_\+t index, const char \texorpdfstring{$\ast$}{*}access\+\_\+key, const char \texorpdfstring{$\ast$}{*}server\+\_\+pubkey\+\_\+path)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{wcr__state_8c_a75b28c63a2a67628d788981cb8170023}\label{wcr__state_8c_a75b28c63a2a67628d788981cb8170023} 
+\index{wcr\_state.c@{wcr\_state.c}!ACCESS\_KEY\_PREFIX@{ACCESS\_KEY\_PREFIX}}
+\index{ACCESS\_KEY\_PREFIX@{ACCESS\_KEY\_PREFIX}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{ACCESS\_KEY\_PREFIX}{ACCESS\_KEY\_PREFIX}}
+{\footnotesize\ttfamily \#define ACCESS\+\_\+\+KEY\+\_\+\+PREFIX~"{}access\+\_\+key="{}}
+
+\Hypertarget{wcr__state_8c_aba642627b31ac3bf1e7c4484337db30d}\label{wcr__state_8c_aba642627b31ac3bf1e7c4484337db30d} 
+\index{wcr\_state.c@{wcr\_state.c}!SERVER\_PUBKEY\_PREFIX@{SERVER\_PUBKEY\_PREFIX}}
+\index{SERVER\_PUBKEY\_PREFIX@{SERVER\_PUBKEY\_PREFIX}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{SERVER\_PUBKEY\_PREFIX}{SERVER\_PUBKEY\_PREFIX}}
+{\footnotesize\ttfamily \#define SERVER\+\_\+\+PUBKEY\+\_\+\+PREFIX~"{}server\+\_\+pubkey="{}}
+
 
 
 \doxysubsection{Function Documentation}
@@ -104,11 +130,23 @@ int \mbox{\hyperlink{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143}{write\+\_\
 \doxysubsubsection{\texorpdfstring{wcr\_mutex\_unlock()}{wcr\_mutex\_unlock()}}
 {\footnotesize\ttfamily static void wcr\+\_\+mutex\+\_\+unlock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}} \texorpdfstring{$\ast$}{*}}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+\Hypertarget{wcr__state_8c_afff905240a219acb1239b0ab4861326a}\label{wcr__state_8c_afff905240a219acb1239b0ab4861326a} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_source\_set\_auth@{wcr\_source\_set\_auth}}
+\index{wcr\_source\_set\_auth@{wcr\_source\_set\_auth}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_source\_set\_auth()}{wcr\_source\_set\_auth()}}
+{\footnotesize\ttfamily int wcr\+\_\+source\+\_\+set\+\_\+auth (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{size\+\_\+t}]{index,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{access\+\_\+key,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{server\+\_\+pubkey\+\_\+path }\end{DoxyParamCaption})}
+
 \Hypertarget{wcr__state_8c_a2d0b5c27b3597d1d9de8872fce6f7a03}\label{wcr__state_8c_a2d0b5c27b3597d1d9de8872fce6f7a03} 
 \index{wcr\_state.c@{wcr\_state.c}!wcr\_state\_add\_source@{wcr\_state\_add\_source}}
 \index{wcr\_state\_add\_source@{wcr\_state\_add\_source}!wcr\_state.c@{wcr\_state.c}}
 \doxysubsubsection{\texorpdfstring{wcr\_state\_add\_source()}{wcr\_state\_add\_source()}}
 {\footnotesize\ttfamily int wcr\+\_\+state\+\_\+add\+\_\+source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{url }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__state_8c_aeb5e84fafc1e1c817eac43d395e3bfa3}\label{wcr__state_8c_aeb5e84fafc1e1c817eac43d395e3bfa3} 
+\index{wcr\_state.c@{wcr\_state.c}!wcr\_state\_find\_source@{wcr\_state\_find\_source}}
+\index{wcr\_state\_find\_source@{wcr\_state\_find\_source}!wcr\_state.c@{wcr\_state.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_state\_find\_source()}{wcr\_state\_find\_source()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731}{wcr\+\_\+source}} \texorpdfstring{$\ast$}{*} wcr\+\_\+state\+\_\+find\+\_\+source (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{url }\end{DoxyParamCaption})}
 
 \Hypertarget{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143}\label{wcr__state_8c_a9c74adc73b0d3cfb8bdfc1de0f8f0143} 
 \index{wcr\_state.c@{wcr\_state.c}!write\_state@{write\_state}}

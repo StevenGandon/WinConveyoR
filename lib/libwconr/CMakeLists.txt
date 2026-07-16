@@ -44,6 +44,7 @@ set(LIBWCONR_SOURCES
     src/sync_package_list.c
     src/install_package.c
     src/uninstall_package.c
+    src/pkg_registry.c
     src/http_headers.c
     src/http_parsing.c
     src/http_request.c
@@ -51,6 +52,7 @@ set(LIBWCONR_SOURCES
     src/wcr_state.c
     src/wcr_client.c
     src/wcr_crypt.c
+    src/pkg_specifier.c
 
     src/modules/source/source_handler.c
 
@@ -101,5 +103,12 @@ add_custom_command(TARGET wconr POST_BUILD
         $<TARGET_FILE:libcurl>
         $<TARGET_FILE_DIR:wconr>
     COMMAND ${CMAKE_COMMAND} -E echo "libcurl copied to: $<TARGET_FILE_DIR:wconr>"
-    COMMENT "Copying libcurl shared library to output directory and printing the path"
+    COMMENT "Copying libcurl shared library to output directory"
+)
+
+add_custom_command(TARGET wconr POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:wconr>
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../cli/build/$<TARGET_FILE_NAME:wconr>
+    COMMENT "Copying libwconr to cli/build/"
 )

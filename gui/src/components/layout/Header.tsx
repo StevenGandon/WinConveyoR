@@ -18,12 +18,12 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   };
 
   return (
-    <header className="p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 leading-6">{title}</h2>
+    <header className="p-4 bg-wc-card dark:bg-wc-card-dark border-b border-wc-border dark:border-wc-border-dark flex items-center justify-between">
+      <h2 className="text-xl font-semibold text-wc-fg dark:text-wc-fg-dark leading-6">{title}</h2>
 
       <button
         onClick={toggleTheme}
-        className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="p-1 rounded-full hover:bg-wc-surface dark:hover:bg-wc-surface-dark text-wc-muted dark:text-wc-muted-dark focus:outline-none"
         title={`Theme: ${settings.theme}`}
       >
         {getThemeIcon()}

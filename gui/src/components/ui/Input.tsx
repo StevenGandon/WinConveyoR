@@ -20,8 +20,8 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
   
-  const baseInputClasses = 'block bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors';
-  const errorInputClasses = error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : '';
+  const baseInputClasses = 'block bg-wc-card dark:bg-wc-card-dark text-wc-fg dark:text-wc-fg-dark rounded-md border border-wc-border dark:border-wc-border-dark focus:outline-none focus:border-wc-accent transition-colors';
+  const errorInputClasses = error ? 'border-wc-danger focus:border-wc-danger' : '';
   const paddingClasses = leftIcon ? 'pl-10' : 'pl-4';
   const rightPaddingClasses = rightIcon ? 'pr-10' : 'pr-4';
   const widthClass = fullWidth ? 'w-full' : '';
@@ -33,14 +33,14 @@ const Input: React.FC<InputProps> = ({
       {label && (
         <label 
           htmlFor={inputId} 
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          className="block text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-1"
         >
           {label}
         </label>
       )}
       <div className="relative">
         {leftIcon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-wc-muted dark:text-wc-muted-dark">
             {leftIcon}
           </div>
         )}
@@ -52,13 +52,13 @@ const Input: React.FC<InputProps> = ({
           {...props}
         />
         {rightIcon && (
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-400">
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-wc-muted dark:text-wc-muted-dark">
             {rightIcon}
           </div>
         )}
       </div>
       {error && (
-        <p id={`${inputId}-error`} className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
+        <p id={`${inputId}-error`} className="mt-1 text-sm text-wc-danger dark:text-wc-danger-dark" role="alert">
           {error}
         </p>
       )}

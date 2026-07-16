@@ -47,6 +47,7 @@ char *wcr_get_listing(wcr_conn *conn) { (void)conn; return NULL; }
 char *wcr_get_hash(wcr_conn *conn) { (void)conn; return NULL; }
 char *wcr_get_package_listing(wcr_conn *conn, const char *package_name) { (void)conn; (void)package_name; return NULL; }
 char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const char *location_hash) { (void)conn; (void)package_name; (void)location_hash; return NULL; }
+int wcr_download_file(wcr_conn *conn, const char *package_name, const char *location_hash, const char *local_path) { (void)conn; (void)package_name; (void)location_hash; (void)local_path; return -1; }
 
 #else
 
@@ -112,26 +113,42 @@ int wcr_send(wcr_conn *conn, const wcr_msg *msg)
     unsigned char header[WCR_HEADER_SIZE];
     uint32_t magic_be = htonl(msg->magic);
     uint16_t flags_be = htons(msg->flags);
+    const char *payload = msg->payload;
+    size_t payload_len = msg->payload_len;
+    unsigned char *encrypted = NULL;
     ssize_t sent;
+
+    if (conn->server_pubkey && payload_len > 0) {
+        encrypted = wcr_encrypt(conn->server_pubkey,
+            (const unsigned char *)payload, payload_len, &payload_len);
+        if (!encrypted) {
+            wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: encryption failed");
+            return -1;
+        }
+        payload = (const char *)encrypted;
+    }
 
     memcpy(header, &magic_be, 4);
     memcpy(header + 4, &flags_be, 2);
-    write_be64(header + 6, (uint64_t)msg->payload_len);
+    write_be64(header + 6, (uint64_t)payload_len);
 
     sent = send(conn->sockfd, header, WCR_HEADER_SIZE, 0);
     if (sent != WCR_HEADER_SIZE) {
         wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: failed to send header");
+        free(encrypted);
         return -1;
     }
 
-    if (msg->payload_len > 0) {
-        sent = send(conn->sockfd, msg->payload, msg->payload_len, 0);
-        if (sent != (ssize_t)msg->payload_len) {
+    if (payload_len > 0) {
+        sent = send(conn->sockfd, payload, payload_len, 0);
+        if (sent != (ssize_t)payload_len) {
             wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: failed to send payload");
+            free(encrypted);
             return -1;
         }
     }
 
+    free(encrypted);
     return 0;
 }
 
@@ -197,11 +214,13 @@ wcr_msg *wcr_recv(wcr_conn *conn)
 
     if (conn->encrypted && conn->client_privkey && payload_size > 0) {
         size_t decrypted_len;
-        unsigned char *decrypted = wcr_decrypt(conn->client_privkey,
+        unsigned char *decrypted;
+
+        decrypted = wcr_decrypt(conn->client_privkey,
             (unsigned char *)raw, payload_size, &decrypted_len);
         free(raw);
         if (!decrypted) {
-            wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_recv: decryption failed");
+            wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_recv: decryption failed (payload was %zu bytes)", payload_size);
             return NULL;
         }
         raw = (char *)decrypted;
@@ -282,8 +301,6 @@ void wcr_close(wcr_conn *conn)
             wcr_send(conn, goodbye);
             wcr_msg_free(goodbye);
         }
-        wcr_msg *resp = wcr_recv(conn);
-        wcr_msg_free(resp);
         close(conn->sockfd);
     }
 
@@ -569,6 +586,54 @@ char *wcr_get_package_metadata(wcr_conn *conn, const char *package_name, const c
     return wcr_request(conn, "get_package_metadata",
         "\"package_name\":\"%s\",\"location_hash\":\"%s\"",
         package_name, location_hash);
+}
+
+int wcr_download_file(wcr_conn *conn, const char *package_name, const char *location_hash, const char *local_path)
+{
+    char *payload;
+    wcr_msg *req;
+    wcr_msg *resp;
+    FILE *fp;
+
+    if (!conn || !package_name || !location_hash || !local_path)
+        return -1;
+
+    payload = wcr_build_payload("get_file", conn->session_id,
+        "\"package_name\":\"%s\",\"location_hash\":\"%s\"",
+        package_name, location_hash);
+    if (!payload)
+        return -1;
+
+    req = wcr_msg_new(payload, 0);
+    free(payload);
+    if (!req)
+        return -1;
+    if (wcr_send(conn, req) != 0) {
+        wcr_msg_free(req);
+        return -1;
+    }
+    wcr_msg_free(req);
+
+    resp = wcr_recv(conn);
+    if (!resp || !resp->payload) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_download_file: no response for '%s'", package_name);
+        wcr_msg_free(resp);
+        return -1;
+    }
+
+    fp = fopen(local_path, "wb");
+    if (!fp) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_download_file: cannot open %s", local_path);
+        wcr_msg_free(resp);
+        return -1;
+    }
+
+    fwrite(resp->payload, 1, resp->payload_len, fp);
+    fclose(fp);
+
+    wcr_emit(NULL, WCR_EVENT_DEBUG, "[DEBUG] wcr_download_file: saved %zu bytes to %s", resp->payload_len, local_path);
+    wcr_msg_free(resp);
+    return 0;
 }
 
 #endif

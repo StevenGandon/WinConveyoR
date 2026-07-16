@@ -5,7 +5,9 @@
 {\ttfamily \#include "{}pkg\+\_\+downloader.\+h"{}}\newline
 {\ttfamily \#include "{}file\+\_\+utils.\+h"{}}\newline
 {\ttfamily \#include "{}pkg\+\_\+parsing.\+h"{}}\newline
+{\ttfamily \#include "{}pkg\+\_\+registry.\+h"{}}\newline
 {\ttfamily \#include "{}wcr\+\_\+client.\+h"{}}\newline
+{\ttfamily \#include "{}pkg\+\_\+specifier.\+h"{}}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
@@ -23,6 +25,8 @@ struct \mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+static int \mbox{\hyperlink{install__package_8c_a00ccfa48a7b675b477c2c8bae2ebaf99}{wcr\+\_\+connect\+\_\+source}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const \mbox{\hyperlink{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731}{wcr\+\_\+source}} \texorpdfstring{$\ast$}{*}src, const char \texorpdfstring{$\ast$}{*}host, int port, \mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out)
+\item 
 static int \mbox{\hyperlink{install__package_8c_a5ecffebf65b5eed27ba6375f92d72967}{fetch\+\_\+register}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}register\+\_\+path, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+content)
 \item 
 static int \mbox{\hyperlink{install__package_8c_a6a0522dbf9d25c20c94a785962563531}{fetch\+\_\+metadata}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}variant\+\_\+location, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+address, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+sha256, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+depends, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+depends\+\_\+count)
@@ -31,9 +35,13 @@ static int \mbox{\hyperlink{install__package_8c_a058ed2020bbdec2d887dc265d0d4f30
 \item 
 static int \mbox{\hyperlink{install__package_8c_a455c04e93b32de27b81ed2c505063ccd}{parse\+\_\+host\+\_\+port}} (const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, char \texorpdfstring{$\ast$}{*}host, size\+\_\+t host\+\_\+sz, int \texorpdfstring{$\ast$}{*}port)
 \item 
-static int \mbox{\hyperlink{install__package_8c_a78b990a52a7f751872c6242748cc25d4}{extract\+\_\+location\+\_\+hash}} (const char \texorpdfstring{$\ast$}{*}listing, char \texorpdfstring{$\ast$}{*}out, size\+\_\+t out\+\_\+sz)
+static int \mbox{\hyperlink{install__package_8c_ae21bb28d539688eef00778e567019297}{extract\+\_\+line\+\_\+field}} (const char \texorpdfstring{$\ast$}{*}line, int field\+\_\+idx, char \texorpdfstring{$\ast$}{*}out, size\+\_\+t out\+\_\+sz)
 \item 
-static int \mbox{\hyperlink{install__package_8c_a12c01f96459cbb238764d5c555c8d8c2}{wcr\+\_\+fetch\+\_\+metadata}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}conn, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+address, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+sha256, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+depends, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+depends\+\_\+count)
+static int \mbox{\hyperlink{install__package_8c_a0048933b0dadb331c38e88e991359c11}{strcasematch}} (const char \texorpdfstring{$\ast$}{*}filter, const char \texorpdfstring{$\ast$}{*}value)
+\item 
+static int \mbox{\hyperlink{install__package_8c_a09e84755097c598888c8bf842dca4c61}{select\+\_\+variant\+\_\+wcr}} (const char \texorpdfstring{$\ast$}{*}listing, const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}spec, char \texorpdfstring{$\ast$}{*}out\+\_\+hash, size\+\_\+t hash\+\_\+sz)
+\item 
+static int \mbox{\hyperlink{install__package_8c_a820b6f7ba53f76afdc7b5a99577414ef}{wcr\+\_\+fetch\+\_\+metadata}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}conn, const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}spec, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+address, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+sha256, char \texorpdfstring{$\ast$}{*}out\+\_\+location\+\_\+hash, size\+\_\+t location\+\_\+hash\+\_\+sz, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+depends, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+depends\+\_\+count, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+version)
 \item 
 static void \mbox{\hyperlink{install__package_8c_a461959968be4b215d2f828d69760b7c0}{install\+\_\+ctx\+\_\+cleanup}} (\mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}ctx)
 \item 
@@ -41,11 +49,31 @@ static int \mbox{\hyperlink{install__package_8c_a6a016c4006e52a086d3d604aab2947c
 \item 
 static int \mbox{\hyperlink{install__package_8c_a0515ec38246ce8ef278e9b68ec6793ec}{install\+\_\+ctx\+\_\+add}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name)
 \item 
+static int \mbox{\hyperlink{install__package_8c_ab849643426cb35a7ac03d155df116c4d}{install\+\_\+wcr\+\_\+single}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, \mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}ctx, int is\+\_\+dep)
+\item 
 static int \mbox{\hyperlink{install__package_8c_a658b894a7fe4abebeb3900652350e6b9}{install\+\_\+wcr}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name)
 \item 
-static int \mbox{\hyperlink{install__package_8c_a0f0106d7dd643b093acbb2ee101e804d}{install\+\_\+http\+\_\+with\+\_\+deps}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, \mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}ctx)
+static int \mbox{\hyperlink{install__package_8c_ab128e34d309540dcec9d24d2c9437a68}{install\+\_\+http\+\_\+with\+\_\+deps}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, \mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}ctx, int is\+\_\+dep)
 \item 
 static int \mbox{\hyperlink{install__package_8c_af830635accadd77a44c21219cc73ad10}{install\+\_\+http}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name)
+\item 
+static int \mbox{\hyperlink{install__package_8c_a5e518db016306fd2e3fe14e40532ed7e}{variants\+\_\+wcr}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, \mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+static int \mbox{\hyperlink{install__package_8c_a2609e7287f55b95867e592d0ac377964}{variants\+\_\+http}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, \mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+int \mbox{\hyperlink{install__package_8c_a593c4d6d639d3e87dd1be70f49de78c4}{list\+\_\+package\+\_\+variants}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, \mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+static int \mbox{\hyperlink{install__package_8c_a541c5a84edeaf0373f44389d48dfe4c3}{metadata\+\_\+wcr}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}spec, \mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}out)
+\item 
+static int \mbox{\hyperlink{install__package_8c_ad4d626e8241e5a163ef64df25fffdfde}{metadata\+\_\+http}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}spec, \mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}out)
+\item 
+int \mbox{\hyperlink{install__package_8c_adc1c26407128b46c96e1b60e478091b2}{get\+\_\+package\+\_\+metadata}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+spec, \mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}out)
+\item 
+void \mbox{\hyperlink{install__package_8c_a1dfb66b75bcfd7f3389e10a6dff2219d}{free\+\_\+package\+\_\+metadata}} (\mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}meta)
+\item 
+int \mbox{\hyperlink{install__package_8c_a1a618769c6da4844ef7d585360ffd720}{verify\+\_\+cached\+\_\+package}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+spec, \mbox{\hyperlink{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}{wcr\+\_\+hash\+\_\+check}} \texorpdfstring{$\ast$}{*}out)
+\item 
+void \mbox{\hyperlink{install__package_8c_a83eebb40cd24ee14896572626f2c1d5c}{free\+\_\+hash\+\_\+check}} (\mbox{\hyperlink{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}{wcr\+\_\+hash\+\_\+check}} \texorpdfstring{$\ast$}{*}check)
 \item 
 int \mbox{\hyperlink{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760}{install\+\_\+package}} (const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name)
 \end{DoxyCompactItemize}
@@ -61,11 +89,11 @@ int \mbox{\hyperlink{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760}{inst
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{install__package_8c_a78b990a52a7f751872c6242748cc25d4}\label{install__package_8c_a78b990a52a7f751872c6242748cc25d4} 
-\index{install\_package.c@{install\_package.c}!extract\_location\_hash@{extract\_location\_hash}}
-\index{extract\_location\_hash@{extract\_location\_hash}!install\_package.c@{install\_package.c}}
-\doxysubsubsection{\texorpdfstring{extract\_location\_hash()}{extract\_location\_hash()}}
-{\footnotesize\ttfamily static int extract\+\_\+location\+\_\+hash (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{listing,  }\item[{char \texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t}]{out\+\_\+sz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+\Hypertarget{install__package_8c_ae21bb28d539688eef00778e567019297}\label{install__package_8c_ae21bb28d539688eef00778e567019297} 
+\index{install\_package.c@{install\_package.c}!extract\_line\_field@{extract\_line\_field}}
+\index{extract\_line\_field@{extract\_line\_field}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{extract\_line\_field()}{extract\_line\_field()}}
+{\footnotesize\ttfamily static int extract\+\_\+line\+\_\+field (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{line,  }\item[{int}]{field\+\_\+idx,  }\item[{char \texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t}]{out\+\_\+sz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \Hypertarget{install__package_8c_a058ed2020bbdec2d887dc265d0d4f30f}\label{install__package_8c_a058ed2020bbdec2d887dc265d0d4f30f} 
 \index{install\_package.c@{install\_package.c}!fetch\_and\_verify\_archive@{fetch\_and\_verify\_archive}}
@@ -84,6 +112,24 @@ int \mbox{\hyperlink{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760}{inst
 \index{fetch\_register@{fetch\_register}!install\_package.c@{install\_package.c}}
 \doxysubsubsection{\texorpdfstring{fetch\_register()}{fetch\_register()}}
 {\footnotesize\ttfamily static int fetch\+\_\+register (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{register\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+content }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a83eebb40cd24ee14896572626f2c1d5c}\label{install__package_8c_a83eebb40cd24ee14896572626f2c1d5c} 
+\index{install\_package.c@{install\_package.c}!free\_hash\_check@{free\_hash\_check}}
+\index{free\_hash\_check@{free\_hash\_check}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{free\_hash\_check()}{free\_hash\_check()}}
+{\footnotesize\ttfamily void free\+\_\+hash\+\_\+check (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}{wcr\+\_\+hash\+\_\+check}} \texorpdfstring{$\ast$}{*}}]{check }\end{DoxyParamCaption})}
+
+\Hypertarget{install__package_8c_a1dfb66b75bcfd7f3389e10a6dff2219d}\label{install__package_8c_a1dfb66b75bcfd7f3389e10a6dff2219d} 
+\index{install\_package.c@{install\_package.c}!free\_package\_metadata@{free\_package\_metadata}}
+\index{free\_package\_metadata@{free\_package\_metadata}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{free\_package\_metadata()}{free\_package\_metadata()}}
+{\footnotesize\ttfamily void free\+\_\+package\+\_\+metadata (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}}]{meta }\end{DoxyParamCaption})}
+
+\Hypertarget{install__package_8c_adc1c26407128b46c96e1b60e478091b2}\label{install__package_8c_adc1c26407128b46c96e1b60e478091b2} 
+\index{install\_package.c@{install\_package.c}!get\_package\_metadata@{get\_package\_metadata}}
+\index{get\_package\_metadata@{get\_package\_metadata}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{get\_package\_metadata()}{get\_package\_metadata()}}
+{\footnotesize\ttfamily int get\+\_\+package\+\_\+metadata (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+spec,  }\item[{\mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
 
 \Hypertarget{install__package_8c_a0515ec38246ce8ef278e9b68ec6793ec}\label{install__package_8c_a0515ec38246ce8ef278e9b68ec6793ec} 
 \index{install\_package.c@{install\_package.c}!install\_ctx\_add@{install\_ctx\_add}}
@@ -109,11 +155,11 @@ int \mbox{\hyperlink{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760}{inst
 \doxysubsubsection{\texorpdfstring{install\_http()}{install\_http()}}
 {\footnotesize\ttfamily static int install\+\_\+http (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-\Hypertarget{install__package_8c_a0f0106d7dd643b093acbb2ee101e804d}\label{install__package_8c_a0f0106d7dd643b093acbb2ee101e804d} 
+\Hypertarget{install__package_8c_ab128e34d309540dcec9d24d2c9437a68}\label{install__package_8c_ab128e34d309540dcec9d24d2c9437a68} 
 \index{install\_package.c@{install\_package.c}!install\_http\_with\_deps@{install\_http\_with\_deps}}
 \index{install\_http\_with\_deps@{install\_http\_with\_deps}!install\_package.c@{install\_package.c}}
 \doxysubsubsection{\texorpdfstring{install\_http\_with\_deps()}{install\_http\_with\_deps()}}
-{\footnotesize\ttfamily static int install\+\_\+http\+\_\+with\+\_\+deps (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{\mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}}]{ctx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static int install\+\_\+http\+\_\+with\+\_\+deps (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{\mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{int}]{is\+\_\+dep }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \Hypertarget{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760}\label{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760} 
 \index{install\_package.c@{install\_package.c}!install\_package@{install\_package}}
@@ -127,15 +173,75 @@ int \mbox{\hyperlink{install__package_8c_a697f76330e6bcf4e4acc850c1ac52760}{inst
 \doxysubsubsection{\texorpdfstring{install\_wcr()}{install\_wcr()}}
 {\footnotesize\ttfamily static int install\+\_\+wcr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+\Hypertarget{install__package_8c_ab849643426cb35a7ac03d155df116c4d}\label{install__package_8c_ab849643426cb35a7ac03d155df116c4d} 
+\index{install\_package.c@{install\_package.c}!install\_wcr\_single@{install\_wcr\_single}}
+\index{install\_wcr\_single@{install\_wcr\_single}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{install\_wcr\_single()}{install\_wcr\_single()}}
+{\footnotesize\ttfamily static int install\+\_\+wcr\+\_\+single (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{\mbox{\hyperlink{structwcr__install__ctx}{wcr\+\_\+install\+\_\+ctx}} \texorpdfstring{$\ast$}{*}}]{ctx,  }\item[{int}]{is\+\_\+dep }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a593c4d6d639d3e87dd1be70f49de78c4}\label{install__package_8c_a593c4d6d639d3e87dd1be70f49de78c4} 
+\index{install\_package.c@{install\_package.c}!list\_package\_variants@{list\_package\_variants}}
+\index{list\_package\_variants@{list\_package\_variants}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{list\_package\_variants()}{list\_package\_variants()}}
+{\footnotesize\ttfamily int list\+\_\+package\+\_\+variants (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{\mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
+
+\Hypertarget{install__package_8c_ad4d626e8241e5a163ef64df25fffdfde}\label{install__package_8c_ad4d626e8241e5a163ef64df25fffdfde} 
+\index{install\_package.c@{install\_package.c}!metadata\_http@{metadata\_http}}
+\index{metadata\_http@{metadata\_http}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{metadata\_http()}{metadata\_http()}}
+{\footnotesize\ttfamily static int metadata\+\_\+http (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}}]{spec,  }\item[{\mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a541c5a84edeaf0373f44389d48dfe4c3}\label{install__package_8c_a541c5a84edeaf0373f44389d48dfe4c3} 
+\index{install\_package.c@{install\_package.c}!metadata\_wcr@{metadata\_wcr}}
+\index{metadata\_wcr@{metadata\_wcr}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{metadata\_wcr()}{metadata\_wcr()}}
+{\footnotesize\ttfamily static int metadata\+\_\+wcr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}}]{spec,  }\item[{\mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
 \Hypertarget{install__package_8c_a455c04e93b32de27b81ed2c505063ccd}\label{install__package_8c_a455c04e93b32de27b81ed2c505063ccd} 
 \index{install\_package.c@{install\_package.c}!parse\_host\_port@{parse\_host\_port}}
 \index{parse\_host\_port@{parse\_host\_port}!install\_package.c@{install\_package.c}}
 \doxysubsubsection{\texorpdfstring{parse\_host\_port()}{parse\_host\_port()}}
 {\footnotesize\ttfamily static int parse\+\_\+host\+\_\+port (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{char \texorpdfstring{$\ast$}{*}}]{host,  }\item[{size\+\_\+t}]{host\+\_\+sz,  }\item[{int \texorpdfstring{$\ast$}{*}}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-\Hypertarget{install__package_8c_a12c01f96459cbb238764d5c555c8d8c2}\label{install__package_8c_a12c01f96459cbb238764d5c555c8d8c2} 
+\Hypertarget{install__package_8c_a09e84755097c598888c8bf842dca4c61}\label{install__package_8c_a09e84755097c598888c8bf842dca4c61} 
+\index{install\_package.c@{install\_package.c}!select\_variant\_wcr@{select\_variant\_wcr}}
+\index{select\_variant\_wcr@{select\_variant\_wcr}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{select\_variant\_wcr()}{select\_variant\_wcr()}}
+{\footnotesize\ttfamily static int select\+\_\+variant\+\_\+wcr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{listing,  }\item[{const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}}]{spec,  }\item[{char \texorpdfstring{$\ast$}{*}}]{out\+\_\+hash,  }\item[{size\+\_\+t}]{hash\+\_\+sz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a0048933b0dadb331c38e88e991359c11}\label{install__package_8c_a0048933b0dadb331c38e88e991359c11} 
+\index{install\_package.c@{install\_package.c}!strcasematch@{strcasematch}}
+\index{strcasematch@{strcasematch}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{strcasematch()}{strcasematch()}}
+{\footnotesize\ttfamily static int strcasematch (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filter,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a2609e7287f55b95867e592d0ac377964}\label{install__package_8c_a2609e7287f55b95867e592d0ac377964} 
+\index{install\_package.c@{install\_package.c}!variants\_http@{variants\_http}}
+\index{variants\_http@{variants\_http}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{variants\_http()}{variants\_http()}}
+{\footnotesize\ttfamily static int variants\+\_\+http (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{\mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a5e518db016306fd2e3fe14e40532ed7e}\label{install__package_8c_a5e518db016306fd2e3fe14e40532ed7e} 
+\index{install\_package.c@{install\_package.c}!variants\_wcr@{variants\_wcr}}
+\index{variants\_wcr@{variants\_wcr}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{variants\_wcr()}{variants\_wcr()}}
+{\footnotesize\ttfamily static int variants\+\_\+wcr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{\mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a1a618769c6da4844ef7d585360ffd720}\label{install__package_8c_a1a618769c6da4844ef7d585360ffd720} 
+\index{install\_package.c@{install\_package.c}!verify\_cached\_package@{verify\_cached\_package}}
+\index{verify\_cached\_package@{verify\_cached\_package}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{verify\_cached\_package()}{verify\_cached\_package()}}
+{\footnotesize\ttfamily int verify\+\_\+cached\+\_\+package (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+spec,  }\item[{\mbox{\hyperlink{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}{wcr\+\_\+hash\+\_\+check}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
+\Hypertarget{install__package_8c_a00ccfa48a7b675b477c2c8bae2ebaf99}\label{install__package_8c_a00ccfa48a7b675b477c2c8bae2ebaf99} 
+\index{install\_package.c@{install\_package.c}!wcr\_connect\_source@{wcr\_connect\_source}}
+\index{wcr\_connect\_source@{wcr\_connect\_source}!install\_package.c@{install\_package.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_connect\_source()}{wcr\_connect\_source()}}
+{\footnotesize\ttfamily static int wcr\+\_\+connect\+\_\+source (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const \mbox{\hyperlink{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731}{wcr\+\_\+source}} \texorpdfstring{$\ast$}{*}}]{src,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{host,  }\item[{int}]{port,  }\item[{\mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{install__package_8c_a820b6f7ba53f76afdc7b5a99577414ef}\label{install__package_8c_a820b6f7ba53f76afdc7b5a99577414ef} 
 \index{install\_package.c@{install\_package.c}!wcr\_fetch\_metadata@{wcr\_fetch\_metadata}}
 \index{wcr\_fetch\_metadata@{wcr\_fetch\_metadata}!install\_package.c@{install\_package.c}}
 \doxysubsubsection{\texorpdfstring{wcr\_fetch\_metadata()}{wcr\_fetch\_metadata()}}
-{\footnotesize\ttfamily static int wcr\+\_\+fetch\+\_\+metadata (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}}]{conn,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+address,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+sha256,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+depends,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+depends\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static int wcr\+\_\+fetch\+\_\+metadata (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{libwconr_8h_a508ed15f6886a1df04fcb0c0bd4229bc}{wcr\+\_\+state}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{wcr__client_8h_a127c5c071b7b38452871e2afa1910de5}{wcr\+\_\+conn}} \texorpdfstring{$\ast$}{*}}]{conn,  }\item[{const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}}]{spec,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+address,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+sha256,  }\item[{char \texorpdfstring{$\ast$}{*}}]{out\+\_\+location\+\_\+hash,  }\item[{size\+\_\+t}]{location\+\_\+hash\+\_\+sz,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+depends,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+depends\+\_\+count,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 

@@ -81,8 +81,10 @@ class Server(object):
         if (not self.isopen()):
             return
 
+        available_clients = [item for item in self.clients.values() if not getattr(item, '_busy', False)]
+
         try:
-            rlist, _, xlist = select([self._socket.fileno(), *[item.get_fd() for item in self.clients.values()]], [], [], 0)
+            rlist, _, xlist = select([self._socket.fileno(), *[item.get_fd() for item in available_clients]], [], [], 0)
         except Exception as e:
             print(f"failed to select sockets. ({e})")
             return
@@ -92,10 +94,10 @@ class Server(object):
                 socket, address = self._socket.accept()
                 client = Client(socket, address)
 
-                self.clients[client.get_id()] = client 
+                self.clients[client.get_id()] = client
                 print(f"creating: client#{client.get_id()}")
             else:
-                for client in self.clients.values():
+                for client in available_clients:
                     if (fd != client.get_fd()):
                         continue
                     self._serve(client)

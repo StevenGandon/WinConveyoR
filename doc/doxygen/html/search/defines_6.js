@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vm_5fbuf_5fsize_0',['VM_BUF_SIZE',['../vm__internal_8h.html#afd8036776ff52e66b67544391c5edde8',1,'vm_internal.h']]]
+  ['pkg_5fsubdir_5fmax_0',['pkg_subdir_max',['../file__utils_8c.html#accd9662dc5faf42d604caa664f5644df',1,'PKG_SUBDIR_MAX:&#160;file_utils.c'],['../uninstall__package_8c.html#accd9662dc5faf42d604caa664f5644df',1,'PKG_SUBDIR_MAX:&#160;uninstall_package.c']]]
 ];
