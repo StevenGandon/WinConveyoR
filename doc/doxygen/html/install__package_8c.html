@@ -115,7 +115,9 @@ $(document).ready(function(){initNavTree('install__package_8c.html',''); initRes
 <code>#include &quot;<a class="el" href="pkg__downloader_8h_source.html">pkg_downloader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="file__utils_8h_source.html">file_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pkg__parsing_8h_source.html">pkg_parsing.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pkg__registry_8h_source.html">pkg_registry.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wcr__client_8h_source.html">wcr_client.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pkg__specifier_8h_source.html">pkg_specifier.h</a>&quot;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
@@ -133,6 +135,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a00ccfa48a7b675b477c2c8bae2ebaf99" id="r_a00ccfa48a7b675b477c2c8bae2ebaf99"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a00ccfa48a7b675b477c2c8bae2ebaf99">wcr_connect_source</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, const <a class="el" href="libwconr_8h.html#a4a6ce4da2c8e31dbb744407138f06731">wcr_source</a> *src, const char *host, int port, <a class="el" href="wcr__client_8h.html#a127c5c071b7b38452871e2afa1910de5">wcr_conn</a> **out)</td></tr>
+<tr class="separator:a00ccfa48a7b675b477c2c8bae2ebaf99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ecffebf65b5eed27ba6375f92d72967" id="r_a5ecffebf65b5eed27ba6375f92d72967"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a5ecffebf65b5eed27ba6375f92d72967">fetch_register</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *register_path, char **out_content)</td></tr>
 <tr class="separator:a5ecffebf65b5eed27ba6375f92d72967"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a0522dbf9d25c20c94a785962563531" id="r_a6a0522dbf9d25c20c94a785962563531"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a6a0522dbf9d25c20c94a785962563531">fetch_metadata</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *variant_location, char **out_address, char **out_sha256, char ***out_depends, size_t *out_depends_count)</td></tr>
@@ -141,22 +145,46 @@ Functions</h2></td></tr>
 <tr class="separator:a058ed2020bbdec2d887dc265d0d4f30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a455c04e93b32de27b81ed2c505063ccd" id="r_a455c04e93b32de27b81ed2c505063ccd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a455c04e93b32de27b81ed2c505063ccd">parse_host_port</a> (const char *source_uri, char *host, size_t host_sz, int *port)</td></tr>
 <tr class="separator:a455c04e93b32de27b81ed2c505063ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78b990a52a7f751872c6242748cc25d4" id="r_a78b990a52a7f751872c6242748cc25d4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a78b990a52a7f751872c6242748cc25d4">extract_location_hash</a> (const char *listing, char *out, size_t out_sz)</td></tr>
-<tr class="separator:a78b990a52a7f751872c6242748cc25d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12c01f96459cbb238764d5c555c8d8c2" id="r_a12c01f96459cbb238764d5c555c8d8c2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a12c01f96459cbb238764d5c555c8d8c2">wcr_fetch_metadata</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="wcr__client_8h.html#a127c5c071b7b38452871e2afa1910de5">wcr_conn</a> *conn, const char *package_name, char **out_address, char **out_sha256, char ***out_depends, size_t *out_depends_count)</td></tr>
-<tr class="separator:a12c01f96459cbb238764d5c555c8d8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae21bb28d539688eef00778e567019297" id="r_ae21bb28d539688eef00778e567019297"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#ae21bb28d539688eef00778e567019297">extract_line_field</a> (const char *line, int field_idx, char *out, size_t out_sz)</td></tr>
+<tr class="separator:ae21bb28d539688eef00778e567019297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0048933b0dadb331c38e88e991359c11" id="r_a0048933b0dadb331c38e88e991359c11"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a0048933b0dadb331c38e88e991359c11">strcasematch</a> (const char *filter, const char *value)</td></tr>
+<tr class="separator:a0048933b0dadb331c38e88e991359c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e84755097c598888c8bf842dca4c61" id="r_a09e84755097c598888c8bf842dca4c61"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a09e84755097c598888c8bf842dca4c61">select_variant_wcr</a> (const char *listing, const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *spec, char *out_hash, size_t hash_sz)</td></tr>
+<tr class="separator:a09e84755097c598888c8bf842dca4c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a820b6f7ba53f76afdc7b5a99577414ef" id="r_a820b6f7ba53f76afdc7b5a99577414ef"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a820b6f7ba53f76afdc7b5a99577414ef">wcr_fetch_metadata</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="wcr__client_8h.html#a127c5c071b7b38452871e2afa1910de5">wcr_conn</a> *conn, const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *spec, char **out_address, char **out_sha256, char *out_location_hash, size_t location_hash_sz, char ***out_depends, size_t *out_depends_count, char **out_version)</td></tr>
+<tr class="separator:a820b6f7ba53f76afdc7b5a99577414ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a461959968be4b215d2f828d69760b7c0" id="r_a461959968be4b215d2f828d69760b7c0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a461959968be4b215d2f828d69760b7c0">install_ctx_cleanup</a> (<a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *ctx)</td></tr>
 <tr class="separator:a461959968be4b215d2f828d69760b7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a016c4006e52a086d3d604aab2947c2" id="r_a6a016c4006e52a086d3d604aab2947c2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a6a016c4006e52a086d3d604aab2947c2">install_ctx_has</a> (const <a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *ctx, const char *name)</td></tr>
 <tr class="separator:a6a016c4006e52a086d3d604aab2947c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0515ec38246ce8ef278e9b68ec6793ec" id="r_a0515ec38246ce8ef278e9b68ec6793ec"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a0515ec38246ce8ef278e9b68ec6793ec">install_ctx_add</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *ctx, const char *name)</td></tr>
 <tr class="separator:a0515ec38246ce8ef278e9b68ec6793ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab849643426cb35a7ac03d155df116c4d" id="r_ab849643426cb35a7ac03d155df116c4d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#ab849643426cb35a7ac03d155df116c4d">install_wcr_single</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, const char *source_uri, const char *package_name, <a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *ctx, int is_dep)</td></tr>
+<tr class="separator:ab849643426cb35a7ac03d155df116c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a658b894a7fe4abebeb3900652350e6b9" id="r_a658b894a7fe4abebeb3900652350e6b9"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a658b894a7fe4abebeb3900652350e6b9">install_wcr</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, const char *source_uri, const char *package_name)</td></tr>
 <tr class="separator:a658b894a7fe4abebeb3900652350e6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f0106d7dd643b093acbb2ee101e804d" id="r_a0f0106d7dd643b093acbb2ee101e804d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a0f0106d7dd643b093acbb2ee101e804d">install_http_with_deps</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_name, <a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *ctx)</td></tr>
-<tr class="separator:a0f0106d7dd643b093acbb2ee101e804d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab128e34d309540dcec9d24d2c9437a68" id="r_ab128e34d309540dcec9d24d2c9437a68"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#ab128e34d309540dcec9d24d2c9437a68">install_http_with_deps</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_name, <a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *ctx, int is_dep)</td></tr>
+<tr class="separator:ab128e34d309540dcec9d24d2c9437a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af830635accadd77a44c21219cc73ad10" id="r_af830635accadd77a44c21219cc73ad10"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#af830635accadd77a44c21219cc73ad10">install_http</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_name)</td></tr>
 <tr class="separator:af830635accadd77a44c21219cc73ad10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e518db016306fd2e3fe14e40532ed7e" id="r_a5e518db016306fd2e3fe14e40532ed7e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a5e518db016306fd2e3fe14e40532ed7e">variants_wcr</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, const char *source_uri, const char *package_name, <a class="el" href="libwconr_8h.html#a3c902f194e41387ee83b3fd0b2900c11">wcr_pkg_variant</a> **out, size_t *out_count)</td></tr>
+<tr class="separator:a5e518db016306fd2e3fe14e40532ed7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2609e7287f55b95867e592d0ac377964" id="r_a2609e7287f55b95867e592d0ac377964"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a2609e7287f55b95867e592d0ac377964">variants_http</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_name, <a class="el" href="libwconr_8h.html#a3c902f194e41387ee83b3fd0b2900c11">wcr_pkg_variant</a> **out, size_t *out_count)</td></tr>
+<tr class="separator:a2609e7287f55b95867e592d0ac377964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a593c4d6d639d3e87dd1be70f49de78c4" id="r_a593c4d6d639d3e87dd1be70f49de78c4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a593c4d6d639d3e87dd1be70f49de78c4">list_package_variants</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_name, <a class="el" href="libwconr_8h.html#a3c902f194e41387ee83b3fd0b2900c11">wcr_pkg_variant</a> **out, size_t *out_count)</td></tr>
+<tr class="separator:a593c4d6d639d3e87dd1be70f49de78c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a541c5a84edeaf0373f44389d48dfe4c3" id="r_a541c5a84edeaf0373f44389d48dfe4c3"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a541c5a84edeaf0373f44389d48dfe4c3">metadata_wcr</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, const char *source_uri, const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *spec, <a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *out)</td></tr>
+<tr class="separator:a541c5a84edeaf0373f44389d48dfe4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4d626e8241e5a163ef64df25fffdfde" id="r_ad4d626e8241e5a163ef64df25fffdfde"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#ad4d626e8241e5a163ef64df25fffdfde">metadata_http</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *spec, <a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *out)</td></tr>
+<tr class="separator:ad4d626e8241e5a163ef64df25fffdfde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc1c26407128b46c96e1b60e478091b2" id="r_adc1c26407128b46c96e1b60e478091b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#adc1c26407128b46c96e1b60e478091b2">get_package_metadata</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_spec, <a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *out)</td></tr>
+<tr class="separator:adc1c26407128b46c96e1b60e478091b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dfb66b75bcfd7f3389e10a6dff2219d" id="r_a1dfb66b75bcfd7f3389e10a6dff2219d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a1dfb66b75bcfd7f3389e10a6dff2219d">free_package_metadata</a> (<a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *meta)</td></tr>
+<tr class="separator:a1dfb66b75bcfd7f3389e10a6dff2219d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a618769c6da4844ef7d585360ffd720" id="r_a1a618769c6da4844ef7d585360ffd720"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a1a618769c6da4844ef7d585360ffd720">verify_cached_package</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_spec, <a class="el" href="libwconr_8h.html#a0eaf06aac0c89fbce656c6552ec2926e">wcr_hash_check</a> *out)</td></tr>
+<tr class="separator:a1a618769c6da4844ef7d585360ffd720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83eebb40cd24ee14896572626f2c1d5c" id="r_a83eebb40cd24ee14896572626f2c1d5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a83eebb40cd24ee14896572626f2c1d5c">free_hash_check</a> (<a class="el" href="libwconr_8h.html#a0eaf06aac0c89fbce656c6552ec2926e">wcr_hash_check</a> *check)</td></tr>
+<tr class="separator:a83eebb40cd24ee14896572626f2c1d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a697f76330e6bcf4e4acc850c1ac52760" id="r_a697f76330e6bcf4e4acc850c1ac52760"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install__package_8c.html#a697f76330e6bcf4e4acc850c1ac52760">install_package</a> (const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *state, <a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a> proto, const char *source_uri, const char *package_name)</td></tr>
 <tr class="separator:a697f76330e6bcf4e4acc850c1ac52760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -176,8 +204,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a78b990a52a7f751872c6242748cc25d4" name="a78b990a52a7f751872c6242748cc25d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78b990a52a7f751872c6242748cc25d4">&#9670;&#160;</a></span>extract_location_hash()</h2>
+<a id="ae21bb28d539688eef00778e567019297" name="ae21bb28d539688eef00778e567019297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae21bb28d539688eef00778e567019297">&#9670;&#160;</a></span>extract_line_field()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,10 +214,16 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static int extract_location_hash </td>
+          <td class="memname">static int extract_line_field </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>listing</em>, </td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>field_idx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -404,6 +438,88 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a83eebb40cd24ee14896572626f2c1d5c" name="a83eebb40cd24ee14896572626f2c1d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83eebb40cd24ee14896572626f2c1d5c">&#9670;&#160;</a></span>free_hash_check()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_hash_check </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a0eaf06aac0c89fbce656c6552ec2926e">wcr_hash_check</a> *&#160;</td>
+          <td class="paramname"><em>check</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1dfb66b75bcfd7f3389e10a6dff2219d" name="a1dfb66b75bcfd7f3389e10a6dff2219d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dfb66b75bcfd7f3389e10a6dff2219d">&#9670;&#160;</a></span>free_package_metadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_package_metadata </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *&#160;</td>
+          <td class="paramname"><em>meta</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc1c26407128b46c96e1b60e478091b2" name="adc1c26407128b46c96e1b60e478091b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc1c26407128b46c96e1b60e478091b2">&#9670;&#160;</a></span>get_package_metadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int get_package_metadata </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a>&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>package_spec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0515ec38246ce8ef278e9b68ec6793ec" name="a0515ec38246ce8ef278e9b68ec6793ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0515ec38246ce8ef278e9b68ec6793ec">&#9670;&#160;</a></span>install_ctx_add()</h2>
 
@@ -556,8 +672,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0f0106d7dd643b093acbb2ee101e804d" name="a0f0106d7dd643b093acbb2ee101e804d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f0106d7dd643b093acbb2ee101e804d">&#9670;&#160;</a></span>install_http_with_deps()</h2>
+<a id="ab128e34d309540dcec9d24d2c9437a68" name="ab128e34d309540dcec9d24d2c9437a68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab128e34d309540dcec9d24d2c9437a68">&#9670;&#160;</a></span>install_http_with_deps()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -593,7 +709,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>is_dep</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -692,6 +814,214 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab849643426cb35a7ac03d155df116c4d" name="ab849643426cb35a7ac03d155df116c4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab849643426cb35a7ac03d155df116c4d">&#9670;&#160;</a></span>install_wcr_single()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int install_wcr_single </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>package_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structwcr__install__ctx.html">wcr_install_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>is_dep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a593c4d6d639d3e87dd1be70f49de78c4" name="a593c4d6d639d3e87dd1be70f49de78c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a593c4d6d639d3e87dd1be70f49de78c4">&#9670;&#160;</a></span>list_package_variants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int list_package_variants </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a>&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>package_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a3c902f194e41387ee83b3fd0b2900c11">wcr_pkg_variant</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4d626e8241e5a163ef64df25fffdfde" name="ad4d626e8241e5a163ef64df25fffdfde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4d626e8241e5a163ef64df25fffdfde">&#9670;&#160;</a></span>metadata_http()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int metadata_http </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a>&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *&#160;</td>
+          <td class="paramname"><em>spec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a541c5a84edeaf0373f44389d48dfe4c3" name="a541c5a84edeaf0373f44389d48dfe4c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a541c5a84edeaf0373f44389d48dfe4c3">&#9670;&#160;</a></span>metadata_wcr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int metadata_wcr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *&#160;</td>
+          <td class="paramname"><em>spec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a41bb26f21053053c4d2356de679df0bc">wcr_pkg_metadata</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a455c04e93b32de27b81ed2c505063ccd" name="a455c04e93b32de27b81ed2c505063ccd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a455c04e93b32de27b81ed2c505063ccd">&#9670;&#160;</a></span>parse_host_port()</h2>
 
@@ -740,8 +1070,306 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a12c01f96459cbb238764d5c555c8d8c2" name="a12c01f96459cbb238764d5c555c8d8c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12c01f96459cbb238764d5c555c8d8c2">&#9670;&#160;</a></span>wcr_fetch_metadata()</h2>
+<a id="a09e84755097c598888c8bf842dca4c61" name="a09e84755097c598888c8bf842dca4c61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09e84755097c598888c8bf842dca4c61">&#9670;&#160;</a></span>select_variant_wcr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int select_variant_wcr </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>listing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *&#160;</td>
+          <td class="paramname"><em>spec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>out_hash</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>hash_sz</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0048933b0dadb331c38e88e991359c11" name="a0048933b0dadb331c38e88e991359c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0048933b0dadb331c38e88e991359c11">&#9670;&#160;</a></span>strcasematch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int strcasematch </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2609e7287f55b95867e592d0ac377964" name="a2609e7287f55b95867e592d0ac377964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2609e7287f55b95867e592d0ac377964">&#9670;&#160;</a></span>variants_http()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int variants_http </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a>&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>package_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a3c902f194e41387ee83b3fd0b2900c11">wcr_pkg_variant</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e518db016306fd2e3fe14e40532ed7e" name="a5e518db016306fd2e3fe14e40532ed7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e518db016306fd2e3fe14e40532ed7e">&#9670;&#160;</a></span>variants_wcr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int variants_wcr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>package_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a3c902f194e41387ee83b3fd0b2900c11">wcr_pkg_variant</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a618769c6da4844ef7d585360ffd720" name="a1a618769c6da4844ef7d585360ffd720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a618769c6da4844ef7d585360ffd720">&#9670;&#160;</a></span>verify_cached_package()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int verify_cached_package </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#ac921c2e8625e26392a9679359d60e396">protocol_type</a>&#160;</td>
+          <td class="paramname"><em>proto</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source_uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>package_spec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="libwconr_8h.html#a0eaf06aac0c89fbce656c6552ec2926e">wcr_hash_check</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00ccfa48a7b675b477c2c8bae2ebaf99" name="a00ccfa48a7b675b477c2c8bae2ebaf99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00ccfa48a7b675b477c2c8bae2ebaf99">&#9670;&#160;</a></span>wcr_connect_source()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int wcr_connect_source </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a508ed15f6886a1df04fcb0c0bd4229bc">wcr_state</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="libwconr_8h.html#a4a6ce4da2c8e31dbb744407138f06731">wcr_source</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="wcr__client_8h.html#a127c5c071b7b38452871e2afa1910de5">wcr_conn</a> **&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a820b6f7ba53f76afdc7b5a99577414ef" name="a820b6f7ba53f76afdc7b5a99577414ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a820b6f7ba53f76afdc7b5a99577414ef">&#9670;&#160;</a></span>wcr_fetch_metadata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -764,8 +1392,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>package_name</em>, </td>
+          <td class="paramtype">const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *&#160;</td>
+          <td class="paramname"><em>spec</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -782,6 +1410,18 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>out_location_hash</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>location_hash_sz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">char ***&#160;</td>
           <td class="paramname"><em>out_depends</em>, </td>
         </tr>
@@ -789,7 +1429,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>out_depends_count</em>&#160;</td>
+          <td class="paramname"><em>out_depends_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>out_version</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

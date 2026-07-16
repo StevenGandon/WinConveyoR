@@ -109,28 +109,160 @@ $(document).ready(function(){initNavTree('pkg__parsing_8c.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="pkg__parsing_8h_source.html">pkg_parsing.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pkg__specifier_8h_source.html">pkg_specifier.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wcr__event__internal_8h_source.html">wcr_event_internal.h</a>&quot;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;strings.h&gt;</code><br />
 <code>#include &lt;cJSON.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a60f13ad3f9c85a55d715a7280c04e96d" id="r_a60f13ad3f9c85a55d715a7280c04e96d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a60f13ad3f9c85a55d715a7280c04e96d">find_package_in_list</a> (const char *pkgs_list_path, const char *package_name, char **out_register_path, char **out_checksum)</td></tr>
-<tr class="separator:a60f13ad3f9c85a55d715a7280c04e96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3162617120352705e28e81f157ef6a" id="r_a5d3162617120352705e28e81f157ef6a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a5d3162617120352705e28e81f157ef6a">find_package_in_list</a> (const char *pkgs_list_path, const char *package_name, char **out_register_path, char **out_checksum, char **out_version)</td></tr>
+<tr class="separator:a5d3162617120352705e28e81f157ef6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4aa644f97491bdb488b4112d6e31c876" id="r_a4aa644f97491bdb488b4112d6e31c876"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a4aa644f97491bdb488b4112d6e31c876">parse_first_location</a> (const char *register_content, char **out_location)</td></tr>
 <tr class="separator:a4aa644f97491bdb488b4112d6e31c876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9760b6c7e53ff33da78d45fcad8eaef3" id="r_a9760b6c7e53ff33da78d45fcad8eaef3"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a9760b6c7e53ff33da78d45fcad8eaef3">cjson_strdup</a> (cJSON *root, const char *key)</td></tr>
+<tr class="separator:a9760b6c7e53ff33da78d45fcad8eaef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26421c4633aea39dc21346f15d0e9ad6" id="r_a26421c4633aea39dc21346f15d0e9ad6"><td class="memItemLeft" align="right" valign="top">static long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a26421c4633aea39dc21346f15d0e9ad6">cjson_long</a> (cJSON *root, const char *key)</td></tr>
+<tr class="separator:a26421c4633aea39dc21346f15d0e9ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbfe3ab52b2e057fa615be0a54f064ca" id="r_afbfe3ab52b2e057fa615be0a54f064ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#afbfe3ab52b2e057fa615be0a54f064ca">json_parse_metadata</a> (const char *json, struct <a class="el" href="structwcr__pkg__metadata__s.html">wcr_pkg_metadata_s</a> *out)</td></tr>
+<tr class="separator:afbfe3ab52b2e057fa615be0a54f064ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7f79d7af8f8f57818630ab1e8d10c4e" id="r_ac7f79d7af8f8f57818630ab1e8d10c4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#ac7f79d7af8f8f57818630ab1e8d10c4e">json_extract_string</a> (const char *json, const char *key, char **out_value)</td></tr>
 <tr class="separator:ac7f79d7af8f8f57818630ab1e8d10c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e708a02a2099651837c2b02f60cba89" id="r_a6e708a02a2099651837c2b02f60cba89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a6e708a02a2099651837c2b02f60cba89">free_string_array</a> (char **values, size_t count)</td></tr>
 <tr class="separator:a6e708a02a2099651837c2b02f60cba89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60aa1bfae1e55f75140e4d129fe1c613" id="r_a60aa1bfae1e55f75140e4d129fe1c613"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a60aa1bfae1e55f75140e4d129fe1c613">json_extract_string_array</a> (const char *json, const char *key, char ***out_values, size_t *out_count)</td></tr>
 <tr class="separator:a60aa1bfae1e55f75140e4d129fe1c613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa198de6cdc3052b97495862af218547c" id="r_aa198de6cdc3052b97495862af218547c"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#aa198de6cdc3052b97495862af218547c">extract_register_field</a> (const char *block_start, const char *block_end, const char *key)</td></tr>
+<tr class="separator:aa198de6cdc3052b97495862af218547c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e4d3ada928f5a0d1f435a6adf9ab1d9" id="r_a4e4d3ada928f5a0d1f435a6adf9ab1d9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a4e4d3ada928f5a0d1f435a6adf9ab1d9">select_variant_register</a> (const char *register_content, const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *spec, char **out_location)</td></tr>
+<tr class="separator:a4e4d3ada928f5a0d1f435a6adf9ab1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34bf7ca259bf989716969594cdb50838" id="r_a34bf7ca259bf989716969594cdb50838"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a34bf7ca259bf989716969594cdb50838">parse_register_variants</a> (const char *register_content, struct <a class="el" href="structwcr__pkg__variant__s.html">wcr_pkg_variant_s</a> **out, size_t *out_count)</td></tr>
+<tr class="separator:a34bf7ca259bf989716969594cdb50838"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4caf580de29773aa829494be2a1aed29" id="r_a4caf580de29773aa829494be2a1aed29"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a4caf580de29773aa829494be2a1aed29">parse_wcr_listing_variants</a> (const char *listing, struct <a class="el" href="structwcr__pkg__variant__s.html">wcr_pkg_variant_s</a> **out, size_t *out_count)</td></tr>
+<tr class="separator:a4caf580de29773aa829494be2a1aed29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a668c14c135a9ee69715427f450c47801" id="r_a668c14c135a9ee69715427f450c47801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkg__parsing_8c.html#a668c14c135a9ee69715427f450c47801">free_variant_list</a> (struct <a class="el" href="structwcr__pkg__variant__s.html">wcr_pkg_variant_s</a> *list, size_t count)</td></tr>
+<tr class="separator:a668c14c135a9ee69715427f450c47801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a60f13ad3f9c85a55d715a7280c04e96d" name="a60f13ad3f9c85a55d715a7280c04e96d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60f13ad3f9c85a55d715a7280c04e96d">&#9670;&#160;</a></span>find_package_in_list()</h2>
+<a id="a26421c4633aea39dc21346f15d0e9ad6" name="a26421c4633aea39dc21346f15d0e9ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26421c4633aea39dc21346f15d0e9ad6">&#9670;&#160;</a></span>cjson_long()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static long cjson_long </td>
+          <td>(</td>
+          <td class="paramtype">cJSON *&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9760b6c7e53ff33da78d45fcad8eaef3" name="a9760b6c7e53ff33da78d45fcad8eaef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9760b6c7e53ff33da78d45fcad8eaef3">&#9670;&#160;</a></span>cjson_strdup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char * cjson_strdup </td>
+          <td>(</td>
+          <td class="paramtype">cJSON *&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa198de6cdc3052b97495862af218547c" name="aa198de6cdc3052b97495862af218547c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa198de6cdc3052b97495862af218547c">&#9670;&#160;</a></span>extract_register_field()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char * extract_register_field </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>block_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>block_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d3162617120352705e28e81f157ef6a" name="a5d3162617120352705e28e81f157ef6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d3162617120352705e28e81f157ef6a">&#9670;&#160;</a></span>find_package_in_list()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +289,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>out_checksum</em>&#160;</td>
+          <td class="paramname"><em>out_checksum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>out_version</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -180,6 +318,34 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>values</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a668c14c135a9ee69715427f450c47801" name="a668c14c135a9ee69715427f450c47801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a668c14c135a9ee69715427f450c47801">&#9670;&#160;</a></span>free_variant_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_variant_list </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structwcr__pkg__variant__s.html">wcr_pkg_variant_s</a> *&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -271,6 +437,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="afbfe3ab52b2e057fa615be0a54f064ca" name="afbfe3ab52b2e057fa615be0a54f064ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbfe3ab52b2e057fa615be0a54f064ca">&#9670;&#160;</a></span>json_parse_metadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int json_parse_metadata </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>json</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structwcr__pkg__metadata__s.html">wcr_pkg_metadata_s</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4aa644f97491bdb488b4112d6e31c876" name="a4aa644f97491bdb488b4112d6e31c876"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4aa644f97491bdb488b4112d6e31c876">&#9670;&#160;</a></span>parse_first_location()</h2>
 
@@ -282,6 +476,108 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>register_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>out_location</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34bf7ca259bf989716969594cdb50838" name="a34bf7ca259bf989716969594cdb50838"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34bf7ca259bf989716969594cdb50838">&#9670;&#160;</a></span>parse_register_variants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int parse_register_variants </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>register_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structwcr__pkg__variant__s.html">wcr_pkg_variant_s</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4caf580de29773aa829494be2a1aed29" name="a4caf580de29773aa829494be2a1aed29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4caf580de29773aa829494be2a1aed29">&#9670;&#160;</a></span>parse_wcr_listing_variants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int parse_wcr_listing_variants </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>listing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structwcr__pkg__variant__s.html">wcr_pkg_variant_s</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e4d3ada928f5a0d1f435a6adf9ab1d9" name="a4e4d3ada928f5a0d1f435a6adf9ab1d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e4d3ada928f5a0d1f435a6adf9ab1d9">&#9670;&#160;</a></span>select_variant_register()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int select_variant_register </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>register_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structpkg__specifier.html">pkg_specifier</a> *&#160;</td>
+          <td class="paramname"><em>spec</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

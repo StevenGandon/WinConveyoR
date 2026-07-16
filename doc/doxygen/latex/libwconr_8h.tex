@@ -3,6 +3,7 @@
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include "{}wcr\+\_\+event.\+h"{}}\newline
 {\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include "{}pkg\+\_\+parsing.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,6 +12,12 @@ struct \mbox{\hyperlink{structwcr__system__s}{wcr\+\_\+system\+\_\+s}}
 struct \mbox{\hyperlink{structwcr__source__s}{wcr\+\_\+source\+\_\+s}}
 \item 
 struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -22,6 +29,16 @@ typedef struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \mb
 typedef struct \mbox{\hyperlink{structwcr__system__s}{wcr\+\_\+system\+\_\+s}} \mbox{\hyperlink{libwconr_8h_acc5550b311a37f1b3656c9f1175b216c}{wcr\+\_\+system}}
 \item 
 typedef struct \mbox{\hyperlink{structwcr__source__s}{wcr\+\_\+source\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731}{wcr\+\_\+source}}
+\item 
+typedef struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}} \mbox{\hyperlink{libwconr_8h_aba4253b4f93747af37f53e22db007587}{wcr\+\_\+installed\+\_\+pkg}}
+\item 
+typedef struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}} \mbox{\hyperlink{libwconr_8h_ad8217b4ae4d44b39781f96793a0b8e5a}{wcr\+\_\+available\+\_\+pkg}}
+\item 
+typedef struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}}
+\item 
+typedef struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}}
+\item 
+typedef struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}{wcr\+\_\+hash\+\_\+check}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -57,22 +74,80 @@ struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfst
 \item 
 int \mbox{\hyperlink{libwconr_8h_a2a72d0139b22dbceaa725fe267afa51c}{wcr\+\_\+state\+\_\+add\+\_\+source}} (struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}url)
 \item 
+const struct \mbox{\hyperlink{structwcr__source__s}{wcr\+\_\+source\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{libwconr_8h_ac76ba77ca051ec28093e50ca756cadce}{wcr\+\_\+state\+\_\+find\+\_\+source}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}url)
+\item 
+int \mbox{\hyperlink{libwconr_8h_aadde6833f0417c3b68731fbb5611bc49}{wcr\+\_\+source\+\_\+set\+\_\+auth}} (struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, size\+\_\+t index, const char \texorpdfstring{$\ast$}{*}access\+\_\+key, const char \texorpdfstring{$\ast$}{*}server\+\_\+pubkey\+\_\+path)
+\item 
 int \mbox{\hyperlink{libwconr_8h_aed8a7d2f660f1149f7f5a4a27a1d54db}{sync\+\_\+package\+\_\+list}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri)
 \item 
 int \mbox{\hyperlink{libwconr_8h_a3def8bce8faff61f9b6fcf926a4c7be6}{install\+\_\+package}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name)
 \item 
 int \mbox{\hyperlink{libwconr_8h_a5de9bebf15d197d58616754b5c82419d}{uninstall\+\_\+package}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}package\+\_\+name)
 \item 
+int \mbox{\hyperlink{libwconr_8h_ab8d1be177f5e3a7eb0df4720bcc911e6}{record\+\_\+installed}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}name, const char \texorpdfstring{$\ast$}{*}version, int is\+\_\+dependency)
+\item 
+int \mbox{\hyperlink{libwconr_8h_a3a33d5a2a39063d1c24b1e3cfd5fcb4c}{remove\+\_\+installed}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}name)
+\item 
+int \mbox{\hyperlink{libwconr_8h_a8d5098646f669c64c38f3563a4a5ac92}{list\+\_\+installed}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+void \mbox{\hyperlink{libwconr_8h_aaed9f3e77e304abf417507522501fe94}{free\+\_\+installed\+\_\+list}} (struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}list, size\+\_\+t count)
+\item 
+int \mbox{\hyperlink{libwconr_8h_ab3a1be385b17098775ed0e1e95fdeeed}{search\+\_\+available}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, const char \texorpdfstring{$\ast$}{*}query, struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+void \mbox{\hyperlink{libwconr_8h_ab1b3342bc31a176cbbd01c0e4fa37920}{free\+\_\+available\+\_\+list}} (struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}list, size\+\_\+t count)
+\item 
+int \mbox{\hyperlink{libwconr_8h_a57412fdc41254b0dd95e0c7b7db328af}{list\+\_\+package\+\_\+variants}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+void \mbox{\hyperlink{libwconr_8h_a668c14c135a9ee69715427f450c47801}{free\+\_\+variant\+\_\+list}} (struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}list, size\+\_\+t count)
+\item 
+int \mbox{\hyperlink{libwconr_8h_a3e92666a8d66b694c4ab1605a6e868c4}{get\+\_\+package\+\_\+metadata}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+spec, struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \texorpdfstring{$\ast$}{*}out)
+\item 
+void \mbox{\hyperlink{libwconr_8h_ac8789785d63cfaf29b26d9e7110ecad9}{free\+\_\+package\+\_\+metadata}} (struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \texorpdfstring{$\ast$}{*}meta)
+\item 
+int \mbox{\hyperlink{libwconr_8h_ad367774ac14a5c73035154ec0a62f806}{verify\+\_\+cached\+\_\+package}} (const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}} proto, const char \texorpdfstring{$\ast$}{*}source\+\_\+uri, const char \texorpdfstring{$\ast$}{*}package\+\_\+spec, struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}} \texorpdfstring{$\ast$}{*}out)
+\item 
+void \mbox{\hyperlink{libwconr_8h_a1e3158f262cd4a24c4e794dde97508d5}{free\+\_\+hash\+\_\+check}} (struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}} \texorpdfstring{$\ast$}{*}check)
+\item 
 void \mbox{\hyperlink{libwconr_8h_a3a71e273e4e005ab38ddd005cd87a4a0}{wcr\+\_\+set\+\_\+event\+\_\+callback}} (struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}state, \mbox{\hyperlink{wcr__event_8h_ae3bd66ac9b9e02f381391333a9817da5}{wcr\+\_\+event\+\_\+callback\+\_\+t}} callback, void \texorpdfstring{$\ast$}{*}user\+\_\+data)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Typedef Documentation}
+\Hypertarget{libwconr_8h_ad8217b4ae4d44b39781f96793a0b8e5a}\label{libwconr_8h_ad8217b4ae4d44b39781f96793a0b8e5a} 
+\index{libwconr.h@{libwconr.h}!wcr\_available\_pkg@{wcr\_available\_pkg}}
+\index{wcr\_available\_pkg@{wcr\_available\_pkg}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_available\_pkg}{wcr\_available\_pkg}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}} \mbox{\hyperlink{libwconr_8h_ad8217b4ae4d44b39781f96793a0b8e5a}{wcr\+\_\+available\+\_\+pkg}}}
+
+\Hypertarget{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}\label{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e} 
+\index{libwconr.h@{libwconr.h}!wcr\_hash\_check@{wcr\_hash\_check}}
+\index{wcr\_hash\_check@{wcr\_hash\_check}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_hash\_check}{wcr\_hash\_check}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a0eaf06aac0c89fbce656c6552ec2926e}{wcr\+\_\+hash\+\_\+check}}}
+
+\Hypertarget{libwconr_8h_aba4253b4f93747af37f53e22db007587}\label{libwconr_8h_aba4253b4f93747af37f53e22db007587} 
+\index{libwconr.h@{libwconr.h}!wcr\_installed\_pkg@{wcr\_installed\_pkg}}
+\index{wcr\_installed\_pkg@{wcr\_installed\_pkg}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_installed\_pkg}{wcr\_installed\_pkg}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}} \mbox{\hyperlink{libwconr_8h_aba4253b4f93747af37f53e22db007587}{wcr\+\_\+installed\+\_\+pkg}}}
+
 \Hypertarget{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}\label{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979} 
 \index{libwconr.h@{libwconr.h}!wcr\_mutex@{wcr\_mutex}}
 \index{wcr\_mutex@{wcr\_mutex}!libwconr.h@{libwconr.h}}
 \doxysubsubsection{\texorpdfstring{wcr\_mutex}{wcr\_mutex}}
 {\footnotesize\ttfamily typedef pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{libwconr_8h_ab19d06edee72f24d411bce6ca0db4979}{wcr\+\_\+mutex}}}
+
+\Hypertarget{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}\label{libwconr_8h_a41bb26f21053053c4d2356de679df0bc} 
+\index{libwconr.h@{libwconr.h}!wcr\_pkg\_metadata@{wcr\_pkg\_metadata}}
+\index{wcr\_pkg\_metadata@{wcr\_pkg\_metadata}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_pkg\_metadata}{wcr\_pkg\_metadata}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a41bb26f21053053c4d2356de679df0bc}{wcr\+\_\+pkg\+\_\+metadata}}}
+
+\Hypertarget{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}\label{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11} 
+\index{libwconr.h@{libwconr.h}!wcr\_pkg\_variant@{wcr\_pkg\_variant}}
+\index{wcr\_pkg\_variant@{wcr\_pkg\_variant}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_pkg\_variant}{wcr\_pkg\_variant}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \mbox{\hyperlink{libwconr_8h_a3c902f194e41387ee83b3fd0b2900c11}{wcr\+\_\+pkg\+\_\+variant}}}
 
 \Hypertarget{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731}\label{libwconr_8h_a4a6ce4da2c8e31dbb744407138f06731} 
 \index{libwconr.h@{libwconr.h}!wcr\_source@{wcr\_source}}
@@ -174,11 +249,59 @@ GEN\+\_\+\+LINUX\+\_\+\+PLTF&\\
 \doxysubsubsection{\texorpdfstring{download\_package()}{download\_package()}}
 {\footnotesize\ttfamily int download\+\_\+package (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{http\+\_\+address,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{location }\end{DoxyParamCaption})}
 
+\Hypertarget{libwconr_8h_ab1b3342bc31a176cbbd01c0e4fa37920}\label{libwconr_8h_ab1b3342bc31a176cbbd01c0e4fa37920} 
+\index{libwconr.h@{libwconr.h}!free\_available\_list@{free\_available\_list}}
+\index{free\_available\_list@{free\_available\_list}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{free\_available\_list()}{free\_available\_list()}}
+{\footnotesize\ttfamily void free\+\_\+available\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_a1e3158f262cd4a24c4e794dde97508d5}\label{libwconr_8h_a1e3158f262cd4a24c4e794dde97508d5} 
+\index{libwconr.h@{libwconr.h}!free\_hash\_check@{free\_hash\_check}}
+\index{free\_hash\_check@{free\_hash\_check}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{free\_hash\_check()}{free\_hash\_check()}}
+{\footnotesize\ttfamily void free\+\_\+hash\+\_\+check (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{check }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_aaed9f3e77e304abf417507522501fe94}\label{libwconr_8h_aaed9f3e77e304abf417507522501fe94} 
+\index{libwconr.h@{libwconr.h}!free\_installed\_list@{free\_installed\_list}}
+\index{free\_installed\_list@{free\_installed\_list}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{free\_installed\_list()}{free\_installed\_list()}}
+{\footnotesize\ttfamily void free\+\_\+installed\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_ac8789785d63cfaf29b26d9e7110ecad9}\label{libwconr_8h_ac8789785d63cfaf29b26d9e7110ecad9} 
+\index{libwconr.h@{libwconr.h}!free\_package\_metadata@{free\_package\_metadata}}
+\index{free\_package\_metadata@{free\_package\_metadata}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{free\_package\_metadata()}{free\_package\_metadata()}}
+{\footnotesize\ttfamily void free\+\_\+package\+\_\+metadata (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{meta }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_a668c14c135a9ee69715427f450c47801}\label{libwconr_8h_a668c14c135a9ee69715427f450c47801} 
+\index{libwconr.h@{libwconr.h}!free\_variant\_list@{free\_variant\_list}}
+\index{free\_variant\_list@{free\_variant\_list}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{free\_variant\_list()}{free\_variant\_list()}}
+{\footnotesize\ttfamily void free\+\_\+variant\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_a3e92666a8d66b694c4ab1605a6e868c4}\label{libwconr_8h_a3e92666a8d66b694c4ab1605a6e868c4} 
+\index{libwconr.h@{libwconr.h}!get\_package\_metadata@{get\_package\_metadata}}
+\index{get\_package\_metadata@{get\_package\_metadata}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{get\_package\_metadata()}{get\_package\_metadata()}}
+{\footnotesize\ttfamily int get\+\_\+package\+\_\+metadata (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+spec,  }\item[{struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
 \Hypertarget{libwconr_8h_a3def8bce8faff61f9b6fcf926a4c7be6}\label{libwconr_8h_a3def8bce8faff61f9b6fcf926a4c7be6} 
 \index{libwconr.h@{libwconr.h}!install\_package@{install\_package}}
 \index{install\_package@{install\_package}!libwconr.h@{libwconr.h}}
 \doxysubsubsection{\texorpdfstring{install\_package()}{install\_package()}}
 {\footnotesize\ttfamily int install\+\_\+package (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_a8d5098646f669c64c38f3563a4a5ac92}\label{libwconr_8h_a8d5098646f669c64c38f3563a4a5ac92} 
+\index{libwconr.h@{libwconr.h}!list\_installed@{list\_installed}}
+\index{list\_installed@{list\_installed}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{list\_installed()}{list\_installed()}}
+{\footnotesize\ttfamily int list\+\_\+installed (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{struct \mbox{\hyperlink{structwcr__installed__pkg__s}{wcr\+\_\+installed\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_a57412fdc41254b0dd95e0c7b7db328af}\label{libwconr_8h_a57412fdc41254b0dd95e0c7b7db328af} 
+\index{libwconr.h@{libwconr.h}!list\_package\_variants@{list\_package\_variants}}
+\index{list\_package\_variants@{list\_package\_variants}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{list\_package\_variants()}{list\_package\_variants()}}
+{\footnotesize\ttfamily int list\+\_\+package\+\_\+variants (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
 
 \Hypertarget{libwconr_8h_a8bd2041a67bb12dd529190e75320243b}\label{libwconr_8h_a8bd2041a67bb12dd529190e75320243b} 
 \index{libwconr.h@{libwconr.h}!load\_state@{load\_state}}
@@ -192,6 +315,24 @@ GEN\+\_\+\+LINUX\+\_\+\+PLTF&\\
 \doxysubsubsection{\texorpdfstring{new\_state()}{new\_state()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
+\Hypertarget{libwconr_8h_ab8d1be177f5e3a7eb0df4720bcc911e6}\label{libwconr_8h_ab8d1be177f5e3a7eb0df4720bcc911e6} 
+\index{libwconr.h@{libwconr.h}!record\_installed@{record\_installed}}
+\index{record\_installed@{record\_installed}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{record\_installed()}{record\_installed()}}
+{\footnotesize\ttfamily int record\+\_\+installed (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{version,  }\item[{int}]{is\+\_\+dependency }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_a3a33d5a2a39063d1c24b1e3cfd5fcb4c}\label{libwconr_8h_a3a33d5a2a39063d1c24b1e3cfd5fcb4c} 
+\index{libwconr.h@{libwconr.h}!remove\_installed@{remove\_installed}}
+\index{remove\_installed@{remove\_installed}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{remove\_installed()}{remove\_installed()}}
+{\footnotesize\ttfamily int remove\+\_\+installed (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_ab3a1be385b17098775ed0e1e95fdeeed}\label{libwconr_8h_ab3a1be385b17098775ed0e1e95fdeeed} 
+\index{libwconr.h@{libwconr.h}!search\_available@{search\_available}}
+\index{search\_available@{search\_available}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{search\_available()}{search\_available()}}
+{\footnotesize\ttfamily int search\+\_\+available (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{query,  }\item[{struct \mbox{\hyperlink{structwcr__available__pkg__s}{wcr\+\_\+available\+\_\+pkg\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
+
 \Hypertarget{libwconr_8h_aed8a7d2f660f1149f7f5a4a27a1d54db}\label{libwconr_8h_aed8a7d2f660f1149f7f5a4a27a1d54db} 
 \index{libwconr.h@{libwconr.h}!sync\_package\_list@{sync\_package\_list}}
 \index{sync\_package\_list@{sync\_package\_list}!libwconr.h@{libwconr.h}}
@@ -204,17 +345,35 @@ GEN\+\_\+\+LINUX\+\_\+\+PLTF&\\
 \doxysubsubsection{\texorpdfstring{uninstall\_package()}{uninstall\_package()}}
 {\footnotesize\ttfamily int uninstall\+\_\+package (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name }\end{DoxyParamCaption})}
 
+\Hypertarget{libwconr_8h_ad367774ac14a5c73035154ec0a62f806}\label{libwconr_8h_ad367774ac14a5c73035154ec0a62f806} 
+\index{libwconr.h@{libwconr.h}!verify\_cached\_package@{verify\_cached\_package}}
+\index{verify\_cached\_package@{verify\_cached\_package}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{verify\_cached\_package()}{verify\_cached\_package()}}
+{\footnotesize\ttfamily int verify\+\_\+cached\+\_\+package (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{source\+\_\+uri,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+spec,  }\item[{struct \mbox{\hyperlink{structwcr__hash__check__s}{wcr\+\_\+hash\+\_\+check\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
 \Hypertarget{libwconr_8h_a3a71e273e4e005ab38ddd005cd87a4a0}\label{libwconr_8h_a3a71e273e4e005ab38ddd005cd87a4a0} 
 \index{libwconr.h@{libwconr.h}!wcr\_set\_event\_callback@{wcr\_set\_event\_callback}}
 \index{wcr\_set\_event\_callback@{wcr\_set\_event\_callback}!libwconr.h@{libwconr.h}}
 \doxysubsubsection{\texorpdfstring{wcr\_set\_event\_callback()}{wcr\_set\_event\_callback()}}
 {\footnotesize\ttfamily void wcr\+\_\+set\+\_\+event\+\_\+callback (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{wcr__event_8h_ae3bd66ac9b9e02f381391333a9817da5}{wcr\+\_\+event\+\_\+callback\+\_\+t}}}]{callback,  }\item[{void \texorpdfstring{$\ast$}{*}}]{user\+\_\+data }\end{DoxyParamCaption})}
 
+\Hypertarget{libwconr_8h_aadde6833f0417c3b68731fbb5611bc49}\label{libwconr_8h_aadde6833f0417c3b68731fbb5611bc49} 
+\index{libwconr.h@{libwconr.h}!wcr\_source\_set\_auth@{wcr\_source\_set\_auth}}
+\index{wcr\_source\_set\_auth@{wcr\_source\_set\_auth}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_source\_set\_auth()}{wcr\_source\_set\_auth()}}
+{\footnotesize\ttfamily int wcr\+\_\+source\+\_\+set\+\_\+auth (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{size\+\_\+t}]{index,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{access\+\_\+key,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{server\+\_\+pubkey\+\_\+path }\end{DoxyParamCaption})}
+
 \Hypertarget{libwconr_8h_a2a72d0139b22dbceaa725fe267afa51c}\label{libwconr_8h_a2a72d0139b22dbceaa725fe267afa51c} 
 \index{libwconr.h@{libwconr.h}!wcr\_state\_add\_source@{wcr\_state\_add\_source}}
 \index{wcr\_state\_add\_source@{wcr\_state\_add\_source}!libwconr.h@{libwconr.h}}
 \doxysubsubsection{\texorpdfstring{wcr\_state\_add\_source()}{wcr\_state\_add\_source()}}
 {\footnotesize\ttfamily int wcr\+\_\+state\+\_\+add\+\_\+source (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{\mbox{\hyperlink{libwconr_8h_ac921c2e8625e26392a9679359d60e396}{protocol\+\_\+type}}}]{proto,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{url }\end{DoxyParamCaption})}
+
+\Hypertarget{libwconr_8h_ac76ba77ca051ec28093e50ca756cadce}\label{libwconr_8h_ac76ba77ca051ec28093e50ca756cadce} 
+\index{libwconr.h@{libwconr.h}!wcr\_state\_find\_source@{wcr\_state\_find\_source}}
+\index{wcr\_state\_find\_source@{wcr\_state\_find\_source}!libwconr.h@{libwconr.h}}
+\doxysubsubsection{\texorpdfstring{wcr\_state\_find\_source()}{wcr\_state\_find\_source()}}
+{\footnotesize\ttfamily const struct \mbox{\hyperlink{structwcr__source__s}{wcr\+\_\+source\+\_\+s}} \texorpdfstring{$\ast$}{*} wcr\+\_\+state\+\_\+find\+\_\+source (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structwcr__state__s}{wcr\+\_\+state\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{state,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{url }\end{DoxyParamCaption})}
 
 \Hypertarget{libwconr_8h_afb2e55496f2db23dcf3ef5695a403531}\label{libwconr_8h_afb2e55496f2db23dcf3ef5695a403531} 
 \index{libwconr.h@{libwconr.h}!write\_state@{write\_state}}

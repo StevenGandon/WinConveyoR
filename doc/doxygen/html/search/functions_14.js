@@ -8,6 +8,7 @@ var searchData=
   ['update_5fpool_5',['update_pool',['../classsrc_1_1thread_1_1pool_1_1Pool.html#aef8bf09fdf362eaeef734b8c59a962c3',1,'src.thread.pool.Pool.update_pool()'],['../classsrc_1_1scheduler_1_1pool_1_1Pool.html#a0617d6054e3fa33fc007dfaaf4a0085e',1,'src.scheduler.pool.Pool.update_pool()']]],
   ['update_5fsources_6',['update_sources',['../classsrc_1_1cli_1_1cli_1_1CLI.html#aba24de68e21148bc436302054ab0eb04',1,'src::cli::cli::CLI']]],
   ['update_5fuser_7',['update_user',['../namespacesrc_1_1v1_1_1endpoints_1_1users.html#a5373b6b6dedaa463774a52584a8547e6',1,'src::v1::endpoints::users']]],
-  ['user_5fcommand_8',['user_command',['../namespacesrc_1_1cli_1_1commands_1_1user.html#abc412a60b6a7ee24bd7576fe674759e0',1,'src::cli::commands::user']]],
-  ['user_5finput_9',['user_input',['../classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#aff9325154de9c6a52a6547023132c22f',1,'src::cli::cli_base::NetworkCLI']]]
+  ['upgrade_5fpackages_8',['upgrade_packages',['../classsrc_1_1cli_1_1cli_1_1CLI.html#a5996990b5bc614e7dbeefe0e94f20189',1,'src::cli::cli::CLI']]],
+  ['user_5fcommand_9',['user_command',['../namespacesrc_1_1cli_1_1commands_1_1user.html#abc412a60b6a7ee24bd7576fe674759e0',1,'src::cli::commands::user']]],
+  ['user_5finput_10',['user_input',['../classsrc_1_1cli_1_1cli__base_1_1NetworkCLI.html#aff9325154de9c6a52a6547023132c22f',1,'src::cli::cli_base::NetworkCLI']]]
 ];

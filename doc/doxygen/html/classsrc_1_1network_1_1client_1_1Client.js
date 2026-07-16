@@ -7,6 +7,7 @@ var classsrc_1_1network_1_1client_1_1Client =
     [ "get_id", "classsrc_1_1network_1_1client_1_1Client.html#a8f5b49294387f83058cbe8b0e49e756f", null ],
     [ "isopen", "classsrc_1_1network_1_1client_1_1Client.html#aacb6a55bbad2439959f004d169b8d761", null ],
     [ "read", "classsrc_1_1network_1_1client_1_1Client.html#a4b64ef1aba13ccd817bf604d5154a98b", null ],
+    [ "read_raw_to_file", "classsrc_1_1network_1_1client_1_1Client.html#a78f4601a2383727a1d7884974bf3366c", null ],
     [ "set_public_key", "classsrc_1_1network_1_1client_1_1Client.html#ac160955379e872a3cba4d6c3885dfce5", null ],
     [ "write", "classsrc_1_1network_1_1client_1_1Client.html#a18d3ec27f99753c3cc6a47c882512588", null ],
     [ "_id", "classsrc_1_1network_1_1client_1_1Client.html#a29be75cf1bd8b9120d393b26e19a517e", null ],

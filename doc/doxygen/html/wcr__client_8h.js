@@ -14,6 +14,7 @@ var wcr__client_8h =
     [ "wcr_msg", "wcr__client_8h.html#a2923e1aa9a8fb6f3fc379b282a179e98", null ],
     [ "wcr_auth", "wcr__client_8h.html#ac846ad724fbe771080bfa1db01aa9778", null ],
     [ "wcr_close", "wcr__client_8h.html#a9ced6f3727ffc0dbe614c1c94e5908ef", null ],
+    [ "wcr_download_file", "wcr__client_8h.html#a5d17d9df6084a1ac1841bbe87c4f3a06", null ],
     [ "wcr_get_hash", "wcr__client_8h.html#a021f52a7579c7b309e0c915f4b987bdd", null ],
     [ "wcr_get_listing", "wcr__client_8h.html#adeecb10306bba9f36c88cbd5f10d0f67", null ],
     [ "wcr_get_package_listing", "wcr__client_8h.html#a45652000f6de45422dc7171dfd2cf684", null ],

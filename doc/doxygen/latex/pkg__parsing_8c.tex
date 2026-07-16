@@ -1,38 +1,80 @@
 \doxysection{lib/libwconr/src/pkg\+\_\+parsing.c File Reference}
 \hypertarget{pkg__parsing_8c}{}\label{pkg__parsing_8c}\index{lib/libwconr/src/pkg\_parsing.c@{lib/libwconr/src/pkg\_parsing.c}}
 {\ttfamily \#include "{}pkg\+\_\+parsing.\+h"{}}\newline
+{\ttfamily \#include "{}pkg\+\_\+specifier.\+h"{}}\newline
 {\ttfamily \#include "{}wcr\+\_\+event\+\_\+internal.\+h"{}}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
 {\ttfamily \#include $<$c\+JSON.\+h$>$}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{pkg__parsing_8c_a60f13ad3f9c85a55d715a7280c04e96d}{find\+\_\+package\+\_\+in\+\_\+list}} (const char \texorpdfstring{$\ast$}{*}pkgs\+\_\+list\+\_\+path, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+register\+\_\+path, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+checksum)
+int \mbox{\hyperlink{pkg__parsing_8c_a5d3162617120352705e28e81f157ef6a}{find\+\_\+package\+\_\+in\+\_\+list}} (const char \texorpdfstring{$\ast$}{*}pkgs\+\_\+list\+\_\+path, const char \texorpdfstring{$\ast$}{*}package\+\_\+name, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+register\+\_\+path, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+checksum, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+version)
 \item 
 int \mbox{\hyperlink{pkg__parsing_8c_a4aa644f97491bdb488b4112d6e31c876}{parse\+\_\+first\+\_\+location}} (const char \texorpdfstring{$\ast$}{*}register\+\_\+content, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+location)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{pkg__parsing_8c_a9760b6c7e53ff33da78d45fcad8eaef3}{cjson\+\_\+strdup}} (c\+JSON \texorpdfstring{$\ast$}{*}root, const char \texorpdfstring{$\ast$}{*}key)
+\item 
+static long \mbox{\hyperlink{pkg__parsing_8c_a26421c4633aea39dc21346f15d0e9ad6}{cjson\+\_\+long}} (c\+JSON \texorpdfstring{$\ast$}{*}root, const char \texorpdfstring{$\ast$}{*}key)
+\item 
+int \mbox{\hyperlink{pkg__parsing_8c_afbfe3ab52b2e057fa615be0a54f064ca}{json\+\_\+parse\+\_\+metadata}} (const char \texorpdfstring{$\ast$}{*}json, struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \texorpdfstring{$\ast$}{*}out)
 \item 
 int \mbox{\hyperlink{pkg__parsing_8c_ac7f79d7af8f8f57818630ab1e8d10c4e}{json\+\_\+extract\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}json, const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+value)
 \item 
 void \mbox{\hyperlink{pkg__parsing_8c_a6e708a02a2099651837c2b02f60cba89}{free\+\_\+string\+\_\+array}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}values, size\+\_\+t count)
 \item 
 int \mbox{\hyperlink{pkg__parsing_8c_a60aa1bfae1e55f75140e4d129fe1c613}{json\+\_\+extract\+\_\+string\+\_\+array}} (const char \texorpdfstring{$\ast$}{*}json, const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+values, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+static char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{pkg__parsing_8c_aa198de6cdc3052b97495862af218547c}{extract\+\_\+register\+\_\+field}} (const char \texorpdfstring{$\ast$}{*}block\+\_\+start, const char \texorpdfstring{$\ast$}{*}block\+\_\+end, const char \texorpdfstring{$\ast$}{*}key)
+\item 
+int \mbox{\hyperlink{pkg__parsing_8c_a4e4d3ada928f5a0d1f435a6adf9ab1d9}{select\+\_\+variant\+\_\+register}} (const char \texorpdfstring{$\ast$}{*}register\+\_\+content, const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}spec, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out\+\_\+location)
+\item 
+int \mbox{\hyperlink{pkg__parsing_8c_a34bf7ca259bf989716969594cdb50838}{parse\+\_\+register\+\_\+variants}} (const char \texorpdfstring{$\ast$}{*}register\+\_\+content, struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+int \mbox{\hyperlink{pkg__parsing_8c_a4caf580de29773aa829494be2a1aed29}{parse\+\_\+wcr\+\_\+listing\+\_\+variants}} (const char \texorpdfstring{$\ast$}{*}listing, struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}out, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+count)
+\item 
+void \mbox{\hyperlink{pkg__parsing_8c_a668c14c135a9ee69715427f450c47801}{free\+\_\+variant\+\_\+list}} (struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}list, size\+\_\+t count)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{pkg__parsing_8c_a60f13ad3f9c85a55d715a7280c04e96d}\label{pkg__parsing_8c_a60f13ad3f9c85a55d715a7280c04e96d} 
+\Hypertarget{pkg__parsing_8c_a26421c4633aea39dc21346f15d0e9ad6}\label{pkg__parsing_8c_a26421c4633aea39dc21346f15d0e9ad6} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!cjson\_long@{cjson\_long}}
+\index{cjson\_long@{cjson\_long}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{cjson\_long()}{cjson\_long()}}
+{\footnotesize\ttfamily static long cjson\+\_\+long (\begin{DoxyParamCaption}\item[{c\+JSON \texorpdfstring{$\ast$}{*}}]{root,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pkg__parsing_8c_a9760b6c7e53ff33da78d45fcad8eaef3}\label{pkg__parsing_8c_a9760b6c7e53ff33da78d45fcad8eaef3} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!cjson\_strdup@{cjson\_strdup}}
+\index{cjson\_strdup@{cjson\_strdup}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{cjson\_strdup()}{cjson\_strdup()}}
+{\footnotesize\ttfamily static char \texorpdfstring{$\ast$}{*} cjson\+\_\+strdup (\begin{DoxyParamCaption}\item[{c\+JSON \texorpdfstring{$\ast$}{*}}]{root,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pkg__parsing_8c_aa198de6cdc3052b97495862af218547c}\label{pkg__parsing_8c_aa198de6cdc3052b97495862af218547c} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!extract\_register\_field@{extract\_register\_field}}
+\index{extract\_register\_field@{extract\_register\_field}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{extract\_register\_field()}{extract\_register\_field()}}
+{\footnotesize\ttfamily static char \texorpdfstring{$\ast$}{*} extract\+\_\+register\+\_\+field (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{block\+\_\+start,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{block\+\_\+end,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{pkg__parsing_8c_a5d3162617120352705e28e81f157ef6a}\label{pkg__parsing_8c_a5d3162617120352705e28e81f157ef6a} 
 \index{pkg\_parsing.c@{pkg\_parsing.c}!find\_package\_in\_list@{find\_package\_in\_list}}
 \index{find\_package\_in\_list@{find\_package\_in\_list}!pkg\_parsing.c@{pkg\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{find\_package\_in\_list()}{find\_package\_in\_list()}}
-{\footnotesize\ttfamily int find\+\_\+package\+\_\+in\+\_\+list (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{pkgs\+\_\+list\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+register\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+checksum }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int find\+\_\+package\+\_\+in\+\_\+list (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{pkgs\+\_\+list\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{package\+\_\+name,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+register\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+checksum,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+version }\end{DoxyParamCaption})}
 
 \Hypertarget{pkg__parsing_8c_a6e708a02a2099651837c2b02f60cba89}\label{pkg__parsing_8c_a6e708a02a2099651837c2b02f60cba89} 
 \index{pkg\_parsing.c@{pkg\_parsing.c}!free\_string\_array@{free\_string\_array}}
 \index{free\_string\_array@{free\_string\_array}!pkg\_parsing.c@{pkg\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{free\_string\_array()}{free\_string\_array()}}
 {\footnotesize\ttfamily void free\+\_\+string\+\_\+array (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{values,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+\Hypertarget{pkg__parsing_8c_a668c14c135a9ee69715427f450c47801}\label{pkg__parsing_8c_a668c14c135a9ee69715427f450c47801} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!free\_variant\_list@{free\_variant\_list}}
+\index{free\_variant\_list@{free\_variant\_list}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{free\_variant\_list()}{free\_variant\_list()}}
+{\footnotesize\ttfamily void free\+\_\+variant\+\_\+list (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
 
 \Hypertarget{pkg__parsing_8c_ac7f79d7af8f8f57818630ab1e8d10c4e}\label{pkg__parsing_8c_ac7f79d7af8f8f57818630ab1e8d10c4e} 
 \index{pkg\_parsing.c@{pkg\_parsing.c}!json\_extract\_string@{json\_extract\_string}}
@@ -46,9 +88,33 @@ int \mbox{\hyperlink{pkg__parsing_8c_a60aa1bfae1e55f75140e4d129fe1c613}{json\+\_
 \doxysubsubsection{\texorpdfstring{json\_extract\_string\_array()}{json\_extract\_string\_array()}}
 {\footnotesize\ttfamily int json\+\_\+extract\+\_\+string\+\_\+array (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{json,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+values,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
 
+\Hypertarget{pkg__parsing_8c_afbfe3ab52b2e057fa615be0a54f064ca}\label{pkg__parsing_8c_afbfe3ab52b2e057fa615be0a54f064ca} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!json\_parse\_metadata@{json\_parse\_metadata}}
+\index{json\_parse\_metadata@{json\_parse\_metadata}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{json\_parse\_metadata()}{json\_parse\_metadata()}}
+{\footnotesize\ttfamily int json\+\_\+parse\+\_\+metadata (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{json,  }\item[{struct \mbox{\hyperlink{structwcr__pkg__metadata__s}{wcr\+\_\+pkg\+\_\+metadata\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
 \Hypertarget{pkg__parsing_8c_a4aa644f97491bdb488b4112d6e31c876}\label{pkg__parsing_8c_a4aa644f97491bdb488b4112d6e31c876} 
 \index{pkg\_parsing.c@{pkg\_parsing.c}!parse\_first\_location@{parse\_first\_location}}
 \index{parse\_first\_location@{parse\_first\_location}!pkg\_parsing.c@{pkg\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{parse\_first\_location()}{parse\_first\_location()}}
 {\footnotesize\ttfamily int parse\+\_\+first\+\_\+location (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{register\+\_\+content,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+location }\end{DoxyParamCaption})}
+
+\Hypertarget{pkg__parsing_8c_a34bf7ca259bf989716969594cdb50838}\label{pkg__parsing_8c_a34bf7ca259bf989716969594cdb50838} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!parse\_register\_variants@{parse\_register\_variants}}
+\index{parse\_register\_variants@{parse\_register\_variants}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{parse\_register\_variants()}{parse\_register\_variants()}}
+{\footnotesize\ttfamily int parse\+\_\+register\+\_\+variants (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{register\+\_\+content,  }\item[{struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
+
+\Hypertarget{pkg__parsing_8c_a4caf580de29773aa829494be2a1aed29}\label{pkg__parsing_8c_a4caf580de29773aa829494be2a1aed29} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!parse\_wcr\_listing\_variants@{parse\_wcr\_listing\_variants}}
+\index{parse\_wcr\_listing\_variants@{parse\_wcr\_listing\_variants}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{parse\_wcr\_listing\_variants()}{parse\_wcr\_listing\_variants()}}
+{\footnotesize\ttfamily int parse\+\_\+wcr\+\_\+listing\+\_\+variants (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{listing,  }\item[{struct \mbox{\hyperlink{structwcr__pkg__variant__s}{wcr\+\_\+pkg\+\_\+variant\+\_\+s}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+count }\end{DoxyParamCaption})}
+
+\Hypertarget{pkg__parsing_8c_a4e4d3ada928f5a0d1f435a6adf9ab1d9}\label{pkg__parsing_8c_a4e4d3ada928f5a0d1f435a6adf9ab1d9} 
+\index{pkg\_parsing.c@{pkg\_parsing.c}!select\_variant\_register@{select\_variant\_register}}
+\index{select\_variant\_register@{select\_variant\_register}!pkg\_parsing.c@{pkg\_parsing.c}}
+\doxysubsubsection{\texorpdfstring{select\_variant\_register()}{select\_variant\_register()}}
+{\footnotesize\ttfamily int select\+\_\+variant\+\_\+register (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{register\+\_\+content,  }\item[{const struct \mbox{\hyperlink{structpkg__specifier}{pkg\+\_\+specifier}} \texorpdfstring{$\ast$}{*}}]{spec,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{out\+\_\+location }\end{DoxyParamCaption})}
 

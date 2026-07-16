@@ -14,5 +14,6 @@ var searchData=
   ['eta_5fstack_5fsize_11',['eta_stack_size',['../classsrc_1_1graphic_1_1builtin_1_1loading__bar_1_1LoadingBar.html#a03af62c6b6f370735db069aef61a6a7c',1,'src::graphic::builtin::loading_bar::LoadingBar']]],
   ['event_5fcallback_12',['event_callback',['../structwcr__state__s.html#aad459bcee69f524680ac4ff2d76bbba9',1,'wcr_state_s']]],
   ['event_5fuser_5fdata_13',['event_user_data',['../structwcr__state__s.html#ac38adb638f7d4ecb32adc60b74f1b0fe',1,'wcr_state_s']]],
-  ['exclusion_14',['exclusion',['../classsrc_1_1arghandler_1_1GenericArgument.html#ae1e0b5a2696399fa8cee041f3431c2b7',1,'src::arghandler::GenericArgument']]]
+  ['exclusion_14',['exclusion',['../classsrc_1_1arghandler_1_1GenericArgument.html#ae1e0b5a2696399fa8cee041f3431c2b7',1,'src::arghandler::GenericArgument']]],
+  ['expected_15',['expected',['../structwcr__hash__check__s.html#a18291dc6d60ce43da0aa92e37706b2a4',1,'wcr_hash_check_s']]]
 ];

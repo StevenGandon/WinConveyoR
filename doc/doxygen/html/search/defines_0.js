@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['cache_5ffolder_5fsystem_0',['CACHE_FOLDER_SYSTEM',['../libwconr__private__source_8h.html#ad6fcd9c571c43423ccb278df1fc577f5',1,'libwconr_private_source.h']]],
-  ['cache_5ffolder_5fuser_1',['CACHE_FOLDER_USER',['../libwconr__private__source_8h.html#aace448edd90385fbd027582ea21c1d49',1,'libwconr_private_source.h']]]
+  ['access_5fkey_5fprefix_0',['ACCESS_KEY_PREFIX',['../wcr__state_8c.html#a75b28c63a2a67628d788981cb8170023',1,'wcr_state.c']]]
 ];

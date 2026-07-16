@@ -20,6 +20,11 @@ var namespacesrc =
     [ "cli", "namespacesrc_1_1cli.html", "namespacesrc_1_1cli" ],
     [ "common", "namespacesrc_1_1common.html", "namespacesrc_1_1common" ],
     [ "graphic", "namespacesrc_1_1graphic.html", "namespacesrc_1_1graphic" ],
+    [ "integrity", "namespacesrc_1_1integrity.html", [
+      [ "verify_installed_packages", "namespacesrc_1_1integrity.html#a7343ef70f0b7b6330b2be52d278fe217", null ],
+      [ "_cli_src", "namespacesrc_1_1integrity.html#a12310a4f4e33cc4c071de1fdc0bbe3e9", null ],
+      [ "_lib_build", "namespacesrc_1_1integrity.html#a5ed9aaba7b3b2979ef8d7f558ab8a22d", null ]
+    ] ],
     [ "network", "namespacesrc_1_1network.html", "namespacesrc_1_1network" ],
     [ "package", "namespacesrc_1_1package.html", "namespacesrc_1_1package" ],
     [ "packaging", "namespacesrc_1_1packaging.html", [

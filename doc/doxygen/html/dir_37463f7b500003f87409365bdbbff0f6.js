@@ -13,6 +13,8 @@ var dir_37463f7b500003f87409365bdbbff0f6 =
     [ "pars_wizard.c", "pars__wizard_8c.html", "pars__wizard_8c" ],
     [ "pkg_downloader.c", "pkg__downloader_8c.html", "pkg__downloader_8c" ],
     [ "pkg_parsing.c", "pkg__parsing_8c.html", "pkg__parsing_8c" ],
+    [ "pkg_registry.c", "pkg__registry_8c.html", "pkg__registry_8c" ],
+    [ "pkg_specifier.c", "pkg__specifier_8c.html", "pkg__specifier_8c" ],
     [ "platform_types.h", "platform__types_8h.html", null ],
     [ "sync_package_list.c", "sync__package__list_8c.html", "sync__package__list_8c" ],
     [ "uninstall_package.c", "uninstall__package_8c.html", "uninstall__package_8c" ],
