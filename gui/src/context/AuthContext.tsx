@@ -37,6 +37,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
+    if (token === 'anonymous') {
+      setUser({ id: 0, username: 'Guest', email: '' } as UserOut);
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 5000);

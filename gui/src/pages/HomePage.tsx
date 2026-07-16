@@ -7,7 +7,7 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
 const HomePage: React.FC = () => {
-  const { installedPackages, updatablePackages, addInstalled } = usePackages();
+  const { installedPackages, updatablePackages, refreshInstalled, loadAvailable } = usePackages();
   const { busy, runUpdate, runInstall } = useCli();
   const [installName, setInstallName] = useState('');
 
@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
     const pkg = installName.trim();
     const result = await runInstall(pkg);
     if (result.code === 0) {
-      addInstalled(pkg, result.version);
+      await refreshInstalled();
     }
     setInstallName('');
   };
@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
           <CardTitle>Welcome to WinConveyoR</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-wc-muted dark:text-wc-muted-dark">
             Manage your Windows packages from one place.
           </p>
         </CardContent>
@@ -38,29 +38,29 @@ const HomePage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardContent className="flex items-center space-x-3 p-4">
-            <PackageIcon className="text-blue-500" size={24} />
+            <PackageIcon className="text-wc-accent" size={24} />
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Installed</p>
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">Installed</p>
               <p className="text-2xl font-semibold">{installedPackages.length}</p>
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="flex items-center space-x-3 p-4">
-            <RefreshCw className="text-orange-500" size={24} />
+            <RefreshCw className="text-wc-accent" size={24} />
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Updates</p>
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">Updates</p>
               <p className="text-2xl font-semibold">{updatablePackages.length}</p>
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="flex items-center space-x-3 p-4">
-            <Download className={busy ? 'text-orange-500' : 'text-green-500'} size={24} />
+            <Download className={busy ? 'text-wc-accent' : 'text-wc-success dark:text-wc-success-dark'} size={24} />
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Status</p>
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">Status</p>
               <div className="flex items-center space-x-2">
-                <span className={`inline-block w-2 h-2 rounded-full ${busy ? 'bg-orange-500 animate-pulse' : 'bg-green-500'}`} />
+                <span className={`inline-block w-2 h-2 rounded-full ${busy ? 'bg-wc-accent animate-pulse' : 'bg-wc-success dark:bg-wc-success-dark'}`} />
                 <p className="text-2xl font-semibold">{busy ? '...' : 'OK'}</p>
               </div>
             </div>
@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
             <Button
               variant="primary"
               leftIcon={<RefreshCw size={18} />}
-              onClick={runUpdate}
+              onClick={async () => { await runUpdate(); await loadAvailable(); }}
               disabled={busy}
               isLoading={busy}
             >

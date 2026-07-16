@@ -75,7 +75,7 @@ class Task(object):
         try:
             self.local_socket.write(f"instance#{instance_id} started.")
 
-            self.task_callback(self.local_socket)
+            self.callback(self.local_socket)
 
             self.local_socket.write(f"instance#{instance_id} stopped.")
         except Exception as e:
@@ -92,7 +92,7 @@ class Task(object):
         job: Job = Job(
             callback=lambda cout, x=instance_id: self._start_task_instance(cout, x),
             name=f"{self.name}#0~",
-            on_end=lambda cout, x: self._end_task_instance(cout, x))        
+            on_end=lambda cout, x=instance_id: self._end_task_instance(cout, x))        
         job.name = f"{self.name}#{job.id}"
 
         self.pool.add_job(job)
@@ -107,8 +107,10 @@ class TaskScheduler(object):
         self.tasks.append(task)
 
     def tick(self, sleep_until_next_refresh: bool = True):
+        from time import sleep
+
         for item in self.tasks:
-            pass
+            item.run()
 
         if (sleep_until_next_refresh):
-            pass
+            sleep(self.tick_rate)

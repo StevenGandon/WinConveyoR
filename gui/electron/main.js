@@ -4,6 +4,10 @@ import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
 import isDev from 'electron-is-dev';
 
+if (process.platform === 'linux') {
+  app.disableHardwareAcceleration();
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -40,9 +44,6 @@ function createWindow() {
 
   mainWindow.loadURL(startURL);
 
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -51,12 +52,22 @@ function createWindow() {
 
 function runCli(args) {
   return new Promise((resolve) => {
-    const wslRoot = PROJECT_ROOT.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
-    const wslCli = `${wslRoot}/cli/main.py`;
-    const wslLib = ['.', `${wslRoot}/cli/build`, `${wslRoot}/lib/libwconr/build`, `${wslRoot}/lib/libwconr`].join(':');
-    const child = spawn('wsl', ['bash', '-c', `LD_LIBRARY_PATH="${wslLib}" python3 "${wslCli}" --no-ansi ${args.join(' ')}`], {
-      cwd: PROJECT_ROOT,
-    });
+    let child;
+
+    if (process.platform === 'win32') {
+      const wslRoot = PROJECT_ROOT.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
+      const wslCli = `${wslRoot}/cli/main.py`;
+      const wslLib = ['.', `${wslRoot}/cli/build`, `${wslRoot}/lib/libwconr/build`, `${wslRoot}/lib/libwconr`].join(':');
+      child = spawn('wsl', ['bash', '-c', `LD_LIBRARY_PATH="${wslLib}" python3 "${wslCli}" --no-ansi ${args.join(' ')}`], {
+        cwd: PROJECT_ROOT,
+      });
+    } else {
+      const libDirs = ['.', path.join(PROJECT_ROOT, 'cli', 'build'), path.join(PROJECT_ROOT, 'lib', 'libwconr', 'build'), path.join(PROJECT_ROOT, 'lib', 'libwconr')].join(':');
+      child = spawn('python3', [CLI_ENTRY, '--no-ansi', ...args], {
+        cwd: PROJECT_ROOT,
+        env: { ...process.env, LD_LIBRARY_PATH: libDirs },
+      });
+    }
 
     let output = '';
 
@@ -115,3 +126,8 @@ ipcMain.on('close-window', () => {
 ipcMain.handle('cli-update', () => runCli(['update']));
 ipcMain.handle('cli-install', (_event, packageName) => runCli(['install', packageName]));
 ipcMain.handle('cli-uninstall', (_event, packageName) => runCli(['uninstall', packageName]));
+ipcMain.handle('cli-list-installed', () => runCli(['list']));
+ipcMain.handle('cli-search', (_event, query) => runCli(query ? ['search', query] : ['search']));
+ipcMain.handle('cli-info', (_event, packageSpec) => runCli(['info', packageSpec]));
+ipcMain.handle('cli-check', (_event, packageSpec) => runCli(['check', packageSpec]));
+ipcMain.handle('cli-upgrade', (_event, packageName) => runCli(packageName ? ['upgrade', packageName] : ['upgrade']));

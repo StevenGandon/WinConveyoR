@@ -8,7 +8,7 @@ import Sidebar from './components/layout/Sidebar';
 import HomePage from './pages/HomePage';
 import DiscoverPage from './pages/DiscoverPage';
 import InstalledPage from './pages/InstalledPage';
-import UpdatesPage from './pages/UpdatesPage';
+import UpgradesPage from './pages/UpgradesPage';
 import SettingsPage from './pages/SettingsPage';
 import OutputPage from './pages/OutputPage';
 import LoginPage from './pages/LoginPage';
@@ -22,15 +22,16 @@ function AuthGate() {
     if (!token) setAuthPage('login');
   }, [token]);
 
-  // AUTH BYPASS — remove this block to re-enable auth
-  return <MainApp />;
+  if (token === 'anonymous') {
+    return <MainApp />;
+  }
 
   if (isLoading) {
     return (
-      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
         <TitleBar />
         <div className="flex items-center justify-center flex-1">
-          <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+          <p className="text-wc-muted dark:text-wc-muted-dark">Loading...</p>
         </div>
       </div>
     );
@@ -41,7 +42,7 @@ function AuthGate() {
       ? <LoginPage onSwitchToRegister={() => setAuthPage('register')} />
       : <RegisterPage onSwitchToLogin={() => setAuthPage('login')} />;
     return (
-      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
         <TitleBar />
         <div className="flex-1 flex items-center justify-center overflow-hidden">{page}</div>
       </div>
@@ -58,7 +59,7 @@ function MainApp() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && !isNaN(Number(e.key))) {
         e.preventDefault();
-        const pages = ['home', 'discover', 'installed', 'updates', 'output', 'settings'];
+        const pages = ['home', 'discover', 'installed', 'upgrades', 'output', 'settings'];
         const index = Number(e.key) - 1;
         if (index >= 0 && index < pages.length) {
           setActivePage(pages[index]);
@@ -78,8 +79,8 @@ function MainApp() {
         return <DiscoverPage />;
       case 'installed':
         return <InstalledPage />;
-      case 'updates':
-        return <UpdatesPage />;
+      case 'upgrades':
+        return <UpgradesPage />;
       case 'output':
         return <OutputPage />;
       case 'settings':
@@ -92,7 +93,7 @@ function MainApp() {
   return (
     <PackageProvider>
       <CliProvider>
-      <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark text-wc-fg dark:text-wc-fg-dark">
         <TitleBar />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar activePage={activePage} onNavigate={setActivePage} />
