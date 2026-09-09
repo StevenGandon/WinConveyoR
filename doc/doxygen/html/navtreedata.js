@@ -64,18 +64,18 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CLI.html",
-"classsrc_1_1arghandler_1_1GenericArgument.html#a7cd27b7672194ff2fe5716ae82d41cc8",
-"classsrc_1_1cli_1_1cli_1_1CLI.html#aa4abb46c9ad039a169e3cec3ed02470b",
-"classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html#a7cb6030c56af84a94f79dd4ff29c39c8",
-"classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a29d2745df3e60a8b80ea787be747b7a9",
-"classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#a56d5482354669e25690f2450cb55c76c",
-"classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html#a3eff1a51e8365cb1d0c96b5f6f730712",
-"classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html#acea37f719eb64e666eb19943847ea7f1",
-"functions_n.html",
-"libwconr__private__source_8h.html#aace448edd90385fbd027582ea21c1d49",
-"namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html#a5f4ce113a1f394cb7471f75e84baff68",
-"structwcr__available__pkg__s.html",
-"wcr__state_8c.html#a2ecff66bb90a15f52a4521c4516eeb41"
+"classsrc_1_1arghandler_1_1GenericArgument.html#a779da6b459f29280b92f9906974ada56",
+"classsrc_1_1cli_1_1cli_1_1CLI.html#a9db353fcd675457e0a0487857ea275a8",
+"classsrc_1_1graphic_1_1graphic_1_1GraphicSettings.html",
+"classsrc_1_1package_1_1mirror__server_1_1MirrorServer.html#a2806a7d1ceaddcdc3d0cde896bc8c9ff",
+"classsrc_1_1scheduler_1_1task_1_1TextIOLocal.html#a46080f1bf0ced87d2ebb7c96999d179b",
+"classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html",
+"classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html",
+"functions_l.html",
+"libwconr__private_8h_source.html",
+"namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html#a0be41d60b5e52ae501fe6de27d448ec6",
+"structvm__op__def.html#a70ba17e53d24a21060f46153c72de5c9",
+"wcr__state_8c.html#a239b66e28091534f714e1c027dc076f9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

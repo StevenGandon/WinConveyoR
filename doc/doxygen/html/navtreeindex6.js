@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html":[4,0,5,11,0,1,0],
+"classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html#a3eff1a51e8365cb1d0c96b5f6f730712":[4,0,5,11,0,1,0,5],
 "classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html#a3eff1a51e8365cb1d0c96b5f6f730712":[3,0,9,15,0,1,0,5],
 "classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html#a5bdf347ec2c1c184b18632ef81971620":[4,0,5,11,0,1,0,0],
 "classsrc_1_1wizard_1_1classes_1_1instruction_1_1WizardInstruction.html#a5bdf347ec2c1c184b18632ef81971620":[3,0,9,15,0,1,0,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__metadata__s.html":[4,0,5,12,1,0,7],
 "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__metadata__s.html#a4886963dcc4fda5451f0b0fd376cbd09":[3,0,9,16,1,0,7,0],
 "classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__metadata__s.html#a4886963dcc4fda5451f0b0fd376cbd09":[4,0,5,12,1,0,7,0],
-"classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html":[4,0,5,12,1,0,8],
-"classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html":[3,0,9,16,1,0,8],
-"classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html#acea37f719eb64e666eb19943847ea7f1":[3,0,9,16,1,0,8,0]
+"classsrc_1_1wrappers_1_1libwconr_1_1__libwconr_1_1wcr__pkg__variant__s.html":[4,0,5,12,1,0,8]
 };

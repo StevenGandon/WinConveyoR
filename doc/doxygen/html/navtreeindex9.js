@@ -1,5 +1,7 @@
 var NAVTREEINDEX9 =
 {
+"libwconr__private_8h_source.html":[5,0,6,0,2],
+"libwconr__private__source_8h.html":[5,0,6,0,3],
 "libwconr__private__source_8h.html#aace448edd90385fbd027582ea21c1d49":[5,0,6,0,3,4],
 "libwconr__private__source_8h.html#ad6fcd9c571c43423ccb278df1fc577f5":[5,0,6,0,3,3],
 "libwconr__private__source_8h_source.html":[5,0,6,0,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX9 =
 "namespacesrc_1_1wrappers_1_1dllloader.html#a4eff3c1f4ea3040d1b92063df9b7356c":[3,0,9,16,0,5],
 "namespacesrc_1_1wrappers_1_1libwconr.html":[3,0,9,16,1],
 "namespacesrc_1_1wrappers_1_1libwconr_1_1__libwconr.html":[3,0,9,16,1,0],
-"namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html":[3,0,9,16,1,1],
-"namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html#a0be41d60b5e52ae501fe6de27d448ec6":[3,0,9,16,1,1,3],
-"namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html#a5d851af40eea6bc4309008b6c68944c0":[3,0,9,16,1,1,5]
+"namespacesrc_1_1wrappers_1_1libwconr_1_1libwconr.html":[3,0,9,16,1,1]
 };
