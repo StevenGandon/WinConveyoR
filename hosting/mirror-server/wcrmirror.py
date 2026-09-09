@@ -587,7 +587,8 @@ def route_purge_pkg_listing(client: Client, server: Server, message: JSONMessage
             },
             "code": 1
         }))
-    
+        return
+
     session.session_instance.remove_package_register(message.content["data"]["package_name"], hard_delete=False)
 
     client.write(JSONMessage({
@@ -619,10 +620,20 @@ def route_remove_pkg_listing(client: Client, server: Server, message: JSONMessag
             },
             "code": 1
         }))
+        return
 
     package_register = session.session_instance.get_package_register(message.content["data"]["package_name"])
+    location_hash = int(message.content["data"]["package_hash"], base=16)
 
-    if (not package_register.has_package_listing(message.content["data"]["package_hash"])):
+    package_register.load() if not package_register.loaded else None
+
+    listing_key = None
+    for key, item in package_register.listing.items():
+        if (int.from_bytes(sha256(str(item.location).encode(errors='replace')).digest(), "big") == location_hash):
+            listing_key = key
+            break
+
+    if (listing_key is None):
         client.write(JSONMessage({
             "action": message.content["action"],
             "data": {
@@ -630,8 +641,9 @@ def route_remove_pkg_listing(client: Client, server: Server, message: JSONMessag
             },
             "code": 1
         }))
+        return
 
-    package_register.remove_package_listing(message.content["data"]["package_hash"], hard_delete=False)
+    package_register.remove_package_listing(listing_key, hard_delete=False)
 
     client.write(JSONMessage({
         "action": message.content["action"],

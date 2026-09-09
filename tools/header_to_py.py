@@ -109,8 +109,18 @@ class HeaderFile(object):
             arg_signed = False
         return (TypeValue(arg_type, arg_name, raw_str.count('*'), arg_signed))
 
+    def _resolve_includes(self, data, base_dir):
+        import re
+        def _replace(match):
+            inc_path = join(base_dir, match.group(1))
+            if (isfile(inc_path)):
+                with open(inc_path, 'r') as f:
+                    return self._resolve_includes(f.read(), str(Path(inc_path).parent))
+            return match.group(0)
+        return re.sub(r'#include\s+"([^"]+)"', _replace, data)
+
     def _parse(self, fp):
-        data = fp.read()
+        data = self._resolve_includes(fp.read(), str(Path(fp.name).parent))
 
         for item in Symbol.regex.finditer(data):
             raw = item.group(1)
@@ -252,7 +262,7 @@ class GenericConverter(Converter):
         if (self.type_conversion is None):
             return (_locals["return_value"])
 
-        exec(self.type_conversion, globals=_globals, locals=_locals)
+        exec(self.type_conversion, _globals, _locals)
 
         return (_locals["return_value"])
 
@@ -272,7 +282,7 @@ class GenericConverter(Converter):
 
             _locals["return_value"] = None
 
-            exec(self.build_rules["builds"][item], globals=_globals, locals=_locals)
+            exec(self.build_rules["builds"][item], _globals, _locals)
 
             _globals[item] = _locals["return_value"]
 
@@ -285,7 +295,7 @@ class GenericConverter(Converter):
         if (self.build_rules["env"][0] in self.schemas):
             _globals["schema"] = self.schemas[self.build_rules["env"][0]]
 
-        exec(self.build_rules["env"][1], globals=_globals, locals=_locals)
+        exec(self.build_rules["env"][1], _globals, _locals)
         return (_locals["return_value"])
 
 def main() -> int:

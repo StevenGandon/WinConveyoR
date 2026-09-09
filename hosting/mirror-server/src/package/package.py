@@ -41,7 +41,12 @@ class Package(object):
         if (not self.location):
             return
 
-        with open(join(self.base_path, self.location.lstrip('/')), 'r') as fp:
+        list_path = join(self.base_path, self.location.lstrip('/'))
+        if (not isfile(list_path)):
+            self.loaded = True
+            return
+
+        with open(list_path, 'r') as fp:
             data = {}
 
             for item in fp.readlines():
@@ -173,10 +178,13 @@ class Package(object):
         if (hsh not in self.listing):
             return
 
-        listing_location = join(self.base_path, self.listing[hsh].location.lstrip('/'))
-        archive_location = join(self.base_path, self.listing[hsh].package_data["address"].lstrip('/'))
-
         self.undo_stack.start_regisering_undo(f"remove_package_listing:{hsh}")
+
+        if (hard_delete):
+            if (not self.listing[hsh].loaded):
+                self.listing[hsh].load()
+            listing_location = join(self.base_path, self.listing[hsh].location.lstrip('/'))
+            archive_location = join(self.base_path, self.listing[hsh].package_data["address"].lstrip('/'))
 
         if (hard_delete and isfile(listing_location)):
             if (not isdir(self.backup_path)):

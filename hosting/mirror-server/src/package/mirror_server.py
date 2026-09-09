@@ -96,7 +96,7 @@ class MirrorServer(object):
                 while line:
                     line = line.replace('\r\n', '\n').strip()
                     name, version, location, sha256 = tuple(filter(lambda x: len(x), map(lambda x: x.strip(), line.split(','))))
-                    self.packages[name] = Package(name, location, version, sha256, load=self.recursive_load, recursive_load=self.recursive_load, base_path=self.location, undo_stack=self.undo_stack)
+                    self.packages[name] = Package(name, location, version if version != "null" else None, sha256, load=self.recursive_load, recursive_load=self.recursive_load, base_path=self.location, undo_stack=self.undo_stack)
 
                     line = fp.readline()
         else:

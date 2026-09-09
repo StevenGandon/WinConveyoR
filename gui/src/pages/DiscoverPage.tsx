@@ -11,7 +11,7 @@ import Badge from '../components/ui/Badge';
 const DiscoverPage: React.FC = () => {
   const { busy, runInstall, runInfo } = useCli();
   const { installedPackages, availablePackages, discoverQuery, setDiscoverQuery, refreshInstalled, loadAvailable } = usePackages();
-  const [infoText, setInfoText] = useState<string | null>(null);
+  const [infoVariants, setInfoVariants] = useState<{ version: string; arch: string; machine: string }[] | null>(null);
   const [infoTarget, setInfoTarget] = useState('');
 
   useEffect(() => {
@@ -36,7 +36,14 @@ const DiscoverPage: React.FC = () => {
   const handleInfo = async (name: string) => {
     setInfoTarget(name);
     const output = await runInfo(name);
-    setInfoText(output);
+    try {
+      const match = output.match(/\[.*\]/s);
+      if (match) {
+        setInfoVariants(JSON.parse(match[0]));
+        return;
+      }
+    } catch { /* ignore */ }
+    setInfoVariants([]);
   };
 
   const isInstalled = (name: string) => installedPackages.some(p => p.name === name);
@@ -53,19 +60,48 @@ const DiscoverPage: React.FC = () => {
           disabled={busy}
         />
 
-        {infoText && (
+        {infoVariants && (
           <Card className="p-4">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-wc-fg dark:text-wc-fg-dark">
-                Info: {infoTarget}
-              </h3>
-              <Button variant="ghost" size="sm" onClick={() => setInfoText(null)}>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <PackageIcon size={16} className="text-wc-accent dark:text-wc-accent-bright" />
+                <h3 className="text-sm font-semibold text-wc-fg dark:text-wc-fg-dark">
+                  {infoTarget}
+                </h3>
+                <Badge variant="info" size="sm">
+                  {infoVariants.length} variant{infoVariants.length !== 1 ? 's' : ''}
+                </Badge>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setInfoVariants(null)}>
                 Close
               </Button>
             </div>
-            <pre className="text-xs text-wc-muted dark:text-wc-muted-dark whitespace-pre-wrap font-mono overflow-x-auto">
-              {infoText}
-            </pre>
+            {infoVariants.length === 0 ? (
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">No variants found.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-wc-border dark:border-wc-border-dark">
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Version</th>
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Architecture</th>
+                      <th className="text-left py-2 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Machine</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {infoVariants.map((v, i) => (
+                      <tr key={i} className="border-b border-wc-border/50 dark:border-wc-border-dark/50 last:border-0">
+                        <td className="py-2 pr-4">
+                          <Badge variant="default" size="sm">{v.version}</Badge>
+                        </td>
+                        <td className="py-2 pr-4 text-wc-fg dark:text-wc-fg-dark">{v.arch}</td>
+                        <td className="py-2 text-wc-fg dark:text-wc-fg-dark">{v.machine}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </Card>
         )}
 

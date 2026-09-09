@@ -1,5 +1,7 @@
+import sys
 from sys import exit
 from signal import signal, SIGINT, SIGTERM
+from time import sleep
 
 from src import *
 
@@ -28,11 +30,21 @@ class Daemon(object):
         signal(SIGINT, lambda *args, **kwargs: self.close())
         signal(SIGTERM, lambda *args, **kwargs: self.close())
 
+    def _flush_logs(self):
+        for task in self.task_scheduler.tasks:
+            while task.logs:
+                sys.stdout.write(task.logs.pop(0))
+                sys.stdout.flush()
+
     def run(self):
         self.running = True
+        sys.stdout.write(f"[daemon] started, integrity & update check every {int(INTEGRITY_CHECK_INTERVAL)}s.\n")
+        sys.stdout.flush()
         while (self.running):
-            self.pool.update_pool()
-            self.task_scheduler.tick(True)
+            self.task_scheduler.tick(False)
+            self.pool.run_until_end()
+            self._flush_logs()
+            sleep(INTEGRITY_CHECK_INTERVAL)
 
     def close(self) -> None:
         self.running = False

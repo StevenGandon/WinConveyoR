@@ -73,13 +73,13 @@ class Task(object):
 
     def _start_task_instance(self, cout: list, instance_id: int):
         try:
-            self.local_socket.write(f"instance#{instance_id} started.")
+            self.local_socket.write(f"instance#{instance_id} started.\n")
 
             self.callback(self.local_socket)
 
-            self.local_socket.write(f"instance#{instance_id} stopped.")
+            self.local_socket.write(f"instance#{instance_id} stopped.\n")
         except Exception as e:
-            self.local_socket.write(f"instance#{instance_id} crashed - {str(e)}.")
+            self.local_socket.write(f"instance#{instance_id} crashed - {str(e)}.\n")
 
         for item in self.local_socket.read().replace('\r\n', '\n').split('\n'):
             cout.append(f"{item}\n")

@@ -157,7 +157,6 @@ class CLI(object):
         col = 32
         opts = [
             (', '.join(CLI.OPTION_TABLE['help']['opt']), "Display this help message"),
-            (', '.join(CLI.OPTION_TABLE['download']['opt']), "Download a package"),
             (', '.join(CLI.OPTION_TABLE['install']['opt']), "Install a package"),
             (', '.join(CLI.OPTION_TABLE['uninstall']['opt']), "Uninstall a package"),
             (', '.join(CLI.OPTION_TABLE['update']['opt']), "Sync package lists from sources"),
