@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface BadgeProps {
-  variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'info' | 'neutral';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   className?: string;
@@ -20,7 +20,8 @@ const Badge: React.FC<BadgeProps> = ({
     success: 'bg-wc-success-soft text-wc-success dark:bg-wc-success-soft-dark dark:text-wc-success-dark',
     warning: 'bg-wc-accent-soft text-wc-accent-deep dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright',
     error: 'bg-wc-danger-soft text-wc-danger dark:bg-wc-danger-soft-dark dark:text-wc-danger-dark',
-    info: 'bg-wc-accent-soft text-wc-accent dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright'
+    info: 'bg-wc-accent-soft text-wc-accent dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright',
+    neutral: 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
   };
   
   const sizeClasses = {

@@ -171,7 +171,7 @@ const DiscoverPage: React.FC = () => {
                         ) : isInstalled(pkg.name) ? (
                           <Badge variant="success" size="sm">Installed</Badge>
                         ) : (
-                          <Badge variant="default" size="sm">Available</Badge>
+                          <Badge variant="neutral" size="sm">Available</Badge>
                         )}
                       </div>
                       <p className="text-xs text-wc-muted dark:text-wc-muted-dark mt-0.5">

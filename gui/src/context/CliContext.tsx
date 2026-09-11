@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { toast } from 'sonner';
 
 interface InstallResult {
   code: number;
@@ -36,6 +37,8 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setLog('');
     const result = await window.electronAPI.runUpdate();
     if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
+    if (result.code === 0) toast.success('Sources synced');
+    else toast.error('Failed to sync sources');
     setBusy(false);
   }, [busy]);
 
@@ -45,6 +48,8 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setLog('');
     const result = await window.electronAPI.runInstall(packageName);
     if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
+    if (result.code === 0) toast.success(`${packageName} installed`);
+    else toast.error(`Failed to install ${packageName}`);
     setBusy(false);
     const versionMatch = result.output.match(/version=(\S+)/);
     return { code: result.code, version: versionMatch?.[1] };
@@ -56,6 +61,8 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setLog('');
     const result = await window.electronAPI.runUninstall(packageName);
     if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
+    if (result.code === 0) toast.success(`${packageName} uninstalled`);
+    else toast.error(`Failed to uninstall ${packageName}`);
     setBusy(false);
     return result.code;
   }, [busy]);
@@ -108,6 +115,8 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setLog('');
     const result = await window.electronAPI.runUpgrade(packageName);
     if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
+    if (result.code === 0) toast.success(packageName ? `${packageName} updated` : 'Packages updated');
+    else toast.error(packageName ? `Failed to update ${packageName}` : 'Update failed');
     setBusy(false);
     return result.code;
   }, [busy]);

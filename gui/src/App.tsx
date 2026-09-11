@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Toaster } from 'sonner';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { SettingsProvider } from './context/SettingsContext';
+import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { PackageProvider } from './context/PackageContext';
 import { CliProvider } from './context/CliContext';
 import TitleBar from './components/layout/TitleBar';
@@ -113,9 +114,22 @@ function MainApp() {
   );
 }
 
+function AppToaster() {
+  const { settings } = useSettings();
+  return (
+    <Toaster
+      position="bottom-right"
+      richColors
+      duration={2500}
+      theme={settings.theme}
+    />
+  );
+}
+
 function App() {
   return (
     <SettingsProvider>
+      <AppToaster />
       <AuthProvider>
         <AuthGate />
       </AuthProvider>

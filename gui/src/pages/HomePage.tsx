@@ -75,7 +75,7 @@ const activityMeta: Record<ActivityKind, { verb: string; icon: React.ReactNode; 
   source_added: {
     verb: 'Added source',
     icon: <Plus size={16} />,
-    tone: 'bg-wc-surface text-wc-muted dark:bg-wc-surface-dark dark:text-wc-muted-dark',
+    tone: 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
   },
   uninstalled: {
     verb: 'Uninstalled',
@@ -85,7 +85,7 @@ const activityMeta: Record<ActivityKind, { verb: string; icon: React.ReactNode; 
   sources_synced: {
     verb: 'Checked for updates',
     icon: <RefreshCcw size={16} />,
-    tone: 'bg-wc-surface text-wc-muted dark:bg-wc-surface-dark dark:text-wc-muted-dark',
+    tone: 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
   },
 };
 
