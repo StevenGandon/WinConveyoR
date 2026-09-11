@@ -13,6 +13,7 @@ import SettingsPage from './pages/SettingsPage';
 import OutputPage from './pages/OutputPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ThemeToggle from './components/ui/ThemeToggle';
 
 function AuthGate() {
   const { token, isLoading } = useAuth();
@@ -44,7 +45,12 @@ function AuthGate() {
     return (
       <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
         <TitleBar />
-        <div className="flex-1 flex items-center justify-center overflow-hidden">{page}</div>
+        <div className="relative flex-1 flex items-center justify-center overflow-hidden">
+          <div className="absolute top-4 right-4 no-drag">
+            <ThemeToggle />
+          </div>
+          {page}
+        </div>
       </div>
     );
   }
@@ -74,7 +80,7 @@ function MainApp() {
   const renderPage = () => {
     switch (activePage) {
       case 'home':
-        return <HomePage />;
+        return <HomePage onNavigate={setActivePage} />;
       case 'discover':
         return <DiscoverPage />;
       case 'installed':

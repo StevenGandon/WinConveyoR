@@ -2,7 +2,7 @@ import React from 'react';
 import { usePackages } from '../../context/PackageContext';
 import { useAuth } from '../../context/AuthContext';
 import { useSettings } from '../../context/SettingsContext';
-import { Package as PackageIcon, Download, RefreshCw, Settings, Home, Search, LogOut, User, Terminal } from 'lucide-react';
+import { Download, RefreshCw, Settings, Home, Search, LogOut, User, Terminal, Sun, Moon, Monitor } from 'lucide-react';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -46,15 +46,16 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
   const { installedPackages, updatablePackages } = usePackages();
   const { user, logout } = useAuth();
-  const { settings } = useSettings();
+  const { settings, toggleTheme } = useSettings();
+
+  const themeMeta = {
+    light: { icon: <Sun size={18} />, label: 'Light' },
+    dark: { icon: <Moon size={18} />, label: 'Dark' },
+    system: { icon: <Monitor size={18} />, label: 'System' },
+  }[settings.theme];
 
   return (
     <div className="w-64 h-full bg-wc-sidebar dark:bg-wc-sidebar-dark border-r border-wc-border dark:border-wc-border-dark flex flex-col">
-      <div className="p-4 flex items-center border-b border-wc-border dark:border-wc-border-dark">
-        <PackageIcon className="h-6 w-6 text-wc-accent dark:text-wc-accent-bright mr-2" />
-        <h1 className="text-xl font-bold text-wc-fg dark:text-wc-fg-dark">WinConveyo<span className="text-wc-accent dark:text-wc-accent-bright">R</span></h1>
-      </div>
-
       <div className="flex-1 overflow-y-auto p-3 space-y-1">
         <SidebarItem
           icon={<Home size={18} />}
@@ -93,6 +94,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
       </div>
 
       <div className="p-3 border-t border-wc-border dark:border-wc-border-dark space-y-1">
+        <button
+          onClick={toggleTheme}
+          className="w-full flex items-center px-3 py-2 rounded-md text-left text-sm font-medium transition-colors focus:outline-none text-wc-fg hover:bg-wc-surface dark:text-wc-fg-dark dark:hover:bg-wc-surface-dark"
+          title="Toggle theme (light / dark / system)"
+        >
+          <span className="flex items-center justify-center w-5 h-5 mr-3">{themeMeta.icon}</span>
+          <span className="flex-1">{themeMeta.label}</span>
+        </button>
         <SidebarItem
           icon={<Settings size={18} />}
           label="Settings"

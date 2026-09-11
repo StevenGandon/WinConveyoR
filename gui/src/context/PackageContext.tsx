@@ -69,7 +69,22 @@ export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ child
   }, [refreshInstalled]);
 
   const installedPackages = packages.filter(pkg => pkg.isInstalled);
-  const updatablePackages = packages.filter(pkg => pkg.isInstalled && pkg.isUpdatable);
+
+  // Cross-reference installed packages against the synced source index
+  // (populated by `update` + loadAvailable): a package is updatable when the
+  // available version differs from the installed one — same comparison the CLI
+  // `upgrade` command uses.
+  const availableByName = new Map(availablePackages.map(p => [p.name, p.version]));
+  const updatablePackages = installedPackages
+    .map(pkg => {
+      const availableVersion = availableByName.get(pkg.name);
+      return {
+        ...pkg,
+        availableVersion,
+        isUpdatable: availableVersion !== undefined && availableVersion !== pkg.version,
+      };
+    })
+    .filter(pkg => pkg.isUpdatable);
 
   const addInstalled = (name: string, version?: string) => {
     setPackages(prev => {

@@ -14,7 +14,7 @@ const defaultSettings: AppSettings = {
   fontSize: 16,
   reduceMotion: false,
   enableKeyboardShortcuts: true,
-  showOutputPage: true,
+  showOutputPage: false,
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

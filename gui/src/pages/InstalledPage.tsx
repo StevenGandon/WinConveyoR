@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Package as PackageIcon, RefreshCw, Trash2, ShieldCheck } from 'lucide-react';
 import { usePackages } from '../context/PackageContext';
 import { useCli } from '../context/CliContext';
+import { logActivity } from '../services/activity';
 import Header from '../components/layout/Header';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
@@ -21,6 +22,7 @@ const InstalledPage: React.FC = () => {
   const handleUninstall = async (name: string) => {
     const code = await runUninstall(name);
     if (code === 0) {
+      logActivity('uninstalled', name);
       setCheckResults(prev => {
         const next = { ...prev };
         delete next[name];
@@ -32,7 +34,10 @@ const InstalledPage: React.FC = () => {
 
   const handleUpgrade = async (name: string) => {
     const code = await runUpgrade(name);
-    if (code === 0) await refreshInstalled();
+    if (code === 0) {
+      logActivity('updated', name);
+      await refreshInstalled();
+    }
   };
 
   const handleCheck = async (name: string) => {
@@ -110,7 +115,7 @@ const InstalledPage: React.FC = () => {
                     </div>
                     <div className="mt-auto px-4 pb-4 flex justify-end space-x-2">
                       <Button
-                        variant="ghost"
+                        variant="outline"
                         size="sm"
                         leftIcon={<ShieldCheck size={14} />}
                         onClick={() => handleCheck(pkg.name)}

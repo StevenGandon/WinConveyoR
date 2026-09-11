@@ -4,6 +4,7 @@ export interface Package {
   description?: string;
   isInstalled: boolean;
   isUpdatable: boolean;
+  availableVersion?: string;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'system';

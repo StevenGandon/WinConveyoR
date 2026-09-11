@@ -4,7 +4,7 @@ import { login } from "../services/api";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Card, { CardHeader, CardTitle, CardContent } from "../components/ui/Card";
-import { Package as PackageIcon } from "lucide-react";
+import logo from "../assets/logo.png";
 
 interface LoginPageProps {
   onSwitchToRegister: () => void;
@@ -37,7 +37,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <div className="flex items-center justify-center mb-4">
-            <PackageIcon className="h-10 w-10 text-wc-accent dark:text-wc-accent-bright" />
+            <img src={logo} alt="WinConveyoR" className="h-10 w-10" />
           </div>
           <CardTitle className="text-center">Sign in to WinConveyoR</CardTitle>
         </CardHeader>
@@ -81,7 +81,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
           </div>
 
           <Button
-            variant="secondary"
+            variant="outline"
             className="w-full"
             onClick={() => setToken('anonymous')}
           >

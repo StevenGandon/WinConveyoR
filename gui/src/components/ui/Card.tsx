@@ -13,8 +13,8 @@ const Card: React.FC<CardProps> = ({
   onClick,
   hoverable = false
 }) => {
-  const baseClasses = 'bg-wc-card dark:bg-wc-card-dark rounded-lg shadow-sm border border-wc-border dark:border-wc-border-dark overflow-hidden transition-all duration-200';
-  const hoverClasses = hoverable ? 'hover:shadow-md hover:border-wc-border-strong dark:hover:border-wc-border-strong-dark cursor-pointer' : '';
+  const baseClasses = 'bg-wc-card dark:bg-wc-card-dark rounded-lg shadow-lg dark:shadow-[0_3px_12px_rgba(0,0,0,0.4)] border border-wc-border dark:border-wc-border-dark overflow-hidden transition-all duration-200';
+  const hoverClasses = hoverable ? 'hover:shadow-xl dark:hover:shadow-[0_6px_18px_rgba(0,0,0,0.5)] hover:border-wc-border-strong dark:hover:border-wc-border-strong-dark cursor-pointer' : '';
   
   return (
     <div 

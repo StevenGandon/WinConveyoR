@@ -20,7 +20,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
   
-  const baseInputClasses = 'block bg-wc-card dark:bg-wc-card-dark text-wc-fg dark:text-wc-fg-dark rounded-md border border-wc-border dark:border-wc-border-dark focus:outline-none focus:border-wc-accent transition-colors';
+  const baseInputClasses = 'block bg-wc-card dark:bg-wc-card-dark text-wc-fg dark:text-wc-fg-dark placeholder:text-wc-muted dark:placeholder:text-wc-muted-dark rounded-md border border-wc-border dark:border-wc-border-dark focus:outline-none focus:border-wc-accent transition-colors';
   const errorInputClasses = error ? 'border-wc-danger focus:border-wc-danger' : '';
   const paddingClasses = leftIcon ? 'pl-10' : 'pl-4';
   const rightPaddingClasses = rightIcon ? 'pr-10' : 'pr-4';

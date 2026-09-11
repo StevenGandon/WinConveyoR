@@ -4,7 +4,7 @@ import { register, login } from "../services/api";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Card, { CardHeader, CardTitle, CardContent } from "../components/ui/Card";
-import { Package as PackageIcon } from "lucide-react";
+import logo from "../assets/logo.png";
 
 interface RegisterPageProps {
   onSwitchToLogin: () => void;
@@ -47,7 +47,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <div className="flex items-center justify-center mb-4">
-            <PackageIcon className="h-10 w-10 text-wc-accent dark:text-wc-accent-bright" />
+            <img src={logo} alt="WinConveyoR" className="h-10 w-10" />
           </div>
           <CardTitle className="text-center">Create your account</CardTitle>
         </CardHeader>

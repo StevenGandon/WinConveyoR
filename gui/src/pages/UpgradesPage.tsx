@@ -1,6 +1,7 @@
 import { Package as PackageIcon, RefreshCw, CheckCircle } from 'lucide-react';
 import { usePackages } from '../context/PackageContext';
 import { useCli } from '../context/CliContext';
+import { logActivity } from '../services/activity';
 import Header from '../components/layout/Header';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -10,13 +11,21 @@ const UpgradesPage: React.FC = () => {
   const { busy, runUpgrade } = useCli();
 
   const handleUpgradeAll = async () => {
+    const targets = [...updatablePackages];
     const code = await runUpgrade();
-    if (code === 0) await refreshInstalled();
+    if (code === 0) {
+      targets.forEach(pkg => logActivity('updated', pkg.name, pkg.availableVersion));
+      await refreshInstalled();
+    }
   };
 
   const handleUpgradeOne = async (name: string) => {
+    const target = updatablePackages.find(pkg => pkg.name === name);
     const code = await runUpgrade(name);
-    if (code === 0) await refreshInstalled();
+    if (code === 0) {
+      logActivity('updated', name, target?.availableVersion);
+      await refreshInstalled();
+    }
   };
 
   return (

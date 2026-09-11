@@ -28,6 +28,7 @@ function createWindow() {
     height: 800,
     minWidth: 940,
     minHeight: 600,
+    icon: path.join(__dirname, '..', 'build', 'icon.png'),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -91,6 +92,11 @@ function runCli(args) {
       resolve({ code: -1, output: err.message });
     });
   });
+}
+
+app.setName('WinConveyoR');
+if (process.platform === 'win32') {
+  app.setAppUserModelId('com.winconveyor.app');
 }
 
 app.whenReady().then(createWindow);
