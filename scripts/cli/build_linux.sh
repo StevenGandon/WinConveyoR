@@ -10,8 +10,14 @@ if [ ! -f "dist/linux-amd64/lib/libwconr.so" ]; then
     exit 1
 fi
 
+BINARY_ARGS=()
+for f in ../../../dist/linux-amd64/lib/*.so; do
+    BINARY_ARGS+=(--add-binary "$f:.")
+done
+
 pyinstaller ./cli/main.py \
             -c -F \
             -n wcr -y --distpath ${DIST_PATH} \
             --workpath ${BUILD_PATH} \
-            --specpath ${BUILD_PATH} --optimize 2 --add-data "./assets/cli:./assets/cli" --add-binary "dist/linux-amd64/lib/libwconr.so:."
+            --specpath ${BUILD_PATH} --optimize 2 --add-data "../../../assets/cli:./assets/cli" \
+            "${BINARY_ARGS[@]}"

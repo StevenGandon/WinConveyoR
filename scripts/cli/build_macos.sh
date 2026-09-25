@@ -9,8 +9,14 @@ if [ ! -f "dist/macos-arm64/lib/libwconr.dylib" ]; then
     exit 1
 fi
 
+BINARY_ARGS=()
+for f in ../../../dist/macos-arm64/lib/*.dylib; do
+    BINARY_ARGS+=(--add-binary "$f:.")
+done
+
 pyinstaller ./cli/main.py \
             -c -F \
             -n wcr -y --distpath ${DIST_PATH} \
             --workpath ${BUILD_PATH} \
-            --specpath ${BUILD_PATH} --optimize 2 --add-data "./assets/cli:./assets/cli" --add-binary "dist/macos-arm64/lib/libwconr.dylib:."
+            --specpath ${BUILD_PATH} --optimize 2 --add-data "./assets/cli:./assets/cli" \
+            "${BINARY_ARGS[@]}"
