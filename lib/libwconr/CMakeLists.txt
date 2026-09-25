@@ -49,12 +49,13 @@ endif()
 
 FetchContent_Declare(
   curl
-  URL https://curl.se/download/curl-7.86.0.tar.gz
+  URL https://curl.se/download/curl-8.11.1.tar.gz
 )
 FetchContent_MakeAvailable(curl)
 
 set(ENABLE_CJSON_TEST OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_AND_STATIC_LIBS OFF CACHE BOOL "" FORCE)
+set(ENABLE_CUSTOM_COMPILER_FLAGS OFF CACHE BOOL "" FORCE)
 
 FetchContent_Declare(
   cjson
