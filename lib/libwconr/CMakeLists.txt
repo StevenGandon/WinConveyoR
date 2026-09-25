@@ -226,4 +226,19 @@ if(UNIX AND NOT APPLE)
     else()
         message(WARNING "patchelf not found versioned .so files will be kept")
     endif()
+elseif(APPLE)
+    find_program(INSTALL_NAME_TOOL_EXECUTABLE install_name_tool)
+
+    if(INSTALL_NAME_TOOL_EXECUTABLE)
+        add_custom_command(TARGET dist POST_BUILD
+            COMMAND ${CMAKE_COMMAND}
+                -DLIB_DIR=${DIST_DIR}/lib
+                -DBIN_DIR=${DIST_DIR}/bin
+                -P ${CMAKE_SOURCE_DIR}/../../toolchain/strip_dylibversion.cmake
+        )
+    else()
+        message(WARNING
+            "install_name_tool not found versioned .dylib files will be kept"
+        )
+    endif()
 endif()

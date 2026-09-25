@@ -209,10 +209,12 @@ jobs:
           Copy-Item C:\msys64\mingw64\bin\windres.exe C:\msys64\mingw64\bin\x86_64-w64-mingw32-windres.exe
 
       - name: Build library
-        shell: cmd
+        env:
+          MSYSTEM: MINGW64
         run: |
           $env:Path = "C:\msys64\mingw64\bin;$env:Path"
           cmd.exe /c scripts\lib\build_windows.bat
+        shell: powershell
 
       - name: Build server
         shell: cmd
