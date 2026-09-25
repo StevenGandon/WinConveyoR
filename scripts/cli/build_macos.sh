@@ -4,6 +4,8 @@ BUILD_PATH=build/macos-arm64/pyinstaller
 mkdir -p ${DIST_PATH}
 mkdir -p ${BUILD_PATH}
 
+tree dist/macos-arm64
+
 if [ ! -f "dist/macos-arm64/lib/libwconr.dylib" ]; then
     echo "libwconr not found in macos arm64 distributables path."
     exit 1
