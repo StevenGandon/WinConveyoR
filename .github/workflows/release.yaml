@@ -1,0 +1,113 @@
+name: release
+
+on:
+  workflow_run:
+    workflows: ["build"]
+    branches:
+      - dev
+      - main
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push'
+    outputs:
+      tag: ${{ steps.info.outputs.tag }}
+      name: ${{ steps.info.outputs.name }}
+      prerelease: ${{ steps.info.outputs.prerelease }}
+    steps:
+      - name: Compute release info
+        id: info
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          set -euo pipefail
+
+          LATEST="$(gh release list \
+            --repo "$REPO" \
+            --limit 200 \
+            --json tagName \
+            --jq '[.[].tagName | select(test("^v[0-9]+\\.[0-9]+\\.[0-9]+-(dev|stable)$"))]
+                  | sort_by(sub("^v"; "") | sub("-(dev|stable)$"; "") | split(".") | map(tonumber))
+                  | last // empty')"
+          LATEST="${LATEST:-v1.0.0}"
+
+          VERSION="${LATEST#v}"
+          VERSION="${VERSION%-*}"
+          IFS=. read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          if [ "$BRANCH" = "main" ]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+            TAG="v${MAJOR}.${MINOR}.${PATCH}-stable"
+            NAME="Stable Release ${TAG}"
+            PRERELEASE="false"
+          else
+            PATCH=$((PATCH + 1))
+            TAG="v${MAJOR}.${MINOR}.${PATCH}-dev"
+            NAME="Dev Release ${TAG}"
+            PRERELEASE="true"
+          fi
+
+          echo "Latest tag: ${LATEST} -> new tag: ${TAG}"
+          {
+            echo "tag=${TAG}"
+            echo "name=${NAME}"
+            echo "prerelease=${PRERELEASE}"
+          } >> "$GITHUB_OUTPUT"
+
+  release:
+    needs: versioning
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      actions: read
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: dist-*
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore executable permissions
+        run: chmod +x dist/dist-linux-*/bin/* dist/dist-macos-*/bin/*
+
+      - name: Package release archives
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          for dir in dist/dist-*/; do
+            machine="$(basename "$dir")"
+            machine="${machine#dist-}"
+            (cd "$dir" && zip -rq "${GITHUB_WORKSPACE}/release/WinConveyoR-${machine}.zip" .)
+          done
+          ls -l release
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.versioning.outputs.tag }}
+          name: ${{ needs.versioning.outputs.name }}
+          prerelease: ${{ needs.versioning.outputs.prerelease == 'true' }}
+          target_commitish: ${{ github.event.workflow_run.head_sha }}
+          generate_release_notes: false
+          fail_on_unmatched_files: true
+          files: release/*.zip

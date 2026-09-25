@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
-#include "src/platform_types.h"
+#include "platform_types.h"
 
 #ifdef _WIN32
     #include <winsock2.h>

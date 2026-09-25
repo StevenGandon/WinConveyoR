@@ -1,0 +1,265 @@
+name: build
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build-linux-amd64:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache CMake build
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/linux-amd64
+            ~/.cmake
+            ~/.cache/fetchcontent
+          key: cmake-build-${{ runner.os }}-linux-amd64-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            cmake-build-${{ runner.os }}-linux-amd64-
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake gcc libxml2-dev
+
+      - name: Install PyInstaller
+        run: python -m pip install --upgrade pip pyinstaller
+
+      - name: Build library
+        run: bash scripts/lib/build_linux.sh
+
+      - name: Build server
+        run: bash scripts/server/build_linux.sh
+
+      - name: Build devtools
+        run: bash scripts/devtools/build_linux.sh
+
+      - name: Build CLI
+        run: bash scripts/cli/build_linux.sh
+
+      - name: Verify build outputs
+        run: |
+          DIST="dist/linux-amd64"
+          STATUS=0
+
+          for f in \
+            "$DIST/lib/libcurl.so" \
+            "$DIST/lib/libconr.so" \
+            "$DIST/bin/wcr" \
+            "$DIST/bin/wcrmgr" \
+            "$DIST/bin/wcrmirror" \
+            "$DIST/bin/wcrpackager" \
+            "$DIST/bin/wcrkeygen" \
+            "$DIST/bin/header_gen"; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Missing build output: $f"
+              STATUS=1
+            fi
+          done
+
+          if [ -z "$(ls -A "$DIST/include" 2>/dev/null)" ]; then
+            echo "::error::Missing or empty headers directory: $DIST/include"
+            STATUS=1
+          fi
+
+          exit "$STATUS"
+
+      - name: Upload build artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-linux-amd64
+          path: dist/linux-amd64
+          if-no-files-found: error
+
+  build-macos-arm64:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache CMake build
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/macos-arm64
+            ~/.cmake
+            ~/.cache/fetchcontent
+          key: cmake-build-${{ runner.os }}-macos-arm64-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            cmake-build-${{ runner.os }}-macos-arm64-
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build dependencies
+        run: brew install cmake gcc libxml2
+
+      - name: Install PyInstaller
+        run: python -m pip install --upgrade pip pyinstaller
+
+      - name: Build library
+        run: bash scripts/lib/build_macos.sh
+
+      - name: Build server
+        run: bash scripts/server/build_macos.sh
+
+      - name: Build devtools
+        run: bash scripts/devtools/build_macos.sh
+
+      - name: Build CLI
+        run: bash scripts/cli/build_macos.sh
+
+      - name: Verify build outputs
+        run: |
+          DIST="dist/macos-arm64"
+          STATUS=0
+
+          for f in \
+            "$DIST/lib/libcurl.dylib" \
+            "$DIST/lib/libconr.dylib" \
+            "$DIST/bin/wcr" \
+            "$DIST/bin/wcrmgr" \
+            "$DIST/bin/wcrmirror" \
+            "$DIST/bin/wcrpackager" \
+            "$DIST/bin/wcrkeygen" \
+            "$DIST/bin/header_gen"; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Missing build output: $f"
+              STATUS=1
+            fi
+          done
+
+          if [ -z "$(ls -A "$DIST/include" 2>/dev/null)" ]; then
+            echo "::error::Missing or empty headers directory: $DIST/include"
+            STATUS=1
+          fi
+
+          exit "$STATUS"
+
+      - name: Upload build artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-macos-arm64
+          path: dist/macos-arm64
+          if-no-files-found: error
+
+  build-windows-amd64:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache CMake build
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/windows-amd64
+            ~/.cmake
+            ~/.cache/fetchcontent
+          key: cmake-build-${{ runner.os }}-windows-amd64-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            cmake-build-${{ runner.os }}-windows-amd64-
+
+      - name: Install mingw
+        shell: powershell
+        env:
+          MSYSTEM: MINGW64
+        run: |
+          C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm" | Out-Null
+          C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm && pacman -S --noconfirm mingw-w64-x86_64-toolchain base-devel"
+          Copy-Item C:\msys64\mingw64\bin\windres.exe C:\msys64\mingw64\bin\x86_64-w64-mingw32-windres.exe
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install CMake
+        run: choco install cmake -y
+
+      - name: Install libxml2 (vcpkg)
+        run: vcpkg install libxml2:x64-windows
+
+      - name: Install PyInstaller
+        run: python -m pip install --upgrade pip pyinstaller
+
+      - name: Build library
+        shell: cmd
+        run: call scripts\lib\build_windows.bat
+
+      - name: Build server
+        shell: cmd
+        run: call scripts\server\build_windows.bat
+
+      - name: Build devtools
+        shell: cmd
+        run: call scripts\devtools\build_windows.bat
+
+      - name: Build CLI
+        shell: cmd
+        run: call scripts\cli\build_windows.bat
+
+      - name: Verify build outputs
+        shell: powershell
+        run: |
+          $dist = "dist/windows-amd64"
+          $expected = @(
+            "$dist/lib/libcurl.dll",
+            "$dist/lib/libconr.dll",
+            "$dist/bin/wcr.exe",
+            "$dist/bin/wcrmgr.exe",
+            "$dist/bin/wcrmirror.exe",
+            "$dist/bin/wcrpackager.exe",
+            "$dist/bin/wcrkeygen.exe",
+            "$dist/bin/header_gen.exe"
+          )
+          $failed = $false
+
+          foreach ($f in $expected) {
+            if (-not (Test-Path -LiteralPath $f -PathType Leaf)) {
+              Write-Host "::error::Missing build output: $f"
+              $failed = $true
+            }
+          }
+
+          if (-not (Test-Path -LiteralPath "$dist/include") -or
+              -not (Get-ChildItem -LiteralPath "$dist/include" -Recurse -File)) {
+            Write-Host "::error::Missing or empty headers directory: $dist/include"
+            $failed = $true
+          }
+
+          if ($failed) { exit 1 }
+
+      - name: Upload build artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-windows-amd64
+          path: dist/windows-amd64
+          if-no-files-found: error
