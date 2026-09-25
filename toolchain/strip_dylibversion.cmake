@@ -20,8 +20,6 @@ foreach(_lib ${_libs})
         get_filename_component(_dir "${_lib}" DIRECTORY)
         set(_new "${_dir}/${_base}")
 
-        message(STATUS "Stripping dylib version: ${_name} -> ${_base}")
-
         execute_process(
             COMMAND
                 "${INSTALL_NAME_TOOL}"
