@@ -9,7 +9,7 @@ file(GLOB _libs
 foreach(_lib ${_libs})
     get_filename_component(_name "${_lib}" NAME)
 
-    string(REGEX REPLACE "(\\.dylib)\\..*$" "\\1" _base "${_name}" )
+    string(REGEX REPLACE "(\\.[0-9]+(\\.[0-9]+)*)\\.dylib$" "\\1" _base "${_name}" )
 
     if(NOT _base STREQUAL _name)
         get_filename_component(_dir "${_lib}" DIRECTORY)
