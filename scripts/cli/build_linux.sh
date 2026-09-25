@@ -11,8 +11,8 @@ if [ ! -f "dist/linux-amd64/lib/libwconr.so" ]; then
 fi
 
 BINARY_ARGS=()
-for f in ../../../dist/linux-amd64/lib/*.so; do
-    BINARY_ARGS+=(--add-binary "$f:.")
+for f in dist/linux-amd64/lib/*.so; do
+    BINARY_ARGS+=(--add-binary "../../../$f:.")
 done
 
 pyinstaller ./cli/main.py \

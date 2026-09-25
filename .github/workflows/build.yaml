@@ -40,7 +40,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake gcc libxml2-dev
+          sudo apt-get install -y cmake gcc
 
       - name: Install PyInstaller
         run: python -m pip install --upgrade pip pyinstaller
@@ -64,12 +64,14 @@ jobs:
 
           for f in \
             "$DIST/lib/libcurl.so" \
-            "$DIST/lib/libconr.so" \
+            "$DIST/lib/libwconr.so" \
+            "$DIST/lib/libxml2.so" \
+            "$DIST/lib/libcjson.so" \
             "$DIST/bin/wcr" \
             "$DIST/bin/wcrmgr" \
             "$DIST/bin/wcrmirror" \
             "$DIST/bin/wcrpackager" \
-            "$DIST/bin/wcrkeygen" \
+            "$DIST/bin/wcrgenkey" \
             "$DIST/bin/header_gen"; do
             if [ ! -f "$f" ]; then
               echo "::error::Missing build output: $f"
@@ -116,7 +118,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install build dependencies
-        run: brew install cmake gcc libxml2
+        run: brew install cmake gcc
 
       - name: Install PyInstaller
         run: python -m pip install --upgrade pip pyinstaller
@@ -140,12 +142,14 @@ jobs:
 
           for f in \
             "$DIST/lib/libcurl.dylib" \
-            "$DIST/lib/libconr.dylib" \
+            "$DIST/lib/libwconr.dylib" \
+            "$DIST/lib/libxml2.dylib" \
+            "$DIST/lib/libcjson.dylib" \
             "$DIST/bin/wcr" \
             "$DIST/bin/wcrmgr" \
             "$DIST/bin/wcrmirror" \
             "$DIST/bin/wcrpackager" \
-            "$DIST/bin/wcrkeygen" \
+            "$DIST/bin/wcrgenkey" \
             "$DIST/bin/header_gen"; do
             if [ ! -f "$f" ]; then
               echo "::error::Missing build output: $f"
@@ -192,7 +196,7 @@ jobs:
           MSYSTEM: MINGW64
         run: |
           C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm" | Out-Null
-          C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm && pacman -S --noconfirm mingw-w64-x86_64-toolchain base-devel"
+          C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm && pacman -S --noconfirm mingw-w64-x86_64-toolchain base-devel mingw-w64-x86_64-openssl"
           Copy-Item C:\msys64\mingw64\bin\windres.exe C:\msys64\mingw64\bin\x86_64-w64-mingw32-windres.exe
 
       - name: Set up Python
@@ -200,18 +204,14 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install CMake
-        run: choco install cmake -y
-
-      - name: Install libxml2 (vcpkg)
-        run: vcpkg install libxml2:x64-windows
-
       - name: Install PyInstaller
         run: python -m pip install --upgrade pip pyinstaller
 
       - name: Build library
         shell: cmd
-        run: call scripts\lib\build_windows.bat
+        run: |
+          $env:OPENSSL_ROOT_DIR = "C:\msys64\mingw64"
+          call scripts\lib\build_windows.bat
 
       - name: Build server
         shell: cmd
@@ -231,12 +231,14 @@ jobs:
           $dist = "dist/windows-amd64"
           $expected = @(
             "$dist/lib/libcurl.dll",
-            "$dist/lib/libconr.dll",
+            "$dist/lib/libwconr.dll",
+            "$dist/lib/libxml2.dll",
+            "$dist/lib/libcjson.dll",
             "$dist/bin/wcr.exe",
             "$dist/bin/wcrmgr.exe",
             "$dist/bin/wcrmirror.exe",
             "$dist/bin/wcrpackager.exe",
-            "$dist/bin/wcrkeygen.exe",
+            "$dist/bin/wcrgenkey.exe",
             "$dist/bin/header_gen.exe"
           )
           $failed = $false

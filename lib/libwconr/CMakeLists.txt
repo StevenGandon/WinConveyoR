@@ -212,3 +212,17 @@ foreach(lib libwconr)
                 "${DIST_DIR}/include/"
     )
 endforeach()
+
+if(UNIX AND NOT APPLE)
+    find_program(PATCHELF_EXECUTABLE patchelf)
+    if(PATCHELF_EXECUTABLE)
+        add_custom_command(TARGET dist POST_BUILD
+            COMMAND ${CMAKE_COMMAND}
+                -DLIB_DIR=${DIST_DIR}/lib
+                -DBIN_DIR=${DIST_DIR}/bin
+                -P ${CMAKE_SOURCE_DIR}/../../toolchain/strip_soversion.cmake
+        )
+    else()
+        message(WARNING "patchelf not found versioned .so files will be kept")
+    endif()
+endif()

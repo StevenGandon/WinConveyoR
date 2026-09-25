@@ -10,8 +10,8 @@ if [ ! -f "dist/macos-arm64/lib/libwconr.dylib" ]; then
 fi
 
 BINARY_ARGS=()
-for f in ../../../dist/macos-arm64/lib/*.dylib; do
-    BINARY_ARGS+=(--add-binary "$f:.")
+for f in dist/macos-arm64/lib/*.dylib; do
+    BINARY_ARGS+=(--add-binary "../../../$f:.")
 done
 
 pyinstaller ./cli/main.py \
