@@ -140,6 +140,7 @@ jobs:
           DIST="dist/macos-arm64"
           STATUS=0
 
+          tree $DIST
           for f in \
             "$DIST/lib/libcurl.dylib" \
             "$DIST/lib/libwconr.dylib" \
@@ -198,6 +199,11 @@ jobs:
           C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm" | Out-Null
           C:\msys64\usr\bin\bash.exe -lc "pacman -Syu --noconfirm && pacman -S --noconfirm mingw-w64-x86_64-toolchain base-devel mingw-w64-x86_64-openssl"
           Copy-Item C:\msys64\mingw64\bin\windres.exe C:\msys64\mingw64\bin\x86_64-w64-mingw32-windres.exe
+          dir C:\msys64\mingw64\bin
+          if (-not (Test-Path C:\msys64\mingw64\bin\x86_64-w64-mingw32-windres.exe)) {
+            Write-Host "::error::windres copy failed - source missing or copy blocked"
+            exit 1
+          }
 
       - name: Set up Python
         uses: actions/setup-python@v5
