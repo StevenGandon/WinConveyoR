@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Search, Package as PackageIcon, Download, Upload, X, AlertCircle, HardDrive } from 'lucide-react';
+import { Search, Package as PackageIcon, Download, Upload, X, AlertCircle, HardDrive, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { searchPackages, uploadPackage, PackageOut } from '../services/api';
+import { searchPackages, uploadPackage, downloadUrl, deletePackage, PackageOut } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useCli } from '../context/CliContext';
 import { logActivity } from '../services/activity';
@@ -62,6 +62,23 @@ const CommunityHubPage: React.FC = () => {
     const result = await runInstall(pkg.name);
     if (result.code === 0) {
       logActivity('installed', pkg.name, result.version ?? pkg.version);
+    }
+  };
+
+  // Owner-only delete of a published package.
+  const [deleting, setDeleting] = useState(false);
+  const handleDelete = async (pkg: PackageOut) => {
+    if (!token) return;
+    setDeleting(true);
+    try {
+      await deletePackage(pkg.id, token);
+      toast.success(`${pkg.name} removed`);
+      setSelected(null);
+      refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Delete failed');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -172,8 +189,11 @@ const CommunityHubPage: React.FC = () => {
         <PackageDetail
           pkg={selected}
           busy={busy}
+          canDelete={!!user && selected.owner_id === user.id}
+          deleting={deleting}
           onClose={() => setSelected(null)}
           onInstall={() => handleInstall(selected)}
+          onDelete={() => handleDelete(selected)}
         />
       )}
 
@@ -198,11 +218,14 @@ const CommunityHubPage: React.FC = () => {
 interface DetailProps {
   pkg: PackageOut;
   busy: boolean;
+  canDelete: boolean;
+  deleting: boolean;
   onClose: () => void;
   onInstall: () => void;
+  onDelete: () => void;
 }
 
-const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, onClose, onInstall }) => (
+const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, canDelete, deleting, onClose, onInstall, onDelete }) => (
   <div
     className="fixed inset-0 z-40 flex items-center justify-center bg-black/40 p-4"
     onClick={onClose}
@@ -241,20 +264,37 @@ const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, onClose, onInstall })
             <span className="inline-flex items-center gap-1">
               <HardDrive size={12} /> {pkg.filename}
             </span>
-            <div className="mt-1 font-mono">sha256: {pkg.checksum}</div>
           </div>
         </div>
 
-        <div className="p-4 border-t border-wc-border dark:border-wc-border-dark flex justify-end gap-2">
-          <Button
-            variant="primary"
-            leftIcon={<Download size={16} />}
-            onClick={onInstall}
-            disabled={busy}
-            isLoading={busy}
-          >
-            Install
-          </Button>
+        <div className="p-4 border-t border-wc-border dark:border-wc-border-dark flex items-center justify-between gap-2">
+          <div>
+            {canDelete && (
+              <Button
+                variant="danger"
+                leftIcon={<Trash2 size={16} />}
+                onClick={onDelete}
+                disabled={deleting}
+                isLoading={deleting}
+              >
+                Delete
+              </Button>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <a href={downloadUrl(pkg.id)} download>
+              <Button variant="outline" leftIcon={<Download size={16} />}>Download</Button>
+            </a>
+            <Button
+              variant="primary"
+              leftIcon={<Download size={16} />}
+              onClick={onInstall}
+              disabled={busy}
+              isLoading={busy}
+            >
+              Install
+            </Button>
+          </div>
         </div>
       </div>
     </Card>
@@ -342,12 +382,14 @@ const UploadDialog: React.FC<UploadProps> = ({ isAuthed, token, onClose, onUploa
                 <input
                   ref={fileInput}
                   type="file"
+                  accept=".tar.gz,.tgz,.wcr"
                   className="hidden"
                   onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                 />
                 <Button variant="outline" fullWidth leftIcon={<Upload size={16} />} onClick={() => fileInput.current?.click()}>
                   {file ? `${file.name} (${formatSize(file.size)})` : 'Choose file...'}
                 </Button>
+                <p className="mt-1 text-xs text-wc-muted dark:text-wc-muted-dark">Accepted: .tar.gz, .wcr</p>
               </div>
             </div>
           )}

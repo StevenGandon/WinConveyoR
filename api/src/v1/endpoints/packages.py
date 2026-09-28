@@ -16,6 +16,8 @@ router = APIRouter()
 settings = get_settings()
 
 _CHUNK_SIZE = 1024 * 1024  # 1 MiB streaming chunks
+# Accepted artifact extensions (.wcr is the PoC test format, .tar.gz the target).
+_ALLOWED_SUFFIXES = (".tar.gz", ".tgz", ".wcr")
 
 
 def _package_or_404(db: Session, package_id: int) -> Package:
@@ -23,6 +25,16 @@ def _package_or_404(db: Session, package_id: int) -> Package:
     if pkg is None:
         raise HTTPException(status_code=404, detail="Package not found")
     return pkg
+
+
+def _validate_suffix(filename: str) -> None:
+    lowered = filename.lower()
+    if not lowered.endswith(_ALLOWED_SUFFIXES):
+        allowed = ", ".join(_ALLOWED_SUFFIXES)
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported artifact type (allowed: {allowed})",
+        )
 
 
 @router.post("", response_model=PackageOut, status_code=status.HTTP_201_CREATED)
@@ -38,6 +50,8 @@ def upload_package(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    _validate_suffix(artifact.filename or "")
+
     settings.STORAGE_DIR.mkdir(parents=True, exist_ok=True)
     stored_name = f"{uuid.uuid4().hex}_{Path(artifact.filename or 'artifact').name}"
     dest = settings.STORAGE_DIR / stored_name
@@ -105,3 +119,19 @@ def download_package(request: Request, package_id: int, db: Session = Depends(ge
         filename=pkg.filename,
         media_type="application/octet-stream",
     )
+
+
+@router.delete("/{package_id}", status_code=status.HTTP_204_NO_CONTENT)
+@limiter.limit("20/minute")
+def delete_package(
+    request: Request,
+    package_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    pkg = _package_or_404(db, package_id)
+    if pkg.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not the package owner")
+    Path(pkg.artifact_path).unlink(missing_ok=True)
+    db.delete(pkg)
+    db.commit()

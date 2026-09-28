@@ -108,3 +108,17 @@ export async function uploadPackage(form: FormData, token: string): Promise<Pack
 export function downloadUrl(id: number): string {
   return `${API_URL}/packages/${id}/download`;
 }
+
+export async function deletePackage(id: number, token: string): Promise<void> {
+  const res = await fetch(`${API_URL}/packages/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    let detail: string | undefined;
+    try {
+      detail = (await res.json()).detail;
+    } catch { /* 204 / empty body */ }
+    throw new Error(typeof detail === "string" ? detail : res.statusText);
+  }
+}
