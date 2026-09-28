@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     RATE_LIMIT: str = "200/minute"
     SECRET_KEY: str = "change-me-in-production"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    STORAGE_DIR: Path = BASE_DIR / "storage" / "packages"
 
     class Config:
         env_file = BASE_DIR / ".env"
