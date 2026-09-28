@@ -2,7 +2,7 @@ import React from 'react';
 import { usePackages } from '../../context/PackageContext';
 import { useAuth } from '../../context/AuthContext';
 import { useSettings } from '../../context/SettingsContext';
-import { Download, RefreshCw, Settings, Home, Search, LogOut, User, Terminal, Sun, Moon, Monitor } from 'lucide-react';
+import { Download, RefreshCw, Settings, Home, Search, LogOut, User, Terminal, Sun, Moon, Monitor, Globe } from 'lucide-react';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -68,6 +68,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
           label="Discover"
           isActive={activePage === 'discover'}
           onClick={() => onNavigate('discover')}
+        />
+        <SidebarItem
+          icon={<Globe size={18} />}
+          label="Community Hub"
+          isActive={activePage === 'hub'}
+          onClick={() => onNavigate('hub')}
         />
         <SidebarItem
           icon={<Download size={18} />}
