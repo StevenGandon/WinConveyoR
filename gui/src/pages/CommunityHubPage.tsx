@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Search, Package as PackageIcon, Download, Upload, X, AlertCircle, HardDrive } from 'lucide-react';
 import { toast } from 'sonner';
-import { searchPackages, uploadPackage, downloadUrl, PackageOut } from '../services/api';
+import { searchPackages, uploadPackage, PackageOut } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useCli } from '../context/CliContext';
 import { logActivity } from '../services/activity';
@@ -246,9 +246,6 @@ const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, onClose, onInstall })
         </div>
 
         <div className="p-4 border-t border-wc-border dark:border-wc-border-dark flex justify-end gap-2">
-          <a href={downloadUrl(pkg.id)} download>
-            <Button variant="outline" leftIcon={<Download size={16} />}>Download</Button>
-          </a>
           <Button
             variant="primary"
             leftIcon={<Download size={16} />}
