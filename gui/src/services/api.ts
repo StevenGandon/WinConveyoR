@@ -56,3 +56,55 @@ export function getMe(token: string, signal?: AbortSignal) {
     signal,
   });
 }
+
+export interface PackageOut {
+  id: number;
+  name: string;
+  version: string;
+  description: string | null;
+  arch: string;
+  machine: string;
+  owner_id: number;
+  filename: string;
+  checksum: string;
+  size: number;
+  created_at: string;
+}
+
+export function searchPackages(q?: string, signal?: AbortSignal) {
+  const qs = q?.trim() ? `?q=${encodeURIComponent(q.trim())}` : "";
+  return request<PackageOut[]>(`/packages${qs}`, { signal });
+}
+
+export function getPackage(id: number, signal?: AbortSignal) {
+  return request<PackageOut>(`/packages/${id}`, { signal });
+}
+
+// Multipart upload: build the FormData in the caller and let the browser set
+// the multipart boundary — do NOT force Content-Type here (request() would set
+// application/json and break the parsing server-side).
+export async function uploadPackage(form: FormData, token: string): Promise<PackageOut> {
+  const res = await fetch(`${API_URL}/packages`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: form,
+  });
+
+  const body = await res.json();
+  if (!res.ok) {
+    const detail = body.detail;
+    if (Array.isArray(detail)) {
+      const messages = detail.map((e: any) => {
+        const field = e.loc?.[e.loc.length - 1] ?? "?";
+        return `${field}: ${e.msg}`;
+      });
+      throw new Error(messages.join("\n"));
+    }
+    throw new Error(typeof detail === "string" ? detail : res.statusText);
+  }
+  return body as PackageOut;
+}
+
+export function downloadUrl(id: number): string {
+  return `${API_URL}/packages/${id}/download`;
+}
