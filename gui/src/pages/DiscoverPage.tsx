@@ -15,10 +15,12 @@ const DiscoverPage: React.FC = () => {
   const [infoVariants, setInfoVariants] = useState<{ version: string; arch: string; machine: string }[] | null>(null);
   const [infoTarget, setInfoTarget] = useState('');
   const [infoLoading, setInfoLoading] = useState(false);
+  const [loading, setLoading] = useState(availablePackages.length === 0);
 
   useEffect(() => {
     if (availablePackages.length === 0) {
-      loadAvailable();
+      setLoading(true);
+      loadAvailable().finally(() => setLoading(false));
     }
   }, []);
 
@@ -136,7 +138,30 @@ const DiscoverPage: React.FC = () => {
           </Card>
         )}
 
-        {availablePackages.length === 0 ? (
+        {loading ? (
+          <>
+            <div className="h-5 w-36 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <Card key={i} className="flex flex-col">
+                  <div className="p-4 flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                    <div className="flex-1 min-w-0 space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="h-4 w-2/3 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                        <div className="h-5 w-16 shrink-0 rounded-full bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                      </div>
+                      <div className="h-3 w-1/3 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                    </div>
+                  </div>
+                  <div className="mt-auto px-4 pb-4 flex justify-end">
+                    <div className="h-8 w-16 rounded-md bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </>
+        ) : availablePackages.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="rounded-full bg-wc-accent-soft dark:bg-wc-accent-soft-dark p-4 mb-4">
               <Search size={32} className="text-wc-accent dark:text-wc-accent-bright" />
