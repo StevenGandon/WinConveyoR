@@ -3,6 +3,7 @@ pkg_check_modules(CRITERION REQUIRED criterion)
 
 add_executable(test_wconr
     test_wizard.c
+    test_wcr_client.c
 )
 target_link_libraries(test_wconr
     wconr

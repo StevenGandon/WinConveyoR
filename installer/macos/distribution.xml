@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="2">
+    <title>WinConveyoR @VERSION@</title>
+    <organization>com.winconveyor</organization>
+
+    <options customize="always" require-scripts="false" rootVolumeOnly="true" hostArchitectures="arm64"/>
+    <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
+
+    <welcome    file="welcome.html"    mime-type="text/html"/>
+    <license    file="license.txt"     mime-type="text/plain"/>
+    <conclusion file="conclusion.html" mime-type="text/html"/>
+
+    <choices-outline>
+        <line choice="cli"/>
+        <line choice="server"/>
+        <line choice="devtools"/>
+    </choices-outline>
+
+    <choice id="cli"
+            title="Command-line tools and library"
+            description="The wcr and wcrmgr command-line tools and the WinConveyoR runtime library. Required."
+            start_selected="true"
+            start_enabled="false">
+        <pkg-ref id="com.winconveyor.cli"/>
+    </choice>
+
+    <choice id="server"
+            title="Mirror server"
+            description="The wcrmirror server."
+            start_selected="false">
+        <pkg-ref id="com.winconveyor.server"/>
+    </choice>
+
+    <choice id="devtools"
+            title="Developer tools and headers"
+            description="wcrpackager, wcrgenkey, header_gen and the C headers (installed to /usr/local/include)."
+            start_selected="false">
+        <pkg-ref id="com.winconveyor.devtools"/>
+    </choice>
+
+    <pkg-ref id="com.winconveyor.cli"      version="@NUMERIC@" onConclusion="none">cli.pkg</pkg-ref>
+    <pkg-ref id="com.winconveyor.server"   version="@NUMERIC@" onConclusion="none">server.pkg</pkg-ref>
+    <pkg-ref id="com.winconveyor.devtools" version="@NUMERIC@" onConclusion="none">devtools.pkg</pkg-ref>
+</installer-gui-script>

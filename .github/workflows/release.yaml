@@ -70,8 +70,237 @@ jobs:
             echo "prerelease=${PRERELEASE}"
           } >> "$GITHUB_OUTPUT"
 
-  release:
+  installer-windows:
     needs: versioning
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout (built commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Download Windows build artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: dist-windows-amd64
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build installer (Inno Setup)
+        shell: pwsh
+        env:
+          TAG: ${{ needs.versioning.outputs.tag }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (Test-Path LICENSE)) { throw 'LICENSE file not found at the repository root' }
+
+          $version = $env:TAG.TrimStart('v')
+          $numeric = ($version -split '-')[0]
+
+          $iscc = (Get-Command iscc.exe -ErrorAction SilentlyContinue).Source
+          if (-not $iscc) {
+            $iscc = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'
+            if (-not (Test-Path $iscc)) {
+              choco install innosetup --yes --no-progress
+            }
+          }
+
+          $src = Join-Path $PWD 'dist\dist-windows-amd64'
+          $out = Join-Path $PWD 'installer-out'
+          New-Item -ItemType Directory -Force $out | Out-Null
+
+          & $iscc "/DAppVersion=$version" "/DNumericVersion=$numeric" "/DSourceDir=$src" `
+                  "/DLicenseFile=$(Join-Path $PWD 'LICENSE')" "/DOutputDir=$out" `
+                  installer\windows\winconveyor.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed with exit code $LASTEXITCODE" }
+          Get-ChildItem $out
+
+      - name: Smoke-test installer (install, verify, uninstall)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $setup  = (Get-ChildItem installer-out -Filter '*-setup.exe' | Select-Object -First 1).FullName
+          $target = Join-Path $env:RUNNER_TEMP 'wcr-install'
+
+          $p = Start-Process -FilePath $setup -Wait -PassThru -ArgumentList @(
+            '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/CURRENTUSER',
+            "/DIR=$target", '/COMPONENTS=core,server,devtools', '/TASKS=addtopath,devenv',
+            "/LOG=$env:RUNNER_TEMP\setup.log")
+          if ($p.ExitCode -ne 0) { Get-Content "$env:RUNNER_TEMP\setup.log" -Tail 50; throw "Setup exited with $($p.ExitCode)" }
+
+          $expected = @(
+            'bin\wcr.exe', 'bin\wcrmgr.exe', 'bin\wcrmirror.exe',
+            'bin\wcrpackager.exe', 'bin\wcrgenkey.exe', 'bin\header_gen.exe',
+            'bin\libwconr.dll', 'lib\libwconr.dll', 'LICENSE.txt')
+          foreach ($f in $expected) {
+            if (-not (Test-Path (Join-Path $target $f))) { throw "Missing installed file: $f" }
+          }
+          if (-not (Get-ChildItem (Join-Path $target 'include') -Recurse -File)) { throw 'Headers were not installed' }
+
+          $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+          if ($userPath -notlike "*$target\bin*") { throw 'PATH entry was not added' }
+          if ([Environment]::GetEnvironmentVariable('WINCONVEYOR_HOME', 'User') -ne $target) { throw 'WINCONVEYOR_HOME not set' }
+
+          Start-Process -FilePath (Join-Path $target 'unins000.exe') -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
+          $deadline = (Get-Date).AddSeconds(60)
+          while ((Test-Path (Join-Path $target 'bin\wcr.exe')) -and ((Get-Date) -lt $deadline)) { Start-Sleep -Seconds 2 }
+          if (Test-Path (Join-Path $target 'bin\wcr.exe')) { throw 'Uninstall did not remove files' }
+          if ([Environment]::GetEnvironmentVariable('Path', 'User') -like "*$target\bin*") { throw 'Uninstall left PATH entry behind' }
+          Write-Host 'Windows installer smoke test passed.'
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-windows-amd64
+          path: installer-out/*.exe
+          if-no-files-found: error
+
+  installer-macos:
+    needs: versioning
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout (built commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Download macOS build artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: dist-macos-arm64
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build installer (pkgbuild + productbuild)
+        env:
+          TAG: ${{ needs.versioning.outputs.tag }}
+        run: |
+          set -euo pipefail
+          test -f LICENSE || { echo "::error::LICENSE file not found at the repository root"; exit 1; }
+          chmod +x dist/dist-macos-arm64/bin/*
+          bash installer/macos/build_pkg.sh dist/dist-macos-arm64 "${TAG#v}" installer-out
+          ls -l installer-out
+
+      - name: Smoke-test installer (install, verify, uninstall)
+        run: |
+          set -euo pipefail
+          . installer/components.sh
+          PKG="$(ls installer-out/*.pkg | head -n1)"
+
+          cat > choices.plist <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><array>
+            <dict><key>choiceIdentifier</key><string>server</string>
+                  <key>choiceAttribute</key><string>selected</string>
+                  <key>attributeSetting</key><integer>1</integer></dict>
+            <dict><key>choiceIdentifier</key><string>devtools</string>
+                  <key>choiceAttribute</key><string>selected</string>
+                  <key>attributeSetting</key><integer>1</integer></dict>
+          </array></plist>
+          EOF
+          sudo installer -pkg "$PKG" -target / -applyChoiceChangesXML choices.plist -verbose
+
+          for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS; do
+            test -x "/usr/local/bin/$b" || { echo "::error::/usr/local/bin/$b missing"; exit 1; }
+          done
+          test -e /usr/local/lib/libwconr.dylib || { echo "::error::libwconr.dylib not linked into /usr/local/lib"; exit 1; }
+          test -n "$(ls -A /usr/local/winconveyor/include)" || { echo "::error::headers missing"; exit 1; }
+          for e in /usr/local/winconveyor/include/*; do
+            test -e "/usr/local/include/$(basename "$e")" || { echo "::error::header link missing: $e"; exit 1; }
+          done
+
+          for f in /usr/local/winconveyor/bin/* /usr/local/winconveyor/lib/*.dylib; do
+            if file "$f" | grep -q Mach-O && otool -L "$f" | grep -q '/Users/'; then
+              echo "::error::$f references a build-machine path:"; otool -L "$f"; exit 1
+            fi
+          done
+
+          sudo /usr/local/winconveyor/uninstall.sh --yes
+          test ! -e /usr/local/winconveyor
+          test ! -e /usr/local/bin/wcr
+          echo "macOS installer smoke test passed."
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-macos-arm64
+          path: installer-out/*.pkg
+          if-no-files-found: error
+
+  installer-linux:
+    needs: versioning
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (built commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Download Linux build artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: dist-linux-amd64
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build installer (self-extracting .run)
+        env:
+          TAG: ${{ needs.versioning.outputs.tag }}
+        run: |
+          set -euo pipefail
+          test -f LICENSE || { echo "::error::LICENSE file not found at the repository root"; exit 1; }
+          chmod +x dist/dist-linux-amd64/bin/*
+          bash installer/linux/build_run.sh dist/dist-linux-amd64 "${TAG#v}" installer-out
+          ls -l installer-out
+
+      - name: Smoke-test installer (install, verify, upgrade, uninstall)
+        run: |
+          set -euo pipefail
+          . installer/components.sh
+          RUN="$(ls installer-out/*.run | head -n1)"
+          P="$RUNNER_TEMP/wcr-prefix"
+
+          sh "$RUN" --accept-license --components all --prefix "$P" --no-modify-path
+
+          for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS; do
+            test -x "$P/bin/$b" || { echo "::error::$b was not installed"; exit 1; }
+
+            out="$(ldd "$P/bin/$b" 2>&1 || true)"
+            if echo "$out" | grep -q 'not found'; then
+              echo "::error::$b has unresolved libraries"; echo "$out"; exit 1
+            fi
+          done
+          test -e "$P/lib/libwconr.so" || { echo "::error::libwconr.so not linked into $P/lib"; exit 1; }
+          out="$(ldd "$P/lib/libwconr.so" 2>&1 || true)"
+          if echo "$out" | grep -q 'not found'; then
+            echo "::error::libwconr.so (via the $P/lib link) has unresolved libraries"; echo "$out"; exit 1
+          fi
+          test -n "$(ls -A "$P/include")" || { echo "::error::headers missing"; exit 1; }
+
+          sh "$RUN" --accept-license --components cli --prefix "$P" --no-modify-path
+          test ! -e "$P/bin/wcrmirror" || { echo "::error::server survived downgrade"; exit 1; }
+          test -z "$(ls -A "$P/include")" || { echo "::error::headers survived downgrade"; exit 1; }
+
+          sh "$RUN" --uninstall --prefix "$P" <<< "y"
+          test ! -e "$P/lib/winconveyor"
+          echo "Linux installer smoke test passed."
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-linux-amd64
+          path: installer-out/*.run
+          if-no-files-found: error
+
+  release:
+    needs: [versioning, installer-windows, installer-macos, installer-linux]
     runs-on: ubuntu-latest
 
     permissions:
@@ -87,6 +316,13 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Download installers
+        uses: actions/download-artifact@v4
+        with:
+          path: installers
+          pattern: installer-*
+          merge-multiple: true
+
       - name: Restore executable permissions
         run: chmod +x dist/dist-linux-*/bin/* dist/dist-macos-*/bin/*
 
@@ -94,11 +330,16 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release
+
           for dir in dist/dist-*/; do
             machine="$(basename "$dir")"
             machine="${machine#dist-}"
             (cd "$dir" && zip -rq "${GITHUB_WORKSPACE}/release/WinConveyoR-${machine}.zip" .)
           done
+
+          cp installers/* release/
+
+          (cd release && sha256sum * > SHA256SUMS.txt)
           ls -l release
 
       - name: Create release
@@ -110,4 +351,64 @@ jobs:
           target_commitish: ${{ github.event.workflow_run.head_sha }}
           generate_release_notes: false
           fail_on_unmatched_files: true
-          files: release/*.zip
+          files: |
+            release/*.zip
+            release/*.exe
+            release/*.pkg
+            release/*.run
+            release/SHA256SUMS.txt
+
+  docker:
+    needs: [versioning, release]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download linux-amd64 build artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: dist-linux-amd64
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Assemble build context
+        run: |
+          set -euo pipefail
+          mv dist/dist-linux-amd64 dist/linux-amd64
+          chmod +x dist/linux-amd64/bin/*
+          cp hosting/docker/mirror_server dist/linux-amd64/Dockerfile
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Compute image tags
+        id: tags
+        env:
+          TAG: ${{ needs.versioning.outputs.tag }}
+          PRERELEASE: ${{ needs.versioning.outputs.prerelease }}
+        run: |
+          set -euo pipefail
+          IMAGE="wcnr/wcr"
+          VERSION="${TAG#v}"
+          TAGS="${IMAGE}:${VERSION}"
+          if [ "$PRERELEASE" = "false" ]; then
+            TAGS="${TAGS},${IMAGE}:latest"
+          fi
+          echo "tags=${TAGS}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: dist/linux-amd64
+          file: dist/linux-amd64/Dockerfile
+          push: true
+          tags: ${{ steps.tags.outputs.tags }}

@@ -1,0 +1,240 @@
+#!/bin/sh
+
+set -eu
+
+VERSION="@VERSION@"
+APP="winconveyor"
+MARK="# added by WinConveyoR installer"
+
+die() { echo "error: $*" >&2; exit 1; }
+
+usage() {
+  cat <<EOF
+WinConveyoR $VERSION installer
+
+Usage: sh $(basename "$0") [options]
+
+  --accept-license     Accept the license without prompting
+  --components LIST    Comma-separated list of: cli,server,devtools  (or "all")
+                       "cli" (CLI tools + library) is always installed.
+                       devtools includes the C headers.
+  --prefix DIR         Installation prefix
+                       (default: /usr/local when root, \$HOME/.local otherwise)
+  --no-modify-path     Do not touch shell profiles / profile.d
+  --uninstall          Remove an existing installation from the prefix
+  -h, --help           Show this help
+EOF
+}
+
+ACCEPT=0; COMPONENTS=""; PREFIX=""; NO_PATH=0; ACTION=install
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --accept-license)  ACCEPT=1 ;;
+    --components)      [ $# -ge 2 ] || die "--components needs a value"; COMPONENTS="$2"; shift ;;
+    --components=*)    COMPONENTS="${1#*=}" ;;
+    --prefix)          [ $# -ge 2 ] || die "--prefix needs a value"; PREFIX="$2"; shift ;;
+    --prefix=*)        PREFIX="${1#*=}" ;;
+    --no-modify-path)  NO_PATH=1 ;;
+    --uninstall)       ACTION=uninstall ;;
+    -h|--help)         usage; exit 0 ;;
+    *)                 usage >&2; exit 2 ;;
+  esac
+  shift
+done
+
+IS_ROOT=0
+if [ "$(id -u)" -eq 0 ]; then IS_ROOT=1; fi
+INTERACTIVE=0
+if [ -t 0 ]; then INTERACTIVE=1; fi
+
+if [ -z "$PREFIX" ]; then
+  if [ "$IS_ROOT" -eq 1 ]; then PREFIX=/usr/local; else PREFIX="$HOME/.local"; fi
+fi
+ROOT="$PREFIX/lib/$APP"
+
+if [ "$ACTION" = uninstall ]; then
+  [ -x "$ROOT/uninstall.sh" ] || die "no WinConveyoR installation found in $PREFIX"
+  exec "$ROOT/uninstall.sh"
+fi
+
+[ "$(uname -s)" = "Linux" ] && [ "$(uname -m)" = "x86_64" ] || die "this installer is for Linux x86_64 only"
+
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT INT TERM
+ARCHIVE_LINE="$(awk '/^__ARCHIVE__$/ { print NR + 1; exit }' "$0")"
+[ -n "$ARCHIVE_LINE" ] || die "installer payload not found"
+tail -n +"$ARCHIVE_LINE" "$0" | tar -xf - -C "$TMP"
+
+ask_yn() {
+  if [ "$2" = y ]; then hint="[Y/n]"; else hint="[y/N]"; fi
+  while :; do
+    printf '%s %s ' "$1" "$hint"
+    read -r ans || ans=""
+    case "${ans:-$2}" in
+      [Yy]*) return 0 ;;
+      [Nn]*) return 1 ;;
+    esac
+  done
+}
+
+echo "WinConveyoR $VERSION"
+echo
+if [ "$ACCEPT" -ne 1 ]; then
+  [ "$INTERACTIVE" -eq 1 ] || die "non-interactive installs require --accept-license"
+  PAGER_CMD="${PAGER:-less}"
+  if [ -t 1 ] && command -v "$PAGER_CMD" >/dev/null 2>&1; then
+    "$PAGER_CMD" "$TMP/LICENSE"
+  else
+    cat "$TMP/LICENSE"
+  fi
+  echo
+  ask_yn "Do you accept the terms of the license agreement?" n || die "license not accepted; nothing was installed."
+fi
+
+WANT_SERVER=0; WANT_DEVTOOLS=0
+if [ -n "$COMPONENTS" ]; then
+  OLDIFS="$IFS"; IFS=,
+  for c in $COMPONENTS; do
+    case "$c" in
+      cli) ;;
+      server) WANT_SERVER=1 ;;
+      devtools) WANT_DEVTOOLS=1 ;;
+      all) WANT_SERVER=1; WANT_DEVTOOLS=1 ;;
+      *) die "unknown component '$c' (valid: cli, server, devtools, all)" ;;
+    esac
+  done
+  IFS="$OLDIFS"
+elif [ "$INTERACTIVE" -eq 1 ]; then
+  echo "Select the components to install:"
+  echo "  [x] cli      - command-line tools and runtime library (required)"
+  if ask_yn "  Install the mirror server?" n; then WANT_SERVER=1; fi
+  if ask_yn "  Install developer tools and C headers?" n; then WANT_DEVTOOLS=1; fi
+else
+  echo "No --components given in non-interactive mode: installing 'cli' only."
+fi
+
+mkdir -p "$PREFIX/bin" "$PREFIX/lib" 2>/dev/null \
+  || die "cannot write to $PREFIX (re-run with sudo, or choose another --prefix)"
+
+if [ -x "$ROOT/uninstall.sh" ]; then
+  echo "Replacing existing installation in $ROOT ..."
+  "$ROOT/uninstall.sh" --yes >/dev/null
+fi
+mkdir -p "$ROOT"
+LINKS="$ROOT/.links"
+: > "$LINKS"
+
+install_component() {
+  tar -xzf "$TMP/$1.tar.gz" -C "$ROOT"
+  tar -tzf "$TMP/$1.tar.gz" | sed -n 's|^bin/\([^/][^/]*\)$|\1|p' | while read -r b; do
+    ln -sf "$ROOT/bin/$b" "$PREFIX/bin/$b"
+    echo "$PREFIX/bin/$b" >> "$LINKS"
+  done
+}
+
+echo "Installing to $ROOT ..."
+install_component cli
+if [ "$WANT_SERVER" -eq 1 ]; then install_component server; fi
+if [ "$WANT_DEVTOOLS" -eq 1 ]; then install_component devtools; fi
+cp "$TMP/LICENSE" "$ROOT/LICENSE.txt"
+
+for f in "$ROOT"/lib/libwconr.so*; do
+  if [ -e "$f" ]; then
+    ln -sf "$f" "$PREFIX/lib/$(basename "$f")"
+    echo "$PREFIX/lib/$(basename "$f")" >> "$LINKS"
+  fi
+done
+
+if [ "$WANT_DEVTOOLS" -eq 1 ]; then
+  mkdir -p "$PREFIX/include"
+  for e in "$ROOT"/include/*; do
+    [ -e "$e" ] || continue
+    dest="$PREFIX/include/$(basename "$e")"
+    if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+      echo "warning: $dest already exists and is not ours; leaving it untouched" >&2
+    else
+      ln -sfn "$e" "$dest"
+      echo "$dest" >> "$LINKS"
+    fi
+  done
+fi
+
+if [ "$IS_ROOT" -eq 1 ]; then
+  if [ -d /etc/ld.so.conf.d ] && ! grep -qsx "$PREFIX/lib" /etc/ld.so.conf /etc/ld.so.conf.d/* 2>/dev/null; then
+    echo "$PREFIX/lib" > /etc/ld.so.conf.d/winconveyor.conf
+  fi
+  LDCONFIG="$(command -v ldconfig 2>/dev/null || echo /sbin/ldconfig)"
+  if [ -x "$LDCONFIG" ]; then "$LDCONFIG" || true; fi
+fi
+
+PATH_NOTE=""
+if [ "$NO_PATH" -eq 0 ]; then
+  case ":$PATH:" in
+    *":$PREFIX/bin:"*) ;;
+    *)
+      if [ "$IS_ROOT" -eq 1 ] && [ -d /etc/profile.d ]; then
+        printf 'export PATH="%s/bin:$PATH" %s\n' "$PREFIX" "$MARK" > /etc/profile.d/winconveyor.sh
+        echo /etc/profile.d/winconveyor.sh >> "$LINKS"
+        PATH_NOTE="PATH updated via /etc/profile.d/winconveyor.sh (log out and back in)."
+      else
+        if ! grep -qsF "$PREFIX/bin" "$HOME/.profile" 2>/dev/null; then
+          printf 'export PATH="%s/bin:$PATH" %s\n' "$PREFIX" "$MARK" >> "$HOME/.profile"
+        fi
+        PATH_NOTE="PATH updated in ~/.profile (open a new login shell)."
+      fi
+      ;;
+  esac
+fi
+
+cat > "$ROOT/uninstall.sh" <<'UNINSTALL'
+#!/bin/sh
+# WinConveyoR uninstaller
+set -u
+PREFIX='@PREFIX@'
+ROOT="$PREFIX/lib/winconveyor"
+YES=0
+if [ "${1:-}" = "--yes" ]; then YES=1; fi
+
+if [ "$YES" -ne 1 ]; then
+  printf 'Remove WinConveyoR from %s? [y/N] ' "$PREFIX"
+  read -r a || a=n
+  case "$a" in [Yy]*) ;; *) echo "Aborted."; exit 1 ;; esac
+fi
+
+if [ -f "$ROOT/.links" ]; then
+  while IFS= read -r l; do
+    case "$l" in
+      /etc/profile.d/winconveyor.sh) rm -f "$l" ;;
+      *) if [ -L "$l" ]; then rm -f "$l"; fi ;;
+    esac
+  done < "$ROOT/.links"
+fi
+
+if [ "$(id -u)" -eq 0 ]; then
+  rm -f /etc/ld.so.conf.d/winconveyor.conf
+  LDCONFIG="$(command -v ldconfig 2>/dev/null || echo /sbin/ldconfig)"
+  if [ -x "$LDCONFIG" ]; then "$LDCONFIG" || true; fi
+fi
+if [ -f "$HOME/.profile" ]; then
+  sed -i '/# added by WinConveyoR installer/d' "$HOME/.profile" 2>/dev/null || true
+fi
+
+rm -rf "$ROOT"
+echo "WinConveyoR has been removed."
+exit 0
+UNINSTALL
+sed -i "s|@PREFIX@|$PREFIX|g" "$ROOT/uninstall.sh"
+chmod 755 "$ROOT/uninstall.sh"
+
+echo
+echo "WinConveyoR $VERSION installed to $ROOT"
+echo "  executables : $PREFIX/bin"
+echo "  library     : $PREFIX/lib/libwconr.so"
+if [ "$WANT_DEVTOOLS" -eq 1 ]; then echo "  headers     : $PREFIX/include"; fi
+if [ -n "$PATH_NOTE" ]; then echo "  $PATH_NOTE"; fi
+if [ "$IS_ROOT" -eq 0 ]; then
+  echo "  note: to link against libwconr from a user prefix, add -L$PREFIX/lib and set LD_LIBRARY_PATH=$PREFIX/lib"
+fi
+echo "  uninstall   : $ROOT/uninstall.sh"
+exit 0
+__ARCHIVE__

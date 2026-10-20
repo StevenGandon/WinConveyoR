@@ -169,7 +169,7 @@ endif()
 target_include_directories(wconr
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-    PRIVATE
+    PUBLIC
         ${cjson_SOURCE_DIR}
 )
 

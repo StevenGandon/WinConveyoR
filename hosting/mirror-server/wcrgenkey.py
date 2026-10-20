@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from src import *
 
 from sys import exit, argv
