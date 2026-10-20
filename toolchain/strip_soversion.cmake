@@ -50,7 +50,6 @@ foreach(_bin ${_dist_libs})
         execute_process(COMMAND patchelf --replace-needed "${_old}" "${_new}" "${_bin}"
                         ERROR_QUIET)
     endforeach()
-    execute_process(COMMAND patchelf --set-rpath "$ORIGIN" "${_bin}")
 endforeach()
 
 file(GLOB _dist_bins "${BIN_DIR}/*")
@@ -62,6 +61,4 @@ foreach(_bin ${_dist_bins})
         execute_process(COMMAND patchelf --replace-needed "${_old}" "${_new}" "${_bin}"
                         ERROR_QUIET)
     endforeach()
-    execute_process(COMMAND patchelf --set-rpath "$ORIGIN/../lib" "${_bin}"
-                    ERROR_QUIET)
 endforeach()
