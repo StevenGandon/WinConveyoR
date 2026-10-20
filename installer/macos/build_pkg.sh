@@ -41,7 +41,7 @@ CLI="$(new_root cli)"
 add_bins "$CLI" $CLI_BINS
 mkdir -p "$CLI/$HOME_DIR/lib" "$CLI/usr/local/lib"
 cp -R "$DIST/lib/." "$CLI/$HOME_DIR/lib/"
-for f in "$CLI/$HOME_DIR/lib/libwconr"*.dylib; do
+for f in "$CLI/$HOME_DIR/lib/"*.dylib; do
   if [ -e "$f" ]; then
     ln -s "../winconveyor/lib/$(basename "$f")" "$CLI/usr/local/lib/$(basename "$f")"
   fi

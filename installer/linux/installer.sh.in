@@ -138,7 +138,7 @@ if [ "$WANT_SERVER" -eq 1 ]; then install_component server; fi
 if [ "$WANT_DEVTOOLS" -eq 1 ]; then install_component devtools; fi
 cp "$TMP/LICENSE" "$ROOT/LICENSE.txt"
 
-for f in "$ROOT"/lib/libwconr.so*; do
+for f in "$ROOT"/lib/*.so; do
   if [ -e "$f" ]; then
     ln -sf "$f" "$PREFIX/lib/$(basename "$f")"
     echo "$PREFIX/lib/$(basename "$f")" >> "$LINKS"
