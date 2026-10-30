@@ -14,7 +14,6 @@ if [ "${1:-}" != "--yes" ]; then
   case "$answer" in [Yy]*) ;; *) echo "Aborted."; exit 1 ;; esac
 fi
 
-# Remove the symlinks we created in the system directories.
 for dir in /usr/local/bin /usr/local/lib /usr/local/include; do
   [ -d "$dir" ] || continue
   find "$dir" -maxdepth 1 -type l | while read -r link; do

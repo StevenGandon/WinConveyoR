@@ -70,6 +70,12 @@ jobs:
             echo "prerelease=${PRERELEASE}"
           } >> "$GITHUB_OUTPUT"
 
+  # ---------------------------------------------------------------------------
+  # Installers. Each job checks out the exact commit that was built, downloads
+  # that platform's build artifact, builds a native installer, smoke-tests it
+  # (install -> verify -> uninstall) and uploads it as "installer-<platform>".
+  # ---------------------------------------------------------------------------
+
   installer-windows:
     needs: versioning
     runs-on: windows-2022
@@ -143,6 +149,7 @@ jobs:
           if ($userPath -notlike "*$target\bin*") { throw 'PATH entry was not added' }
           if ([Environment]::GetEnvironmentVariable('WINCONVEYOR_HOME', 'User') -ne $target) { throw 'WINCONVEYOR_HOME not set' }
 
+          # The unins000.exe stub hands over to a temp copy, so poll for completion.
           Start-Process -FilePath (Join-Path $target 'unins000.exe') -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
           $deadline = (Get-Date).AddSeconds(60)
           while ((Test-Path (Join-Path $target 'bin\wcr.exe')) -and ((Get-Date) -lt $deadline)) { Start-Sleep -Seconds 2 }
@@ -191,6 +198,7 @@ jobs:
           . installer/components.sh
           PKG="$(ls installer-out/*.pkg | head -n1)"
 
+          # Select every optional component, as a user ticking all boxes would.
           cat > choices.plist <<'EOF'
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -214,9 +222,23 @@ jobs:
             test -e "/usr/local/include/$(basename "$e")" || { echo "::error::header link missing: $e"; exit 1; }
           done
 
+          # Every non-system dependency of every installed Mach-O must be an absolute path
+          # that exists on this machine (no bare names, no build-machine paths).
           for f in /usr/local/winconveyor/bin/* /usr/local/winconveyor/lib/*.dylib; do
-            if file "$f" | grep -q Mach-O && otool -L "$f" | grep -q '/Users/'; then
-              echo "::error::$f references a build-machine path:"; otool -L "$f"; exit 1
+            file "$f" | grep -q Mach-O || continue
+            while read -r dep; do
+              case "$dep" in /usr/lib/*|/System/*) continue ;; esac
+              if [ ! -e "$dep" ]; then
+                echo "::error::$f depends on '$dep', which does not exist after install"
+                otool -L "$f"; exit 1
+              fi
+            done < <(otool -L "$f" | tail -n +2 | awk '{print $1}')
+          done
+          # Programs must actually start (catches broken signatures / unresolved dylibs).
+          for b in $CLI_BINS; do
+            out="$(/usr/local/bin/$b --version 2>&1 || true)"
+            if echo "$out" | grep -qiE 'dyld|library not loaded|killed'; then
+              echo "::error::$b failed to launch:"; echo "$out"; exit 1
             fi
           done
 
@@ -250,6 +272,9 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install patchelf
+        run: sudo apt-get update && sudo apt-get install -y patchelf
+
       - name: Build installer (self-extracting .run)
         env:
           TAG: ${{ needs.versioning.outputs.tag }}
@@ -271,8 +296,9 @@ jobs:
 
           for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS; do
             test -x "$P/bin/$b" || { echo "::error::$b was not installed"; exit 1; }
-
-            out="$(ldd "$P/bin/$b" 2>&1 || true)"
+            # Every installed program must resolve all of its shared libraries.
+            # (Use the real path: at runtime the loader resolves $ORIGIN from /proc/self/exe.)
+            out="$(ldd "$(readlink -f "$P/bin/$b")" 2>&1 || true)"
             if echo "$out" | grep -q 'not found'; then
               echo "::error::$b has unresolved libraries"; echo "$out"; exit 1
             fi
@@ -284,6 +310,7 @@ jobs:
           fi
           test -n "$(ls -A "$P/include")" || { echo "::error::headers missing"; exit 1; }
 
+          # Re-install with fewer components: server and headers must go away.
           sh "$RUN" --accept-license --components cli --prefix "$P" --no-modify-path
           test ! -e "$P/bin/wcrmirror" || { echo "::error::server survived downgrade"; exit 1; }
           test -z "$(ls -A "$P/include")" || { echo "::error::headers survived downgrade"; exit 1; }
@@ -330,15 +357,15 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release
-
+          # Portable archives (unchanged)
           for dir in dist/dist-*/; do
             machine="$(basename "$dir")"
             machine="${machine#dist-}"
             (cd "$dir" && zip -rq "${GITHUB_WORKSPACE}/release/WinConveyoR-${machine}.zip" .)
           done
-
+          # Installers
           cp installers/* release/
-
+          # Checksums for everything we publish
           (cd release && sha256sum * > SHA256SUMS.txt)
           ls -l release
 

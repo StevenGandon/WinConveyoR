@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -euo pipefail
 
 DIST="${1:?usage: build_pkg.sh <dist-dir> <version> <out-dir>}"
@@ -6,7 +8,6 @@ OUT="${3:?missing output dir}"
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
-
 . "$HERE/../components.sh"
 
 DIST="$(cd "$DIST" && pwd)"
@@ -19,6 +20,34 @@ trap 'rm -rf "$WORK"' EXIT
 HOME_DIR="usr/local/winconveyor"
 
 [ -f "$REPO/LICENSE" ] || { echo "LICENSE not found at repository root" >&2; exit 1; }
+
+cp -Rp "$DIST/." "$WORK/stage"
+DIST="$WORK/stage"
+
+INSTALL_LIB="/usr/local/winconveyor/lib"
+fix_macho() { # <file>
+  local f="$1" dep base target changed=0
+  file "$f" | grep -q 'Mach-O' || return 0
+  if [[ "$f" == *.dylib ]]; then
+    install_name_tool -id "$INSTALL_LIB/$(basename "$f")" "$f"
+    changed=1
+  fi
+  while read -r dep; do
+    base="$(basename "$dep")"
+    target="$INSTALL_LIB/$base"
+    case "$dep" in /usr/lib/*|/System/*) continue ;; esac
+    [ "$dep" = "$target" ] && continue
+    if [ -f "$DIST/lib/$base" ]; then
+      install_name_tool -change "$dep" "$target" "$f"
+      changed=1
+    fi
+  done < <(otool -L "$f" | tail -n +2 | awk '{print $1}')
+
+  if [ "$changed" -eq 1 ]; then codesign --force --sign - "$f"; fi
+}
+for f in "$DIST"/lib/*.dylib "$DIST"/bin/*; do
+  if [ -f "$f" ] && [ ! -L "$f" ]; then fix_macho "$f"; fi
+done
 
 new_root() {
   local r="$WORK/$1"
@@ -41,7 +70,7 @@ CLI="$(new_root cli)"
 add_bins "$CLI" $CLI_BINS
 mkdir -p "$CLI/$HOME_DIR/lib" "$CLI/usr/local/lib"
 cp -R "$DIST/lib/." "$CLI/$HOME_DIR/lib/"
-for f in "$CLI/$HOME_DIR/lib/"*.dylib; do
+for f in "$CLI/$HOME_DIR/lib/libwconr"*.dylib; do
   if [ -e "$f" ]; then
     ln -s "../winconveyor/lib/$(basename "$f")" "$CLI/usr/local/lib/$(basename "$f")"
   fi
