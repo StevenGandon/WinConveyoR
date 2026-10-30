@@ -302,6 +302,14 @@ jobs:
           fi
           test -n "$(ls -A "$P/include")" || { echo "::error::headers missing"; exit 1; }
 
+          for f in $(for b in $CLI_BINS $DEVTOOLS_BINS; do echo "$P/lib/winconveyor/bin/$b"; done) "$P"/lib/winconveyor/lib/*.so*; do
+            [ -f "$f" ] && [ ! -L "$f" ] || continue
+            if readelf -d "$f" 2>/dev/null | grep -E 'RPATH|RUNPATH' | grep -Eq '(\[|:)/'; then
+              echo "::error::$(basename "$f") has an absolute RPATH/RUNPATH:"
+              readelf -d "$f" | grep -E 'RPATH|RUNPATH'; exit 1
+            fi
+          done
+
           sh "$RUN" --accept-license --components cli --prefix "$P" --no-modify-path
           test ! -e "$P/bin/wcrmirror" || { echo "::error::server survived downgrade"; exit 1; }
           test -z "$(ls -A "$P/include")" || { echo "::error::headers survived downgrade"; exit 1; }

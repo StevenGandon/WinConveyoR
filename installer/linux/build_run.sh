@@ -23,21 +23,46 @@ trap 'rm -rf "$WORK"' EXIT
 mkdir -p "$WORK/payload"
 
 cp -a "$DIST/." "$WORK/stage"
+chmod -R u+w "$WORK/stage"
 DIST="$WORK/stage"
 
-fix_runpath() {
-  local f="$1" old entry new=""
-  old="$(patchelf --print-rpath "$f" 2>/dev/null || true)"
+scrub_runpath() {
+  local f="$1" old entry new="" had_abs=0 forced=0
+  shift
+  old="$(patchelf --print-rpath "$f" 2>/dev/null)" || return 0
+  [ "$#" -gt 0 ] && forced=1
   local IFS=:
 
-  for entry in '$ORIGIN' '$ORIGIN/winconveyor/lib' $old; do
+  for entry in "$@" $old; do
+    case "$entry" in
+      '$ORIGIN'*|'${ORIGIN}'*) ;;
+      /*) had_abs=1; continue ;;
+      *) continue ;;
+    esac
     case ":$new:" in *":$entry:"*) ;; *) new="${new:+$new:}$entry" ;; esac
   done
+  if [ "$had_abs" -eq 0 ] && [ "$forced" -eq 0 ]; then return 0; fi
+  if [ -z "$new" ]; then
+
+    case "$(basename "$(dirname "$f")")" in
+      lib) new='$ORIGIN' ;;
+      *)   new='$ORIGIN/../lib' ;;
+    esac
+  fi
   patchelf --set-rpath "$new" "$f"
   echo "RUNPATH of $(basename "$f"): $new"
 }
-for f in "$DIST"/lib/libwconr*.so*; do
-  if [ -f "$f" ] && [ ! -L "$f" ]; then fix_runpath "$f"; fi
+
+for f in "$DIST"/lib/*.so*; do
+  [ -f "$f" ] && [ ! -L "$f" ] || continue
+  case "$(basename "$f")" in
+    libwconr*) scrub_runpath "$f" '$ORIGIN' '$ORIGIN/winconveyor/lib' ;;
+    *)         scrub_runpath "$f" ;;
+  esac
+done
+
+for b in $CLI_BINS $DEVTOOLS_BINS; do
+  [ -f "$DIST/bin/$b" ] && scrub_runpath "$DIST/bin/$b"
 done
 
 pack() {
@@ -70,9 +95,9 @@ if ! head -n 1 "$CLEAN" | grep -q '^#!/bin/sh'; then
   head -n 3 "$CLEAN" >&2
   exit 1
 fi
-if ! grep -q 'self-extracting installer for Linux' "$CLEAN" || ! grep -qx '__ARCHIVE__' "$CLEAN"; then
+if ! grep -q '^VERSION="@VERSION@"' "$CLEAN" || ! grep -qx '__ARCHIVE__' "$CLEAN"; then
   echo "error: $TEMPLATE is not the WinConveyoR installer template" >&2
-  echo "       (missing the description line or the __ARCHIVE__ marker)." >&2
+  echo "       (missing the VERSION=\"@VERSION@\" line or the __ARCHIVE__ marker)." >&2
   echo "       Re-copy installer/linux/installer.sh.in from the delivered files." >&2
   exit 1
 fi
