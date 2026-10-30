@@ -24,8 +24,23 @@ HOME_DIR="usr/local/winconveyor"
 
 cp -Rp "$DIST/." "$WORK/stage"
 DIST="$WORK/stage"
-
 bash "$HERE/relocate_dylibs.sh" "$DIST" $CLI_BINS $DEVTOOLS_BINS
+
+new_root() {
+  local r="$WORK/$1"
+  mkdir -p "$r/usr/local/bin" "$r/$HOME_DIR/bin"
+  echo "$r"
+}
+
+add_bins() {
+  local r="$1"; shift
+  local b
+  for b in "$@"; do
+    [ -f "$DIST/bin/$b" ] || { echo "missing build output: $DIST/bin/$b" >&2; exit 1; }
+    install -m 755 "$DIST/bin/$b" "$r/$HOME_DIR/bin/$b"
+    ln -s "../winconveyor/bin/$b" "$r/usr/local/bin/$b"
+  done
+}
 
 CLI="$(new_root cli)"
 
@@ -41,11 +56,9 @@ install -m 755 "$HERE/uninstall.sh" "$CLI/$HOME_DIR/uninstall.sh"
 install -m 644 "$REPO/LICENSE" "$CLI/$HOME_DIR/LICENSE.txt"
 
 SRV="$(new_root server)"
-
 add_bins "$SRV" $SERVER_BINS
 
 DEV="$(new_root devtools)"
-
 add_bins "$DEV" $DEVTOOLS_BINS
 mkdir -p "$DEV/$HOME_DIR/include" "$DEV/usr/local/include"
 cp -R "$DIST/include/." "$DEV/$HOME_DIR/include/"
