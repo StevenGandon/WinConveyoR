@@ -55,15 +55,39 @@ files_for() {
 }
 
 pack cli      $(files_for $CLI_BINS) lib
-
 pack server   $(files_for $SERVER_BINS)
-
 pack devtools $(files_for $DEVTOOLS_BINS) include
 
 cp "$REPO/LICENSE" "$WORK/payload/LICENSE"
 
+TEMPLATE="$HERE/installer.sh.in"
+CLEAN="$WORK/template.sh"
+
+tr -d '\r' < "$TEMPLATE" > "$CLEAN"
+
+if ! head -n 1 "$CLEAN" | grep -q '^#!/bin/sh'; then
+  echo "error: $TEMPLATE must start with '#!/bin/sh'. First lines are:" >&2
+  head -n 3 "$CLEAN" >&2
+  exit 1
+fi
+if ! grep -q 'self-extracting installer for Linux' "$CLEAN" || ! grep -qx '__ARCHIVE__' "$CLEAN"; then
+  echo "error: $TEMPLATE is not the WinConveyoR installer template" >&2
+  echo "       (missing the description line or the __ARCHIVE__ marker)." >&2
+  echo "       Re-copy installer/linux/installer.sh.in from the delivered files." >&2
+  exit 1
+fi
+if grep -q 'BASH_SOURCE' "$CLEAN"; then
+  echo "error: $TEMPLATE contains bash-only code; it must run under plain sh (dash)." >&2
+  exit 1
+fi
+
+HEADER="$WORK/header.sh"
+sed "s/@VERSION@/$VERSION/g" "$CLEAN" > "$HEADER"
+sh -n "$HEADER" || { echo "error: generated installer header has a syntax error" >&2; exit 1; }
+
 RUN="$OUT/WinConveyoR-$VERSION-linux-amd64.run"
-sed "s/@VERSION@/$VERSION/g" "$HERE/installer.sh.in" > "$RUN"
+cat "$HEADER" > "$RUN"
 tar -C "$WORK/payload" -cf - . >> "$RUN"
 chmod 755 "$RUN"
 echo "Built $RUN"
+head -n 2 "$RUN"

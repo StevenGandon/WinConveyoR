@@ -8,6 +8,7 @@ OUT="${3:?missing output dir}"
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
+
 . "$HERE/../components.sh"
 
 DIST="$(cd "$DIST" && pwd)"
@@ -24,46 +25,7 @@ HOME_DIR="usr/local/winconveyor"
 cp -Rp "$DIST/." "$WORK/stage"
 DIST="$WORK/stage"
 
-INSTALL_LIB="/usr/local/winconveyor/lib"
-fix_macho() { # <file>
-  local f="$1" dep base target changed=0
-  file "$f" | grep -q 'Mach-O' || return 0
-  if [[ "$f" == *.dylib ]]; then
-    install_name_tool -id "$INSTALL_LIB/$(basename "$f")" "$f"
-    changed=1
-  fi
-  while read -r dep; do
-    base="$(basename "$dep")"
-    target="$INSTALL_LIB/$base"
-    case "$dep" in /usr/lib/*|/System/*) continue ;; esac
-    [ "$dep" = "$target" ] && continue
-    if [ -f "$DIST/lib/$base" ]; then
-      install_name_tool -change "$dep" "$target" "$f"
-      changed=1
-    fi
-  done < <(otool -L "$f" | tail -n +2 | awk '{print $1}')
-
-  if [ "$changed" -eq 1 ]; then codesign --force --sign - "$f"; fi
-}
-for f in "$DIST"/lib/*.dylib "$DIST"/bin/*; do
-  if [ -f "$f" ] && [ ! -L "$f" ]; then fix_macho "$f"; fi
-done
-
-new_root() {
-  local r="$WORK/$1"
-  mkdir -p "$r/usr/local/bin" "$r/$HOME_DIR/bin"
-  echo "$r"
-}
-
-add_bins() {
-  local r="$1"; shift
-  local b
-  for b in "$@"; do
-    [ -f "$DIST/bin/$b" ] || { echo "missing build output: $DIST/bin/$b" >&2; exit 1; }
-    install -m 755 "$DIST/bin/$b" "$r/$HOME_DIR/bin/$b"
-    ln -s "../winconveyor/bin/$b" "$r/usr/local/bin/$b"
-  done
-}
+bash "$HERE/relocate_dylibs.sh" "$DIST" $CLI_BINS $DEVTOOLS_BINS
 
 CLI="$(new_root cli)"
 
