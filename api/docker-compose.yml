@@ -17,8 +17,11 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/abstract_api
       SECRET_KEY: dev-secret-key
+    volumes:
+      - pkgstorage:/app/api/storage
     depends_on:
       - db
 
 volumes:
   pgdata:
+  pkgstorage:
