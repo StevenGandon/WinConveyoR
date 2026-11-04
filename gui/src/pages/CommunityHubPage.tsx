@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Search, Package as PackageIcon, Download, Upload, X, AlertCircle, HardDrive, Trash2 } from 'lucide-react';
+import { Search, Package as PackageIcon, Download, Upload, X, AlertCircle, HardDrive, Trash2, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 import { searchPackages, uploadPackage, downloadUrl, deletePackage, PackageOut } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -256,14 +256,23 @@ const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, canDelete, deleting, 
             <p className="text-sm text-wc-fg dark:text-wc-fg-dark">{pkg.description}</p>
           )}
           <div className="flex flex-wrap gap-2">
+            <Badge variant={pkg.kind === 'built' ? 'success' : 'warning'} size="sm">{pkg.kind}</Badge>
             <Badge variant="info" size="sm">{pkg.arch}</Badge>
             <Badge variant="info" size="sm">{pkg.machine}</Badge>
             <Badge variant="neutral" size="sm">{formatSize(pkg.size)}</Badge>
           </div>
-          <div className="text-xs text-wc-muted dark:text-wc-muted-dark break-all">
-            <span className="inline-flex items-center gap-1">
-              <HardDrive size={12} /> {pkg.filename}
-            </span>
+          {pkg.depends.length > 0 && (
+            <div className="text-xs text-wc-muted dark:text-wc-muted-dark">
+              <span className="font-medium">Depends: </span>{pkg.depends.join(', ')}
+            </div>
+          )}
+          <div className="text-xs text-wc-muted dark:text-wc-muted-dark break-all space-y-1">
+            <div className="inline-flex items-center gap-1">
+              <HardDrive size={12} /> {pkg.archive_filename}
+            </div>
+            <div className="inline-flex items-center gap-1">
+              <FileText size={12} /> {pkg.config_filename}
+            </div>
           </div>
         </div>
 
@@ -311,28 +320,32 @@ interface UploadProps {
   onUploaded: () => void;
 }
 
-const UploadDialog: React.FC<UploadProps> = ({ isAuthed, token, onClose, onUploaded }) => {
-  const [name, setName] = useState('');
-  const [version, setVersion] = useState('');
-  const [arch, setArch] = useState('');
-  const [machine, setMachine] = useState('');
-  const [description, setDescription] = useState('');
-  const [file, setFile] = useState<File | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const fileInput = useRef<HTMLInputElement>(null);
+// A package = an archive + a config manifest. The config's extension decides
+// the kind (.json -> built, .yml/.yaml -> unbuilt); all metadata is parsed
+// server-side, so the form only collects the two files.
+function configKind(name: string): 'built' | 'unbuilt' | null {
+  const lower = name.toLowerCase();
+  if (lower.endsWith('.json')) return 'built';
+  if (lower.endsWith('.yml') || lower.endsWith('.yaml')) return 'unbuilt';
+  return null;
+}
 
-  const canSubmit = isAuthed && name.trim() && version.trim() && arch.trim() && machine.trim() && file && !submitting;
+const UploadDialog: React.FC<UploadProps> = ({ isAuthed, token, onClose, onUploaded }) => {
+  const [archive, setArchive] = useState<File | null>(null);
+  const [config, setConfig] = useState<File | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const archiveInput = useRef<HTMLInputElement>(null);
+  const configInput = useRef<HTMLInputElement>(null);
+
+  const kind = config ? configKind(config.name) : null;
+  const canSubmit = isAuthed && !!archive && !!config && !!kind && !submitting;
 
   const handleSubmit = async () => {
-    if (!canSubmit || !token || !file) return;
+    if (!canSubmit || !token || !archive || !config) return;
     setSubmitting(true);
     const form = new FormData();
-    form.append('name', name.trim());
-    form.append('version', version.trim());
-    form.append('arch', arch.trim());
-    form.append('machine', machine.trim());
-    if (description.trim()) form.append('description', description.trim());
-    form.append('artifact', file);
+    form.append('archive', archive);
+    form.append('config', config);
     try {
       const pkg = await uploadPackage(form, token);
       toast.success(`${pkg.name} v${pkg.version} published`);
@@ -350,7 +363,7 @@ const UploadDialog: React.FC<UploadProps> = ({ isAuthed, token, onClose, onUploa
       <Card className="w-full max-w-lg">
         <div onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center justify-between p-4 border-b border-wc-border dark:border-wc-border-dark">
-            <h3 className="text-base font-semibold text-wc-fg dark:text-wc-fg-dark">Publish a package</h3>
+            <h3 className="text-base font-semibold text-wc-fg dark:text-wc-fg-dark">Share a package</h3>
             <button
               onClick={onClose}
               className="p-1 rounded hover:bg-wc-surface dark:hover:bg-wc-surface-dark text-wc-muted dark:text-wc-muted-dark"
@@ -369,27 +382,49 @@ const UploadDialog: React.FC<UploadProps> = ({ isAuthed, token, onClose, onUploa
               </p>
             </div>
           ) : (
-            <div className="p-4 space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <Input label="Name" fullWidth value={name} onChange={(e) => setName(e.target.value)} placeholder="hello" />
-                <Input label="Version" fullWidth value={version} onChange={(e) => setVersion(e.target.value)} placeholder="1.0.0" />
-                <Input label="Architecture" fullWidth value={arch} onChange={(e) => setArch(e.target.value)} placeholder="x86_64" />
-                <Input label="Machine" fullWidth value={machine} onChange={(e) => setMachine(e.target.value)} placeholder="linux" />
-              </div>
-              <Input label="Description" fullWidth value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Optional" />
+            <div className="p-4 space-y-4">
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">
+                Pick the archive and its config. Metadata is read from the config
+                (<span className="font-mono text-xs">package.json</span> = built,
+                {' '}<span className="font-mono text-xs">package.yml</span> = unbuilt).
+              </p>
               <div>
-                <label className="block text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-1">Artifact</label>
+                <label className="block text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-1">Archive</label>
                 <input
-                  ref={fileInput}
+                  ref={archiveInput}
                   type="file"
-                  accept=".tar.gz,.tgz,.wcr"
+                  accept=".zip,.tar.gz,.tgz"
                   className="hidden"
-                  onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                  onChange={(e) => setArchive(e.target.files?.[0] ?? null)}
                 />
-                <Button variant="outline" fullWidth leftIcon={<Upload size={16} />} onClick={() => fileInput.current?.click()}>
-                  {file ? `${file.name} (${formatSize(file.size)})` : 'Choose file...'}
+                <Button variant="outline" fullWidth leftIcon={<HardDrive size={16} />} onClick={() => archiveInput.current?.click()}>
+                  {archive ? `${archive.name} (${formatSize(archive.size)})` : 'Choose archive...'}
                 </Button>
-                <p className="mt-1 text-xs text-wc-muted dark:text-wc-muted-dark">Accepted: .tar.gz, .wcr</p>
+                <p className="mt-1 text-xs text-wc-muted dark:text-wc-muted-dark">Accepted: .zip, .tar.gz</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-1">Config</label>
+                <input
+                  ref={configInput}
+                  type="file"
+                  accept=".json,.yml,.yaml"
+                  className="hidden"
+                  onChange={(e) => setConfig(e.target.files?.[0] ?? null)}
+                />
+                <Button variant="outline" fullWidth leftIcon={<FileText size={16} />} onClick={() => configInput.current?.click()}>
+                  {config ? `${config.name} (${formatSize(config.size)})` : 'Choose config...'}
+                </Button>
+                {config && (
+                  kind ? (
+                    <p className="mt-1 text-xs text-wc-muted dark:text-wc-muted-dark">
+                      Detected: <Badge variant={kind === 'built' ? 'success' : 'warning'} size="sm">{kind}</Badge>
+                    </p>
+                  ) : (
+                    <p className="mt-1 text-xs text-wc-danger dark:text-wc-danger-dark">
+                      Config must be .json (built) or .yml (unbuilt).
+                    </p>
+                  )
+                )}
               </div>
             </div>
           )}

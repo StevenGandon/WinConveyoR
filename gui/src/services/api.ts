@@ -64,8 +64,11 @@ export interface PackageOut {
   description: string | null;
   arch: string;
   machine: string;
+  depends: string[];
+  kind: "built" | "unbuilt";
   owner_id: number;
-  filename: string;
+  archive_filename: string;
+  config_filename: string;
   checksum: string;
   size: number;
   created_at: string;
