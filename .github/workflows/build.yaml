@@ -15,7 +15,8 @@ concurrency:
 
 jobs:
   build-linux-amd64:
-    runs-on: ubuntu-latest
+    # Pinned: PyInstaller binaries inherit the runner glibc; keep it on a widely deployed LTS.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
