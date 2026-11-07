@@ -5,9 +5,6 @@ add_executable(test_wconr
     test_wizard.c
     test_wcr_client.c
 )
-# test_wcr_client.c #includes wcr_client.c directly, so the test binary itself
-# calls OpenSSL (EVP_*) and cJSON; wconr links them PRIVATE and does not
-# propagate them.
 target_link_libraries(test_wconr
     wconr
     OpenSSL::Crypto
