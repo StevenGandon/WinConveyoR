@@ -5,8 +5,11 @@ add_executable(test_wconr
     test_wizard.c
     test_wcr_client.c
 )
+# test_wcr_client.c #includes wcr_client.c directly, so the test binary itself
+# calls OpenSSL (EVP_*); wconr links OpenSSL PRIVATE and does not propagate it.
 target_link_libraries(test_wconr
     wconr
+    OpenSSL::Crypto
     ${CRITERION_LIBRARIES}
 )
 target_include_directories(test_wconr PRIVATE ${CRITERION_INCLUDE_DIRS})
