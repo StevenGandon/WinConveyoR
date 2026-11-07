@@ -34,7 +34,7 @@ jobs:
 
       - name: Generate coverage
         run: |
-          gcovr -r . build/linux-amd64-test/lib --xml-pretty --xml -o coverage.xml
+          gcovr -r . build/linux-amd64-test --filter 'lib/libwconr/src/' --xml-pretty --xml -o coverage.xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v7
