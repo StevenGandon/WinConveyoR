@@ -53,6 +53,7 @@ int wcr_download_file(wcr_conn *conn, const char *package_name, const char *loca
 
 #include <unistd.h>
 #include <stdarg.h>
+#include <errno.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -78,6 +79,23 @@ static uint64_t read_be64(const unsigned char *buf)
            ((uint64_t)buf[2] << 40) | ((uint64_t)buf[3] << 32) |
            ((uint64_t)buf[4] << 24) | ((uint64_t)buf[5] << 16) |
            ((uint64_t)buf[6] << 8)  | (uint64_t)buf[7];
+}
+
+static int send_all(int sockfd, const void *buf, size_t len)
+{
+    const unsigned char *bytes = buf;
+    size_t total = 0;
+    ssize_t n;
+
+    while (total < len) {
+        n = send(sockfd, bytes + total, len - total, 0);
+        if (n < 0 && errno == EINTR)
+            continue;
+        if (n <= 0)
+            return -1;
+        total += (size_t)n;
+    }
+    return 0;
 }
 
 wcr_msg *wcr_msg_new(const char *payload, uint16_t flags)
@@ -116,7 +134,6 @@ int wcr_send(wcr_conn *conn, const wcr_msg *msg)
     const char *payload = msg->payload;
     size_t payload_len = msg->payload_len;
     unsigned char *encrypted = NULL;
-    ssize_t sent;
 
     if (conn->server_pubkey && payload_len > 0) {
         encrypted = wcr_encrypt(conn->server_pubkey,
@@ -132,16 +149,14 @@ int wcr_send(wcr_conn *conn, const wcr_msg *msg)
     memcpy(header + 4, &flags_be, 2);
     write_be64(header + 6, (uint64_t)payload_len);
 
-    sent = send(conn->sockfd, header, WCR_HEADER_SIZE, 0);
-    if (sent != WCR_HEADER_SIZE) {
+    if (send_all(conn->sockfd, header, WCR_HEADER_SIZE) != 0) {
         wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: failed to send header");
         free(encrypted);
         return -1;
     }
 
     if (payload_len > 0) {
-        sent = send(conn->sockfd, payload, payload_len, 0);
-        if (sent != (ssize_t)payload_len) {
+        if (send_all(conn->sockfd, payload, payload_len) != 0) {
             wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: failed to send payload");
             free(encrypted);
             return -1;

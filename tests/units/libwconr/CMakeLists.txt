@@ -7,6 +7,8 @@ add_executable(test_wconr
 )
 target_link_libraries(test_wconr
     wconr
+    OpenSSL::Crypto
+    cjson
     ${CRITERION_LIBRARIES}
 )
 target_include_directories(test_wconr PRIVATE ${CRITERION_INCLUDE_DIRS})
