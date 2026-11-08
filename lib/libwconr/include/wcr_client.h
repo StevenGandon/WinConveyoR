@@ -14,6 +14,10 @@
     #define WCR_AES_IV_SIZE 16
     #define WCR_JSON_OVERHEAD 128
 
+    #ifndef WCR_IO_TIMEOUT_SEC
+        #define WCR_IO_TIMEOUT_SEC 15
+    #endif
+
     typedef struct wcr_msg_s {
         uint32_t magic;
         uint16_t flags;
