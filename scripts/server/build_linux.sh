@@ -1,4 +1,4 @@
-
+#!/bin/bash
 DIST_PATH=dist/linux-amd64/bin
 BUILD_PATH=build/linux-amd64/pyinstaller
 

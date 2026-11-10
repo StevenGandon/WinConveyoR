@@ -53,6 +53,10 @@ int wcr_download_file(wcr_conn *conn, const char *package_name, const char *loca
 
 #include <unistd.h>
 #include <stdarg.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/select.h>
+#include <sys/time.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -78,6 +82,23 @@ static uint64_t read_be64(const unsigned char *buf)
            ((uint64_t)buf[2] << 40) | ((uint64_t)buf[3] << 32) |
            ((uint64_t)buf[4] << 24) | ((uint64_t)buf[5] << 16) |
            ((uint64_t)buf[6] << 8)  | (uint64_t)buf[7];
+}
+
+static int send_all(int sockfd, const void *buf, size_t len)
+{
+    const unsigned char *bytes = buf;
+    size_t total = 0;
+    ssize_t n;
+
+    while (total < len) {
+        n = send(sockfd, bytes + total, len - total, 0);
+        if (n < 0 && errno == EINTR)
+            continue;
+        if (n <= 0)
+            return -1;
+        total += (size_t)n;
+    }
+    return 0;
 }
 
 wcr_msg *wcr_msg_new(const char *payload, uint16_t flags)
@@ -116,7 +137,6 @@ int wcr_send(wcr_conn *conn, const wcr_msg *msg)
     const char *payload = msg->payload;
     size_t payload_len = msg->payload_len;
     unsigned char *encrypted = NULL;
-    ssize_t sent;
 
     if (conn->server_pubkey && payload_len > 0) {
         encrypted = wcr_encrypt(conn->server_pubkey,
@@ -132,16 +152,14 @@ int wcr_send(wcr_conn *conn, const wcr_msg *msg)
     memcpy(header + 4, &flags_be, 2);
     write_be64(header + 6, (uint64_t)payload_len);
 
-    sent = send(conn->sockfd, header, WCR_HEADER_SIZE, 0);
-    if (sent != WCR_HEADER_SIZE) {
+    if (send_all(conn->sockfd, header, WCR_HEADER_SIZE) != 0) {
         wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: failed to send header");
         free(encrypted);
         return -1;
     }
 
     if (payload_len > 0) {
-        sent = send(conn->sockfd, payload, payload_len, 0);
-        if (sent != (ssize_t)payload_len) {
+        if (send_all(conn->sockfd, payload, payload_len) != 0) {
             wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_send: failed to send payload");
             free(encrypted);
             return -1;
@@ -239,6 +257,67 @@ wcr_msg *wcr_recv(wcr_conn *conn)
     return msg;
 }
 
+static int set_io_timeouts(int sockfd)
+{
+    struct timeval tv;
+
+    tv.tv_sec = WCR_IO_TIMEOUT_SEC;
+    tv.tv_usec = 0;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0)
+        return -1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0)
+        return -1;
+    return 0;
+}
+
+static int wait_connected(int sockfd)
+{
+    fd_set wfds;
+    struct timeval tv;
+    int rc;
+    int so_error = 0;
+    socklen_t len = sizeof(so_error);
+
+    do {
+        FD_ZERO(&wfds);
+        FD_SET(sockfd, &wfds);
+        tv.tv_sec = WCR_IO_TIMEOUT_SEC;
+        tv.tv_usec = 0;
+        rc = select(sockfd + 1, NULL, &wfds, NULL, &tv);
+    } while (rc < 0 && errno == EINTR);
+
+    if (rc == 0) {
+        errno = ETIMEDOUT;
+        return -1;
+    }
+    if (rc < 0)
+        return -1;
+    if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &so_error, &len) < 0)
+        return -1;
+    if (so_error != 0) {
+        errno = so_error;
+        return -1;
+    }
+    return 0;
+}
+
+static int connect_with_timeout(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+{
+    int flags = fcntl(sockfd, F_GETFL, 0);
+    int rc;
+
+    if (flags < 0 || fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) < 0)
+        return -1;
+
+    rc = connect(sockfd, addr, addrlen);
+    if (rc < 0 && errno == EINPROGRESS)
+        rc = wait_connected(sockfd);
+
+    if (fcntl(sockfd, F_SETFL, flags) < 0)
+        return -1;
+    return rc < 0 ? -1 : 0;
+}
+
 wcr_conn *wcr_open(const char *host, int port)
 {
     wcr_conn *conn;
@@ -263,6 +342,13 @@ wcr_conn *wcr_open(const char *host, int port)
         return NULL;
     }
 
+    if (set_io_timeouts(conn->sockfd) != 0) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_open: cannot set socket timeouts");
+        close(conn->sockfd);
+        free(conn);
+        return NULL;
+    }
+
     memset(&addr, 0, sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_port = htons((unsigned short)port);
@@ -278,8 +364,8 @@ wcr_conn *wcr_open(const char *host, int port)
         memcpy(&addr.sin_addr, he->h_addr_list[0], (size_t)he->h_length);
     }
 
-    if (connect(conn->sockfd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_open: connect() to %s:%d failed", host, port);
+    if (connect_with_timeout(conn->sockfd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] wcr_open: connect() to %s:%d failed (%s)", host, port, strerror(errno));
         close(conn->sockfd);
         free(conn);
         return NULL;

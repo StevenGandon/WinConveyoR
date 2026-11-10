@@ -1,3 +1,4 @@
+#!/bin/bash
 DIST_PATH=dist/macos-arm64/bin
 BUILD_PATH=build/macos-arm64/pyinstaller
 
