@@ -192,7 +192,11 @@ class CLI(object):
         for item in CHARSET_PRIORITY:
             lines.append(f"  > {item}")
         lines.append("")
-        lines.append("Exemples:")
+        lines.append("Examples:")
+        lines.append("  > wcr update")
+        lines.append("  > wcr search gcc")
+        lines.append("  > wcr install gcc")
+        lines.append("  > wcr list")
         lines.append("")
 
         sys.stdout.write('\n'.join(lines))
