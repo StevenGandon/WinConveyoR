@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Search, Package as PackageIcon, Download, Info } from 'lucide-react';
 import { useCli } from '../context/CliContext';
+import type { InstallOptions, PackageOption } from '../context/CliContext';
+import InstallOptionsDialog from '../components/install/InstallOptionsDialog';
 import { usePackages } from '../context/PackageContext';
 import { logActivity } from '../services/activity';
 import Header from '../components/layout/Header';
@@ -10,7 +12,8 @@ import Input from '../components/ui/Input';
 import Badge from '../components/ui/Badge';
 
 const DiscoverPage: React.FC = () => {
-  const { busy, runInstall, runInfo } = useCli();
+  const { busy, runInstall, runOptions, runInfo } = useCli();
+  const [optionsTarget, setOptionsTarget] = useState<{ name: string; options: PackageOption[] } | null>(null);
   const { installedPackages, updatablePackages, availablePackages, discoverQuery, setDiscoverQuery, refreshInstalled, loadAvailable } = usePackages();
   const [infoVariants, setInfoVariants] = useState<{ version: string; arch: string; machine: string }[] | null>(null);
   const [infoTarget, setInfoTarget] = useState('');
@@ -30,12 +33,30 @@ const DiscoverPage: React.FC = () => {
     return availablePackages.filter(pkg => pkg.name.toLowerCase().includes(q));
   }, [availablePackages, discoverQuery]);
 
-  const handleInstall = async (name: string) => {
-    const result = await runInstall(name);
+  const doInstall = async (name: string, opts?: InstallOptions) => {
+    const result = await runInstall(name, opts);
     if (result.code === 0) {
       logActivity('installed', name, result.version);
       await refreshInstalled();
     }
+  };
+
+  // packages declaring options get the "fill the fields" form first
+  const handleInstall = async (name: string) => {
+    const options = await runOptions(name);
+    if (options === null) return;
+    if (options.length === 0) {
+      await doInstall(name);
+      return;
+    }
+    setOptionsTarget({ name, options });
+  };
+
+  const handleConfirmOptions = async (opts: InstallOptions) => {
+    if (!optionsTarget) return;
+    const name = optionsTarget.name;
+    setOptionsTarget(null);
+    await doInstall(name, opts);
   };
 
   const handleInfo = async (name: string) => {
@@ -59,6 +80,14 @@ const DiscoverPage: React.FC = () => {
   return (
     <>
       <Header title="Discover Packages" />
+      {optionsTarget && (
+        <InstallOptionsDialog
+          packageName={optionsTarget.name}
+          options={optionsTarget.options}
+          onCancel={() => setOptionsTarget(null)}
+          onConfirm={handleConfirmOptions}
+        />
+      )}
       <div className="p-6 space-y-4">
         <Input
           fullWidth

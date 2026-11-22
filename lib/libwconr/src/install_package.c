@@ -382,7 +382,31 @@ typedef struct {
     char *names[WCR_MAX_DEP_DEPTH];
     size_t count;
     const wcr_install_opts *opts;   /* shared by the package and its dependencies */
+    int fetch_only;                 /* download + unpack into preview/, no deps, no wizard */
 } wcr_install_ctx;
+
+#define PREVIEW_SUBDIR "preview"
+#define PKG_PATH_MAX 512
+
+/* install: <cache>/packages/<name> ; fetch-only: <cache>/preview/<name> */
+static int unpack_package(const wcr_state *state, const wcr_install_ctx *ctx,
+                          const char *archive, const char *name)
+{
+    char subdir[PKG_PATH_MAX];
+    char *dest;
+    int rc;
+
+    if (!ctx->fetch_only)
+        return extract_archive(state, archive, name);
+
+    snprintf(subdir, sizeof(subdir), "%s/%s", PREVIEW_SUBDIR, name);
+    dest = get_cache_path(state, subdir);
+    if (!dest)
+        return -1;
+    rc = extract_archive_to(state, archive, dest);
+    free(dest);
+    return rc;
+}
 
 /* dependencies share the prefix but not the answers (their options differ) */
 static int run_wizard(const wcr_state *state, const wcr_install_ctx *ctx,
@@ -483,7 +507,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
         return -1;
     }
 
-    for (i = 0; i < depends_count; i++) {
+    for (i = 0; !ctx->fetch_only && i < depends_count; i++) {
         wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: dependency '%s' required by '%s'",
                  depends[i], spec.name);
         wcr_close(conn);
@@ -545,13 +569,19 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_wcr: SHA256 verified ok");
 
-    if (extract_archive(state, local_path, spec.name) != 0) {
+    if (unpack_package(state, ctx, local_path, spec.name) != 0) {
         free(local_path);
         free(version);
         pkg_specifier_free(&spec);
         return -1;
     }
     free(local_path);
+
+    if (ctx->fetch_only) {
+        free(version);
+        pkg_specifier_free(&spec);
+        return 0;
+    }
 
     if (run_wizard(state, ctx, spec.name, is_dep) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: install procedure failed for '%s'", spec.name);
@@ -569,12 +599,13 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
 }
 
 static int install_wcr(const wcr_state *state, const char *source_uri, const char *package_name,
-                       const wcr_install_opts *opts)
+                       const wcr_install_opts *opts, int fetch_only)
 {
     wcr_install_ctx ctx = {0};
     int rc;
 
     ctx.opts = opts;
+    ctx.fetch_only = fetch_only;
     rc = install_wcr_single(state, source_uri, package_name, &ctx, 0);
     install_ctx_cleanup(&ctx);
     return rc;
@@ -656,7 +687,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     }
     free(variant_location);
 
-    for (i = 0; i < depends_count; i++) {
+    for (i = 0; !ctx->fetch_only && i < depends_count; i++) {
         wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: dependency '%s' required by '%s'",
                  depends[i], spec.name);
         if (install_http_with_deps(state, proto, source_uri, depends[i], ctx, 1) != 0) {
@@ -684,7 +715,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: archive downloaded and SHA256 verified ok (%s)", archive_path);
 
-    if (extract_archive(state, archive_path, spec.name) != 0) {
+    if (unpack_package(state, ctx, archive_path, spec.name) != 0) {
         free(archive_path);
         free(version);
         pkg_specifier_free(&spec);
@@ -692,6 +723,12 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     }
 
     free(archive_path);
+
+    if (ctx->fetch_only) {
+        free(version);
+        pkg_specifier_free(&spec);
+        return 0;
+    }
 
     if (run_wizard(state, ctx, spec.name, is_dep) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: install procedure failed for '%s'", spec.name);
@@ -708,12 +745,13 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
 }
 
 static int install_http(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name,
-                        const wcr_install_opts *opts)
+                        const wcr_install_opts *opts, int fetch_only)
 {
     wcr_install_ctx ctx = {0};
     int rc;
 
     ctx.opts = opts;
+    ctx.fetch_only = fetch_only;
     rc = install_http_with_deps(state, proto, source_uri, package_name, &ctx, 0);
     install_ctx_cleanup(&ctx);
     return rc;
@@ -1010,27 +1048,76 @@ int install_package(const wcr_state *state, protocol_type proto, const char *sou
     return install_package_opts(state, proto, source_uri, package_name, NULL);
 }
 
-int install_package_opts(const wcr_state *state, protocol_type proto, const char *source_uri,
-                         const char *package_name, const wcr_install_opts *opts)
+/* install, or (fetch_only) just download + unpack the package for preview */
+static int install_dispatch(const wcr_state *state, protocol_type proto, const char *source_uri,
+                            const char *package_name, const wcr_install_opts *opts, int fetch_only)
 {
     int rc;
 
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_package: source_uri=%s package=%s proto=%d", source_uri, package_name, proto);
-
-    if (!state || !source_uri || !package_name) {
-        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] install_package: state, source_uri or package_name is NULL");
-        return -1;
-    }
-
     if (proto == PROT_WCR)
-        return install_wcr(state, source_uri, package_name, opts);
+        return install_wcr(state, source_uri, package_name, opts, fetch_only);
 
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_package: curl_global_init failed");
         return -1;
     }
 
-    rc = install_http(state, proto, source_uri, package_name, opts);
+    rc = install_http(state, proto, source_uri, package_name, opts, fetch_only);
     curl_global_cleanup();
     return rc;
+}
+
+int install_package_opts(const wcr_state *state, protocol_type proto, const char *source_uri,
+                         const char *package_name, const wcr_install_opts *opts)
+{
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_package: source_uri=%s package=%s proto=%d", source_uri, package_name, proto);
+
+    if (!state || !source_uri || !package_name) {
+        wcr_emit(NULL, WCR_EVENT_ERROR, "[ERROR] install_package: state, source_uri or package_name is NULL");
+        return -1;
+    }
+    return install_dispatch(state, proto, source_uri, package_name, opts, 0);
+}
+
+int get_package_options(const wcr_state *state, protocol_type proto, const char *source_uri,
+                        const char *package_name, const char *prefix,
+                        wcr_pkg_option **out, size_t *out_count)
+{
+    struct pkg_specifier spec;
+    char subdir[PKG_PATH_MAX];
+    char *preview_dir;
+    int rc;
+
+    if (!state || !source_uri || !package_name || !out || !out_count)
+        return -1;
+    *out = NULL;
+    *out_count = 0;
+
+    if (install_dispatch(state, proto, source_uri, package_name, NULL, 1) != 0)
+        return -1;
+    if (pkg_specifier_parse(package_name, &spec) != 0)
+        return -1;
+
+    snprintf(subdir, sizeof(subdir), "%s/%s", PREVIEW_SUBDIR, spec.name);
+    preview_dir = get_cache_path(state, subdir);
+    rc = preview_dir ? wizard_list_options(state, preview_dir, spec.name, prefix, out, out_count) : -1;
+
+    free(preview_dir);
+    pkg_specifier_free(&spec);
+    return rc;
+}
+
+void free_package_options(wcr_pkg_option *list, size_t count)
+{
+    size_t i;
+
+    if (!list)
+        return;
+    for (i = 0; i < count; i++) {
+        free(list[i].name);
+        free(list[i].type);
+        free(list[i].prompt);
+        free(list[i].default_value);
+    }
+    free(list);
 }

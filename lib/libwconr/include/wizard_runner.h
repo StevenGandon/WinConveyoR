@@ -40,4 +40,11 @@
      */
     int wizard_uninstall(const wcr_state *state, const char *package_name);
 
+    /*
+     * Lists the options declared by the package unpacked in pkg_dir, defaults
+     * resolved against prefix (NULL = per-user default). count = 0 if none.
+     */
+    int wizard_list_options(const wcr_state *state, const char *pkg_dir, const char *package_name,
+                            const char *prefix, wcr_pkg_option **out, size_t *out_count);
+
 #endif /* !WIZARD_RUNNER_H_ */

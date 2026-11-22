@@ -312,20 +312,16 @@ static int extract_payload(const struct wizard_run_s *run)
 
 /* fills paths; returns 1 if the package has a .WIZARD, 0 if not, -1 on error */
 static int init_run(struct wizard_run_s *run, const wcr_state *state,
-                    const char *package_name, uint32_t type)
+                    const char *package_name, uint32_t type, const char *pkg_dir)
 {
-    char *pkg_dir;
-
     memset(run, 0, sizeof(*run));
     run->state = state;
     run->package_name = package_name;
     run->type = type;
 
-    pkg_dir = package_dir(state, package_name);
     if (!pkg_dir)
         return -1;
     snprintf(run->pkg_dir, sizeof(run->pkg_dir), "%s", pkg_dir);
-    free(pkg_dir);
 
     if (path_join(run->wizard_path, sizeof(run->wizard_path), run->pkg_dir, WIZARD_FILE_NAME) != 0
         || path_join(run->files_dir, sizeof(run->files_dir), run->pkg_dir, WIZARD_FILES_DIR) != 0)
@@ -337,12 +333,15 @@ static int wizard_run(const wcr_state *state, const char *package_name,
                       uint32_t type, const wcr_install_opts *opts)
 {
     struct wizard_run_s run;
+    char *pkg_dir;
     int has_wizard;
 
     if (!state || !package_name)
         return -1;
 
-    has_wizard = init_run(&run, state, package_name, type);
+    pkg_dir = package_dir(state, package_name);
+    has_wizard = init_run(&run, state, package_name, type, pkg_dir);
+    free(pkg_dir);
     if (has_wizard <= 0) {
         if (has_wizard == 0)
             wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wizard: no %s for '%s', skipping", WIZARD_FILE_NAME, package_name);
@@ -370,4 +369,83 @@ int wizard_install(const wcr_state *state, const char *package_name, const wcr_i
 int wizard_uninstall(const wcr_state *state, const char *package_name)
 {
     return wizard_run(state, package_name, WIZARD_SECTION_UNINSTALL, NULL);
+}
+
+/* ── Options preview (wcr options <pkg>) ─────────────────────────────────── */
+
+static int copy_option(struct _wizard_vm_s *vm, const struct wizard_option_s *src, wcr_pkg_option *dst)
+{
+    char *expanded = wizard_vm_expand(vm, src->default_value);
+
+    dst->name = strdup(src->name);
+    dst->type = strdup(src->type);
+    dst->prompt = strdup(src->prompt);
+    dst->default_value = expanded ? expanded : strdup(src->default_value);
+    return (dst->name && dst->type && dst->prompt && dst->default_value) ? 0 : -1;
+}
+
+static int export_options(struct _wizard_vm_s *vm, const struct wizard_option_s *options, size_t count,
+                          wcr_pkg_option **out, size_t *out_count)
+{
+    size_t i;
+
+    if (count == 0)
+        return 0;
+    *out = (wcr_pkg_option *)calloc(count, sizeof(**out));
+    if (!*out)
+        return -1;
+    *out_count = count;
+    for (i = 0; i < count; i++) {
+        if (copy_option(vm, &options[i], &(*out)[i]) != 0)
+            return -1;
+    }
+    return 0;
+}
+
+static int list_with_vm(const struct wizard_run_s *run, struct _wizard_vm_s *vm, struct _wizard_ctx_s *ctx,
+                        wcr_pkg_option **out, size_t *out_count)
+{
+    struct wizard_option_s *options = NULL;
+    size_t count = 0;
+    int rc;
+
+    if (set_install_vars(vm, run) != 0 || wizard_read_options(vm, ctx, &options, &count) != 0)
+        return -1;
+    rc = export_options(vm, options, count, out, out_count);
+    wizard_free_options(options, count);
+    return rc;
+}
+
+int wizard_list_options(const wcr_state *state, const char *pkg_dir, const char *package_name,
+                        const char *prefix, wcr_pkg_option **out, size_t *out_count)
+{
+    struct wizard_run_s run;
+    struct _wizard_ctx_s *ctx;
+    struct _wizard_vm_s *vm;
+    int rc;
+
+    if (!state || !package_name || !out || !out_count)
+        return -1;
+    *out = NULL;
+    *out_count = 0;
+
+    rc = init_run(&run, state, package_name, WIZARD_SECTION_OPTIONS, pkg_dir);
+    if (rc <= 0)
+        return rc;
+    if (resolve_prefix(&run, prefix) != 0 || !state->assets_path)
+        return -1;
+    run.workdir = run.pkg_dir;
+
+    ctx = wizard_open(run.wizard_path);
+    vm = ctx ? wizard_vm_init(state->assets_path) : NULL;
+    rc = vm ? list_with_vm(&run, vm, ctx, out, out_count) : -1;
+    if (rc != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wizard: cannot read options of '%s'", package_name);
+        free_package_options(*out, *out_count);
+        *out = NULL;
+        *out_count = 0;
+    }
+    wizard_vm_close(vm);
+    wizard_close(ctx);
+    return rc;
 }

@@ -3,12 +3,18 @@ interface CliResult {
   output: string;
 }
 
+interface InstallOptions {
+  prefix?: string;
+  values?: Record<string, string>;
+}
+
 interface ElectronAPI {
   minimizeWindow: () => void;
   maximizeWindow: () => void;
   closeWindow: () => void;
   runUpdate: () => Promise<CliResult>;
-  runInstall: (packageName: string) => Promise<CliResult>;
+  runInstall: (packageName: string, opts?: InstallOptions) => Promise<CliResult>;
+  runOptions: (packageName: string) => Promise<CliResult>;
   runUninstall: (packageName: string) => Promise<CliResult>;
   listInstalled: () => Promise<CliResult>;
   runSearch: (query?: string) => Promise<CliResult>;
