@@ -1,99 +1,108 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Package, Category } from '../types';
-import { mockPackages, mockCategories } from '../data/mockData';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { Package } from '../types';
+
+interface AvailablePackage {
+  name: string;
+  version: string;
+}
 
 interface PackageContextType {
   packages: Package[];
-  categories: Category[];
   installedPackages: Package[];
   updatablePackages: Package[];
-  selectedPackage: Package | null;
-  searchQuery: string;
-  selectedCategory: string;
+  availablePackages: AvailablePackage[];
+  discoverQuery: string;
+  setDiscoverQuery: (q: string) => void;
   isLoading: boolean;
-  installPackage: (id: string) => void;
-  uninstallPackage: (id: string) => void;
-  updatePackage: (id: string) => void;
-  selectPackage: (pkg: Package | null) => void;
-  setSearchQuery: (query: string) => void;
-  setSelectedCategory: (category: string) => void;
+  addInstalled: (name: string, version?: string) => void;
+  removeInstalled: (name: string) => void;
+  refreshInstalled: () => Promise<void>;
+  loadAvailable: () => Promise<void>;
 }
 
 const PackageContext = createContext<PackageContextType | undefined>(undefined);
 
 export const PackageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [packages, setPackages] = useState<Package[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [availablePackages, setAvailablePackages] = useState<AvailablePackage[]>([]);
+  const [discoverQuery, setDiscoverQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setPackages(mockPackages);
-      setCategories(mockCategories);
+  const refreshInstalled = useCallback(async () => {
+    if (!window.electronAPI?.listInstalled) {
       setIsLoading(false);
-    };
-    
-    loadData();
+      return;
+    }
+    const result = await window.electronAPI.listInstalled();
+    if (result.code === 0 && result.output.trim()) {
+      try {
+        const match = result.output.match(/\[.*\]/s);
+        if (match) {
+          const list: { name: string; version: string }[] = JSON.parse(match[0]);
+          setPackages(list.map(p => ({
+            name: p.name,
+            version: p.version,
+            isInstalled: true,
+            isUpdatable: false,
+          })));
+        }
+      } catch { /* ignore parse errors */ }
+    }
+    setIsLoading(false);
   }, []);
 
+  const loadAvailable = useCallback(async () => {
+    if (!window.electronAPI?.runSearch) return;
+    const result = await window.electronAPI.runSearch();
+    if (result.code === 0 && result.output.trim()) {
+      try {
+        const match = result.output.match(/\[.*\]/s);
+        if (match) {
+          setAvailablePackages(JSON.parse(match[0]));
+        }
+      } catch { /* ignore */ }
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshInstalled();
+  }, [refreshInstalled]);
+
   const installedPackages = packages.filter(pkg => pkg.isInstalled);
-  const updatablePackages = packages.filter(pkg => pkg.isInstalled && pkg.isUpdatable);
 
-  const installPackage = (id: string) => {
-    setPackages(prev =>
-      prev.map(pkg => 
-        pkg.id === id 
-          ? { ...pkg, isInstalled: true, installDate: new Date().toISOString() } 
-          : pkg
-      )
-    );
+  // Cross-reference installed packages against the synced source index
+  // (populated by `update` + loadAvailable): a package is updatable when the
+  // available version differs from the installed one — same comparison the CLI
+  // `upgrade` command uses.
+  const availableByName = new Map(availablePackages.map(p => [p.name, p.version]));
+  const updatablePackages = installedPackages
+    .map(pkg => {
+      const availableVersion = availableByName.get(pkg.name);
+      return {
+        ...pkg,
+        availableVersion,
+        isUpdatable: availableVersion !== undefined && availableVersion !== pkg.version,
+      };
+    })
+    .filter(pkg => pkg.isUpdatable);
+
+  const addInstalled = (name: string, version?: string) => {
+    setPackages(prev => {
+      if (prev.some(p => p.name === name)) return prev;
+      return [...prev, { name, version: version ?? 'unknown', isInstalled: true, isUpdatable: false }];
+    });
   };
 
-  const uninstallPackage = (id: string) => {
-    setPackages(prev =>
-      prev.map(pkg => 
-        pkg.id === id 
-          ? { ...pkg, isInstalled: false, installDate: undefined } 
-          : pkg
-      )
-    );
-  };
-
-  const updatePackage = (id: string) => {
-    setPackages(prev =>
-      prev.map(pkg => 
-        pkg.id === id 
-          ? { ...pkg, isUpdatable: false, lastUpdated: new Date().toISOString() } 
-          : pkg
-      )
-    );
-  };
-
-  const selectPackage = (pkg: Package | null) => {
-    setSelectedPackage(pkg);
+  const removeInstalled = (name: string) => {
+    setPackages(prev => prev.filter(p => p.name !== name));
   };
 
   return (
     <PackageContext.Provider
       value={{
-        packages,
-        categories,
-        installedPackages,
-        updatablePackages,
-        selectedPackage,
-        searchQuery,
-        selectedCategory,
-        isLoading,
-        installPackage,
-        uninstallPackage,
-        updatePackage,
-        selectPackage,
-        setSearchQuery,
-        setSelectedCategory
+        packages, installedPackages, updatablePackages,
+        availablePackages, discoverQuery, setDiscoverQuery,
+        isLoading, addInstalled, removeInstalled, refreshInstalled, loadAvailable,
       }}
     >
       {children}

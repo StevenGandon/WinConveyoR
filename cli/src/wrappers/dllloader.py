@@ -64,6 +64,7 @@ class DLLoader(object):
         return (self._registered_functions[name].symbol_ptr(*arguments))
 
     def __del__(self) -> None:
-        del self._dll
+        if (hasattr(self, "_dll")):
+            del self._dll
 
         self._dll = None

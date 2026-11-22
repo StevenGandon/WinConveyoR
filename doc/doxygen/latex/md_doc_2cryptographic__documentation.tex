@@ -1,0 +1,512 @@
+\chapter{Win\+ConveyoR — Documentation Cryptographique}
+\hypertarget{md_doc_2cryptographic__documentation}{}\label{md_doc_2cryptographic__documentation}\index{WinConveyoR — Documentation Cryptographique@{WinConveyoR — Documentation Cryptographique}}
+\label{md_doc_2cryptographic__documentation_autotoc_md80}%
+\Hypertarget{md_doc_2cryptographic__documentation_autotoc_md80}%
+ \begin{quote}
+Document technique détaillant les mécanismes cryptographiques implémentés dans Win\+ConveyoR \+: stockage sécurisé des mots de passe API, sécurisation des communications WCR, et calcul des checksums d\textquotesingle{}intégrité. \end{quote}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md81}{}\doxysection{\texorpdfstring{$<$/blockquote$>$}{</blockquote>}}\label{md_doc_2cryptographic__documentation_autotoc_md81}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md82}{}\doxysection{\texorpdfstring{Table des matières}{Table des matières}}\label{md_doc_2cryptographic__documentation_autotoc_md82}
+
+\begin{DoxyEnumerate}
+\item Principes généraux
+\item Stockage des mots de passe API
+\item Sécurisation du protocole WCR
+\item Calcul des checksums
+\item Dépendances cryptographiques
+\item Modèle de menaces
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md84}{}\doxysection{\texorpdfstring{Principes généraux}{Principes généraux}}\label{md_doc_2cryptographic__documentation_autotoc_md84}
+Win\+ConveyoR manipule des données sensibles à plusieurs niveaux \+: authentification des utilisateurs auprès de l\textquotesingle{}API, transfert de paquets depuis les miroirs, et vérification de l\textquotesingle{}intégrité des fichiers {\ttfamily .WIZARD}. La stratégie cryptographique du projet repose sur trois principes \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Aucune implémentation maison.}} Tous les algorithmes cryptographiques proviennent d\textquotesingle{}Open\+SSL, une bibliothèque auditée et maintenue. Les erreurs d\textquotesingle{}implémentation cryptographique sont la première source de vulnérabilités dans les outils de distribution logicielle.
+\item {\bfseries{Défense en profondeur.}} Chaque couche (stockage, transport, intégrité) applique ses propres mécanismes de protection indépendamment des autres.
+\item {\bfseries{Principe du moindre privilège.}} Les secrets (mots de passe, clés) ne sont jamais exposés en clair dans les logs, les configurations, ou les messages d\textquotesingle{}erreur.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md86}{}\doxysection{\texorpdfstring{Stockage des mots de passe API}{Stockage des mots de passe API}}\label{md_doc_2cryptographic__documentation_autotoc_md86}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md87}{}\doxysubsection{\texorpdfstring{Contexte}{Contexte}}\label{md_doc_2cryptographic__documentation_autotoc_md87}
+L\textquotesingle{}API REST de Win\+ConveyoR nécessite une authentification pour les opérations privilégiées (publication de paquets, administration des miroirs). Les mots de passe des comptes API doivent être stockés de manière sécurisée côté serveur.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md88}{}\doxysubsection{\texorpdfstring{Algorithme de hachage — bcrypt}{Algorithme de hachage — bcrypt}}\label{md_doc_2cryptographic__documentation_autotoc_md88}
+Les mots de passe ne sont jamais stockés en clair ni sous forme de hash simple. Win\+ConveyoR utilise {\bfseries{bcrypt}} pour le hachage des mots de passe \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{hash\_stocké\ =\ bcrypt(mot\_de\_passe,\ sel\_aléatoire,\ coût)}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md89}{}\doxysubsubsection{\texorpdfstring{Pourquoi bcrypt ?}{Pourquoi bcrypt ?}}\label{md_doc_2cryptographic__documentation_autotoc_md89}
+
+\begin{DoxyItemize}
+\item {\bfseries{Résistance au brute-\/force.}} bcrypt est un algorithme volontairement lent (« key derivation function »). Le paramètre de coût ({\ttfamily work factor}) contrôle le nombre d\textquotesingle{}itérations internes, rendant chaque tentative de brute-\/force exponentiellement plus coûteuse.
+\item {\bfseries{Sel intégré.}} Chaque hash bcrypt embarque un sel aléatoire de 128 bits, éliminant les attaques par rainbow tables. Deux utilisateurs avec le même mot de passe produisent des hash différents.
+\item {\bfseries{Résistance aux GPU.}} L\textquotesingle{}algorithme Blowfish sous-\/jacent de bcrypt est memory-\/hard, ce qui rend l\textquotesingle{}accélération par GPU ou ASIC significativement moins efficace que pour SHA-\/256 ou MD5.
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md90}{}\doxysubsubsection{\texorpdfstring{Paramètres de configuration}{Paramètres de configuration}}\label{md_doc_2cryptographic__documentation_autotoc_md90}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Paramètre   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Paramètre   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-3}
+\endhead
+Work factor   &12   &\texorpdfstring{$\sim$}{\string~}250ms par hash sur matériel moderne, compromis sécurité/\+UX    \\\cline{1-3}
+Sel   &128 bits, {\ttfamily CSPRNG}   &Généré via {\ttfamily RAND\+\_\+bytes()} d\textquotesingle{}Open\+SSL    \\\cline{1-3}
+Format de sortie   &{\ttfamily \$2b\$12\$...}   &Format bcrypt standard, portable   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md91}{}\doxysubsubsection{\texorpdfstring{Pourquoi pas Argon2 ?}{Pourquoi pas Argon2 ?}}\label{md_doc_2cryptographic__documentation_autotoc_md91}
+Argon2 (vainqueur du Password Hashing Competition 2015) offre une résistance supérieure aux attaques par GPU grâce à son paramètre de mémoire. Cependant, bcrypt est retenu pour Win\+ConveyoR car \+:
+
+
+\begin{DoxyItemize}
+\item Son support natif dans Open\+SSL simplifie l\textquotesingle{}intégration avec {\ttfamily libwconr}.
+\item Son format de hash est universellement reconnu par les outils d\textquotesingle{}audit et de migration.
+\item Le work factor 12 est suffisant pour le modèle de menaces d\textquotesingle{}un gestionnaire de paquets (le vecteur d\textquotesingle{}attaque principal n\textquotesingle{}est pas le brute-\/force de mots de passe API mais la compromission de paquets).
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md92}{}\doxysubsection{\texorpdfstring{Flux d\textquotesingle{}authentification}{Flux d'authentification}}\label{md_doc_2cryptographic__documentation_autotoc_md92}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌──────────┐\ \ \ \ \ \ \ \ ┌──────────┐\ \ \ \ \ \ \ \ ┌──────────────┐}
+\DoxyCodeLine{│\ \ Client\ \ │\ \ \ \ \ \ \ \ │\ \ \ API\ \ \ \ │\ \ \ \ \ \ \ \ │\ \ PostgreSQL\ \ │}
+\DoxyCodeLine{│\ (CLI/GUI)│\ \ \ \ \ \ \ \ │\ (FastAPI)│\ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└────┬─────┘\ \ \ \ \ \ \ \ └────┬─────┘\ \ \ \ \ \ \ \ └──────┬───────┘}
+\DoxyCodeLine{\ \ \ \ \ │\ \ POST\ /auth/login\ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \{\ email,\ passwd\ \}\ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │───────────────────>│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ SELECT\ hash\ WHERE\ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ email\ =\ ?\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │────────────────────>│}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ hash\_stocké\ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │<────────────────────│}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ bcrypt\_verify(\ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ passwd,\ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ hash\_stocké)\ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ JWT\ (si\ valide)\ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │<───────────────────│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md93}{}\doxysubsection{\texorpdfstring{Stockage côté client}{Stockage côté client}}\label{md_doc_2cryptographic__documentation_autotoc_md93}
+Pour les sessions persistantes, le client stocke un {\bfseries{JWT (JSON Web Token)}} signé, jamais le mot de passe \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Windows}} \+: le token est stocké dans le {\bfseries{Windows Credential Manager}} via l\textquotesingle{}API {\ttfamily Cred\+Write}/{\ttfamily Cred\+Read}, qui chiffre les données avec DPAPI (Data Protection API), lié au compte Windows de l\textquotesingle{}utilisateur.
+\item {\bfseries{Linux/\+WSL}} \+: le token est stocké dans un fichier {\ttfamily \texorpdfstring{$\sim$}{\string~}/.config/wconr/credentials} avec permissions {\ttfamily 600} (lecture/écriture propriétaire uniquement). Un avertissement est émis si les permissions sont trop permissives.
+\item {\bfseries{Variables d\textquotesingle{}environnement}} \+: le token peut être passé via {\ttfamily WCONR\+\_\+\+API\+\_\+\+TOKEN} pour les environnements CI/\+CD, sans persistance sur disque.
+\end{DoxyItemize}
+
+Le JWT a une durée de vie configurable (défaut \+: 24h) et contient les claims suivants \+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Claim   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Contenu   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Rôle    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Claim   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Contenu   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Rôle    }\\\cline{1-3}
+\endhead
+{\ttfamily sub}   &UUID de l\textquotesingle{}utilisateur   &Identification    \\\cline{1-3}
+{\ttfamily exp}   &Timestamp d\textquotesingle{}expiration   &Invalidation automatique    \\\cline{1-3}
+{\ttfamily iat}   &Timestamp d\textquotesingle{}émission   &Détection de replay    \\\cline{1-3}
+{\ttfamily scope}   &{\ttfamily publish}, {\ttfamily admin}, {\ttfamily read}   &Contrôle d\textquotesingle{}accès   \\\cline{1-3}
+\end{longtabu}
+
+
+Le JWT est signé avec {\bfseries{HMAC-\/\+SHA256}} ({\ttfamily HS256}) côté serveur. La clé de signature est une valeur aléatoire de 256 bits générée au déploiement et stockée en variable d\textquotesingle{}environnement serveur ({\ttfamily WCONR\+\_\+\+JWT\+\_\+\+SECRET}).
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md95}{}\doxysection{\texorpdfstring{Sécurisation du protocole WCR}{Sécurisation du protocole WCR}}\label{md_doc_2cryptographic__documentation_autotoc_md95}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md96}{}\doxysubsection{\texorpdfstring{Contexte}{Contexte}}\label{md_doc_2cryptographic__documentation_autotoc_md96}
+Le protocole WCR (Win\+ConveyoR Remote) transporte des paquets {\ttfamily .WIZARD} et des métadonnées de synchronisation entre les clients et les serveurs miroir. Ce canal doit garantir la confidentialité, l\textquotesingle{}intégrité et l\textquotesingle{}authenticité des échanges.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md97}{}\doxysubsection{\texorpdfstring{Schéma de chiffrement hybride — RSA + AES-\/256}{Schéma de chiffrement hybride — RSA + AES-256}}\label{md_doc_2cryptographic__documentation_autotoc_md97}
+WCR utilise un schéma de {\bfseries{chiffrement hybride}} combinant RSA (asymétrique) pour l\textquotesingle{}échange de clés et AES-\/256 (symétrique) pour le chiffrement des données \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌──────────────────────────────────────────────────┐}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ Chiffrement\ hybride\ WCR\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ RSA\ (asymétrique)\ \ \ \ \ AES-\/256\ (symétrique)\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ ─────────────────\ \ \ \ \ ────────────────────\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ Échange\ de\ clés\ \ \ →\ \ \ Chiffrement\ des\ données\ │}
+\DoxyCodeLine{│\ \ \ Lent,\ sécurisé\ \ \ \ \ \ \ \ Rapide,\ performant\ \ \ \ \ \ \ │}
+\DoxyCodeLine{└──────────────────────────────────────────────────┘}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md98}{}\doxysubsubsection{\texorpdfstring{Pourquoi un schéma hybride ?}{Pourquoi un schéma hybride ?}}\label{md_doc_2cryptographic__documentation_autotoc_md98}
+Le chiffrement asymétrique (RSA) et symétrique (AES) ont des forces complémentaires. Les combiner permet d\textquotesingle{}exploiter les avantages de chacun tout en compensant leurs faiblesses respectives \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{RSA seul est trop lent.}} Le chiffrement RSA est environ 1000x plus lent qu\textquotesingle{}AES pour le traitement de données brutes. Chiffrer des paquets {\ttfamily .WIZARD} de plusieurs Mo en RSA pur serait prohibitif en termes de performance.
+\item {\bfseries{AES seul pose un problème de distribution de clé.}} AES est un algorithme symétrique \+: les deux parties doivent posséder la même clé secrète. Sans mécanisme d\textquotesingle{}échange sécurisé, cette clé devrait être partagée à l\textquotesingle{}avance, ce qui est impraticable pour un réseau ouvert de miroirs.
+\item {\bfseries{RSA + AES résout les deux problèmes.}} RSA sécurise l\textquotesingle{}échange d\textquotesingle{}une clé AES éphémère, puis AES chiffre les données à haute vitesse avec cette clé.
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md99}{}\doxysubsection{\texorpdfstring{RSA — Échange de clés}{RSA — Échange de clés}}\label{md_doc_2cryptographic__documentation_autotoc_md99}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md100}{}\doxysubsubsection{\texorpdfstring{Fonctionnement}{Fonctionnement}}\label{md_doc_2cryptographic__documentation_autotoc_md100}
+Chaque serveur miroir possède une {\bfseries{paire de clés RSA}} (clé publique + clé privée). La clé publique est distribuée aux clients, la clé privée reste exclusivement sur le serveur.
+
+Lors de l\textquotesingle{}établissement d\textquotesingle{}une session WCR \+:
+
+
+\begin{DoxyEnumerate}
+\item Le client génère une {\bfseries{clé AES-\/256 aléatoire}} (256 bits) pour la session, appelée {\bfseries{session key}}.
+\item Le client chiffre cette session key avec la {\bfseries{clé publique RSA}} du serveur miroir.
+\item Le client envoie la session key chiffrée au serveur.
+\item Le serveur déchiffre la session key avec sa {\bfseries{clé privée RSA}}.
+\item Les deux parties possèdent maintenant la même clé AES-\/256 pour la suite de la communication.
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌──────────┐\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ┌──────────┐}
+\DoxyCodeLine{│\ \ Client\ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ Miroir\ \ │}
+\DoxyCodeLine{└────┬─────┘\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ └────┬─────┘}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ 1.\ Demande\ clé\ publique\ RSA\ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │────────────────────────────────────────>│}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ 2.\ Clé\ publique\ RSA\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │<────────────────────────────────────────│}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ 3.\ Génère\ session\ key\ AES-\/256\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ (CSPRNG\ —\ RAND\_bytes)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ 4.\ Chiffre\ session\ key\ avec\ RSA\ pub\ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ 5.\ Session\ key\ chiffrée\ (RSA)\ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │────────────────────────────────────────>│}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 6.\ Déchiffre\ avec\ RSA\ priv}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ ═══════════════════════════════════════\ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ Session\ AES-\/256\ établie\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ Toutes\ les\ frames\ suivantes\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ \ \ \ sont\ chiffrées\ en\ AES-\/256\ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ │\ \ ═══════════════════════════════════════\ │}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md101}{}\doxysubsubsection{\texorpdfstring{Paramètres RSA}{Paramètres RSA}}\label{md_doc_2cryptographic__documentation_autotoc_md101}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Paramètre   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Paramètre   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Valeur   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-3}
+\endhead
+Taille de clé   &2048 bits (minimum), 4096 bits (recommandé)   &2048 bits offre \texorpdfstring{$\sim$}{\string~}112 bits de sécurité, suffisant jusqu\textquotesingle{}à \texorpdfstring{$\sim$}{\string~}2030. 4096 bits offre une marge pour les miroirs long-\/terme.    \\\cline{1-3}
+Padding   &OAEP (Optimal Asymmetric Encryption Padding)   &PKCS\#1 v1.\+5 est vulnérable aux attaques de Bleichenbacher. OAEP (RSA-\/\+OAEP avec SHA-\/256) est le standard moderne recommandé.    \\\cline{1-3}
+Implémentation   &Open\+SSL {\ttfamily EVP\+\_\+\+PKEY\+\_\+encrypt} / {\ttfamily EVP\+\_\+\+PKEY\+\_\+decrypt}   &API EVP pour l\textquotesingle{}agilité algorithmique et l\textquotesingle{}accélération matérielle.   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md102}{}\doxysubsubsection{\texorpdfstring{Pourquoi RSA et pas ECDH (courbes elliptiques) ?}{Pourquoi RSA et pas ECDH (courbes elliptiques) ?}}\label{md_doc_2cryptographic__documentation_autotoc_md102}
+RSA est un algorithme éprouvé depuis 1977, massivement audité, et dont les propriétés de sécurité sont bien comprises. Les courbes elliptiques (ECDH/\+ECDSA) offrent des clés plus courtes pour un niveau de sécurité équivalent, mais RSA est retenu pour Win\+ConveyoR car \+:
+
+
+\begin{DoxyItemize}
+\item Sa simplicité conceptuelle facilite l\textquotesingle{}audit et le debugging du protocole.
+\item Son support dans Open\+SSL est mature et stable sur toutes les plateformes cibles.
+\item La taille des clés n\textquotesingle{}est pas un facteur limitant pour WCR (l\textquotesingle{}échange de clés est ponctuel, pas répété par frame).
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md103}{}\doxysubsection{\texorpdfstring{AES-\/256 — Chiffrement des données}{AES-256 — Chiffrement des données}}\label{md_doc_2cryptographic__documentation_autotoc_md103}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md104}{}\doxysubsubsection{\texorpdfstring{Fonctionnement}{Fonctionnement}}\label{md_doc_2cryptographic__documentation_autotoc_md104}
+Une fois la session key échangée via RSA, toutes les frames WCR sont chiffrées avec {\bfseries{AES-\/256}} en mode {\bfseries{CBC}} (Cipher Block Chaining) ou {\bfseries{GCM}} (Galois/\+Counter Mode) \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌────────────┬──────────┬────────┬──────────────────────────────┐}
+\DoxyCodeLine{│\ \ Opcode\ \ \ \ │\ \ Length\ \ │\ \ \ IV\ \ \ │\ \ \ Payload\ chiffré\ (AES-\/256)\ \ │}
+\DoxyCodeLine{│\ \ (1\ byte)\ \ │\ (4\ bytes)│(16\ B)\ \ │\ \ \ \ \ \ \ \ \ (N\ bytes)\ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└────────────┴──────────┴────────┴──────────────────────────────┘}
+
+\end{DoxyCode}
+
+
+Chaque frame contient un {\bfseries{IV (Initialization Vector)}} unique de 16 octets (128 bits), généré aléatoirement via {\ttfamily RAND\+\_\+bytes()}. L\textquotesingle{}IV garantit que deux frames identiques produisent des ciphertexts différents, empêchant les attaques par analyse de patterns.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md105}{}\doxysubsubsection{\texorpdfstring{Pourquoi AES-\/256 ?}{Pourquoi AES-256 ?}}\label{md_doc_2cryptographic__documentation_autotoc_md105}
+
+\begin{DoxyItemize}
+\item {\bfseries{Standard mondial.}} AES (Advanced Encryption Standard) est le standard de chiffrement symétrique adopté par le NIST en 2001. Il est utilisé par les gouvernements, les institutions financières, et la quasi-\/totalité des protocoles de communication sécurisés.
+\item {\bfseries{Sécurité 256 bits.}} AES-\/256 offre une marge de sécurité maximale parmi les variantes AES (128, 192, 256). Même avec les avancées théoriques (attaques biclique), la complexité effective reste à \texorpdfstring{$\sim$}{\string~}254.4 bits, largement hors de portée.
+\item {\bfseries{Performance.}} Les processeurs modernes disposent d\textquotesingle{}instructions dédiées AES-\/\+NI (Intel/\+AMD) qui accélèrent le chiffrement/déchiffrement AES de manière matérielle, atteignant des débits de plusieurs Go/s. C\textquotesingle{}est essentiel pour le transfert de paquets {\ttfamily .WIZARD} volumineux.
+\item {\bfseries{Blocs de 128 bits.}} AES opère sur des blocs de 128 bits (16 octets), ce qui est adapté aux frames WCR binaires sans overhead excessif de padding.
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md106}{}\doxysubsubsection{\texorpdfstring{Modes de chiffrement}{Modes de chiffrement}}\label{md_doc_2cryptographic__documentation_autotoc_md106}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Mode   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Avantages   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Inconvénients   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Usage dans WCR    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Mode   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Avantages   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Inconvénients   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Usage dans WCR    }\\\cline{1-4}
+\endhead
+{\bfseries{CBC}} (Cipher Block Chaining)   &Simple, éprouvé, largement supporté   &Nécessite un padding (PKCS\#7), pas d\textquotesingle{}authentification intégrée   &Chiffrement des frames de données standard    \\\cline{1-4}
+{\bfseries{GCM}} (Galois/\+Counter Mode)   &Authentification intégrée (AEAD), parallélisable   &Légèrement plus complexe à implémenter   &Chiffrement des frames critiques (auth, metadata)   \\\cline{1-4}
+\end{longtabu}
+
+
+En mode GCM, un {\bfseries{tag d\textquotesingle{}authentification}} de 128 bits est ajouté à chaque frame, fournissant à la fois le chiffrement et la vérification d\textquotesingle{}intégrité en une seule opération. C\textquotesingle{}est le mode privilégié pour les échanges sensibles (authentification, transfert de checksums).\hypertarget{md_doc_2cryptographic__documentation_autotoc_md107}{}\doxysubsubsection{\texorpdfstring{Pourquoi pas Cha\+Cha20-\/\+Poly1305 ?}{Pourquoi pas ChaCha20-Poly1305 ?}}\label{md_doc_2cryptographic__documentation_autotoc_md107}
+Cha\+Cha20-\/\+Poly1305 est une alternative performante sur les machines sans accélération AES-\/\+NI. Cependant, AES-\/256 est retenu car Win\+ConveyoR cible principalement Windows sur architecture x86/x64, où AES-\/\+NI est quasi universellement disponible. Cha\+Cha20 n\textquotesingle{}apporte pas de bénéfice significatif sur cette plateforme.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md108}{}\doxysubsection{\texorpdfstring{Cycle de vie d\textquotesingle{}une session WCR}{Cycle de vie d'une session WCR}}\label{md_doc_2cryptographic__documentation_autotoc_md108}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Connexion\ TCP}
+\DoxyCodeLine{\ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ ▼}
+\DoxyCodeLine{┌─────────────────────────────┐}
+\DoxyCodeLine{│\ \ Phase\ 1\ —\ Échange\ de\ clés\ \ │}
+\DoxyCodeLine{│\ \ (RSA)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Client\ récupère\ clé\ pub\ \ │}
+\DoxyCodeLine{│\ \ •\ Client\ génère\ session\ key│}
+\DoxyCodeLine{│\ \ •\ Chiffrement\ RSA-\/OAEP\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Envoi\ au\ serveur\ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Serveur\ déchiffre\ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└──────────────┬──────────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ▼}
+\DoxyCodeLine{┌─────────────────────────────┐}
+\DoxyCodeLine{│\ \ Phase\ 2\ —\ Communication\ \ \ \ │}
+\DoxyCodeLine{│\ \ (AES-\/256)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Toutes\ les\ frames\ sont\ \ \ │}
+\DoxyCodeLine{│\ \ \ \ chiffrées\ avec\ la\ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ session\ key\ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ IV\ unique\ par\ frame\ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Opcodes\ :\ SYNC,\ FETCH,\ \ \ │}
+\DoxyCodeLine{│\ \ \ \ VERIFY,\ PUBLISH\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└──────────────┬──────────────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ▼}
+\DoxyCodeLine{┌─────────────────────────────┐}
+\DoxyCodeLine{│\ \ Phase\ 3\ —\ Fermeture\ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Session\ key\ détruite\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ \ (zéroisation\ mémoire)\ \ \ \ │}
+\DoxyCodeLine{│\ \ •\ Connexion\ TCP\ fermée\ \ \ \ \ │}
+\DoxyCodeLine{└─────────────────────────────┘}
+
+\end{DoxyCode}
+
+
+La session key est {\bfseries{éphémère}} \+: elle est générée pour chaque connexion et détruite à la fermeture. En cas de compromission d\textquotesingle{}une session key, seule la session correspondante est exposée — les sessions passées et futures restent protégées.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md109}{}\doxysubsection{\texorpdfstring{Gestion des clés RSA des miroirs}{Gestion des clés RSA des miroirs}}\label{md_doc_2cryptographic__documentation_autotoc_md109}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Aspect   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Implémentation    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Aspect   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Implémentation    }\\\cline{1-2}
+\endhead
+Génération   &{\ttfamily openssl genrsa -\/out mirror\+\_\+private.\+pem 4096} au déploiement du miroir    \\\cline{1-2}
+Stockage clé privée   &Fichier {\ttfamily .pem} avec permissions {\ttfamily 400}, accessible uniquement par le service WCR    \\\cline{1-2}
+Distribution clé publique   &Embarquée dans la configuration client ou récupérée au premier contact    \\\cline{1-2}
+Rotation   &Recommandée tous les 12 mois, avec période de grâce où l\textquotesingle{}ancienne et la nouvelle clé sont acceptées   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md110}{}\doxysubsection{\texorpdfstring{Résumé des protections par couche}{Résumé des protections par couche}}\label{md_doc_2cryptographic__documentation_autotoc_md110}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Couche   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Mécanisme   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Protège contre    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Couche   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Mécanisme   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Protège contre    }\\\cline{1-3}
+\endhead
+Échange de clés   &RSA-\/\+OAEP (2048/4096 bits)   &Interception de la session key, MITM    \\\cline{1-3}
+Chiffrement données   &AES-\/256-\/\+CBC / AES-\/256-\/\+GCM   &Écoute passive, analyse de trafic    \\\cline{1-3}
+Intégrité (mode GCM)   &Tag d\textquotesingle{}authentification AEAD 128 bits   &Altération des frames en transit    \\\cline{1-3}
+Session key éphémère   &Clé AES générée par session, détruite à la fermeture   &Compromission rétrospective    \\\cline{1-3}
+IV unique par frame   &128 bits aléatoires ({\ttfamily RAND\+\_\+bytes})   &Attaques par analyse de patterns   \\\cline{1-3}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md112}{}\doxysection{\texorpdfstring{Calcul des checksums}{Calcul des checksums}}\label{md_doc_2cryptographic__documentation_autotoc_md112}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md113}{}\doxysubsection{\texorpdfstring{Contexte}{Contexte}}\label{md_doc_2cryptographic__documentation_autotoc_md113}
+Chaque paquet {\ttfamily .WIZARD} doit être vérifié pour garantir que son contenu n\textquotesingle{}a pas été altéré entre la publication et l\textquotesingle{}installation. Le checksum est le mécanisme central de cette vérification.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md114}{}\doxysubsection{\texorpdfstring{Algorithme — SHA-\/256}{Algorithme — SHA-256}}\label{md_doc_2cryptographic__documentation_autotoc_md114}
+Win\+ConveyoR utilise {\bfseries{SHA-\/256}} (SHA-\/2 family, 256 bits) pour tous les calculs de checksums \+:\hypertarget{md_doc_2cryptographic__documentation_autotoc_md115}{}\doxysubsubsection{\texorpdfstring{Pourquoi SHA-\/256 ?}{Pourquoi SHA-256 ?}}\label{md_doc_2cryptographic__documentation_autotoc_md115}
+
+\begin{DoxyItemize}
+\item {\bfseries{Résistance aux collisions.}} Aucune collision SHA-\/256 n\textquotesingle{}a été trouvée à ce jour. La complexité théorique d\textquotesingle{}une attaque par anniversaire est de 2\texorpdfstring{$^\wedge$}{\string^}128 opérations, bien au-\/delà de toute capacité de calcul actuelle.
+\item {\bfseries{Standard universel.}} SHA-\/256 est utilisé par Git, Bitcoin, TLS, et la majorité des gestionnaires de paquets (apt, npm, pip). Son adoption massive signifie qu\textquotesingle{}il est constamment scruté et audité par la communauté cryptographique.
+\item {\bfseries{Performance.}} SHA-\/256 bénéficie d\textquotesingle{}extensions matérielles (Intel SHA-\/\+NI, ARM SHA2) sur les processeurs modernes, permettant un débit de hachage de plusieurs Go/s.
+\item {\bfseries{Taille de digest adaptée.}} 256 bits (32 octets) offrent un niveau de sécurité suffisant (128 bits de résistance aux collisions) tout en restant compact dans les structures binaires et les affichages hexadécimaux (64 caractères).
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md116}{}\doxysubsubsection{\texorpdfstring{Pourquoi pas SHA-\/512 ou SHA-\/3 ?}{Pourquoi pas SHA-512 ou SHA-3 ?}}\label{md_doc_2cryptographic__documentation_autotoc_md116}
+SHA-\/512 offre une marge de sécurité supérieure mais au prix d\textquotesingle{}un digest plus volumineux (64 octets vs 32) qui augmente la taille des index de paquets sans bénéfice pratique pour le modèle de menaces de Win\+ConveyoR. SHA-\/3 (Keccak) est une alternative viable mais son support matériel est moins répandu que SHA-\/2, et l\textquotesingle{}écosystème (outils, documentation) est plus mature autour de SHA-\/256.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md117}{}\doxysubsection{\texorpdfstring{Implémentation dans libwconr}{Implémentation dans libwconr}}\label{md_doc_2cryptographic__documentation_autotoc_md117}
+Le calcul de checksum est implémenté dans {\ttfamily libwconr} via l\textquotesingle{}API EVP d\textquotesingle{}Open\+SSL \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <openssl/evp.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ wconr\_checksum\_compute(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ out[32])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ EVP\_MD\_CTX\ *ctx\ =\ EVP\_MD\_CTX\_new();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!ctx)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (EVP\_DigestInit\_ex(ctx,\ EVP\_sha256(),\ NULL)\ !=\ 1\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EVP\_DigestUpdate(ctx,\ data,\ len)\ \ \ \ \ \ \ \ \ \ \ \ !=\ 1\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EVP\_DigestFinal\_ex(ctx,\ out,\ NULL)\ \ \ \ \ \ \ \ \ \ \ !=\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EVP\_MD\_CTX\_free(ctx);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ EVP\_MD\_CTX\_free(ctx);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+L\textquotesingle{}API EVP (Envelope) est préférée aux appels directs {\ttfamily SHA256()} pour deux raisons \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Agilité algorithmique.}} Si SHA-\/256 devait être remplacé à l\textquotesingle{}avenir, seul le paramètre {\ttfamily EVP\+\_\+sha256()} change. Le reste du code reste identique.
+\item {\bfseries{Accélération matérielle transparente.}} L\textquotesingle{}API EVP détecte et utilise automatiquement les extensions matérielles SHA-\/\+NI si disponibles, sans code spécifique.
+\end{DoxyItemize}\hypertarget{md_doc_2cryptographic__documentation_autotoc_md118}{}\doxysubsection{\texorpdfstring{Points de vérification}{Points de vérification}}\label{md_doc_2cryptographic__documentation_autotoc_md118}
+Le checksum SHA-\/256 intervient à trois moments distincts dans le cycle de vie d\textquotesingle{}un paquet \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ Publication\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Transfert\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Installation}
+\DoxyCodeLine{┌──────────────┐\ \ \ \ \ \ \ \ \ \ \ \ \ ┌──────────────┐\ \ \ \ \ \ \ \ \ \ \ \ \ ┌──────────────┐}
+\DoxyCodeLine{│\ \ Auteur\ du\ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ Miroir\ /\ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ Client\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ paquet\ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ Serveur\ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ (CLI/GUI)\ \ \ │}
+\DoxyCodeLine{└──────┬───────┘\ \ \ \ \ \ \ \ \ \ \ \ \ └──────┬───────┘\ \ \ \ \ \ \ \ \ \ \ \ \ └──────┬───────┘}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ 1.\ Calcul\ du\ hash\ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ sur\ le\ .WIZARD\ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ complet\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ Hash\ inscrit\ dans\ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ le\ manifest\ +\ signé\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │──────────────────────────>│\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ 2.\ Vérification\ à\ la\ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ réception\ (hash\ du\ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ fichier\ reçu\ vs\ hash\ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ du\ manifest)\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │──────────────────────────>│}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ 3.\ Vérification}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ avant\ install}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ (hash\ du\ fichier}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ local\ vs\ hash}
+\DoxyCodeLine{\ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ \ \ \ \ de\ l'index)}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md119}{}\doxysubsubsection{\texorpdfstring{Étape 1 — Publication}{Étape 1 — Publication}}\label{md_doc_2cryptographic__documentation_autotoc_md119}
+Lors du {\ttfamily wconr publish}, le hash SHA-\/256 du fichier {\ttfamily .WIZARD} complet est calculé et inscrit dans le {\bfseries{manifest du paquet}} (section dédiée du format binaire). Ce hash est également enregistré dans l\textquotesingle{}index du miroir.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md120}{}\doxysubsubsection{\texorpdfstring{Étape 2 — Synchronisation miroir}{Étape 2 — Synchronisation miroir}}\label{md_doc_2cryptographic__documentation_autotoc_md120}
+Lorsqu\textquotesingle{}un miroir secondaire synchronise un paquet depuis le miroir primaire via WCR, il recalcule le hash du fichier reçu et le compare au hash annoncé dans l\textquotesingle{}index. En cas de mismatch, le paquet est rejeté et un retry est déclenché.\hypertarget{md_doc_2cryptographic__documentation_autotoc_md121}{}\doxysubsubsection{\texorpdfstring{Étape 3 — Installation client}{Étape 3 — Installation client}}\label{md_doc_2cryptographic__documentation_autotoc_md121}
+Avant l\textquotesingle{}extraction et l\textquotesingle{}installation, le client recalcule le hash du fichier {\ttfamily .WIZARD} téléchargé et le compare au hash stocké dans son index local (obtenu lors du dernier {\ttfamily wconr sync}). L\textquotesingle{}installation est bloquée si les hash ne correspondent pas, avec un message d\textquotesingle{}erreur explicite \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{error:\ checksum\ mismatch\ for\ package\ 'example-\/pkg-\/1.2.0.wizard'}
+\DoxyCodeLine{\ \ expected:\ a3f2b8c1...d4e5f6a7}
+\DoxyCodeLine{\ \ got:\ \ \ \ \ \ 9b8c7d6e...f0a1b2c3}
+\DoxyCodeLine{\ \ The\ package\ may\ have\ been\ corrupted\ or\ tampered\ with.}
+\DoxyCodeLine{\ \ Run\ 'wconr\ sync'\ to\ refresh\ the\ package\ index.}
+
+\end{DoxyCode}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md122}{}\doxysubsection{\texorpdfstring{Checksums dans le format .\+WIZARD}{Checksums dans le format .WIZARD}}\label{md_doc_2cryptographic__documentation_autotoc_md122}
+Le hash SHA-\/256 est stocké dans la {\bfseries{section checksum}} du fichier {\ttfamily .WIZARD}, à un offset fixe défini dans le header \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌──────────────────────────────────────────────┐}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ .WIZARD\ Header\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ ┌─────────────────────────────────────────┐\ │}
+\DoxyCodeLine{│\ \ │\ magic:\ 0x57495A41\ ("{}WIZA"{})\ \ \ \ \ \ \ \ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ │\ version:\ uint16\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ │\ section\_table\_offset:\ uint32\ \ \ \ \ \ \ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ │\ section\_count:\ uint16\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ └─────────────────────────────────────────┘\ │}
+\DoxyCodeLine{├──────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ Section:\ METADATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ (nom,\ version,\ auteur,\ description,\ ...)\ \ \ \ │}
+\DoxyCodeLine{├──────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ Section:\ CHECKSUM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ ┌─────────────────────────────────────────┐\ │}
+\DoxyCodeLine{│\ \ │\ algorithm:\ uint8\ (0x01\ =\ SHA-\/256)\ \ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ │\ digest:\ uint8[32]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ │\ scope:\ uint8\ (0x01\ =\ payload\ only)\ \ \ \ \ \ │\ │}
+\DoxyCodeLine{│\ \ └─────────────────────────────────────────┘\ │}
+\DoxyCodeLine{├──────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ Section:\ PAYLOAD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ (fichiers\ du\ paquet,\ compressés)\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└──────────────────────────────────────────────┘}
+
+\end{DoxyCode}
+
+
+Le champ {\ttfamily algorithm} permet une migration future vers un autre algorithme sans casser le format \+: le parser sélectionne la fonction de hash en fonction de cette valeur. Le champ {\ttfamily scope} indique si le hash couvre uniquement le payload ou l\textquotesingle{}intégralité du fichier (header + metadata + payload), permettant des stratégies de vérification différentes selon le contexte.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md124}{}\doxysection{\texorpdfstring{Dépendances cryptographiques}{Dépendances cryptographiques}}\label{md_doc_2cryptographic__documentation_autotoc_md124}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Fonction   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Bibliothèque   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Version minimale   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Fonction   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Bibliothèque   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Version minimale   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Justification    }\\\cline{1-4}
+\endhead
+SHA-\/256 (checksums)   &Open\+SSL (libcrypto)   &1.\+1.\+1+   &API EVP stable, accélération matérielle    \\\cline{1-4}
+bcrypt (passwords)   &Open\+SSL (libcrypto)   &1.\+1.\+1+   &Intégration native C, pas de dépendance supplémentaire    \\\cline{1-4}
+RSA (échange de clés WCR)   &Open\+SSL (libcrypto)   &1.\+1.\+1+   &{\ttfamily EVP\+\_\+\+PKEY\+\_\+encrypt} / {\ttfamily EVP\+\_\+\+PKEY\+\_\+decrypt}, support OAEP    \\\cline{1-4}
+AES-\/256 (chiffrement WCR)   &Open\+SSL (libcrypto)   &1.\+1.\+1+   &{\ttfamily EVP\+\_\+\+Encrypt\+Init\+\_\+ex} / {\ttfamily EVP\+\_\+\+Decrypt\+Init\+\_\+ex}, accélération AES-\/\+NI    \\\cline{1-4}
+JWT (tokens)   &Py\+JWT (Python)   &2.\+0+   &Signing/verification côté API Fast\+API    \\\cline{1-4}
+CSPRNG (sel, clés, IV)   &Open\+SSL {\ttfamily RAND\+\_\+bytes}   &1.\+1.\+1+   &Source d\textquotesingle{}entropie cryptographique (session keys, IV AES, sel bcrypt)   \\\cline{1-4}
+\end{longtabu}
+
+
+La version minimale d\textquotesingle{}Open\+SSL 1.\+1.\+1 est imposée car c\textquotesingle{}est la première version avec une API EVP complète et stable pour RSA-\/\+OAEP et AES-\/\+GCM. Les versions antérieures sont refusées au {\ttfamily configure} / build time.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2cryptographic__documentation_autotoc_md126}{}\doxysection{\texorpdfstring{Modèle de menaces}{Modèle de menaces}}\label{md_doc_2cryptographic__documentation_autotoc_md126}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Menace   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vecteur d\textquotesingle{}attaque   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Protection    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Menace   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vecteur d\textquotesingle{}attaque   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Protection    }\\\cline{1-3}
+\endhead
+Interception réseau   &Écoute passive du trafic client-\/miroir   &AES-\/256 (chiffrement de toutes les frames WCR)    \\\cline{1-3}
+Man-\/in-\/the-\/middle   &Usurpation d\textquotesingle{}un miroir, interception de la session key   &RSA-\/\+OAEP (seul le miroir possède la clé privée pour déchiffrer la session key)    \\\cline{1-3}
+Compromission rétrospective   &Vol d\textquotesingle{}une session key passée   &Session key éphémère (détruite à chaque fermeture de connexion)    \\\cline{1-3}
+Paquet corrompu   &Altération en transit ou sur disque   &SHA-\/256 checksum à 3 points de vérification    \\\cline{1-3}
+Paquet malveillant   &Publication d\textquotesingle{}un paquet compromis par un attaquant   &Hash signé dans le manifest + authentification API    \\\cline{1-3}
+Brute-\/force mot de passe   &Tentatives massives sur l\textquotesingle{}API {\ttfamily /auth/login}   &bcrypt (work factor 12) + rate limiting API    \\\cline{1-3}
+Vol de token   &Accès au fichier credentials ou à la mémoire   &DPAPI (Windows), permissions 600 (Linux), expiration JWT    \\\cline{1-3}
+Analyse de patterns   &Frames identiques produisant le même ciphertext   &IV unique de 128 bits par frame (CSPRNG)    \\\cline{1-3}
+Altération de frame (mode GCM)   &Modification d\textquotesingle{}une frame chiffrée en transit   &Tag d\textquotesingle{}authentification AEAD 128 bits    \\\cline{1-3}
+Rainbow table   &Hash de mots de passe sans sel   &Sel aléatoire 128 bits intégré à bcrypt    \\\cline{1-3}
+Compromission clé RSA miroir   &Vol de la clé privée d\textquotesingle{}un miroir   &Rotation de clés recommandée tous les 12 mois, clé privée permissions 400   \\\cline{1-3}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+
+
+\begin{quote}
+{\bfseries{Document maintenu par}} \+: Thomas — Dernière mise à jour \+: Juillet 2026 \end{quote}

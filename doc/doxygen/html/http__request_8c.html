@@ -127,6 +127,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aefd35d36dc9af5cc71e2cc13a1422388" id="r_aefd35d36dc9af5cc71e2cc13a1422388"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="http__request_8c.html#aefd35d36dc9af5cc71e2cc13a1422388">build_request</a> (struct <a class="el" href="struct__http__request__parser__s.html">_http_request_parser_s</a> *request_parser, const unsigned char *host, size_t buffer_size)</td></tr>
 <tr class="separator:aefd35d36dc9af5cc71e2cc13a1422388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bdcbfbc3d2947860e4a53f6eaeaa949" id="r_a4bdcbfbc3d2947860e4a53f6eaeaa949"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="http__request_8c.html#a4bdcbfbc3d2947860e4a53f6eaeaa949">request_ressource</a> (struct <a class="el" href="struct__http__request__parser__s.html">_http_request_parser_s</a> *request_parser, const unsigned char *http_address)</td></tr>
+<tr class="memdesc:a4bdcbfbc3d2947860e4a53f6eaeaa949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a fully built HTTP request over the connection.  <br /></td></tr>
 <tr class="separator:a4bdcbfbc3d2947860e4a53f6eaeaa949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -247,7 +248,7 @@ Functions</h2></td></tr>
           <td class="memname">void request_ressource </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="struct__http__request__parser__s.html">_http_request_parser_s</a> *&#160;</td>
-          <td class="paramname"><em>request_parser</em>, </td>
+          <td class="paramname"><em>__r</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -262,6 +263,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sends a fully built HTTP request over the connection. </p>
+<p>Serialises the request line (method, route, protocol/version), all stored headers, and the mandatory blank line terminator, then writes the result to the socket.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">__r</td><td>Request parser containing the request to send. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">http_address</td><td>Fallback Host header value when no Host header has been set explicitly. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

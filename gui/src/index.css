@@ -3,18 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background-primary: #ffffff;
-    --background-secondary: #f3f4f6;
-    --text-primary: #111827;
-    --text-secondary: #4b5563;
-  }
-
-  :root[class~="dark"] {
-    --background-primary: #111827;
-    --background-secondary: #1f2937;
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
+  body {
+    font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
   }
 }
 
@@ -29,6 +19,37 @@
 .reduce-motion * {
   transition-duration: 0.05s !important;
   animation-duration: 0.05s !important;
+}
+
+/* Sonner toasts tuned to the WinConveyoR palette + smaller footprint.
+   Uses sonner's own theme selectors + !important to win over its defaults. */
+[data-sonner-toaster] {
+  --width: 300px;
+}
+
+[data-sonner-toaster] [data-sonner-toast] {
+  font-size: 13px;
+  padding: 12px;
+}
+
+[data-sonner-toaster][data-sonner-theme='light'] {
+  --success-bg: #e2ecdd !important;
+  --success-border: #c7dcc0 !important;
+  --success-text: #3e7a4d !important;
+
+  --error-bg: #f4ded7 !important;
+  --error-border: #e8c3b8 !important;
+  --error-text: #c0492f !important;
+}
+
+[data-sonner-toaster][data-sonner-theme='dark'] {
+  --success-bg: #26301f !important;
+  --success-border: #35492c !important;
+  --success-text: #5fb57a !important;
+
+  --error-bg: #3a211b !important;
+  --error-border: #52302a !important;
+  --error-text: #e2704f !important;
 }
 
 .high-contrast {
@@ -91,7 +112,7 @@
 }
 
 :focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #E8913A;
   outline-offset: 2px;
 }
 
@@ -99,7 +120,7 @@
   position: absolute;
   top: -40px;
   left: 0;
-  background: #3b82f6;
+  background: #E8913A;
   color: white;
   padding: 8px;
   z-index: 100;

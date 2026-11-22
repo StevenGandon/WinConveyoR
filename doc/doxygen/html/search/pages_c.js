@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['or_20app_20package_0',['&amp;lt;repo‑root&amp;gt; (same level as the &lt;span class=&quot;tt&quot;&gt;api/&lt;/span&gt; or &lt;span class=&quot;tt&quot;&gt;app/&lt;/span&gt; package)',['../md_README.html#autotoc_md22',1,'']]],
-  ['or_20choose_20a_20port_3a_1',['or choose a port:',['../md_README.html#autotoc_md23',1,'']]]
+  ['—_20choix_20technologiques_0',['WinConveyoR — Choix Technologiques',['../md_doc_2tech__watch.html',1,'']]],
+  ['—_20documentation_20cryptographique_1',['WinConveyoR — Documentation Cryptographique',['../md_doc_2cryptographic__documentation.html',1,'']]],
+  ['—_20format_20de_20fichier_20binaire_2',['.WIZARD — Format de fichier binaire',['../md_doc_2wizard__file__format.html',1,'']]],
+  ['—_20tt_20config_20yaml_20tt_3',['Configuration d&apos;un paquet — &lt;tt&gt;config.yaml&lt;/tt&gt;',['../md_doc_2config__documentation.html',1,'']]]
 ];

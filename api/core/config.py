@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "WinConveyoR API"
     DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/abstract_api"
     RATE_LIMIT: str = "200/minute"
+    SECRET_KEY: str = "change-me-in-production"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     class Config:
         env_file = BASE_DIR / ".env"

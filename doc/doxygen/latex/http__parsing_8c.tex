@@ -17,19 +17,19 @@
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{http__parsing_8c_a2ea84484b413a98f194fa1dd26f907b1}{end\+\_\+http\+\_\+response\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+parser)
-\item 
+\begin{DoxyCompactList}\small\item\em Releases all resources owned by an HTTP response parser. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{http__parsing_8c_a1695fea8e1269093de2618622ad7a4d8}{end\+\_\+http\+\_\+request\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+parser)
-\item 
+\begin{DoxyCompactList}\small\item\em Releases all resources owned by an HTTP request parser. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__parsing_8c_ac7ebea9fdf20149a44d0e057cc3e6313}{new\+\_\+http\+\_\+request\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+connection)
-\item 
+\begin{DoxyCompactList}\small\item\em Allocates and initialises a new HTTP request parser. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__parsing_8c_ad6b88be93dbe0fd5ba658681e47c16a6}{new\+\_\+http\+\_\+response\+\_\+parser}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}http\+\_\+connection)
-\item 
+\begin{DoxyCompactList}\small\item\em Allocates and initialises a new HTTP response parser. \end{DoxyCompactList}\item 
 unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{http__parsing_8c_a6bfadfd8ddd0dc3db6510db30bcc159b}{read\+\_\+http\+\_\+headers}} (struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}client, size\+\_\+t \texorpdfstring{$\ast$}{*}total\+\_\+size)
-\item 
+\begin{DoxyCompactList}\small\item\em Reads raw response data from the connection until the header terminator ({\ttfamily \textbackslash{}r\textbackslash{}n\textbackslash{}r\textbackslash{}n}) is found. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{http__parsing_8c_aef92122913d5fac352af325bec64f251}{parse\+\_\+status\+\_\+line}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}parser, unsigned char \texorpdfstring{$\ast$}{*}buffer)
-\item 
+\begin{DoxyCompactList}\small\item\em Parses the HTTP status line from a raw header buffer. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8}{parse\+\_\+headers}} (struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}parser, unsigned char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t total\+\_\+size)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses all HTTP response headers from a raw header buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -58,41 +58,138 @@ void \mbox{\hyperlink{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8}{parse\
 \index{http\_parsing.c@{http\_parsing.c}!end\_http\_request\_parser@{end\_http\_request\_parser}}
 \index{end\_http\_request\_parser@{end\_http\_request\_parser}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{end\_http\_request\_parser()}{end\_http\_request\_parser()}}
-{\footnotesize\ttfamily void end\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+parser }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser }\end{DoxyParamCaption})}
 
+
+
+Releases all resources owned by an HTTP request parser. 
+
+Frees every header pair, the protocol, method, route strings, and the parser struct itself. The associated connection is not closed.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em parser} & Parser to destroy. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{http__parsing_8c_a2ea84484b413a98f194fa1dd26f907b1}\label{http__parsing_8c_a2ea84484b413a98f194fa1dd26f907b1} 
 \index{http\_parsing.c@{http\_parsing.c}!end\_http\_response\_parser@{end\_http\_response\_parser}}
 \index{end\_http\_response\_parser@{end\_http\_response\_parser}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{end\_http\_response\_parser()}{end\_http\_response\_parser()}}
-{\footnotesize\ttfamily void end\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+parser }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void end\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser }\end{DoxyParamCaption})}
 
+
+
+Releases all resources owned by an HTTP response parser. 
+
+Frees every header pair, the protocol string, the status message, and the parser struct itself. The associated connection is not closed.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em parser} & Parser to destroy. No-\/op if NULL. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{http__parsing_8c_ac7ebea9fdf20149a44d0e057cc3e6313}\label{http__parsing_8c_ac7ebea9fdf20149a44d0e057cc3e6313} 
 \index{http\_parsing.c@{http\_parsing.c}!new\_http\_request\_parser@{new\_http\_request\_parser}}
 \index{new\_http\_request\_parser@{new\_http\_request\_parser}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{new\_http\_request\_parser()}{new\_http\_request\_parser()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__request__parser__s}{\+\_\+http\+\_\+request\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+request\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
 
+
+
+Allocates and initialises a new HTTP request parser. 
+
+All fields are zeroed or set to NULL. The parser does not own the connection; the caller remains responsible for its lifetime.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em http\+\_\+connection} & Connection this parser will write to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the new parser, or NULL on allocation failure or if {\ttfamily http\+\_\+connection} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{http__parsing_8c_ad6b88be93dbe0fd5ba658681e47c16a6}\label{http__parsing_8c_ad6b88be93dbe0fd5ba658681e47c16a6} 
 \index{http\_parsing.c@{http\_parsing.c}!new\_http\_response\_parser@{new\_http\_response\_parser}}
 \index{new\_http\_response\_parser@{new\_http\_response\_parser}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{new\_http\_response\_parser()}{new\_http\_response\_parser()}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*} new\+\_\+http\+\_\+response\+\_\+parser (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{http\+\_\+connection }\end{DoxyParamCaption})}
 
+
+
+Allocates and initialises a new HTTP response parser. 
+
+All fields are zeroed or set to NULL. The parser does not own the connection; the caller remains responsible for its lifetime.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em http\+\_\+connection} & Connection this parser will read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the new parser, or NULL on allocation failure or if {\ttfamily http\+\_\+connection} is NULL. 
+\end{DoxyReturn}
 \Hypertarget{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8}\label{http__parsing_8c_ad5341a6ffaf0849262bbd03af02c54f8} 
 \index{http\_parsing.c@{http\_parsing.c}!parse\_headers@{parse\_headers}}
 \index{parse\_headers@{parse\_headers}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{parse\_headers()}{parse\_headers()}}
 {\footnotesize\ttfamily void parse\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{total\+\_\+size }\end{DoxyParamCaption})}
 
+
+
+Parses all HTTP response headers from a raw header buffer. 
+
+Skips the status line and iterates over each {\ttfamily Key\+:} Value\textbackslash{}r\textbackslash{}n line, storing every pair via \doxylink{libwconr__private_8h_a2194e4b470457ff38a27504166b98977}{set\+\_\+header} into {\ttfamily parser}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em parser} & Response parser to fill. \\
+\hline
+\mbox{\texttt{ in}}  & {\em buffer} & Raw header buffer (status line + headers). \\
+\hline
+\mbox{\texttt{ in}}  & {\em total\+\_\+size} & Total size of {\ttfamily buffer} in bytes, including the final {\ttfamily \textbackslash{}r\textbackslash{}n\textbackslash{}r\textbackslash{}n} terminator. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{http__parsing_8c_aef92122913d5fac352af325bec64f251}\label{http__parsing_8c_aef92122913d5fac352af325bec64f251} 
 \index{http\_parsing.c@{http\_parsing.c}!parse\_status\_line@{parse\_status\_line}}
 \index{parse\_status\_line@{parse\_status\_line}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{parse\_status\_line()}{parse\_status\_line()}}
 {\footnotesize\ttfamily int parse\+\_\+status\+\_\+line (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__response__parser__s}{\+\_\+http\+\_\+response\+\_\+parser\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{parser,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
 
+
+
+Parses the HTTP status line from a raw header buffer. 
+
+Extracts the protocol name, version, status code, and reason phrase into {\ttfamily parser}. The buffer must start at the beginning of the status line.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em parser} & Response parser to fill. \\
+\hline
+\mbox{\texttt{ in}}  & {\em buffer} & Raw header buffer starting with the status line. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 on success, 0 on parse failure or allocation error. 
+\end{DoxyReturn}
 \Hypertarget{http__parsing_8c_a6bfadfd8ddd0dc3db6510db30bcc159b}\label{http__parsing_8c_a6bfadfd8ddd0dc3db6510db30bcc159b} 
 \index{http\_parsing.c@{http\_parsing.c}!read\_http\_headers@{read\_http\_headers}}
 \index{read\_http\_headers@{read\_http\_headers}!http\_parsing.c@{http\_parsing.c}}
 \doxysubsubsection{\texorpdfstring{read\_http\_headers()}{read\_http\_headers()}}
 {\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} read\+\_\+http\+\_\+headers (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct__http__connection__s}{\+\_\+http\+\_\+connection\+\_\+s}} \texorpdfstring{$\ast$}{*}}]{client,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{total\+\_\+size }\end{DoxyParamCaption})}
 
+
+
+Reads raw response data from the connection until the header terminator ({\ttfamily \textbackslash{}r\textbackslash{}n\textbackslash{}r\textbackslash{}n}) is found. 
+
+Accumulates chunks until the end-\/of-\/headers sequence is detected. The returned buffer is heap-\/allocated and null-\/terminated; {\ttfamily total\+\_\+size} is set to the number of bytes up to and including the terminator.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em client} & Connection to read from. \\
+\hline
+\mbox{\texttt{ out}}  & {\em total\+\_\+size} & Set to the length of the returned buffer on success. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Heap-\/allocated buffer containing the raw header block, or NULL on failure. The caller is responsible for freeing it. 
+\end{DoxyReturn}

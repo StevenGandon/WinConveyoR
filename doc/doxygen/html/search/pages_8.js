@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['installation_0',['Installation',['../md_README.html#autotoc_md17',1,'']]],
-  ['issues_1',['Issues',['../md_CONTRIBUTING.html#autotoc_md1',1,'']]]
+  ['technologiques_0',['WinConveyoR — Choix Technologiques',['../md_doc_2tech__watch.html',1,'']]],
+  ['to_20winconveyor_1',['Contributing to WinConveyoR',['../md_CONTRIBUTING.html',1,'']]],
+  ['tt_20config_20yaml_20tt_2',['Configuration d&apos;un paquet — &lt;tt&gt;config.yaml&lt;/tt&gt;',['../md_doc_2config__documentation.html',1,'']]]
 ];

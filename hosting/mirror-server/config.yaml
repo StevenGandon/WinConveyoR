@@ -1,0 +1,49 @@
+wizard:
+  version: 1
+
+  metadata:
+    name: test_package
+    description: "A test package"
+    version: "1.0.0"
+    deps:
+      - python
+    machine: posix
+    architecture: any
+
+  build:
+    requires:
+      tools: [make, gcc]
+    steps:
+      - mkdir:
+          path: build
+      - run:
+          tool: make
+          args:
+            - re
+      - run:
+          tool: make
+          args:
+            - clean
+
+  install:
+    steps:
+      - copy:
+          when:
+            os: posix
+          from: test_package
+          to: ${MACHINE_BIN}/test_package
+      - chmod:
+          when:
+            os: posix
+          path: ${MACHINE_BIN}/test_package
+          mode: 0755
+
+  uninstall:
+    steps:
+      - remove:
+          path: "${MACHINE_BIN}/test_package"
+
+  purge:
+    steps:
+      - remove_tree:
+          path: "${PREFIX}/var/test_package"

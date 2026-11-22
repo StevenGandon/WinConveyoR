@@ -4,10 +4,20 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.ELECTRON=="true" ? './' : ".",
-  optimizeDeps: {
-    exclude: ['lucide-react']
+  base: './',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'lucide-react'],
+  },
+  server: {
+    watch: { usePolling: true, interval: 500 },
+    warmup: { clientFiles: ['./src/App.tsx', './src/main.tsx'] },
+  },
+  cacheDir: '/tmp/vite-cache-wcr',
   build: {
     outDir: 'dist',
     emptyOutDir: true,

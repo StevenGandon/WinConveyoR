@@ -1,0 +1,30 @@
+version: '3'
+
+volumes:
+  mirror-data:
+    driver: local
+    driver_opts:
+        o: bind
+        type: none
+        device: ./mirror-example
+
+services:
+  http-server:
+    volumes:
+      - mirror-data:/mnt/mirror
+    build:
+      context: http
+    ports:
+      - "0.0.0.0:${HTTP_MIRROR_PORT:-8080}:80"
+    restart: on-failure
+
+  custom-server:
+    volumes:
+      - mirror-data:/mnt/mirror
+    build:
+      context: mirror-server
+    ports:
+      - "0.0.0.0:${CUSTOM_MIRROR_PORT:-1674}:1674"
+    environment:
+      WCR_DIR: "/mnt/mirror"
+    restart: on-failure

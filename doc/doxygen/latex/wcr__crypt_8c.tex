@@ -1,0 +1,89 @@
+\doxysection{lib/libwconr/src/wcr\+\_\+crypt.c File Reference}
+\hypertarget{wcr__crypt_8c}{}\label{wcr__crypt_8c}\index{lib/libwconr/src/wcr\_crypt.c@{lib/libwconr/src/wcr\_crypt.c}}
+{\ttfamily \#include "{}wcr\+\_\+crypt.\+h"{}}\newline
+{\ttfamily \#include "{}wcr\+\_\+event\+\_\+internal.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/evp.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/pem.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/rand.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/err.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_ae94944251a8c06a7b884e7a2561ff682}{rsa\+\_\+encrypt\+\_\+key}} (EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}pubkey, const unsigned char \texorpdfstring{$\ast$}{*}aes\+\_\+key, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+len)
+\item 
+static unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_ac3d63459ae1f06b3e35690199a7f329d}{aes\+\_\+encrypt\+\_\+data}} (const unsigned char \texorpdfstring{$\ast$}{*}aes\+\_\+key, const unsigned char \texorpdfstring{$\ast$}{*}iv, const unsigned char \texorpdfstring{$\ast$}{*}plaintext, size\+\_\+t plain\+\_\+len, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+len)
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_a3f9e141623725d9c4171a5027f867701}{wcr\+\_\+encrypt}} (EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}pubkey, const unsigned char \texorpdfstring{$\ast$}{*}plaintext, size\+\_\+t plain\+\_\+len, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+len)
+\item 
+static int \mbox{\hyperlink{wcr__crypt_8c_af595136bd6a7562647ee4938af7e05b6}{rsa\+\_\+decrypt\+\_\+key}} (EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}privkey, const unsigned char \texorpdfstring{$\ast$}{*}encrypted\+\_\+key, unsigned char \texorpdfstring{$\ast$}{*}aes\+\_\+key\+\_\+out)
+\item 
+static unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_a334c8e31ebf7388abbad57bcbbd79b42}{aes\+\_\+decrypt\+\_\+data}} (const unsigned char \texorpdfstring{$\ast$}{*}aes\+\_\+key, const unsigned char \texorpdfstring{$\ast$}{*}iv, const unsigned char \texorpdfstring{$\ast$}{*}ciphertext, size\+\_\+t cipher\+\_\+len, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+len)
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_ac43bd409a648866c9067eee978ad93b2}{wcr\+\_\+decrypt}} (EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}privkey, const unsigned char \texorpdfstring{$\ast$}{*}ciphertext, size\+\_\+t cipher\+\_\+len, size\+\_\+t \texorpdfstring{$\ast$}{*}out\+\_\+len)
+\item 
+EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_a55ecb837dc22f700ece39644f1864929}{parse\+\_\+pubkey\+\_\+pem}} (const char \texorpdfstring{$\ast$}{*}pem)
+\item 
+EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_a63f72cf656bf28b482de5bbaa6ea9c54}{generate\+\_\+rsa\+\_\+keypair}} (void)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wcr__crypt_8c_afc9f52a40aa355fec3a6f07516372ed5}{serialize\+\_\+pubkey\+\_\+pem}} (EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}key)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{wcr__crypt_8c_a334c8e31ebf7388abbad57bcbbd79b42}\label{wcr__crypt_8c_a334c8e31ebf7388abbad57bcbbd79b42} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!aes\_decrypt\_data@{aes\_decrypt\_data}}
+\index{aes\_decrypt\_data@{aes\_decrypt\_data}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{aes\_decrypt\_data()}{aes\_decrypt\_data()}}
+{\footnotesize\ttfamily static unsigned char \texorpdfstring{$\ast$}{*} aes\+\_\+decrypt\+\_\+data (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{aes\+\_\+key,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{iv,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{ciphertext,  }\item[{size\+\_\+t}]{cipher\+\_\+len,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__crypt_8c_ac3d63459ae1f06b3e35690199a7f329d}\label{wcr__crypt_8c_ac3d63459ae1f06b3e35690199a7f329d} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!aes\_encrypt\_data@{aes\_encrypt\_data}}
+\index{aes\_encrypt\_data@{aes\_encrypt\_data}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{aes\_encrypt\_data()}{aes\_encrypt\_data()}}
+{\footnotesize\ttfamily static unsigned char \texorpdfstring{$\ast$}{*} aes\+\_\+encrypt\+\_\+data (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{aes\+\_\+key,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{iv,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{plaintext,  }\item[{size\+\_\+t}]{plain\+\_\+len,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__crypt_8c_a63f72cf656bf28b482de5bbaa6ea9c54}\label{wcr__crypt_8c_a63f72cf656bf28b482de5bbaa6ea9c54} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!generate\_rsa\_keypair@{generate\_rsa\_keypair}}
+\index{generate\_rsa\_keypair@{generate\_rsa\_keypair}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{generate\_rsa\_keypair()}{generate\_rsa\_keypair()}}
+{\footnotesize\ttfamily EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*} generate\+\_\+rsa\+\_\+keypair (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__crypt_8c_a55ecb837dc22f700ece39644f1864929}\label{wcr__crypt_8c_a55ecb837dc22f700ece39644f1864929} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!parse\_pubkey\_pem@{parse\_pubkey\_pem}}
+\index{parse\_pubkey\_pem@{parse\_pubkey\_pem}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{parse\_pubkey\_pem()}{parse\_pubkey\_pem()}}
+{\footnotesize\ttfamily EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*} parse\+\_\+pubkey\+\_\+pem (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{pem }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__crypt_8c_af595136bd6a7562647ee4938af7e05b6}\label{wcr__crypt_8c_af595136bd6a7562647ee4938af7e05b6} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!rsa\_decrypt\_key@{rsa\_decrypt\_key}}
+\index{rsa\_decrypt\_key@{rsa\_decrypt\_key}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{rsa\_decrypt\_key()}{rsa\_decrypt\_key()}}
+{\footnotesize\ttfamily static int rsa\+\_\+decrypt\+\_\+key (\begin{DoxyParamCaption}\item[{EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}}]{privkey,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{encrypted\+\_\+key,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{aes\+\_\+key\+\_\+out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__crypt_8c_ae94944251a8c06a7b884e7a2561ff682}\label{wcr__crypt_8c_ae94944251a8c06a7b884e7a2561ff682} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!rsa\_encrypt\_key@{rsa\_encrypt\_key}}
+\index{rsa\_encrypt\_key@{rsa\_encrypt\_key}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{rsa\_encrypt\_key()}{rsa\_encrypt\_key()}}
+{\footnotesize\ttfamily static unsigned char \texorpdfstring{$\ast$}{*} rsa\+\_\+encrypt\+\_\+key (\begin{DoxyParamCaption}\item[{EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}}]{pubkey,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{aes\+\_\+key,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{wcr__crypt_8c_afc9f52a40aa355fec3a6f07516372ed5}\label{wcr__crypt_8c_afc9f52a40aa355fec3a6f07516372ed5} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!serialize\_pubkey\_pem@{serialize\_pubkey\_pem}}
+\index{serialize\_pubkey\_pem@{serialize\_pubkey\_pem}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{serialize\_pubkey\_pem()}{serialize\_pubkey\_pem()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} serialize\+\_\+pubkey\+\_\+pem (\begin{DoxyParamCaption}\item[{EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__crypt_8c_ac43bd409a648866c9067eee978ad93b2}\label{wcr__crypt_8c_ac43bd409a648866c9067eee978ad93b2} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!wcr\_decrypt@{wcr\_decrypt}}
+\index{wcr\_decrypt@{wcr\_decrypt}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_decrypt()}{wcr\_decrypt()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} wcr\+\_\+decrypt (\begin{DoxyParamCaption}\item[{EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}}]{privkey,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{ciphertext,  }\item[{size\+\_\+t}]{cipher\+\_\+len,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+len }\end{DoxyParamCaption})}
+
+\Hypertarget{wcr__crypt_8c_a3f9e141623725d9c4171a5027f867701}\label{wcr__crypt_8c_a3f9e141623725d9c4171a5027f867701} 
+\index{wcr\_crypt.c@{wcr\_crypt.c}!wcr\_encrypt@{wcr\_encrypt}}
+\index{wcr\_encrypt@{wcr\_encrypt}!wcr\_crypt.c@{wcr\_crypt.c}}
+\doxysubsubsection{\texorpdfstring{wcr\_encrypt()}{wcr\_encrypt()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} wcr\+\_\+encrypt (\begin{DoxyParamCaption}\item[{EVP\+\_\+\+PKEY \texorpdfstring{$\ast$}{*}}]{pubkey,  }\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{plaintext,  }\item[{size\+\_\+t}]{plain\+\_\+len,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{out\+\_\+len }\end{DoxyParamCaption})}
+

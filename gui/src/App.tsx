@@ -1,29 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import { SettingsProvider } from './context/SettingsContext';
+import { useState, useEffect } from 'react';
+import { Toaster } from 'sonner';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { PackageProvider } from './context/PackageContext';
+import { CliProvider } from './context/CliContext';
 import TitleBar from './components/layout/TitleBar';
 import Sidebar from './components/layout/Sidebar';
 import HomePage from './pages/HomePage';
 import DiscoverPage from './pages/DiscoverPage';
 import InstalledPage from './pages/InstalledPage';
-import UpdatesPage from './pages/UpdatesPage';
+import UpgradesPage from './pages/UpgradesPage';
 import SettingsPage from './pages/SettingsPage';
+import OutputPage from './pages/OutputPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ThemeToggle from './components/ui/ThemeToggle';
 
-function App() {
+function AuthGate() {
+  const { token, isLoading } = useAuth();
+  const [authPage, setAuthPage] = useState<'login' | 'register'>('login');
+
+  useEffect(() => {
+    if (!token) setAuthPage('login');
+  }, [token]);
+
+  if (token === 'anonymous') {
+    return <MainApp />;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
+        <TitleBar />
+        <div className="flex items-center justify-center flex-1">
+          <p className="text-wc-muted dark:text-wc-muted-dark">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!token) {
+    const page = authPage === 'login'
+      ? <LoginPage onSwitchToRegister={() => setAuthPage('register')} />
+      : <RegisterPage onSwitchToLogin={() => setAuthPage('login')} />;
+    return (
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark">
+        <TitleBar />
+        <div className="relative flex-1 flex items-center justify-center overflow-hidden">
+          <div className="absolute top-4 right-4 no-drag">
+            <ThemeToggle />
+          </div>
+          {page}
+        </div>
+      </div>
+    );
+  }
+
+  return <MainApp />;
+}
+
+function MainApp() {
   const [activePage, setActivePage] = useState('home');
-  
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && !isNaN(Number(e.key))) {
         e.preventDefault();
-        const pages = ['home', 'discover', 'installed', 'updates', 'settings'];
+        const pages = ['home', 'discover', 'installed', 'upgrades', 'output', 'settings'];
         const index = Number(e.key) - 1;
         if (index >= 0 && index < pages.length) {
           setActivePage(pages[index]);
         }
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
@@ -31,13 +81,15 @@ function App() {
   const renderPage = () => {
     switch (activePage) {
       case 'home':
-        return <HomePage />;
+        return <HomePage onNavigate={setActivePage} />;
       case 'discover':
         return <DiscoverPage />;
       case 'installed':
         return <InstalledPage />;
-      case 'updates':
-        return <UpdatesPage />;
+      case 'upgrades':
+        return <UpgradesPage />;
+      case 'output':
+        return <OutputPage />;
       case 'settings':
         return <SettingsPage />;
       default:
@@ -46,18 +98,41 @@ function App() {
   };
 
   return (
-    <SettingsProvider>
-      <PackageProvider>
-        <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-          <TitleBar />
-          <div className="flex flex-1 overflow-hidden">
-            <Sidebar activePage={activePage} onNavigate={setActivePage} />
-            <main className="flex-1 flex flex-col overflow-hidden">
-              {renderPage()}
-            </main>
-          </div>
+    <PackageProvider>
+      <CliProvider>
+      <div className="flex flex-col h-screen bg-wc-bg dark:bg-wc-bg-dark text-wc-fg dark:text-wc-fg-dark">
+        <TitleBar />
+        <div className="flex flex-1 overflow-hidden">
+          <Sidebar activePage={activePage} onNavigate={setActivePage} />
+          <main className="flex-1 flex flex-col overflow-auto">
+            {renderPage()}
+          </main>
         </div>
-      </PackageProvider>
+      </div>
+      </CliProvider>
+    </PackageProvider>
+  );
+}
+
+function AppToaster() {
+  const { settings } = useSettings();
+  return (
+    <Toaster
+      position="bottom-right"
+      richColors
+      duration={2500}
+      theme={settings.theme}
+    />
+  );
+}
+
+function App() {
+  return (
+    <SettingsProvider>
+      <AppToaster />
+      <AuthProvider>
+        <AuthGate />
+      </AuthProvider>
     </SettingsProvider>
   );
 }

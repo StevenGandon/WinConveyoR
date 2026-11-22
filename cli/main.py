@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from src import *
 
 from traceback import format_exc
@@ -7,6 +8,7 @@ import sys
 
 def main() -> int:
     add_dll_registry_path("./lib/libwconr/")
+    add_dll_registry_path("./lib/libwconr/build/")
 
     status = 0
 

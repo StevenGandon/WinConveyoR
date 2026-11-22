@@ -1,0 +1,88 @@
+graph TB
+    subgraph "Déclencheurs"
+        PUSH[Push sur branche]
+        PR[Pull Request]
+    end
+    
+    subgraph "Pipeline Documentation - Branche dev"
+        BUILD_DOC[build-documentation<br/>ubuntu-latest]
+        DEPLOY_DOC[deploy-documentation<br/>ubuntu-latest]
+        
+        BUILD_DOC -->|Installe doxygen| DOX[Génère documentation]
+        DOX -->|Commit auto| GIT_COMMIT[git push]
+        DOX -->|Upload artifact| ARTIFACT[Pages Artifact]
+        ARTIFACT --> DEPLOY_DOC
+        DEPLOY_DOC -->|Déploie| GHPAGES[GitHub Pages]
+    end
+    
+    subgraph "Pipeline Vérification - Pull Request vers dev"
+        CHECK[check_build<br/>Multi-OS]
+        
+        subgraph "Matrix Build"
+            UBUNTU[ubuntu-latest]
+            MACOS[macos-latest]
+            WINDOWS[windows-latest]
+        end
+        
+        CHECK --> UBUNTU
+        CHECK --> MACOS
+        CHECK --> WINDOWS
+        
+        UBUNTU -->|Setup deps| BUILD_LIB_U[Build CMake Library]
+        MACOS -->|Setup deps| BUILD_LIB_M[Build CMake Library]
+        WINDOWS -->|Setup deps| BUILD_LIB_W[Build CMake Library]
+        
+        BUILD_LIB_U --> BUILD_EXE_U[Build Executable<br/>PyInstaller]
+        BUILD_LIB_M --> BUILD_EXE_M[Build Executable<br/>PyInstaller]
+        BUILD_LIB_W --> BUILD_EXE_W[Build Executable<br/>PyInstaller]
+        
+        BUILD_EXE_U --> VERIFY_U[Vérification binaires]
+        BUILD_EXE_M --> VERIFY_M[Vérification binaires]
+        BUILD_EXE_W --> VERIFY_W[Vérification binaires]
+    end
+    
+    subgraph "Pipeline Release - Branche main"
+        CREATE[create_release<br/>ubuntu-latest]
+        BUILD_REL[build_release<br/>Multi-OS]
+        
+        CREATE -->|softprops/action-gh-release| REL[Création Release GitHub]
+        REL --> BUILD_REL
+        
+        subgraph "Matrix Release Build"
+            REL_UBUNTU[ubuntu-latest<br/>release_ubuntu.zip]
+            REL_MACOS[macos-latest<br/>release_mac.zip]
+            REL_WINDOWS[windows-latest<br/>release_windows.zip]
+        end
+        
+        BUILD_REL --> REL_UBUNTU
+        BUILD_REL --> REL_MACOS
+        BUILD_REL --> REL_WINDOWS
+        
+        REL_UBUNTU -->|Setup deps| LIB_U[Build Library CMake]
+        REL_MACOS -->|Setup deps| LIB_M[Build Library CMake]
+        REL_WINDOWS -->|Setup deps| LIB_W[Build Library CMake]
+        
+        LIB_U --> EXE_U[Build Executable]
+        LIB_M --> EXE_M[Build Executable]
+        LIB_W --> EXE_W[Build Executable]
+        
+        EXE_U --> ZIP_U[Package .zip]
+        EXE_M --> ZIP_M[Package .zip]
+        EXE_W --> ZIP_W[Package .zip]
+        
+        ZIP_U --> PUB[Publish to Release]
+        ZIP_M --> PUB
+        ZIP_W --> PUB
+    end
+    
+    PUSH -->|branch = dev| BUILD_DOC
+    PUSH -->|branch = main| CREATE
+    PR -->|base = dev| CHECK
+    
+    style BUILD_DOC fill:#e1f5ff
+    style DEPLOY_DOC fill:#e1f5ff
+    style CHECK fill:#fff9c4
+    style CREATE fill:#c8e6c9
+    style BUILD_REL fill:#c8e6c9
+    style GHPAGES fill:#f3e5f5
+    style PUB fill:#f3e5f5

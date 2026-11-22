@@ -1,6 +1,8 @@
 import React from 'react';
 import { usePackages } from '../../context/PackageContext';
-import { Package as PackageIcon, Download, RefreshCw, Settings, Home, Layers, Search } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { useSettings } from '../../context/SettingsContext';
+import { Download, RefreshCw, Settings, Home, Search, LogOut, User, Terminal, Sun, Moon, Monitor } from 'lucide-react';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -13,38 +15,26 @@ interface SidebarItemProps {
 const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, isActive, count, onClick }) => {
   return (
     <button
-      className={`w-full flex items-center px-3 py-2 rounded-md text-left text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+      className={`w-full flex items-center px-3 py-2 rounded-md text-left text-sm font-medium transition-colors focus:outline-none ${
         isActive
-          ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
-          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+          ? 'bg-wc-accent-soft text-wc-accent-deep dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright'
+          : 'text-wc-fg hover:bg-wc-surface dark:text-wc-fg-dark dark:hover:bg-wc-surface-dark'
       }`}
       onClick={onClick}
       aria-current={isActive ? 'page' : undefined}
     >
       <span className="flex items-center justify-center w-5 h-5 mr-3">{icon}</span>
       <span className="flex-1">{label}</span>
-      {count !== undefined && (
-        <span className={`ml-auto bg-${isActive ? 'blue-200 dark:bg-blue-800' : 'gray-200 dark:bg-gray-700'} text-xs font-semibold px-2 py-0.5 rounded-full`}>
+      {count !== undefined && count > 0 && (
+        <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full transition-shadow duration-200 ${
+          isActive
+            ? 'bg-wc-accent-deep text-white dark:bg-wc-accent-bright dark:text-wc-fg'
+            : 'bg-wc-accent-soft text-wc-accent-deep dark:bg-wc-accent-soft-dark dark:text-wc-accent-bright'
+        }`}>
           {count}
         </span>
       )}
     </button>
-  );
-};
-
-interface SidebarSectionProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-const SidebarSection: React.FC<SidebarSectionProps> = ({ title, children }) => {
-  return (
-    <div className="mb-6">
-      <h3 className="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider dark:text-gray-400">
-        {title}
-      </h3>
-      <div className="space-y-1">{children}</div>
-    </div>
   );
 };
 
@@ -54,69 +44,85 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate }) => {
-  const { installedPackages, updatablePackages, categories, setSelectedCategory, selectedCategory } = usePackages();
+  const { installedPackages, updatablePackages } = usePackages();
+  const { user, logout } = useAuth();
+  const { settings, toggleTheme } = useSettings();
+
+  const themeMeta = {
+    light: { icon: <Sun size={18} />, label: 'Light' },
+    dark: { icon: <Moon size={18} />, label: 'Dark' },
+    system: { icon: <Monitor size={18} />, label: 'System' },
+  }[settings.theme];
 
   return (
-    <div className="w-64 h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col">
-      <div className="p-4 flex items-center border-b border-gray-200 dark:border-gray-800">
-        <PackageIcon className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-2" />
-        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">WinConveyoR</h1>
+    <div className="w-64 h-full bg-wc-sidebar dark:bg-wc-sidebar-dark border-r border-wc-border dark:border-wc-border-dark flex flex-col">
+      <div className="flex-1 overflow-y-auto p-3 space-y-1">
+        <SidebarItem
+          icon={<Home size={18} />}
+          label="Home"
+          isActive={activePage === 'home'}
+          onClick={() => onNavigate('home')}
+        />
+        <SidebarItem
+          icon={<Search size={18} />}
+          label="Discover"
+          isActive={activePage === 'discover'}
+          onClick={() => onNavigate('discover')}
+        />
+        <SidebarItem
+          icon={<Download size={18} />}
+          label="Installed"
+          isActive={activePage === 'installed'}
+          count={installedPackages.length}
+          onClick={() => onNavigate('installed')}
+        />
+        <SidebarItem
+          icon={<RefreshCw size={18} />}
+          label="Upgrades"
+          isActive={activePage === 'upgrades'}
+          count={updatablePackages.length}
+          onClick={() => onNavigate('upgrades')}
+        />
+        {settings.showOutputPage && (
+          <SidebarItem
+            icon={<Terminal size={18} />}
+            label="Output"
+            isActive={activePage === 'output'}
+            onClick={() => onNavigate('output')}
+          />
+        )}
       </div>
-      
-      <div className="flex-1 overflow-y-auto p-3">
-        <SidebarSection title="Navigation">
-          <SidebarItem
-            icon={<Home size={18} />}
-            label="Home"
-            isActive={activePage === 'home'}
-            onClick={() => onNavigate('home')}
-          />
-          <SidebarItem
-            icon={<Search size={18} />}
-            label="Discover"
-            isActive={activePage === 'discover'}
-            onClick={() => onNavigate('discover')}
-          />
-          <SidebarItem
-            icon={<Download size={18} />}
-            label="Installed"
-            isActive={activePage === 'installed'}
-            count={installedPackages.length}
-            onClick={() => onNavigate('installed')}
-          />
-          <SidebarItem
-            icon={<RefreshCw size={18} />}
-            label="Updates"
-            isActive={activePage === 'updates'}
-            count={updatablePackages.length}
-            onClick={() => onNavigate('updates')}
-          />
-        </SidebarSection>
-        
-        <SidebarSection title="Categories">
-          {categories.map(category => (
-            <SidebarItem
-              key={category.id}
-              icon={<Layers size={18} />}
-              label={category.name}
-              isActive={selectedCategory === category.id && activePage === 'discover'}
-              count={category.count}
-              onClick={() => {
-                setSelectedCategory(category.id);
-                onNavigate('discover');
-              }}
-            />
-          ))}
-        </SidebarSection>
-      </div>
-      
-      <div className="p-3 border-t border-gray-200 dark:border-gray-800">
+
+      <div className="p-3 border-t border-wc-border dark:border-wc-border-dark space-y-1">
+        <button
+          onClick={toggleTheme}
+          className="w-full flex items-center px-3 py-2 rounded-md text-left text-sm font-medium transition-colors focus:outline-none text-wc-fg hover:bg-wc-surface dark:text-wc-fg-dark dark:hover:bg-wc-surface-dark"
+          title="Toggle theme (light / dark / system)"
+        >
+          <span className="flex items-center justify-center w-5 h-5 mr-3">{themeMeta.icon}</span>
+          <span className="flex-1">{themeMeta.label}</span>
+        </button>
         <SidebarItem
           icon={<Settings size={18} />}
           label="Settings"
           isActive={activePage === 'settings'}
           onClick={() => onNavigate('settings')}
         />
+        {user && (
+          <div className="flex items-center justify-between px-3 py-2 mt-2 rounded-md bg-wc-bg dark:bg-wc-card-dark">
+            <div className="flex items-center min-w-0">
+              <User size={16} className="text-wc-muted dark:text-wc-muted-dark mr-2 flex-shrink-0" />
+              <span className="text-sm text-wc-fg dark:text-wc-fg-dark truncate">{user.username}</span>
+            </div>
+            <button
+              onClick={logout}
+              className="ml-2 p-1 rounded hover:bg-wc-surface dark:hover:bg-wc-surface-dark text-wc-muted dark:text-wc-muted-dark flex-shrink-0"
+              title="Sign out"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

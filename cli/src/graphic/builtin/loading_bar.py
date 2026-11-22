@@ -35,11 +35,15 @@ class LoadingBar(GraphicObject):
             self.updated = True
 
     def update(self, display):
-        ratio: int = round(50 * self.position / self.max)
+        if (display.size == (0, 0)):
+            bar_size = 50
+        else:
+            bar_size = display.size[0] - 60
+        ratio: int = round(bar_size * self.position / self.max)
 
         self.computed_string = self.pattern.build(
             ol=LoadingBar._const.get("filler-space", '#') * (ratio),
-            ob=LoadingBar._const.get("anti-space", ' ') * (50 - ratio),
+            ob=LoadingBar._const.get("anti-space", ' ') * (bar_size - ratio),
             ot=self.max,
             oa=self.position,
             on=self.item_name,

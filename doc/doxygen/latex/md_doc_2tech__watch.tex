@@ -1,0 +1,281 @@
+\chapter{Win\+ConveyoR — Choix Technologiques}
+\hypertarget{md_doc_2tech__watch}{}\label{md_doc_2tech__watch}\index{WinConveyoR — Choix Technologiques@{WinConveyoR — Choix Technologiques}}
+\label{md_doc_2tech__watch_autotoc_md260}%
+\Hypertarget{md_doc_2tech__watch_autotoc_md260}%
+ \begin{quote}
+Document technique détaillant et justifiant les choix de technologies pour chaque couche du projet Win\+ConveyoR. \end{quote}
+\hypertarget{md_doc_2tech__watch_autotoc_md261}{}\doxysection{\texorpdfstring{$<$/blockquote$>$}{</blockquote>}}\label{md_doc_2tech__watch_autotoc_md261}
+\hypertarget{md_doc_2tech__watch_autotoc_md262}{}\doxysection{\texorpdfstring{Table des matières}{Table des matières}}\label{md_doc_2tech__watch_autotoc_md262}
+
+\begin{DoxyEnumerate}
+\item Vue d\textquotesingle{}ensemble de l\textquotesingle{}architecture
+\item Couche noyau — libwconr (C)
+\item Format binaire — .WIZARD
+\item Protocole réseau — WCR (TCP)
+\item Cryptographie — Open\+SSL
+\item CLI — Python + ctypes
+\item API REST — Fast\+API
+\item Interface graphique — Electron + React + Type\+Script
+\item Composants UI — shadcn/ui
+\item Base de données — Postgre\+SQL + Prisma
+\item Infrastructure miroir — Docker
+\item Outillage — Git, WSL, Linux
+\item Synthèse comparative
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md264}{}\doxysection{\texorpdfstring{Vue d\textquotesingle{}ensemble de l\textquotesingle{}architecture}{Vue d'ensemble de l'architecture}}\label{md_doc_2tech__watch_autotoc_md264}
+Win\+ConveyoR est un gestionnaire de paquets pour Windows composé de plusieurs couches complémentaires \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{┌─────────────────────────────────────────────┐}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ GUI\ (Electron\ +\ React\ +\ TS)\ \ \ \ \ \ \ │}
+\DoxyCodeLine{├─────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ \ \ \ API\ REST\ (FastAPI)\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{├─────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ \ \ CLI\ (Python\ +\ ctypes)\ \ \ \ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{├─────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ \ Noyau\ natif\ —\ libwconr\ (C)\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ ┌───────────┬──────────┬────────────┐\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ │\ \ \ mmap\ \ \ \ │\ OpenSSL\ \ │\ WCR\ (TCP)\ \ │\ \ \ \ \ │}
+\DoxyCodeLine{│\ \ \ └───────────┴──────────┴────────────┘\ \ \ \ \ │}
+\DoxyCodeLine{├─────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ Infrastructure\ miroir\ (Docker)\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{├─────────────────────────────────────────────┤}
+\DoxyCodeLine{│\ \ \ \ \ \ \ \ Format\ de\ paquets\ (.WIZARD)\ \ \ \ \ \ \ \ \ \ │}
+\DoxyCodeLine{└─────────────────────────────────────────────┘}
+
+\end{DoxyCode}
+
+
+Chaque couche a été choisie pour répondre à des contraintes précises de performance, de maintenabilité et de portabilité.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md266}{}\doxysection{\texorpdfstring{Couche noyau — libwconr (\+C)}{Couche noyau — libwconr (C)}}\label{md_doc_2tech__watch_autotoc_md266}
+\hypertarget{md_doc_2tech__watch_autotoc_md267}{}\doxysubsection{\texorpdfstring{Pourquoi le C ?}{Pourquoi le C ?}}\label{md_doc_2tech__watch_autotoc_md267}
+Le cœur de Win\+ConveyoR manipule des fichiers binaires, des sockets réseau bruts et des zones de mémoire mappées. Le C s\textquotesingle{}impose ici pour plusieurs raisons \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Contrôle mémoire total.}} Le parsing du format {\ttfamily .WIZARD} repose sur {\ttfamily mmap}, ce qui nécessite un accès direct à la mémoire virtuelle du système d\textquotesingle{}exploitation. Le C permet de travailler avec des pointeurs, des structures alignées et des casts sans couche d\textquotesingle{}abstraction.
+\item {\bfseries{Performance prévisible.}} Un gestionnaire de paquets doit pouvoir scanner, vérifier et extraire des centaines de paquets rapidement. Le C ne génère aucun overhead de runtime (pas de garbage collector, pas de VM), ce qui garantit des temps d\textquotesingle{}exécution constants et prévisibles.
+\item {\bfseries{Interopérabilité maximale.}} Une bibliothèque C peut être appelée depuis pratiquement n\textquotesingle{}importe quel langage via FFI (Foreign Function Interface). C\textquotesingle{}est ce qui permet à la CLI Python d\textquotesingle{}utiliser {\ttfamily ctypes} pour appeler directement les fonctions de {\ttfamily libwconr}, et potentiellement à d\textquotesingle{}autres frontends de le faire à l\textquotesingle{}avenir.
+\item {\bfseries{Précédent industriel.}} Les gestionnaires de paquets les plus performants (apt/dpkg, pacman, rpm) sont écrits en C. Ce choix s\textquotesingle{}inscrit dans une tradition éprouvée pour ce type d\textquotesingle{}outil système.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md268}{}\doxysubsection{\texorpdfstring{Pourquoi pas Rust ?}{Pourquoi pas Rust ?}}\label{md_doc_2tech__watch_autotoc_md268}
+Rust aurait offert des garanties de sécurité mémoire au compile-\/time, mais au prix d\textquotesingle{}une courbe d\textquotesingle{}apprentissage significative et d\textquotesingle{}un écosystème FFI moins mature que celui du C. Le C offre une compatibilité ABI native avec les systèmes cibles (Windows, Linux) et une intégration directe avec Open\+SSL sans wrapper supplémentaire. Le choix du C est aussi un choix pédagogique cohérent avec la formation Epitech, qui met l\textquotesingle{}accent sur la maîtrise du bas niveau.\hypertarget{md_doc_2tech__watch_autotoc_md269}{}\doxysubsection{\texorpdfstring{Pourquoi $<$tt$>$mmap$<$/tt$>$ ?}{Pourquoi <tt>mmap</tt> ?}}\label{md_doc_2tech__watch_autotoc_md269}
+Le memory-\/mapping ({\ttfamily mmap}) permet de lire les fichiers {\ttfamily .WIZARD} sans les charger intégralement en mémoire. Le noyau du système d\textquotesingle{}exploitation gère le chargement paresseux des pages, ce qui offre \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Accès aléatoire efficace}} aux différentes sections du fichier binaire (header, metadata, payload) sans seek/read multiples.
+\item {\bfseries{Empreinte mémoire réduite}} pour les paquets volumineux \+: seules les pages réellement accédées sont chargées en RAM.
+\item {\bfseries{Simplicité du code de parsing}} \+: les structures C peuvent être directement superposées sur la zone mappée via des pointeurs typés.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md271}{}\doxysection{\texorpdfstring{Format binaire — .\+WIZARD}{Format binaire — .WIZARD}}\label{md_doc_2tech__watch_autotoc_md271}
+\hypertarget{md_doc_2tech__watch_autotoc_md272}{}\doxysubsection{\texorpdfstring{Pourquoi un format binaire custom ?}{Pourquoi un format binaire custom ?}}\label{md_doc_2tech__watch_autotoc_md272}
+Les gestionnaires de paquets existants sur Windows (Chocolatey, Scoop, winget) utilisent des formats textuels (YAML, JSON, Nu\+Get/\+XML) ou des archives standards (ZIP, NUPKG). Win\+ConveyoR fait un choix différent avec {\ttfamily .WIZARD}, un format binaire structuré, pour plusieurs raisons \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Parsing en O(1).}} Un header à taille fixe permet d\textquotesingle{}accéder aux métadonnées du paquet (nom, version, dépendances, checksums) sans parser l\textquotesingle{}intégralité du fichier. Avec un format texte, il faut lire et parser séquentiellement.
+\item {\bfseries{Intégrité intégrée.}} Le format embarque directement les hash SHA-\/256 dans ses sections, éliminant le besoin de fichiers de signature externes.
+\item {\bfseries{Cohérence avec {\ttfamily mmap}.}} Un format binaire à structure fixe est idéal pour le memory-\/mapping \+: les offsets sont connus à l\textquotesingle{}avance, les structures C se superposent directement.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md273}{}\doxysubsection{\texorpdfstring{Pourquoi s\textquotesingle{}inspirer d\textquotesingle{}\+ELF ?}{Pourquoi s'inspirer d'ELF ?}}\label{md_doc_2tech__watch_autotoc_md273}
+Le format ELF (Executable and Linkable Format) est un standard robuste et éprouvé depuis plus de 30 ans pour structurer des fichiers binaires. L\textquotesingle{}architecture de {\ttfamily .WIZARD} reprend ses principes fondamentaux \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Magic number}} en début de fichier pour l\textquotesingle{}identification rapide.
+\item {\bfseries{Table de sections}} avec offsets et tailles, permettant un accès direct à n\textquotesingle{}importe quelle section.
+\item {\bfseries{Extensibilité}} \+: de nouvelles sections peuvent être ajoutées sans casser la rétrocompatibilité, car le parser les ignore si elles ne sont pas reconnues.
+\end{DoxyItemize}
+
+Ce modèle est préféré à une structure ad hoc parce qu\textquotesingle{}il est documenté, compris par les développeurs système, et qu\textquotesingle{}il a fait ses preuves en production à très grande échelle.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md275}{}\doxysection{\texorpdfstring{Protocole réseau — WCR (\+TCP)}{Protocole réseau — WCR (TCP)}}\label{md_doc_2tech__watch_autotoc_md275}
+\hypertarget{md_doc_2tech__watch_autotoc_md276}{}\doxysubsection{\texorpdfstring{Pourquoi un protocole custom sur TCP ?}{Pourquoi un protocole custom sur TCP ?}}\label{md_doc_2tech__watch_autotoc_md276}
+Le protocole WCR (Win\+ConveyoR Remote) est un protocole binaire applicatif conçu pour la synchronisation des paquets entre le client et les serveurs miroir.
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Optimisation bande passante.}} Contrairement à HTTP/\+REST qui transporte des en-\/têtes textuels volumineux, WCR utilise des frames binaires compactes. Pour la synchronisation d\textquotesingle{}index (opération fréquente), cela réduit significativement le volume de données échangées.
+\item {\bfseries{Opérations atomiques.}} WCR définit des opcodes spécifiques (SYNC, FETCH, VERIFY) qui correspondent exactement aux opérations du gestionnaire de paquets. Chaque requête-\/réponse est une unité logique complète, sans le overhead d\textquotesingle{}un protocole générique.
+\item {\bfseries{Reprise sur erreur.}} Le protocole intègre nativement des mécanismes de reprise de transfert partiel, ce qui est critique pour le téléchargement de paquets volumineux sur des connexions instables.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md277}{}\doxysubsection{\texorpdfstring{Pourquoi TCP et pas UDP/\+QUIC ?}{Pourquoi TCP et pas UDP/QUIC ?}}\label{md_doc_2tech__watch_autotoc_md277}
+TCP offre la fiabilité de livraison et l\textquotesingle{}ordonnancement des paquets dont WCR a besoin sans avoir à les réimplémenter. QUIC aurait pu offrir du multiplexage et une latence réduite, mais au prix d\textquotesingle{}une complexité d\textquotesingle{}implémentation disproportionnée pour un premier protocole. TCP reste le choix le plus pragmatique et le plus débuggable.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md279}{}\doxysection{\texorpdfstring{Cryptographie — Open\+SSL}{Cryptographie — OpenSSL}}\label{md_doc_2tech__watch_autotoc_md279}
+\hypertarget{md_doc_2tech__watch_autotoc_md280}{}\doxysubsection{\texorpdfstring{Pourquoi Open\+SSL ?}{Pourquoi OpenSSL ?}}\label{md_doc_2tech__watch_autotoc_md280}
+La vérification d\textquotesingle{}intégrité des paquets (SHA-\/256) et la communication sécurisée avec les miroirs nécessitent une bibliothèque cryptographique fiable \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Standard industriel.}} Open\+SSL est la bibliothèque cryptographique la plus déployée au monde. Ses implémentations de SHA-\/256 sont auditées, optimisées (accélération matérielle via AES-\/\+NI/\+SHA extensions) et constamment maintenues.
+\item {\bfseries{API C native.}} Étant écrite en C, Open\+SSL s\textquotesingle{}intègre directement dans {\ttfamily libwconr} sans binding, sans FFI, sans overhead. Les appels sont des appels de fonctions standard.
+\item {\bfseries{Disponibilité universelle.}} Open\+SSL est disponible sur toutes les plateformes cibles (Windows via vcpkg/\+MSYS2, Linux via les package managers système).
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md281}{}\doxysubsection{\texorpdfstring{Pourquoi pas libsodium ou une implémentation maison ?}{Pourquoi pas libsodium ou une implémentation maison ?}}\label{md_doc_2tech__watch_autotoc_md281}
+Libsodium offre une API plus simple et des garanties de sécurité par défaut, mais son écosystème est plus réduit et elle est moins présente sur les environnements Windows natifs. Une implémentation cryptographique maison est exclue par principe \+: les erreurs d\textquotesingle{}implémentation cryptographique sont la première source de vulnérabilités dans les logiciels de distribution de paquets.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md283}{}\doxysection{\texorpdfstring{CLI — Python + ctypes}{CLI — Python + ctypes}}\label{md_doc_2tech__watch_autotoc_md283}
+\hypertarget{md_doc_2tech__watch_autotoc_md284}{}\doxysubsection{\texorpdfstring{Pourquoi Python pour la CLI ?}{Pourquoi Python pour la CLI ?}}\label{md_doc_2tech__watch_autotoc_md284}
+La CLI est le premier point d\textquotesingle{}interaction utilisateur avec Win\+ConveyoR. Python est choisi comme langage de scripting pour cette couche \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Prototypage rapide.}} Python permet d\textquotesingle{}itérer rapidement sur l\textquotesingle{}UX en ligne de commande (parsing d\textquotesingle{}arguments, formatage de sortie, gestion des erreurs) sans recompilation.
+\item {\bfseries{Écosystème riche.}} Les bibliothèques comme {\ttfamily argparse}, {\ttfamily rich} (affichage terminal), {\ttfamily pathlib} (manipulation de chemins cross-\/platform) accélèrent le développement.
+\item {\bfseries{Accessibilité pour les contributeurs.}} Python est un langage accessible qui abaisse la barrière d\textquotesingle{}entrée pour les contributions à la CLI, tout en gardant la performance critique dans la couche C.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md285}{}\doxysubsection{\texorpdfstring{Pourquoi ctypes ?}{Pourquoi ctypes ?}}\label{md_doc_2tech__watch_autotoc_md285}
+{\ttfamily ctypes} est le module standard de Python pour appeler des bibliothèques C partagées ({\ttfamily .so} / {\ttfamily .dll}). Il est préféré aux alternatives pour plusieurs raisons \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Zéro dépendance externe.}} Contrairement à {\ttfamily cffi} ou {\ttfamily cython}, {\ttfamily ctypes} fait partie de la bibliothèque standard Python. Aucune installation supplémentaire n\textquotesingle{}est requise.
+\item {\bfseries{Binding déclaratif.}} Les signatures de fonctions C sont déclarées en Python, ce qui sert de documentation vivante de l\textquotesingle{}API de {\ttfamily libwconr}.
+\item {\bfseries{Pas de compilation.}} L\textquotesingle{}utilisation de {\ttfamily ctypes} ne nécessite pas de phase de compilation côté Python, simplifiant la chaîne de build et le packaging.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md287}{}\doxysection{\texorpdfstring{API REST — Fast\+API}{API REST — FastAPI}}\label{md_doc_2tech__watch_autotoc_md287}
+\hypertarget{md_doc_2tech__watch_autotoc_md288}{}\doxysubsection{\texorpdfstring{Pourquoi Fast\+API ?}{Pourquoi FastAPI ?}}\label{md_doc_2tech__watch_autotoc_md288}
+L\textquotesingle{}API REST sert de pont entre le noyau C/\+Python et l\textquotesingle{}interface graphique Electron. Fast\+API est choisi pour cette couche intermédiaire \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Performance async native.}} Fast\+API est basé sur Starlette et ASGI, offrant un modèle asynchrone natif. Les opérations longues (téléchargement de paquets, synchronisation) ne bloquent pas les autres requêtes.
+\item {\bfseries{Typage automatique.}} L\textquotesingle{}intégration de Pydantic permet de valider et documenter les payloads de requête/réponse via des annotations de type Python. L\textquotesingle{}API est auto-\/documentée via Swagger UI et Re\+Doc sans effort supplémentaire.
+\item {\bfseries{Cohérence avec la CLI.}} La CLI et l\textquotesingle{}API partagent le même runtime Python et les mêmes bindings {\ttfamily ctypes} vers {\ttfamily libwconr}. Cela évite la duplication de logique et garantit la cohérence entre les deux interfaces.
+\item {\bfseries{Déploiement léger.}} Fast\+API avec Uvicorn se lance en une commande et consomme peu de ressources, ce qui est adapté à une utilisation locale (l\textquotesingle{}API tourne sur la machine de l\textquotesingle{}utilisateur).
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md289}{}\doxysubsection{\texorpdfstring{Pourquoi pas Flask ou Django ?}{Pourquoi pas Flask ou Django ?}}\label{md_doc_2tech__watch_autotoc_md289}
+Flask est synchrone par défaut, ce qui le rend moins adapté aux opérations I/\+O-\/bound (réseau, filesystem) du gestionnaire de paquets. Django est surdimensionné pour une API qui ne nécessite ni ORM, ni système de templates, ni admin. Fast\+API occupe le créneau idéal \+: léger, typé, performant.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md291}{}\doxysection{\texorpdfstring{Interface graphique — Electron + React + Type\+Script}{Interface graphique — Electron + React + TypeScript}}\label{md_doc_2tech__watch_autotoc_md291}
+\hypertarget{md_doc_2tech__watch_autotoc_md292}{}\doxysubsection{\texorpdfstring{Pourquoi Electron ?}{Pourquoi Electron ?}}\label{md_doc_2tech__watch_autotoc_md292}
+Win\+ConveyoR est un outil pour Windows qui nécessite une interface graphique desktop riche. Electron est choisi comme runtime \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Accès au système.}} Electron combine Chromium (rendu web) et Node.\+js (accès système), permettant à l\textquotesingle{}UI de lire le filesystem, exécuter des processus, et communiquer avec l\textquotesingle{}API locale — tout ce qu\textquotesingle{}un navigateur web ne permet pas.
+\item {\bfseries{Écosystème de distribution.}} {\ttfamily electron-\/builder} et {\ttfamily electron-\/forge} fournissent des pipelines de build, d\textquotesingle{}auto-\/update et d\textquotesingle{}installeurs (MSI, NSIS) matures pour Windows.
+\item {\bfseries{Cross-\/platform potentiel.}} Bien que Win\+ConveyoR cible Windows, l\textquotesingle{}utilisation d\textquotesingle{}Electron ne ferme pas la porte à un portage futur sur mac\+OS ou Linux avec un effort minimal.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md293}{}\doxysubsection{\texorpdfstring{Pourquoi pas Tauri ?}{Pourquoi pas Tauri ?}}\label{md_doc_2tech__watch_autotoc_md293}
+Tauri offre des binaires plus légers en utilisant le Web\+View système au lieu d\textquotesingle{}embarquer Chromium. Cependant, le Web\+View de Windows (Web\+View2/\+Edge) présente des inconsistances de rendu selon les versions de Windows, et l\textquotesingle{}écosystème de plugins Tauri est moins mature qu\textquotesingle{}Electron pour les besoins de Win\+ConveyoR (accès shell, gestion de processus, auto-\/update). Le surcoût en taille de bundle d\textquotesingle{}Electron est un compromis acceptable pour la fiabilité du rendu et la maturité de l\textquotesingle{}écosystème.\hypertarget{md_doc_2tech__watch_autotoc_md294}{}\doxysubsection{\texorpdfstring{Pourquoi React ?}{Pourquoi React ?}}\label{md_doc_2tech__watch_autotoc_md294}
+
+\begin{DoxyItemize}
+\item {\bfseries{Composabilité.}} L\textquotesingle{}interface de Win\+ConveyoR est composée de vues complexes (liste de paquets, détails, recherche, paramètres, logs). Le modèle de composants React permet de découper chaque vue en unités autonomes et réutilisables.
+\item {\bfseries{Écosystème dominant.}} React dispose du plus grand écosystème de composants, de hooks, et de bibliothèques UI dans le monde Java\+Script. Ce choix maximise les options disponibles pour chaque problème d\textquotesingle{}interface.
+\item {\bfseries{React Native.}} La compétence React est directement transférable à React Native pour un éventuel companion mobile.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md295}{}\doxysubsection{\texorpdfstring{Pourquoi Type\+Script ?}{Pourquoi TypeScript ?}}\label{md_doc_2tech__watch_autotoc_md295}
+
+\begin{DoxyItemize}
+\item {\bfseries{Sécurité au compile-\/time.}} Type\+Script détecte les erreurs de type avant l\textquotesingle{}exécution, ce qui est critique dans une application de bureau où les crashs dégradent directement l\textquotesingle{}expérience utilisateur.
+\item {\bfseries{Autocomplétion et refactoring.}} Le typage statique améliore la productivité du développement dans un IDE (VS Code) et rend le code plus navigable pour les contributeurs.
+\item {\bfseries{Contrat d\textquotesingle{}interface explicite.}} Les types Type\+Script documentent la forme des données échangées entre les composants React et l\textquotesingle{}API Fast\+API, servant de source de vérité pour le schéma des données côté frontend.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md297}{}\doxysection{\texorpdfstring{Composants UI — shadcn/ui}{Composants UI — shadcn/ui}}\label{md_doc_2tech__watch_autotoc_md297}
+\hypertarget{md_doc_2tech__watch_autotoc_md298}{}\doxysubsection{\texorpdfstring{Pourquoi shadcn/ui ?}{Pourquoi shadcn/ui ?}}\label{md_doc_2tech__watch_autotoc_md298}
+L\textquotesingle{}interface graphique de Win\+ConveyoR utilise shadcn/ui comme base de composants \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Ownership du code.}} Contrairement aux bibliothèques classiques (MUI, Ant Design, Chakra), shadcn/ui copie les composants directement dans le projet via CLI. Les fichiers appartiennent au développeur, pas à un {\ttfamily node\+\_\+module}. Cela permet une personnalisation profonde sans fork ni override CSS fragile.
+\item {\bfseries{Radix UI en fondation.}} Les composants shadcn/ui sont construits sur Radix UI, qui fournit des primitives headless accessibles (ARIA, focus management, keyboard navigation) sans imposer de style visuel. L\textquotesingle{}accessibilité est gérée par défaut.
+\item {\bfseries{Tailwind CSS natif.}} shadcn/ui utilise Tailwind CSS pour le styling, ce qui s\textquotesingle{}intègre naturellement dans le workflow React/\+Type\+Script et permet une personnalisation via des CSS variables et des classes utilitaires.
+\item {\bfseries{Personnalisation thématique poussée.}} Win\+ConveyoR utilise un thème custom inspiré de VS Code dark mode avec une palette chaude ({\ttfamily \#FFF7\+EE} fond clair, {\ttfamily \#E8913A} accent orange, near-\/black pour le dark mode), des coins nets (sharp corners), et des layouts denses. shadcn/ui rend cette personnalisation triviale via la surcharge de ses CSS variables sans toucher au code des composants.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md299}{}\doxysubsection{\texorpdfstring{Pourquoi pas MUI ou Ant Design ?}{Pourquoi pas MUI ou Ant Design ?}}\label{md_doc_2tech__watch_autotoc_md299}
+MUI et Ant Design imposent une identité visuelle forte (Material Design, Ant Design System) qui nécessite un effort significatif pour s\textquotesingle{}en éloigner. Leur modèle de theming par override CSS crée des conflits de spécificité difficiles à maintenir. shadcn/ui, en donnant la propriété du code source des composants, élimine cette friction.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md301}{}\doxysection{\texorpdfstring{Base de données — Postgre\+SQL + Prisma}{Base de données — PostgreSQL + Prisma}}\label{md_doc_2tech__watch_autotoc_md301}
+\hypertarget{md_doc_2tech__watch_autotoc_md302}{}\doxysubsection{\texorpdfstring{Pourquoi Postgre\+SQL ?}{Pourquoi PostgreSQL ?}}\label{md_doc_2tech__watch_autotoc_md302}
+La gestion des métadonnées de paquets, des utilisateurs des miroirs et de l\textquotesingle{}état de synchronisation nécessite une base de données relationnelle \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Fiabilité ACID.}} Postgre\+SQL garantit l\textquotesingle{}intégrité transactionnelle, ce qui est non-\/négociable pour un registre de paquets où une corruption de métadonnées peut entraîner l\textquotesingle{}installation de versions incorrectes ou compromises.
+\item {\bfseries{Performances.}} Les index B-\/tree et GIN de Postgre\+SQL permettent des recherches rapides dans les catalogues de paquets, y compris des recherches full-\/text sur les descriptions.
+\item {\bfseries{JSON natif.}} Le type {\ttfamily jsonb} permet de stocker des métadonnées de paquets à structure variable (tags, compatibilité système, notes de version) sans sacrifier les capacités de requête SQL.
+\item {\bfseries{Écosystème et communauté.}} Postgre\+SQL est open-\/source, massivement documenté, et supporté par tous les hébergeurs cloud.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md303}{}\doxysubsection{\texorpdfstring{Pourquoi Prisma ?}{Pourquoi Prisma ?}}\label{md_doc_2tech__watch_autotoc_md303}
+
+\begin{DoxyItemize}
+\item {\bfseries{Type-\/safety end-\/to-\/end.}} Prisma génère un client Type\+Script typé à partir du schéma de la base de données. Les requêtes sont vérifiées au compile-\/time, éliminant les erreurs de nom de colonne ou de type.
+\item {\bfseries{Migrations déclaratives.}} Le schéma Prisma ({\ttfamily schema.\+prisma}) sert de source de vérité pour la structure de la base. Les migrations sont générées automatiquement par diff, réduisant le risque d\textquotesingle{}erreurs manuelles.
+\item {\bfseries{DX (Developer Experience).}} L\textquotesingle{}autocomplétion des requêtes dans l\textquotesingle{}IDE accélère le développement et rend le code plus lisible que du SQL brut ou un query builder.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md305}{}\doxysection{\texorpdfstring{Infrastructure miroir — Docker}{Infrastructure miroir — Docker}}\label{md_doc_2tech__watch_autotoc_md305}
+\hypertarget{md_doc_2tech__watch_autotoc_md306}{}\doxysubsection{\texorpdfstring{Pourquoi Docker ?}{Pourquoi Docker ?}}\label{md_doc_2tech__watch_autotoc_md306}
+Les serveurs miroir qui hébergent et distribuent les paquets {\ttfamily .WIZARD} sont conteneurisés avec Docker \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Reproductibilité.}} Un {\ttfamily Dockerfile} garantit que chaque miroir est configuré de manière identique, quel que soit l\textquotesingle{}hôte. Cela élimine les problèmes de "{}ça marche sur ma machine"{} et simplifie le déploiement de nouveaux miroirs par la communauté.
+\item {\bfseries{Isolation.}} Chaque miroir tourne dans son conteneur avec ses propres dépendances (Fast\+API, Open\+SSL, volumes de stockage), sans interférer avec les autres services de l\textquotesingle{}hôte.
+\item {\bfseries{Scalabilité horizontale.}} Docker Compose (ou Kubernetes à plus grande échelle) permet de déployer plusieurs instances de miroir derrière un load balancer, avec des volumes partagés pour le stockage de paquets.
+\item {\bfseries{CI/\+CD natif.}} Les images Docker s\textquotesingle{}intègrent directement dans les pipelines Git\+Hub Actions pour le build, le test et le déploiement automatisé des miroirs.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md307}{}\doxysubsection{\texorpdfstring{Pourquoi pas des VMs ou du bare-\/metal ?}{Pourquoi pas des VMs ou du bare-metal ?}}\label{md_doc_2tech__watch_autotoc_md307}
+Les machines virtuelles ajoutent un overhead significatif (OS complet, boot time) inutile pour des services stateless comme les miroirs. Le bare-\/metal offre les meilleures performances mais sacrifie la portabilité et la reproductibilité. Docker offre le meilleur compromis pour un projet open-\/source où les miroirs doivent être déployables par n\textquotesingle{}importe qui.
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md309}{}\doxysection{\texorpdfstring{Outillage — Git, WSL, Linux}{Outillage — Git, WSL, Linux}}\label{md_doc_2tech__watch_autotoc_md309}
+\hypertarget{md_doc_2tech__watch_autotoc_md310}{}\doxysubsection{\texorpdfstring{Git}{Git}}\label{md_doc_2tech__watch_autotoc_md310}
+Git est le standard de facto pour le versioning de code. Son utilisation dans Win\+ConveyoR suit des conventions strictes \+:
+
+
+\begin{DoxyItemize}
+\item Commits atomiques entre chaque étape de développement.
+\item Branches feature pour l\textquotesingle{}isolation du travail en cours.
+\item Tags sémantiques pour le versioning des releases.
+\end{DoxyItemize}\hypertarget{md_doc_2tech__watch_autotoc_md311}{}\doxysubsection{\texorpdfstring{WSL (\+Windows Subsystem for Linux)}{WSL (Windows Subsystem for Linux)}}\label{md_doc_2tech__watch_autotoc_md311}
+Le développement de Win\+ConveyoR se fait sous WSL pour plusieurs raisons \+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Toolchain C standard.}} GCC, Make, et les outils de build Unix sont natifs sous Linux. La compilation de {\ttfamily libwconr} et le linkage avec Open\+SSL sont plus simples et mieux documentés sous un environnement POSIX.
+\item {\bfseries{Docker natif.}} Docker fonctionne nativement sous WSL2 (via le kernel Linux intégré) sans nécessiter Docker Desktop, réduisant la consommation de ressources.
+\item {\bfseries{Cohérence avec la production.}} Les miroirs tournent sous Linux. Développer sous WSL garantit que les scripts, chemins et comportements sont identiques entre l\textquotesingle{}environnement de développement et la production.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_doc_2tech__watch_autotoc_md313}{}\doxysection{\texorpdfstring{Synthèse comparative}{Synthèse comparative}}\label{md_doc_2tech__watch_autotoc_md313}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Couche   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Technologie choisie   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Alternatives écartées   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Raison principale du choix    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Couche   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Technologie choisie   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Alternatives écartées   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Raison principale du choix    }\\\cline{1-4}
+\endhead
+Noyau   &C   &Rust, C++   &Contrôle mémoire, FFI natif, tradition système    \\\cline{1-4}
+Format binaire   &.WIZARD (custom, ELF-\/inspired)   &ZIP, JSON, NUPKG   &Parsing O(1), intégrité intégrée, mmap-\/compatible    \\\cline{1-4}
+Protocole réseau   &WCR (TCP custom)   &HTTP/\+REST, g\+RPC   &Frames binaires compactes, opcodes métier    \\\cline{1-4}
+Crypto   &Open\+SSL   &libsodium, Boring\+SSL   &Standard, API C native, disponibilité universelle    \\\cline{1-4}
+CLI   &Python + ctypes   &Go, Rust CLI   &Prototypage rapide, zéro dépendance FFI externe    \\\cline{1-4}
+API   &Fast\+API   &Flask, Django, Express   &Async natif, typage Pydantic, légèreté    \\\cline{1-4}
+GUI Runtime   &Electron   &Tauri, Qt   &Maturité écosystème, distribution Windows    \\\cline{1-4}
+GUI Framework   &React + Type\+Script   &Vue, Svelte, Angular   &Écosystème dominant, type-\/safety, composabilité    \\\cline{1-4}
+Composants UI   &shadcn/ui   &MUI, Ant Design, Chakra   &Ownership du code, personnalisation thème custom    \\\cline{1-4}
+BDD   &Postgre\+SQL + Prisma   &SQLite, My\+SQL, Mongo\+DB   &ACID, type-\/safety, migrations déclaratives    \\\cline{1-4}
+Infra   &Docker   &VMs, bare-\/metal   &Reproductibilité, isolation, scalabilité    \\\cline{1-4}
+Dev env   &WSL + Git   &Windows natif, MSYS2   &Toolchain POSIX, cohérence prod   \\\cline{1-4}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+
+
+\begin{quote}
+{\bfseries{Document maintenu par}} \+: Thomas — Dernière mise à jour \+: Juillet 2026 \end{quote}

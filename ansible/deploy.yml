@@ -1,0 +1,143 @@
+---
+- hosts: servers
+  become: true
+
+  vars:
+    deploy_path: /opt/abstract-api
+
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+        state: present
+        update_cache: true
+
+    - name: Ensure keyrings dir exists
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download Docker GPG key
+      get_url:
+        url: https://download.docker.com/linux/debian/gpg
+        dest: /etc/apt/keyrings/docker.gpg
+        mode: '0644'
+  
+    - name: Add Docker repository
+      shell: |
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" \
+          > /etc/apt/sources.list.d/docker.list
+
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Docker + Compose plugin
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: present
+
+    - name: Enable docker
+      service:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Install UFW
+      apt:
+        name: ufw
+        state: present
+
+    - name: Set default UFW policies
+      ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
+
+    - name: Allow outgoing traffic
+      ufw:
+        direction: outgoing
+        policy: allow
+
+    - name: Allow SSH
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+
+    - name: Allow FastAPI
+      ufw:
+        rule: allow
+        port: 8000
+        proto: tcp
+
+    - name: Allow HTTP mirror
+      ufw:
+        rule: allow
+        port: "{{ http_mirror_port }}"
+        proto: tcp
+
+    - name: Allow custom server
+      ufw:
+        rule: allow
+        port: "{{ custom_mirror_port }}"
+        proto: tcp
+
+    - name: Ensure Docker UFW compatibility
+      apt:
+        name: iptables
+        state: present
+
+    - name: Restrict Docker network behavior
+      copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+            "iptables": true,
+            "ip-masq": true
+          }
+  
+    - name: Restart Docker
+      service:
+        name: docker
+        state: restarted
+
+    - name: Create deployment directory
+      file:
+        path: "{{ deploy_path }}"
+        state: directory
+
+    - name: Checkout repository
+      git:
+        repo: "https://github.com/StevenGandon/WinConveyoR.git"
+        dest: "{{ deploy_path }}"
+        version: dev
+        update: yes
+        force: yes
+
+    - name: Generate env
+      template:
+        src: templates/.env.j2
+        dest: "{{ deploy_path }}/.env"
+
+    - name: Generate compose file
+      template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ deploy_path }}/docker-compose.yml"
+
+    - name: Build and start containers
+      community.docker.docker_compose_v2:
+        project_src: "{{ deploy_path }}"
+        pull: always
+        build: always
+        state: present

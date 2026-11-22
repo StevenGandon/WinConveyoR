@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['keepon_5fconnect_0',['KEEPON_CONNECT',['../structhttp__connect__state.html#ae09475c1f59c2bad8007bd0a2107e4afab10407d59af6a39a3600eef1ff4930f2',1,'http_connect_state']]],
-  ['keepon_5fdone_1',['KEEPON_DONE',['../structhttp__connect__state.html#ae09475c1f59c2bad8007bd0a2107e4afa2bfa56cfdae7b149a03deb8845c54851',1,'http_connect_state']]],
-  ['keepon_5fignore_2',['KEEPON_IGNORE',['../structhttp__connect__state.html#ae09475c1f59c2bad8007bd0a2107e4afac2069616555723ece7356c19c5ed11e3',1,'http_connect_state']]]
+  ['x86_5f64_5farch_0',['X86_64_ARCH',['../libwconr_8h.html#ae6dde93a74135c5083f3106ffdb404baaf726b6d0fda3c473645d88380aba49ff',1,'libwconr.h']]]
 ];

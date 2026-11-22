@@ -1,13 +1,10 @@
 var searchData=
 [
-  ['badges_0',['Badges',['../md_README.html#autotoc_md13',1,'']]],
-  ['base_1',['base',['../namespacebase.html',1,'base'],['../namespacebase.html#a1117b2c83505ac017f9ae71b1169e659',1,'base.Base']]],
-  ['base_2epy_2',['base.py',['../base_8py.html',1,'']]],
-  ['base_5fdir_3',['BASE_DIR',['../namespacecore_1_1config.html#aaa3f43c45775b3a666afcd11a9f05b1b',1,'core::config']]],
-  ['branch_4',['Branch',['../md_CONTRIBUTING.html#autotoc_md3',1,'']]],
-  ['brief_5',['Brief',['../md_CONTRIBUTING.html#autotoc_md8',1,'']]],
-  ['build_6',['build',['../classsrc_1_1graphic_1_1builtin_1_1graphic__object_1_1GraphicObject.html#a3d82c4f992626363fd90cd367fdd5b44',1,'src.graphic.builtin.graphic_object.GraphicObject.build()'],['../classsrc_1_1graphic_1_1pattern_1_1builder_1_1PatternBuilder.html#a6b8a024252d8e4053429bf410e43440d',1,'src.graphic.pattern.builder.PatternBuilder.build()']]],
-  ['build_5farguments_7',['build_arguments',['../classsrc_1_1arghandler_1_1GenericArgument.html#adb764d7b316580bd507b4330a6466719',1,'src::arghandler::GenericArgument']]],
-  ['build_5frequest_8',['build_request',['../http__request_8c.html#aefd35d36dc9af5cc71e2cc13a1422388',1,'http_request.c']]],
-  ['builder_2epy_9',['builder.py',['../builder_8py.html',1,'']]]
+  ['4_201_20hello_20handshake_20initial_0',['4.1 hello - Handshake Initial',['../md_doc_2protocol__rfc.html#autotoc_md239',1,'']]],
+  ['4_202_20connect_20authentification_1',['4.2 connect - Authentification',['../md_doc_2protocol__rfc.html#autotoc_md240',1,'']]],
+  ['4_203_20list_5fpackages_20lister_20les_20packages_2',['4.3 list_packages - Lister les Packages',['../md_doc_2protocol__rfc.html#autotoc_md241',1,'']]],
+  ['4_204_20write_20sauvegarder_20les_20modifications_3',['4.4 write - Sauvegarder les Modifications',['../md_doc_2protocol__rfc.html#autotoc_md242',1,'']]],
+  ['4_205_20disconnect_20fermer_20une_20session_4',['4.5 disconnect - Fermer une Session',['../md_doc_2protocol__rfc.html#autotoc_md243',1,'']]],
+  ['4_206_20goodbye_20terminer_20la_20connexion_5',['4.6 goodbye - Terminer la Connexion',['../md_doc_2protocol__rfc.html#autotoc_md244',1,'']]],
+  ['4_20actions_20du_20protocole_6',['4. Actions du Protocole',['../md_doc_2protocol__rfc.html#autotoc_md238',1,'']]]
 ];

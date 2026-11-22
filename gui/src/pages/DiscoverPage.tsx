@@ -1,68 +1,237 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { Search, Package as PackageIcon, Download, Info } from 'lucide-react';
+import { useCli } from '../context/CliContext';
 import { usePackages } from '../context/PackageContext';
+import { logActivity } from '../services/activity';
 import Header from '../components/layout/Header';
-import PackageGrid from '../components/packages/PackageGrid';
-import PackageDetails from '../components/packages/PackageDetails';
-import { Package } from '../types';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
+import Badge from '../components/ui/Badge';
 
 const DiscoverPage: React.FC = () => {
-  const { packages, searchQuery, selectedCategory, selectedPackage, selectPackage, isLoading } = usePackages();
-  const [filteredPackages, setFilteredPackages] = useState<Package[]>([]);
+  const { busy, runInstall, runInfo } = useCli();
+  const { installedPackages, updatablePackages, availablePackages, discoverQuery, setDiscoverQuery, refreshInstalled, loadAvailable } = usePackages();
+  const [infoVariants, setInfoVariants] = useState<{ version: string; arch: string; machine: string }[] | null>(null);
+  const [infoTarget, setInfoTarget] = useState('');
+  const [infoLoading, setInfoLoading] = useState(false);
+  const [loading, setLoading] = useState(availablePackages.length === 0);
 
   useEffect(() => {
-    // Filter packages based on search query and selected category
-    let filtered = [...packages];
-    
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(pkg => 
-        pkg.name.toLowerCase().includes(query) || 
-        pkg.description.toLowerCase().includes(query) ||
-        pkg.publisher.toLowerCase().includes(query)
-      );
+    if (availablePackages.length === 0) {
+      setLoading(true);
+      loadAvailable().finally(() => setLoading(false));
     }
-    
-    if (selectedCategory && selectedCategory !== 'all') {
-      filtered = filtered.filter(pkg => pkg.category === selectedCategory);
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!discoverQuery.trim()) return availablePackages;
+    const q = discoverQuery.toLowerCase();
+    return availablePackages.filter(pkg => pkg.name.toLowerCase().includes(q));
+  }, [availablePackages, discoverQuery]);
+
+  const handleInstall = async (name: string) => {
+    const result = await runInstall(name);
+    if (result.code === 0) {
+      logActivity('installed', name, result.version);
+      await refreshInstalled();
     }
-    
-    setFilteredPackages(filtered);
-  }, [packages, searchQuery, selectedCategory]);
+  };
+
+  const handleInfo = async (name: string) => {
+    setInfoTarget(name);
+    setInfoVariants(null);
+    setInfoLoading(true);
+    try {
+      const output = await runInfo(name);
+      const match = output.match(/\[.*\]/s);
+      setInfoVariants(match ? JSON.parse(match[0]) : []);
+    } catch {
+      setInfoVariants([]);
+    } finally {
+      setInfoLoading(false);
+    }
+  };
+
+  const isInstalled = (name: string) => installedPackages.some(p => p.name === name);
+  const isUpdatable = (name: string) => updatablePackages.some(p => p.name === name);
 
   return (
     <>
       <Header title="Discover Packages" />
-      
-      <div className="p-6">
-        {searchQuery && (
-          <div className="mb-4">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-              Search results for: <span className="font-semibold">"{searchQuery}"</span>
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Found {filteredPackages.length} package{filteredPackages.length !== 1 ? 's' : ''}
+      <div className="p-6 space-y-4">
+        <Input
+          fullWidth
+          placeholder="Filter packages..."
+          value={discoverQuery}
+          onChange={(e) => setDiscoverQuery(e.target.value)}
+          disabled={busy}
+        />
+
+        {(infoLoading || infoVariants) && (
+          <Card className="p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <PackageIcon size={16} className="text-wc-accent dark:text-wc-accent-bright" />
+                <h3 className="text-sm font-semibold text-wc-fg dark:text-wc-fg-dark">
+                  {infoTarget}
+                </h3>
+                {infoLoading ? (
+                  <div className="h-5 w-[65.5px] rounded-full bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                ) : infoVariants && (
+                  <Badge variant="info" size="sm">
+                    {infoVariants.length} Variant{infoVariants.length !== 1 ? 's' : ''}
+                  </Badge>
+                )}
+              </div>
+              <Button variant="outline" size="sm" onClick={() => setInfoVariants(null)}>
+                Close
+              </Button>
+            </div>
+            {infoLoading ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm table-fixed">
+                  <thead>
+                    <tr className="border-b border-wc-border dark:border-wc-border-dark">
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Version</th>
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Architecture</th>
+                      <th className="text-left py-2 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Machine</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[0, 1].map((i) => (
+                      <tr key={i} className="border-b border-wc-border/50 dark:border-wc-border-dark/50 last:border-0">
+                        <td className="py-2 pr-4"><div className="h-5 w-16 rounded-full bg-wc-surface dark:bg-wc-surface-dark animate-pulse" /></td>
+                        <td className="py-2 pr-4"><div className="h-4 w-24 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" /></td>
+                        <td className="py-2"><div className="h-4 w-20 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" /></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : infoVariants && infoVariants.length === 0 ? (
+              <p className="text-sm text-wc-muted dark:text-wc-muted-dark">No variants found.</p>
+            ) : infoVariants && (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm table-fixed">
+                  <thead>
+                    <tr className="border-b border-wc-border dark:border-wc-border-dark">
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Version</th>
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Architecture</th>
+                      <th className="text-left py-2 text-xs font-medium text-wc-muted dark:text-wc-muted-dark uppercase tracking-wider">Machine</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {infoVariants.map((v, i) => (
+                      <tr key={i} className="border-b border-wc-border/50 dark:border-wc-border-dark/50 last:border-0">
+                        <td className="py-2 pr-4">
+                          <span className="text-wc-fg dark:text-wc-fg-dark">{v.version}</span>
+                        </td>
+                        <td className="py-2 pr-4 text-wc-fg dark:text-wc-fg-dark">{v.arch}</td>
+                        <td className="py-2 text-wc-fg dark:text-wc-fg-dark">{v.machine}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </Card>
+        )}
+
+        {loading ? (
+          <>
+            <div className="h-5 w-36 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <Card key={i} className="flex flex-col">
+                  <div className="p-4 flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                    <div className="flex-1 min-w-0 space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="h-4 w-2/3 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                        <div className="h-5 w-16 shrink-0 rounded-full bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                      </div>
+                      <div className="h-3 w-1/3 rounded bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                    </div>
+                  </div>
+                  <div className="mt-auto px-4 pb-4 flex justify-end">
+                    <div className="h-8 w-16 rounded-md bg-wc-surface dark:bg-wc-surface-dark animate-pulse" />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </>
+        ) : availablePackages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="rounded-full bg-wc-accent-soft dark:bg-wc-accent-soft-dark p-4 mb-4">
+              <Search size={32} className="text-wc-accent dark:text-wc-accent-bright" />
+            </div>
+            <h3 className="text-lg font-medium text-wc-fg dark:text-wc-fg-dark">
+              No packages available
+            </h3>
+            <p className="mt-1 text-sm text-wc-muted dark:text-wc-muted-dark max-w-sm">
+              Click <span className="font-mono text-xs bg-wc-surface dark:bg-wc-surface-dark px-1.5 py-0.5 rounded">Update</span> on the Home page first to sync sources.
             </p>
           </div>
+        ) : (
+          <>
+            <p className="text-sm text-wc-muted dark:text-wc-muted-dark">
+              {filtered.length} package{filtered.length !== 1 ? 's' : ''}
+              {discoverQuery.trim() ? ` matching "${discoverQuery}"` : ' available'}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filtered.map(pkg => (
+                <Card key={pkg.name} className="flex flex-col">
+                  <div className="p-4 flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-10 h-10 bg-wc-accent-soft dark:bg-wc-accent-soft-dark rounded-lg flex items-center justify-center">
+                      <PackageIcon size={20} className="text-wc-accent dark:text-wc-accent-bright" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-base font-semibold text-wc-fg dark:text-wc-fg-dark truncate">
+                          {pkg.name}
+                        </h3>
+                        {isUpdatable(pkg.name) ? (
+                          <Badge variant="warning" size="sm">Update</Badge>
+                        ) : isInstalled(pkg.name) ? (
+                          <Badge variant="success" size="sm">Installed</Badge>
+                        ) : (
+                          <Badge variant="neutral" size="sm">Available</Badge>
+                        )}
+                      </div>
+                      <p className="text-xs text-wc-muted dark:text-wc-muted-dark mt-0.5">
+                        v{pkg.version}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-auto px-4 pb-4 flex justify-end space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      leftIcon={<Info size={14} />}
+                      onClick={() => handleInfo(pkg.name)}
+                      disabled={busy}
+                    >
+                      Info
+                    </Button>
+                    {!isInstalled(pkg.name) && (
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        leftIcon={<Download size={14} />}
+                        onClick={() => handleInstall(pkg.name)}
+                        disabled={busy}
+                      >
+                        Install
+                      </Button>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </>
         )}
-        
-        {selectedCategory && selectedCategory !== 'all' && (
-          <div className="mb-4">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-              Category: <span className="font-semibold">{selectedCategory}</span>
-            </h2>
-          </div>
-        )}
-        
-        <PackageGrid 
-          packages={filteredPackages} 
-          isLoading={isLoading}
-          emptyMessage={searchQuery ? `No results found for "${searchQuery}"` : "No packages found in this category"}
-        />
       </div>
-      
-      {selectedPackage && (
-        <PackageDetails pkg={selectedPackage} onClose={() => selectPackage(null)} />
-      )}
     </>
   );
 };

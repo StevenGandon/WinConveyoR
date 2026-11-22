@@ -1,0 +1,20 @@
+FROM debian:bookworm-slim
+
+RUN mkdir /var/wcr
+COPY . /var/wcr
+
+RUN chmod +x /var/wcr/bin/wcrmgr && ln -sn /var/wcr/bin/wcrmgr /bin/wcrmgr
+RUN chmod +x /var/wcr/bin/wcrmirror && ln -sn /var/wcr/bin/wcrmirror /bin/wcrmirror
+RUN chmod +x /var/wcr/bin/wcrpackager && ln -sn /var/wcr/bin/wcrpackager /bin/wcrpackager
+RUN chmod +x /var/wcr/bin/wcrgenkey && ln -sn /var/wcr/bin/wcrgenkey /bin/wcrgenkey
+
+RUN chmod +x /var/wcr/bin/wcr && ln -sn /var/wcr/bin/wcr /bin/wcr
+
+RUN chmod +x /var/wcr/bin/header_gen && ln -sn /var/wcr/bin/header_gen /bin/header_gen
+
+RUN cp /var/wcr/lib/* /lib
+RUN cp /var/wcr/include/* /include
+
+EXPOSE 1674
+
+ENTRYPOINT ["bash"]
