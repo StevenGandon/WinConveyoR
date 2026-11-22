@@ -56,6 +56,9 @@ jobs:
       - name: Build devtools
         run: bash scripts/devtools/build_linux.sh
 
+      - name: Build daemon
+        run: bash scripts/daemon/build_linux.sh
+
       - name: Build CLI
         run: bash scripts/cli/build_linux.sh
 
@@ -70,6 +73,7 @@ jobs:
             "$DIST/lib/libxml2.so" \
             "$DIST/lib/libcjson.so" \
             "$DIST/bin/wcr" \
+            "$DIST/bin/daemon" \
             "$DIST/bin/wcrmgr" \
             "$DIST/bin/wcrmirror" \
             "$DIST/bin/wcrpackager" \
@@ -136,6 +140,9 @@ jobs:
       - name: Build devtools
         run: bash scripts/devtools/build_macos.sh
 
+      - name: Build daemon
+        run: bash scripts/daemon/build_macos.sh
+
       - name: Build CLI
         run: bash scripts/cli/build_macos.sh
 
@@ -149,6 +156,7 @@ jobs:
             "$DIST/lib/libwconr.dylib" \
             "$DIST/lib/libxml2.dylib" \
             "$DIST/lib/libcjson.dylib" \
+            "$DIST/bin/wcr-daemon" \
             "$DIST/bin/wcr" \
             "$DIST/bin/wcrmgr" \
             "$DIST/bin/wcrmirror" \
@@ -230,6 +238,10 @@ jobs:
         shell: cmd
         run: call scripts\devtools\build_windows.bat
 
+      - name: Build daemon
+        shell: cmd
+        run: call scripts\daemon\build_windows.bat
+
       - name: Build CLI
         shell: cmd
         run: call scripts\cli\build_windows.bat
@@ -243,6 +255,7 @@ jobs:
             "$dist/lib/libwconr.dll",
             "$dist/lib/libxml2.dll",
             "$dist/lib/libcjson.dll",
+            "$dist/bin/wcr-daemon.exe",
             "$dist/bin/wcr.exe",
             "$dist/bin/wcrmgr.exe",
             "$dist/bin/wcrmirror.exe",

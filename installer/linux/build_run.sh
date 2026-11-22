@@ -61,7 +61,7 @@ for f in "$DIST"/lib/*.so*; do
   esac
 done
 
-for b in $CLI_BINS $DEVTOOLS_BINS; do
+for b in $CLI_BINS $DEVTOOLS_BINS $DAEMON_BINS; do
   [ -f "$DIST/bin/$b" ] && scrub_runpath "$DIST/bin/$b"
 done
 
@@ -82,6 +82,7 @@ files_for() {
 pack cli      $(files_for $CLI_BINS) lib
 pack server   $(files_for $SERVER_BINS)
 pack devtools $(files_for $DEVTOOLS_BINS) include
+pack daemon $(files_for $DAEMON_BINS) include
 
 cp "$REPO/LICENSE" "$WORK/payload/LICENSE"
 

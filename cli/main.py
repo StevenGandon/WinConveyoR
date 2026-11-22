@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from src import *
+from libwconr import *
 
 from traceback import format_exc
 from sys import exit

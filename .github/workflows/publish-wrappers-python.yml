@@ -1,0 +1,187 @@
+name: publish-wrappers-python
+
+on:
+  workflow_run:
+    workflows: ["release"]
+    branches:
+      - dev
+      - main
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: publish-wrappers-python
+  cancel-in-progress: false
+
+jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    outputs:
+      tag: ${{ steps.info.outputs.tag }}
+      version: ${{ steps.info.outputs.version }}
+      stable: ${{ steps.info.outputs.stable }}
+    steps:
+      - name: Resolve release tag and wrapper version
+        id: info
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+
+          TAG=""
+          for t in $(gh release list \
+                       --repo "$REPO" \
+                       --limit 20 \
+                       --json tagName \
+                       --jq '.[].tagName | select(test("^v[0-9]+\\.[0-9]+\\.[0-9]+-(dev|stable)$"))'); do
+            SHA="$(gh api "repos/${REPO}/commits/${t}" --jq .sha)"
+            if [ "$SHA" = "$HEAD_SHA" ]; then
+              TAG="$t"
+              break
+            fi
+          done
+
+          if [ -z "$TAG" ]; then
+            echo "::error::No release tag found for commit ${HEAD_SHA}"
+            exit 1
+          fi
+
+          VERSION="${TAG#v}"
+          NUMERIC="${VERSION%-*}"
+
+          if [ "${TAG##*-}" = "stable" ]; then
+            STABLE="true"
+            PY_VERSION="${NUMERIC}"
+          else
+            STABLE="false"
+            PY_VERSION="${NUMERIC}.dev0"   # PEP 440 pre-release
+          fi
+
+          echo "Release tag: ${TAG} -> wrapper version: ${PY_VERSION} (stable=${STABLE})"
+          {
+            echo "tag=${TAG}"
+            echo "version=${PY_VERSION}"
+            echo "stable=${STABLE}"
+          } >> "$GITHUB_OUTPUT"
+
+  test:
+    needs: versioning
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lib/wrappers/python
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - name: Checkout (released commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package + test deps
+        run: python -m pip install ".[test]"
+
+      - name: Run tests (against the installed package, not ./src)
+        run: python -m pytest -q
+
+  build:
+    needs: [versioning, test]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lib/wrappers/python
+    steps:
+      - name: Checkout (released commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Stamp release version into pyproject.toml
+        env:
+          PY_VERSION: ${{ needs.versioning.outputs.version }}
+        run: |
+          python - <<'EOF'
+          import os, pathlib, re, tomllib
+
+          wanted = os.environ["PY_VERSION"]
+          path = pathlib.Path("pyproject.toml")
+          replacement = 'version = "' + wanted + '"'
+          text, n = re.subn(r'(?m)^version\s*=\s*"[^"]*"', replacement, path.read_text(), count=1)
+          if n != 1:
+              raise SystemExit("::error::could not find a static `version = \"...\"` line in pyproject.toml")
+          path.write_text(text)
+
+          got = tomllib.loads(path.read_text())["project"]["version"]
+          print(f"pyproject version: {got}")
+          if got != wanted:
+              raise SystemExit(f"::error::stamped version ({got}) != expected ({wanted})")
+          EOF
+
+      - name: Build sdist + wheel
+        run: |
+          python -m pip install build twine
+          python -m build
+          python -m twine check dist/*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-dist
+          path: lib/wrappers/python/dist/
+          if-no-files-found: error
+
+  publish-pypi:
+    name: Publish to PyPI
+    if: needs.versioning.outputs.stable == 'true'
+    needs: [versioning, build]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/libwconr/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
+
+  publish-testpypi:
+    name: Publish to TestPyPI
+    if: needs.versioning.outputs.stable != 'true'
+    needs: [versioning, build]
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/libwconr/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/
+          skip-existing: true
