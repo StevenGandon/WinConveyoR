@@ -5,6 +5,7 @@ class WizardSection(object):
     TYPE_SECTION_PURGE = 0x03
     TYPE_SECTION_BUILD = 0x04
     TYPE_SECTION_METADATA = 0x05
+    TYPE_SECTION_OPTIONS = 0x06
 
     FLAGS_DEFAULT = 0x00
     FLAGS_WINDOWS = (1 << 0)

@@ -77,8 +77,15 @@ class WCRState(object):
     def sync_package_list(self, proto: int, source_uri: str) -> int:
         return int(self.__mapper.call_function("sync_package_list", self._cstate, proto, source_uri.encode('utf-8')))
 
-    def install_package(self, proto: int, source_uri: str, package_name: str) -> int:
-        return int(self.__mapper.call_function("install_package", self._cstate, proto, source_uri.encode('utf-8'), package_name.encode('utf-8')))
+    def install_package(self, proto: int, source_uri: str, package_name: str, prefix: str = None, options: dict = None) -> int:
+        opts = wcr_install_opts_s()
+        entries = [f"{key}={value}".encode('utf-8') for key, value in (options or {}).items()]
+        values = (c_char_p * max(len(entries), 1))(*entries)
+
+        opts.prefix = prefix.encode('utf-8') if prefix else None
+        opts.option_values = cast(values, POINTER(c_char_p))
+        opts.option_values_count = len(entries)
+        return int(self.__mapper.call_function("install_package_opts", self._cstate, proto, source_uri.encode('utf-8'), package_name.encode('utf-8'), pointer(opts)))
 
     def uninstall_package(self, package_name: str) -> int:
         return int(self.__mapper.call_function("uninstall_package", self._cstate, package_name.encode('utf-8')))

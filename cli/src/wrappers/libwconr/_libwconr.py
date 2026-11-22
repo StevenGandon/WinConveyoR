@@ -114,6 +114,15 @@ wcr_hash_check_s._fields_ = [
     ("match", c_int)
 ]
 
+class wcr_install_opts_s(Structure):
+    pass
+
+wcr_install_opts_s._fields_ = [
+    ("prefix", c_char_p),
+    ("option_values", POINTER(c_char_p)),
+    ("option_values_count", c_size_t)
+]
+
 
 # ==== Interfaces ==== #
 
@@ -159,6 +168,7 @@ class Mapper(object):
         self._dll.register_function("wcr_state_add_source", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("sync_package_list", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p)
+        self._dll.register_function("install_package_opts", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(wcr_install_opts_s))
         self._dll.register_function("uninstall_package", c_int, POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("list_installed", c_int, POINTER(wcr_state_s), POINTER(POINTER(wcr_installed_pkg_s)), POINTER(c_size_t))
         self._dll.register_function("free_installed_list", None, POINTER(wcr_installed_pkg_s), c_size_t)

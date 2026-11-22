@@ -1,5 +1,6 @@
 from locale import getpreferredencoding
 from os import environ, pipe, close
+from os.path import abspath, expanduser
 from itertools import chain
 from signal import SIGINT, SIGTERM, signal
 from time import sleep
@@ -32,7 +33,9 @@ class CLI(object):
 
     PARAMETER_TABLE: dict = {
         "terminal-support": {"opt": ("-ts", "--terminal-support")},
-        "charset": {"opt": ("-chst", "--charset")}
+        "charset": {"opt": ("-chst", "--charset")},
+        "prefix": {"opt": ("-p", "--prefix")},
+        "set": {"opt": ("-s", "--set")}
     }
 
     def __init__(self):
@@ -174,6 +177,8 @@ class CLI(object):
         params = [
             (', '.join(CLI.PARAMETER_TABLE['terminal-support']['opt']), "Define a specific generic terminal support"),
             (', '.join(CLI.PARAMETER_TABLE['charset']['opt']), "Define a specific generic charset"),
+            (', '.join(CLI.PARAMETER_TABLE['prefix']['opt']), "Install prefix (default: ~/.local)"),
+            (', '.join(CLI.PARAMETER_TABLE['set']['opt']), "Package options: NAME=value[,NAME=value...]"),
         ]
 
         lines = [f"Usage: {sys.argv[0]} <-d|-h|...> [options] [arguments]", "", "Options:"]
@@ -229,6 +234,19 @@ class CLI(object):
         self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
+    def _parse_set_option(self) -> dict:
+        option_set = self.get_arg("set")
+        options = {}
+
+        if (not option_set):
+            return (options)
+
+        for item in option_set.value.split(','):
+            if ('=' not in item or not item.split('=')[0]):
+                raise ValueError(f"invalid option '{item}', expected NAME=value.")
+            options[item.split('=')[0]] = '='.join(item.split('=')[1:])
+        return (options)
+
     def install_package(self):
         package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
 
@@ -241,9 +259,18 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} install: no sources configured.\n")
             return (1)
 
+        prefix = self.get_arg("prefix")
+        prefix = abspath(expanduser(prefix.value)) if prefix else None
+
+        try:
+            options = self._parse_set_option()
+        except ValueError as e:
+            sys.stderr.write(f"{sys.argv[0]} install: {e}\n")
+            return (1)
+
         for src in sources:
             sys.stdout.write(f"{sys.argv[0]} install: trying '{package_name}' from {src['url']}...\n")
-            rc = self.wcr.install_package(src['proto'], src['url'], package_name)
+            rc = self.wcr.install_package(src['proto'], src['url'], package_name, prefix, options)
             if (rc == 0):
                 sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
                 return (0)

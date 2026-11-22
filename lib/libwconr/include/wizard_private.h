@@ -71,7 +71,8 @@ enum wizard_section_type {
     WIZARD_SECTION_UNINSTALL = 0x02,    /**< Removes the installed files. */
     WIZARD_SECTION_PURGE     = 0x03,    /**< Removes everything, user data included. */
     WIZARD_SECTION_BUILD     = 0x04,    /**< Build script, run before install. */
-    WIZARD_SECTION_METADATA  = 0x05     /**< Package metadata (not executable). */
+    WIZARD_SECTION_METADATA  = 0x05,    /**< Package metadata (not executable). */
+    WIZARD_SECTION_OPTIONS   = 0x06     /**< User choices, one "option" per field (not executable). */
 };
 
 /** @brief Section targets every platform. */
@@ -376,6 +377,30 @@ int wizard_vm_exec(
     struct _wizard_vm_s *vm,
     struct _wizard_ctx_s *ctx,
     const struct _wizard_section_entry_raw_s *section);
+
+/**
+ * @brief Defines (or replaces) a variable usable as @c ${name} in string arguments.
+ *
+ * @param[in] vm     Initialised wizard VM.
+ * @param[in] name   Variable name, without @c ${}.
+ * @param[in] value  Value substituted at execution time.
+ * @return 0 on success, -1 on NULL argument, full table or allocation failure.
+ */
+int wizard_vm_set_var(struct _wizard_vm_s *vm, const char *name, const char *value);
+
+/**
+ * @brief Returns the last error message of the VM (empty string if none).
+ */
+const char *wizard_vm_error(const struct _wizard_vm_s *vm);
+
+/**
+ * @brief Returns a newly allocated copy of @p str with every @c ${VAR} expanded.
+ * @return Heap string to free, or NULL on unknown variable (see @ref wizard_vm_error).
+ */
+char *wizard_vm_expand(struct _wizard_vm_s *vm, const char *str);
+
+/** @brief Returns the value of a VM variable (not the environment), or NULL. */
+const char *wizard_vm_get_var(struct _wizard_vm_s *vm, const char *name);
 
 /**
  * @brief Prints all loaded instruction sets and their opcodes to stdout.

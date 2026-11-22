@@ -92,6 +92,13 @@
         int match;
     };
 
+    /* install options (NULL fields = defaults) */
+    struct wcr_install_opts_s {
+        const char *prefix;             // install prefix used for ${PREFIX}, ${MACHINE_BIN}... (default: ~/.local or %LOCALAPPDATA%/Programs)
+        const char **option_values;     // "NAME=value" answers to the package options (missing = default)
+        size_t option_values_count;     // number of entries in option_values
+    };
+
     typedef struct wcr_state_s wcr_state;
     typedef struct wcr_system_s wcr_system;
     typedef struct wcr_source_s wcr_source;
@@ -100,6 +107,7 @@
     typedef struct wcr_pkg_variant_s wcr_pkg_variant;
     typedef struct wcr_pkg_metadata_s wcr_pkg_metadata;
     typedef struct wcr_hash_check_s wcr_hash_check;
+    typedef struct wcr_install_opts_s wcr_install_opts;
 
     /* ==== high level interfaces ====  */
 
@@ -113,6 +121,7 @@
     int wcr_source_set_auth(struct wcr_state_s *state, size_t index, const char *access_key, const char *server_pubkey_path);
     int sync_package_list(const struct wcr_state_s *state, protocol_type proto, const char *source_uri);
     int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
+    int install_package_opts(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name, const struct wcr_install_opts_s *opts);
     int uninstall_package(const struct wcr_state_s *state, const char *package_name);
     int record_installed(const struct wcr_state_s *state, const char *name, const char *version, int is_dependency);
     int remove_installed(const struct wcr_state_s *state, const char *name);

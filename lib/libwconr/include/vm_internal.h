@@ -169,9 +169,26 @@ struct vm_iset_s {
  * Holds one or more instruction sets loaded from the XML files found in the
  * instructions directory supplied to @ref wizard_vm_init.
  */
+/** @brief Maximum number of variables a VM can hold. */
+#define VM_MAX_VARS     32
+
+/** @brief Size of the VM error message buffer. */
+#define VM_ERROR_SIZE   256
+
+/**
+ * @brief A named variable substituted as @c ${NAME} in string arguments.
+ */
+struct vm_var_s {
+    char *name;     /**< Heap-allocated variable name (without @c ${}). */
+    char *value;    /**< Heap-allocated value. */
+};
+
 struct _wizard_vm_s {
     struct vm_iset_s *isets;        /**< Heap-allocated array of @p iset_count instruction sets. */
     uint32_t          iset_count;   /**< Number of loaded instruction sets. */
+    struct vm_var_s   vars[VM_MAX_VARS];    /**< Variables available for @c ${VAR} expansion. */
+    uint32_t          var_count;    /**< Number of variables in @p vars. */
+    char              error[VM_ERROR_SIZE]; /**< Last error message (empty if none). */
 };
 
 /* ── vm_parse.c ──────────────────────────────────────────────────────────── */
@@ -228,5 +245,49 @@ int vm_decode_arg(const struct _wizard_ctx_s *ctx,
  * @param[in] count  Number of entries to process. No-op if @p args is NULL.
  */
 void vm_free_args(struct vm_arg_value *args, uint32_t count);
+
+/* ── vm.c lookups ────────────────────────────────────────────────────────── */
+
+/** @brief Returns the instruction set matching @p version, or NULL. */
+const struct vm_iset_s *vm_resolve_iset(const struct _wizard_vm_s *vm, uint16_t version);
+
+/** @brief Returns the opcode definition for @p code in @p iset, or NULL. */
+const struct vm_op_def *vm_find_op(const struct vm_iset_s *iset, uint16_t code);
+
+/* ── vm_visit.c ──────────────────────────────────────────────────────────── */
+
+/**
+ * @brief Callback receiving each decoded instruction of a section.
+ * @return 0 to continue, non-zero to stop the walk with an error.
+ */
+typedef int (*vm_visit_t)(const char *op_name, struct vm_arg_value *args,
+                          uint32_t count, void *user_data);
+
+/**
+ * @brief Decodes every instruction of @p section without executing it.
+ *
+ * Used for data-only sections (e.g. options). Arguments are freed after
+ * each callback; copy what must be kept.
+ *
+ * @return 0 on success, -1 on decode error or callback failure.
+ */
+int vm_visit_section(struct _wizard_vm_s *vm, struct _wizard_ctx_s *ctx,
+                     const struct _wizard_section_entry_raw_s *section,
+                     vm_visit_t visit, void *user_data);
+
+/* ── vm_expand.c ─────────────────────────────────────────────────────────── */
+
+/**
+ * @brief Expands @c ${VAR} references in every string argument, in place.
+ *
+ * Lookup order: VM variables, then process environment. An unknown variable
+ * is an error (message stored in @c vm->error).
+ *
+ * @return 0 on success, -1 on unknown variable or allocation failure.
+ */
+int vm_expand_args(struct _wizard_vm_s *vm, struct vm_arg_value *args, uint32_t count);
+
+/** @brief Frees every variable held by the VM. */
+void vm_clear_vars(struct _wizard_vm_s *vm);
 
 #endif /* !VM_INTERNAL_H_ */

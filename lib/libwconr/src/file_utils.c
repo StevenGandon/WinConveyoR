@@ -19,7 +19,7 @@
     #define MKDIR(p) mkdir(p, 0755)
 #endif
 
-static int mkdir_p(const char *path)
+int mkdir_p(const char *path)
 {
     char tmp[1024];
     char *p;

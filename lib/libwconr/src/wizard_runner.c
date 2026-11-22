@@ -1,5 +1,7 @@
 #include "wizard_runner.h"
 #include "wizard_private.h"
+#include "wizard_options.h"
+#include "wizard_install_info.h"
 #include "file_utils.h"
 #include "wcr_event_internal.h"
 
@@ -13,10 +15,19 @@
     #define WIZARD_CHDIR(p) _chdir(p)
     #define WIZARD_GETCWD(b, n) _getcwd(b, n)
 #else
+    #include <pwd.h>
     #include <unistd.h>
     #define WIZARD_CHDIR(p) chdir(p)
     #define WIZARD_GETCWD(b, n) getcwd(b, n)
 #endif
+
+/* out = a/b ; -1 if the result does not fit */
+static int path_join(char *out, size_t size, const char *a, const char *b)
+{
+    int n = snprintf(out, size, "%s/%s", a, b);
+
+    return (n < 0 || (size_t)n >= size) ? -1 : 0;
+}
 
 static int path_exists(const char *path)
 {
@@ -111,9 +122,150 @@ static int run_in_dir(const wcr_state *state, struct _wizard_vm_s *vm,
     return rc;
 }
 
-static int run_wizard_file(const wcr_state *state, const char *wizard_path,
-                           const char *workdir, uint32_t type)
+/* everything needed to run one section of a package's .WIZARD */
+struct wizard_run_s {
+    const wcr_state *state;
+    const char *package_name;
+    uint32_t type;
+    char pkg_dir[WIZARD_PATH_MAX];
+    char wizard_path[WIZARD_PATH_MAX];
+    char files_dir[WIZARD_PATH_MAX];
+    char prefix[WIZARD_PATH_MAX];
+    const char *workdir;
+    const wcr_install_opts *opts;    /* user answers (install only, may be NULL) */
+};
+
+static int default_prefix(char *out, size_t size)
 {
+#ifdef _WIN32
+    const char *base = getenv("LOCALAPPDATA");
+    const char *fmt = "%s/" WIZARD_DEFAULT_PREFIX_WIN;
+#else
+    const char *base = getenv("HOME");
+    const char *fmt = "%s/" WIZARD_DEFAULT_PREFIX_POSIX;
+#endif
+
+    if (!base)
+        return -1;
+    snprintf(out, size, fmt, base);
+    return 0;
+}
+
+static int resolve_prefix(struct wizard_run_s *run, const char *requested)
+{
+    if (requested && requested[0] != '\0') {
+        snprintf(run->prefix, sizeof(run->prefix), "%s", requested);
+        return 0;
+    }
+    if (run->type != WIZARD_SECTION_INSTALL
+        && wizard_info_load_prefix(run->pkg_dir, run->prefix, sizeof(run->prefix)) == 0)
+        return 0;
+    if (default_prefix(run->prefix, sizeof(run->prefix)) != 0) {
+        wcr_emit(run->state, WCR_EVENT_ERROR, "[ERROR] wizard: cannot compute default install prefix");
+        return -1;
+    }
+    return 0;
+}
+
+static int set_var_path(struct _wizard_vm_s *vm, const char *name, const char *prefix, const char *sub)
+{
+    char value[WIZARD_PATH_MAX];
+
+    if (path_join(value, sizeof(value), prefix, sub) != 0)
+        return -1;
+    return wizard_vm_set_var(vm, name, value);
+}
+
+/* name of the user running the install (default target user) */
+static const char *current_user(void)
+{
+#ifdef _WIN32
+    const char *name = getenv("USERNAME");
+#else
+    struct passwd *pw = getpwuid(geteuid());
+    const char *name = pw ? pw->pw_name : getenv("USER");
+#endif
+
+    return name ? name : "";
+}
+
+static int set_install_vars(struct _wizard_vm_s *vm, const struct wizard_run_s *run)
+{
+    if (wizard_vm_set_var(vm, "PREFIX", run->prefix) != 0
+        || wizard_vm_set_var(vm, "USER", current_user()) != 0
+        || set_var_path(vm, "MACHINE_BIN", run->prefix, WIZARD_SUBDIR_BIN) != 0
+        || set_var_path(vm, "MACHINE_LIB", run->prefix, WIZARD_SUBDIR_LIB) != 0
+        || set_var_path(vm, "MACHINE_INCLUDE", run->prefix, WIZARD_SUBDIR_INCLUDE) != 0
+        || set_var_path(vm, "MACHINE_MAN", run->prefix, WIZARD_SUBDIR_MAN) != 0
+        || wizard_vm_set_var(vm, "PKG_NAME", run->package_name) != 0
+        || wizard_vm_set_var(vm, "PKG_DIR", run->workdir) != 0) {
+        wcr_emit(run->state, WCR_EVENT_ERROR, "[ERROR] wizard: cannot set install variables");
+        return -1;
+    }
+    return 0;
+}
+
+/* creates <prefix>/{bin,lib,include,share/man} so packages can copy into them */
+static int prepare_prefix(const struct wizard_run_s *run)
+{
+    static const char * const subdirs[] = {
+        WIZARD_SUBDIR_BIN, WIZARD_SUBDIR_LIB, WIZARD_SUBDIR_INCLUDE, WIZARD_SUBDIR_MAN, NULL
+    };
+    char path[WIZARD_PATH_MAX];
+    size_t i;
+
+    for (i = 0; subdirs[i]; i++) {
+        if (path_join(path, sizeof(path), run->prefix, subdirs[i]) != 0 || mkdir_p(path) != 0) {
+            wcr_emit(run->state, WCR_EVENT_ERROR,
+                     "[ERROR] wizard: cannot create %s (permission denied? try another --prefix)", path);
+            return -1;
+        }
+    }
+    return 0;
+}
+
+/* install: resolve package options from the user answers / defaults */
+static int install_with_options(const struct wizard_run_s *run, struct _wizard_vm_s *vm,
+                                struct _wizard_ctx_s *ctx)
+{
+    struct wizard_option_s *options = NULL;
+    size_t count = 0;
+    int rc;
+
+    if (wizard_read_options(vm, ctx, &options, &count) != 0) {
+        wcr_emit(run->state, WCR_EVENT_ERROR, "[ERROR] wizard: invalid options section");
+        return -1;
+    }
+
+    rc = wizard_apply_options(run->state, vm, options, count, run->opts);
+    if (rc == 0)
+        rc = run_in_dir(run->state, vm, ctx, run->type, run->workdir);
+    if (rc == 0 && wizard_info_save(run->pkg_dir, run->prefix, vm, options, count) != 0)
+        wcr_emit(run->state, WCR_EVENT_WARNING, "[WARNING] wizard: cannot save install info for '%s'", run->package_name);
+
+    wizard_free_options(options, count);
+    return rc;
+}
+
+static int run_with_vm(const struct wizard_run_s *run, struct _wizard_vm_s *vm,
+                       struct _wizard_ctx_s *ctx)
+{
+    if (set_install_vars(vm, run) != 0)
+        return -1;
+    if (run->type == WIZARD_SECTION_INSTALL)
+        return install_with_options(run, vm, ctx);
+
+    /* uninstall/purge: reuse the values chosen at install time */
+    if (wizard_info_load_vars(run->pkg_dir, vm) != 0) {
+        wcr_emit(run->state, WCR_EVENT_ERROR, "[ERROR] wizard: cannot reload install info");
+        return -1;
+    }
+    return run_in_dir(run->state, vm, ctx, run->type, run->workdir);
+}
+
+static int run_wizard_file(const struct wizard_run_s *run)
+{
+    const wcr_state *state = run->state;
     struct _wizard_ctx_s *ctx;
     struct _wizard_vm_s *vm;
     int rc;
@@ -123,9 +275,9 @@ static int run_wizard_file(const wcr_state *state, const char *wizard_path,
         return -1;
     }
 
-    ctx = wizard_open(wizard_path);
+    ctx = wizard_open(run->wizard_path);
     if (!ctx) {
-        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wizard: invalid wizard file %s", wizard_path);
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wizard: invalid wizard file %s", run->wizard_path);
         return -1;
     }
 
@@ -136,69 +288,86 @@ static int run_wizard_file(const wcr_state *state, const char *wizard_path,
         return -1;
     }
 
-    rc = run_in_dir(state, vm, ctx, type, workdir);
+    rc = run_with_vm(run, vm, ctx);
+    if (rc != 0 && wizard_vm_error(vm)[0] != '\0')
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wizard: %s", wizard_vm_error(vm));
 
     wizard_vm_close(vm);
     wizard_close(ctx);
     return rc;
 }
 
-/* builds <pkg_dir>/.WIZARD and the working dir (files/ if present, else pkg_dir) */
-static int resolve_paths(const char *pkg_dir, char *wizard_path, char *files_dir)
-{
-    snprintf(wizard_path, WIZARD_PATH_MAX, "%s/%s", pkg_dir, WIZARD_FILE_NAME);
-    snprintf(files_dir, WIZARD_PATH_MAX, "%s/%s", pkg_dir, WIZARD_FILES_DIR);
-    return path_exists(wizard_path);
-}
-
-static int extract_payload(const wcr_state *state, const char *pkg_dir, const char *files_dir)
+static int extract_payload(const struct wizard_run_s *run)
 {
     char payload[WIZARD_PATH_MAX];
 
-    snprintf(payload, sizeof(payload), "%s/%s", pkg_dir, WIZARD_PAYLOAD_NAME);
+    if (path_join(payload, sizeof(payload), run->pkg_dir, WIZARD_PAYLOAD_NAME) != 0)
+        return -1;
     if (!path_exists(payload)) {
-        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wizard: no %s, running in package dir", WIZARD_PAYLOAD_NAME);
+        wcr_emit(run->state, WCR_EVENT_DEBUG, "[DEBUG] wizard: no %s, running in package dir", WIZARD_PAYLOAD_NAME);
         return 0;
     }
-    return extract_archive_to(state, payload, files_dir);
+    return extract_archive_to(run->state, payload, run->files_dir);
 }
 
-static int wizard_run(const wcr_state *state, const char *package_name, uint32_t type)
+/* fills paths; returns 1 if the package has a .WIZARD, 0 if not, -1 on error */
+static int init_run(struct wizard_run_s *run, const wcr_state *state,
+                    const char *package_name, uint32_t type)
 {
-    char wizard_path[WIZARD_PATH_MAX];
-    char files_dir[WIZARD_PATH_MAX];
     char *pkg_dir;
-    int rc;
 
-    if (!state || !package_name)
-        return -1;
+    memset(run, 0, sizeof(*run));
+    run->state = state;
+    run->package_name = package_name;
+    run->type = type;
 
     pkg_dir = package_dir(state, package_name);
     if (!pkg_dir)
         return -1;
-
-    if (!resolve_paths(pkg_dir, wizard_path, files_dir)) {
-        wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wizard: no %s for '%s', skipping", WIZARD_FILE_NAME, package_name);
-        free(pkg_dir);
-        return 0;
-    }
-
-    rc = 0;
-    if (type == WIZARD_SECTION_INSTALL)
-        rc = extract_payload(state, pkg_dir, files_dir);
-    if (rc == 0)
-        rc = run_wizard_file(state, wizard_path, path_exists(files_dir) ? files_dir : pkg_dir, type);
-
+    snprintf(run->pkg_dir, sizeof(run->pkg_dir), "%s", pkg_dir);
     free(pkg_dir);
-    return rc;
+
+    if (path_join(run->wizard_path, sizeof(run->wizard_path), run->pkg_dir, WIZARD_FILE_NAME) != 0
+        || path_join(run->files_dir, sizeof(run->files_dir), run->pkg_dir, WIZARD_FILES_DIR) != 0)
+        return -1;
+    return path_exists(run->wizard_path) ? 1 : 0;
 }
 
-int wizard_install(const wcr_state *state, const char *package_name)
+static int wizard_run(const wcr_state *state, const char *package_name,
+                      uint32_t type, const wcr_install_opts *opts)
 {
-    return wizard_run(state, package_name, WIZARD_SECTION_INSTALL);
+    struct wizard_run_s run;
+    int has_wizard;
+
+    if (!state || !package_name)
+        return -1;
+
+    has_wizard = init_run(&run, state, package_name, type);
+    if (has_wizard <= 0) {
+        if (has_wizard == 0)
+            wcr_emit(state, WCR_EVENT_DEBUG, "[DEBUG] wizard: no %s for '%s', skipping", WIZARD_FILE_NAME, package_name);
+        return has_wizard;
+    }
+
+    run.opts = opts;
+    if (resolve_prefix(&run, opts ? opts->prefix : NULL) != 0)
+        return -1;
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] wizard: prefix=%s", run.prefix);
+
+    if (type == WIZARD_SECTION_INSTALL
+        && (extract_payload(&run) != 0 || prepare_prefix(&run) != 0))
+        return -1;
+
+    run.workdir = path_exists(run.files_dir) ? run.files_dir : run.pkg_dir;
+    return run_wizard_file(&run);
+}
+
+int wizard_install(const wcr_state *state, const char *package_name, const wcr_install_opts *opts)
+{
+    return wizard_run(state, package_name, WIZARD_SECTION_INSTALL, opts);
 }
 
 int wizard_uninstall(const wcr_state *state, const char *package_name)
 {
-    return wizard_run(state, package_name, WIZARD_SECTION_UNINSTALL);
+    return wizard_run(state, package_name, WIZARD_SECTION_UNINSTALL, NULL);
 }

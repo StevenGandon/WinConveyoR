@@ -381,7 +381,20 @@ static int wcr_fetch_metadata(const wcr_state *state, wcr_conn *conn,
 typedef struct {
     char *names[WCR_MAX_DEP_DEPTH];
     size_t count;
+    const wcr_install_opts *opts;   /* shared by the package and its dependencies */
 } wcr_install_ctx;
+
+/* dependencies share the prefix but not the answers (their options differ) */
+static int run_wizard(const wcr_state *state, const wcr_install_ctx *ctx,
+                      const char *name, int is_dep)
+{
+    wcr_install_opts dep_opts = {0};
+
+    if (!is_dep || !ctx->opts)
+        return wizard_install(state, name, ctx->opts);
+    dep_opts.prefix = ctx->opts->prefix;
+    return wizard_install(state, name, &dep_opts);
+}
 
 static void install_ctx_cleanup(wcr_install_ctx *ctx)
 {
@@ -540,7 +553,7 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
     }
     free(local_path);
 
-    if (wizard_install(state, spec.name) != 0) {
+    if (run_wizard(state, ctx, spec.name, is_dep) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: install procedure failed for '%s'", spec.name);
         free(version);
         pkg_specifier_free(&spec);
@@ -555,11 +568,13 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
     return 0;
 }
 
-static int install_wcr(const wcr_state *state, const char *source_uri, const char *package_name)
+static int install_wcr(const wcr_state *state, const char *source_uri, const char *package_name,
+                       const wcr_install_opts *opts)
 {
     wcr_install_ctx ctx = {0};
     int rc;
 
+    ctx.opts = opts;
     rc = install_wcr_single(state, source_uri, package_name, &ctx, 0);
     install_ctx_cleanup(&ctx);
     return rc;
@@ -678,7 +693,7 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
 
     free(archive_path);
 
-    if (wizard_install(state, spec.name) != 0) {
+    if (run_wizard(state, ctx, spec.name, is_dep) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: install procedure failed for '%s'", spec.name);
         free(version);
         pkg_specifier_free(&spec);
@@ -692,11 +707,13 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     return 0;
 }
 
-static int install_http(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name)
+static int install_http(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name,
+                        const wcr_install_opts *opts)
 {
     wcr_install_ctx ctx = {0};
     int rc;
 
+    ctx.opts = opts;
     rc = install_http_with_deps(state, proto, source_uri, package_name, &ctx, 0);
     install_ctx_cleanup(&ctx);
     return rc;
@@ -990,6 +1007,12 @@ void free_hash_check(wcr_hash_check *check)
 
 int install_package(const wcr_state *state, protocol_type proto, const char *source_uri, const char *package_name)
 {
+    return install_package_opts(state, proto, source_uri, package_name, NULL);
+}
+
+int install_package_opts(const wcr_state *state, protocol_type proto, const char *source_uri,
+                         const char *package_name, const wcr_install_opts *opts)
+{
     int rc;
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install_package: source_uri=%s package=%s proto=%d", source_uri, package_name, proto);
@@ -1000,14 +1023,14 @@ int install_package(const wcr_state *state, protocol_type proto, const char *sou
     }
 
     if (proto == PROT_WCR)
-        return install_wcr(state, source_uri, package_name);
+        return install_wcr(state, source_uri, package_name, opts);
 
     if (curl_global_init(CURL_GLOBAL_DEFAULT) != 0) {
         wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_package: curl_global_init failed");
         return -1;
     }
 
-    rc = install_http(state, proto, source_uri, package_name);
+    rc = install_http(state, proto, source_uri, package_name, opts);
     curl_global_cleanup();
     return rc;
 }

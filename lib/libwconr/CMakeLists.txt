@@ -138,6 +138,10 @@ set(LIBWCONR_SOURCES
     src/vm_parse.c
     src/vm_decode.c
     src/vm_handlers.c
+    src/vm_expand.c
+    src/vm_visit.c
+    src/wizard_options.c
+    src/wizard_install_info.c
     src/wizard_runner.c
 )
 
