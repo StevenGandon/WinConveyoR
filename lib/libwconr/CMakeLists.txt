@@ -138,6 +138,7 @@ set(LIBWCONR_SOURCES
     src/vm_parse.c
     src/vm_decode.c
     src/vm_handlers.c
+    src/wizard_runner.c
 )
 
 if(WIN32)
@@ -147,6 +148,11 @@ else()
 endif()
 
 add_library(wconr SHARED ${LIBWCONR_SOURCES})
+
+target_compile_definitions(wconr
+    PRIVATE
+        WCR_DEFAULT_ASSETS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../assets/wizard"
+)
 
 target_compile_options(wconr
     PRIVATE

@@ -6,6 +6,7 @@
 #include "pkg_registry.h"
 #include "wcr_client.h"
 #include "pkg_specifier.h"
+#include "wizard_runner.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -533,10 +534,18 @@ static int install_wcr_single(const wcr_state *state, const char *source_uri,
 
     if (extract_archive(state, local_path, spec.name) != 0) {
         free(local_path);
+        free(version);
         pkg_specifier_free(&spec);
         return -1;
     }
     free(local_path);
+
+    if (wizard_install(state, spec.name) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install_wcr: install procedure failed for '%s'", spec.name);
+        free(version);
+        pkg_specifier_free(&spec);
+        return -1;
+    }
 
     record_installed(state, spec.name, version ? version : "unknown", is_dep);
     free(version);
@@ -668,6 +677,14 @@ static int install_http_with_deps(const wcr_state *state, protocol_type proto, c
     }
 
     free(archive_path);
+
+    if (wizard_install(state, spec.name) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] install: install procedure failed for '%s'", spec.name);
+        free(version);
+        pkg_specifier_free(&spec);
+        return -1;
+    }
+
     record_installed(state, spec.name, version ? version : "unknown", is_dep);
     free(version);
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] install: '%s' installed successfully", spec.name);

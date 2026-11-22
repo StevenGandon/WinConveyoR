@@ -11,6 +11,9 @@
     #include <unistd.h>
 #endif
 
+#define WCR_ASSETS_ENV "WCR_ASSETS_PATH"
+#define ASSETS_PATH_PREFIX "assets_path="
+
 static char *default_cache_path(void)
 {
     const char *home;
@@ -31,6 +34,20 @@ static char *default_cache_path(void)
 #endif
 
     return strdup(buf);
+}
+
+static char *default_assets_path(void)
+{
+    const char *env;
+
+    env = getenv(WCR_ASSETS_ENV);
+    if (env && env[0] != '\0')
+        return strdup(env);
+#ifdef WCR_DEFAULT_ASSETS_DIR
+    return strdup(WCR_DEFAULT_ASSETS_DIR);
+#else
+    return NULL;
+#endif
 }
 
 static const char *proto_to_string(protocol_type proto)
@@ -102,6 +119,8 @@ wcr_state *new_state(void)
         return NULL;
     }
 
+    state->assets_path = default_assets_path();
+
     state->sources = NULL;
     state->sources_count = 0;
 
@@ -128,6 +147,7 @@ void close_state(wcr_state *state)
     }
 
     free(state->cache_path);
+    free(state->assets_path);
     free(state->config_path);
     wcr_mutex_destroy(&state->lock);
     free(state);
@@ -205,6 +225,10 @@ int write_state(const wcr_state *state, const char *filepath)
         fprintf(file, "cache_path=%s\n", state->cache_path);
     }
 
+    if (state->assets_path) {
+        fprintf(file, "%s%s\n", ASSETS_PATH_PREFIX, state->assets_path);
+    }
+
     for (i = 0; i < state->sources_count; i++) {
         const wcr_source *src = state->sources[i];
         const char *proto_name;
@@ -265,6 +289,20 @@ wcr_state *load_state(const char *filepath)
             state->cache_path = strdup(line + 11);
             if (!state->cache_path) {
                 wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] load_state: strdup failed for cache_path");
+                close_state(state);
+                fclose(file);
+                return NULL;
+            }
+            continue;
+        }
+
+        if (strncmp(line, ASSETS_PATH_PREFIX, strlen(ASSETS_PATH_PREFIX)) == 0) {
+            if (getenv(WCR_ASSETS_ENV))
+                continue;
+            free(state->assets_path);
+            state->assets_path = strdup(line + strlen(ASSETS_PATH_PREFIX));
+            if (!state->assets_path) {
+                wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] load_state: strdup failed for assets_path");
                 close_state(state);
                 fclose(file);
                 return NULL;

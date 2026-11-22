@@ -63,6 +63,24 @@
 /** @brief Maximum number of sections accepted during bounds validation. */
 #define WIZARD_MAX_SECTIONS     1000
 
+/* ── Section types & flags (see doc/wizard_file_format.md) ───────────────── */
+
+/** @brief Section types as written by the packager in @c section_type. */
+enum wizard_section_type {
+    WIZARD_SECTION_INSTALL   = 0x01,    /**< Installs the package files. */
+    WIZARD_SECTION_UNINSTALL = 0x02,    /**< Removes the installed files. */
+    WIZARD_SECTION_PURGE     = 0x03,    /**< Removes everything, user data included. */
+    WIZARD_SECTION_BUILD     = 0x04,    /**< Build script, run before install. */
+    WIZARD_SECTION_METADATA  = 0x05     /**< Package metadata (not executable). */
+};
+
+/** @brief Section targets every platform. */
+#define WIZARD_SECTION_FLAG_ANY     0x0
+/** @brief Section targets Windows. */
+#define WIZARD_SECTION_FLAG_WINDOWS (1 << 0)
+/** @brief Section targets POSIX systems. */
+#define WIZARD_SECTION_FLAG_POSIX   (1 << 1)
+
 /* ── Endian helpers ──────────────────────────────────────────────────────── */
 
 /**

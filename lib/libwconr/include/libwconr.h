@@ -59,6 +59,7 @@
     struct wcr_state_s {
         struct wcr_system_s system_informations; // system information about current machine / target machine
         char *cache_path;                        // user-configured cache directory
+        char *assets_path;                       // directory holding wizard instruction sets (instructions_v0.xml)
         char *config_path;                       // path to config file for auto-save
         struct wcr_source_s **sources;           // configured mirrors
         size_t sources_count;                    // number of configured mirrors
