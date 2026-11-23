@@ -1,9 +1,10 @@
 from yaml import safe_load
+from re import fullmatch
 
 from .schema import ConfigSchemaBank, ConfigSchema, ConfigKey
 from .message import ConfigError, ConfigMessage, ConfigWarning
 
-from ...wizard import WizardInstruction, WizardArgument, WizardSection, WizardCodeSection, WizardArgumentArray
+from ...wizard import WizardInstruction, WizardArgument, WizardSection, WizardCodeSection, WizardArgumentArray, PackageWizard
 from ..package_builder import PackageBuilder, PackageInfo
 
 class YAMLConfigReader(object):
@@ -18,6 +19,14 @@ class YAMLConfigReader(object):
         "linux",
         "macos"
     ]
+    _OPTION_TYPES = [
+        "path",
+        "user",
+        "mode",
+        "string"
+    ]
+    _OPTION_NAME_REGEX = r"[A-Za-z_][A-Za-z0-9_]*"
+    _OPTIONS = "$root.options"
     _SCHEMA_BANK = {
         1: ConfigSchemaBank(
             metadata=ConfigSchema({
@@ -53,7 +62,32 @@ class YAMLConfigReader(object):
                 "copy": ConfigSchema({
                     "from": ConfigKey(str, required=True),
                     "to": ConfigKey(str, required=True)
+                }),
+                "rmdir": ConfigSchema({
+                    "path": ConfigKey(str, required=True)
+                }),
+                "move": ConfigSchema({
+                    "from": ConfigKey(str, required=True),
+                    "to": ConfigKey(str, required=True)
+                }),
+                "move_tree": ConfigSchema({
+                    "from": ConfigKey(str, required=True),
+                    "to": ConfigKey(str, required=True)
+                }),
+                "chown": ConfigSchema({
+                    "path": ConfigKey(str, required=True),
+                    "user": ConfigKey(str, required=True)
+                }),
+                "chmod_str": ConfigSchema({
+                    "path": ConfigKey(str, required=True),
+                    "mode": ConfigKey(str, required=True)
                 })
+            }),
+            option=ConfigSchema({
+                "name": ConfigKey(str, required=True),
+                "type": ConfigKey(str, required=False, default="string"),
+                "prompt": ConfigKey(str, required=False, default=""),
+                "default": ConfigKey(str, required=False, default="")
             }),
             jobs=ConfigSchema({
                 "$root.build": ConfigKey(dict, required=False, default={}),
@@ -83,7 +117,8 @@ class YAMLConfigReader(object):
             "description": "",
             "version": "",
             "architecture": "",
-            "machine": ""
+            "machine": "",
+            "options": []
         }
         self._encountered_machines = {}
         self._output_message_stack = []
@@ -149,6 +184,60 @@ class YAMLConfigReader(object):
 
         return (data)
 
+    def _mode_to_str(self, mode):
+        # YAML reads 0755 as the integer 493, keep it as an octal string
+        if (isinstance(mode, int) and not isinstance(mode, bool)):
+            return (f"0{mode:o}")
+        return (mode)
+
+    def _fill_option(self, schema, option, index, seen):
+        parsed = {}
+
+        if (not isinstance(option, dict)):
+            self._add_error(f"options.{index} should be a dictionnary.")
+            return (None)
+
+        if (option.get("type", None) == "mode"):
+            option["default"] = self._mode_to_str(option.get("default", None))
+
+        for key in schema.schemas["option"].content:
+            try:
+                parsed[key] = self._validate_data(option.get(key, None), schema.schemas["option"].content[key], src=f"options.{index}.{key}")
+            except ValueError:
+                return (None)
+
+        if (not fullmatch(self._OPTION_NAME_REGEX, parsed["name"])):
+            self._add_error(f"options.{index}.name '{parsed['name']}' is not a valid variable name.")
+            return (None)
+        if (parsed["type"] not in self._OPTION_TYPES):
+            self._add_error(f"options.{index}.type '{parsed['type']}' should be one of {self._OPTION_TYPES}.")
+            return (None)
+        if (parsed["name"] in seen):
+            self._add_error(f"options.{index}.name '{parsed['name']}' is declared twice.")
+            return (None)
+
+        if (not parsed["prompt"]):
+            parsed["prompt"] = parsed["name"]
+        return (parsed)
+
+    def _fill_options(self, schema):
+        options = self.object_from_dot_ref(self._OPTIONS)
+        seen = []
+
+        if (options is None):
+            return
+        if (not isinstance(options, list)):
+            self._add_error(f"{self._OPTIONS} should be a list.")
+            return
+
+        for i, option in enumerate(options):
+            parsed = self._fill_option(schema, option, i, seen)
+
+            if (parsed is None):
+                continue
+            seen.append(parsed["name"])
+            self._parsed["options"].append(parsed)
+
     def _fill_steps(self, schema):
         for item in self._parsed["jobs"]:
             for i, step in enumerate(self._parsed["jobs"][item]["steps"]):
@@ -168,6 +257,9 @@ class YAMLConfigReader(object):
                 if (k not in schema.schemas["steps"].content):
                     self._add_error(f"Invalid step {k}.")
                     continue
+
+                if (k == "chmod_str" and isinstance(step[k], dict) and "mode" in step[k]):
+                    step[k]["mode"] = self._mode_to_str(step[k]["mode"])
 
                 for content in schema.schemas["steps"].content[k].content:
                     try:
@@ -289,6 +381,9 @@ class YAMLConfigReader(object):
         if ("steps" in schema.schemas):
             self._fill_steps(schema)
 
+        if ("option" in schema.schemas):
+            self._fill_options(schema)
+
         for job in self._parsed["jobs"]:
             self._encountered_machines[job] = []
             for step in self._parsed["jobs"][job]["steps"]:
@@ -307,7 +402,21 @@ class YAMLConfigReader(object):
             self._parsed["architecture"]
         ), temp_dir)
 
-        builder.wizard.add_section(WizardSection("metadata", WizardSection.TYPE_SECTION_METADATA, WizardSection.FLAGS_DEFAULT))
+        builder.wizard = self.to_wizard()
+        return (builder)
+
+    # the compiled procedure alone (.WIZARD), also used to override a package procedure (F30)
+    def to_wizard(self) -> PackageWizard:
+        wizard = PackageWizard()
+
+        wizard.add_section(WizardSection("metadata", WizardSection.TYPE_SECTION_METADATA, WizardSection.FLAGS_DEFAULT))
+
+        if (self._parsed["options"]):
+            options_section = WizardCodeSection("options", WizardSection.TYPE_SECTION_OPTIONS, WizardSection.FLAGS_DEFAULT)
+
+            for option in self._parsed["options"]:
+                options_section.instructions.append(WizardInstruction(*self.op_from_string("option", option)))
+            wizard.add_section(options_section)
         
         for job in self._parsed["jobs"]:
             any_only = len(self._encountered_machines[job]) == 0
@@ -338,6 +447,6 @@ class YAMLConfigReader(object):
                     section.instructions.append(WizardInstruction(*self.op_from_string(k, v)))
 
             for item in code_sections.values():
-                builder.wizard.add_section(item)
+                wizard.add_section(item)
 
-        return (builder)
+        return (wizard)

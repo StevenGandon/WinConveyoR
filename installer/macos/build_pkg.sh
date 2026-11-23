@@ -24,7 +24,7 @@ HOME_DIR="usr/local/winconveyor"
 
 cp -Rp "$DIST/." "$WORK/stage"
 DIST="$WORK/stage"
-bash "$HERE/relocate_dylibs.sh" "$DIST" $CLI_BINS $DEVTOOLS_BINS
+bash "$HERE/relocate_dylibs.sh" "$DIST" $CLI_BINS $DEVTOOLS_BINS $DAEMON_BINS
 
 new_root() {
   local r="$WORK/$1"
@@ -64,6 +64,16 @@ mkdir -p "$DEV/$HOME_DIR/include" "$DEV/usr/local/include"
 cp -R "$DIST/include/." "$DEV/$HOME_DIR/include/"
 for e in "$DIST/include/"*; do
   ln -s "../winconveyor/include/$(basename "$e")" "$DEV/usr/local/include/$(basename "$e")"
+done
+
+DAEMON="$(new_root daemon)"
+add_bins "$DAEMON" $DAEMON_BINS
+mkdir -p "$DAEMON/$HOME_DIR/lib" "$DAEMON/usr/local/lib"
+cp -R "$DIST/lib/." "$DAEMON/$HOME_DIR/lib/"
+for f in "$DAEMON/$HOME_DIR/lib/libwconr"*.dylib; do
+  if [ -e "$f" ]; then
+    ln -s "../winconveyor/lib/$(basename "$f")" "$DAEMON/usr/local/lib/$(basename "$f")"
+  fi
 done
 
 find "$WORK" -name .DS_Store -delete

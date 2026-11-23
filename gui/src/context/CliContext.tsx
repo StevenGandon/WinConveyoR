@@ -6,11 +6,25 @@ interface InstallResult {
   version?: string;
 }
 
+export interface PackageOption {
+  name: string;
+  type: 'path' | 'user' | 'mode' | 'string';
+  prompt: string;
+  default: string;
+}
+
+export interface InstallOptions {
+  prefix?: string;
+  values?: Record<string, string>;
+  procedure?: string;   // user procedure replacing the package one (F30)
+}
+
 interface CliContextType {
   log: string;
   busy: boolean;
   runUpdate: () => Promise<void>;
-  runInstall: (packageName: string) => Promise<InstallResult>;
+  runInstall: (packageName: string, opts?: InstallOptions) => Promise<InstallResult>;
+  runOptions: (packageName: string, procedure?: string) => Promise<PackageOption[] | null>;
   runUninstall: (packageName: string) => Promise<number>;
   runSearch: (query?: string) => Promise<{ name: string; version: string }[]>;
   runInfo: (packageSpec: string) => Promise<string>;
@@ -42,17 +56,41 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setBusy(false);
   }, [busy]);
 
-  const runInstall = useCallback(async (packageName: string): Promise<InstallResult> => {
+  const runInstall = useCallback(async (packageName: string, opts?: InstallOptions): Promise<InstallResult> => {
     if (!window.electronAPI || busy) return { code: -1 };
     setBusy(true);
     setLog('');
-    const result = await window.electronAPI.runInstall(packageName);
+    const result = await window.electronAPI.runInstall(packageName, opts);
     if (result.code !== 0) setLog(prev => prev + `\nExited with code ${result.code}`);
     if (result.code === 0) toast.success(`${packageName} installed`);
     else toast.error(`Failed to install ${packageName}`);
     setBusy(false);
     const versionMatch = result.output.match(/version=(\S+)/);
     return { code: result.code, version: versionMatch?.[1] };
+  }, [busy]);
+
+  // fields the package asks before installing (null = package not found)
+  const runOptions = useCallback(async (packageName: string, procedure?: string): Promise<PackageOption[] | null> => {
+    if (!window.electronAPI || busy) return null;
+    setBusy(true);
+    setLog('');
+    const result = await window.electronAPI.runOptions(packageName, procedure);
+    setBusy(false);
+    if (result.code !== 0) {
+      toast.error(`Cannot read install options of ${packageName}`);
+      return null;
+    }
+    // stdout and stderr are mixed: lib messages also contain "[", so take the JSON line itself
+    // (a CLI notice without newline may also be glued in front of it)
+    const json = result.output.split('\n')
+      .map(l => l.trim().match(/(\[\{.*\}\]|\[\])$/)?.[1])
+      .find(Boolean);
+    try {
+      return json ? JSON.parse(json) : [];
+    } catch {
+      toast.error(`Invalid install options for ${packageName}`);
+      return null;
+    }
   }, [busy]);
 
   const runUninstall = useCallback(async (packageName: string) => {
@@ -122,7 +160,7 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [busy]);
 
   return (
-    <CliContext.Provider value={{ log, busy, runUpdate, runInstall, runUninstall, runSearch, runInfo, runCheck, runUpgrade }}>
+    <CliContext.Provider value={{ log, busy, runUpdate, runInstall, runOptions, runUninstall, runSearch, runInfo, runCheck, runUpgrade }}>
       {children}
     </CliContext.Provider>
   );

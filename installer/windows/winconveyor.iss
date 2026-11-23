@@ -53,6 +53,7 @@ Name: "custom";  Description: "Custom installation"; Flags: iscustom
 Name: "core";     Description: "Command-line tools and runtime library (required)"; Types: full compact custom; Flags: fixed
 Name: "server";   Description: "Mirror server (wcrmirror)"; Types: full
 Name: "devtools"; Description: "Developer tools (wcrpackager, wcrgenkey, header_gen) and C headers"; Types: full
+Name: "daemon";   Description: "Background service"; Types: full
 
 [Tasks]
 Name: "addtopath"; Description: "Add {#AppName} to the &PATH environment variable"; GroupDescription: "System integration:"
@@ -60,6 +61,7 @@ Name: "devenv";    Description: "Set &WINCONVEYOR_HOME (headers in %WINCONVEYOR_
 
 [Files]
 Source: "{#SourceDir}\bin\wcr.exe";    DestDir: "{app}\bin"; Components: core; Flags: ignoreversion
+Source: "{#SourceDir}\bin\wcr-daemon.exe";    DestDir: "{app}\bin"; Components: daemon; Flags: ignoreversion
 
 Source: "{#SourceDir}\lib\*";     DestDir: "{app}\lib"; Components: core; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#SourceDir}\lib\*.dll"; DestDir: "{app}\bin"; Components: core; Flags: ignoreversion

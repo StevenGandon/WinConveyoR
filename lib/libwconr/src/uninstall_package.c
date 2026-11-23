@@ -2,6 +2,7 @@
 #include "wcr_event_internal.h"
 #include "pkg_registry.h"
 #include "file_utils.h"
+#include "wizard_runner.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +23,9 @@ int uninstall_package(const wcr_state *state, const char *package_name)
     }
 
     wcr_emit(state, WCR_EVENT_INFO, "[INFO] uninstall: resolving '%s'", package_name);
+
+    if (wizard_uninstall(state, package_name) != 0)
+        wcr_emit(state, WCR_EVENT_WARNING, "[WARNING] uninstall: uninstall procedure failed for '%s', removing files anyway", package_name);
 
     snprintf(pkg_subdir, sizeof(pkg_subdir), "packages/%s", package_name);
     install_dir = get_cache_path(state, pkg_subdir);

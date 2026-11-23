@@ -1,31 +1,67 @@
 import sys
 from sys import exit
 from signal import signal, SIGINT, SIGTERM
-from time import sleep
-
+from time import sleep, time
+from platform import uname
+from os.path import expandvars, isfile, dirname
+from os import makedirs
 from src import *
+from libwconr import *
 
-INTEGRITY_CHECK_INTERVAL = 60.0
+add_dll_registry_path(".")
+
+CACHE_STORES = expandvars("%LOCALAPPDATA%\\wcr\\cache\\" if uname().system == "Windows" else "${HOME}/.cache/wcr/")
 INTEGRITY_TASK_NAME = "integrity-check"
+CLEANUP_TASK_NAME = "cleanup"
+UPDATE_TASK_NAME = "update"
 INTEGRITY_MAX_INSTANCES = 1
+CLEANUP_MAX_INSTANCES = 1
+UPDATE_MAX_INSTANCES = 1
+CONFIG = expandvars("%APPDATA%\\wcr\\daemon.conf" if uname().system == "Windows" else "/etc/wcr.d/daemon.conf")
 
 class Daemon(object):
     def __init__(self):
+        makedirs(dirname(CACHE_STORES), exist_ok = True)
+
+        if (isfile(CONFIG)):
+            self.settings = Settings.from_file(CONFIG)
+        else:
+            self.settings = Settings()
+
         self.pool = Pool([])
-        self.task_scheduler = TaskScheduler(INTEGRITY_CHECK_INTERVAL)
+        self.task_scheduler = TaskScheduler(self.settings.interval)
         self.cache_service = CacheService()
 
         self.running: bool = False
 
-        self.cache_service.load("./test.cache")
+        self.cache_service.load(f"{CACHE_STORES}daemon.cache")
 
-        integrity_task = Task(
-            task_callback=verify_installed_packages,
-            name=INTEGRITY_TASK_NAME,
-            pool=self.pool,
-            max_instances=INTEGRITY_MAX_INSTANCES
-        )
-        self.task_scheduler.add_task(integrity_task)
+        if (self.settings.auto_verify):
+            integrity_task = Task(
+                task_callback=verify_installed_packages,
+                name=INTEGRITY_TASK_NAME,
+                pool=self.pool,
+                max_instances=INTEGRITY_MAX_INSTANCES
+            )
+            self.task_scheduler.add_task(integrity_task)
+
+        if (self.settings.auto_update):
+            update_task = Task(
+                task_callback=update_packages,
+                name=UPDATE_TASK_NAME,
+                pool=self.pool,
+                max_instances=UPDATE_MAX_INSTANCES
+            )
+            self.task_scheduler.add_task(update_task)
+
+        if (self.settings.auto_clean):
+            cleanup_task = Task(
+                task_callback=clean_packages,
+                name=CLEANUP_TASK_NAME,
+                pool=self.pool,
+                max_instances=CLEANUP_MAX_INSTANCES
+            )
+            self.task_scheduler.add_task(cleanup_task)
 
         signal(SIGINT, lambda *args, **kwargs: self.close())
         signal(SIGTERM, lambda *args, **kwargs: self.close())
@@ -36,20 +72,26 @@ class Daemon(object):
                 sys.stdout.write(task.logs.pop(0))
                 sys.stdout.flush()
 
+    def _clock(self, tick_time):
+        start = time()
+
+        while (self.running and ((time() - start) < tick_time)):
+            sleep(1)
+
     def run(self):
         self.running = True
-        sys.stdout.write(f"[daemon] started, integrity & update check every {int(INTEGRITY_CHECK_INTERVAL)}s.\n")
+        sys.stdout.write(f"[daemon] started, running jobs every {int(self.settings.interval)}s.\n")
         sys.stdout.flush()
         while (self.running):
             self.task_scheduler.tick(False)
             self.pool.run_until_end()
             self._flush_logs()
-            sleep(INTEGRITY_CHECK_INTERVAL)
+            self._clock(self.settings.interval)
 
     def close(self) -> None:
         self.running = False
 
-        self.cache_service.save("./test.cache")
+        self.cache_service.save(f"{CACHE_STORES}daemon.cache")
 
         self.pool.close()
 

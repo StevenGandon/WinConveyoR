@@ -1,15 +1,18 @@
 from locale import getpreferredencoding
 from os import environ, pipe, close
+from os.path import abspath, expanduser
 from itertools import chain
 from signal import SIGINT, SIGTERM, signal
 from time import sleep
 from json import dumps
 
 from ..arghandler import *
-from ..wrappers import *
 from ..graphic import *
 from ..packaging import resource_path
 from .. import api_client
+from .procedure import Procedure
+
+from libwconr import *
 
 class CLI(object):
     OPTION_TABLE: dict = {
@@ -25,6 +28,8 @@ class CLI(object):
         "info": {"opt": ("info",), "exc": ()},
         "check": {"opt": ("check",), "exc": ()},
         "upgrade": {"opt": ("upgrade",), "exc": ()},
+        "options": {"opt": ("options",), "exc": ()},
+        "yes": {"opt": ("-y", "--yes")},
         "nocolor": {"opt": ("--no-color", "-ncolor")},
         "noansi": {"opt": ("--no-ansi", "-nansi")},
         "ascii": {"opt": ("--ascii", "-ascii")}
@@ -32,7 +37,10 @@ class CLI(object):
 
     PARAMETER_TABLE: dict = {
         "terminal-support": {"opt": ("-ts", "--terminal-support")},
-        "charset": {"opt": ("-chst", "--charset")}
+        "charset": {"opt": ("-chst", "--charset")},
+        "prefix": {"opt": ("-p", "--prefix")},
+        "set": {"opt": ("-s", "--set")},
+        "procedure": {"opt": ("-P", "--procedure")}
     }
 
     def __init__(self):
@@ -165,6 +173,8 @@ class CLI(object):
             (', '.join(CLI.OPTION_TABLE['info']['opt']), "Show package variants"),
             (', '.join(CLI.OPTION_TABLE['check']['opt']), "Verify cached package hash"),
             (', '.join(CLI.OPTION_TABLE['upgrade']['opt']), "Upgrade all packages (or a specific one)"),
+            (', '.join(CLI.OPTION_TABLE['options']['opt']), "Show the install options of a package"),
+            (', '.join(CLI.OPTION_TABLE['yes']['opt']), "Install with default options, no questions"),
             (', '.join(CLI.OPTION_TABLE['register']['opt']), "Create an account"),
             (', '.join(CLI.OPTION_TABLE['login']['opt']), "Log in to your account"),
             (', '.join(CLI.OPTION_TABLE['nocolor']['opt']), "Disable color rendering"),
@@ -174,6 +184,9 @@ class CLI(object):
         params = [
             (', '.join(CLI.PARAMETER_TABLE['terminal-support']['opt']), "Define a specific generic terminal support"),
             (', '.join(CLI.PARAMETER_TABLE['charset']['opt']), "Define a specific generic charset"),
+            (', '.join(CLI.PARAMETER_TABLE['prefix']['opt']), "Install prefix (default: ~/.local)"),
+            (', '.join(CLI.PARAMETER_TABLE['set']['opt']), "Package options: NAME=value[,NAME=value...]"),
+            (', '.join(CLI.PARAMETER_TABLE['procedure']['opt']), "Replace the package procedure (.yaml or .WIZARD)"),
         ]
 
         lines = [f"Usage: {sys.argv[0]} <-d|-h|...> [options] [arguments]", "", "Options:"]
@@ -229,6 +242,75 @@ class CLI(object):
         self.wcr.dowload_package("https://developer.mozilla.org/fr/docs/Web/HTTP/Reference/Status/301", "./")
         return (0)
 
+    def _parse_set_option(self) -> dict:
+        option_set = self.get_arg("set")
+        options = {}
+
+        if (not option_set):
+            return (options)
+
+        for item in option_set.value.split(','):
+            if ('=' not in item or not item.split('=')[0]):
+                raise ValueError(f"invalid option '{item}', expected NAME=value.")
+            options[item.split('=')[0]] = '='.join(item.split('=')[1:])
+        return (options)
+
+    def _ask_options(self, options: list, answers: dict) -> dict:
+        # interactive terminal only: ask every field not already given with --set
+        for option in options:
+            if (option["name"] in answers):
+                continue
+            value = input(f"{option['prompt']} [{option['default']}]: ").strip()
+            if (value):
+                answers[option["name"]] = value
+        return (answers)
+
+    def _is_interactive(self) -> bool:
+        return (hasattr(sys.stdin, 'isatty') and sys.stdin.isatty() and not self.has_opt("yes"))
+
+    def options_package(self):
+        package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
+        prefix = self.get_arg("prefix")
+        prefix = abspath(expanduser(prefix.value)) if prefix else None
+
+        if (not package_name):
+            sys.stderr.write(f"{sys.argv[0]} options: no package name provided.\n")
+            return (1)
+
+        procedure = self.get_arg("procedure")
+        if (procedure):
+            with Procedure(procedure.value) as proc:
+                if (proc.error):
+                    sys.stderr.write(f"{sys.argv[0]} options: {proc.error}\n")
+                    return (1)
+                options = self.wcr.get_procedure_options(package_name, proc.path, prefix)
+            if (options is None):
+                sys.stderr.write(f"{sys.argv[0]} options: invalid procedure.\n")
+                return (1)
+            return (self._print_options(package_name, options))
+
+        for src in self.wcr.get_sources():
+            options = self.wcr.get_package_options(src['proto'], src['url'], package_name, prefix)
+            if (options is None):
+                continue
+            return (self._print_options(package_name, options))
+
+        sys.stderr.write(f"{sys.argv[0]} options: '{package_name}' not found in any source.\n")
+        return (1)
+
+    def _print_options(self, package_name: str, options: list) -> int:
+        if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
+            sys.stdout.write(dumps(options) + "\n")
+            return (0)
+
+        if (not options):
+            sys.stdout.write(f"{package_name} has no install options.\n")
+            return (0)
+
+        for option in options:
+            sys.stdout.write(f"{option['name']} ({option['type']}): {option['prompt']} [default: {option['default']}]\n")
+        return (0)
+
     def install_package(self):
         package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
 
@@ -241,9 +323,41 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} install: no sources configured.\n")
             return (1)
 
+        prefix = self.get_arg("prefix")
+        prefix = abspath(expanduser(prefix.value)) if prefix else None
+
+        try:
+            options = self._parse_set_option()
+        except ValueError as e:
+            sys.stderr.write(f"{sys.argv[0]} install: {e}\n")
+            return (1)
+
+        procedure = self.get_arg("procedure")
+        if (not procedure):
+            return (self._install_from_sources(sources, package_name, prefix, options, None))
+
+        with Procedure(procedure.value) as proc:
+            if (proc.error):
+                sys.stderr.write(f"{sys.argv[0]} install: {proc.error}\n")
+                return (1)
+            if (self._is_interactive()):
+                declared = self.wcr.get_procedure_options(package_name, proc.path, prefix)
+                if (declared is None):
+                    sys.stderr.write(f"{sys.argv[0]} install: invalid procedure.\n")
+                    return (1)
+                options = self._ask_options(declared, options)
+            return (self._install_from_sources(sources, package_name, prefix, options, proc.path))
+
+    def _install_from_sources(self, sources: list, package_name: str, prefix: str, options: dict, procedure: str) -> int:
+        # with a procedure, its options were already asked: the package ones are ignored
         for src in sources:
             sys.stdout.write(f"{sys.argv[0]} install: trying '{package_name}' from {src['url']}...\n")
-            rc = self.wcr.install_package(src['proto'], src['url'], package_name)
+            if (self._is_interactive() and not procedure):
+                declared = self.wcr.get_package_options(src['proto'], src['url'], package_name, prefix)
+                if (declared is None):
+                    continue
+                options = self._ask_options(declared, options)
+            rc = self.wcr.install_package(src['proto'], src['url'], package_name, prefix, options, procedure)
             if (rc == 0):
                 sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
                 return (0)
@@ -554,7 +668,13 @@ class CLI(object):
         reset = "\033[0m"
 
         def _cb(event_type, message, bytes_done, bytes_total):
-            return
+            # only surface warnings and errors, the rest is debug noise
+            if (event_type not in (wcr_event_type.WCR_EVENT_WARNING, wcr_event_type.WCR_EVENT_ERROR)):
+                return
+            if (use_color):
+                sys.stderr.write(f"{colors[event_type.value]}{message}{reset}\n")
+            else:
+                sys.stderr.write(f"{message}\n")
 
         return (_cb)
 
@@ -601,6 +721,9 @@ class CLI(object):
 
         if (self.has_opt("upgrade")):
             return self.upgrade_packages()
+
+        if (self.has_opt("options")):
+            return self.options_package()
 
         if (self.has_opt("register")):
             return self.register_user()

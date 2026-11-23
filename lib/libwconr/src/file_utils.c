@@ -19,7 +19,7 @@
     #define MKDIR(p) mkdir(p, 0755)
 #endif
 
-static int mkdir_p(const char *path)
+int mkdir_p(const char *path)
 {
     char tmp[1024];
     char *p;
@@ -80,10 +80,35 @@ char *get_cache_path(const struct wcr_state_s *state, const char *filename)
 #define EXTRACT_CMD_MAX 2048
 #define PKG_SUBDIR_MAX 256
 
+int extract_archive_to(const struct wcr_state_s *state, const char *archive_path, const char *dest_dir)
+{
+    char cmd[EXTRACT_CMD_MAX];
+    int rc;
+
+    if (!archive_path || !dest_dir)
+        return -1;
+
+    if (mkdir_p(dest_dir) != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] extract_archive: cannot create %s", dest_dir);
+        return -1;
+    }
+
+    snprintf(cmd, sizeof(cmd), "tar -xzf \"%s\" -C \"%s\"", archive_path, dest_dir);
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] extract_archive: extracting to %s", dest_dir);
+
+    rc = system(cmd);
+    if (rc != 0) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] extract_archive: tar failed (rc=%d)", rc);
+        return -1;
+    }
+
+    wcr_emit(state, WCR_EVENT_INFO, "[INFO] extract_archive: ok");
+    return 0;
+}
+
 int extract_archive(const struct wcr_state_s *state, const char *archive_path, const char *package_name)
 {
     char pkg_subdir[PKG_SUBDIR_MAX];
-    char cmd[EXTRACT_CMD_MAX];
     char *install_dir;
     int rc;
 
@@ -92,25 +117,9 @@ int extract_archive(const struct wcr_state_s *state, const char *archive_path, c
     if (!install_dir)
         return -1;
 
-    if (mkdir_p(install_dir) != 0) {
-        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] extract_archive: cannot create %s", install_dir);
-        free(install_dir);
-        return -1;
-    }
-
-    snprintf(cmd, sizeof(cmd), "tar -xzf \"%s\" -C \"%s\"", archive_path, install_dir);
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] extract_archive: extracting to %s", install_dir);
-
-    rc = system(cmd);
+    rc = extract_archive_to(state, archive_path, install_dir);
     free(install_dir);
-
-    if (rc != 0) {
-        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] extract_archive: tar failed (rc=%d)", rc);
-        return -1;
-    }
-
-    wcr_emit(state, WCR_EVENT_INFO, "[INFO] extract_archive: ok");
-    return 0;
+    return rc;
 }
 
 char *read_file_text(const char *path)

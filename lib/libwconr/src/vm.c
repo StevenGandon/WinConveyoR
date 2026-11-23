@@ -1,5 +1,7 @@
 #include "vm_internal.h"
 
+#include <errno.h>
+
 static const char * const vm_xml_files[] = {
     "instructions_v0.xml",
     NULL
@@ -21,6 +23,8 @@ struct _wizard_vm_s *wizard_vm_init(const char *instructions_dir)
 
     vm->isets = NULL;
     vm->iset_count = 0;
+    vm->var_count = 0;
+    vm->error[0] = '\0';
 
     for (i = 0; vm_xml_files[i] != NULL; i++) {
         snprintf(path, sizeof(path), "%s/%s", instructions_dir,
@@ -66,12 +70,13 @@ void wizard_vm_close(struct _wizard_vm_s *vm)
             (void)free(vm->isets[i].ops);
     }
 
+    vm_clear_vars(vm);
     (void)free(vm->isets);
     (void)free(vm);
 }
 
-static const struct vm_iset_s *vm_resolve_iset(const struct _wizard_vm_s *vm,
-                                               uint16_t version)
+const struct vm_iset_s *vm_resolve_iset(const struct _wizard_vm_s *vm,
+                                        uint16_t version)
 {
     uint32_t i;
 
@@ -86,8 +91,8 @@ static const struct vm_iset_s *vm_resolve_iset(const struct _wizard_vm_s *vm,
     return (NULL);
 }
 
-static const struct vm_op_def *vm_find_op(const struct vm_iset_s *iset,
-                                          uint16_t code)
+const struct vm_op_def *vm_find_op(const struct vm_iset_s *iset,
+                                   uint16_t code)
 {
     uint32_t i;
 
@@ -102,7 +107,8 @@ static const struct vm_op_def *vm_find_op(const struct vm_iset_s *iset,
     return (NULL);
 }
 
-static int vm_run_section(const struct vm_iset_s *iset,
+static int vm_run_section(struct _wizard_vm_s *vm,
+                          const struct vm_iset_s *iset,
                           struct _wizard_ctx_s *ctx,
                           const struct _wizard_section_entry_raw_s *section)
 {
@@ -152,14 +158,26 @@ static int vm_run_section(const struct vm_iset_s *iset,
             }
         }
 
+        if (vm_expand_args(vm, args, def->arg_count) != 0) {
+            vm_free_args(args, def->arg_count);
+            (void)free(args);
+            return (-1);
+        }
+
         handler = vm_find_handler(iset->version, def->name);
+        errno = 0;
         ret = handler ? handler(args, def->arg_count) : -1;
 
         vm_free_args(args, def->arg_count);
         (void)free(args);
 
-        if (ret != 0)
+        if (ret != 0) {
+            if (errno != 0)
+                snprintf(vm->error, sizeof(vm->error), "instruction '%s' failed: %s", def->name, strerror(errno));
+            else
+                snprintf(vm->error, sizeof(vm->error), "instruction '%s' failed", def->name);
             return (-1);
+        }
     }
 
     return (0);
@@ -178,7 +196,8 @@ int wizard_vm_exec(struct _wizard_vm_s *vm,
     if (!iset)
         return (-1);
 
-    return vm_run_section(iset, ctx, section);
+    vm->error[0] = '\0';
+    return vm_run_section(vm, iset, ctx, section);
 }
 
 static const char *vm_type_name(struct vm_arg_type type)

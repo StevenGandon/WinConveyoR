@@ -39,6 +39,16 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries" FORCE)
 set(BUILD_CURL_EXE OFF CACHE BOOL "Disable curl executable" FORCE)
 set(CURL_STATICLIB OFF CACHE BOOL "Build curl as shared" FORCE)
 
+# only plain HTTP(S) downloads are needed: never pick optional deps found on
+# the build machine (e.g. Homebrew nghttp2 on macOS runners -> missing header,
+# and extra dylibs the installers would have to ship)
+set(USE_NGHTTP2 OFF CACHE BOOL "No HTTP/2" FORCE)
+set(USE_LIBIDN2 OFF CACHE BOOL "No IDN" FORCE)
+set(CURL_USE_LIBPSL OFF CACHE BOOL "No public suffix list" FORCE)
+set(CURL_USE_LIBSSH2 OFF CACHE BOOL "No SSH" FORCE)
+set(CURL_BROTLI OFF CACHE BOOL "No brotli" FORCE)
+set(CURL_ZSTD OFF CACHE BOOL "No zstd" FORCE)
+
 if(WIN32)
     set(CURL_USE_SCHANNEL ON CACHE BOOL "Use native Schannel" FORCE)
 elseif(APPLE)
@@ -138,6 +148,11 @@ set(LIBWCONR_SOURCES
     src/vm_parse.c
     src/vm_decode.c
     src/vm_handlers.c
+    src/vm_expand.c
+    src/vm_visit.c
+    src/wizard_options.c
+    src/wizard_install_info.c
+    src/wizard_runner.c
 )
 
 if(WIN32)
@@ -147,6 +162,11 @@ else()
 endif()
 
 add_library(wconr SHARED ${LIBWCONR_SOURCES})
+
+target_compile_definitions(wconr
+    PRIVATE
+        WCR_DEFAULT_ASSETS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../assets/wizard"
+)
 
 target_compile_options(wconr
     PRIVATE
