@@ -21,7 +21,6 @@ CONFIG = expandvars("%APPDATA%\\wcr\\daemon.conf" if uname().system == "Windows"
 
 class Daemon(object):
     def __init__(self):
-        makedirs(dirname(CONFIG), exist_ok = True)
         makedirs(dirname(CACHE_STORES), exist_ok = True)
 
         if (isfile(CONFIG)):

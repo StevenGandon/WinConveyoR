@@ -28,6 +28,7 @@ def update_packages(output):
     packages = state.list_installed()
     if (not packages):
         output.write("[update] No packages installed.\n")
+        state.close()
         return
 
     upgraded = 0

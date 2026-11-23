@@ -21,5 +21,6 @@ def clean_packages(output):
             remove(full_path)
             output.write(f"[cleanup] removed cache for {item}.\n")
 
+    state.close()
     output.write("[cleanup] done.\n")
 
