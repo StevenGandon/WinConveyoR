@@ -82,7 +82,7 @@ files_for() {
 pack cli      $(files_for $CLI_BINS) lib
 pack server   $(files_for $SERVER_BINS)
 pack devtools $(files_for $DEVTOOLS_BINS) include
-pack daemon $(files_for $DAEMON_BINS) include
+pack daemon $(files_for $DAEMON_BINS) lib
 
 cp "$REPO/LICENSE" "$WORK/payload/LICENSE"
 

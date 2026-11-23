@@ -72,7 +72,7 @@ mkdir -p "$DAEMON/$HOME_DIR/lib" "$DAEMON/usr/local/lib"
 cp -R "$DIST/lib/." "$DAEMON/$HOME_DIR/lib/"
 for f in "$DAEMON/$HOME_DIR/lib/libwconr"*.dylib; do
   if [ -e "$f" ]; then
-    ln -s "../winconveyor/lib/$(basename "$f")" "$CLI/usr/local/lib/$(basename "$f")"
+    ln -s "../winconveyor/lib/$(basename "$f")" "$DAEMON/usr/local/lib/$(basename "$f")"
   fi
 done
 

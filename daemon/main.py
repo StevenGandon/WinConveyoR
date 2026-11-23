@@ -3,7 +3,8 @@ from sys import exit
 from signal import signal, SIGINT, SIGTERM
 from time import sleep, time
 from platform import uname
-from os.path import expandvars, isfile
+from os.path import expandvars, isfile, dirname
+from os import makedirs
 from src import *
 from libwconr import *
 
@@ -16,10 +17,13 @@ UPDATE_TASK_NAME = "update"
 INTEGRITY_MAX_INSTANCES = 1
 CLEANUP_MAX_INSTANCES = 1
 UPDATE_MAX_INSTANCES = 1
-CONFIG = "%APPDATA%\\wcr\\wcr-daemon.json" if uname().system == "Windows" else "/etc/wcr-daemon.json"
+CONFIG = expandvars("%APPDATA%\\wcr\\daemon.conf" if uname().system == "Windows" else "/etc/wcr.d/daemon.conf")
 
 class Daemon(object):
     def __init__(self):
+        makedirs(dirname(CONFIG), exist_ok = True)
+        makedirs(dirname(CACHE_STORES), exist_ok = True)
+
         if (isfile(CONFIG)):
             self.settings = Settings.from_file(CONFIG)
         else:
