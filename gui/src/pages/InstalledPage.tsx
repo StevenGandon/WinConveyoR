@@ -100,7 +100,7 @@ const InstalledPage: React.FC = () => {
                         )}
                         {check && (
                           <div className="mt-2">
-                            <Badge variant={check.match ? 'success' : 'danger'} size="sm">
+                            <Badge variant={check.match ? 'success' : 'error'} size="sm">
                               {check.match ? 'Hash OK' : 'Hash mismatch'}
                             </Badge>
                             {!check.match && (
