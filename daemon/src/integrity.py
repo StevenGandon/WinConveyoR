@@ -1,15 +1,4 @@
-import sys
-import os
-
-_cli_src = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..', 'cli', 'src'))
-if (_cli_src not in sys.path):
-    sys.path.insert(0, _cli_src)
-
-_lib_build = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..', 'lib', 'libwconr', 'build'))
-
-from wrappers import WCRState, add_dll_registry_path
-
-add_dll_registry_path(_lib_build)
+from libwconr import *
 
 def verify_installed_packages(output):
     state = WCRState.load("~/.config/wcr/config")

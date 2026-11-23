@@ -6,10 +6,11 @@ from time import sleep
 from json import dumps
 
 from ..arghandler import *
-from ..wrappers import *
 from ..graphic import *
 from ..packaging import resource_path
 from .. import api_client
+
+from libwconr import *
 
 class CLI(object):
     OPTION_TABLE: dict = {
