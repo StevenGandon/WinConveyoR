@@ -205,7 +205,7 @@ jobs:
           EOF
           sudo installer -pkg "$PKG" -target / -applyChoiceChangesXML choices.plist -verbose
 
-          for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS; do
+          for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS $DAEMON_BINS; do
             test -x "/usr/local/bin/$b" || { echo "::error::/usr/local/bin/$b missing"; exit 1; }
           done
           test -e /usr/local/lib/libwconr.dylib || { echo "::error::libwconr.dylib not linked into /usr/local/lib"; exit 1; }
@@ -228,7 +228,7 @@ jobs:
             done < <(otool -L "$f" | tail -n +2 | awk '{print $1}')
           done
 
-          for b in $CLI_BINS; do
+          for b in $CLI_BINS $DAEMON_BINS; do
             out="$(/usr/local/bin/$b --version 2>&1 || true)"
             if echo "$out" | grep -qiE 'dyld|library not loaded|killed'; then
               echo "::error::$b failed to launch:"; echo "$out"; exit 1
@@ -287,7 +287,7 @@ jobs:
 
           sh "$RUN" --accept-license --components all --prefix "$P" --no-modify-path
 
-          for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS; do
+          for b in $CLI_BINS $SERVER_BINS $DEVTOOLS_BINS $DAEMON_BINS; do
             test -x "$P/bin/$b" || { echo "::error::$b was not installed"; exit 1; }
 
             out="$(ldd "$(readlink -f "$P/bin/$b")" 2>&1 || true)"
@@ -302,7 +302,7 @@ jobs:
           fi
           test -n "$(ls -A "$P/include")" || { echo "::error::headers missing"; exit 1; }
 
-          for f in $(for b in $CLI_BINS $DEVTOOLS_BINS; do echo "$P/lib/winconveyor/bin/$b"; done) "$P"/lib/winconveyor/lib/*.so*; do
+          for f in $(for b in $CLI_BINS $DEVTOOLS_BINS $DAEMON_BINS; do echo "$P/lib/winconveyor/bin/$b"; done) "$P"/lib/winconveyor/lib/*.so*; do
             [ -f "$f" ] && [ ! -L "$f" ] || continue
             if readelf -d "$f" 2>/dev/null | grep -E 'RPATH|RUNPATH' | grep -Eq '(\[|:)/'; then
               echo "::error::$(basename "$f") has an absolute RPATH/RUNPATH:"

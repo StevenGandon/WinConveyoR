@@ -36,6 +36,9 @@ class WCRState(object):
         else:
             self._cstate = self.__mapper.call_function("new_state")
 
+    def get_cache_path(self):
+        return (self._cstate.contents.cache_path.decode("utf-8"))
+
     @classmethod
     def load(cls, filepath: str):
         path = os.path.expanduser(filepath)
