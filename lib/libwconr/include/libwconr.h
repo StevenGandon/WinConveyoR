@@ -59,6 +59,7 @@
     struct wcr_state_s {
         struct wcr_system_s system_informations; // system information about current machine / target machine
         char *cache_path;                        // user-configured cache directory
+        char *assets_path;                       // directory holding wizard instruction sets (instructions_v0.xml)
         char *config_path;                       // path to config file for auto-save
         struct wcr_source_s **sources;           // configured mirrors
         size_t sources_count;                    // number of configured mirrors
@@ -91,6 +92,22 @@
         int match;
     };
 
+    /* install options (NULL fields = defaults) */
+    struct wcr_install_opts_s {
+        const char *prefix;             // install prefix used for ${PREFIX}, ${MACHINE_BIN}... (default: ~/.local or %LOCALAPPDATA%/Programs)
+        const char **option_values;     // "NAME=value" answers to the package options (missing = default)
+        size_t option_values_count;     // number of entries in option_values
+        const char *procedure;          // compiled .WIZARD replacing the package procedure (NULL = package one)
+    };
+
+    /* a field declared by a package (options: section of its wizard) */
+    struct wcr_pkg_option_s {
+        char *name;             // variable name (${NAME} in the steps)
+        char *type;             // path | user | mode | string
+        char *prompt;           // question shown to the user
+        char *default_value;    // default, ${VAR} already resolved with the given prefix
+    };
+
     typedef struct wcr_state_s wcr_state;
     typedef struct wcr_system_s wcr_system;
     typedef struct wcr_source_s wcr_source;
@@ -99,6 +116,8 @@
     typedef struct wcr_pkg_variant_s wcr_pkg_variant;
     typedef struct wcr_pkg_metadata_s wcr_pkg_metadata;
     typedef struct wcr_hash_check_s wcr_hash_check;
+    typedef struct wcr_install_opts_s wcr_install_opts;
+    typedef struct wcr_pkg_option_s wcr_pkg_option;
 
     /* ==== high level interfaces ====  */
 
@@ -112,6 +131,10 @@
     int wcr_source_set_auth(struct wcr_state_s *state, size_t index, const char *access_key, const char *server_pubkey_path);
     int sync_package_list(const struct wcr_state_s *state, protocol_type proto, const char *source_uri);
     int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
+    int install_package_opts(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name, const struct wcr_install_opts_s *opts);
+    int get_package_options(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name, const char *prefix, struct wcr_pkg_option_s **out, size_t *out_count);
+    int get_procedure_options(const struct wcr_state_s *state, const char *package_name, const char *procedure, const char *prefix, struct wcr_pkg_option_s **out, size_t *out_count);
+    void free_package_options(struct wcr_pkg_option_s *list, size_t count);
     int uninstall_package(const struct wcr_state_s *state, const char *package_name);
     int record_installed(const struct wcr_state_s *state, const char *name, const char *version, int is_dependency);
     int remove_installed(const struct wcr_state_s *state, const char *name);

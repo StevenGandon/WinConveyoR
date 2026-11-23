@@ -6,7 +6,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   closeWindow: () => ipcRenderer.send('close-window'),
 
   runUpdate: () => ipcRenderer.invoke('cli-update'),
-  runInstall: (packageName) => ipcRenderer.invoke('cli-install', packageName),
+  runInstall: (packageName, opts) => ipcRenderer.invoke('cli-install', packageName, opts),
+  runOptions: (packageName, procedure) => ipcRenderer.invoke('cli-options', packageName, procedure),
+  pickProcedure: () => ipcRenderer.invoke('pick-procedure'),
   runUninstall: (packageName) => ipcRenderer.invoke('cli-uninstall', packageName),
   listInstalled: () => ipcRenderer.invoke('cli-list-installed'),
   runSearch: (query) => ipcRenderer.invoke('cli-search', query),

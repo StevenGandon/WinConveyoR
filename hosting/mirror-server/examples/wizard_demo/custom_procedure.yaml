@@ -1,0 +1,38 @@
+# F30 demo: replaces the install procedure of wizard_demo at install time.
+# Same syntax as a package config (metadata is not needed).
+#   wcr install wizard_demo --procedure=hosting/mirror-server/examples/wizard_demo/custom_procedure.yaml
+# GUI: Discover > wizard_demo > settings button > Custom procedure > Browse
+# Instead of bin/ + include/ + man/, everything goes into a single folder.
+wizard:
+  version: 1
+
+  options:
+    - name: APP_DIR
+      prompt: "Application folder"
+      type: path
+      default: "${PREFIX}/opt/wizard_demo"
+
+  install:
+    steps:
+      - mkdir:
+          path: ${PREFIX}/opt
+      - mkdir:
+          path: ${APP_DIR}
+      - copy:
+          from: wizard-demo
+          to: ${APP_DIR}/wizard-demo
+      - chmod_str:
+          path: ${APP_DIR}/wizard-demo
+          mode: 0755
+      - copy:
+          from: README
+          to: ${APP_DIR}/README
+
+  uninstall:
+    steps:
+      - remove:
+          path: ${APP_DIR}/wizard-demo
+      - remove:
+          path: ${APP_DIR}/README
+      - rmdir:
+          path: ${APP_DIR}

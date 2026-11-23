@@ -1,0 +1,72 @@
+# Demo package for F31 (install path / target user / permissions chosen by the user)
+# and F37 (binary, header and manpage installed in the right places).
+# Build: cd hosting/mirror-server && python3 wcrpackager.py examples/wizard_demo/files examples/wizard_demo/config.yaml
+wizard:
+  version: 1
+
+  metadata:
+    name: wizard_demo
+    description: "Demo package with install options"
+    version: "1.0.0"
+    deps: []
+    machine: any
+    architecture: any
+
+  options:
+    - name: BIN_DIR
+      prompt: "Binary directory"
+      type: path
+      default: "${MACHINE_BIN}"
+    - name: DATA_DIR
+      prompt: "Data directory"
+      type: path
+      default: "${PREFIX}/share/wizard_demo"
+    - name: OWNER
+      prompt: "Owner of the installed files"
+      type: user
+      default: "${USER}"
+    - name: BIN_MODE
+      prompt: "Binary permissions"
+      type: mode
+      default: 0755
+
+  install:
+    steps:
+      - mkdir:
+          path: ${BIN_DIR}
+      - copy:
+          from: wizard-demo
+          to: ${BIN_DIR}/wizard-demo
+      - chmod_str:
+          path: ${BIN_DIR}/wizard-demo
+          mode: ${BIN_MODE}
+      - chown:
+          path: ${BIN_DIR}/wizard-demo
+          user: ${OWNER}
+      - copy:
+          from: wizard_demo.h
+          to: ${MACHINE_INCLUDE}/wizard_demo.h
+      - mkdir:
+          path: ${MACHINE_MAN}/man1
+      - copy:
+          from: wizard-demo.1
+          to: ${MACHINE_MAN}/man1/wizard-demo.1
+      - mkdir:
+          path: ${DATA_DIR}
+      - copy:
+          from: README
+          to: ${DATA_DIR}/README
+      - chown:
+          path: ${DATA_DIR}
+          user: ${OWNER}
+
+  uninstall:
+    steps:
+      - remove:
+          path: ${BIN_DIR}/wizard-demo
+      - remove:
+          path: ${MACHINE_INCLUDE}/wizard_demo.h
+      - remove:
+          path: ${MACHINE_MAN}/man1/wizard-demo.1
+      - remove_tree:
+          path: ${DATA_DIR}

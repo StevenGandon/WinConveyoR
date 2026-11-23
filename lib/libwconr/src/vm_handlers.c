@@ -5,15 +5,23 @@
 #    include <windows.h>
 #else
 #    include <dirent.h>
+#    include <pwd.h>
 #    include <sys/stat.h>
 #    include <sys/wait.h>
 #endif
+
+/** @brief Highest valid permission bits (setuid/setgid/sticky + rwxrwxrwx). */
+#define VM_MODE_MAX     07777
+/** @brief Numeric base of a textual mode ("0755"). */
+#define VM_MODE_BASE    8
+/** @brief Windows: owner write bit, cleared means read-only. */
+#define VM_MODE_OWNER_W 0200
 
 #include "vm_internal.h"
 
 #ifdef _WIN32
 
-static int vm_copy_file(const char *from, const char *to)
+int vm_copy_file(const char *from, const char *to)
 {
     return (CopyFileA(from, to, FALSE) ? 0 : -1);
 }
@@ -93,7 +101,7 @@ static int vm_copy_tree_recursive(const char *from, const char *to)
 
 #else /* POSIX */
 
-static int vm_copy_file(const char *from, const char *to)
+int vm_copy_file(const char *from, const char *to)
 {
     int fd_from;
     int fd_to;
@@ -291,13 +299,56 @@ static int vm_handle_chmod(struct vm_arg_value *args, uint32_t count)
 
     if (attrs == INVALID_FILE_ATTRIBUTES)
         return (-1);
-    if (args[1].v.u16[0] & 0200)
+    if (args[1].v.u16[0] & VM_MODE_OWNER_W)
         attrs &= ~FILE_ATTRIBUTE_READONLY;
     else
         attrs |= FILE_ATTRIBUTE_READONLY;
     return (SetFileAttributesA(args[0].v.str.data[0], attrs) ? 0 : -1);
 #else
     return chmod(args[0].v.str.data[0], (mode_t)args[1].v.u16[0]);
+#endif
+}
+
+static int vm_handle_chmod_str(struct vm_arg_value *args, uint32_t count)
+{
+    const char *text = args[1].v.str.data[0];
+    char *end = NULL;
+    unsigned long mode;
+
+    (void)count;
+    mode = strtoul(text, &end, VM_MODE_BASE);
+    if (end == text || *end != '\0' || mode > VM_MODE_MAX)
+        return (-1);
+#ifdef _WIN32
+    {
+        DWORD attrs = GetFileAttributesA(args[0].v.str.data[0]);
+
+        if (attrs == INVALID_FILE_ATTRIBUTES)
+            return (-1);
+        if (mode & VM_MODE_OWNER_W)
+            attrs &= ~FILE_ATTRIBUTE_READONLY;
+        else
+            attrs |= FILE_ATTRIBUTE_READONLY;
+        return (SetFileAttributesA(args[0].v.str.data[0], attrs) ? 0 : -1);
+    }
+#else
+    return chmod(args[0].v.str.data[0], (mode_t)mode);
+#endif
+}
+
+static int vm_handle_chown(struct vm_arg_value *args, uint32_t count)
+{
+    (void)count;
+#ifdef _WIN32
+    /* TODO: ownership through ACLs (SetNamedSecurityInfo), no-op for now */
+    (void)args;
+    return (0);
+#else
+    struct passwd *pw = getpwnam(args[1].v.str.data[0]);
+
+    if (!pw)
+        return (-1);
+    return chown(args[0].v.str.data[0], pw->pw_uid, pw->pw_gid);
 #endif
 }
 
@@ -357,6 +408,8 @@ static const struct vm_handler_version *vm_get_versions(void)
         { "rmdir",       vm_handle_rmdir },
         { "move",        vm_handle_move },
         { "move_tree",   vm_handle_move },
+        { "chown",       vm_handle_chown },
+        { "chmod_str",   vm_handle_chmod_str },
         { NULL,          NULL }
     };
     static const struct vm_handler_version versions[] = {

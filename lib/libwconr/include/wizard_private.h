@@ -63,6 +63,25 @@
 /** @brief Maximum number of sections accepted during bounds validation. */
 #define WIZARD_MAX_SECTIONS     1000
 
+/* ── Section types & flags (see doc/wizard_file_format.md) ───────────────── */
+
+/** @brief Section types as written by the packager in @c section_type. */
+enum wizard_section_type {
+    WIZARD_SECTION_INSTALL   = 0x01,    /**< Installs the package files. */
+    WIZARD_SECTION_UNINSTALL = 0x02,    /**< Removes the installed files. */
+    WIZARD_SECTION_PURGE     = 0x03,    /**< Removes everything, user data included. */
+    WIZARD_SECTION_BUILD     = 0x04,    /**< Build script, run before install. */
+    WIZARD_SECTION_METADATA  = 0x05,    /**< Package metadata (not executable). */
+    WIZARD_SECTION_OPTIONS   = 0x06     /**< User choices, one "option" per field (not executable). */
+};
+
+/** @brief Section targets every platform. */
+#define WIZARD_SECTION_FLAG_ANY     0x0
+/** @brief Section targets Windows. */
+#define WIZARD_SECTION_FLAG_WINDOWS (1 << 0)
+/** @brief Section targets POSIX systems. */
+#define WIZARD_SECTION_FLAG_POSIX   (1 << 1)
+
 /* ── Endian helpers ──────────────────────────────────────────────────────── */
 
 /**
@@ -358,6 +377,36 @@ int wizard_vm_exec(
     struct _wizard_vm_s *vm,
     struct _wizard_ctx_s *ctx,
     const struct _wizard_section_entry_raw_s *section);
+
+/**
+ * @brief Defines (or replaces) a variable usable as @c ${name} in string arguments.
+ *
+ * @param[in] vm     Initialised wizard VM.
+ * @param[in] name   Variable name, without @c ${}.
+ * @param[in] value  Value substituted at execution time.
+ * @return 0 on success, -1 on NULL argument, full table or allocation failure.
+ */
+int wizard_vm_set_var(struct _wizard_vm_s *vm, const char *name, const char *value);
+
+/**
+ * @brief Copies a file (created or truncated), as the @c copy instruction does.
+ * @return 0 on success, -1 on failure (errno set).
+ */
+int vm_copy_file(const char *from, const char *to);
+
+/**
+ * @brief Returns the last error message of the VM (empty string if none).
+ */
+const char *wizard_vm_error(const struct _wizard_vm_s *vm);
+
+/**
+ * @brief Returns a newly allocated copy of @p str with every @c ${VAR} expanded.
+ * @return Heap string to free, or NULL on unknown variable (see @ref wizard_vm_error).
+ */
+char *wizard_vm_expand(struct _wizard_vm_s *vm, const char *str);
+
+/** @brief Returns the value of a VM variable (not the environment), or NULL. */
+const char *wizard_vm_get_var(struct _wizard_vm_s *vm, const char *name);
 
 /**
  * @brief Prints all loaded instruction sets and their opcodes to stdout.

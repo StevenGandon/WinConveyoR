@@ -51,6 +51,7 @@ class wcr_state_s(Structure):
 wcr_state_s._fields_ = [
     ("system_informations", wcr_system_s),
     ("cache_path", c_char_p),
+    ("assets_path", c_char_p),
     ("config_path", c_char_p),
     ("sources", POINTER(POINTER(wcr_source_s))),
     ("sources_count", c_size_t),
@@ -113,6 +114,26 @@ wcr_hash_check_s._fields_ = [
     ("match", c_int)
 ]
 
+class wcr_pkg_option_s(Structure):
+    pass
+
+wcr_pkg_option_s._fields_ = [
+    ("name", c_char_p),
+    ("type", c_char_p),
+    ("prompt", c_char_p),
+    ("default_value", c_char_p)
+]
+
+class wcr_install_opts_s(Structure):
+    pass
+
+wcr_install_opts_s._fields_ = [
+    ("prefix", c_char_p),
+    ("option_values", POINTER(c_char_p)),
+    ("option_values_count", c_size_t),
+    ("procedure", c_char_p)
+]
+
 
 # ==== Interfaces ==== #
 
@@ -158,6 +179,10 @@ class Mapper(object):
         self._dll.register_function("wcr_state_add_source", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("sync_package_list", c_int, POINTER(wcr_state_s), c_int, c_char_p)
         self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p)
+        self._dll.register_function("install_package_opts", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(wcr_install_opts_s))
+        self._dll.register_function("get_package_options", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, c_char_p, POINTER(POINTER(wcr_pkg_option_s)), POINTER(c_size_t))
+        self._dll.register_function("get_procedure_options", c_int, POINTER(wcr_state_s), c_char_p, c_char_p, c_char_p, POINTER(POINTER(wcr_pkg_option_s)), POINTER(c_size_t))
+        self._dll.register_function("free_package_options", None, POINTER(wcr_pkg_option_s), c_size_t)
         self._dll.register_function("uninstall_package", c_int, POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("list_installed", c_int, POINTER(wcr_state_s), POINTER(POINTER(wcr_installed_pkg_s)), POINTER(c_size_t))
         self._dll.register_function("free_installed_list", None, POINTER(wcr_installed_pkg_s), c_size_t)
