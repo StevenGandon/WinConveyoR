@@ -77,7 +77,7 @@ class WCRState(object):
     def sync_package_list(self, proto: int, source_uri: str) -> int:
         return int(self.__mapper.call_function("sync_package_list", self._cstate, proto, source_uri.encode('utf-8')))
 
-    def install_package(self, proto: int, source_uri: str, package_name: str, prefix: str = None, options: dict = None) -> int:
+    def install_package(self, proto: int, source_uri: str, package_name: str, prefix: str = None, options: dict = None, procedure: str = None) -> int:
         opts = wcr_install_opts_s()
         entries = [f"{key}={value}".encode('utf-8') for key, value in (options or {}).items()]
         values = (c_char_p * max(len(entries), 1))(*entries)
@@ -85,6 +85,7 @@ class WCRState(object):
         opts.prefix = prefix.encode('utf-8') if prefix else None
         opts.option_values = cast(values, POINTER(c_char_p))
         opts.option_values_count = len(entries)
+        opts.procedure = procedure.encode('utf-8') if procedure else None
         return int(self.__mapper.call_function("install_package_opts", self._cstate, proto, source_uri.encode('utf-8'), package_name.encode('utf-8'), pointer(opts)))
 
     def get_package_options(self, proto: int, source_uri: str, package_name: str, prefix: str = None) -> list:
@@ -94,6 +95,18 @@ class WCRState(object):
                                              source_uri.encode('utf-8'), package_name.encode('utf-8'),
                                              prefix.encode('utf-8') if prefix else None,
                                              pointer(out), pointer(count)))
+        return self._collect_options(rc, out, count)
+
+    def get_procedure_options(self, package_name: str, procedure: str, prefix: str = None) -> list:
+        out = POINTER(wcr_pkg_option_s)()
+        count = c_size_t(0)
+        rc = int(self.__mapper.call_function("get_procedure_options", self._cstate,
+                                             package_name.encode('utf-8'), procedure.encode('utf-8'),
+                                             prefix.encode('utf-8') if prefix else None,
+                                             pointer(out), pointer(count)))
+        return self._collect_options(rc, out, count)
+
+    def _collect_options(self, rc: int, out, count) -> list:
         if (rc != 0):
             return None
 

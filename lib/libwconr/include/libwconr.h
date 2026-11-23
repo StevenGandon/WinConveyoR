@@ -97,6 +97,7 @@
         const char *prefix;             // install prefix used for ${PREFIX}, ${MACHINE_BIN}... (default: ~/.local or %LOCALAPPDATA%/Programs)
         const char **option_values;     // "NAME=value" answers to the package options (missing = default)
         size_t option_values_count;     // number of entries in option_values
+        const char *procedure;          // compiled .WIZARD replacing the package procedure (NULL = package one)
     };
 
     /* a field declared by a package (options: section of its wizard) */
@@ -132,6 +133,7 @@
     int install_package(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name);
     int install_package_opts(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name, const struct wcr_install_opts_s *opts);
     int get_package_options(const struct wcr_state_s *state, protocol_type proto, const char *source_uri, const char *package_name, const char *prefix, struct wcr_pkg_option_s **out, size_t *out_count);
+    int get_procedure_options(const struct wcr_state_s *state, const char *package_name, const char *procedure, const char *prefix, struct wcr_pkg_option_s **out, size_t *out_count);
     void free_package_options(struct wcr_pkg_option_s *list, size_t count);
     int uninstall_package(const struct wcr_state_s *state, const char *package_name);
     int record_installed(const struct wcr_state_s *state, const char *name, const char *version, int is_dependency);

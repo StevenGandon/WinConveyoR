@@ -389,6 +389,12 @@ int wizard_vm_exec(
 int wizard_vm_set_var(struct _wizard_vm_s *vm, const char *name, const char *value);
 
 /**
+ * @brief Copies a file (created or truncated), as the @c copy instruction does.
+ * @return 0 on success, -1 on failure (errno set).
+ */
+int vm_copy_file(const char *from, const char *to);
+
+/**
  * @brief Returns the last error message of the VM (empty string if none).
  */
 const char *wizard_vm_error(const struct _wizard_vm_s *vm);

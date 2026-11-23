@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Download, Settings2 } from 'lucide-react';
+import { Download, FileCode, Settings2, X } from 'lucide-react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
@@ -11,6 +11,8 @@ interface InstallOptionsDialogProps {
   options: PackageOption[];
   onCancel: () => void;
   onConfirm: (opts: InstallOptions) => void;
+  // fields of the package (no procedure) or of the user procedure replacing it (F30)
+  onLoadOptions: (procedure?: string) => Promise<PackageOption[] | null>;
 }
 
 const MODE_PATTERN = /^[0-7]{1,4}$/;
@@ -22,11 +24,32 @@ function validate(option: PackageOption, value: string): string | undefined {
   return undefined;
 }
 
-const InstallOptionsDialog: React.FC<InstallOptionsDialogProps> = ({ packageName, options, onCancel, onConfirm }) => {
+const defaultsOf = (options: PackageOption[]) => Object.fromEntries(options.map(o => [o.name, o.default]));
+
+const InstallOptionsDialog: React.FC<InstallOptionsDialogProps> = ({
+  packageName, options: packageOptions, onCancel, onConfirm, onLoadOptions,
+}) => {
   const [prefix, setPrefix] = useState('');
-  const [values, setValues] = useState<Record<string, string>>(
-    () => Object.fromEntries(options.map(o => [o.name, o.default]))
-  );
+  const [procedure, setProcedure] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState<PackageOption[]>(packageOptions);
+  const [values, setValues] = useState<Record<string, string>>(() => defaultsOf(packageOptions));
+
+  // a procedure declares its own fields: reload them, back to the package ones on clear
+  const changeProcedure = async (path: string) => {
+    setLoading(true);
+    const loaded = await onLoadOptions(path || undefined);
+    setLoading(false);
+    if (loaded === null) return;
+    setProcedure(path);
+    setOptions(loaded);
+    setValues(defaultsOf(loaded));
+  };
+
+  const browseProcedure = async () => {
+    const path = await window.electronAPI?.pickProcedure();
+    if (path) await changeProcedure(path);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCancel(); };
@@ -46,7 +69,7 @@ const InstallOptionsDialog: React.FC<InstallOptionsDialogProps> = ({ packageName
     const changed = Object.fromEntries(
       options.filter(o => values[o.name] !== o.default).map(o => [o.name, values[o.name]])
     );
-    onConfirm({ prefix: prefix.trim() || undefined, values: changed });
+    onConfirm({ prefix: prefix.trim() || undefined, values: changed, procedure: procedure || undefined });
   };
 
   return (
@@ -67,6 +90,36 @@ const InstallOptionsDialog: React.FC<InstallOptionsDialogProps> = ({ packageName
             value={prefix}
             onChange={(e) => setPrefix(e.target.value)}
           />
+
+          <div>
+            <span className="block text-sm font-medium text-wc-fg dark:text-wc-fg-dark mb-1">Custom procedure</span>
+            <div className="flex items-center space-x-2">
+              <Input
+                fullWidth
+                readOnly
+                placeholder="Package procedure"
+                value={procedure}
+                leftIcon={<FileCode size={14} />}
+              />
+              {procedure && (
+                <Button variant="ghost" size="sm" onClick={() => changeProcedure('')} disabled={loading} aria-label="Use package procedure">
+                  <X size={14} />
+                </Button>
+              )}
+              <Button variant="outline" size="sm" onClick={browseProcedure} disabled={loading}>
+                Browse
+              </Button>
+            </div>
+            <p className="mt-1 text-xs text-wc-muted dark:text-wc-muted-dark">
+              Optional .yaml or .WIZARD replacing the package install steps.
+            </p>
+          </div>
+
+          {options.length === 0 && (
+            <p className="text-sm text-wc-muted dark:text-wc-muted-dark">
+              {loading ? 'Loading fields...' : 'No fields to fill.'}
+            </p>
+          )}
 
           <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
             {options.map(option => (
@@ -96,7 +149,7 @@ const InstallOptionsDialog: React.FC<InstallOptionsDialogProps> = ({ packageName
               size="sm"
               leftIcon={<Download size={14} />}
               onClick={handleConfirm}
-              disabled={hasErrors}
+              disabled={hasErrors || loading}
             >
               Install
             </Button>

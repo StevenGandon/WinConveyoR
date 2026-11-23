@@ -16,6 +16,7 @@ export interface PackageOption {
 export interface InstallOptions {
   prefix?: string;
   values?: Record<string, string>;
+  procedure?: string;   // user procedure replacing the package one (F30)
 }
 
 interface CliContextType {
@@ -23,7 +24,7 @@ interface CliContextType {
   busy: boolean;
   runUpdate: () => Promise<void>;
   runInstall: (packageName: string, opts?: InstallOptions) => Promise<InstallResult>;
-  runOptions: (packageName: string) => Promise<PackageOption[] | null>;
+  runOptions: (packageName: string, procedure?: string) => Promise<PackageOption[] | null>;
   runUninstall: (packageName: string) => Promise<number>;
   runSearch: (query?: string) => Promise<{ name: string; version: string }[]>;
   runInfo: (packageSpec: string) => Promise<string>;
@@ -69,11 +70,11 @@ export const CliProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [busy]);
 
   // fields the package asks before installing (null = package not found)
-  const runOptions = useCallback(async (packageName: string): Promise<PackageOption[] | null> => {
+  const runOptions = useCallback(async (packageName: string, procedure?: string): Promise<PackageOption[] | null> => {
     if (!window.electronAPI || busy) return null;
     setBusy(true);
     setLog('');
-    const result = await window.electronAPI.runOptions(packageName);
+    const result = await window.electronAPI.runOptions(packageName, procedure);
     setBusy(false);
     if (result.code !== 0) {
       toast.error(`Cannot read install options of ${packageName}`);

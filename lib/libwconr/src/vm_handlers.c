@@ -21,7 +21,7 @@
 
 #ifdef _WIN32
 
-static int vm_copy_file(const char *from, const char *to)
+int vm_copy_file(const char *from, const char *to)
 {
     return (CopyFileA(from, to, FALSE) ? 0 : -1);
 }
@@ -101,7 +101,7 @@ static int vm_copy_tree_recursive(const char *from, const char *to)
 
 #else /* POSIX */
 
-static int vm_copy_file(const char *from, const char *to)
+int vm_copy_file(const char *from, const char *to)
 {
     int fd_from;
     int fd_to;

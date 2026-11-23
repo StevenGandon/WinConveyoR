@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Search, Package as PackageIcon, Download, Info } from 'lucide-react';
+import { Search, Package as PackageIcon, Download, Info, Settings2 } from 'lucide-react';
 import { useCli } from '../context/CliContext';
 import type { InstallOptions, PackageOption } from '../context/CliContext';
 import InstallOptionsDialog from '../components/install/InstallOptionsDialog';
@@ -41,11 +41,12 @@ const DiscoverPage: React.FC = () => {
     }
   };
 
-  // packages declaring options get the "fill the fields" form first
-  const handleInstall = async (name: string) => {
+  // packages declaring options get the "fill the fields" form first;
+  // "always" opens it anyway (custom prefix / procedure on any package)
+  const handleInstall = async (name: string, always = false) => {
     const options = await runOptions(name);
     if (options === null) return;
-    if (options.length === 0) {
+    if (options.length === 0 && !always) {
       await doInstall(name);
       return;
     }
@@ -86,6 +87,7 @@ const DiscoverPage: React.FC = () => {
           options={optionsTarget.options}
           onCancel={() => setOptionsTarget(null)}
           onConfirm={handleConfirmOptions}
+          onLoadOptions={(procedure) => runOptions(optionsTarget.name, procedure)}
         />
       )}
       <div className="p-6 space-y-4">
@@ -252,6 +254,18 @@ const DiscoverPage: React.FC = () => {
                         disabled={busy}
                       >
                         Install
+                      </Button>
+                    )}
+                    {!isInstalled(pkg.name) && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleInstall(pkg.name, true)}
+                        disabled={busy}
+                        aria-label={`Install ${pkg.name} with options`}
+                        title="Install with options"
+                      >
+                        <Settings2 size={14} />
                       </Button>
                     )}
                   </div>

@@ -1100,9 +1100,28 @@ int get_package_options(const wcr_state *state, protocol_type proto, const char 
 
     snprintf(subdir, sizeof(subdir), "%s/%s", PREVIEW_SUBDIR, spec.name);
     preview_dir = get_cache_path(state, subdir);
-    rc = preview_dir ? wizard_list_options(state, preview_dir, spec.name, prefix, out, out_count) : -1;
+    rc = preview_dir ? wizard_list_options(state, preview_dir, NULL, spec.name, prefix, out, out_count) : -1;
 
     free(preview_dir);
+    pkg_specifier_free(&spec);
+    return rc;
+}
+
+/* F30: options declared by a user procedure (no download needed) */
+int get_procedure_options(const wcr_state *state, const char *package_name, const char *procedure,
+                          const char *prefix, wcr_pkg_option **out, size_t *out_count)
+{
+    struct pkg_specifier spec;
+    char *base_dir;
+    int rc;
+
+    if (!state || !package_name || !procedure || !out || !out_count)
+        return -1;
+    if (pkg_specifier_parse(package_name, &spec) != 0)
+        return -1;
+    base_dir = get_cache_path(state, PREVIEW_SUBDIR);
+    rc = base_dir ? wizard_list_options(state, base_dir, procedure, spec.name, prefix, out, out_count) : -1;
+    free(base_dir);
     pkg_specifier_free(&spec);
     return rc;
 }

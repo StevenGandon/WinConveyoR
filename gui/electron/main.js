@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
@@ -56,12 +56,30 @@ function shellQuote(arg) {
   return `'${String(arg).replace(/'/g, `'\\''`)}'`;
 }
 
+// C:\foo\bar -> /mnt/c/foo/bar (the CLI runs inside WSL on Windows)
+function toWslPath(p) {
+  return p.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
+}
+
+// a file picked in the GUI, as the CLI sees it
+function toCliPath(p) {
+  return process.platform === 'win32' ? toWslPath(p) : p;
+}
+
 // install options from the GUI form -> CLI parameters
 function installArgs(packageName, opts) {
   const args = ['install', packageName];
   if (opts?.prefix) args.push(`--prefix=${opts.prefix}`);
+  if (opts?.procedure) args.push(`--procedure=${toCliPath(opts.procedure)}`);
   const values = Object.entries(opts?.values ?? {}).map(([name, value]) => `${name}=${value}`);
   if (values.length > 0) args.push(`--set=${values.join(',')}`);
+  return args;
+}
+
+// fields of the package, or of the user procedure replacing it (F30)
+function optionsArgs(packageName, procedure) {
+  const args = ['options', packageName];
+  if (procedure) args.push(`--procedure=${toCliPath(procedure)}`);
   return args;
 }
 
@@ -70,7 +88,7 @@ function runCli(args) {
     let child;
 
     if (process.platform === 'win32') {
-      const wslRoot = PROJECT_ROOT.replace(/^([A-Z]):\\/i, (_, d) => `/mnt/${d.toLowerCase()}/`).replace(/\\/g, '/');
+      const wslRoot = toWslPath(PROJECT_ROOT);
       const wslCli = `${wslRoot}/cli/main.py`;
       const wslLib = ['.', `${wslRoot}/cli/build`, `${wslRoot}/lib/libwconr/build`, `${wslRoot}/lib/libwconr`].join(':');
       child = spawn('wsl', ['bash', '-c', `LD_LIBRARY_PATH="${wslLib}" python3 "${wslCli}" --no-ansi ${args.map(shellQuote).join(' ')}`], {
@@ -145,7 +163,18 @@ ipcMain.on('close-window', () => {
 
 ipcMain.handle('cli-update', () => runCli(['update']));
 ipcMain.handle('cli-install', (_event, packageName, opts) => runCli(installArgs(packageName, opts)));
-ipcMain.handle('cli-options', (_event, packageName) => runCli(['options', packageName]));
+ipcMain.handle('cli-options', (_event, packageName, procedure) => runCli(optionsArgs(packageName, procedure)));
+ipcMain.handle('pick-procedure', async () => {
+  const result = await dialog.showOpenDialog(mainWindow, {
+    title: 'Choose an install procedure',
+    properties: ['openFile'],
+    filters: [
+      { name: 'Install procedure', extensions: ['yaml', 'yml', 'WIZARD'] },
+      { name: 'All files', extensions: ['*'] },
+    ],
+  });
+  return result.canceled ? null : result.filePaths[0];
+});
 ipcMain.handle('cli-uninstall', (_event, packageName) => runCli(['uninstall', packageName]));
 ipcMain.handle('cli-list-installed', () => runCli(['list']));
 ipcMain.handle('cli-search', (_event, query) => runCli(query ? ['search', query] : ['search']));

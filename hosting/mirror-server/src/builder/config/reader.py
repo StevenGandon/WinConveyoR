@@ -4,7 +4,7 @@ from re import fullmatch
 from .schema import ConfigSchemaBank, ConfigSchema, ConfigKey
 from .message import ConfigError, ConfigMessage, ConfigWarning
 
-from ...wizard import WizardInstruction, WizardArgument, WizardSection, WizardCodeSection, WizardArgumentArray
+from ...wizard import WizardInstruction, WizardArgument, WizardSection, WizardCodeSection, WizardArgumentArray, PackageWizard
 from ..package_builder import PackageBuilder, PackageInfo
 
 class YAMLConfigReader(object):
@@ -402,14 +402,21 @@ class YAMLConfigReader(object):
             self._parsed["architecture"]
         ), temp_dir)
 
-        builder.wizard.add_section(WizardSection("metadata", WizardSection.TYPE_SECTION_METADATA, WizardSection.FLAGS_DEFAULT))
+        builder.wizard = self.to_wizard()
+        return (builder)
+
+    # the compiled procedure alone (.WIZARD), also used to override a package procedure (F30)
+    def to_wizard(self) -> PackageWizard:
+        wizard = PackageWizard()
+
+        wizard.add_section(WizardSection("metadata", WizardSection.TYPE_SECTION_METADATA, WizardSection.FLAGS_DEFAULT))
 
         if (self._parsed["options"]):
             options_section = WizardCodeSection("options", WizardSection.TYPE_SECTION_OPTIONS, WizardSection.FLAGS_DEFAULT)
 
             for option in self._parsed["options"]:
                 options_section.instructions.append(WizardInstruction(*self.op_from_string("option", option)))
-            builder.wizard.add_section(options_section)
+            wizard.add_section(options_section)
         
         for job in self._parsed["jobs"]:
             any_only = len(self._encountered_machines[job]) == 0
@@ -440,6 +447,6 @@ class YAMLConfigReader(object):
                     section.instructions.append(WizardInstruction(*self.op_from_string(k, v)))
 
             for item in code_sections.values():
-                builder.wizard.add_section(item)
+                wizard.add_section(item)
 
-        return (builder)
+        return (wizard)

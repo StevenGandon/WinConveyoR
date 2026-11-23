@@ -11,6 +11,7 @@ from ..wrappers import *
 from ..graphic import *
 from ..packaging import resource_path
 from .. import api_client
+from .procedure import Procedure
 
 class CLI(object):
     OPTION_TABLE: dict = {
@@ -37,7 +38,8 @@ class CLI(object):
         "terminal-support": {"opt": ("-ts", "--terminal-support")},
         "charset": {"opt": ("-chst", "--charset")},
         "prefix": {"opt": ("-p", "--prefix")},
-        "set": {"opt": ("-s", "--set")}
+        "set": {"opt": ("-s", "--set")},
+        "procedure": {"opt": ("-P", "--procedure")}
     }
 
     def __init__(self):
@@ -183,6 +185,7 @@ class CLI(object):
             (', '.join(CLI.PARAMETER_TABLE['charset']['opt']), "Define a specific generic charset"),
             (', '.join(CLI.PARAMETER_TABLE['prefix']['opt']), "Install prefix (default: ~/.local)"),
             (', '.join(CLI.PARAMETER_TABLE['set']['opt']), "Package options: NAME=value[,NAME=value...]"),
+            (', '.join(CLI.PARAMETER_TABLE['procedure']['opt']), "Replace the package procedure (.yaml or .WIZARD)"),
         ]
 
         lines = [f"Usage: {sys.argv[0]} <-d|-h|...> [options] [arguments]", "", "Options:"]
@@ -273,25 +276,39 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} options: no package name provided.\n")
             return (1)
 
+        procedure = self.get_arg("procedure")
+        if (procedure):
+            with Procedure(procedure.value) as proc:
+                if (proc.error):
+                    sys.stderr.write(f"{sys.argv[0]} options: {proc.error}\n")
+                    return (1)
+                options = self.wcr.get_procedure_options(package_name, proc.path, prefix)
+            if (options is None):
+                sys.stderr.write(f"{sys.argv[0]} options: invalid procedure.\n")
+                return (1)
+            return (self._print_options(package_name, options))
+
         for src in self.wcr.get_sources():
             options = self.wcr.get_package_options(src['proto'], src['url'], package_name, prefix)
             if (options is None):
                 continue
-
-            if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
-                sys.stdout.write(dumps(options) + "\n")
-                return (0)
-
-            if (not options):
-                sys.stdout.write(f"{package_name} has no install options.\n")
-                return (0)
-
-            for option in options:
-                sys.stdout.write(f"{option['name']} ({option['type']}): {option['prompt']} [default: {option['default']}]\n")
-            return (0)
+            return (self._print_options(package_name, options))
 
         sys.stderr.write(f"{sys.argv[0]} options: '{package_name}' not found in any source.\n")
         return (1)
+
+    def _print_options(self, package_name: str, options: list) -> int:
+        if (not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty()):
+            sys.stdout.write(dumps(options) + "\n")
+            return (0)
+
+        if (not options):
+            sys.stdout.write(f"{package_name} has no install options.\n")
+            return (0)
+
+        for option in options:
+            sys.stdout.write(f"{option['name']} ({option['type']}): {option['prompt']} [default: {option['default']}]\n")
+        return (0)
 
     def install_package(self):
         package_name = self.argparser.arguments[1].value if len(self.argparser.arguments) > 1 else None
@@ -314,14 +331,32 @@ class CLI(object):
             sys.stderr.write(f"{sys.argv[0]} install: {e}\n")
             return (1)
 
+        procedure = self.get_arg("procedure")
+        if (not procedure):
+            return (self._install_from_sources(sources, package_name, prefix, options, None))
+
+        with Procedure(procedure.value) as proc:
+            if (proc.error):
+                sys.stderr.write(f"{sys.argv[0]} install: {proc.error}\n")
+                return (1)
+            if (self._is_interactive()):
+                declared = self.wcr.get_procedure_options(package_name, proc.path, prefix)
+                if (declared is None):
+                    sys.stderr.write(f"{sys.argv[0]} install: invalid procedure.\n")
+                    return (1)
+                options = self._ask_options(declared, options)
+            return (self._install_from_sources(sources, package_name, prefix, options, proc.path))
+
+    def _install_from_sources(self, sources: list, package_name: str, prefix: str, options: dict, procedure: str) -> int:
+        # with a procedure, its options were already asked: the package ones are ignored
         for src in sources:
             sys.stdout.write(f"{sys.argv[0]} install: trying '{package_name}' from {src['url']}...\n")
-            if (self._is_interactive()):
+            if (self._is_interactive() and not procedure):
                 declared = self.wcr.get_package_options(src['proto'], src['url'], package_name, prefix)
                 if (declared is None):
                     continue
                 options = self._ask_options(declared, options)
-            rc = self.wcr.install_package(src['proto'], src['url'], package_name, prefix, options)
+            rc = self.wcr.install_package(src['proto'], src['url'], package_name, prefix, options, procedure)
             if (rc == 0):
                 sys.stdout.write(f"{sys.argv[0]} install: ok.\n")
                 return (0)

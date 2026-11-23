@@ -361,8 +361,43 @@ static int wizard_run(const wcr_state *state, const char *package_name,
     return run_wizard_file(&run);
 }
 
+static int check_procedure(const wcr_state *state, const char *procedure)
+{
+    struct _wizard_ctx_s *ctx = wizard_open(procedure);
+
+    if (!ctx) {
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wizard: invalid procedure file %s", procedure);
+        return -1;
+    }
+    wizard_close(ctx);
+    return 0;
+}
+
+/* F30: the user procedure replaces the package .WIZARD (kept for uninstall) */
+static int apply_procedure(const wcr_state *state, const char *package_name, const char *procedure)
+{
+    char dest[WIZARD_PATH_MAX];
+    char *pkg_dir;
+    int rc = -1;
+
+    if (check_procedure(state, procedure) != 0)
+        return -1;
+    pkg_dir = package_dir(state, package_name);
+    if (pkg_dir && path_join(dest, sizeof(dest), pkg_dir, WIZARD_FILE_NAME) == 0)
+        rc = vm_copy_file(procedure, dest);
+    free(pkg_dir);
+    if (rc != 0)
+        wcr_emit(state, WCR_EVENT_ERROR, "[ERROR] wizard: cannot use procedure %s", procedure);
+    else
+        wcr_emit(state, WCR_EVENT_INFO, "[INFO] wizard: package procedure overridden by %s", procedure);
+    return rc;
+}
+
 int wizard_install(const wcr_state *state, const char *package_name, const wcr_install_opts *opts)
 {
+    if (state && package_name && opts && opts->procedure
+        && apply_procedure(state, package_name, opts->procedure) != 0)
+        return -1;
     return wizard_run(state, package_name, WIZARD_SECTION_INSTALL, opts);
 }
 
@@ -416,8 +451,9 @@ static int list_with_vm(const struct wizard_run_s *run, struct _wizard_vm_s *vm,
     return rc;
 }
 
-int wizard_list_options(const wcr_state *state, const char *pkg_dir, const char *package_name,
-                        const char *prefix, wcr_pkg_option **out, size_t *out_count)
+int wizard_list_options(const wcr_state *state, const char *pkg_dir, const char *procedure,
+                        const char *package_name, const char *prefix,
+                        wcr_pkg_option **out, size_t *out_count)
 {
     struct wizard_run_s run;
     struct _wizard_ctx_s *ctx;
@@ -430,6 +466,12 @@ int wizard_list_options(const wcr_state *state, const char *pkg_dir, const char 
     *out_count = 0;
 
     rc = init_run(&run, state, package_name, WIZARD_SECTION_OPTIONS, pkg_dir);
+    if (rc >= 0 && procedure) {
+        if (check_procedure(state, procedure) != 0)
+            return -1;
+        snprintf(run.wizard_path, sizeof(run.wizard_path), "%s", procedure);
+        rc = 1;
+    }
     if (rc <= 0)
         return rc;
     if (resolve_prefix(&run, prefix) != 0 || !state->assets_path)

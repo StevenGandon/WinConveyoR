@@ -130,7 +130,8 @@ class wcr_install_opts_s(Structure):
 wcr_install_opts_s._fields_ = [
     ("prefix", c_char_p),
     ("option_values", POINTER(c_char_p)),
-    ("option_values_count", c_size_t)
+    ("option_values_count", c_size_t),
+    ("procedure", c_char_p)
 ]
 
 
@@ -180,6 +181,7 @@ class Mapper(object):
         self._dll.register_function("install_package", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p)
         self._dll.register_function("install_package_opts", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, POINTER(wcr_install_opts_s))
         self._dll.register_function("get_package_options", c_int, POINTER(wcr_state_s), c_int, c_char_p, c_char_p, c_char_p, POINTER(POINTER(wcr_pkg_option_s)), POINTER(c_size_t))
+        self._dll.register_function("get_procedure_options", c_int, POINTER(wcr_state_s), c_char_p, c_char_p, c_char_p, POINTER(POINTER(wcr_pkg_option_s)), POINTER(c_size_t))
         self._dll.register_function("free_package_options", None, POINTER(wcr_pkg_option_s), c_size_t)
         self._dll.register_function("uninstall_package", c_int, POINTER(wcr_state_s), c_char_p)
         self._dll.register_function("list_installed", c_int, POINTER(wcr_state_s), POINTER(POINTER(wcr_installed_pkg_s)), POINTER(c_size_t))
