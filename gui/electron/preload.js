@@ -16,6 +16,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
   runCheck: (packageSpec) => ipcRenderer.invoke('cli-check', packageSpec),
   runUpgrade: (packageName) => ipcRenderer.invoke('cli-upgrade', packageName),
 
+  onDownloadDone: (callback) => {
+    const handler = (_event, info) => callback(info);
+    ipcRenderer.on('download-done', handler);
+    return () => ipcRenderer.removeListener('download-done', handler);
+  },
   onCliOutput: (callback) => {
     const handler = (_event, text) => callback(text);
     ipcRenderer.on('cli-output', handler);

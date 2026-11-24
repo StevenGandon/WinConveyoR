@@ -8,6 +8,7 @@ import TitleBar from './components/layout/TitleBar';
 import Sidebar from './components/layout/Sidebar';
 import HomePage from './pages/HomePage';
 import DiscoverPage from './pages/DiscoverPage';
+import CommunityHubPage from './pages/CommunityHubPage';
 import InstalledPage from './pages/InstalledPage';
 import UpgradesPage from './pages/UpgradesPage';
 import SettingsPage from './pages/SettingsPage';
@@ -66,7 +67,7 @@ function MainApp() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && !isNaN(Number(e.key))) {
         e.preventDefault();
-        const pages = ['home', 'discover', 'installed', 'upgrades', 'output', 'settings'];
+        const pages = ['home', 'discover', 'hub', 'installed', 'upgrades', 'output', 'settings'];
         const index = Number(e.key) - 1;
         if (index >= 0 && index < pages.length) {
           setActivePage(pages[index]);
@@ -84,6 +85,8 @@ function MainApp() {
         return <HomePage onNavigate={setActivePage} />;
       case 'discover':
         return <DiscoverPage />;
+      case 'hub':
+        return <CommunityHubPage />;
       case 'installed':
         return <InstalledPage />;
       case 'upgrades':
