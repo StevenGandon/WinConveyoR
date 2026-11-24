@@ -98,7 +98,35 @@ class Daemon(object):
     def __del__(self):
         self.close()
 
+DAEMON_NAME = "wcr-daemon"
+VERSION_ARGS = ("-v", "--version")
+HELP_ARGS = ("-h", "--help")
+
+def _wrapper_version() -> str:
+    # version of the libwconr wrapper bundled with the daemon (absent when frozen without metadata)
+    try:
+        from importlib.metadata import version
+        return (version("libwconr"))
+    except Exception:
+        return ("unknown")
+
+# answers without starting the service loop (installer smoke tests call --version)
+def handle_arguments(args) -> int:
+    if (any(a in VERSION_ARGS for a in args)):
+        sys.stdout.write(f"{DAEMON_NAME} (libwconr wrapper {_wrapper_version()})\n")
+        return (0)
+    if (any(a in HELP_ARGS for a in args)):
+        sys.stdout.write(f"Usage: {DAEMON_NAME} [--version | --help]\n"
+                         f"Runs the WinConveyoR background jobs (integrity, update, cleanup).\n"
+                         f"Configuration: {CONFIG}\n")
+        return (0)
+    return (-1)
+
 def main() -> int:
+    rc = handle_arguments(sys.argv[1:])
+    if (rc >= 0):
+        return (rc)
+
     D: Daemon = Daemon()
     D.run()
     D.close()

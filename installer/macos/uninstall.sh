@@ -25,7 +25,7 @@ done
 
 rm -rf "$ROOT"
 
-for id in com.winconveyor.cli com.winconveyor.server com.winconveyor.devtools; do
+for id in com.winconveyor.cli com.winconveyor.server com.winconveyor.devtools com.winconveyor.daemon; do
   pkgutil --forget "$id" >/dev/null 2>&1 || true
 done
 echo "WinConveyoR has been removed."

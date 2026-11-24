@@ -15,7 +15,7 @@ WinConveyoR $VERSION installer
 Usage: sh $(basename "$0") [options]
 
   --accept-license     Accept the license without prompting
-  --components LIST    Comma-separated list of: cli,server,devtools  (or "all")
+  --components LIST    Comma-separated list of: cli,server,devtools,daemon  (or "all")
                        "cli" (CLI tools + library) is always installed.
                        devtools includes the C headers.
   --prefix DIR         Installation prefix
@@ -91,7 +91,7 @@ if [ "$ACCEPT" -ne 1 ]; then
   ask_yn "Do you accept the terms of the license agreement?" n || die "license not accepted; nothing was installed."
 fi
 
-WANT_SERVER=0; WANT_DEVTOOLS=0
+WANT_SERVER=0; WANT_DEVTOOLS=0; WANT_DAEMON=0
 if [ -n "$COMPONENTS" ]; then
   OLDIFS="$IFS"; IFS=,
   for c in $COMPONENTS; do
@@ -99,8 +99,9 @@ if [ -n "$COMPONENTS" ]; then
       cli) ;;
       server) WANT_SERVER=1 ;;
       devtools) WANT_DEVTOOLS=1 ;;
-      all) WANT_SERVER=1; WANT_DEVTOOLS=1 ;;
-      *) die "unknown component '$c' (valid: cli, server, devtools, all)" ;;
+      daemon) WANT_DAEMON=1 ;;
+      all) WANT_SERVER=1; WANT_DEVTOOLS=1; WANT_DAEMON=1 ;;
+      *) die "unknown component '$c' (valid: cli, server, devtools, daemon, all)" ;;
     esac
   done
   IFS="$OLDIFS"
@@ -109,6 +110,7 @@ elif [ "$INTERACTIVE" -eq 1 ]; then
   echo "  [x] cli      - command-line tools and runtime library (required)"
   if ask_yn "  Install the mirror server?" n; then WANT_SERVER=1; fi
   if ask_yn "  Install developer tools and C headers?" n; then WANT_DEVTOOLS=1; fi
+  if ask_yn "  Install the background service (wcr-daemon)?" n; then WANT_DAEMON=1; fi
 else
   echo "No --components given in non-interactive mode: installing 'cli' only."
 fi
@@ -136,6 +138,7 @@ echo "Installing to $ROOT ..."
 install_component cli
 if [ "$WANT_SERVER" -eq 1 ]; then install_component server; fi
 if [ "$WANT_DEVTOOLS" -eq 1 ]; then install_component devtools; fi
+if [ "$WANT_DAEMON" -eq 1 ]; then install_component daemon; fi
 cp "$TMP/LICENSE" "$ROOT/LICENSE.txt"
 
 for f in "$ROOT"/lib/libwconr.so*; do

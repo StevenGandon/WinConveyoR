@@ -16,6 +16,7 @@
         <line choice="cli"/>
         <line choice="server"/>
         <line choice="devtools"/>
+        <line choice="daemon"/>
     </choices-outline>
 
     <choice id="cli"
@@ -40,7 +41,15 @@
         <pkg-ref id="com.winconveyor.devtools"/>
     </choice>
 
+    <choice id="daemon"
+            title="Background service"
+            description="The wcr-daemon background service (integrity checks, updates, cache cleanup)."
+            start_selected="false">
+        <pkg-ref id="com.winconveyor.daemon"/>
+    </choice>
+
     <pkg-ref id="com.winconveyor.cli"      version="@NUMERIC@" onConclusion="none">cli.pkg</pkg-ref>
     <pkg-ref id="com.winconveyor.server"   version="@NUMERIC@" onConclusion="none">server.pkg</pkg-ref>
     <pkg-ref id="com.winconveyor.devtools" version="@NUMERIC@" onConclusion="none">devtools.pkg</pkg-ref>
+    <pkg-ref id="com.winconveyor.daemon"   version="@NUMERIC@" onConclusion="none">daemon.pkg</pkg-ref>
 </installer-gui-script>

@@ -80,7 +80,7 @@ find "$WORK" -name .DS_Store -delete
 find "$WORK" -type d -exec chmod 755 {} +
 
 mkdir -p "$WORK/pkgs"
-for c in cli server devtools; do
+for c in cli server devtools daemon; do
   pkgbuild \
     --root "$WORK/$c" \
     --identifier "com.winconveyor.$c" \
