@@ -1,7 +1,8 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, session } from 'electron';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import fs from 'fs';
 import isDev from 'electron-is-dev';
 
 if (process.platform === 'linux') {
@@ -131,7 +132,41 @@ if (process.platform === 'win32') {
   app.setAppUserModelId('com.winconveyor.app');
 }
 
-app.whenReady().then(createWindow);
+// <Downloads>/name, or name (1).ext, name (2).ext... if it already exists
+function uniqueDownloadPath(filename) {
+  const dir = app.getPath('downloads');
+  const ext = path.extname(filename);
+  const base = path.basename(filename, ext);
+  let candidate = path.join(dir, filename);
+
+  for (let i = 1; fs.existsSync(candidate); i++) {
+    candidate = path.join(dir, `${base} (${i})${ext}`);
+  }
+  return candidate;
+}
+
+// F28: files downloaded from the hub (<a download>) -> notify the page when done
+function watchDownloads() {
+  session.defaultSession.on('will-download', (_event, item) => {
+    // save straight into Downloads: the "save as" dialog can open hidden behind the
+    // frameless window (WSLg), leaving the download pending forever
+    item.setSavePath(uniqueDownloadPath(item.getFilename()));
+    console.log(`[download] ${item.getURL()} -> ${item.getSavePath()}`);
+    item.once('done', (_e, state) => {
+      console.log(`[download] ${item.getFilename()}: ${state}`);
+      mainWindow?.webContents.send('download-done', {
+        filename: item.getFilename(),
+        path: item.getSavePath(),
+        state,
+      });
+    });
+  });
+}
+
+app.whenReady().then(() => {
+  watchDownloads();
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

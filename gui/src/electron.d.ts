@@ -9,6 +9,12 @@ interface InstallOptions {
   procedure?: string;
 }
 
+interface DownloadInfo {
+  filename: string;
+  path: string;
+  state: 'completed' | 'cancelled' | 'interrupted';
+}
+
 interface ElectronAPI {
   minimizeWindow: () => void;
   maximizeWindow: () => void;
@@ -24,6 +30,7 @@ interface ElectronAPI {
   runCheck: (packageSpec: string) => Promise<CliResult>;
   runUpgrade: (packageName?: string) => Promise<CliResult>;
   onCliOutput: (callback: (text: string) => void) => () => void;
+  onDownloadDone: (callback: (info: DownloadInfo) => void) => () => void;
 }
 
 declare global {

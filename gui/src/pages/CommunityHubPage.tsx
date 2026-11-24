@@ -3,7 +3,6 @@ import { Search, Package as PackageIcon, Download, Upload, X, AlertCircle, HardD
 import { toast } from 'sonner';
 import { searchPackages, uploadPackage, downloadUrl, deletePackage, PackageOut } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { useCli } from '../context/CliContext';
 import { logActivity } from '../services/activity';
 import Header from '../components/layout/Header';
 import Card from '../components/ui/Card';
@@ -21,7 +20,6 @@ function formatSize(bytes: number): string {
 
 const CommunityHubPage: React.FC = () => {
   const { token, user } = useAuth();
-  const { busy, runInstall } = useCli();
   const isAuthed = !!token && token !== 'anonymous';
 
   const [query, setQuery] = useState('');
@@ -57,13 +55,14 @@ const CommunityHubPage: React.FC = () => {
     fetchPackages(query, controller.signal);
   }, [query, fetchPackages]);
 
-  // F28 — install a hub package through the existing CLI installer path.
-  const handleInstall = async (pkg: PackageOut) => {
-    const result = await runInstall(pkg.name);
-    if (result.code === 0) {
-      logActivity('installed', pkg.name, result.version ?? pkg.version);
-    }
-  };
+  // F28 — the Download link is handled by Electron: tell the user where the file went
+  useEffect(() => {
+    // ?.() too: an old preload (Electron not restarted) has no onDownloadDone
+    return window.electronAPI?.onDownloadDone?.(({ filename, path, state }) => {
+      if (state === 'completed') toast.success(`${filename} downloaded`, { description: path });
+      else toast.error(`Download of ${filename} ${state}`);
+    });
+  }, []);
 
   // Owner-only delete of a published package.
   const [deleting, setDeleting] = useState(false);
@@ -188,11 +187,9 @@ const CommunityHubPage: React.FC = () => {
       {selected && (
         <PackageDetail
           pkg={selected}
-          busy={busy}
           canDelete={!!user && selected.owner_id === user.id}
           deleting={deleting}
           onClose={() => setSelected(null)}
-          onInstall={() => handleInstall(selected)}
           onDelete={() => handleDelete(selected)}
         />
       )}
@@ -213,19 +210,17 @@ const CommunityHubPage: React.FC = () => {
   );
 };
 
-// ---- Detail / install + download (F28) -----------------------------------
+// ---- Detail / download (F28) ----------------------------------------------
 
 interface DetailProps {
   pkg: PackageOut;
-  busy: boolean;
   canDelete: boolean;
   deleting: boolean;
   onClose: () => void;
-  onInstall: () => void;
   onDelete: () => void;
 }
 
-const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, canDelete, deleting, onClose, onInstall, onDelete }) => (
+const PackageDetail: React.FC<DetailProps> = ({ pkg, canDelete, deleting, onClose, onDelete }) => (
   <div
     className="fixed inset-0 z-40 flex items-center justify-center bg-black/40 p-4"
     onClick={onClose}
@@ -291,18 +286,16 @@ const PackageDetail: React.FC<DetailProps> = ({ pkg, busy, canDelete, deleting, 
             )}
           </div>
           <div className="flex gap-2">
+            {/* installing straight from the hub is not supported yet: the CLI only installs
+                from mirrors. The span carries the tooltip (disabled buttons get no hover). */}
+            <span title="Install from the hub is not available yet: use Download">
+              <Button variant="outline" leftIcon={<Download size={16} />} disabled>
+                Install
+              </Button>
+            </span>
             <a href={downloadUrl(pkg.id)} download>
-              <Button variant="outline" leftIcon={<Download size={16} />}>Download</Button>
+              <Button variant="primary" leftIcon={<Download size={16} />}>Download</Button>
             </a>
-            <Button
-              variant="primary"
-              leftIcon={<Download size={16} />}
-              onClick={onInstall}
-              disabled={busy}
-              isLoading={busy}
-            >
-              Install
-            </Button>
           </div>
         </div>
       </div>
