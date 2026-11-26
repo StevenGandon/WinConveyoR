@@ -19,7 +19,8 @@ pyinstaller ./hosting/mirror-server/wcrpackager.py \
             -c -F \
             -n wcrpackager -y --distpath ${DIST_PATH} \
             --workpath ${BUILD_PATH} \
-            --specpath ${BUILD_PATH} --optimize 2
+            --specpath ${BUILD_PATH} --optimize 2 \
+            --add-data "../../../assets/wizard:./assets/wizard"
 pyinstaller ./hosting/mirror-server/wcrgenkey.py \
             -c -F \
             -n wcrgenkey -y --distpath ${DIST_PATH} \

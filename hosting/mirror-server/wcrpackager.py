@@ -9,7 +9,7 @@ def init_typedef():
     instruction_loader: InstructionLoader = InstructionLoader()
 
     try:
-        instruction_loader.load("../../assets/wizard/typedef_x64.xml")
+        instruction_loader.load(get_resource("assets/wizard/typedef_x64.xml"))
     except Exception as e:
         print(e)
 
@@ -24,7 +24,7 @@ def init_ops(version):
     instruction_loader: InstructionLoader = InstructionLoader()
 
     try:
-        instruction_loader.load("../../assets/wizard/instructions_v0.xml")
+        instruction_loader.load(get_resource("assets/wizard/instructions_v0.xml"))
     except Exception as e:
         print(e)
 

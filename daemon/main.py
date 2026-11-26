@@ -4,11 +4,19 @@ from signal import signal, SIGINT, SIGTERM
 from time import sleep, time
 from platform import uname
 from os.path import expandvars, isfile, dirname
-from os import makedirs
+from os import makedirs, environ
 from src import *
 from libwconr import *
 
 add_dll_registry_path(".")
+
+WIZARD_ASSETS = "assets/wizard"
+ASSETS_ENV = "WCR_ASSETS_PATH"
+
+# packages installed by the update job run their wizard: in the executable the lib
+# must use the bundled instruction sets, not the build machine repository path
+if (is_frozen()):
+    environ.setdefault(ASSETS_ENV, get_resource(WIZARD_ASSETS))
 
 CACHE_STORES = expandvars("%LOCALAPPDATA%\\wcr\\cache\\" if uname().system == "Windows" else "${HOME}/.cache/wcr/")
 INTEGRITY_TASK_NAME = "integrity-check"
