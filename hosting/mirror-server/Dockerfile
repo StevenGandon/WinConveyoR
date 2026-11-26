@@ -1,3 +1,3 @@
-FROM wcnr/wcr:1.0.12-dev
+FROM wcnr/wcr:1.0.14-dev
 
 CMD ["wcrmirror"]
