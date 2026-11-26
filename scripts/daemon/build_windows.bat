@@ -17,5 +17,5 @@ for %%F in ("dist\windows-amd64\lib\*.dll") do (
     set "BINARY_ARGS=!BINARY_ARGS! --add-binary "..\..\..\%%F:.""
 )
 
-pyinstaller .\daemon\main.py -c -F -n wcr-daemon -y --distpath %DIST_PATH% --workpath %BUILD_PATH% --specpath %BUILD_PATH% --optimize 2 !BINARY_ARGS!
+pyinstaller .\daemon\main.py -c -F -n wcr-daemon -y --distpath %DIST_PATH% --workpath %BUILD_PATH% --specpath %BUILD_PATH% --optimize 2 --add-data "../../../assets/wizard:./assets/wizard" !BINARY_ARGS!
 endlocal

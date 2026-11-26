@@ -225,6 +225,28 @@ foreach(lib LibXml2)
     endif()
 endforeach()
 
+# OpenSSL runtime (Windows): libwconr.dll imports libcrypto-<N>-x64.dll, which is
+# not a system DLL. It was never shipped and only worked when another program put
+# a matching one in PATH (broke when MSYS2 moved from OpenSSL 3 to 4).
+if(WIN32)
+    get_filename_component(OPENSSL_LIB_DIR "${OPENSSL_CRYPTO_LIBRARY}" DIRECTORY)
+    file(GLOB OPENSSL_CRYPTO_DLLS
+        "${OPENSSL_LIB_DIR}/../bin/libcrypto-*.dll"
+        "${OPENSSL_ROOT_DIR}/bin/libcrypto-*.dll"
+    )
+    list(REMOVE_DUPLICATES OPENSSL_CRYPTO_DLLS)
+    if(NOT OPENSSL_CRYPTO_DLLS)
+        message(FATAL_ERROR "OpenSSL runtime (libcrypto-*.dll) not found near ${OPENSSL_CRYPTO_LIBRARY}")
+    endif()
+    message(STATUS "[WinConveyoR] shipping OpenSSL runtime: ${OPENSSL_CRYPTO_DLLS}")
+    foreach(dll ${OPENSSL_CRYPTO_DLLS})
+        add_custom_command(TARGET dist POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${DIST_DIR}/lib"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${dll}" "${DIST_DIR}/lib/"
+        )
+    endforeach()
+endif()
+
 # includes
 foreach(lib libwconr)
     add_custom_command(TARGET dist POST_BUILD

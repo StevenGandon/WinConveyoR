@@ -225,7 +225,9 @@ int write_state(const wcr_state *state, const char *filepath)
         fprintf(file, "cache_path=%s\n", state->cache_path);
     }
 
-    if (state->assets_path) {
+    /* a path coming from WCR_ASSETS_PATH is not the user's choice (the frozen
+     * executables point it to their temporary extraction dir): never persist it */
+    if (state->assets_path && !getenv(WCR_ASSETS_ENV)) {
         fprintf(file, "%s%s\n", ASSETS_PATH_PREFIX, state->assets_path);
     }
 

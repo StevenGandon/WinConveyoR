@@ -1,39 +1,44 @@
 from ctypes import CDLL
-from genericpath import isfile
+from os.path import abspath, dirname, isfile, join
 
 import os
+import sys
 
-_DLL_PATHS_POSIX = {
-    "./",
-    "./lib/",
-    *tuple(map(lambda x: x if x.endswith('/') else x + '/', filter(lambda x: x, os.environ.get("PATH", "").replace('\\', '/').split(':'))))
-}
+# Lookup order (first match wins, deterministic):
+#   1. next to the frozen executable (PyInstaller): the lib shipped with this build
+#   2. ./ and ./lib/ relative to the current directory
+#   3. directories added with add_dll_registry_path()
+#   4. every directory of $PATH
+# The result is always an absolute path (the former lookup split a Windows $PATH
+# on ':' and returned drive-less paths such as "/Users/x/bin/libwconr.dll").
 
-_DLL_PATHS_NT = {
-    ".\\",
-    ".\\lib\\",
-    *tuple(map(lambda x: x if x.endswith('\\') else x + '\\', filter(lambda x: x, os.environ.get("PATH", "").replace('/', '\\').split(':'))))
-}
+_DEFAULT_DIRS = [".", "lib"]
+_REGISTERED_DIRS = []
 
-def find_dll(name: str, platform = "posix") -> str:
-    if (platform.lower == "nt"):
-        registry: set = _DLL_PATHS_NT
-        name: str = name.replace('/', '\\').strip('\\')
-    else:
-        registry: set = _DLL_PATHS_POSIX
-        name: str = name.replace('\\', '/').strip('/')
+def _frozen_dirs() -> list:
+    if (not getattr(sys, "frozen", False)):
+        return ([])
+    dirs = [dirname(sys.executable)]
+    if (hasattr(sys, "_MEIPASS")):
+        dirs.append(sys._MEIPASS)
+    return (dirs)
 
-    for item in registry:
-        if (isfile(item + name)):
-            return (item + name)
+def _env_path_dirs() -> list:
+    # os.pathsep: ';' on Windows (':' is part of "C:\..."), ':' elsewhere
+    return ([item for item in os.environ.get("PATH", "").split(os.pathsep) if item])
+
+def find_dll(name: str, platform = None) -> str:
+    # `platform` is kept for compatibility: os.path already handles both separators
+    for directory in (*_frozen_dirs(), *_DEFAULT_DIRS, *_REGISTERED_DIRS, *_env_path_dirs()):
+        candidate = abspath(join(directory, name))
+        if (isfile(candidate)):
+            return (candidate)
     return (None)
 
 
 def add_dll_registry_path(path: str) -> None:
-    if (not path.endswith('/') and not path.endswith('\\')):
-        path += "/"
-    _DLL_PATHS_NT.add(path.replace('/', '\\'))
-    _DLL_PATHS_POSIX.add(path.replace('\\', '/'))
+    if (path not in _REGISTERED_DIRS):
+        _REGISTERED_DIRS.append(path)
 
 class _SymbolRegister(object):
     def __init__(self, name: str, symbol_ptr, response_type, *arguments) -> None:

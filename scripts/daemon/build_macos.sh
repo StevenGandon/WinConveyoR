@@ -20,4 +20,5 @@ pyinstaller ./daemon/main.py \
             -n wcr-daemon -y --distpath ${DIST_PATH} \
             --workpath ${BUILD_PATH} \
             --specpath ${BUILD_PATH} --optimize 2 \
+            --add-data "../../../assets/wizard:./assets/wizard" \
             "${BINARY_ARGS[@]}"

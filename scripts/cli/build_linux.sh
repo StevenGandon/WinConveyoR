@@ -19,5 +19,5 @@ pyinstaller ./cli/main.py \
             -c -F \
             -n wcr -y --distpath ${DIST_PATH} \
             --workpath ${BUILD_PATH} \
-            --specpath ${BUILD_PATH} --optimize 2 --add-data "../../../assets/cli:./assets/cli" \
+            --specpath ${BUILD_PATH} --optimize 2 --add-data "../../../assets/cli:./assets/cli" --add-data "../../../assets/wizard:./assets/wizard" \
             "${BINARY_ARGS[@]}"

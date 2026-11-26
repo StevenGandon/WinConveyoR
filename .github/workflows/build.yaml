@@ -288,6 +288,23 @@ jobs:
             $failed = $true
           }
 
+          # every DLL imported by what we ship must be shipped too, or be a Windows
+          # system DLL (libcrypto was missing for months: it only worked when another
+          # program had a copy in PATH)
+          $objdump = "C:\msys64\mingw64\bin\objdump.exe"
+          $shipped = Get-ChildItem "$dist/lib/*.dll" | ForEach-Object { $_.Name.ToLower() }
+          foreach ($dll in Get-ChildItem "$dist/lib/*.dll") {
+            $imports = & $objdump -p $dll.FullName | Select-String "DLL Name:" |
+              ForEach-Object { ($_ -split "DLL Name:")[1].Trim().ToLower() }
+            foreach ($imp in $imports) {
+              $isSystem = Test-Path -LiteralPath (Join-Path $env:SystemRoot "System32\$imp")
+              if (-not ($shipped -contains $imp) -and -not $isSystem) {
+                Write-Host "::error::$($dll.Name) needs $imp, which is neither shipped nor a system DLL"
+                $failed = $true
+              }
+            }
+          }
+
           if ($failed) { exit 1 }
 
       - name: Upload build artifacts
