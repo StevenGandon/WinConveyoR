@@ -38,3 +38,28 @@ def test_init_without_native_lib_raises():
 
     with pytest.raises(OSError):
         libwconr.init()
+
+
+def test_find_dll_windows_path_keeps_drive(monkeypatch):
+    """Windows $PATH uses ';' and drive letters: the drive must survive
+    (regression: splitting on ':' gave '/Users/x/bin/libwconr.dll')."""
+    import ntpath
+    from libwconr import dllloader
+
+    wanted = r"C:\Users\ethan\AppData\Local\Programs\WinConveyoR\bin\libwconr.dll"
+    monkeypatch.setattr(dllloader.os, "pathsep", ";")
+    monkeypatch.setenv("PATH", r"C:\Windows\system32;C:\Users\ethan\AppData\Local\Programs\WinConveyoR\bin")
+    monkeypatch.setattr(dllloader, "join", ntpath.join)
+    monkeypatch.setattr(dllloader, "abspath", lambda p: p)
+    monkeypatch.setattr(dllloader, "isfile", lambda p: p == wanted)
+
+    assert dllloader.find_dll("libwconr.dll", "nt") == wanted
+
+
+def test_find_dll_returns_absolute_path(tmp_path, monkeypatch):
+    from libwconr import find_dll
+
+    (tmp_path / "libfake2.so").write_bytes(b"")
+    monkeypatch.chdir(tmp_path)
+    found = find_dll("libfake2.so")
+    assert found is not None and found.startswith("/") and found.endswith("libfake2.so")
