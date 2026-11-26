@@ -9,8 +9,8 @@ import sys
 #   2. ./ and ./lib/ relative to the current directory
 #   3. directories added with add_dll_registry_path()
 #   4. every directory of $PATH
-# The result is always an absolute path: on Windows a drive-less path such as
-# "/Users/x/bin/libwconr.dll" passes isfile() but ctypes refuses to load it.
+# The result is always an absolute path (the former lookup split a Windows $PATH
+# on ':' and returned drive-less paths such as "/Users/x/bin/libwconr.dll").
 
 _DEFAULT_DIRS = [".", "lib"]
 _REGISTERED_DIRS = []
